@@ -7,6 +7,9 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	
+	private  $_id;
+	private $hashPass;
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -17,6 +20,35 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
+		$username=strtolower($this->name);
+        $user=User::model()->find('LOWER(name)=?',array($username));
+        if($user===null)
+        {
+        	$this->errorCode=self::ERROR_USERNAME_INVALID;
+        }
+		else
+        {
+        	$hashPass=hash('sha256', $this->password);	
+        	if ($user->password!==$hashPass)
+        	{					
+                        $this->errorCode=self::ERROR_PASSWORD_INVALID;
+        	}
+        	else 
+        	{
+        		$this->_id=$user->id;
+        		$this->username=$user->name;
+           	 	$this->errorCode=self::ERROR_NONE;		
+        	}
+        }
+     	return $this->errorCode==self::ERROR_NONE;
+    }
+    
+	public function getId()
+    {
+        return $this->_id;
+    }
+        
+	/*ORIGINAL CODE	
 		$users=array(
 			// username => password
 			'demo'=>'demo',
@@ -29,5 +61,5 @@ class UserIdentity extends CUserIdentity
 		else
 			$this->errorCode=self::ERROR_NONE;
 		return !$this->errorCode;
-	}
-}
+	}*/
+}//END OF CLASS.

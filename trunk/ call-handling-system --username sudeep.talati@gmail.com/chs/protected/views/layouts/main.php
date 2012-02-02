@@ -28,9 +28,15 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				//array('label'=>'Home', 'url'=>array('/site/index')),
+				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+				//array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>'User', 'url'=>array('/user/admin')),
+				array('label'=>'Brand', 'url'=>array('/brand/admin')),
+				array('label'=>'Product Type', 'url'=>array('/productType/admin')),
+				array('label'=>'Contract Type', 'url'=>array('/contractType/admin')),
+				array('label'=>'Contact Details', 'url'=>array('/contactDetails/admin')),
+				array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

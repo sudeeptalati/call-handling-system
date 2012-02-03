@@ -35,6 +35,8 @@
  */
 class Contract extends CActiveRecord
 {
+	
+	public $created_by_user;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Contract the static model class
@@ -167,7 +169,7 @@ class Contract extends CActiveRecord
         			//echo "lockcode is :".$contactDetailsModel->lockcode."<br>";
         		}
         		
-        		//GETTING THE VALUE OF LOCKCODE.
+        		//GETTING THE VALUE OF LOCKCODE FROM CONTACT DETAILS TABLE.
         		
         		$lockcode=$contactDetailsModel->lockcode;
         		

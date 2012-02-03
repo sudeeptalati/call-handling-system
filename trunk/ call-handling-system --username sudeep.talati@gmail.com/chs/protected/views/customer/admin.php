@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Contracts'=>array('index'),
+	'Customers'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Contract', 'url'=>array('index')),
-	array('label'=>'Create Contract', 'url'=>array('create')),
+	array('label'=>'List Customer', 'url'=>array('index')),
+	array('label'=>'Create Customer', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('contract-grid', {
+	$.fn.yiiGridView.update('customer-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Contracts</h1>
+<h1>Manage Customers</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -38,31 +38,35 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'contract-grid',
+	'id'=>'customer-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'contract_type_id',
-		'name',
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->name'),
-		'main_contact_details_id',
-		'management_contact_details_id',
-		'spares_contact_details_id',
+		'title',
+		'first_name',
+		'last_name',
+		//'product_id',
+		'address_line_1',
+		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->name' ),
 		/*
-		'accounts_contact_details_id',
-		'technical_contact_details_id',
-		'vat_reg_number',
+		'address_line_2',
+		'address_line_3',
+		'town',
+		'postcode',
+		'country',
+		'telephone',
+		'mobile',
+		'fax',
+		'email',
 		'notes',
-		'active',
-		'inactivated_by_user_id',
-		'inactivated_on',
 		'created_by_user_id',
 		'created',
 		'modified',
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}',
 		),
 	),
 )); ?>

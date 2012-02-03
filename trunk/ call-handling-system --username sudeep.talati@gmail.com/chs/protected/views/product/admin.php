@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Contracts'=>array('index'),
+	'Products'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Contract', 'url'=>array('index')),
-	array('label'=>'Create Contract', 'url'=>array('create')),
+	array('label'=>'List Product', 'url'=>array('index')),
+	array('label'=>'Create Product', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('contract-grid', {
+	$.fn.yiiGridView.update('product-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Contracts</h1>
+<h1>Manage Products</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -38,28 +38,40 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'contract-grid',
+	'id'=>'product-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'contract_type_id',
-		'name',
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->name'),
-		'main_contact_details_id',
-		'management_contact_details_id',
-		'spares_contact_details_id',
+		//'contract_id',
+		array( 'name'=>'contracter_name', 'value'=>'$data->contract->name' ),
+		//'brand_id',
+		array( 'name'=>'brand_name', 'value'=>'$data->brand->name' ),
+		//'product_type_id',
+		array( 'name'=>'product_name', 'value'=>'$data->productType->name' ),
+		//'customer_id',
+		array( 'name'=>'customer_name', 'value'=>'$data->customer->first_name' ),
+		//'engineer_id',
+		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->first_name' ),
+		//'created_by_user',
+		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->name' ),
 		/*
-		'accounts_contact_details_id',
-		'technical_contact_details_id',
-		'vat_reg_number',
+		'purchased_from',
+		'purchase_date',
+		'warranty_date',
+		'model_number',
+		'serial_number',
+		'production_code',
+		'enr_number',
+		'fnr_number',
+		'discontinued',
+		'warranty_for_months',
+		'purchase_price',
 		'notes',
-		'active',
-		'inactivated_by_user_id',
-		'inactivated_on',
 		'created_by_user_id',
 		'created',
 		'modified',
+		'cancelled',
 		*/
 		array(
 			'class'=>'CButtonColumn',

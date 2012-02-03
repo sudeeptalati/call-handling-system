@@ -18,6 +18,7 @@
  * @property integer $created_by_user_id
  * @property string $created
  * @property string $modified
+ * @property string $fullname
  *
  * The followings are the available model relations:
  * @property ContactDetails $deliveryContactDetails
@@ -29,6 +30,8 @@
  */
 class Engineer extends CActiveRecord
 {
+	
+	public $created_by_user;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Engineer the static model class
@@ -49,12 +52,15 @@ class Engineer extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
+	
 	public function rules()
 	{
+		$contactDetailsModel=ContactDetails::model();
+		
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('first_name, last_name, active, contact_details_id, created_by_user_id, created', 'required'),
+			array('first_name, last_name, active', 'required'),
 			array('active, inactivated_by_user_id, contact_details_id, delivery_contact_details_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('company, vat_reg_number, notes, inactivated_on, modified', 'safe'),
 			// The following rule is used by search().
@@ -132,5 +138,64 @@ class Engineer extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-}
+	}//end of search().
+	
+	protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->created_by_user_id=Yii::app()->user->id;
+        		$this->fullname=$this->first_name."  ".$this->last_name;
+        		$this->created=date("F j, Y, g:i a");
+        		
+        		//SAVING CONTACT DETAILS TABLE.
+        		
+	            $contactDetailsModel=new ContactDetails;
+				$contactDetailsModel->attributes=$_POST['ContactDetails'];
+				if($contactDetailsModel->save())
+				{
+					//echo "lockcode is :".$contactDetailsModel->lockcode."<br>";
+				}
+				
+				//GETTING THE VALUE OF LOCKCODE FROM CONTACT DETAILS TABLE.
+        		
+        		$lockcode=$contactDetailsModel->lockcode;
+        		
+        		$contactDetailsQueryModel = ContactDetails::model()->findByAttributes(
+        											array('lockcode'=>$lockcode)
+													);
+				//echo "ID GOT FROM LOCKCODE : ".$contactDetailsQueryModel->id;		
+				
+				$this->contact_details_id=$contactDetailsQueryModel->id;
+        		
+    			return true;
+            }
+            else
+            {
+            	//$this->modified=date("F j, Y, g:i a");
+                return true;
+            }
+        }//end of if(parent())
+    }//end of beforeSave().
+    
+	protected function afterSave()
+    {
+    	$contactDetailsQueryModel = ContactDetails::model()->findByPK(
+        											$this->contact_details_id
+													);
+    	//echo "ID IN AFTER SAVE() :".$contactDetailsQueryModel->id;
+    	
+    	$contactDetailsUpdateModel = ContactDetails::model()->updateByPk(
+													$contactDetailsQueryModel->id,
+													
+													array
+													(
+														'lockcode'=>0
+													)
+													);
+    	
+    }//END OF afterSave().
+    
+}//end of class.

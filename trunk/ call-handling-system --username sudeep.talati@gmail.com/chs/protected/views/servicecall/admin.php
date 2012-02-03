@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Products'=>array('index'),
+	'Servicecalls'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Product', 'url'=>array('index')),
-	//array('label'=>'Create Product', 'url'=>array('create')),
+	array('label'=>'List Servicecall', 'url'=>array('index')),
+	array('label'=>'Create Servicecall', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('product-grid', {
+	$.fn.yiiGridView.update('servicecall-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Products</h1>
+<h1>Manage Servicecalls</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -38,44 +38,39 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'product-grid',
+	'id'=>'servicecall-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		//'contract_id',
-		array( 'name'=>'contracter_name', 'value'=>'$data->contract->name' ),
-		//'brand_id',
-		array( 'name'=>'brand_name', 'value'=>'$data->brand->name' ),
-		//'product_type_id',
-		array( 'name'=>'product_name', 'value'=>'$data->productType->name' ),
-		//'customer_id',
-		array( 'name'=>'customer_name', 'value'=>'$data->customer->first_name' ),
-		//'engineer_id',
-		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->first_name' ),
-		//'created_by_user',
-		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->name' ),
+		'service_reference_number',
+		'customer_id',
+		'product_id',
+		'contract_id',
+		'engineer_id',
 		/*
-		'purchased_from',
-		'purchase_date',
-		'warranty_date',
-		'model_number',
-		'serial_number',
-		'production_code',
-		'enr_number',
-		'fnr_number',
-		'discontinued',
-		'warranty_for_months',
-		'purchase_price',
+		'insurer_reference_number',
+		'job_status_id',
+		'fault_date',
+		'fault_code',
+		'fault_description',
+		'engg_visit_date',
+		'work_carried_out',
+		'spares_used_status_id',
+		'total_cost',
+		'vat_on_total',
+		'net_cost',
+		'job_payment_date',
+		'job_finished_date',
 		'notes',
 		'created_by_user_id',
 		'created',
 		'modified',
 		'cancelled',
+		'closed',
 		*/
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{view}{update}',
 		),
 	),
 )); ?>

@@ -182,6 +182,10 @@ class Customer extends CActiveRecord
             }
             else
             {
+            	if($customer->fullname!=$this->fullname)
+            	{
+            		$this->fullname=$this->first_name." ".$this->last_name;
+            	}
             	//$this->modified=date("F j, Y, g:i a");
                 return true;
             }

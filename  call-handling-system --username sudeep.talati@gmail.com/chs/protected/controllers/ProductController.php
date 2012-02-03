@@ -1,6 +1,6 @@
 <?php
 
-class ContractController extends Controller
+class ProductController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,37 +61,22 @@ class ContractController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Contract;
+		$model=new Product;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Contract'],$_POST['ContactDetails']))
+		if(isset($_POST['Product']))
 		{
-			 $model->attributes = $_POST['Contract'];
-			 $contactDetailsModel=new ContactDetails;
-			 $contactDetailsModel->attributes=$_POST['ContactDetails'];
-			 
-			 $valid=$model->validate();
-        	 $valid=$contactDetailsModel->validate() && $valid;
-        	 
-        	 if($valid)
-        	 {
-        		if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
-        	 }
-        	 else 
-        	 {
-        	 	echo "Enter all the mandatory fields";
-        	 }
-		}//END OF IF(ISSET()).
-			 
-			 
+			$model->attributes=$_POST['Product'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
 		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
-	
 
 	/**
 	 * Updates a particular model.
@@ -105,9 +90,9 @@ class ContractController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Contract']))
+		if(isset($_POST['Product']))
 		{
-			$model->attributes=$_POST['Contract'];
+			$model->attributes=$_POST['Product'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -142,7 +127,7 @@ class ContractController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Contract');
+		$dataProvider=new CActiveDataProvider('Product');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -153,10 +138,10 @@ class ContractController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Contract('search');
+		$model=new Product('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Contract']))
-			$model->attributes=$_GET['Contract'];
+		if(isset($_GET['Product']))
+			$model->attributes=$_GET['Product'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -170,7 +155,7 @@ class ContractController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Contract::model()->findByPk($id);
+		$model=Product::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -182,7 +167,7 @@ class ContractController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='contract-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='product-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

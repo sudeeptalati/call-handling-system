@@ -66,11 +66,33 @@ class EngineerController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Engineer']))
+		if(isset($_POST['Engineer'],$_POST['ContactDetails']))
 		{
 			$model->attributes=$_POST['Engineer'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$contactDetailsModel=new ContactDetails;
+			$contactDetailsModel->attributes=$_POST['ContactDetails'];
+			
+			$valid=$model->validate();
+        	$valid=$contactDetailsModel->validate() && $valid;
+        	
+        	if($valid)
+        	{
+			
+				if($model->save())
+				{
+//					$contactDetailsModel=new ContactDetails;
+//					$contactDetailsModel->attributes=$_POST['ContactDetails'];
+//					if($contactDetailsModel->save())
+//					{
+//						$this->redirect(array('view','id'=>$contactDetailsModel->id));
+//					}
+					$this->redirect(array('view','id'=>$model->id));
+				}
+        	}//end if if(valid).
+        	else 
+        	{
+        		echo "Enter all the mandatory fields";
+        	}
 		}
 
 		$this->render('create',array(

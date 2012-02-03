@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Products',
+	'Servicecalls',
 );
 
 $this->menu=array(
-	//array('label'=>'Create Product', 'url'=>array('create')),
-	array('label'=>'Manage Product', 'url'=>array('admin')),
+	array('label'=>'Create Servicecall', 'url'=>array('create')),
+	array('label'=>'Manage Servicecall', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Products</h1>
+<h1>Servicecalls</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

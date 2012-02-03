@@ -32,7 +32,7 @@ $this->menu=array(
 		'fax',
 		'email',
 		'website',
-		'lockcode',
+		//'lockcode',
 		'created',
 	),
 )); ?>

@@ -106,6 +106,7 @@ class Engineer extends CActiveRecord
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'fullname' => 'Engineer Name',
 		);
 	}
 
@@ -174,6 +175,19 @@ class Engineer extends CActiveRecord
             }
             else
             {
+            	
+            	//UPDATING CONTACT DETAILS.
+            	
+            	$engineerId=$_GET['id'];
+            	$engineerModel=Engineer::model()->findByPk($engineerId);
+            	$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
+            	$contactDetailsModel->attributes=$_POST['ContactDetails'];
+            	if($contactDetailsModel->save())
+            	{
+            		
+            	}					
+            	
+            	//UPDATING FULLNAME.
             	if($engineer->fullname!=$this->fullname)
             	{
             		$this->fullname=$this->first_name." ".$this->last_name;

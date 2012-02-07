@@ -108,15 +108,28 @@ class EngineerController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$contactDetailsModel=ContactDetails::model()->findByPk($model->contact_details_id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Engineer']))
+		if(isset($_POST['Engineer'],$_POST['ContactDetails']))
 		{
 			$model->attributes=$_POST['Engineer'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$contactDetailsModel->attributes=$_POST['ContactDetails'];
+			
+			$valid=$model->validate();
+			$valid=$contactDetailsModel->validate() && $valid;
+			
+			if($valid)
+			{
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
+			else 
+			{
+				echo "Fill all mandatory fields";
+			}
 		}
 
 		$this->render('update',array(
@@ -133,8 +146,12 @@ class EngineerController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+			
+			$engineerModel=Engineer::model()->findByPk($id);
+			$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
+			$contactDetailsModel->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

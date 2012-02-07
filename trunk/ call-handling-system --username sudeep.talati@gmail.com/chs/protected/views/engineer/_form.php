@@ -50,8 +50,14 @@
 	<h4>Enter your address details</h4>
 	
 	<?php 
-	//CREATING OBJECT OF CONTACT DETAILS.
-	$ContactDetailsModel=ContactDetails::model();
+	if(!empty($model->contact_details_id))
+	{
+		$ContactDetailsModel=ContactDetails::model()->findByPk($model->contact_details_id);
+	}
+	else 
+	{
+		$ContactDetailsModel=ContactDetails::model();
+	}
 	?>
 	
 	<div class="row">

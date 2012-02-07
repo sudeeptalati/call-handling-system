@@ -71,7 +71,7 @@ class ProductType extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Product Name',
 			'information' => 'Information',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',

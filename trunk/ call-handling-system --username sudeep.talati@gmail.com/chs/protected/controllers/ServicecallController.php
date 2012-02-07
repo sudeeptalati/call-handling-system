@@ -101,21 +101,16 @@ class ServicecallController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		//$customerModel=Customer::model()->findByPk($this->customer_id);
 		
-		
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall'],$_POST['Customer']))
+		if(isset($_POST['Servicecall']))
 		{
 			$model->attributes=$_POST['Servicecall'];
-			$customerModel->attributes=$_POST['customer'];
-			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
-		}
+		}//end of if(isset()).
 
 		$this->render('update',array(
 			'model'=>$model,

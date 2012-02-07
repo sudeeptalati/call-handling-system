@@ -8,6 +8,36 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
+	
+	<!-- FIRST PART TO DISPLAY CUSTOMER DETAILS. -->
+	<?php 
+	$productId=$_GET['id'];
+	
+	$customerModel=Customer::model()->findByAttributes(
+									array('product_id'=>$productId));
+	?>
+	
+	<div class="row">
+		<?php echo $form->labelEx($customerModel,'title'); ?>
+		<?php echo $form->textField($customerModel,'title',array('disabled'=>'disabled')); ?>
+		<?php echo $form->error($customerModel,'title'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($customerModel,'first_name'); ?>
+		<?php echo $form->textField($customerModel,'first_name',array('disabled'=>'disabled')); ?>
+		<?php echo $form->error($customerModel,'first_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($customerModel,'last_name'); ?>
+		<?php echo $form->textField($customerModel,'last_name',array('disabled'=>'disabled')); ?>
+		<?php echo $form->error($customerModel,'last_name'); ?>
+	</div>
+	
+	
+	
+	<!-- SECOND PART TO DISPLAY FIELDS OF PRODUCT FORM. -->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'contract_id'); ?>

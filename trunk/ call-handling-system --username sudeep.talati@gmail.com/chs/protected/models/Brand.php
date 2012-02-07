@@ -75,7 +75,7 @@ class Brand extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Brand Name',
 			'information' => 'Information',
 			'active' => 'Active',
 			//'created_by_user_id' => 'Created By User',

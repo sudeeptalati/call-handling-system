@@ -186,12 +186,8 @@ class Servicecall extends CActiveRecord
         		$this->created=date("F j, Y, g:i a");
         		
         		//SETTING SERVICE REFERENCE NUMBER.
-        		
         		$count_sql = "SELECT COUNT(*) FROM servicecall";
 				$total_records = Yii::app()->db->createCommand($count_sql)->queryScalar();
-				
-				//echo "TOTAL : ".$total_records."<br>";
-        		
 				if ($total_records==0)
 				{
 					$this->service_reference_number=200001;					
@@ -213,8 +209,7 @@ class Servicecall extends CActiveRecord
 				}//end of else.
 				
         		//GETTING CUSTOMER ID FROM URL.
-        		
-				$cust_id=$_GET['customer_id'];
+        		$cust_id=$_GET['customer_id'];
 				//echo "CUSTOMER ID FROM URL :".$cust_id;
 				
 				if($this->customer_id=='0')

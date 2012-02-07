@@ -42,7 +42,7 @@ $this->menu=array(
 		'purchase_price',
 		'notes',
 		//'created_by_user_id',
-		'createdByUser.name',
+		'createdByUser.username',
 		'created',
 		'modified',
 		'cancelled',

@@ -2,6 +2,7 @@
 
 class ServicecallController extends Controller
 {
+	
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -35,7 +36,7 @@ class ServicecallController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				//'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -62,21 +63,35 @@ class ServicecallController extends Controller
 	public function actionCreate()
 	{
 		$model=new Servicecall;
+		$customerModel=new Customer;
+		$model->job_status_id=1;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall']))
+		if(isset($_POST['Servicecall'],$_POST['Customer']))
 		{
 			$model->attributes=$_POST['Servicecall'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+			$customerModel->attributes=$_POST['Customer'];
+			
+			$valid=$model->validate();
+			$valid=$customerModel->validate() && $valid;
+			
+			if($valid)
+			{
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
+			else 
+			{
+				echo "Fill all madatory fields";
+			}
+		}//end of if(isset()).
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	}//end of create.
 
 	/**
 	 * Updates a particular model.
@@ -86,13 +101,18 @@ class ServicecallController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		//$customerModel=Customer::model()->findByPk($this->customer_id);
+		
+		
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall']))
+		if(isset($_POST['Servicecall'],$_POST['Customer']))
 		{
 			$model->attributes=$_POST['Servicecall'];
+			$customerModel->attributes=$_POST['customer'];
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -173,4 +193,55 @@ class ServicecallController extends Controller
 			Yii::app()->end();
 		}
 	}
-}
+	
+	public function actionExistingCustomer($customer_id)
+	{
+		$model=new Servicecall;
+		$model->job_status_id=1;
+		//echo "IN ACTION EXISTING CUSTOMER ";
+		//echo "CUSTOMER ID IN SERVICE CONTROLLER :".$customer_id;
+		
+		if(isset($_POST['Servicecall']))
+		{
+			$model->attributes=$_POST['Servicecall'];
+			
+			if($model->save())
+			
+				$this->redirect(array('view','id'=>$model->id));
+					
+		}//end of if(isset()).
+		
+		
+		$this->render('existingCustomer',array(
+			'model'=>$model,
+		));
+		
+	}//end of actionExistingCustomer().
+	
+	//CODE FROM GII FORM GENERATOR.
+//public function actionExistingCustomer()
+//{
+//    $model=new Servicecall('create');
+//
+//    // uncomment the following code to enable ajax-based validation
+//    /*
+//    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-existingCustomer-form')
+//    {
+//        echo CActiveForm::validate($model);
+//        Yii::app()->end();
+//    }
+//    */
+//
+//    if(isset($_POST['Servicecall']))
+//    {
+//        $model->attributes=$_POST['Servicecall'];
+//        if($model->validate())
+//        {
+//            // form inputs are valid, do something here
+//            return;
+//        }
+//    }
+//    $this->render('existingCustomer',array('model'=>$model));
+//	}
+
+}//end of class.

@@ -10,9 +10,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'name'); ?>
+		<?php echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->textArea($model,'username',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'username'); ?>
 	</div>
 
 	<div class="row">

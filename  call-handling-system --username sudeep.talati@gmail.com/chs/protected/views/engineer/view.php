@@ -30,7 +30,7 @@ $this->menu=array(
 		'contact_details_id',
 		'delivery_contact_details_id',
 		//'created_by_user_id',
-		'createdByUser.name',
+		'createdByUser.username',
 		'created',
 		'modified',
 	),

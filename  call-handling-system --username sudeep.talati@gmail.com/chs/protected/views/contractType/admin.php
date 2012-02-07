@@ -46,7 +46,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'name',
 		'information',
 		//'created_by_user_id',
-		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->name' ),
+		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
 		'created',
 		array(
 			'class'=>'CButtonColumn',

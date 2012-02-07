@@ -45,7 +45,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'contract_type_id',
 		'name',
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->name'),
+		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
 		'main_contact_details_id',
 		'management_contact_details_id',
 		'spares_contact_details_id',

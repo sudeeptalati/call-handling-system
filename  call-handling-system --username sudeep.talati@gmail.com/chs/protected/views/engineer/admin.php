@@ -48,7 +48,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'active',
 		'company',
 		'vat_reg_number',
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->name'),
+		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
 		/*
 		'notes',
 		'inactivated_by_user_id',

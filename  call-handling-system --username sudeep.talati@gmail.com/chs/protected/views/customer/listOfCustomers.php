@@ -48,7 +48,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'last_name',
 		//'product_id',
 		'address_line_1',
-		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
+		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->name' ),
 		/*
 		'address_line_2',
 		'address_line_3',
@@ -64,9 +64,29 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'created',
 		'modified',
 		*/
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{view}{update}',
-		),
+//		array(
+//			'class'=>'CButtonColumn',
+//			'template'=>'{view}{update}',
+//		),
+		
+		array
+		(
+		    'class'=>'CButtonColumn',
+		    'template'=>'{add_quantity}',
+		    'buttons'=>array
+		    (
+		        'add_quantity' => array
+		        (
+		            'label'=>'Selct this customer',
+		        	//'name'=>'select',
+		            //'imageUrl'=>Yii::app()->request->baseUrl.'/images/remove.png',
+		        	//'click'=>'function(){alert("Adding to stock!");}',
+		            //'url'=>'Yii::app()->createUrl("inboundItem/create", array("id"=>$data->id))',
+		            //'url'=>'Yii::app()->createUrl("outboundItemsHistory/create")',
+		            'url'=>'Yii::app()->createUrl("Servicecall/existingCustomer" , array("customer_id"=>$data->id,))',
+		        ),
+		        
+		    ),
+		)
 	),
 )); ?>

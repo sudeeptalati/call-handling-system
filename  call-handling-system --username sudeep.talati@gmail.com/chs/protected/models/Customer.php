@@ -24,6 +24,7 @@
  * @property string $created
  * @property string $modified
  * @property string $fullname
+ * @property string $lockcode
  *
  * The followings are the available model relations:
  * @property Product $product
@@ -155,6 +156,7 @@ class Customer extends CActiveRecord
             {
         		$this->created_by_user_id=Yii::app()->user->id;
         		$this->fullname=$this->first_name." ".$this->last_name;
+        		$this->lockcode=Yii::app()->user->id*1000;        		
         		$this->created=date("F j, Y, g:i a");
         		
         		//SAVING DETAILS TO PRODUCT TABLE.
@@ -210,5 +212,5 @@ class Customer extends CActiveRecord
 													);
     	
     }//END OF afterSave().
-	
+    
 }//end of class.

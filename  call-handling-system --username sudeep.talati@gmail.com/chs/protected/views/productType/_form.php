@@ -11,13 +11,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'information'); ?>
-		<?php echo $form->textArea($model,'information',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'information',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'information'); ?>
 	</div>
 

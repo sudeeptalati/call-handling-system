@@ -19,7 +19,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'name',
+		'username',
 		'password',
 		'email',
 		'profile',

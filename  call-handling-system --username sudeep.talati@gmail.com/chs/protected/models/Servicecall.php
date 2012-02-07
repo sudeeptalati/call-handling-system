@@ -41,6 +41,12 @@
  */
 class Servicecall extends CActiveRecord
 {
+	public $created_by_user;
+	public $customer_name;
+	public $product_name;
+	public $engineer_name;
+	public $contract_name;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Servicecall the static model class
@@ -66,7 +72,7 @@ class Servicecall extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('service_reference_number, customer_id, product_id, contract_id, job_status_id, fault_description, created_by_user_id, created', 'required'),
+			array('job_status_id, fault_description', 'required'),
 			array('service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
 			array('insurer_reference_number, fault_date, fault_code, engg_visit_date, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
@@ -168,5 +174,156 @@ class Servicecall extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-}
+	}//end of search().
+	
+	protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->created_by_user_id=Yii::app()->user->id;
+        		$this->created=date("F j, Y, g:i a");
+        		
+        		//SETTING SERVICE REFERENCE NUMBER.
+        		
+        		$count_sql = "SELECT COUNT(*) FROM servicecall";
+				$total_records = Yii::app()->db->createCommand($count_sql)->queryScalar();
+				
+				//echo "TOTAL : ".$total_records."<br>";
+        		
+				if ($total_records==0)
+				{
+					$this->service_reference_number=200001;					
+				}//end of if
+				else 
+				{
+					$last_po_number = Yii::app()->db->createCommand()
+                                ->select('id , service_reference_number')                                
+                                ->from('servicecall')
+                                ->order('id DESC')
+                                ->limit(1,0)
+                                ;
+                	$data = $last_po_number->query();				
+					foreach ($data as $out)
+					{
+						$serviceRefNo=$out['service_reference_number'];
+						$this->service_reference_number=$serviceRefNo+1;
+					}///end of foreach
+				}//end of else.
+				
+        		//GETTING CUSTOMER ID FROM URL.
+        		
+				$cust_id=$_GET['customer_id'];
+				//echo "CUSTOMER ID FROM URL :".$cust_id;
+				
+				if($this->customer_id=='0')
+				{
+						//SAVING CUSTOMER TABLE.
+					
+					//echo "IN IF OF IF(CUST ID;	";
+					$customerModel=new Customer;
+	        		$customerModel->attributes=$_POST['Customer'];
+	        		if($customerModel->save())
+	        		{
+	        			//echo "lockcode of customer id : ".$customerModel->lockcode."<br>";
+	        		}
+	        		
+	        		$lockcode=$customerModel->lockcode;
+	        		
+	        		$customerQueryModel=Customer::model()->findByAttributes(
+	        									array('lockcode'=>$lockcode)
+	        									);
+	        									
+					$productModel=Product::model()->findByAttributes(
+	        									array('lockcode'=>$lockcode)
+	        									);      									
+	        									
+					//echo "ID FROM LOCKCODE IN CUSTOMER IS : ".$customerQueryModel->id."<br>";
+					//echo "PRODUCT ID FROM CUSTOMER TABLE IS : ".$customerQueryModel->product_id;
+	
+					$this->customer_id=$customerQueryModel->id;
+					$this->product_id=$customerQueryModel->product_id;
+					
+					//SETTING contract_id OF SERVICECALL, BY GETTING VALUE FROM PRODUCT TABLE.
+					
+					$productId=$customerQueryModel->product_id;
+					
+					$productModel=Product::model()->findByAttributes(
+        									array('id'=>$productId)
+        									);      						
+        			//echo "CONTRACT ID FROM PRODUCT TABLE : ".$productModel->contract_id;									
+        			$this->contract_id=$productModel->contract_id;
+					$this->engineer_id=$productModel->engineer_id;
+				}
+				
+				else 
+				{
+					$this->customer_id=$cust_id;
+					$customerQueryModel=Customer::model()->findByPk($cust_id);
+					$this->product_id=$customerQueryModel->product_id;
+					
+					$productQueryModel=Product::model()->findByPk($customerQueryModel->product_id);
+					//echo "CONTRACT ID FROM PRODUCT ID :".$productQueryModel->contract_id;
+					$this->contract_id=$productQueryModel->contract_id;
+					$this->engineer_id=$productQueryModel->engineer_id;
+	        		
+					//echo "PRODUCT ID FROM CUST ID :".$customerQueryModel->product_id;
+//	        		echo "IN ELSE OF IF(CUST ID)";
+				}
+				
+				return true;
+            }
+            else
+            {
+            	$this->modified=date("F j, Y, g:i a");
+                return true;
+            }
+        }//end of if(parent())
+    }//end of beforeSave().
+    
+    protected function afterSave()
+    {
+    	$customerQueryModel = Customer::model()->findByPK(
+        											$this->customer_id
+													);
+													
+    	$customerUpdateModel = Customer::model()->updateByPk(
+													$customerQueryModel->id,
+													array
+													(
+														'lockcode'=>0,
+													)
+													);
+    	
+    }//END OF afterSave().
+    
+    public function getAllContract()
+    {
+    	return CHtml::listData(Contract::model()->findAll(), 'id', 'name');
+    }//end of getAllContract().
+    
+    public function getAllEngineers()
+    {
+    	return CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+    }//end of getAllEngineers().
+    
+    public function getJobStatus($status_code)
+    {
+    	switch ($staus_code)
+		{
+			case 1: $str="Draft"; break;
+			case 2: $str="Send"; break;
+			case 3: $str="Rejected"; break;
+			case 4: $str="Partially received"; break;
+			case 5: $str="Received"; break;
+			case 6: $str="Pick Up"; break;
+			case 11: $str="Cancelled"; break;
+			case 12: $str="Deleted"; 
+			//default: break;
+		}
+			
+		return $str;
+    }
+    
+}//end of class.

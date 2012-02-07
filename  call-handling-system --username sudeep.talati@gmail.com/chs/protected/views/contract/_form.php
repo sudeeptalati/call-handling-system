@@ -53,17 +53,28 @@
 	<!-- START OF FIELDS OF CONTACT DETAILS FORM -->
 	
 	<?php 
-	$contactDetailsModel=ContactDetails::model();
+	if (!empty($model->main_contact_details_id))
+	{
+		$contactDetailsModel=ContactDetails::model()->findByPk($model->main_contact_details_id);
+	}
+	else 
+	{
+		$contactDetailsModel=ContactDetails::model();
+	}
+//	echo "CONTACT DETAILS ID :  ".$model->main_contact_details_id;
+//	
+//	echo "<br>Address Loien 1:  ".$contactDetailsModel->address_line_1;
+	
 	?>
 	
-	<h4>Enter Address details here</h4>
+	<h4>Address Details</h4>	
 	
 	<div class="row">
 		<?php echo $form->labelEx($contactDetailsModel,'address_line_1'); ?>
 		<?php echo $form->textField($contactDetailsModel,'address_line_1',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($contactDetailsModel,'address_line_1'); ?>
 	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($contactDetailsModel,'address_line_2'); ?>
 		<?php echo $form->textField($contactDetailsModel,'address_line_2',array('rows'=>6, 'cols'=>50)); ?>
@@ -135,7 +146,6 @@
 		<?php echo $form->textField($contactDetailsModel,'website',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($contactDetailsModel,'website'); ?>
 	</div>
-	
 	
 	<!-- END OF FIELDS OF CONTACT DETAILS FORM -->
 	

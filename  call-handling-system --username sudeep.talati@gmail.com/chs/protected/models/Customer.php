@@ -109,6 +109,7 @@ class Customer extends CActiveRecord
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'fullname' => 'Customer Name',
 		);
 	}
 

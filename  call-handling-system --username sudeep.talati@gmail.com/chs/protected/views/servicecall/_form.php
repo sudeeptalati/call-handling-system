@@ -135,7 +135,14 @@
 	<h4>Enter customer details</h4>
 	
 	<?php 
-	$customerModel=Customer::model();
+	if(!empty($model->customer->id))
+	{
+		$customerModel=Customer::model()->findByPk($model->customer_id);
+	}
+	else 
+	{
+		$customerModel=Customer::model();
+	}
 	?>
 	
 	<div class="row">
@@ -231,7 +238,14 @@
 	<!-- FIELDS FROM PRODUCT TABLE -->
 	
 	<?php 
-	$productModel=Product::model();
+	if(!empty($model->product_id))
+	{
+		$productModel=Product::model()->findByPk($model->product_id);
+	}
+	else 
+	{
+		$productModel=Product::model();
+	}
 	?>
 	
 	<h4>Enter Product details</h4>

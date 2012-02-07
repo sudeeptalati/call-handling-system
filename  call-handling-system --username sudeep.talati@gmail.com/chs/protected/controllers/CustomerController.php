@@ -99,6 +99,10 @@ class CustomerController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+//		$productModel=Product::model()->findByAttributes(
+//										array('customer_id'=>$id));
+//		$productId=$productModel->id;										
+//		$productModelLoad=$productModel->loadModel($productId);										
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -211,6 +215,31 @@ class CustomerController extends Controller
     	}
     	$this->render('listOfCustomers',array('model'=>$model));
 	}//end of actionListOfCustomers.
+	
+	public function actionUpdateCustomer()
+	{
+	    $model=new Customer('update');
+	
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='customer-updateCustomer-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['Customer']))
+	    {
+	        $model->attributes=$_POST['Customer'];
+	        if($model->validate())
+	        {
+	            // form inputs are valid, do something here
+	            return;
+	        }
+	    }
+	    $this->render('updateCustomer',array('model'=>$model));
+	}//end of updateCustomer.
 	
 	
 	

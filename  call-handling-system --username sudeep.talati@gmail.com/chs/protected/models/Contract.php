@@ -100,7 +100,7 @@ class Contract extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'contract_type_id' => 'Contract Type',
-			'name' => 'Name',
+			'name' => 'Contract Name',
 			'main_contact_details_id' => 'Main Contact Details',
 			'management_contact_details_id' => 'Management Contact Details',
 			'spares_contact_details_id' => 'Spares Contact Details',
@@ -179,23 +179,24 @@ class Contract extends CActiveRecord
 				//echo "ID GOT FROM LOCKCODE : ".$contactDetailsQueryModel->id;		
 
 				$this->main_contact_details_id=$contactDetailsQueryModel->id;
-				
-        		
-        		//$this->main_contact_details_id=
-        		
-        		//$this->main_contact_details_id=1;
-        		
-        		//TO GET LOCK.
-        		
-//        		$contactDetailsQueryModel = ContactDetails::model()->findByAttributes(
-//													'lockcode'
-//														);
-				//echo "lockcode = ".$contactDetailsQueryModel->lockcode;
 														
     			return true;
             }
             else
             {
+            	//UPDATING CONTACT DETAILS.
+            	
+            	$contractId=$_GET['id'];
+            	
+            	$contractModel=Contract::model()->findByPk($contractId);
+            	//echo "MAIN CONTACT DETAILS ID IN BEFORE SAVE :".$contractId;
+            	$contactDetailsModel=ContactDetails::model()->findByPk($contractModel->main_contact_details_id);
+            	
+            	$contactDetailsModel->attributes=$_POST['ContactDetails'];
+            	if($contactDetailsModel->save())
+            	{
+            		
+            	}									
             	$this->modified=date("F j, Y, g:i a");
                 return true;
             }
@@ -226,5 +227,9 @@ class Contract extends CActiveRecord
     	return CHtml::listData(ContractType::model()->findAll(), 'id', 'name');
     }//end of getContractType().
     
+//    public function load()
+//    {
+//    	
+//    }
     
 }//end of class.

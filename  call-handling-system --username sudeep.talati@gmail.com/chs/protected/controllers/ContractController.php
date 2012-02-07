@@ -101,15 +101,28 @@ class ContractController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$contactDetailsModel=ContactDetails::model()->findByPk($model->main_contact_details_id);
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Contract']))
+		if(isset($_POST['Contract'],$_POST['ContactDetails']))
 		{
 			$model->attributes=$_POST['Contract'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$contactDetailsModel->attributes=$_POST['ContactDetails'];
+			
+			$valid=$model->validate();
+        	$valid=$contactDetailsModel->validate() && $valid;
+        	
+        	if($valid)
+        	{
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+        	}
+        	else 
+        	{
+        		echo "Fill all mandatory fields";
+        	}
 		}
 
 		$this->render('update',array(
@@ -126,9 +139,13 @@ class ContractController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+			$contractModel=Contract::model()->findByPk($id);
+			$contactDetailsModel=ContactDetails::model()->findByPk($contractModel->main_contact_details_id);
+			//echo "CONTACT DETAILS ID IN DELETE:".$contractModel->main_contact_details_id;
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
-
+			$contactDetailsModel->delete();
+			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

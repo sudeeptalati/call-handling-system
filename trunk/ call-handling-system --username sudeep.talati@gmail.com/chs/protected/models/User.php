@@ -5,12 +5,13 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
- * @property string $name
+ * @property string $username
  * @property string $password
  * @property string $email
  * @property string $profile
  * @property string $created
  * @property string $modified
+ * @property integer $usergroup_id
  *
  * The followings are the available model relations:
  * @property Brand[] $brands
@@ -53,11 +54,15 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, password, email', 'required'),
+			array('username, password, email', 'required'),
+			array('usergroup_id', 'numerical', 'integerOnly'=>true),
 			array('profile, modified', 'safe'),
+			//CUSTOMIZED RULES.
+			array('username,email','unique','message'=>'{attribute}:{value} already exists!'),
+			array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, email, profile, created, modified', 'safe', 'on'=>'search'),
+			array('id, username, password, email, profile, created, modified, usergroup_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -91,12 +96,13 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
 			'profile' => 'Profile',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'usergroup_id' => 'Usergroup',
 		);
 	}
 
@@ -112,12 +118,13 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		//$criteria->compare('password',$this->password,true);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('profile',$this->profile,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
+		$criteria->compare('usergroup_id',$this->usergroup_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -154,4 +161,5 @@ class User extends CActiveRecord
         else
         	return false;
     }//end of beforeSave()          
+	
 }//end of class.

@@ -23,7 +23,7 @@ $this->menu=array(
 		'information',
 		'active',
 		//'created_by_user_id',
-		'createdByUser.name',
+		'createdByUser.username',
 		'created',
 		'modified',
 		'inactivated',

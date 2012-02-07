@@ -35,7 +35,7 @@ $this->menu=array(
 		'email',
 		'notes',
 		//'created_by_user_id',
-		'createdByUser.name',
+		'createdByUser.username',
 		'created',
 		'modified',
 	),

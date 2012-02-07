@@ -35,7 +35,7 @@ class CustomerController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				//'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -186,4 +186,32 @@ class CustomerController extends Controller
 			Yii::app()->end();
 		}
 	}
-}
+	
+	public function actionListOfCustomers()
+	{
+	    $model=new Customer('view');
+	
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='customer-listOfCustomers-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+
+    	if(isset($_POST['Customer']))
+    	{
+        	$model->attributes=$_POST['Customer'];
+        	if($model->validate())
+        	{
+            	// form inputs are valid, do something here
+            	return;
+        	}
+    	}
+    	$this->render('listOfCustomers',array('model'=>$model));
+	}//end of actionListOfCustomers.
+	
+	
+	
+}//end of class.

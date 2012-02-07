@@ -54,7 +54,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'engineer_id',
 		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->first_name' ),
 		//'created_by_user',
-		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->name' ),
+		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
 		/*
 		'purchased_from',
 		'purchase_date',

@@ -33,7 +33,7 @@ $this->menu=array(
 		'inactivated_by_user_id',
 		'inactivated_on',
 		//'created_by_user_id',
-		'createdByUser.name',
+		'createdByUser.username',
 		'created',
 		'modified',
 	),

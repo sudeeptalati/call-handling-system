@@ -73,10 +73,10 @@ class ContactDetails extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'contracts' => array(self::HAS_MANY, 'Contract', 'technical_contact_details_id'),
-			'contracts1' => array(self::HAS_MANY, 'Contract', 'accounts_contact_details_id'),
-			'contracts2' => array(self::HAS_MANY, 'Contract', 'spares_contact_details_id'),
-			'contracts3' => array(self::HAS_MANY, 'Contract', 'management_contact_details_id'),
+//			'contracts' => array(self::HAS_MANY, 'Contract', 'technical_contact_details_id'),
+//			'contracts1' => array(self::HAS_MANY, 'Contract', 'accounts_contact_details_id'),
+//			'contracts2' => array(self::HAS_MANY, 'Contract', 'spares_contact_details_id'),
+//			'contracts3' => array(self::HAS_MANY, 'Contract', 'management_contact_details_id'),
 			'contracts4' => array(self::HAS_MANY, 'Contract', 'main_contact_details_id'),
 			'engineers' => array(self::HAS_MANY, 'Engineer', 'delivery_contact_details_id'),
 			'engineers1' => array(self::HAS_MANY, 'Engineer', 'contact_details_id'),

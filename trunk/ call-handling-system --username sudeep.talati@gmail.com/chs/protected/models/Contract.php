@@ -8,10 +8,10 @@
  * @property integer $contract_type_id
  * @property string $name
  * @property integer $main_contact_details_id
- * @property integer $management_contact_details_id
- * @property integer $spares_contact_details_id
- * @property integer $accounts_contact_details_id
- * @property integer $technical_contact_details_id
+ * @property string $management_contact_details
+ * @property string $spares_contact_details
+ * @property string $accounts_contact_details
+ * @property string $technical_contact_details
  * @property string $vat_reg_number
  * @property string $notes
  * @property integer $active
@@ -20,14 +20,14 @@
  * @property integer $created_by_user_id
  * @property string $created
  * @property string $modified
+ * @property string $management_contact_details
+ * @property string $spares_contact_details
+ * @property string $accounts_contact_details
+ * @property string $technical_contact_details
  *
  * The followings are the available model relations:
  * @property User $inactivatedByUser
  * @property User $createdByUser
- * @property ContactDetails $technicalContactDetails
- * @property ContactDetails $accountsContactDetails
- * @property ContactDetails $sparesContactDetails
- * @property ContactDetails $managementContactDetails
  * @property ContactDetails $mainContactDetails
  * @property ContractType $contractType
  * @property Product[] $products
@@ -63,11 +63,14 @@ class Contract extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, active', 'required'),
-			array('contract_type_id, main_contact_details_id, management_contact_details_id, spares_contact_details_id, accounts_contact_details_id, technical_contact_details_id, active, inactivated_by_user_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('vat_reg_number, notes, inactivated_on, modified', 'safe'),
+			array('contract_type_id, main_contact_details_id, active, inactivated_by_user_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
+			array('vat_reg_number, notes, inactivated_on, management_contact_details, spares_contact_details, accounts_contact_details, accounts_contact_details, technical_contact_details, modified', 'safe'),
+			//CUSTOMISED RULES.
+			//array('management_contact_details_id','boolean'),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, contract_type_id, name, main_contact_details_id, management_contact_details_id, spares_contact_details_id, accounts_contact_details_id, technical_contact_details_id, vat_reg_number, notes, active, inactivated_by_user_id, inactivated_on, created_by_user_id, created, modified', 'safe', 'on'=>'search'),
+			array('id, contract_type_id, name, main_contact_details_id, management_contact_details, spares_contact_details, accounts_contact_details, technical_contact_details, vat_reg_number, notes, active, inactivated_by_user_id, inactivated_on, created_by_user_id, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,10 +84,10 @@ class Contract extends CActiveRecord
 		return array(
 			'inactivatedByUser' => array(self::BELONGS_TO, 'User', 'inactivated_by_user_id'),
 			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by_user_id'),
-			'technicalContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'technical_contact_details_id'),
-			'accountsContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'accounts_contact_details_id'),
-			'sparesContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'spares_contact_details_id'),
-			'managementContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'management_contact_details_id'),
+//			'technicalContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'technical_contact_details'),
+//			'accountsContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'accounts_contact_details'),
+//			'sparesContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'spares_contact_details'),
+//			'managementContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'management_contact_details'),
 			'mainContactDetails' => array(self::BELONGS_TO, 'ContactDetails', 'main_contact_details_id'),
 			'contractType' => array(self::BELONGS_TO, 'ContractType', 'contract_type_id'),
 			'products' => array(self::HAS_MANY, 'Product', 'contract_id'),
@@ -102,10 +105,9 @@ class Contract extends CActiveRecord
 			'contract_type_id' => 'Contract Type',
 			'name' => 'Contract Name',
 			'main_contact_details_id' => 'Main Contact Details',
-			'management_contact_details_id' => 'Management Contact Details',
-			'spares_contact_details_id' => 'Spares Contact Details',
-			'accounts_contact_details_id' => 'Accounts Contact Details',
-			'technical_contact_details_id' => 'Technical Contact Details',
+			'spares_contact_details' => 'Spares Contact Details',
+			'accounts_contact_details' => 'Accounts Contact Details',
+			'technical_contact_details' => 'Technical Contact Details',
 			'vat_reg_number' => 'Vat Reg Number',
 			'notes' => 'Notes',
 			'active' => 'Active',
@@ -114,6 +116,7 @@ class Contract extends CActiveRecord
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'management_contact_details' => 'Management Details',
 		);
 	}
 
@@ -132,10 +135,10 @@ class Contract extends CActiveRecord
 		$criteria->compare('contract_type_id',$this->contract_type_id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('main_contact_details_id',$this->main_contact_details_id);
-		$criteria->compare('management_contact_details_id',$this->management_contact_details_id);
-		$criteria->compare('spares_contact_details_id',$this->spares_contact_details_id);
-		$criteria->compare('accounts_contact_details_id',$this->accounts_contact_details_id);
-		$criteria->compare('technical_contact_details_id',$this->technical_contact_details_id);
+		$criteria->compare('management_contact_details',$this->management_contact_details);
+		$criteria->compare('spares_contact_details',$this->spares_contact_details);
+		$criteria->compare('accounts_contact_details',$this->accounts_contact_details);
+		$criteria->compare('technical_contact_details',$this->technical_contact_details);
 		$criteria->compare('vat_reg_number',$this->vat_reg_number,true);
 		$criteria->compare('notes',$this->notes,true);
 		$criteria->compare('active',$this->active);
@@ -158,6 +161,19 @@ class Contract extends CActiveRecord
             {
         		$this->created_by_user_id=Yii::app()->user->id;
         		$this->created=date("F j, Y, g:i a");
+        		
+        		//SAVING MANAGEMENT CONTACT DETAILS.
+        		
+//        		if($this->management_contact_details_id==)
+//        		{
+//        			echo "IN IF OF CHECKBOX CHECK, SAME ADDRESS AS MAIN";
+//        			//$this->main_contact_details_id="Same as main contact details";
+//        		}
+//        		else 
+//        		{
+//        			echo "IN ELSE OF CHECKBOX CHECK ADDRESS IS DIFFERENT";
+//        			//$this->management_contact_details_id=$this->management_contact_details_id;
+//        		}
         		
         		
         		//SAVING CONTACT DETAILS TABLE.

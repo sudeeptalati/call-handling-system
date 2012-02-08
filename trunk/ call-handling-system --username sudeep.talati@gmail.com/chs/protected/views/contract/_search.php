@@ -26,23 +26,23 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'management_contact_details_id'); ?>
-		<?php echo $form->textField($model,'management_contact_details_id'); ?>
+		<?php echo $form->label($model,'management_contact_details'); ?>
+		<?php echo $form->textField($model,'management_contact_details'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'spares_contact_details_id'); ?>
-		<?php echo $form->textField($model,'spares_contact_details_id'); ?>
+		<?php echo $form->label($model,'spares_contact_details'); ?>
+		<?php echo $form->textField($model,'spares_contact_details'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'accounts_contact_details_id'); ?>
-		<?php echo $form->textField($model,'accounts_contact_details_id'); ?>
+		<?php echo $form->label($model,'accounts_contact_details'); ?>
+		<?php echo $form->textField($model,'accounts_contact_details'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'technical_contact_details_id'); ?>
-		<?php echo $form->textField($model,'technical_contact_details_id'); ?>
+		<?php echo $form->label($model,'technical_contact_details'); ?>
+		<?php echo $form->textField($model,'technical_contact_details'); ?>
 	</div>
 
 	<div class="row">

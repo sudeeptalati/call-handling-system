@@ -86,7 +86,6 @@ class ContractController extends Controller
         	 }
 		}//END OF IF(ISSET()).
 			 
-			 
 		$this->render('create',array(
 			'model'=>$model,
 		));

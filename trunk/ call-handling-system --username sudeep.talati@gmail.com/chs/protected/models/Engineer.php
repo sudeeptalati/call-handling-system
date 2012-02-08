@@ -62,7 +62,7 @@ class Engineer extends CActiveRecord
 		return array(
 			array('first_name, last_name, active', 'required'),
 			array('active, inactivated_by_user_id, contact_details_id, delivery_contact_details_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('company, vat_reg_number, notes, inactivated_on, modified', 'safe'),
+			array('company, vat_reg_number, notes, inactivated_on, modified, fullname', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, first_name, last_name, active, company, vat_reg_number, notes, inactivated_by_user_id, inactivated_on, contact_details_id, delivery_contact_details_id, created_by_user_id, created, modified', 'safe', 'on'=>'search'),

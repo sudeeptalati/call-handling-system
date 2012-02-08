@@ -1,14 +1,46 @@
 <div class="form">
 
-<?php 
-//Yii::app()->clientScript->registerScript('search', "
-//$('.search-button').click(function(){
-//	$('.search-form').toggle();
-//	return false;
-//});
-//
-//");
+<?php
+$model->management_contact_details='Same as main contact';
+$model->spares_contact_details='Same as main contact';
+$model->accounts_contact_details='Same as main contact';
+$model->technical_contact_details='Same as main contact';
+
+//EVENT LISTENER FOR MANAGEMENT FIELD.
+Yii::app()->clientScript->registerScript('my-management-listener',"
+$('#management-checkbox-id').change(function(){
+$('.management-form').toggle();
+	return false;
+});
+");
+
+//EVENT LISTENER FOR SPARES FIELD.
+Yii::app()->clientScript->registerScript('my-spares-listener',"
+$('#spares-checkbox-id').change(function(){
+$('.spares-form').toggle();
+	return false;
+});
+");
+
+//EVENT LISTENER FOR ACCOUNTS FIELD.
+Yii::app()->clientScript->registerScript('my-accounts-listener',"
+$('#accounts-checkbox-id').change(function(){
+$('.accounts-form').toggle();
+	return false;
+});
+");
+
+//EVENT LISTENER FOR TECHNICAL FIELD.
+Yii::app()->clientScript->registerScript('my-technical-listener1',"
+$('#technical-checkbox-id').change(function(){
+$('.technical-form').toggle();
+	return false;
+});
+");
+
 ?>
+
+
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'contract-form',
@@ -18,6 +50,9 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
+	
+	
+	
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'contract_type_id'); ?>
@@ -61,10 +96,6 @@
 	{
 		$contactDetailsModel=ContactDetails::model();
 	}
-//	echo "CONTACT DETAILS ID :  ".$model->main_contact_details_id;
-//	
-//	echo "<br>Address Loien 1:  ".$contactDetailsModel->address_line_1;
-	
 	?>
 	
 	<h4>Address Details</h4>	
@@ -147,41 +178,99 @@
 		<?php echo $form->error($contactDetailsModel,'website'); ?>
 	</div>
 	
-	<!-- END OF FIELDS OF CONTACT DETAILS FORM -->
+	<!-- ***********  MANAGEMENT TEXTFIELD ********** -->
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'management_contact_details'); ?>
+		<?php //echo $form->textField($model,'management_details',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->checkBox($model,'management_contact_details',array('checked'=>'checked','id'=>'management-checkbox-id')); ?>
+		<?php echo "Same as above";?>
+		<?php echo $form->error($model,'management_contact_details'); ?>
+	</div>
+	<div class="management-form" style="display:none">
+		<?php echo $form->textArea($model,'management_contact_details'); ?>
+		<?php echo $form->error($model,'management_contact_details'); ?>
+	</div>
+	
+	<!-- ***********  SPARES TEXTFIELD ********** -->
+	<div class="row">
+		<?php echo $form->labelEx($model,'spares_contact_details'); ?>
+		<?php //echo $form->textField($model,'spares_contact_details',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->checkBox($model,'spares_contact_details',array('checked'=>'checked','id'=>'spares-checkbox-id')); ?>
+		<?php echo "Same as above";?>
+		<?php echo $form->error($model,'spares_contact_details'); ?>
+	</div>
+	<div class="spares-form" style="display:none">
+		<?php echo $form->textArea($model,'spares_contact_details'); ?>
+		<?php echo $form->error($model,'spares_contact_details'); ?>
+	</div>
+ 
+ 	<!-- ***********  ACCOUNTS TEXTFIELD ********** -->
+ 	
+ 	<div class="row">
+		<?php echo $form->labelEx($model,'accounts_contact_details'); ?>
+		<?php //echo $form->textField($model,'spares_contact_details',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->checkBox($model,'accounts_contact_details',array('checked'=>'checked','id'=>'accounts-checkbox-id','name'=>'myCheckBox')); ?>
+		<?php echo "Same as above";?>
+		<?php echo $form->error($model,'accounts_contact_details'); ?>
+	</div>
+	<div class="accounts-form" style="display:none">
+		<?php echo $form->textArea($model,'accounts_contact_details'); ?>
+		<?php echo $form->error($model,'accounts_contact_details'); ?>
+	</div>
+	
+	<!-- ***********  TECHNICAL TEXTFIELD ********** -->
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'technical_contact_details'); ?>
+		<?php //echo $form->textField($model,'technical_contact_details',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->checkBox($model,'technical_contact_details',array('checked'=>'checked','id'=>'technical-checkbox-id','name'=>'myCheckBox')); ?>
+		<?php echo "Same as above";?>
+		<?php echo $form->error($model,'technical_contact_details'); ?>
+	</div>
+	<div class="technical-form" style="display:none">
+		<?php echo $form->textArea($model,'technical_contact_details'); ?>
+		<?php echo $form->error($model,'technical_contact_details'); ?>
+	</div>
+ 	
+	<!--<div class="row">
+	<?php //echo $form->labelEx($model,'management_contact_details'); ?>
+	<?php //echo $form->checkBox('','',array('checked'=>'checked','id'=>'my-checkbox-id','name'=>'myCheckBox')); ?>
+	<?php //echo CHtml::checkBox('my-checkbox-id', array('checked'=>'checked','id'=>'my-checkbox-id','name'=>'myCheckBox'));?>
+	<?php //echo "Same as above"."<br>";?>
 	
 	
-<!--<div class="row">
+	
+	
+	<?php //echo CHtml::link('Add','#',array('class'=>'add-button')); ?>
+	
+	</div> search-form 
+	
+	
+	--><!-- END OF FIELDS OF CONTACT DETAILS FORM -->
+	
+	
+	
+	<!--<div class="row">
 		<?php //echo $form->labelEx($model,'main_contact_details_id'); ?>
 		<?php //echo $form->textField($model,'main_contact_details_id'); ?>
 		<?php //echo $form->error($model,'main_contact_details_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php //echo $form->labelEx($model,'management_contact_details_id'); ?>
-		<?php //echo $form->textField($model,'management_contact_details_id'); ?>
-		<?php //echo $form->error($model,'management_contact_details_id'); ?>
+		<?php //echo $form->labelEx($model,'accounts_contact_details'); ?>
+		<?php //echo $form->textField($model,'accounts_contact_details'); ?>
+		<?php //echo $form->error($model,'accounts_contact_details'); ?>
 	</div>
 
 	<div class="row">
-		<?php //echo $form->labelEx($model,'spares_contact_details_id'); ?>
-		<?php //echo $form->textField($model,'spares_contact_details_id'); ?>
-		<?php //echo $form->error($model,'spares_contact_details_id'); ?>
+		<?php //echo $form->labelEx($model,'technical_contact_details'); ?>
+		<?php //echo $form->textField($model,'technical_contact_details'); ?>
+		<?php //echo $form->error($model,'technical_contact_details'); ?>
 	</div>
 
-	<div class="row">
-		<?php //echo $form->labelEx($model,'accounts_contact_details_id'); ?>
-		<?php //echo $form->textField($model,'accounts_contact_details_id'); ?>
-		<?php //echo $form->error($model,'accounts_contact_details_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php //echo $form->labelEx($model,'technical_contact_details_id'); ?>
-		<?php //echo $form->textField($model,'technical_contact_details_id'); ?>
-		<?php //echo $form->error($model,'technical_contact_details_id'); ?>
-	</div>
-
-	-->
-	<!--<div class="row">
+	
+	--><!--<div class="row">
 		<?php //echo $form->labelEx($model,'inactivated_by_user_id'); ?>
 		<?php //echo $form->textField($model,'inactivated_by_user_id'); ?>
 		<?php //echo $form->error($model,'inactivated_by_user_id'); ?>

@@ -40,6 +40,7 @@ return array(
 		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
 			'rules'=>array(
 				//accessing gii.
 				'gii'=>'gii',
@@ -49,6 +50,8 @@ return array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				//FOR ACCESSING FREESEARCH.
+				'<controller:\w+>/<action:\w+>/<keyword:\w+>'=>'<controller>/<action>',
 			),
 		),
 		

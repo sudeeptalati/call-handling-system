@@ -46,6 +46,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'title',
 		'first_name',
 		'last_name',
+		'fullname',
 		//'product_id',
 		'address_line_1',
 		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),

@@ -35,8 +35,8 @@
  */
 class Contract extends CActiveRecord
 {
-	
 	public $created_by_user;
+	public $contract_name;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Contract the static model class

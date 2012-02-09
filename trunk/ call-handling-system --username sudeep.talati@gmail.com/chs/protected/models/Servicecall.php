@@ -78,7 +78,7 @@ class Servicecall extends CActiveRecord
 			array('insurer_reference_number, fault_date, fault_code, engg_visit_date, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, service_reference_number, customer_id, product_id, contract_id, engineer_id, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes, created_by_user_id, created, modified, cancelled, closed', 'safe', 'on'=>'search'),
+			array('id, service_reference_number, customer_id, product_id, contract_id, engineer_id, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes, created_by_user_id, created, modified, cancelled, closed, customer_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -131,6 +131,8 @@ class Servicecall extends CActiveRecord
 			'modified' => 'Modified',
 			'cancelled' => 'Cancelled',
 			'closed' => 'Closed',
+//			'customer_name' => 'Customer Name',
+			
 		);
 	}
 
@@ -144,6 +146,10 @@ class Servicecall extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		$criteria->with=array('customer');
+		
+		$criteria->compare( 'customer.fullname', $this->customer_name, true );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('service_reference_number',$this->service_reference_number);
@@ -171,9 +177,23 @@ class Servicecall extends CActiveRecord
 		$criteria->compare('cancelled',$this->cancelled,true);
 		$criteria->compare('closed',$this->closed,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+//		return new CActiveDataProvider($this, array(
+//			'criteria'=>$criteria,
+//		));
+
+		return new CActiveDataProvider( 'Servicecall' , array(
+				'criteria'=>$criteria,
+				'sort'=>array(
+						'attributes'=>array(
+								'customer_name'=>array(
+										'asc'=>'customer.fullname',
+										'desc'=>'customer.fullname DESC',
+								),
+								'*',
+						),
+				),
 		));
+		
 	}//end of search().
 	
 	protected function beforeSave()
@@ -319,6 +339,32 @@ class Servicecall extends CActiveRecord
 		}
 			
 		return $str;
-    }
+    }//end of getJobStatus.
+    
+	public function freeSearch($keyword)
+    {   
+ 
+        /*Creating a new criteria for search*/
+        $criteria = new CDbCriteria;
+        
+        $criteria->with=array('customer');
+ 
+        $criteria->compare('fault_description', $keyword, true, 'OR');
+        $criteria->compare('customer.fullname', $keyword, true, 'OR');
+        $criteria->compare('insurer_reference_number', $keyword, true, 'OR');
+      
+        /*result limit*/
+        $criteria->limit = 100;
+        /*When we want to return model*/
+        //return  Servicecall::model()->findAll($criteria);
+ 
+        /*To return active dataprovider uncomment the following code*/
+        
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+        
+ 
+    }//end of free search.
     
 }//end of class.

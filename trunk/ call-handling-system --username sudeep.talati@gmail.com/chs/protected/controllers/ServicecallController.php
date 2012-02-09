@@ -213,30 +213,25 @@ class ServicecallController extends Controller
 		
 	}//end of actionExistingCustomer().
 	
-	//CODE FROM GII FORM GENERATOR.
-//public function actionExistingCustomer()
-//{
-//    $model=new Servicecall('create');
-//
-//    // uncomment the following code to enable ajax-based validation
-//    /*
-//    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-existingCustomer-form')
-//    {
-//        echo CActiveForm::validate($model);
-//        Yii::app()->end();
-//    }
-//    */
-//
-//    if(isset($_POST['Servicecall']))
-//    {
-//        $model->attributes=$_POST['Servicecall'];
-//        if($model->validate())
-//        {
-//            // form inputs are valid, do something here
-//            return;
-//        }
-//    }
-//    $this->render('existingCustomer',array('model'=>$model));
-//	}
+	public function actionFreeSearch()
+    {
+        $model=new Servicecall('search');
+        $this->render('freeSearch',array('model'=>$model));
+    }//end of freeSearch().
+    
+ 	public function actionSearchEngine($keyword)
+    {
+      //echo "THIS IS IAJAXX  ".$keyword;
+ 
+        $model=new Servicecall();
+        $model->unsetAttributes();  // clear any default values
+        $results=$model->freeSearch($keyword);
+        //echo 'Results '.$results;
+        
+        $this->renderPartial('_ajax_search',array(
+                'results'=>$results,
+        ));
+    }//end of searchEngine().
+	
 
 }//end of class.

@@ -65,7 +65,7 @@ class Customer extends CActiveRecord
 			array('address_line_2, address_line_3, country, mobile, fax, notes, modified, fullname, lockcode', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified', 'safe', 'on'=>'search'),
+			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -143,6 +143,7 @@ class Customer extends CActiveRecord
 		$criteria->compare('created_by_user_id',$this->created_by_user_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
+		$criteria->compare('fullname',$this->fullname,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -43,7 +43,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'contract_type_id',
+		//'contract_type_id',
+		array('name'=>'contract_name','value'=>'$data->contractType->name'),
 		'name',
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
 		'main_contact_details_id',

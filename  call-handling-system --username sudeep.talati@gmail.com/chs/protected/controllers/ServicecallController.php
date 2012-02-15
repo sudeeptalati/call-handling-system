@@ -212,26 +212,4 @@ class ServicecallController extends Controller
 		));
 		
 	}//end of actionExistingCustomer().
-	
-	public function actionFreeSearch()
-    {
-        $model=new Servicecall('search');
-        $this->render('freeSearch',array('model'=>$model));
-    }//end of freeSearch().
-    
- 	public function actionSearchEngine($keyword)
-    {
-      //echo "THIS IS IAJAXX  ".$keyword;
- 
-        $model=new Servicecall();
-        $model->unsetAttributes();  // clear any default values
-        $results=$model->freeSearch($keyword);
-        //echo 'Results '.$results;
-        
-        $this->renderPartial('_ajax_search',array(
-                'results'=>$results,
-        ));
-    }//end of searchEngine().
-	
-
 }//end of class.

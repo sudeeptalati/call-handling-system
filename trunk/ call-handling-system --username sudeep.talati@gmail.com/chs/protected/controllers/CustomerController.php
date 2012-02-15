@@ -65,7 +65,6 @@ class CustomerController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Customer'],$_POST['Product']))
 		{
 			$model->attributes=$_POST['Customer'];
@@ -240,6 +239,30 @@ class CustomerController extends Controller
 	    }
 	    $this->render('updateCustomer',array('model'=>$model));
 	}//end of updateCustomer.
+	
+	public function actionFreeSearch()
+    {
+    	//WE ARE SEARCHING IN CUSTOMER TABLE, SO CREATING INSTANCE OF CUSTOMER MODEL.
+        $model=new Customer('search');
+        $this->render('freeSearch',array('model'=>$model));
+    }//end of freeSearch().
+    
+    public function actionSearchEngine($keyword)
+    {
+      //echo "THIS IS IAJAXX  ".$keyword;
+ 
+        $model=new Customer();
+        $model->unsetAttributes();  // clear any default values
+        $results=$model->freeSearch($keyword);
+        //echo 'Results '.$results;
+        
+        $this->renderPartial('_ajax_search',array(
+                'results'=>$results,
+        ));
+    }//end of searchEngine().
+    
+	
+	
 	
 	
 	

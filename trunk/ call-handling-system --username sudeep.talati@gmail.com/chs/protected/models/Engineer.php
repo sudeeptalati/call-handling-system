@@ -65,7 +65,7 @@ class Engineer extends CActiveRecord
 			array('company, vat_reg_number, notes, inactivated_on, modified, fullname', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, first_name, last_name, active, company, vat_reg_number, notes, inactivated_by_user_id, inactivated_on, contact_details_id, delivery_contact_details_id, created_by_user_id, created, modified', 'safe', 'on'=>'search'),
+			array('id, first_name, last_name, active, company, vat_reg_number, notes, inactivated_by_user_id, inactivated_on, contact_details_id, delivery_contact_details_id, created_by_user_id, created, modified, fullname', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -135,6 +135,7 @@ class Engineer extends CActiveRecord
 		$criteria->compare('created_by_user_id',$this->created_by_user_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
+		$criteria->compare('fullname',$this->fullname,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -149,7 +150,8 @@ class Engineer extends CActiveRecord
             {
         		$this->created_by_user_id=Yii::app()->user->id;
         		$this->fullname=$this->first_name."  ".$this->last_name;
-        		$this->created=date("F j, Y, g:i a");
+        		//$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
         		
         		//SAVING CONTACT DETAILS TABLE.
         		

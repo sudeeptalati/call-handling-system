@@ -16,16 +16,16 @@
 	<?php echo CHtml::encode($data->main_contact_details_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('management_contact_details_id')); ?>:</b>
-	<?php echo CHtml::encode($data->management_contact_details_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('management_contact_details')); ?>:</b>
+	<?php echo CHtml::encode($data->management_contact_details); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('spares_contact_details_id')); ?>:</b>
-	<?php echo CHtml::encode($data->spares_contact_details_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('spares_contact_details')); ?>:</b>
+	<?php echo CHtml::encode($data->spares_contact_details); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('accounts_contact_details_id')); ?>:</b>
-	<?php echo CHtml::encode($data->accounts_contact_details_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('accounts_contact_details')); ?>:</b>
+	<?php echo CHtml::encode($data->accounts_contact_details); ?>
 	<br />
 
 	<?php /*

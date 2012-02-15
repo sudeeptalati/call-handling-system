@@ -76,6 +76,7 @@ class Product extends CActiveRecord
 			array('contract_id, brand_id, product_type_id, customer_id, engineer_id, discontinued, warranty_for_months, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('purchase_price', 'numerical'),
 			array('purchased_from, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode', 'safe'),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, contract_id, brand_id, product_type_id, customer_id, engineer_id, purchased_from, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, discontinued, warranty_for_months, purchase_price, notes, created_by_user_id, created, modified, cancelled', 'safe', 'on'=>'search'),
@@ -183,7 +184,7 @@ class Product extends CActiveRecord
     
     public function getAllContract()
     {
-    	return CHtml::listData(Contract::model()->findAll(), 'id', 'name');
+    	return CHtml::listData(Contract::model()->findAll(), 'id', 'name','contractType.name');
     }//end of getAllContract().
     
     public function getAllEngineers()
@@ -201,7 +202,7 @@ class Product extends CActiveRecord
         		$this->created=date("F j, Y, g:i a");
         		$this->lockcode=Yii::app()->user->id*1000;
         		$this->customer_id=0;
-    			return true;
+        		return true;
             }
             else
             {
@@ -213,6 +214,6 @@ class Product extends CActiveRecord
     
     protected function afterSave()
     {
-    	
+    
     }//end of afterSave().
 }//end of class.

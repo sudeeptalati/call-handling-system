@@ -12,40 +12,7 @@
 	<?php echo $form->hiddenField($model,'customer_id',array('value'=>'0')); ?>
 	<?php echo $form->error($model,'customer_id'); ?>
 	
-	<!--<div class="row">
-		<?php echo $form->labelEx($model,'service_reference_number'); ?>
-		<?php echo $form->textField($model,'service_reference_number'); ?>
-		<?php echo $form->error($model,'service_reference_number'); ?>
-	</div>
-
 	<div class="row">
-		<?php echo $form->labelEx($model,'customer_id'); ?>
-		<?php echo $form->textField($model,'customer_id'); ?>
-		<?php echo $form->error($model,'customer_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'product_id'); ?>
-		<?php echo $form->textField($model,'product_id'); ?>
-		<?php echo $form->error($model,'product_id'); ?>
-	</div>
-
-	-->
-	<!--<div class="row">
-		<?php echo $form->labelEx($model,'contract_id'); ?>
-		<?php //echo $form->textField($model,'contract_id'); ?>
-		<?php echo CHtml::activeDropDownList($model, 'contract_id', $model->getAllContract());?>
-		<?php echo $form->error($model,'contract_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'engineer_id'); ?>
-		<?php //echo $form->textField($model,'engineer_id'); ?>
-		<?php echo CHtml::activeDropDownList($model, 'engineer_id', $model->getAllEngineers());?>
-		<?php echo $form->error($model,'engineer_id'); ?>
-	</div>
-
-	--><div class="row">
 		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'insurer_reference_number'); ?>
@@ -60,7 +27,22 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'fault_date'); ?>
-		<?php echo $form->textField($model,'fault_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($model, 'fault_date'),
+				'model'=>$model,
+        		'value' => $model->attributes['fault_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));		
+		?>
+		<?php //echo $form->textField($model,'fault_date'); ?>
 		<?php echo $form->error($model,'fault_date'); ?>
 	</div>
 
@@ -78,50 +60,23 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'engg_visit_date'); ?>
-		<?php echo $form->textField($model,'engg_visit_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($model, 'engg_visit_date'),
+				'model'=>$model,
+        		'value' => $model->attributes['engg_visit_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));		
+		?>
+		<?php //echo $form->textField($model,'engg_visit_date'); ?>
 		<?php echo $form->error($model,'engg_visit_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'work_carried_out'); ?>
-		<?php echo $form->textField($model,'work_carried_out',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'work_carried_out'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
-		<?php echo $form->textField($model,'spares_used_status_id'); ?>
-		<?php echo $form->error($model,'spares_used_status_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'total_cost'); ?>
-		<?php echo $form->textField($model,'total_cost'); ?>
-		<?php echo $form->error($model,'total_cost'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'vat_on_total'); ?>
-		<?php echo $form->textField($model,'vat_on_total'); ?>
-		<?php echo $form->error($model,'vat_on_total'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'net_cost'); ?>
-		<?php echo $form->textField($model,'net_cost'); ?>
-		<?php echo $form->error($model,'net_cost'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'job_payment_date'); ?>
-		<?php echo $form->textField($model,'job_payment_date'); ?>
-		<?php echo $form->error($model,'job_payment_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'job_finished_date'); ?>
-		<?php echo $form->textField($model,'job_finished_date'); ?>
-		<?php echo $form->error($model,'job_finished_date'); ?>
 	</div>
 
 	<div class="row">
@@ -251,13 +206,6 @@
 	<h4>Enter Product details</h4>
 	
 	<div class="row">
-		<?php echo $form->labelEx($productModel,'contract_id'); ?>
-		<?php //echo $form->textField($model,'contract_id'); ?>
-		<?php echo CHtml::activeDropDownList($productModel, 'contract_id', $productModel->getAllContract());?>
-		<?php echo $form->error($productModel,'contract_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($productModel,'brand_id'); ?>
 		<?php //echo $form->textField($model,'brand_id'); ?>
 		<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands());?>
@@ -271,19 +219,6 @@
 		<?php echo $form->error($productModel,'product_type_id'); ?>
 	</div>
 
-	<!--<div class="row">
-		<?php echo $form->labelEx($productModel,'customer_id'); ?>
-		<?php echo $form->textField($productModel,'customer_id'); ?>
-		<?php echo $form->error($productModel,'customer_id'); ?>
-	</div>
-
-	--><div class="row">
-		<?php echo $form->labelEx($productModel,'engineer_id'); ?>
-		<?php //echo $form->textField($model,'engineer_id'); ?>
-		<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
-		<?php echo $form->error($productModel,'engineer_id'); ?>
-	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($productModel,'purchased_from'); ?>
 		<?php echo $form->textField($productModel,'purchased_from',array('rows'=>6, 'cols'=>50)); ?>
@@ -292,16 +227,25 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($productModel,'purchase_date'); ?>
-		<?php echo $form->textField($productModel,'purchase_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($productModel, 'purchase_date'),
+				'model'=>$productModel,
+        		'value' => $productModel->attributes['purchase_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));
+		?>
+		<?php //echo $form->textField($productModel,'purchase_date'); ?>
 		<?php echo $form->error($productModel,'purchase_date'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
-		<?php echo $form->textField($productModel,'warranty_date'); ?>
-		<?php echo $form->error($productModel,'warranty_date'); ?>
-	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($productModel,'model_number'); ?>
 		<?php echo $form->textField($productModel,'model_number',array('rows'=>6, 'cols'=>50)); ?>
@@ -315,27 +259,31 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($productModel,'production_code'); ?>
-		<?php echo $form->textField($productModel,'production_code',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($productModel,'production_code'); ?>
+		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($productModel, 'warranty_date'),
+				'model'=>$productModel,
+        		'value' => $productModel->attributes['warranty_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));	
+		?>
+		<?php //echo $form->textField($productModel,'warranty_date'); ?>
+		<?php echo $form->error($productModel,'warranty_date'); ?>
 	</div>
-
+	
 	<div class="row">
-		<?php echo $form->labelEx($productModel,'enr_number'); ?>
-		<?php echo $form->textField($productModel,'enr_number',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($productModel,'enr_number'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($productModel,'fnr_number'); ?>
-		<?php echo $form->textField($productModel,'fnr_number',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($productModel,'fnr_number'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($productModel,'discontinued'); ?>
-		<?php echo $form->textField($productModel,'discontinued'); ?>
-		<?php echo $form->error($productModel,'discontinued'); ?>
+		<?php echo $form->labelEx($productModel,'contract_id'); ?>
+		<?php //echo $form->textField($model,'contract_id'); ?>
+		<?php echo CHtml::activeDropDownList($productModel, 'contract_id', $productModel->getAllContract());?>
+		<?php echo $form->error($productModel,'contract_id'); ?>
 	</div>
 
 	<div class="row">
@@ -358,38 +306,7 @@
 	
 	<!-- END OF FIELDS OF PRODUCT TABLE -->
 	
-
-	<!--<div class="row">
-		<?php echo $form->labelEx($model,'created_by_user_id'); ?>
-		<?php echo $form->textField($model,'created_by_user_id'); ?>
-		<?php echo $form->error($model,'created_by_user_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'cancelled'); ?>
-		<?php echo $form->textField($model,'cancelled'); ?>
-		<?php echo $form->error($model,'cancelled'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'closed'); ?>
-		<?php echo $form->textField($model,'closed'); ?>
-		<?php echo $form->error($model,'closed'); ?>
-	</div>
-
-	--><div class="row buttons">
+	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

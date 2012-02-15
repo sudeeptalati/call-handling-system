@@ -215,4 +215,19 @@ class Customer extends CActiveRecord
     	
     }//END OF afterSave().
     
+    public function freeSearch($keyword)
+    {   
+    	$criteria=new CDbCriteria;
+    	
+    	$criteria->compare('fullname', $keyword, true, 'OR');
+    	
+    	/*result limit*/
+        $criteria->limit = 100;
+        
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        	));
+    	
+    }//end of freeSearch().
+    
 }//end of class.

@@ -40,7 +40,7 @@
 				array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
 				array('label'=>'Customer', 'url'=>array('/customer/admin')),
 				array('label'=>'Product', 'url'=>array('/product/admin')),
-				array('label'=>'Servicecall', 'url'=>array('/servicecall/admin')),
+				array('label'=>'Servicecall', 'url'=>array('/customer/freeSearch')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

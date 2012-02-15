@@ -14,7 +14,37 @@ $this->menu=array(
 ?>
 
 <h1>View Servicecall #<?php echo $model->id; ?></h1>
+<div align="right">
+<h4>Assign Engineer</h4>
+<?php 
+$url="/enggdiary/create/";
+$action_url=$this->createUrl($url);
+?>
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'engdairy-form',
+	'enableAjaxValidation'=>false,
+	'action'=>$action_url,
+	'method'=>'get',
 
+)); ?>
+<?php 
+
+$EngineerModel=Engineer::model();
+
+$list=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+
+echo CHtml::dropDownList('engineer_id','', $list);
+?>
+
+<input type="hidden" name='service_id' value='<?php echo $model->id ;?>'>
+
+
+
+<?php echo CHtml::submitButton('Add to dairy', array('service_id'=>$model->id)); ?>
+<?php $this->endWidget(); ?>
+
+
+</div>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -50,4 +80,6 @@ $this->menu=array(
 		'cancelled',
 		'closed',
 	),
-)); ?>
+));?>
+
+

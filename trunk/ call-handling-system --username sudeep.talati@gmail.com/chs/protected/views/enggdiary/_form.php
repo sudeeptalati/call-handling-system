@@ -1,0 +1,330 @@
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'enggdiary-form',
+	'enableAjaxValidation'=>false,
+)); ?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	
+<?php 
+$engg_id=$model->engineer_id;
+//echo "ENG ID :".$engg_id;
+$service_id=$model->servicecall_id;
+//echo "SERVICE ID :".$service_id;
+
+$engineerModel=Engineer::model()->findByPk($engg_id);
+$serviceModel=Servicecall::model()->findByPk($service_id);
+$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
+$customerModel=Customer::model()->findByPk($serviceModel->customer_id);
+$productModel=Product::model()->findByPk($serviceModel->product_id);
+$brandModel=Brand::model()->findByPk($productModel->brand_id);
+$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
+
+
+$str1=$contactDetailsModel->address_line_1." ".$contactDetailsModel->address_line_2." ".$contactDetailsModel->address_line_3."\n";
+$str2=$contactDetailsModel->town."\n";
+$str3=$contactDetailsModel->postcode;
+$address=$str1." ".$str2." ".$str3;
+$enggDetails=$engineerModel->fullname."\n".$address;
+?>
+	
+
+<table style="border;2px;" >
+  <tr>
+	<?php echo $form->errorSummary($model); ?>
+
+		<td class="row">
+			<?php //echo $form->labelEx($model,'engineer_id'); ?>
+			<?php echo $form->hiddenField($model,'engineer_id'); ?>
+			<?php echo $form->error($model,'engineer_id'); ?>
+		</td>
+		<td class="row">
+			<?php //echo $form->labelEx($model,'servicecall_id'); ?>
+			<?php echo $form->hiddenField($model,'servicecall_id'); ?>
+			<?php echo $form->error($model,'servicecall_id'); ?>
+		</td>
+
+	</tr>
+	<tr>
+		<td>
+		<?php echo "<b>Engineer Details</b><br>" ,
+		  CHtml::textArea('Address', $enggDetails,  array('disabled'=>'disabled')); ?>
+		</td>
+	</tr>
+	</table>
+	<h5>Customer and Product details</h5>
+	<table>
+	<tr>
+		<td>
+			<?php echo $form->labelEx($serviceModel,'service_reference_number'); ?>
+			<?php echo $form->textField($serviceModel,'service_reference_number', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($serviceModel,'service_reference_number'); ?>
+		</td>
+		<td>
+			<?php echo $form->labelEx($customerModel,'fullname'); ?>
+			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($customerModel,'fullname'); ?>
+		</td>
+		<td>
+			<?php echo $form->labelEx($brandModel,'name'); ?>
+			<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($brandModel,'name'); ?>
+		</td>
+		<td>
+			<?php echo $form->labelEx($productTypeModel,'name'); ?>
+			<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($productTypeModel,'name'); ?>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<?php echo $form->labelEx($serviceModel,'fault_description'); ?>
+			<?php echo $form->textArea($serviceModel,'fault_description', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($serviceModel,'fault_description'); ?>
+		</td>
+		<td>
+			<?php echo $form->labelEx($serviceModel,'fault_date'); ?>
+			<?php echo $form->textField($serviceModel,'fault_date', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($serviceModel,'fault_date'); ?>
+		</td>
+	</tr>
+	<tr>
+
+		<td class="row" colspan="2">
+		<?php echo $form->labelEx($model,'visit_start_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($model, 'visit_start_date'),
+				'model'=>$model,
+        		'value' => $model->attributes['visit_start_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));		
+		?>
+		<?php //echo $form->textField($model,'fault_date'); ?>
+		<?php echo $form->error($model,'visit_start_date'); ?>
+
+
+		<?php echo $form->labelEx($model,'slots'); ?>
+		<?php echo $form->dropDownList($model,'slots', array('1'=>1, '2'=>2,'3'=>3, '4'=>4,'5'=>5, '6'=>6,'7'=>7,'8'=>8,'9'=>9,'10'=>10,'11'=>11, '12'=>12,'13'=>13, '14'=>14,'15'=>15, '16'=>16,'17'=>17,'18'=>18,'19'=>19,'20'=>20,));?>
+		<small>Each Slot is of 30 Mins</small>
+		<?php echo $form->error($model,'slots'); ?>
+	</td>
+	</tr>
+	</table>
+
+
+<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+	<div>
+
+
+	
+	<?php //echo "RESULTS OF FUNCTION :".$model->fetchDiaryDetails('15','15-02-2012');
+			
+//		echo 'ENG ID'.$engg_id;
+//		$results=Enggdiary::model()->fetchDiaryDetails($engg_id,'1329782400');			
+//		foreach($results as $data)
+//		{
+//			echo " <br>ENGINEER ID ".$data->engineer->fullname;
+//			echo " <br>Servise call".$data->servicecall->service_reference_number;
+//			echo " <br>vist date ".$data->visit_start_date;
+//			echo " <br>SLOT ".$data->slots;
+//			
+//			
+//		}
+	
+	
+	?>
+
+	
+<style type="text/css">
+/* calendar */
+table.calendar		{ border-left:1px solid #999; }
+tr.calendar-row	{  }
+td.calendar-day	{ min-height:80px; font-size:11px; position:relative; } * html div.calendar-day { height:80px; }
+td.calendar-day:hover	{ background:#eceff5; }
+td.calendar-day-np	{ background:#eee; min-height:80px; } * html div.calendar-day-np { height:80px; }
+td.calendar-day-head { background:#ccc; font-weight:bold; text-align:center; width:120px; padding:5px; border-bottom:1px solid #999; border-top:1px solid #999; border-right:1px solid #999; }
+div.day-number		{ background:#999; padding:5px; color:#fff; font-weight:bold; float:right; margin:-5px -5px 0 0; width:20px; text-align:center; }
+/* shared */
+td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1px solid #999; border-right:1px solid #999; }
+
+
+</style>
+	<?php 
+	///Engineer Calender
+	
+	/* date settings */
+$month = (int) ($_GET['month'] ? $_GET['month'] : date('m'));
+$year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
+
+/* select month control */
+$select_month_control = '<select name="month" id="month">';
+for($x = 1; $x <= 12; $x++) {
+	$select_month_control.= '<option value="'.$x.'"'.($x != $month ? '' : ' selected="selected"').'>'.date('F',mktime(0,0,0,$x,1,$year)).'</option>';
+}
+$select_month_control.= '</select>';
+
+/* select year control */
+$year_range = 7;
+$select_year_control = '<select name="year" id="year">';
+for($x = ($year-floor($year_range/2)); $x <= ($year+floor($year_range/2)); $x++) {
+	$select_year_control.= '<option value="'.$x.'"'.($x != $year ? '' : ' selected="selected"').'>'.$x.'</option>';
+}
+$select_year_control.= '</select>';
+
+
+$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
+
+/* "next month" control */
+$next_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 12 ? $month + 1 : 1).'&amp;year='.($month != 12 ? $year : $year + 1).'" class="control">Next Month >></a>';
+
+/* "previous month" control */
+$previous_month_link = '<a href="?month='.($month != 1 ? $month - 1 : 12).'&amp;year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Month</a>';
+
+
+/* bringing the controls together */
+$controls = '<form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$previous_month_link.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$next_month_link.' </form>';
+
+//echo $controls;	
+
+$cuurent_month=strtotime('1-'.$month.'-'.$year);
+echo '<h2 style="float:left; padding-right:30px;">'.date('F - Y',$cuurent_month).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
+echo $controls;
+echo draw_calendar($month,$year,$engg_id);
+
+/* draws a calendar */
+function draw_calendar($month,$year,$engg_id){
+
+	/* draw table */
+	$calendar = '<table cellpadding="0" cellspacing="0" class="calendar">';
+
+	/* table headings */
+	$headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+	$calendar.= '<tr class="calendar-row"><td class="calendar-day-head">'.implode('</td><td class="calendar-day-head">',$headings).'</td></tr>';
+
+	/* days and weeks vars now ... */
+	$running_day = date('w',mktime(0,0,0,$month,1,$year));
+	$days_in_month = date('t',mktime(0,0,0,$month,1,$year));
+	$days_in_this_week = 1;
+	$day_counter = 0;
+	$dates_array = array();
+
+	/* row for week one */
+	$calendar.= '<tr class="calendar-row">';
+
+	/* print "blank" days until the first of the current week */
+	for($x = 0; $x < $running_day; $x++):
+		$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
+		$days_in_this_week++;
+	endfor;
+
+	/* keep going with days.... */
+	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
+		$calendar.= '<td class="calendar-day">';
+			/* add in the day number */
+			$calendar.= '<div class="day-number">'.$list_day.'</div>';
+
+			/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
+			$current_date='';
+			$current_date=$list_day.'-'.$month.'-'.$year;
+			$mysql_date=strtotime($current_date);
+			
+			$day_content='<b>'.$mysql_date.'</b>';
+//			$day_content.='<br>ENGGG  :'.$engg_id;
+//			
+			$results=Enggdiary::model()->fetchDiaryDetails($engg_id,$mysql_date);			
+			foreach($results as $data)
+			{
+//			echo " <br>ENGINEER ID ".$data->engineer->fullname;
+//			echo " <br>Servise call".$data->servicecall->service_reference_number;
+			//$day_content.=" <br>Servise call".$data->servicecall->service_reference_number;
+			
+			$day_content.=" <br>vist date ".$data->visit_start_date;
+//			echo " <br>SLOT ".$data->slots;
+			}
+			
+			
+	
+			
+			
+			
+			
+			
+			
+			
+			
+			$calendar.= str_repeat('<p>'.$day_content.'</p>',1);
+			
+			
+		$calendar.= '</td>';
+		if($running_day == 6):
+			$calendar.= '</tr>';
+			if(($day_counter+1) != $days_in_month):
+				$calendar.= '<tr class="calendar-row">';
+			endif;
+			$running_day = -1;
+			$days_in_this_week = 0;
+		endif;
+		$days_in_this_week++; $running_day++; $day_counter++;
+	endfor;
+
+	/* finish the rest of the days in the week */
+	if($days_in_this_week < 8):
+		for($x = 1; $x <= (8 - $days_in_this_week); $x++):
+			$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
+		endfor;
+	endif;
+
+	/* final row */
+	$calendar.= '</tr>';
+
+	/* end the table */
+	$calendar.= '</table>';
+	
+	/* all done, return result */
+	return $calendar;
+}
+
+/* sample usages */
+//echo '<h2>July 2009</h2>';
+//echo draw_calendar(7,2009);
+
+
+	
+	
+	?>
+	</div>
+
+	<!--<div class="row">
+		<?php echo $form->labelEx($model,'user_id'); ?>
+		<?php echo $form->textField($model,'user_id'); ?>
+		<?php echo $form->error($model,'user_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'created'); ?>
+		<?php echo $form->textField($model,'created'); ?>
+		<?php echo $form->error($model,'created'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'modified'); ?>
+		<?php echo $form->textField($model,'modified'); ?>
+		<?php echo $form->error($model,'modified'); ?>
+	</div>
+
+	-->
+
+</div><!-- form -->

@@ -1,4 +1,11 @@
 <body onload="document.search_form.query.focus()">
+
+<?php 
+$this->menu=array(
+	array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
+	array('label'=>'Manage Servicecall', 'url'=>array('/servicecall/admin')),
+);	
+?>
  <?php 
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 

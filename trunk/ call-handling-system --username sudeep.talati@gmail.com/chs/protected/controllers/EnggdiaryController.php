@@ -83,21 +83,13 @@ class EnggdiaryController extends Controller
 		{
 			$model->attributes=$_POST['Enggdiary'];
 			
-//			$php_date=$model->visit_start_date;
-//			
-//			
-//			$sept=strtotime($model->visit_start_date);
-//			echo '<br>10-SEPT-2000   :'.$sept;
-			$sept=1329696000;
-//			echo '<br>MY NEW DATE'.date('F d,Y',$sept);
-//			
-			
-			
-			
-			
 			if($model->save())
 			{
-			//	$this->redirect(array('view','id'=>$model->id));
+				$service_id=$model->servicecall_id;
+        		$engg_id=$model->engineer_id;
+	        	
+				$baseUrl=Yii::app()->request->baseUrl;
+				$this->redirect($baseUrl.'/servicecall/'.$service_id);
 			}
 		
 		}

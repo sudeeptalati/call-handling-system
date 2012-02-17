@@ -8,25 +8,17 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-	
-	<?php echo $form->hiddenField($model,'customer_id',array('value'=>'0')); ?>
-	<?php echo $form->error($model,'customer_id'); ?>
-	
-	<div class="row">
-		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
-		<?php echo $form->textField($model,'insurer_reference_number',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'insurer_reference_number'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'job_status_id'); ?>
-		<?php echo "Draft";?>
-		<?php //echo $form->textField($model,'job_status_id'); ?>
-		<?php echo $form->error($model,'job_status_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fault_date'); ?>
+<!-- ***** FIRST PART DISPLAYING SERVICE CALL DETAILS ******* -->
+	<table>
+	<tr><td colspan="2" style="text-align:center">
+		<h2>Service Call Details</h2>
+		</td>
+	</tr>
+	
+	<tr>
+	<td style="vertical-align:top;">	
+	<?php echo $form->labelEx($model,'fault_date'); ?>
 		<?php 
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			    'name'=>CHtml::activeName($model, 'fault_date'),
@@ -40,55 +32,45 @@
 			    'htmlOptions'=>array(
 			        'style'=>'height:20px;'
 			    ),
-			));		
+			));
 		?>
 		<?php //echo $form->textField($model,'fault_date'); ?>
 		<?php echo $form->error($model,'fault_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fault_code'); ?>
-		<?php echo $form->textField($model,'fault_code',array('rows'=>6, 'cols'=>50)); ?>
+		
+				<?php echo $form->labelEx($model,'fault_code'); ?>
+		<?php echo $form->textField($model,'fault_code'); ?>
 		<?php echo $form->error($model,'fault_code'); ?>
-	</div>
-
-	<div class="row">
+		
 		<?php echo $form->labelEx($model,'fault_description'); ?>
-		<?php echo $form->textField($model,'fault_description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'fault_description',array('rows'=>4, 'cols'=>40)); ?>
 		<?php echo $form->error($model,'fault_description'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'engg_visit_date'); ?>
-		<?php 
-			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-			    'name'=>CHtml::activeName($model, 'engg_visit_date'),
-				'model'=>$model,
-        		'value' => $model->attributes['engg_visit_date'],
-			    // additional javascript options for the date picker plugin
-			    'options'=>array(
-			        'showAnim'=>'fold',
-					'dateFormat' => 'dd-mm-yy',
-			    ),
-			    'htmlOptions'=>array(
-			        'style'=>'height:20px;'
-			    ),
-			));		
-		?>
-		<?php //echo $form->textField($model,'engg_visit_date'); ?>
-		<?php echo $form->error($model,'engg_visit_date'); ?>
-	</div>
-
-	<div class="row">
+	</td>
+	<td>
+	<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
+		<?php echo $form->textField($model,'insurer_reference_number'); ?>
+		<?php echo $form->error($model,'insurer_reference_number'); ?>
 		<?php echo $form->labelEx($model,'notes'); ?>
-		<?php echo $form->textField($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'notes',array('rows'=>7, 'cols'=>40)); ?>
 		<?php echo $form->error($model,'notes'); ?>
-	</div>
-	
+	</td>
+
+	</tr>
+	<tr><td colspan="2"><hr></td></tr>
 	<!-- FIELDS OF CUSTOMER AND PRODUCT FORM -->
+	<tr	><td>
+			<h2 style="margin-bottom:0.01px;">Customer Details</h2>
+		</td>
+		<td>	
+			<h2 style="margin-bottom:0.01px;">Product Details</h2>
+		</td>		
+	</tr>
 	
-	<h4>Enter customer details</h4>
-	
+	<tr>
+	<td style="vertical-align:top;">	
+	<!-- ***** SECOND ROW - FIRST COLUMN PART DISPLAYING CUSTOMER DETAILS ******* -->
+	<?php //SETTING CUSTOMER ID TO ZERO TO CHECK WEATHER NEW CUSTOMER OR NOT.?>
+	<?php echo $form->hiddenField($model,'customer_id',array('value'=>'0')); ?>
+	<?php echo $form->error($model,'customer_id'); ?>
 	<?php 
 	if(!empty($model->customer->id))
 	{
@@ -99,10 +81,10 @@
 		$customerModel=Customer::model();
 	}
 	?>
-	
+	<?php echo $form->errorSummary($customerModel); ?>
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'title'); ?>
-		<?php echo $form->textField($customerModel,'title',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->dropDownList($customerModel,'title',array('Mr'=>'Mr','Mrs'=>'Mrs','Mrs'=>'Mrs','Dr'=>'Dr',)); ?>
 		<?php echo $form->error($customerModel,'title'); ?>
 	</div>
 
@@ -186,11 +168,17 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'notes'); ?>
-		<?php echo $form->textField($customerModel,'notes',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($customerModel,'notes',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'notes'); ?>
 	</div>
 	
+	</td>
+	
+	<td style="vertical-align:top;">
 	<!-- FIELDS FROM PRODUCT TABLE -->
+	<table>
+	<tr>
+		<td style="vertical-align:top;">
 	
 	<?php 
 	if(!empty($model->product_id))
@@ -203,7 +191,7 @@
 	}
 	?>
 	
-	<h4>Enter Product details</h4>
+	
 	
 	<div class="row">
 		<?php echo $form->labelEx($productModel,'brand_id'); ?>
@@ -218,34 +206,6 @@
 		<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes());?>
 		<?php echo $form->error($productModel,'product_type_id'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($productModel,'purchased_from'); ?>
-		<?php echo $form->textField($productModel,'purchased_from',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($productModel,'purchased_from'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($productModel,'purchase_date'); ?>
-		<?php 
-			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-			    'name'=>CHtml::activeName($productModel, 'purchase_date'),
-				'model'=>$productModel,
-        		'value' => $productModel->attributes['purchase_date'],
-			    // additional javascript options for the date picker plugin
-			    'options'=>array(
-			        'showAnim'=>'fold',
-					'dateFormat' => 'dd-mm-yy',
-			    ),
-			    'htmlOptions'=>array(
-			        'style'=>'height:20px;'
-			    ),
-			));
-		?>
-		<?php //echo $form->textField($productModel,'purchase_date'); ?>
-		<?php echo $form->error($productModel,'purchase_date'); ?>
-	</div>
-	
 	<div class="row">
 		<?php echo $form->labelEx($productModel,'model_number'); ?>
 		<?php echo $form->textField($productModel,'model_number',array('rows'=>6, 'cols'=>50)); ?>
@@ -257,6 +217,13 @@
 		<?php echo $form->textField($productModel,'serial_number',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($productModel,'serial_number'); ?>
 	</div>
+	</td>
+	
+	
+	<td style="vertical-align:top;">
+
+	
+
 
 	<div class="row">
 		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
@@ -291,24 +258,63 @@
 		<?php echo $form->textField($productModel,'warranty_for_months'); ?>
 		<?php echo $form->error($productModel,'warranty_for_months'); ?>
 	</div>
+	</td></tr>
+	<tr><td colspan="2"><br>	<i>Purchase Details</i></td></tr>
+	<tr>
+	
+	<td style="vertical-align:top;">
+
+
+		<div class="row">
+		<?php echo $form->labelEx($productModel,'purchased_from'); ?>
+		<?php echo $form->textField($productModel,'purchased_from',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($productModel,'purchased_from'); ?>
+	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($productModel,'purchase_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($productModel, 'purchase_date'),
+				'model'=>$productModel,
+        		'value' => $productModel->attributes['purchase_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));
+		?>
+		<?php //echo $form->textField($productModel,'purchase_date'); ?>
+		<?php echo $form->error($productModel,'purchase_date'); ?>
+	</div>
+	
+		<div class="row">
 		<?php echo $form->labelEx($productModel,'purchase_price'); ?>
 		<?php echo $form->textField($productModel,'purchase_price'); ?>
 		<?php echo $form->error($productModel,'purchase_price'); ?>
 	</div>
+	</td>
+	<td style="vertical-align:top;">
 
-	<div class="row">
+	
 		<?php echo $form->labelEx($productModel,'notes'); ?>
-		<?php echo $form->textField($productModel,'notes',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($productModel,'notes',array('rows'=>8, 'cols'=>20)); ?>
 		<?php echo $form->error($productModel,'notes'); ?>
-	</div>
-	
+	</td>
+	</tr>
+	<tr><td colspan="2"><div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Raise Call' : 'Save'); ?>
+	</div></td></tr>
+	</table><!-- END OF TABLE OF PRODUCT -->
 	<!-- END OF FIELDS OF PRODUCT TABLE -->
+	</td>
+	</tr>
+	</table>
 	
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
 
 <?php $this->endWidget(); ?>
 

@@ -105,7 +105,7 @@ class Customer extends CActiveRecord
 			'mobile' => 'Mobile',
 			'fax' => 'Fax',
 			'email' => 'Email',
-			'notes' => 'Notes',
+			'notes' => 'Customer Notes',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
@@ -159,7 +159,7 @@ class Customer extends CActiveRecord
         		$this->created_by_user_id=Yii::app()->user->id;
         		$this->fullname=$this->first_name." ".$this->last_name;
         		$this->lockcode=Yii::app()->user->id*1000;        		
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
         		
         		//SAVING DETAILS TO PRODUCT TABLE.
         		
@@ -190,7 +190,7 @@ class Customer extends CActiveRecord
             	{
             		$this->fullname=$this->first_name." ".$this->last_name;
             	}
-            	//$this->modified=date("F j, Y, g:i a");
+            	$this->modified=time();
                 return true;
             }
         }//end of if(parent())
@@ -220,6 +220,10 @@ class Customer extends CActiveRecord
     	$criteria=new CDbCriteria;
     	
     	$criteria->compare('fullname', $keyword, true, 'OR');
+    	$criteria->compare('postcode', $keyword, true, 'OR');
+    	$criteria->compare('town', $keyword, true, 'OR');
+    	$criteria->compare('telephone', $keyword, true, 'OR');
+    	$criteria->compare('mobile', $keyword, true, 'OR');
     	
     	/*result limit*/
         $criteria->limit = 100;

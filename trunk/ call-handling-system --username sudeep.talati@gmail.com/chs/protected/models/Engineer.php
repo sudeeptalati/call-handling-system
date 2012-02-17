@@ -194,7 +194,7 @@ class Engineer extends CActiveRecord
             	{
             		$this->fullname=$this->first_name." ".$this->last_name;
             	}
-            	//$this->modified=date("F j, Y, g:i a");
+            	$this->modified=time();
                 return true;
             }
         }//end of if(parent())

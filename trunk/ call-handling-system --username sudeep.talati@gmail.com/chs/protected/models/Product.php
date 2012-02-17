@@ -47,6 +47,8 @@ class Product extends CActiveRecord
 	public $product_name;
 	public $customer_name;
 	public $engineer_name;
+	public $warranty_until;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Product the static model class
@@ -75,7 +77,7 @@ class Product extends CActiveRecord
 			array('contract_id, brand_id, product_type_id', 'required'),
 			array('contract_id, brand_id, product_type_id, customer_id, engineer_id, discontinued, warranty_for_months, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('purchase_price', 'numerical'),
-			array('purchased_from, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode', 'safe'),
+			array('purchased_from, warranty_until, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode', 'safe'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -125,11 +127,14 @@ class Product extends CActiveRecord
 			'discontinued' => 'Discontinued',
 			'warranty_for_months' => 'Warranty For Months',
 			'purchase_price' => 'Purchase Price',
-			'notes' => 'Notes',
+			'notes' => 'Product Notes',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
 			'cancelled' => 'Cancelled',
+		/*USER ADDED ATTRIBUTED*/
+			'warranty_until' => 'Warranty Until',
+		
 		);
 	}
 
@@ -199,14 +204,14 @@ class Product extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
         		$this->lockcode=Yii::app()->user->id*1000;
         		$this->customer_id=0;
         		return true;
             }
             else
             {
-            	$this->modified=date("F j, Y, g:i a");
+            	$this->modified=time();
                 return true;
             }
         }//end of if(parent())

@@ -145,7 +145,7 @@ class User extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->password = hash('sha256', $this->password);
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
     			return true;
             }
             else
@@ -154,7 +154,7 @@ class User extends CActiveRecord
                 {
                 	$this->password = hash('sha256', $this->password);
                 }
-                $this->modified=date("F j, Y, g:i a");
+                $this->modified=time();
                 return true;
             }
         }//end of if(parent())

@@ -31,11 +31,11 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','ChangeEngineer'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','displayDiary'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -61,14 +61,19 @@ class EnggdiaryController extends Controller
 	 */
 	public function actionCreate()
 	{
+		
+		$service_id=$_GET['id'];
 		$engg_id=$_GET['engineer_id'];
-		$service_id=$_GET['service_id'];
 		
 		//echo "THIS IS SELECTED :".$engg_id;
 		//echo "<hr>SEVRICE CALL ID :".$service_id;
 		$model=new Enggdiary;
-		$model->engineer_id=$engg_id;
 		$model->servicecall_id=$service_id;
+		
+		
+		$model->engineer_id=$engg_id;
+		//echo "THIS IS SELECTED :".$model->engineer_id;
+		
 		
 
 		// Uncomment the following line if AJAX validation is needed
@@ -91,7 +96,10 @@ class EnggdiaryController extends Controller
 			
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			{
+			//	$this->redirect(array('view','id'=>$model->id));
+			}
+		
 		}
 
 		$this->render('create',array(
@@ -193,5 +201,43 @@ class EnggdiaryController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}//end of ajax.
+	
+
+	
+	
+	public function actionChangeEngineer()
+	{
+
+	  	$model=new Enggdiary();
+     
+		if (isset($_GET['engineer_id']))
+		{
+		$model->engineer_id=$_GET['engineer_id'];
+		}
+	    
+		if(isset($_POST['Enggdiary']))
+    	{
+        $model->attributes=$_POST['Enggdiary'];
+        //echo "I M INSIDE AND id is ".$model->engineer_id;
+        if ($model->servicecall_id)
+        	{
+        	$service_id=$model->servicecall_id;
+        	$engg_id=$model->engineer_id;
+        	
+			$baseUrl=Yii::app()->request->baseUrl;
+			$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
+        	}	
+
+    	}//
+    
+		$this->render('changeEngineer',array(
+			'model'=>$model,
+		));
+    	
+    
 	}
-}
+///end of function change engineer	
+	
+	
+}//end of class.

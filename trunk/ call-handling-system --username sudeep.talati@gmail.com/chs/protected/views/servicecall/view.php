@@ -31,9 +31,6 @@ $action_url=$this->createUrl($url);
 
 $EngineerModel=Engineer::model();
 
-$list=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
-
-echo CHtml::dropDownList('engineer_id','', $list);
 ?>
 
 <input type="hidden" name='service_id' value='<?php echo $model->id ;?>'>

@@ -43,6 +43,8 @@ class Servicecall extends CActiveRecord
 {
 	public $created_by_user;
 	public $customer_name;
+	public $customer_town;
+	public $customer_postcode;
 	public $product_name;
 	public $engineer_name;
 	public $contract_name;
@@ -75,10 +77,10 @@ class Servicecall extends CActiveRecord
 			array('job_status_id, fault_description', 'required'),
 			array('service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('insurer_reference_number, fault_date, fault_code, engg_visit_date, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
+			array('customer_town,customer_postcode , insurer_reference_number, fault_date, fault_code, engg_visit_date, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, customer_name, customer_id, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes, created_by_user_id, created, modified, cancelled, closed', 'safe', 'on'=>'search'),
+			array('id, customer_town , customer_postcode, customer_name, customer_id, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes, created_by_user_id, created, modified, cancelled, closed', 'safe', 'on'=>'search'),
 			
 		);
 	}
@@ -126,12 +128,15 @@ class Servicecall extends CActiveRecord
 			'net_cost' => 'Net Cost',
 			'job_payment_date' => 'Job Payment Date',
 			'job_finished_date' => 'Job Finished Date',
-			'notes' => 'Notes',
+			'notes' => 'Service Notes',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
 			'cancelled' => 'Cancelled',
-			'closed' => 'Closed',		
+			'closed' => 'Closed',
+		'customer_town' => 'Town',
+		'customer_postcode' => 'Postcode',	
+		
 		);
 	}
 
@@ -146,8 +151,9 @@ class Servicecall extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		
-		$criteria->with = array( 'customer' );
+		$criteria->order = 'service_reference_number DESC';
 		
+		$criteria->with = array( 'customer' );
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
 		
 		$criteria->compare('id',$this->id);
@@ -207,7 +213,7 @@ class Servicecall extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
         		
         		//SETTING SERVICE REFERENCE NUMBER.
         		$count_sql = "SELECT COUNT(*) FROM servicecall";
@@ -283,7 +289,7 @@ class Servicecall extends CActiveRecord
 					$productQueryModel=Product::model()->findByPk($customerQueryModel->product_id);
 					//echo "CONTRACT ID FROM PRODUCT ID :".$productQueryModel->contract_id;
 					$this->contract_id=$productQueryModel->contract_id;
-					$this->engineer_id=$productQueryModel->engineer_id;
+					//$this->engineer_id=$productQueryModel->engineer_id;
 	        		
 					//echo "PRODUCT ID FROM CUST ID :".$customerQueryModel->product_id;
 //	        		echo "IN ELSE OF IF(CUST ID)";
@@ -293,7 +299,7 @@ class Servicecall extends CActiveRecord
             }
             else
             {
-            	$this->modified=date("F j, Y, g:i a");
+            	$this->modified=time();
                 return true;
             }
         }//end of if(parent())

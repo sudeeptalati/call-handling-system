@@ -11,25 +11,25 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textArea($model,'username',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'username',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->textArea($model,'password',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->passwordField($model,'password',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textArea($model,'email',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'email',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'profile'); ?>
-		<?php echo $form->textArea($model,'profile',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'profile',array('rows'=>4, 'cols'=>25)); ?>
 		<?php echo $form->error($model,'profile'); ?>
 	</div>
 

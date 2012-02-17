@@ -71,7 +71,7 @@ class ProductType extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Product Name',
+			'name' => 'Product Type',
 			'information' => 'Information',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
@@ -109,12 +109,12 @@ class ProductType extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
     			return true;
             }
             else
             {
-            	$this->modified=date("F j, Y, g:i a");
+            	$this->modified=time();
                 return true;
             }
         }//end of if(parent())

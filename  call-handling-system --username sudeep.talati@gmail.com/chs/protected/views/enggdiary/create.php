@@ -10,6 +10,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Enggdiary</h1>
+<h1>Add to Diary</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

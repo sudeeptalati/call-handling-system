@@ -17,9 +17,11 @@
  * * The followings are the available model relations:
  * @property Enginner $engineer
  * @property Servicecall $servicecall
+ * @property User $userid
  */
 class Enggdiary extends CActiveRecord
 {
+	public $engineer_name;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Enggdiary the static model class
@@ -64,6 +66,7 @@ class Enggdiary extends CActiveRecord
 		return array(
 		'engineer' => array(self::BELONGS_TO, 'Engineer', 'engineer_id'),
 		'servicecall' => array(self::BELONGS_TO, 'Servicecall', 'servicecall_id'),
+		'userid' => array(self::BELONGS_TO, 'User', 'user_id'),
 		
 		
 		);
@@ -142,5 +145,10 @@ class Enggdiary extends CActiveRecord
     								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date));
     	
     }//end of fetchDiaryDetails(). 
+    	
+    public function getAllEngineers()
+    {
+    	return CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+    }
     
 }//end of class.

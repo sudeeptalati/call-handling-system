@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Enggdiary', 'url'=>array('index')),
-	array('label'=>'Create Enggdiary', 'url'=>array('create')),
+	//array('label'=>'Create Enggdiary', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -43,7 +43,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'engineer_id',
+		//'engineer_id',
+		array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
+		//'engineer.fullname',
 		'visit_start_date',
 		'visit_end_date',
 		'slots',
@@ -55,6 +57,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}',
 		),
 	),
 )); ?>

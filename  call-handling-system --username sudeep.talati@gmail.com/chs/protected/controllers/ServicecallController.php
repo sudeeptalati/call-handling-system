@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -72,7 +72,9 @@ class ServicecallController extends Controller
 		if(isset($_POST['Servicecall'],$_POST['Customer']))
 		{
 			$model->attributes=$_POST['Servicecall'];
+			
 			$customerModel->attributes=$_POST['Customer'];
+			
 			
 			$valid=$model->validate();
 			$valid=$customerModel->validate() && $valid;
@@ -199,11 +201,14 @@ class ServicecallController extends Controller
 		if(isset($_POST['Servicecall']))
 		{
 			$model->attributes=$_POST['Servicecall'];
+			//echo "NEW  ENGG".$model->engineer_id;
 			
 			if($model->save())
-			
-				$this->redirect(array('view','id'=>$model->id));
-					
+			{
+				$engg_id=$model->engineer_id;
+				$baseUrl=Yii::app()->request->baseUrl;
+				$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+			}		
 		}//end of if(isset()).
 		
 		
@@ -212,4 +217,35 @@ class ServicecallController extends Controller
 		));
 		
 	}//end of actionExistingCustomer().
+	
+//CODE FROM GII FORM GENERATOR.	
+	
+	public function actionUpdateServicecall()
+	{
+    	$model=new Servicecall('update');
+
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-updateServicecall-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['Servicecall']))
+	    {
+	        $model->attributes=$_POST['Servicecall'];
+	        if($model->validate())
+	        {
+	            // form inputs are valid, do something here
+	            return;
+	        }
+	    }
+	    $this->render('updateServicecall',array('model'=>$model));
+	}//end of updateServicecall.
+
+		
+	
+	
 }//end of class.

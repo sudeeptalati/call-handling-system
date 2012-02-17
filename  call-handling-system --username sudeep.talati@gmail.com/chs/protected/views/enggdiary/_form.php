@@ -4,8 +4,6 @@
 	'id'=>'enggdiary-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
 	
 <?php 
 $engg_id=$model->engineer_id;
@@ -30,68 +28,78 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 ?>
 	
 
-<table style="border;2px;" >
-  <tr>
+  
 	<?php echo $form->errorSummary($model); ?>
 
-		<td class="row">
 			<?php //echo $form->labelEx($model,'engineer_id'); ?>
 			<?php echo $form->hiddenField($model,'engineer_id'); ?>
 			<?php echo $form->error($model,'engineer_id'); ?>
-		</td>
-		<td class="row">
 			<?php //echo $form->labelEx($model,'servicecall_id'); ?>
 			<?php echo $form->hiddenField($model,'servicecall_id'); ?>
 			<?php echo $form->error($model,'servicecall_id'); ?>
-		</td>
-
-	</tr>
-	<tr>
-		<td>
-		<?php echo "<b>Engineer Details</b><br>" ,
-		  CHtml::textArea('Address', $enggDetails,  array('disabled'=>'disabled')); ?>
-		</td>
-	</tr>
-	</table>
-	<h5>Customer and Product details</h5>
+		
+			
 	<table>
 	<tr>
-		<td>
-			<?php echo $form->labelEx($serviceModel,'service_reference_number'); ?>
-			<?php echo $form->textField($serviceModel,'service_reference_number', array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($serviceModel,'service_reference_number'); ?>
-		</td>
-		<td>
+		<th></th>
+		<th></th>
+		<th><h2>Service Ref. No.# <?php echo $model->servicecall->service_reference_number;?></h2></th>
+	</tr>
+	<!-- 
+	<tr>
+		<th>Fault </th>
+		<th>Customer</th>
+		<th>Product	</th>
+	</tr>
+	-->
+	<tr>
+	<td style="vertical-align:top;">
+			<?php echo $form->labelEx($serviceModel,'fault_date'); ?>
+			<?php echo $form->textField($serviceModel,'fault_date', array('disabled'=>'disabled')); ?>
+			
+			<?php echo $form->labelEx($serviceModel,'fault_description'); ?>
+			<?php echo $form->textArea($serviceModel,'fault_description', array('disabled'=>'disabled','rows'=>4, 'cols'=>18)); ?>		
+	</td>
+	<td style="vertical-align:top;">
+		
 			<?php echo $form->labelEx($customerModel,'fullname'); ?>
 			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
 			<?php echo $form->error($customerModel,'fullname'); ?>
-		</td>
-		<td>
+			
+			<?php echo $form->labelEx($customerModel,'town'); ?>
+			<?php echo $form->textField($customerModel,'town', array('disabled'=>'disabled')); ?>
+			
+			<?php echo $form->labelEx($customerModel,'postcode'); ?>
+			<?php echo $form->textField($customerModel,'postcode', array('disabled'=>'disabled')); ?>
+	</td>
+	<td style="vertical-align:top;">
 			<?php echo $form->labelEx($brandModel,'name'); ?>
 			<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($brandModel,'name'); ?>
-		</td>
-		<td>
+	
+	
 			<?php echo $form->labelEx($productTypeModel,'name'); ?>
 			<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($productTypeModel,'name'); ?>
-		</td>
+	</td>
 	</tr>
-	<tr>
-		<td>
-			<?php echo $form->labelEx($serviceModel,'fault_description'); ?>
-			<?php echo $form->textArea($serviceModel,'fault_description', array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($serviceModel,'fault_description'); ?>
-		</td>
-		<td>
-			<?php echo $form->labelEx($serviceModel,'fault_date'); ?>
-			<?php echo $form->textField($serviceModel,'fault_date', array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($serviceModel,'fault_date'); ?>
-		</td>
+		<tr>
+		<td colspan="3">
+		 <hr>
+		 </td>
 	</tr>
+	
+	
+	
 	<tr>
+		<td colspan="3">
+		<?php echo "<b>	Engineer Details</b><br>" ,
+		  CHtml::textArea('Address', $enggDetails,  array('rows'=>4, 'cols'=>20,'disabled'=>'disabled')); ?>
 
-		<td class="row" colspan="2">
+		</td>
+	</tr>
+
+	<tr>
+	
+		<td class="row" colspan="3">
 		<?php echo $form->labelEx($model,'visit_start_date'); ?>
 		<?php 
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -108,9 +116,7 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 			    ),
 			));		
 		?>
-		<?php //echo $form->textField($model,'fault_date'); ?>
-		<?php echo $form->error($model,'visit_start_date'); ?>
-
+ 
 
 		<?php echo $form->labelEx($model,'slots'); ?>
 		<?php echo $form->dropDownList($model,'slots', array('1'=>1, '2'=>2,'3'=>3, '4'=>4,'5'=>5, '6'=>6,'7'=>7,'8'=>8,'9'=>9,'10'=>10,'11'=>11, '12'=>12,'13'=>13, '14'=>14,'15'=>15, '16'=>16,'17'=>17,'18'=>18,'19'=>19,'20'=>20,));?>
@@ -129,24 +135,38 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 	<div>
 
 
-	
-	<?php //echo "RESULTS OF FUNCTION :".$model->fetchDiaryDetails('15','15-02-2012');
-			
-//		echo 'ENG ID'.$engg_id;
-//		$results=Enggdiary::model()->fetchDiaryDetails($engg_id,'1329782400');			
-//		foreach($results as $data)
-//		{
-//			echo " <br>ENGINEER ID ".$data->engineer->fullname;
-//			echo " <br>Servise call".$data->servicecall->service_reference_number;
-//			echo " <br>vist date ".$data->visit_start_date;
-//			echo " <br>SLOT ".$data->slots;
-//			
-//			
-//		}
-	
-	
-	?>
 
+
+ 
+<div class="form">
+
+ 
+
+<?php 
+	$baseUrl=Yii::app()->request->baseUrl;
+	$changeEnggUrl=$baseUrl.'/enggdiary/changeEngineer/';		
+
+	$enggdiaryform=$this->beginWidget('CActiveForm', array(
+	'id'=>'enggdiary-changeEngineer-form',
+	'enableAjaxValidation'=>false,
+	'action'=>$changeEnggUrl,
+	'method'=>'post'
+	
+)); ?>
+<?php 
+
+	//$odel=Engineer::model();
+	//$enggModel->id=$model->engineer_id;
+	echo $enggdiaryform->labelEx($model,'fullname');
+	echo $enggdiaryform->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
+	echo $enggdiaryform->error($model,'id');
+
+	echo $form->hiddenField($model,'servicecall_id');
+	echo CHtml::submitButton('Change');
+	
+?>
+<?php $this->endWidget(); ?>
+</div><!-- ENd of form -->
 	
 <style type="text/css">
 /* calendar */
@@ -195,14 +215,25 @@ $previous_month_link = '<a href="?month='.($month != 1 ? $month - 1 : 12).'&amp;
 
 
 /* bringing the controls together */
-$controls = '<form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$previous_month_link.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$next_month_link.' </form>';
+//$controls = '<table><tr><td>'..'<form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$previous_month_link.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$next_month_link.' </form>';
+$controls = '<table><tr><td>'.$previous_month_link.'</td><td><form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" /></form></td><td>'.$next_month_link.'</td></tr></table>';
 
 //echo $controls;	
 
 $cuurent_month=strtotime('1-'.$month.'-'.$year);
-echo '<h2 style="float:left; padding-right:30px;">'.date('F - Y',$cuurent_month).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
-echo $controls;
-echo draw_calendar($month,$year,$engg_id);
+$this_month= '<h2 style=" padding-right:30px;">'.date('F - Y',$cuurent_month).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
+
+$draw='<table><tr><td style="text-align:center;" >'.$this_month.'</td></tr>';
+$draw.='<tr><td>'.$controls.'</td></tr>';
+$draw.='<tr><td>'.draw_calendar($month,$year,$engg_id).'</td></tr></table>';
+echo $draw;
+
+
+
+
+
+
+
 
 /* draws a calendar */
 function draw_calendar($month,$year,$engg_id){
@@ -241,7 +272,7 @@ function draw_calendar($month,$year,$engg_id){
 			$current_date=$list_day.'-'.$month.'-'.$year;
 			$mysql_date=strtotime($current_date);
 			
-			$day_content='<b>'.$mysql_date.'</b>';
+			$day_content='';
 //			$day_content.='<br>ENGGG  :'.$engg_id;
 //			
 			$results=Enggdiary::model()->fetchDiaryDetails($engg_id,$mysql_date);			
@@ -250,9 +281,12 @@ function draw_calendar($month,$year,$engg_id){
 //			echo " <br>ENGINEER ID ".$data->engineer->fullname;
 //			echo " <br>Servise call".$data->servicecall->service_reference_number;
 			//$day_content.=" <br>Servise call".$data->servicecall->service_reference_number;
-			
-			$day_content.=" <br>vist date ".$data->visit_start_date;
-//			echo " <br>SLOT ".$data->slots;
+			//$day_content.="<p>";
+			$link="../../servicecall/19";
+			$day_content.="<a href='".$link."'>";
+			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
+			$day_content.="</a>";
+			//$day_content.="</p>";
 			}
 			
 			
@@ -307,24 +341,6 @@ function draw_calendar($month,$year,$engg_id){
 	?>
 	</div>
 
-	<!--<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id'); ?>
-		<?php echo $form->error($model,'user_id'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
-
-	-->
 
 </div><!-- form -->

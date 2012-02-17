@@ -160,7 +160,7 @@ class Contract extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
         		
         		//SAVING MANAGEMENT CONTACT DETAILS.
         		
@@ -213,7 +213,7 @@ class Contract extends CActiveRecord
             	{
             		
             	}									
-            	$this->modified=date("F j, Y, g:i a");
+            	$this->modified=time();
                 return true;
             }
         }//end of if(parent())

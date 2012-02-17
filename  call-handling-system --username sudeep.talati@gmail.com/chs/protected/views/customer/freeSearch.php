@@ -2,8 +2,8 @@
 
 <?php 
 $this->menu=array(
-	array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
-	array('label'=>'Manage Servicecall', 'url'=>array('/servicecall/admin')),
+	//array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
+	array('label'=>'Recent Servicecalls', 'url'=>array('/servicecall/admin')),
 );	
 ?>
  <?php 
@@ -74,12 +74,13 @@ $current_url=$baseUrl."/".$model_name;
 //echo "Search   :".$current_url."<br>";
 ?>
 
+<h2>Create New Service Call</h2>
 <input type="hidden" id="current_url" value="<?php echo $current_url;?>"/> 
         <!-- if YOU WANT TO SEND ADDITIONAL HIDDEN VARIABLES-->
 <!--        <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> -->
 <!--        <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/>  -->
         
-              Enter Customer Name<br><br>
+              Search by Customer Name or Postcode or Town or Phone 	number<br><br>
                 <!-- The Searchbox Starts Here  -->
                 <form  name="search_form">
                  <input  name="query" type="text" id="faq_search_input" style="background-color: #FFFFFF" />

@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Servicecall', 'url'=>array('index')),
-	array('label'=>'Create Servicecall', 'url'=>array('create')),
+	//array('label'=>'List Servicecall', 'url'=>array('index')),
+	array('label'=>'Create Servicecall', 'url'=>array('customer/freeSearch')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -42,14 +42,16 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+		//'id',
 		'service_reference_number',
 		//'customer_id',
 		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
+		array('name'=>'customer_town','value'=>'$data->customer->town'),
+		array('name'=>'customer_postcode','value'=>'$data->customer->postcode'),
 		//'product_id',
 		array('name'=>'product_name','value'=>'$data->product->productType->name'),
 		//'contract_id',
-		array('name'=>'contract_name','value'=>'$data->contract->name'),
+	//	array('name'=>'contract_name','value'=>'$data->contract->name'),
 		//'engineer_id',
 		array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
 		//'created_by_user_id',
@@ -76,6 +78,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}',
 		),
 	),
 )); ?>

@@ -145,7 +145,7 @@ class ContactDetails extends CActiveRecord
         {
         	if($this->isNewRecord)  // Creating new record 
             {
-        		$this->created=date("F j, Y, g:i a");
+        		$this->created=time();
         		//SAVING lockcode DATA.
         		$this->lockcode=Yii::app()->user->id*1000;
     			return true;

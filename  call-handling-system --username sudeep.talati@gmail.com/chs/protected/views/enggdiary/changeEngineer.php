@@ -1,7 +1,4 @@
 <div class="form">
-
- 
-
 <?php 
 	
 	$baseUrl=Yii::app()->request->baseUrl;
@@ -151,19 +148,8 @@ function draw_calendar($month,$year,$engg_id){
 			$day_content.="</a>";
 			//$day_content.="</p>";
 			}
-			
-			
-	
-			
-			
-			
-			
-			
-			
-			
-			
+
 			$calendar.= str_repeat('<p>'.$day_content.'</p>',1);
-			
 			
 		$calendar.= '</td>';
 		if($running_day == 6):

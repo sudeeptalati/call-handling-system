@@ -189,12 +189,17 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 $month = (int) ($_GET['month'] ? $_GET['month'] : date('m'));
 $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
 
+$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
+
 /* select month control */
 $select_month_control = '<select name="month" id="month">';
 for($x = 1; $x <= 12; $x++) {
 	$select_month_control.= '<option value="'.$x.'"'.($x != $month ? '' : ' selected="selected"').'>'.date('F',mktime(0,0,0,$x,1,$year)).'</option>';
 }
 $select_month_control.= '</select>';
+
+$hidden_fields='<input type="hidden" name="engineer_id" value="'.$engg_id.'" /> ';
+$hidden_fields.='<input type="hidden" name="service_id" value="'.$service_id.'" /> ';
 
 /* select year control */
 $year_range = 7;
@@ -205,18 +210,17 @@ for($x = ($year-floor($year_range/2)); $x <= ($year+floor($year_range/2)); $x++)
 $select_year_control.= '</select>';
 
 
-$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
 
 /* "next month" control */
 $next_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 12 ? $month + 1 : 1).'&amp;year='.($month != 12 ? $year : $year + 1).'" class="control">Next Month >></a>';
 
 /* "previous month" control */
-$previous_month_link = '<a href="?month='.($month != 1 ? $month - 1 : 12).'&amp;year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Month</a>';
+$previous_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 1 ? $month - 1 : 12).'&amp;year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Month</a>';
 
 
 /* bringing the controls together */
 //$controls = '<table><tr><td>'..'<form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$previous_month_link.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$next_month_link.' </form>';
-$controls = '<table><tr><td>'.$previous_month_link.'</td><td><form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" /></form></td><td>'.$next_month_link.'</td></tr></table>';
+$controls = '<table><tr><td>'.$previous_month_link.'</td><td><form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.$hidden_fields.'&nbsp;<input type="submit" name="submit" value="Change" /></form></td><td>'.$next_month_link.'</td></tr></table>';
 
 //echo $controls;	
 
@@ -226,8 +230,10 @@ $this_month= '<h2 style=" padding-right:30px;">'.date('F - Y',$cuurent_month).'&
 $draw='<table><tr><td style="text-align:center;" >'.$this_month.'</td></tr>';
 $draw.='<tr><td>'.$controls.'</td></tr>';
 $draw.='<tr><td>'.draw_calendar($month,$year,$engg_id).'</td></tr></table>';
+if($engg_id)
+{
 echo $draw;
-
+}
 
 
 
@@ -288,19 +294,8 @@ function draw_calendar($month,$year,$engg_id){
 			$day_content.="</a>";
 			//$day_content.="</p>";
 			}
-			
-			
-	
-			
-			
-			
-			
-			
-			
-			
-			
+
 			$calendar.= str_repeat('<p>'.$day_content.'</p>',1);
-			
 			
 		$calendar.= '</td>';
 		if($running_day == 6):

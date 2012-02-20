@@ -244,7 +244,7 @@ class Servicecall extends CActiveRecord
 				
 				if($this->customer_id=='0')
 				{
-					//SAVING CUSTOMER TABLE.
+					//SAVING NEW CUSTOMER DATA TO CUSTOMER TABLE.
 					$customerModel=new Customer;
 	        		$customerModel->attributes=$_POST['Customer'];
 	        		if($customerModel->save())
@@ -282,13 +282,16 @@ class Servicecall extends CActiveRecord
 				
 				else 
 				{
+					//EXISTING CUSTOMER.
 					$this->customer_id=$cust_id;
 					$customerQueryModel=Customer::model()->findByPk($cust_id);
 					$this->product_id=$customerQueryModel->product_id;
+					//echo "contract id :".$model->contract_id;
 					
 					$productQueryModel=Product::model()->findByPk($customerQueryModel->product_id);
+																						
 					//echo "CONTRACT ID FROM PRODUCT ID :".$productQueryModel->contract_id;
-					$this->contract_id=$productQueryModel->contract_id;
+					//$this->contract_id=$productQueryModel->contract_id;
 					//$this->engineer_id=$productQueryModel->engineer_id;
 	        		
 					//echo "PRODUCT ID FROM CUST ID :".$customerQueryModel->product_id;
@@ -307,9 +310,7 @@ class Servicecall extends CActiveRecord
     
     protected function afterSave()
     {
-    	$customerQueryModel = Customer::model()->findByPK(
-        											$this->customer_id
-													);
+    	$customerQueryModel = Customer::model()->findByPK($this->customer_id);
 													
     	$customerUpdateModel = Customer::model()->updateByPk(
 													$customerQueryModel->id,
@@ -318,12 +319,22 @@ class Servicecall extends CActiveRecord
 														'lockcode'=>0,
 													)
 													);
+													
+		$productQueryModel = Product::model()->findByPk($this->product_id);
+		
+		$productUpdateModel = Product::model()->updateByPk($productQueryModel->id,
+												array(
+												'contract_id'=>$this->contract_id,
+												
+												)
+												);
+															
     	
     }//END OF afterSave().
     
     public function getAllContract()
     {
-    	return CHtml::listData(Contract::model()->findAll(), 'id', 'name');
+    	return CHtml::listData(Contract::model()->findAll(), 'id', 'name', 'contractType.name');
     }//end of getAllContract().
     
     public function getAllEngineers()

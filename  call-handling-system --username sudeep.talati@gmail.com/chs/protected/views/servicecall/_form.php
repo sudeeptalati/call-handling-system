@@ -84,7 +84,7 @@
 	<?php echo $form->errorSummary($customerModel); ?>
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'title'); ?>
-		<?php echo $form->dropDownList($customerModel,'title',array('Mr'=>'Mr','Mrs'=>'Mrs','Mrs'=>'Mrs','Dr'=>'Dr',)); ?>
+		<?php echo $form->dropDownList($customerModel,'title',array('Mr'=>'Mr', 'Miss'=>'Miss', 'Mrs'=>'Mrs','Mrs'=>'Mrs', 'Dr'=>'Dr',)); ?>
 		<?php echo $form->error($customerModel,'title'); ?>
 	</div>
 
@@ -259,6 +259,21 @@
 		<?php echo $form->error($productModel,'warranty_for_months'); ?>
 	</div>
 	</td></tr>
+
+	<tr>
+		<td>
+		<?php echo $form->labelEx($productModel,'enr_number'); ?>
+		<?php echo $form->textField($productModel,'enr_number'); ?>
+		<?php echo $form->error($productModel,'enr_number'); ?>
+		</td>
+		<td>
+		<?php echo $form->labelEx($productModel,'fnr_number'); ?>
+		<?php echo $form->textField($productModel,'fnr_number'); ?>
+		<?php echo $form->error($productModel,'fnr_number'); ?>
+		</td>
+	</tr>
+	
+	
 	<tr><td colspan="2"><br>	<i>Purchase Details</i></td></tr>
 	<tr>
 	

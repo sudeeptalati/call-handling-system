@@ -82,7 +82,12 @@ class ServicecallController extends Controller
 			if($valid)
 			{
 				if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
+				{
+					$engg_id=$model->engineer_id;
+				$baseUrl=Yii::app()->request->baseUrl;
+				$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+					
+				}
 			}
 			else 
 			{
@@ -202,6 +207,7 @@ class ServicecallController extends Controller
 		{
 			$model->attributes=$_POST['Servicecall'];
 			//echo "NEW  ENGG".$model->engineer_id;
+			//echo "CONTRACT ID :".$model->contract_id;
 			
 			if($model->save())
 			{

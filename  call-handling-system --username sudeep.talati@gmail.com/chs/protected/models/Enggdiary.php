@@ -128,6 +128,24 @@ class Enggdiary extends CActiveRecord
             {
             	$this->user_id=Yii::app()->user->id;
         		$this->created=time();
+        		
+        		//SAVING CHANGED ENGG_ID TO SERVICE TABLE.
+        		$serviceQueryModel = Servicecall::model()->findByPk($this->servicecall_id);
+        		
+        		$serviceUpdateModel = Servicecall::model()->updateByPk($serviceQueryModel->id,
+        													array(
+        													'engineer_id'=>$this->engineer_id,
+        													)
+        													);
+				$productQueryModel = Product::model()->findByPk($serviceQueryModel->product_id);
+				$productUpdateModel = Product::model()->updateByPk($serviceQueryModel->product_id,
+																	array(
+																	'engineer_id'=>$this->engineer_id,
+																	)
+																	);        													
+				//echo $serviceUpdateModel->engineer_id;        													
+				//$this->engineer_id=$serviceUpdateModel->engineer_id;        													
+        		
         		return true;
             }
             else

@@ -8,7 +8,7 @@ $this->menu=array(
 	array('label'=>'List Servicecall', 'url'=>array('index')),
 	array('label'=>'Create Servicecall', 'url'=>array('create')),
 	array('label'=>'Update Servicecall', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Servicecall', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+//	array('label'=>'Delete Servicecall', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Servicecall', 'url'=>array('admin')),
 );
 ?>
@@ -47,10 +47,10 @@ $EngineerModel=Engineer::model();
 	'attributes'=>array(
 		'id',
 		'service_reference_number',
-		//'customer_id',
-		'customer.fullname',
-		//'product_id',
-		'product.productType.name',
+		'customer_id',
+		//'customer.fullname',
+		'product_id',
+		//'product.productType.name',
 		//'product.name',
 		//'contract_id',
 		'contract.name',

@@ -44,7 +44,7 @@
 	$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
 								
 	$model->engineer_id=$productModel->engineer_id;
-	echo $productModel->engineer->fullname;
+	//echo $productModel->engineer->fullname;
 								
 	//echo "PRODUCT ID :".$productModel->id; 
 	?>
@@ -180,8 +180,17 @@
 	<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number'); ?>
 		<?php echo $form->error($model,'insurer_reference_number'); ?>
+		
+		<?php //echo '<br><b>Current contract :',
+//		 CHtml::textField('', $productModel->contract->name, array('disabled'=>'disabled'));?>
+		 <?php //echo CHtml::textField('', $productModel->contract->id, array('disabled'=>'disabled'));?>
+		<?php $model->contract_id=$productModel->contract->id; ?>
+		<?php echo $form->labelEx($model,'contract_id'); ?>
+		<?php //echo $form->hiddenField($model,'contract_id'); ?>
+		<?php echo CHtml::activeDropDownList($model,'contract_id', $model->getAllContract()); ?>
+		<?php echo $form->error($model,'contract_id'); ?>
 		<?php echo $form->labelEx($model,'notes'); ?>
-		<?php echo $form->textArea($model,'notes',array('rows'=>7, 'cols'=>40)); ?>
+		<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>30)); ?>
 		<?php echo $form->error($model,'notes'); ?>
 	
 

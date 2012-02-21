@@ -59,7 +59,11 @@ class ServicecallController extends Controller
 	public function actionPreview($id)
 	{
 		$model=$this->loadModel($id);
+
 		
+// 		$this->renderPartial('view',array(
+// 			'model'=>$this->loadModel($id),
+// 		));
 		# You can easily override default constructor's params
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
 		# render (full page)
@@ -69,8 +73,7 @@ class ServicecallController extends Controller
 		$mPDF1->WriteHTML($stylesheet, 1);
 		# Outputs ready PDF
 		$mPDF1->Output();
-		//$this->render('orderPreview',array('model'=>$model));
-
+		
 	}
 	
 	

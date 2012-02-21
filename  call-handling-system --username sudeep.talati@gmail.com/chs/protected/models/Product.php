@@ -116,9 +116,9 @@ class Product extends CActiveRecord
 			'product_type_id' => 'Product Type',
 			'customer_id' => 'Customer',
 			'engineer_id' => 'Engineer',
-			'purchased_from' => 'Purchased From',
+			'purchased_from' => 'Reatiler',
 			'purchase_date' => 'Purchase Date',
-			'warranty_date' => 'Warranty Date',
+			'warranty_date' => 'Warranty Start',
 			'model_number' => 'Model Number',
 			'serial_number' => 'Serial Number',
 			'production_code' => 'Production Code',
@@ -133,7 +133,7 @@ class Product extends CActiveRecord
 			'modified' => 'Modified',
 			'cancelled' => 'Cancelled',
 		/*USER ADDED ATTRIBUTED*/
-			'warranty_until' => 'Warranty Until',
+			'warranty_until' => 'Warranty Expires',
 		
 		);
 	}

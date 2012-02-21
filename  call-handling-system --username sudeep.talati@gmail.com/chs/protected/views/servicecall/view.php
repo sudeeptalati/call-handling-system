@@ -60,9 +60,9 @@
 			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
 			<?php echo $form->error($customerModel,'fullname'); ?>
 			
-			<?php echo "<br><b>Address</b><br>" ,
+			<?php echo "<br>Address<br>" ,
 		  		 CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>40,'disabled'=>'disabled')); ?>
-		  	
+		  	<br>
 		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
 			<br>
 			<?php echo $form->textField($customerModel,'telephone',array('disabled'=>'disabled')); ?>
@@ -73,56 +73,53 @@
 			<?php echo $form->textField($customerModel,'email',array('disabled'=>'disabled')); ?>
 			<br>
 			<?php echo $form->labelEx($customerModel,'notes'); ?>
+			<br>
 			<?php echo $form->textArea($customerModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
 		</td>
-		<td>
+		<td style="vertical-align:top;">
 			<table>
 			<tr>
-				<td>
-					<?php echo $form->labelEx($brandModel,'name'); ?>
+				<td style="vertical-align:top;">
+					<?php echo $form->labelEx($brandModel,'name'); ?><br>
 					<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
-					
-					<?php echo $form->labelEx($productTypeModel,'name'); ?>
+					<br>
+					<?php echo $form->labelEx($productTypeModel,'name'); ?><br>
 					<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
-					
-					<?php echo $form->labelEx($productModel,'model_number'); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'model_number'); ?><br>
 					<?php echo $form->textField($productModel,'model_number',array('disabled'=>'disabled')); ?>
-				
-					<?php echo $form->labelEx($productModel,'serial_number'); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'serial_number'); ?><br>
 					<?php echo $form->textField($productModel,'serial_number',array('disabled'=>'disabled')); ?>
-					
-					<?php echo $form->labelEx($productModel,'enr_number'); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'enr_number'); ?><br>
 					<?php echo $form->textField($productModel,'enr_number',array('disabled'=>'disabled')); ?>
-					
 				</td>
-				<td>
-					
-					<?php echo $form->labelEx($productModel,'purchased_from'); ?>
+				<td style="vertical-align:top;">
+					<?php echo $form->labelEx($productModel,'purchased_from'); ?><br>
 					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
-					
+					<br>
 					<?php $viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
-					<?php echo $form->labelEx($productModel,'purchase_date'); ?>
+					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
-					<?php //echo $form->textField($productModel,'purchase_date', array('disabled'=>'disabled')); ?>
-					
+					<br>
 					<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
-					<?php echo $form->labelEx($productModel,'warranty_date'); ?>
+					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
 					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
-					<?php //echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
-				
-					<?php echo $form->labelEx($productModel,'warranty_until'); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'warranty_until'); ?><br>
 					<?php 
 						echo CHtml::textField('Warranty Date',$res,  array('disabled'=>'disabled'));
 					?>
-					
-					<?php echo $form->labelEx($productModel,'fnr_number'); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'fnr_number'); ?><br>
 					<?php echo $form->textField($productModel,'fnr_number',array('disabled'=>'disabled')); ?>
 					
 				</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<?php echo $form->labelEx($productModel,'notes'); ?>
+						<?php echo $form->labelEx($productModel,'notes'); ?><br>
 						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
 					</td>
 				</tr>
@@ -165,8 +162,9 @@
 		<tr><td>
 		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<br>
-		<?php echo $form->textField($model,'insurer_reference_number'); ?>
-		<br></td><td>
+		<?php echo $form->textField($model,'insurer_reference_number', array('disabled'=>'disabled')); ?>
+		
+		</td><td>
 		<?php $model->contract_id=$productModel->contract->id; ?>
 		<?php echo $form->labelEx($model,'contract_id'); ?>
 		<br> 
@@ -185,7 +183,7 @@
 			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'Yes', '1'=>'No' ),array('disabled'=>'disabled')); ?>
 			<br>			
 			<?php echo $form->labelEx($model,'work_carried_out'); ?>
-			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30', ),array('disabled'=>'disabled')); ?>
+			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>
 			<br>
 			
 			<?php $job_payment_date=date('d-M-y', $model->job_payment_date);?>
@@ -225,7 +223,7 @@
 				</tr>
 			</table>
 			<?php echo $form->labelEx($model,'notes'); ?><br>
-			<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>33),array('disabled'=>'disabled')); ?>
+			<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>
 		</td>
 		
 	</tr>

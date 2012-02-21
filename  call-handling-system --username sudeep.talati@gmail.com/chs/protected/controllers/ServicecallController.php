@@ -55,7 +55,26 @@ class ServicecallController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
+	
+	public function actionPreview($id)
+	{
+		$model=$this->loadModel($id);
+		
+		# You can easily override default constructor's params
+		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
+		# render (full page)
+		$mPDF1->WriteHTML($this->renderPartial('view',array('model'=>$model,), true));
+		# Load a stylesheet
+		$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+		$mPDF1->WriteHTML($stylesheet, 1);
+		# Outputs ready PDF
+		$mPDF1->Output();
+		//$this->render('orderPreview',array('model'=>$model));
 
+	}
+	
+	
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.

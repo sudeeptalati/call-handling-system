@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Call Handling System',
+	'name'=>'Amica',
 	'defaultController'=>'customer/freeSearch',
 
 	// preloading 'log' component

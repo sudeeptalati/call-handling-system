@@ -99,11 +99,11 @@
 					<?php echo $form->labelEx($productModel,'purchased_from'); ?><br>
 					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
 					<br>
-					<?php $viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
+					<?php //$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
 					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
 					<br>
-					<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
+					<?php //$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
 					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
 					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 					<br>
@@ -133,7 +133,7 @@
 	
 	<tr>
 		<td>
-		<?php $viewFaultDate=date('d-M-y', $model->fault_date);?>
+		<?php //$viewFaultDate=date('d-M-y', $model->fault_date);?>
 		<?php echo $form->labelEx($model,'fault_date'); ?>
 		<br>
 		<?php echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled')); ?>
@@ -186,12 +186,12 @@
 			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>
 			<br>
 			
-			<?php $job_payment_date=date('d-M-y', $model->job_payment_date);?>
+			<?php //$job_payment_date=date('d-M-y', $model->job_payment_date);?>
 			<?php echo $form->labelEx($model,'job_payment_date'); ?>
 			<?php echo CHtml::textField('',$job_payment_date,  array('disabled'=>'disabled')); ?>			
 			<br>
 			<br>
-			<?php $job_finished_date=date('d-M-y', $model->job_finished_date);?>
+			<?php //$job_finished_date=date('d-M-y', $model->job_finished_date);?>
 			<?php echo $form->labelEx($model,'job_finished_date'); ?>
 			<?php echo CHtml::textField('',$job_finished_date, array('disabled'=>'disabled')); ?>
 						

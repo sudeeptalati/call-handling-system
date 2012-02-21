@@ -33,6 +33,7 @@ $this->menu=array(
 //		),	
 		'visit_end_date',
 		'slots',
+		'status',
 		'servicecall_id',
 		//'user_id',
 		'userid.username',

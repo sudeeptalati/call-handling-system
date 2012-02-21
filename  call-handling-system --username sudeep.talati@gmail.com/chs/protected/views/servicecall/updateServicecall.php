@@ -56,7 +56,7 @@
 	</tr>
 	
 	<tr><td>
-	<?php $viewFaultDate=date('d-M-y', $model->fault_date);?>
+	<?php //$viewFaultDate=date('d-M-y', $model->fault_date);?>
 	<?php echo $form->labelEx($model,'fault_date'); ?>
 	<?php echo CHtml::textField('',$viewFaultDate); ?>
 		<?php 
@@ -90,13 +90,13 @@
 		<?php echo "<b>Current Appointment</b><br>";?>
 		<?php //echo $form->labelEx($enggDiaryModel,'visit_start_date'); ?>
 		<?php //echo $form->textField($enggDiaryModel,'visit_start_date'); ?>
-		<?php echo CHtml::textField('',$viewVisitStartDate,  array('disabled'=>'disabled')); ?>
+		<?php echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
 		<?php //echo $form->error($enggDiaryModel,'visit_start_date'); ?>
 		
 		<?php echo $form->labelEx($model,'engineer_id'); ?>
-		<?php echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());?>
+		<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
 		<?php echo $form->error($model,'engineer_id'); ?>
-		<?php echo CHtml::link('Change the Appointment', array('enggdiary/changeAppointment', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id)); ?>
+		<?php echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id)); ?>
 		
 		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number'); ?>

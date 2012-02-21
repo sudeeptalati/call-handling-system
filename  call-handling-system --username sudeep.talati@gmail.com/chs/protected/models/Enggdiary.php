@@ -13,6 +13,7 @@
  * @property integer $user_id
  * @property string $created
  * @property string $modified
+ * @property string $status
  
  * * The followings are the available model relations:
  * @property Enginner $engineer
@@ -49,7 +50,7 @@ class Enggdiary extends CActiveRecord
 		return array(
 			array('visit_start_date, servicecall_id', 'required'),
 			array('engineer_id, slots, servicecall_id, user_id', 'numerical', 'integerOnly'=>true),
-			array('visit_end_date, modified', 'safe'),
+			array('visit_end_date, modified, status', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, engineer_id, visit_start_date, visit_end_date, slots, servicecall_id, user_id, created, modified', 'safe', 'on'=>'search'),
@@ -87,6 +88,7 @@ class Enggdiary extends CActiveRecord
 			'user_id' => 'User',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'status' => 'Appointment Status',
 		);
 	}
 
@@ -175,6 +177,18 @@ class Enggdiary extends CActiveRecord
     public function getAllEngineers()
     {
     	return CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+    }
+    
+    public function getAppointmentStatus($status_code)
+    {
+    	$str=' ';
+    	//echo $status_code;
+    	switch ($status_code)
+    	{
+    		case 1:$str="Booked"; break;
+    		case 2:$str="Cancelled"; break;
+    	}
+    	return $str;
     }
     
 }//end of class.

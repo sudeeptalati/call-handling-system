@@ -61,8 +61,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'engg_visit_date'); ?>
-		<?php echo $form->textField($model,'engg_visit_date'); ?>
+		<?php echo $form->label($model,'engg_diary_id'); ?>
+		<?php echo $form->textField($model,'engg_diary_id'); ?>
 	</div>
 
 	<div class="row">

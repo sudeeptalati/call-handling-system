@@ -155,6 +155,14 @@ class Enggdiary extends CActiveRecord
             }
         }//end of if(parent())
     }//end of beforeSave().
+    protected function afterSave()
+    {
+    	$serviceModel=Servicecall::model()->findByPk($this->servicecall_id);
+    	$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
+    												array(
+    												'engg_diary_id'=>$this->id,
+    												));
+    }
     
     public function fetchDiaryDetails($engg_id,$date )
     {

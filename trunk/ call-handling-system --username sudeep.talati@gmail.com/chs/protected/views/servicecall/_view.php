@@ -45,8 +45,8 @@
 	<?php echo CHtml::encode($data->fault_description); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('engg_visit_date')); ?>:</b>
-	<?php echo CHtml::encode($data->engg_visit_date); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('engg_diary_id')); ?>:</b>
+	<?php echo CHtml::encode($data->engg_diary_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('work_carried_out')); ?>:</b>

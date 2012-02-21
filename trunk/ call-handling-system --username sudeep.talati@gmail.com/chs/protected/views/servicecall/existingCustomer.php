@@ -34,7 +34,7 @@
 	$php_warranty_date=$productModel->warranty_date;
 	$php_waranty_months=$productModel->warranty_for_months;
 
-	$warranty_until= strtotime(date("Y-M-d", strtotime($php_warranty_date)) . " +".$php_waranty_months." month");
+	$warranty_until= strtotime(date("Y-M-d", $php_warranty_date) . " +".$php_waranty_months." month");
 	$res=date('d-M-Y', $warranty_until);
 	//echo $res;							
 								
@@ -64,7 +64,7 @@
 		<?php echo $form->labelEx($customerModel,'fullname'); ?>
 		<?php echo $form->textField($customerModel,'fullname',array('disabled'=>'disabled')); ?>
 		
-				<?php echo $form->labelEx($model,'address'); ?>
+		<?php echo $form->labelEx($model,'address'); ?>
 		<?php echo CHtml::textArea('Address', $address,  array('disabled'=>'disabled','rows'=>4, 'cols'=>40)); ?>
 		
 		<?php echo $form->labelEx($customerModel,'telephone'); ?>
@@ -108,12 +108,15 @@
 		<?php echo $form->labelEx($productModel,'purchased_from'); ?>
 		<?php echo $form->textField($productModel,'purchased_from',array('disabled'=>'disabled')); ?>
 		
-		
+		<?php $viewPurschaseDate=date('d-M-y', $productModel->purchase_date);?>
 		<?php echo $form->labelEx($productModel,'purchase_date'); ?>
-		<?php echo $form->textField($productModel,'purchase_date',array('disabled'=>'disabled')); ?>
+		<?php //echo $form->textField($productModel,'purchase_date)',array('disabled'=>'disabled')); ?>
+		<?php echo CHtml::textField('Purchase Date',$viewPurschaseDate,  array('disabled'=>'disabled')); ?>
 		
+		<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
 		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
-		<?php echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
+		<?php //echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
+		<?php echo CHtml::textField('Purchase Date',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 		
 		<?php echo $form->labelEx($productModel,'warranty_until'); ?>
 		<?php 

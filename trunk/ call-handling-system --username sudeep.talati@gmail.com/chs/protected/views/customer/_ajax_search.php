@@ -27,15 +27,15 @@ foreach ($displayResults as $row)
 	<td><?php echo $row->postcode;?></td>
 	<td><?php echo $row->product->model_number;?></td>
 	<td><?php echo $row->product->serial_number;?></td>
-	<td><?php echo $row->product->purchase_date;?></td>
-	<td><?php echo $row->product->warranty_date;?></td>
+	<td><?php echo date('d-M-y', $row->product->purchase_date);?></td>
+	<td><?php echo date('d-M-y', $row->product->warranty_date);?></td>
 	<td><?php echo $row->product->warranty_for_months;?></td>
 	<?php 
 	$warranty_date=$row->product->warranty_date;
 	$warranty_months=$row->product->warranty_for_months;
 	
 	$php_w_date=strtotime($warranty_date);
-	$warranty_until= strtotime(date("Y-M-d", strtotime($warranty_date)) . " +".$warranty_months." month");
+	$warranty_until= strtotime(date("Y-M-d", $warranty_date) . " +".$warranty_months." month");
 	$res=date('d-M-Y', $warranty_until);
 	?>
 	<td><?php echo $res;?></td>

@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Servicecall <?php echo $model->id; ?></h1>
+<!--<h1>Update Servicecall <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('updateServicecall', array('model'=>$model)); ?>
+--><?php echo $this->renderPartial('updateServicecall', array('model'=>$model)); ?>

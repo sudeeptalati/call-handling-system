@@ -15,7 +15,7 @@
  * @property string $fault_date
  * @property string $fault_code
  * @property string $fault_description
- * @property string $engg_visit_date
+ * @property string $engg_diary_id
  * @property string $work_carried_out
  * @property integer $spares_used_status_id
  * @property double $total_cost
@@ -77,7 +77,7 @@ class Servicecall extends CActiveRecord
 			array('job_status_id, fault_description', 'required'),
 			array('service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('customer_town,customer_postcode , insurer_reference_number, fault_date, fault_code, engg_visit_date, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
+			array('customer_town,customer_postcode , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, customer_town , customer_postcode, customer_name, customer_id, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes, created_by_user_id, created, modified, cancelled, closed', 'safe', 'on'=>'search'),
@@ -120,7 +120,7 @@ class Servicecall extends CActiveRecord
 			'fault_date' => 'Fault Date',
 			'fault_code' => 'Fault Code',
 			'fault_description' => 'Fault Description',
-			'engg_visit_date' => 'Engg Visit Date',
+			'engg_diary_id' => 'Enggineer Diary',
 			'work_carried_out' => 'Work Carried Out',
 			'spares_used_status_id' => 'Spares Used Status',
 			'total_cost' => 'Total Cost',
@@ -167,7 +167,7 @@ class Servicecall extends CActiveRecord
 		$criteria->compare('fault_date',$this->fault_date,true);
 		$criteria->compare('fault_code',$this->fault_code,true);
 		$criteria->compare('fault_description',$this->fault_description,true);
-		$criteria->compare('engg_visit_date',$this->engg_visit_date,true);
+		$criteria->compare('engg_diary_id',$this->engg_diary_id,true);
 		$criteria->compare('work_carried_out',$this->work_carried_out,true);
 		$criteria->compare('spares_used_status_id',$this->spares_used_status_id);
 		$criteria->compare('total_cost',$this->total_cost);
@@ -213,7 +213,13 @@ class Servicecall extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
+        		$this->net_cost=$this->total_cost+$this->vat_on_total;
+        		$this->job_payment_date=strtotime($this->job_payment_date);
+        		$this->job_finished_date=strtotime($this->job_finished_date);
+        		$this->fault_date=strtotime($this->fault_date);
         		$this->created=time();
+        		
+        		
         		
         		//SETTING SERVICE REFERENCE NUMBER.
         		$count_sql = "SELECT COUNT(*) FROM servicecall";
@@ -278,7 +284,7 @@ class Servicecall extends CActiveRecord
         			//echo "CONTRACT ID FROM PRODUCT TABLE : ".$productModel->contract_id;									
         			$this->contract_id=$productModel->contract_id;
 					$this->engineer_id=$productModel->engineer_id;
-				}
+				}//end of if($this->customer_id=='0').
 				
 				else 
 				{
@@ -286,22 +292,30 @@ class Servicecall extends CActiveRecord
 					$this->customer_id=$cust_id;
 					$customerQueryModel=Customer::model()->findByPk($cust_id);
 					$this->product_id=$customerQueryModel->product_id;
-					//echo "contract id :".$model->contract_id;
-					
-					$productQueryModel=Product::model()->findByPk($customerQueryModel->product_id);
-																						
-					//echo "CONTRACT ID FROM PRODUCT ID :".$productQueryModel->contract_id;
-					//$this->contract_id=$productQueryModel->contract_id;
-					//$this->engineer_id=$productQueryModel->engineer_id;
-	        		
-					//echo "PRODUCT ID FROM CUST ID :".$customerQueryModel->product_id;
-//	        		echo "IN ELSE OF IF(CUST ID)";
 				}
 				
 				return true;
-            }
+            }//end of if(newrecord).
             else
             {
+            	if($model->engineer_id!=$this->engineer_id)
+            	{
+            		$productModel=Product::model()->findByPk($this->product_id);
+            		$productUpdateModel=Product::model()->updateByPk($productModel->id,
+            												array(
+            												'engineer_id'=>$this->engineer_id,
+            												)
+            											);
+            	}
+            	if($model->contract_id!=$this->contract_id)
+            	{
+            		$productUpdateModel=Product::model()->updateByPk($productModel->id,
+            							array(
+            							'contract_id'=>$this->contract_id,
+            							)	
+            							);
+            	}
+            	$this->net_cost=$this->total_cost+$this->vat_on_total;
             	$this->modified=time();
                 return true;
             }

@@ -1,57 +1,38 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'enggdiary-form',
+	'id'=>'enggdiary-changeAppointment-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-	
-<?php 
-$engg_id=$model->engineer_id;
-//echo "ENG ID :".$engg_id;
-$service_id=$model->servicecall_id;
-//echo "SERVICE ID :".$service_id;
 
-$engineerModel=Engineer::model()->findByPk($engg_id);
-$serviceModel=Servicecall::model()->findByPk($service_id);
-$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
-$customerModel=Customer::model()->findByPk($serviceModel->customer_id);
-$productModel=Product::model()->findByPk($serviceModel->product_id);
-$brandModel=Brand::model()->findByPk($productModel->brand_id);
-$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-
-$str1=$contactDetailsModel->address_line_1." ".$contactDetailsModel->address_line_2." ".$contactDetailsModel->address_line_3."\n";
-$str2=$contactDetailsModel->town."\n";
-$str3=$contactDetailsModel->postcode;
-$address=$str1." ".$str2." ".$str3;
-$enggDetails=$engineerModel->fullname."\n".$address;
-?>
-	
-
-  
 	<?php echo $form->errorSummary($model); ?>
-
-			<?php //echo $form->labelEx($model,'engineer_id'); ?>
-			<?php echo $form->hiddenField($model,'engineer_id'); ?>
-			<?php echo $form->error($model,'engineer_id'); ?>
-			<?php //echo $form->labelEx($model,'servicecall_id'); ?>
-			<?php echo $form->hiddenField($model,'servicecall_id'); ?>
-			<?php echo $form->error($model,'servicecall_id'); ?>
+	
+	<?php 
+		$service_id=$_GET['serviceId'];
+		//echo "service id:".$service_id;
+		$serviceModel=Servicecall::model()->findByPk($service_id);
+		$engg_id=$serviceModel->engineer_id;
+		$customerModel=Customer::model()->findByPk($serviceModel->customer_id);
+		$productModel=Product::Model()->findByPk($serviceModel->product_id);
+		$productTypeModel=ProductType::Model()->findByPk($productModel->product_type_id);
+		$brandModel=Brand::model()->findByPk($productModel->brand_id);
+		$engineerModel=Engineer::model()->findByPk($serviceModel->engineer_id);
+		$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
 		
-			
+		$str1=$contactDetailsModel->address_line_1." ".$contactDetailsModel->address_line_2." ".$contactDetailsModel->address_line_3."\n";
+		$str2=$contactDetailsModel->town."\n";
+		$str3=$contactDetailsModel->postcode;
+		$address=$str1." ".$str2." ".$str3;
+		$enggDetails=$engineerModel->fullname."\n".$address;
+	?>
 	<table>
 	<tr>
 		<th></th>
 		<th></th>
-		<th><h2>Service Ref. No.# <?php echo $model->servicecall->service_reference_number;?></h2></th>
+		<th><h2>Service Ref. No.# <?php echo $serviceModel->service_reference_number;?></h2></th>
 	</tr>
-	<!-- 
-	<tr>
-		<th>Fault </th>
-		<th>Customer</th>
-		<th>Product	</th>
-	</tr>
-	-->
 	<tr>
 	<td style="vertical-align:top;">
 			<?php echo $form->labelEx($serviceModel,'fault_date'); ?>
@@ -71,17 +52,17 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 			
 			<?php echo $form->labelEx($customerModel,'postcode'); ?>
 			<?php echo $form->textField($customerModel,'postcode', array('disabled'=>'disabled')); ?>
-	</td>
-	<td style="vertical-align:top;">
+		</td>
+		<td style="vertical-align:top;">
 			<?php echo $form->labelEx($brandModel,'name'); ?>
 			<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
 	
 	
 			<?php echo $form->labelEx($productTypeModel,'name'); ?>
 			<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
-	</td>
+		</td>
 	</tr>
-		<tr>
+	<tr>
 		<td colspan="3">
 		 <hr>
 		 </td>
@@ -93,7 +74,6 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 
 		</td>
 	</tr>
-
 	<tr>
 	
 		<td class="row" colspan="3">
@@ -122,9 +102,7 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 	</td>
 	</tr>
 	</table>
-
-
-<div class="row buttons">
+	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?>
 	</div>
 
@@ -160,7 +138,7 @@ $enggDetails=$engineerModel->fullname."\n".$address;
 ?>
 <?php $this->endWidget(); ?>
 </div><!-- ENd of form -->
-	
+
 <style type="text/css">
 /* calendar */
 table.calendar		{ border-left:1px solid #999; }
@@ -175,7 +153,8 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 
 
 </style>
-	<?php 
+
+<?php 
 	///Engineer Calender
 	
 	/* date settings */
@@ -323,12 +302,7 @@ function draw_calendar($month,$year,$engg_id){
 //echo '<h2>July 2009</h2>';
 //echo draw_calendar(7,2009);
 
-
-	
-	
-	?>
-	</div>
-
-
+?>
+</div>
 
 </div><!-- form -->

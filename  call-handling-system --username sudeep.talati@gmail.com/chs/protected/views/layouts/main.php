@@ -18,12 +18,24 @@
 </head>
 
 <body>
+<?php
+$company_logo=Yii::app()->request->baseUrl."/images/company_logo.png";
+$rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
+?>
 
 <div class="container" id="page">
-
+	
+	<table><tr>
+		<td style="margin:20px; vertical-align:middle;" ><div id="logo" ><?php echo CHtml::encode(Yii::app()->name); ?><br><small>Call Handling</small></div></td>
+		<td style="margin:20px; text-align:right;" >
+	<?php echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
+	</td>
+	<tr>
+	</table>
+	
+	
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+		</div><!-- header -->
 
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
@@ -40,9 +52,9 @@
 				array('label'=>'Servicecall', 'url'=>array('/customer/freeSearch')),					
 				array('label'=>'Customer', 'url'=>array('/customer/admin')),
 				array('label'=>'Contract', 'url'=>array('/contract/admin')),
-				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer')),
+				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
 				array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
-				array('label'=>'My Account', 'url'=>array('/user'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'My Account', 'url'=>array('/user/'.Yii::app()->user->id), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
@@ -57,11 +69,21 @@
 	<?php echo $content; ?>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+	
+	<table><tr><td>
+	<?php echo CHtml::image($rapport_logo,"ballpop", array("width"=>"170", "height"=>"56.6")); ?>
+	</td>
+	<td style="text-align:right;">
+		Copyright &copy; <?php echo date('Y'); ?> by UK Whitegoods Ltd.<br/>
 		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+		System Designed by 
+			<a href="mailto:sudeep.talati@gmail.com">Sudeep Talati</a>, 
+		  	<a href="mailto:kruthika.bethur@gmail.com">Kruthika Bethur</a>
+		  	&amp; Team
 
+			
+	</td></tr></table>
+</div><!-- footer -->
 </div><!-- page -->
 
 </body>

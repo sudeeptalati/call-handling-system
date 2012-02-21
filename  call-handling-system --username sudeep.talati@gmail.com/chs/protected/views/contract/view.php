@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Contract', 'url'=>array('index')),
+	array('label'=>'List Contract', 'url'=>array('admin')),
 	array('label'=>'Create Contract', 'url'=>array('create')),
-	array('label'=>'Update Contract', 'url'=>array('update', 'id'=>$model->id)),
-	//array('label'=>'Delete Contract', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Contract', 'url'=>array('admin')),
+// 	array('label'=>'Update Contract', 'url'=>array('update', 'id'=>$model->id)),
+// 	//array('label'=>'Delete Contract', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+// 	array('label'=>'Manage Contract', 'url'=>array('admin')),
 );
 ?>
 

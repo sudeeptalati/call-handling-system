@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','ChangeEngineer','ChangeAppointment'),
+				'actions'=>array('ChangeEngineerOnly','create','update','ChangeEngineer','ChangeAppointment'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,9 +70,8 @@ class EnggdiaryController extends Controller
 		//echo "<hr>SEVRICE CALL ID :".$service_id;
 		$model=new Enggdiary;
 		$model->servicecall_id=$service_id;
-		
-		
 		$model->engineer_id=$engg_id;
+		$model->status='1';
 		//echo "THIS IS SELECTED :".$model->engineer_id;
 		
 		
@@ -234,47 +233,121 @@ class EnggdiaryController extends Controller
 	
 	public function actionChangeAppointment()
 	{
-	    $model=new Enggdiary('update');
-	    $service_id=$_GET['serviceId'];
+		$service_id=$_GET['serviceId'];
 	    $engg_id=$_GET['engineerId'];
-//	    echo "service id in controller :".$service_id;
-//	    echo "engg id in contr :".$engg_id;
-        		
-	    $model=new Enggdiary;
-		$model->servicecall_id=$service_id;
-		$model->engineer_id=$engg_id;
 	    
-	
-	    // uncomment the following code to enable ajax-based validation
-	    /*
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='enggdiary-changeAppointment-form')
-	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
-	    */
-	
+	//    echo "<br>EWNDF I D ID ".$engg_id;
+		$diaryid=$_GET['enggdiary_id'];
+		//echo "diary id in controller :".$diaryid;		
+	    $model=$this->loadModel($diaryid);
+	    $model->engineer_id=$engg_id;
+	    //$model->servicecall_id=$service_id;
+	    $model->id=$diaryid;
+	    
+	    
+	    
+	    
+	    //model=new Enggdiary;
+	    
+	   //$model->servicecall_id=$service_id;
+	    
 	    if(isset($_POST['Enggdiary']))
 	    {
-	        $model->attributes=$_POST['Enggdiary'];
-	        if($model->save())
+			$model->attributes=$_POST['Enggdiary'];
+
+		//	echo 'SERVICE CLAL ID ids '.$model->servicecall_id;
+			$servicecall_model=Servicecall::model()->findByPk($model->servicecall_id);
+			$current_engg_diary_id=$servicecall_model->engg_diary_id;
+			//echo '<br>Current Fdiary id :'.$current_engg_diary_id;
+		    Enggdiary::model()->updateByPk($current_engg_diary_id,
+														array(
+														'status'=>'0',//change old appointment status to Cancelled.
+														)
+												);
+	    												
+	    	/*CREATING A NEW MODEL HERE */												
+	    	$newmodel=new Enggdiary;
+			$newmodel->servicecall_id=$model->servicecall_id;;
+//				echo '<br> NEW ENGG ID ID '.$model->engineer_id;
+			$newmodel->engineer_id=$model->engineer_id;;
+		
+			$newmodel->attributes=$_POST['Enggdiary'];
+			$newmodel->status='1';
+			
+			//echo 'SERVICECALL ID'.$newmodel->servicecall_id;
+			
+			if ($newmodel->save())
 			{
-				$enggDiaryModel=Enggdiary::model()->findByAttributes(
-	    										array('servicecall_id'=>$service_id,)
-	    										);
-				$enggDiaryModel->delete();	    			
-	        	
-				$service_id=$model->servicecall_id;
-        		$engg_id=$model->engineer_id;
-        		
-	        	$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/servicecall/'.$service_id);
-	        	
-	            // form inputs are valid, do something here
-	            return;
-	        }//end of if(save());
+		 		$new_diary_model=Enggdiary::model()->findByAttributes(
+		 																array(
+		 																'servicecall_id'=>$newmodel->servicecall_id,
+		 																'status'=>1,
+		 																)
+		 															);				
+			//	echo 'Engg Diary Id'. $new_diary_model->id;		 															
+		    	Servicecall::model()->updateByPk($new_diary_model->servicecall_id,
+														array(
+														'engg_diary_id'=>$new_diary_model->id,
+														'engineer_id'=>$new_diary_model->engineer_id,														
+														)
+												);
+				
+				
+				
+				
+				$baseUrl=Yii::app()->request->baseUrl;
+				$this->redirect($baseUrl.'/servicecall/'.$new_diary_model->servicecall_id);
+			
+			
+			}
+			else {
+			echo "AWW";
+			}
+			
+													
+//			$enggDiaryUpdateModel=Enggdiary::model()->updateByPk($enggDiaryModel->id,
+//														array(
+//														'status'=>'0',//change old appointment status to Cancelled.
+//														));
+		   
+//			if($model->save())
+//			{
+//				$baseUrl=Yii::app()->request->baseUrl;
+//				$this->redirect($baseUrl.'/servicecall/'.$service_id);
+//	        }//end of if(save());
+
+	    
 	    }//end of if(isset());
 	    $this->render('changeAppointment',array('model'=>$model));
 	}//END OF CHANGE appointment.
+	
+	public function actionChangeEngineerOnly($id)
+	{
+		
+		$model=$this->loadModel($id);
+		
+		if(isset($_POST['Enggdiary']))
+    	{
+        $model->attributes=$_POST['Enggdiary'];
+        if ($model->servicecall_id)
+        	{
+        	$service_id=$model->servicecall_id;	
+        	$engg_id=$model->engineer_id;
+//
+//      	 	 echo "I M INSIDE AND id is ".$model->engineer_id;
+//      	   	 echo "<br> SERVICE ".$model->servicecall_id;
+//      	     echo "Diary ID".$id;
+      	           	
+			$baseUrl=Yii::app()->request->baseUrl;
+			$this->redirect($baseUrl.'/enggdiary/ChangeAppointment/?serviceId='.$service_id.'&engineerId='.$engg_id.'&enggdiary_id='.$id);
+			//$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
+        	}	
+
+    	}//
+	
+	}//end of function change engineer Only
+	
+	
+	
 	
 }//end of class.

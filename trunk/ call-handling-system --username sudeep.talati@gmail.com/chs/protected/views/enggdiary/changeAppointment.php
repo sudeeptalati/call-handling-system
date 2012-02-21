@@ -18,7 +18,9 @@
 		$productModel=Product::Model()->findByPk($serviceModel->product_id);
 		$productTypeModel=ProductType::Model()->findByPk($productModel->product_type_id);
 		$brandModel=Brand::model()->findByPk($productModel->brand_id);
-		$engineerModel=Engineer::model()->findByPk($serviceModel->engineer_id);
+
+		echo "ENGINEER ID".$model->engineer_id;
+		$engineerModel=Engineer::model()->findByPk($model->engineer_id);
 		$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
 		
 		$str1=$contactDetailsModel->address_line_1." ".$contactDetailsModel->address_line_2." ".$contactDetailsModel->address_line_3."\n";
@@ -77,6 +79,8 @@
 	<tr>
 	
 		<td class="row" colspan="3">
+		<?php $model->visit_start_date=date('d-M-y',$model->visit_start_date);?>
+		<?php //echo $viewVisitData;?>
 		<?php echo $form->labelEx($model,'visit_start_date'); ?>
 		<?php 
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -103,20 +107,20 @@
 	</tr>
 	</table>
 	<div class="row buttons">
+		<?php //echo $form->textField($model,'servicecall_id'); ?>
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 	<div>
+<!-- CRAETED BY ST -->
 
 <div class="form">
-
- 
-
 <?php 
+	
 	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/enggdiary/changeEngineer/';		
-
+	//$changeEnggUrl=$baseUrl.'/enggdiary/changeEngineerOnly/';
+	$changeEnggUrl=$baseUrl.'/enggdiary/changeEngineerOnly/'.$model->id;		
 	$enggdiaryform=$this->beginWidget('CActiveForm', array(
 	'id'=>'enggdiary-changeEngineer-form',
 	'enableAjaxValidation'=>false,
@@ -125,18 +129,54 @@
 	
 )); ?>
 <?php 
-
-	//$odel=Engineer::model();
-	//$enggModel->id=$model->engineer_id;
-	echo $enggdiaryform->labelEx($model,'fullname');
-	echo $enggdiaryform->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
-	echo $enggdiaryform->error($model,'id');
-
-	echo $form->hiddenField($model,'servicecall_id');
-	echo CHtml::submitButton('Change');
+	$engg_id=$model->engineer_id;
+ 	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+ 	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";
+	echo $enggdiaryform->DropDownList($model, 'engineer_id', $data );
+	echo $enggdiaryform->hiddenField($model,'servicecall_id');
+	echo $enggdiaryform->hiddenField($model,'id');
+	
+	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
 	
 ?>
 <?php $this->endWidget(); ?>
+</div><!-- ENd of form -->
+	
+
+<!-- END CREATE BY ST -->
+
+<hr>
+
+
+
+<div class="form">
+
+ 
+
+<?php 
+//	$baseUrl=Yii::app()->request->baseUrl;
+//	$changeEnggUrl=$baseUrl.'/enggdiary/changeAppointment/?serviceId='.$service_id.'&engineerId='.$engg_id.'&enggdiary_id='.$model->id;		
+//	//$changeEnggUrl=$baseUrl.'/enggdiary/create';
+//	$enggdiaryform=$this->beginWidget('CActiveForm', array(
+//	'id'=>'enggdiary-changeEngineer-form',
+//	//'enableAjaxValidation'=>false,
+//	'action'=>$changeEnggUrl,
+//	'method'=>'post'
+//	
+//)); ?>
+<?php 
+
+	//$odel=Engineer::model();
+	//$enggModel->id=$model->engineer_id;
+//	echo $enggdiaryform->labelEx($model,'fullname');
+//	echo $enggdiaryform->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
+//	echo $enggdiaryform->error($model,'id');
+//
+//	echo $form->hiddenField($model,'servicecall_id');
+//	echo CHtml::submitButton('Change');
+//	
+?>
+<?php //$this->endWidget(); ?>
 </div><!-- ENd of form -->
 
 <style type="text/css">

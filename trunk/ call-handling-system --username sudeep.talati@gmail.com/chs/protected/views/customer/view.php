@@ -36,7 +36,11 @@ $this->menu=array(
 		'notes',
 		//'created_by_user_id',
 		'createdByUser.username',
-		'created',
+		//'created',
+		array(
+				'name'=>'Created',
+				'value'=>date('d-M-y',$model->created),
+		),
 		'modified',
 	),
 )); ?>

@@ -100,6 +100,7 @@ class Servicecall extends CActiveRecord
 			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by_user_id'),
+			'enggdiary' => array(self::BELONGS_TO, 'Enggdiary', 'engg_diary_id'),
 		);
 	}
 

@@ -141,7 +141,7 @@ class ServicecallController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}//end of if(isset()).
 
-		$this->render('update',array(
+		$this->render('updateServicecall',array(
 			'model'=>$model,
 		));
 	}

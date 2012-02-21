@@ -122,7 +122,7 @@ class Servicecall extends CActiveRecord
 			'fault_description' => 'Fault Description',
 			'engg_diary_id' => 'Enggineer Diary',
 			'work_carried_out' => 'Work Carried Out',
-			'spares_used_status_id' => 'Spares Used Status',
+			'spares_used_status_id' => 'Spares Used ',
 			'total_cost' => 'Total Cost',
 			'vat_on_total' => 'Vat On Total',
 			'net_cost' => 'Net Cost',

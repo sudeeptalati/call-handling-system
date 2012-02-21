@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','ChangeEngineer'),
+				'actions'=>array('create','update','ChangeEngineer','ChangeAppointment'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -64,6 +64,7 @@ class EnggdiaryController extends Controller
 		
 		$service_id=$_GET['id'];
 		$engg_id=$_GET['engineer_id'];
+		
 		
 		//echo "THIS IS SELECTED :".$engg_id;
 		//echo "<hr>SEVRICE CALL ID :".$service_id;
@@ -231,5 +232,49 @@ class EnggdiaryController extends Controller
 	}
 ///end of function change engineer	
 	
+	public function actionChangeAppointment()
+	{
+	    $model=new Enggdiary('update');
+	    $service_id=$_GET['serviceId'];
+	    $engg_id=$_GET['engineerId'];
+//	    echo "service id in controller :".$service_id;
+//	    echo "engg id in contr :".$engg_id;
+        		
+	    $model=new Enggdiary;
+		$model->servicecall_id=$service_id;
+		$model->engineer_id=$engg_id;
+	    
+	
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='enggdiary-changeAppointment-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['Enggdiary']))
+	    {
+	        $model->attributes=$_POST['Enggdiary'];
+	        if($model->save())
+			{
+				$enggDiaryModel=Enggdiary::model()->findByAttributes(
+	    										array('servicecall_id'=>$service_id,)
+	    										);
+				$enggDiaryModel->delete();	    			
+	        	
+				$service_id=$model->servicecall_id;
+        		$engg_id=$model->engineer_id;
+        		
+	        	$baseUrl=Yii::app()->request->baseUrl;
+				$this->redirect($baseUrl.'/servicecall/'.$service_id);
+	        	
+	            // form inputs are valid, do something here
+	            return;
+	        }//end of if(save());
+	    }//end of if(isset());
+	    $this->render('changeAppointment',array('model'=>$model));
+	}//END OF CHANGE appointment.
 	
 }//end of class.

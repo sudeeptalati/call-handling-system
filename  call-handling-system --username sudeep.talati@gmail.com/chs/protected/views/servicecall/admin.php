@@ -62,7 +62,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fault_date',
 		'fault_code',
 		'fault_description',
-		'engg_visit_date',
+		'engg_diary_id',
 		'work_carried_out',
 		'spares_used_status_id',
 		'total_cost',

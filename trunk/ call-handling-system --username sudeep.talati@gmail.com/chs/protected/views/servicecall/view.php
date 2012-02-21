@@ -1,8 +1,8 @@
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'servicecall-updateServicecall-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
 
 	<?php 
 		$service_id=$_GET['id'];
@@ -41,15 +41,15 @@
 <table>
 	<tr>
 		<th></th>
-		<th colspan="2"><h2>Service Ref. No.# <?php echo $model->service_reference_number;?></h2></th>
+		<th colspan="2">Service Ref. No.# <h1><?php echo $model->service_reference_number;?></h1></th>
 	</tr>
 
 	<tr>
 		<td>
-			<h2>Customer Details</h2>
+			<h4>Customer Details</h4>
 		</td>
 		<td>
-			<h2>Product Details</h2>
+			<h4>Product Details</h4>
 		</td>
 	</tr>
 	
@@ -174,7 +174,7 @@
 	</tr>
 		
 		<tr><td colspan="2" style="text-align:center">
-		<h2>Post Service Details</h2>
+		<h2>Technician Report</h2>
 		</td>
 	</tr>
 	<tr>

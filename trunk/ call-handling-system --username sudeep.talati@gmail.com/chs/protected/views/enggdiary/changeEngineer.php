@@ -40,10 +40,23 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 	///Engineer Calender
 	
 	/* date settings */
+	
+if ( (isset($_GET['month'])) && (isset($_GET['year'])))
+{
 $month = (int) ($_GET['month'] ? $_GET['month'] : date('m'));
 $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
+}
+else
+{
+$month=date('m');
+$year=date('y');
 
-$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
+	
+}
+
+
+//$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
+$add_params='&amp;engineer_id='.$engg_id;
 
 /* select month control */
 $select_month_control = '<select name="month" id="month">';
@@ -53,7 +66,7 @@ for($x = 1; $x <= 12; $x++) {
 $select_month_control.= '</select>';
 
 $hidden_fields='<input type="hidden" name="engineer_id" value="'.$engg_id.'" /> ';
-$hidden_fields.='<input type="hidden" name="service_id" value="'.$service_id.'" /> ';
+//$hidden_fields.='<input type="hidden" name="service_id" value="'.$service_id.'" /> ';
 
 /* select year control */
 $year_range = 7;

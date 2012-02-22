@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+				'actions'=>array('preview','	create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,7 +60,7 @@ class ServicecallController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		
+//		echo 'I M HERE';		
 // 		$this->renderPartial('Preview',array(
 // 			'model'=>$this->loadModel($id),
 // 		));

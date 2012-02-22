@@ -6,14 +6,14 @@
 	<meta name="language" content="en" />
 
 	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="/stock_system/ims/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="/stock_system/ims/css/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="../css/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="/stock_system/ims/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="/stock_system/ims/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="/stock_system/ims/css/form.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+	<link rel="stylesheet" type="text/css" href="../css/form.css" />
 
 	<script type="text/javascript" src="/stock_system/ims/assets/fcebde54/jquery.js"></script>
 <script type="text/javascript" src="/stock_system/ims/assets/fcebde54/jquery.yiiactiveform.js"></script>

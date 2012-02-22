@@ -220,6 +220,7 @@ return array(
 		'company_address'=>'".$company_address."',
 		'company_contact_details'=>'".$contact_details."',
 		'vat_in_percentage'=>'".$vat_in_percentage."',	
+		'software_version'=>'0.5beta',	
 	),
 );";
 

@@ -61,13 +61,13 @@ class ServicecallController extends Controller
 		$model=$this->loadModel($id);
 
 		
-// 		$this->renderPartial('view',array(
+// 		$this->renderPartial('Preview',array(
 // 			'model'=>$this->loadModel($id),
 // 		));
 		# You can easily override default constructor's params
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
 		# render (full page)
-		$mPDF1->WriteHTML($this->renderPartial('view',array('model'=>$model,), true));
+		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,), true));
 		# Load a stylesheet
 		$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
 		$mPDF1->WriteHTML($stylesheet, 1);

@@ -3,6 +3,14 @@
 		<td align="left">
 			<h3>Service Call#</h3>
 			<h2><?php echo $model->	service_reference_number; ?></h2>
+			<br><b><small>Engineer</small></b><br>
+			<?php echo $model->engineer->fullname;?>
+			<br>
+			<?php echo $model->engineer->contactDetails->town;?>&nbsp;
+			<?php echo $model->engineer->contactDetails->postcode;?>
+			<br>
+			<?php echo $model->engineer->contactDetails->email;?>
+			
 		</td>
 		<td align="right" style="font-size:10px;">
 			<?php 

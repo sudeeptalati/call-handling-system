@@ -104,7 +104,9 @@
 			</td>			
 			<td colspan="2"><small><b>Date of Purchase</b></small>
 			<br>
-			<?php echo date ('d-M-Y',$model->product->purchase_date); ?>
+			<?php 
+					if ($model->product->purchase_date!='')
+				echo date ('d-M-Y',$model->product->purchase_date); ?>
 			</td>			
 		</tr>
 		<tr>
@@ -114,7 +116,8 @@
 			</td>			
 			<td><small><b>Start</b></small>
 			<br>
-			<?php echo date('d-M-Y',$model->product->warranty_date); ?>
+			<?php 	if ($model->product->warranty_date!='')
+					echo date('d-M-Y',$model->product->warranty_date); ?>
 			</td>			
 			<td><small><b>End</b></small>
 			<br>
@@ -203,10 +206,15 @@
 			<br>
 			<br>
 			<small><b>Payment: </b></small>&nbsp;
-			<?php echo date('d-M-Y',$model->job_payment_date); ?>
+			<?php 
+					if ($model->job_payment_date!='')
+					echo date('d-M-Y',$model->job_payment_date); 
+				
+				?>
 			<br>
-			<small><b>Completion:</b></small>&nbsp;
-			<?php echo date('d-M-Y',$model->job_finished_date); ?>
+			<small><b>Completion:	</b></small>&nbsp;
+			<?php 	if ($model->job_finished_date)
+					echo date('d-M-Y',$model->job_finished_date); ?>
 			<table style="border: 1px solid;"> 
 				<tr><td>Customer Name &amp; Signature</td></tr>
 				<tr><td>&nbsp;<br>&nbsp;<br></td></tr>

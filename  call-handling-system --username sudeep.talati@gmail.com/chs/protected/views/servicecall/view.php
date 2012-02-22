@@ -39,11 +39,22 @@
 	
 
 <table>
+	
+	<tr>
+		<td><b><a href="javascript: history.go(-2)">Back</a></b></td>
+		<td style="text-align:right"><b>
+				<?php 	$preview_url=$this->createUrl('/servicecall/preview/'.$model->id);
+						echo CHtml::link('Preview',$preview_url);
+				?>
+				
+			</b>
+		</td>
+	</tr>
 	<tr>
 		<th></th>
-		<th colspan="2">Service Ref. No.# <h1><?php echo $model->service_reference_number;?></h1></th>
+		<th >Service Ref. No.# <h1><?php echo $model->service_reference_number;?></h1></th>
 	</tr>
-
+	
 	<tr>
 		<td>
 			<h4>Customer Details</h4>
@@ -99,11 +110,11 @@
 					<?php echo $form->labelEx($productModel,'purchased_from'); ?><br>
 					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
 					<br>
-					<?php //$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
+					<?php $viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
 					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
 					<br>
-					<?php //$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
+					<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
 					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
 					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 					<br>
@@ -133,7 +144,7 @@
 	
 	<tr>
 		<td>
-		<?php //$viewFaultDate=date('d-M-y', $model->fault_date);?>
+		<?php $viewFaultDate=date('d-M-y', $model->fault_date);?>
 		<?php echo $form->labelEx($model,'fault_date'); ?>
 		<br>
 		<?php echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled')); ?>
@@ -186,15 +197,27 @@
 			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>
 			<br>
 			
-			<?php //$job_payment_date=date('d-M-y', $model->job_payment_date);?>
-			<?php echo $form->labelEx($model,'job_payment_date'); ?>
-			<?php echo CHtml::textField('',$job_payment_date,  array('disabled'=>'disabled')); ?>			
+			<?php $job_payment_date=$model->job_payment_date;
+					if ($job_payment_date!='')
+					{
+						$job_payment_date=date('d-M-y',$model->job_payment_date);
+						 echo $form->labelEx($model,'job_payment_date'); 
+						 echo CHtml::textField('',$job_payment_date,  array('disabled'=>'disabled')); 
+					}			
+			
+			?>
 			<br>
 			<br>
-			<?php //$job_finished_date=date('d-M-y', $model->job_finished_date);?>
-			<?php echo $form->labelEx($model,'job_finished_date'); ?>
-			<?php echo CHtml::textField('',$job_finished_date, array('disabled'=>'disabled')); ?>
-						
+			<?php $job_finished_date=$model->job_finished_date;
+					if ($job_payment_date!='')
+					{
+						$job_finished_date=date('d-M-y',$model->job_finished_date);
+						 echo $form->labelEx($model,'job_finished_date'); 
+						 echo CHtml::textField('',$job_finished_date,  array('disabled'=>'disabled')); 
+					}			
+			
+			?>
+									
 			
 
 			</td>

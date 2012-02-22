@@ -1,11 +1,11 @@
 <?php
 $this->breadcrumbs=array(
-	'Customers'=>array('index'),
+ 
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Customer', 'url'=>array('index')),
+	//array('label'=>'List Customer', 'url'=>array('index')),
 	array('label'=>'Create Customer', 'url'=>array('create')),
 );
 

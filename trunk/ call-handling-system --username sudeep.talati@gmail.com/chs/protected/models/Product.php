@@ -201,13 +201,15 @@ class Product extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
+
+        	$this->purchase_date=strtotime($this->purchase_date);
+        	$this->warranty_date=strtotime($this->warranty_date);
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
         		$this->lockcode=Yii::app()->user->id*1000;
         		$this->customer_id=0;
-        		$this->purchase_date=strtotime($this->purchase_date);
-        		$this->warranty_date=strtotime($this->warranty_date);
+
         		$this->created=time();
         		return true;
             }

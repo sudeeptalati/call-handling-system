@@ -110,14 +110,53 @@
 			<?php echo $form->textField($productModel,'purchased_from',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($productModel,'purchased_from'); ?>
 			
-			<?php echo $form->labelEx($productModel,'purchase_date'); ?>
-			<?php echo $form->textField($productModel,'purchase_date'); ?>
-			<?php echo $form->error($productModel,'purchase_date'); ?>
+			<?php //echo $form->labelEx($productModel,'purchase_date'); ?>
+			<?php //echo $form->textField($productModel,'purchase_date'); ?>
+			<?php //echo $form->error($productModel,'purchase_date'); ?>
+
+				
+	<?php echo $form->labelEx($productModel,'purchase_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($productModel, 'purchase_date'),
+				'model'=>$productModel,
+        		'value' => $productModel->attributes['purchase_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));
+		?>
+		<?php //echo $form->textField($model,'fault_date'); ?>
+		<?php echo $form->error($productModel,'warranty_date'); ?>
+		
+		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($productModel, 'warranty_date'),
+				'model'=>$productModel,
+        		'value' => $productModel->attributes['warranty_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			));
+		?>
+		<?php //echo $form->textField($model,'fault_date'); ?>
+		<?php echo $form->error($productModel,'warranty_date'); ?>
+		
 			
-			<?php echo $form->labelEx($productModel,'warranty_date'); ?>
-			<?php echo $form->textField($productModel,'warranty_date'); ?>
-			<?php echo $form->error($productModel,'warranty_date'); ?>
 			
+			
+	
 			<?php echo $form->labelEx($productModel,'model_number'); ?>
 			<?php echo $form->textField($productModel,'model_number',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($productModel,'model_number'); ?>

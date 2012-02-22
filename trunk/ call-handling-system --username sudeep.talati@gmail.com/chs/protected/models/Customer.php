@@ -154,10 +154,12 @@ class Customer extends CActiveRecord
 	{
 		if(parent::beforeSave())
         {
+        	$this->fullname=$this->first_name." ".$this->last_name;
+        	
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->fullname=$this->first_name." ".$this->last_name;
+        		
         		$this->lockcode=Yii::app()->user->id*1000;        		
         		$this->created=time();
         		
@@ -186,10 +188,7 @@ class Customer extends CActiveRecord
             }
             else
             {
-            	if($customer->fullname!=$this->fullname)
-            	{
-            		$this->fullname=$this->first_name." ".$this->last_name;
-            	}
+
             	$this->modified=time();
                 return true;
             }

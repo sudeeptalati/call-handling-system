@@ -81,7 +81,7 @@ $('.technical-form').toggle();
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'active'); ?>
-		<?php echo $form->textField($model,'active'); ?>
+		<?php echo $form->dropDownList($model,'active', array('1'=>'Yes', '0'=>'No')); ?>
 		<?php echo $form->error($model,'active'); ?>
 	</div>
 	

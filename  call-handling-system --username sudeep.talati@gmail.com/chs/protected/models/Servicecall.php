@@ -249,7 +249,8 @@ class Servicecall extends CActiveRecord
 				}//end of else.
 				
         		//GETTING CUSTOMER ID FROM URL.
-        		$cust_id=$_GET['customer_id'];
+				if (isset($_GET['customer_id']))
+				$cust_id=$_GET['customer_id'];
 				//echo "CUSTOMER ID FROM URL :".$cust_id;
 				
 				if($this->customer_id=='0')

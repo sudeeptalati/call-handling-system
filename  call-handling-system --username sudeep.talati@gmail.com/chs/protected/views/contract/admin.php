@@ -42,14 +42,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+	//	'id',
 		//'contract_type_id',
 		array('name'=>'contract_name','value'=>'$data->contractType->name'),
 		'name',
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
-		'main_contact_details_id',
-		'management_contact_details',
-		'spares_contact_details',
+// 		'main_contact_details_id',
+// 		'management_contact_details',
+// 		'spares_contact_details',
 		/*
 		'accounts_contact_details',
 		'technical_contact_details',

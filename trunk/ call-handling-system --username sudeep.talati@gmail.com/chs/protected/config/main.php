@@ -153,6 +153,13 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		// this is used in contact page
+		'adminEmail'=>'admin@ukwhitegoods.co.uk',
+		'company_name'=>'UK Whitegoods Limited',
+		'company_address'=>'Unit 5/6 Bonnyton Industrial Estate, Munro Place, Kilmarnock, East Ayrshire, KA1 2NP, Scotland',
+		'company_contact_details'=>' phone:0845 172 8003  fax:0845 172 8003 email:admin@ukwhitegoods.co.uk',
+		'vat_in_percentage'=>'20',	
+		'software_version'=>'0.5beta',	
+			
 	),
 );

@@ -11,20 +11,30 @@ $engg_id=$model->engineer_id;
 $service_id=$model->servicecall_id;
 //echo "SERVICE ID :".$service_id;
 
-$engineerModel=Engineer::model()->findByPk($engg_id);
-$serviceModel=Servicecall::model()->findByPk($service_id);
-$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
-$customerModel=Customer::model()->findByPk($serviceModel->customer_id);
-$productModel=Product::model()->findByPk($serviceModel->product_id);
-$brandModel=Brand::model()->findByPk($productModel->brand_id);
-$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
 
+$serviceModel=Servicecall::model()->findByPk($service_id);
+$enggDetails='';
+if (!empty($engg_id)){
+$engineerModel=Engineer::model()->findByPk($engg_id);
+$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
 
 $str1=$contactDetailsModel->address_line_1." ".$contactDetailsModel->address_line_2." ".$contactDetailsModel->address_line_3."\n";
 $str2=$contactDetailsModel->town."\n";
 $str3=$contactDetailsModel->postcode;
 $address=$str1." ".$str2." ".$str3;
 $enggDetails=$engineerModel->fullname."\n".$address;
+
+
+}
+
+
+
+$customerModel=Customer::model()->findByPk($serviceModel->customer_id);
+$productModel=Product::model()->findByPk($serviceModel->product_id);
+$brandModel=Brand::model()->findByPk($productModel->brand_id);
+$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
+
+
 ?>
 	
 

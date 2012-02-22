@@ -18,7 +18,7 @@
 	
 	<script type="text/javascript" src="/stock_system/ims/assets/fcebde54/jquery.js"></script>
 <script type="text/javascript" src="/stock_system/ims/assets/fcebde54/jquery.yiiactiveform.js"></script>
-<title>ISE - Login</title>
+<title>INSTALLATION</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 <div class="container" id="page">
 	
 	<table><tr>
-		<td style="margin:20px; vertical-align:middle;" ><div id="logo" >ISE&nbsp;Stock System</div></td>
+		<td style="margin:20px; vertical-align:middle;" ><div id="logo" >ISE&nbsp;Call Handling System</div></td>
 		<td style="margin:20px; text-align:right;" >
 	<img width="200" height="75" src="/stock_system/ims/images/company_logo.png" alt="ballpop" />	</td>
 	<tr>

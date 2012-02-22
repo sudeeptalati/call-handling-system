@@ -37,7 +37,7 @@ $stringData = "<?php
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'".$company_name."',
-	'defaultController'=>'customer/freeSearch',
+	'defaultController'=>'items/freeSearch',
 	
 		
 
@@ -48,24 +48,17 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-//		'application.modules.models*',
-//		'application.modules.user.components.*',
 		'application.extensions.yii-mail.*',
 		'application.extensions.yii-zip.*',
-		//'application.extensions.*',
 		'application.vendors.*',
 
 			
 	),
 
 	'modules'=>array(
-		// uncomment the following to enable the Gii tool
-//		'userGroups'=>array(
-//					'accessCode'=>'chs',
-//					),
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'ims',
+			'password'=>'chs',
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
@@ -95,10 +88,11 @@ return array(
 											'mgb'               => 16, // margin_bottom
 											'mgh'               => 9, // margin_header
 											'mgf'               => 9, // margin_footer
-									'orientation'       => 'P', // landscape or portrait orientation
-							)*/
+											'orientation'       => 'P', // landscape or portrait orientation
+									)*/
 							),
-									'HTML2PDF' => array(
+
+				'HTML2PDF' => array(
 									'librarySourcePath' => 'application.vendors.html2pdf.*',
 											'classFile'         => 'html2pdf.class.php', // For adding to Yii::classMap
 											/*'defaultParams'     => array( // More info: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
@@ -106,15 +100,13 @@ return array(
 													'format'      => 'A4', // format A4, A5, ...
 													'language'    => 'en', // language: fr, en, it ...
 													'unicode'     => true, // TRUE means clustering the input text IS unicode (default = true)
-									'encoding'    => 'UTF-8', // charset encoding; Default is UTF-8
-			'marges'      => array(5, 5, 5, 8), // margins by default, in order (left, top, right, bottom)
-			)*/
-			)
-			),
-			),
-			
-			
-			
+													'encoding'    => 'UTF-8', // charset encoding; Default is UTF-8
+													'marges'      => array(5, 5, 5, 8), // margins by default, in order (left, top, right, bottom)
+											)*/
+									)
+								),
+							),
+
 			/*
 			 *MAIL CONFIGURATION 
 			 */
@@ -140,41 +132,25 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
-//			'class'=>'userGroups.components.WebUserGroups',
 			),
 			
-			
-		'excel'=>array(
-                  'class'=>'application.extensions.PHPExcel',
-			),
-		// uncomment the following to enable URLs in path-format
+
 		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
 			'rules'=>array(
 				//accessing gii.
 				'gii'=>'gii',
             	'gii/<controller:\w+>'=>'gii/<controller>',
             	'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
-				// REST patterns
-				array('api/ItemFreeSearch', 'pattern'=>'api/ItemFreeSearch/<model:\w+>/<keyword:\w+>', 'verb'=>'GET'),
-				array('api/Outbound', 'pattern'=>'api/Outbound/<model:\w+>/<item_id:\d+>/<quantity_moved:\d+>', 'verb'=>'GET,POST'),
-				array('api/Inbound', 'pattern'=>'api/Inbound/<model:\w+>/<item_id:\d+>/<quantity_moved:\d+>', 'verb'=>'GET,POST'),
-				// Other controllers
+				//ACCESSING OTHER CONTROLLERS.
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-			//	'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
-				/*
-				 * Dectivated by Sudeep on 6 jan 11
-				 *'<controller:\w+>/<action:\w+>/<keyword:\w+>'=>'<controller>/<action>',
-				 * 
-				 */
-				'<controller:\w+>/<action:\w+>/<keyword:\w+>'=>'<controller>/<action>',
-				
-				 
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				),
-    		'showScriptName'=>false,
+				//FOR ACCESSING FREESEARCH.
+				'<controller:\w+>/<action:\w+>/<keyword:\w+>'=>'<controller>/<action>',
+			),
 		),
 		
 		'db'=>array(
@@ -221,6 +197,7 @@ return array(
 		'company_contact_details'=>'".$contact_details."',
 		'vat_in_percentage'=>'".$vat_in_percentage."',	
 		'software_version'=>'0.5beta',	
+
 	),
 );";
 

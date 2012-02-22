@@ -8,7 +8,7 @@ $this->menu=array(
 	array('label'=>'List Engineer', 'url'=>array('index')),
 	array('label'=>'Create Engineer', 'url'=>array('create')),
 	array('label'=>'Update Engineer', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Engineer', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	//array('label'=>'Delete Engineer', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Engineer', 'url'=>array('admin')),
 );
 ?>

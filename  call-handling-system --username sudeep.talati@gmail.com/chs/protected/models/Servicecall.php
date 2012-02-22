@@ -211,13 +211,16 @@ class Servicecall extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
+        	
+        	$this->net_cost=$this->total_cost+$this->vat_on_total;
+        	$this->job_payment_date=strtotime($this->job_payment_date);
+        	$this->job_finished_date=strtotime($this->job_finished_date);
+        	$this->fault_date=strtotime($this->fault_date);
+        	
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->net_cost=$this->total_cost+$this->vat_on_total;
-        		$this->job_payment_date=strtotime($this->job_payment_date);
-        		$this->job_finished_date=strtotime($this->job_finished_date);
-        		$this->fault_date=strtotime($this->fault_date);
+
         		$this->created=time();
         		
         		
@@ -299,23 +302,8 @@ class Servicecall extends CActiveRecord
             }//end of if(newrecord).
             else
             {
-            	if($model->engineer_id!=$this->engineer_id)
-            	{
-            		$productModel=Product::model()->findByPk($this->product_id);
-            		$productUpdateModel=Product::model()->updateByPk($productModel->id,
-            												array(
-            												'engineer_id'=>$this->engineer_id,
-            												)
-            											);
-            	}
-            	if($model->contract_id!=$this->contract_id)
-            	{
-            		$productUpdateModel=Product::model()->updateByPk($productModel->id,
-            							array(
-            							'contract_id'=>$this->contract_id,
-            							)	
-            							);
-            	}
+            	
+            	
             	$this->net_cost=$this->total_cost+$this->vat_on_total;
             	$this->modified=time();
                 return true;

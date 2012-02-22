@@ -206,7 +206,7 @@ $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
 else
 {
 $month=date('m');
-$year=date('y');
+$year=date('Y');
 
 	
 }

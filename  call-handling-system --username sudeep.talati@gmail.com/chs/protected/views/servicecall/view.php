@@ -41,10 +41,11 @@
 <table>
 	
 	<tr>
-		<td><b><a href="javascript: history.go(-2)">Back</a></b></td>
+		<td><b><a href="javascript: history.go(-1)">Back</a></b></td>
 		<td style="text-align:right"><b>
-				<?php 	$preview_url=$this->createUrl('/servicecall/preview/'.$model->id);
-						echo CHtml::link('Preview',$preview_url);
+				<?php 	echo CHtml::link('Preview',array('Preview',
+											'id'=>$model->id), array('target'=>'_blank')
+										);
 				?>
 				
 			</b>

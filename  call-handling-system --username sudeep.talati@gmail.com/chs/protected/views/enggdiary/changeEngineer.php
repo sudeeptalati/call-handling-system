@@ -49,7 +49,7 @@ $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
 else
 {
 $month=date('m');
-$year=date('y');
+$year=date('Y');
 
 	
 }
@@ -84,14 +84,18 @@ $next_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 12 ? $month
 /* "previous month" control */
 $previous_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 1 ? $month - 1 : 12).'&amp;year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Month</a>';
 
-
+$action_url='';
 /* bringing the controls together */
 //$controls = '<table><tr><td>'..'<form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$previous_month_link.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$next_month_link.' </form>';
 $controls = '<table><tr><td>'.$previous_month_link.'</td><td><form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.$hidden_fields.'&nbsp;<input type="submit" name="submit" value="Change" /></form></td><td>'.$next_month_link.'</td></tr></table>';
 
 //echo $controls;	
 
+
+
+
 $cuurent_month=strtotime('1-'.$month.'-'.$year);
+
 $this_month= '<h2 style=" padding-right:30px;">'.date('F - Y',$cuurent_month).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
 
 $draw='<table><tr><td style="text-align:center;" >'.$this_month.'</td></tr>';

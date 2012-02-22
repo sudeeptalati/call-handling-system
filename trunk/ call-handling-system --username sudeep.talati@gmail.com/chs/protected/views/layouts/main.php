@@ -15,6 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<?php 
+	
+		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+		$available_version = file_get_contents($request, true);
+		$installed_version=Yii::app()->params['software_version'];
+		if ($available_version!=$installed_version)
+		{	?>
+			<span style="background-color:yellow; color:black;">
+			Your current version is <?php echo $installed_version; ?>
+			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package</span>
+			<?php 
+		}
+	?>
 </head>
 
 <body>
@@ -75,7 +88,7 @@ $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 	</td>
 	<td style="text-align:right;">
 		Copyright &copy; <?php echo date('Y'); ?> by UK Whitegoods Ltd.<br/>
-		All Rights Reserved.<br/>
+		All Rights Reserved. <br>Version <?php echo Yii::app()->params['software_version'];?><br/>
 		System Designed by 
 			<a href="mailto:sudeep.talati@gmail.com">Sudeep Talati</a>, 
 		  	<a href="mailto:kruthika.bethur@gmail.com">Kruthika Bethur</a>

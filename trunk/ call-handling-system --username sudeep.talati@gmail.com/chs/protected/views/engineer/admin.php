@@ -45,7 +45,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'first_name',
 		'last_name',
-		'active',
+		//'active',
+			array(
+					'label'=>'active',
+					'value'=>$model->active ? "Active" : "Inactive",
+			),
+			
 		'company',
 		'vat_reg_number',
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),

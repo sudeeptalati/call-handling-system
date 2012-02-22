@@ -306,7 +306,7 @@ function draw_calendar($month,$year,$engg_id){
 //			echo " <br>Servise call".$data->servicecall->service_reference_number;
 			//$day_content.=" <br>Servise call".$data->servicecall->service_reference_number;
 			//$day_content.="<p>";
-			$link="../../servicecall/19";
+			$link="../../servicecall/".$data->servicecall_id;
 			$day_content.="<a href='".$link."'>";
 			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
 			$day_content.="</a>";

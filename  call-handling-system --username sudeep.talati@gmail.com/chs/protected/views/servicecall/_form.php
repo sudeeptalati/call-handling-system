@@ -18,6 +18,9 @@
 	
 	<tr>
 	<td style="vertical-align:top;">	
+	
+
+	
 	<?php echo $form->labelEx($model,'fault_date'); ?>
 		<?php 
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(

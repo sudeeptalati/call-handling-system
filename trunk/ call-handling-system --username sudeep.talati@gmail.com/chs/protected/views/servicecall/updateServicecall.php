@@ -56,7 +56,7 @@
 	</tr>
 	
 	<tr><td>
-	<?php //$viewFaultDate=date('d-M-y', $model->fault_date);?>
+	<?php $viewFaultDate=date('d-M-y', $model->fault_date);?>
 	<?php echo $form->labelEx($model,'fault_date'); ?>
 	<?php echo CHtml::textField('',$viewFaultDate); ?>
 		<?php 

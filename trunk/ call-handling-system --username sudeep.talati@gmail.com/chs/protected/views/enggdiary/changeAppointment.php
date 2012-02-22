@@ -198,9 +198,18 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 	///Engineer Calender
 	
 	/* date settings */
+if ( (isset($_GET['month'])) && (isset($_GET['year'])))
+{
 $month = (int) ($_GET['month'] ? $_GET['month'] : date('m'));
 $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
+}
+else
+{
+$month=date('m');
+$year=date('y');
 
+	
+}
 $add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
 
 /* select month control */
@@ -229,7 +238,7 @@ $next_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 12 ? $month
 /* "previous month" control */
 $previous_month_link = '<a href="?'.$add_params.'&amp;month='.($month != 1 ? $month - 1 : 12).'&amp;year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Month</a>';
 
-
+$action_url='';
 /* bringing the controls together */
 //$controls = '<table><tr><td>'..'<form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.'&nbsp;<input type="submit" name="submit" value="Change" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$previous_month_link.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$next_month_link.' </form>';
 $controls = '<table><tr><td>'.$previous_month_link.'</td><td><form method="get" action='.$action_url.' >'.$select_month_control.$select_year_control.$hidden_fields.'&nbsp;<input type="submit" name="submit" value="Change" /></form></td><td>'.$next_month_link.'</td></tr></table>';

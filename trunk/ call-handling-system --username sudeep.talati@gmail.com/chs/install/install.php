@@ -37,7 +37,7 @@ $stringData = "<?php
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'".$company_name."',
-	'defaultController'=>'items/freeSearch',
+	'defaultController'=>'customer/freeSearch',
 	
 		
 
@@ -154,7 +154,7 @@ return array(
 		),
 		
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/ims.db',
+			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/chs.db',
 		),
 		// uncomment the following to use a MySQL database
 		/*

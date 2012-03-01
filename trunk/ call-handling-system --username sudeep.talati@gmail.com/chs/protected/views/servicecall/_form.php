@@ -109,7 +109,22 @@
 		<?php echo $form->error($customerModel,'product_id'); ?>
 	</div>
 
-	--><div class="row">
+	-->
+	<div class="row">
+		<?php echo $form->labelEx($customerModel,'postcode'); ?>
+		<?php echo $form->textField($customerModel,'postcode',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($customerModel,'postcode'); ?>
+
+			<?php
+					$config=Config::model()->findByPk(1);
+				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
+					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
+ 
+			?>
+			<SCRIPT LANGUAGE=JAVASCRIPT SRC="http://services.postcodeanywhere.co.uk/popups/javascript.aspx?account_code=<?php echo $postcodeanwhere_account_code; ?>&license_key=<?php echo $postcodeanwhere_license_key; ?>"></SCRIPT>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($customerModel,'address_line_1'); ?>
 		<?php echo $form->textField($customerModel,'address_line_1',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'address_line_1'); ?>
@@ -133,18 +148,12 @@
 		<?php echo $form->error($customerModel,'town'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'postcode'); ?>
-		<?php echo $form->textField($customerModel,'postcode',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($customerModel,'postcode'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'country'); ?>
 		<?php echo $form->textField($customerModel,'country',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'country'); ?>
 	</div>
-
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'telephone'); ?>
 		<?php echo $form->textField($customerModel,'telephone',array('rows'=>6, 'cols'=>50)); ?>

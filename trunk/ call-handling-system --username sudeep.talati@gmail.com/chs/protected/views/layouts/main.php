@@ -24,7 +24,8 @@
 		{	?>
 			<span style="background-color:yellow; color:black;">
 			Your current version is <?php echo $installed_version; ?>
-			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package</span>
+			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
+			</span>
 			<?php 
 		}
 	?>
@@ -34,12 +35,16 @@
 <?php
 $company_logo=Yii::app()->request->baseUrl."/images/company_logo.png";
 $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
+//$header_name= CHtml::encode(Yii::app()->name);
+$config=Config::model()->findByPk(1);
+$header_name=$config->company;
+
 ?>
 
 <div class="container" id="page">
 	
 	<table><tr>
-		<td style="margin:20px; vertical-align:middle;" ><div id="logo" ><?php echo CHtml::encode(Yii::app()->name); ?><br><small>Call Handling</small></div></td>
+		<td style="margin:20px; vertical-align:middle;" ><div id="logo" ><?php echo $header_name; ?><br><small>Call Handling</small></div></td>
 		<td style="margin:20px; text-align:right;" >
 	<?php echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
 	</td>
@@ -67,7 +72,8 @@ $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 				array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
 				array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
-				array('label'=>'My Account', 'url'=>array('/user/'.Yii::app()->user->id), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Setup', 'url'=>array('/config/1')),
+				array('label'=>'Back Up', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
@@ -88,11 +94,6 @@ $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 	</td>
 	<td style="text-align:right;">
 		Copyright &copy; <?php echo date('Y'); ?> by UK Whitegoods Ltd.<br/>
-		All Rights Reserved. <br>Version <?php echo Yii::app()->params['software_version'];?><br/>
-		System Designed by 
-			<a href="mailto:sudeep.talati@gmail.com">Sudeep Talati</a>, 
-		  	<a href="mailto:kruthika.bethur@gmail.com">Kruthika Bethur</a>
-		  	&amp; Team
 
 			
 	</td></tr></table>

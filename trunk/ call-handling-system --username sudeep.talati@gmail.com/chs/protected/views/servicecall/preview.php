@@ -1,3 +1,22 @@
+<?php 
+
+$this->layout=false;
+?>
+
+<style type="text/css">
+
+hr {color:sienna;}
+p {margin-left:20px;}
+body {
+ 
+background-color: transparent;
+font-family:"Helvetica";
+}
+
+
+
+</style>
+
 <table style="width:100%; ">
 	<tr>
 		<td align="left">

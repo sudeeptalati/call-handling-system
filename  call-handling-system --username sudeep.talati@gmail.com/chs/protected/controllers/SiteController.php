@@ -100,4 +100,29 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	
+	
+	public function actionBackup()
+	{
+		
+		Yii::import('application.extensions.yii-zip.CreateZipFile');
+	
+		
+		$createZip = new CreateZipFile;
+ 
+		//$createZip->zipDirectory('../ims/protected', '');
+		$createZip->zipDirectory('protected/data', '');
+		
+		$date=date('d-F-y-h-i');
+		$zipFileName = $date.'_ims_backup.zip';
+		$handle       = fopen($zipFileName, 'wb');
+		$out           = fwrite($handle, $createZip->getZippedFile());
+		 
+		fclose($handle);
+		 
+		$createZip->forceDownload($zipFileName);
+		 
+		@unlink($zipFileName);
+
+	}//end of function backup
 }

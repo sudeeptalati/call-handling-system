@@ -1,8 +1,7 @@
 <?php
 
-class ServicecallController extends Controller
+class ConfigController extends Controller
 {
-	
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -32,11 +31,11 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('UpdateServicecall','ExistingCustomer','preview','create','update','admin'),
+				'actions'=>array('update','admin','changeLogo','emailSetup','about'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				//'actions'=>array('admin','delete'),
+				'actions'=>array(),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -55,73 +54,31 @@ class ServicecallController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-	
-	public function actionPreview($id)
-	{
-		$model=$this->loadModel($id);
 
-		//echo 'I M HERE';		
-// 		$this->renderPartial('Preview',array(
-// 			'model'=>$this->loadModel($id),
-// 		));
-		# You can easily override default constructor's params
-		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
-		# render (full page)
-		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,), true));
-		# Load a stylesheet
-		//$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
-		$mPDF1->WriteHTML($stylesheet, 1);
-		# Outputs ready PDF
-		$mPDF1->Output();
-		
-	}
-	
-	
-	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+/*DISABLED 
 	public function actionCreate()
 	{
-		$model=new Servicecall;
-		$customerModel=new Customer;
-		$model->job_status_id=1;
+		$model=new Config;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall'],$_POST['Customer']))
+		if(isset($_POST['Config']))
 		{
-			$model->attributes=$_POST['Servicecall'];
-			
-			$customerModel->attributes=$_POST['Customer'];
-			
-			
-			$valid=$model->validate();
-			$valid=$customerModel->validate() && $valid;
-			
-			if($valid)
-			{
-				if($model->save())
-				{
-					$engg_id=$model->engineer_id;
-				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
-					
-				}
-			}
-			else 
-			{
-				echo "Fill all madatory fields";
-			}
-		}//end of if(isset()).
+			$model->attributes=$_POST['Config'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}//end of create.
-
+	}
+	*/
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -130,18 +87,18 @@ class ServicecallController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall']))
+		if(isset($_POST['Config']))
 		{
-			$model->attributes=$_POST['Servicecall'];
+			$model->attributes=$_POST['Config'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
-		}//end of if(isset()).
+		}
 
-		$this->render('updateServicecall',array(
+		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
@@ -151,6 +108,7 @@ class ServicecallController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
+	/* DISABLD
 	public function actionDelete($id)
 	{
 		if(Yii::app()->request->isPostRequest)
@@ -165,13 +123,13 @@ class ServicecallController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-
+*/
 	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Servicecall');
+		$dataProvider=new CActiveDataProvider('Config');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -180,17 +138,74 @@ class ServicecallController extends Controller
 	/**
 	 * Manages all models.
 	 */
+	
+	
 	public function actionAdmin()
 	{
-		$model=new Servicecall('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Servicecall']))
-			$model->attributes=$_GET['Servicecall'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+	
+		$this->render('admin');
 	}
+
+	
+	public function actionChangeLogo()
+	{
+	   
+	
+	    if(isset($_POST['finish']))
+		{
+	        if (( ($_FILES["logo_url"]["type"] == "image/png")) && ($_FILES["logo_url"]["size"] < 1000000))
+				{
+//					echo "YEPPTY";
+					if ($_FILES["logo_url"]["error"] > 0)
+						{
+							echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
+							}
+					else
+					{
+//						echo "Upload: " . $_FILES["logo_url"]["name"] . "<br />";				
+//						echo "Type: " . $_FILES["logo_url"]["type"] . "<br />";
+//						echo "Size: " . ($_FILES["logo_url"]["size"] / 1024) . " Kb<br />";
+//						echo "Temp uploaded: " . $_FILES["logo_url"]["tmp_name"] . "<br />";
+//						$uploadedname="company_logo.png";
+						
+						$uploaded_file= $_FILES["logo_url"]["tmp_name"];
+						$location="images/company_logo.png";
+						//echo '<br>'.$location;
+							if (move_uploaded_file($uploaded_file,$location))
+							{
+								echo "Stored";
+							}
+							else
+								{
+									echo "Not Stored: ";
+								}
+								
+								
+					}//end of else
+
+				}///end of file upload if
+				else
+				{
+				echo "Invalid FILE";
+				}//end of else
+	        
+
+	    	}//end of isset post finish
+	    $this->render('changeLogo');
+	}///end of function chgange logo
+	
+	public function actionEmailSetup()
+	{
+	
+		$this->render('admin');
+	}
+
+	public function actionAbout()
+	{
+	
+		$this->render('about');
+	}
+	
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -199,7 +214,7 @@ class ServicecallController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Servicecall::model()->findByPk($id);
+		$model=Config::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -211,69 +226,10 @@ class ServicecallController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='config-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
-	
-	public function actionExistingCustomer($customer_id)
-	{
-		$model=new Servicecall;
-		$model->job_status_id=1;
-		//echo "IN ACTION EXISTING CUSTOMER ";
-		//echo "CUSTOMER ID IN SERVICE CONTROLLER :".$customer_id;
-		
-		if(isset($_POST['Servicecall']))
-		{
-			$model->attributes=$_POST['Servicecall'];
-			//echo "NEW  ENGG".$model->engineer_id;
-			//echo "CONTRACT ID :".$model->contract_id;
-			
-			if($model->save())
-			{
-				$engg_id=$model->engineer_id;
-				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
-			}		
-		}//end of if(isset()).
-		
-		
-		$this->render('existingCustomer',array(
-			'model'=>$model,
-		));
-		
-	}//end of actionExistingCustomer().
-	
-//CODE FROM GII FORM GENERATOR.	
-	
-	public function actionUpdateServicecall()
-	{
-    	$model=new Servicecall('update');
-
-	    // uncomment the following code to enable ajax-based validation
-	    /*
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-updateServicecall-form')
-	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
-	    */
-	
-	    if(isset($_POST['Servicecall']))
-	    {
-	        $model->attributes=$_POST['Servicecall'];
-	        if($model->validate())
-	        {
-	            // form inputs are valid, do something here
-	            return;
-	        }
-	    }
-	    $this->render('updateServicecall',array('model'=>$model));
-	}//end of updateServicecall.
-
-		
-	
-	
-}//end of class.
+}

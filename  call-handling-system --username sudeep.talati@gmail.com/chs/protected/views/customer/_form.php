@@ -65,10 +65,17 @@
 			<?php echo $form->textField($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'postcode'); ?>
 			
+			<?php
+					$config=Config::model()->findByPk(1);
+				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
+					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
+			?>
+			<SCRIPT LANGUAGE=JAVASCRIPT SRC="http://services.postcodeanywhere.co.uk/popups/javascript.aspx?account_code=<?php echo $postcodeanwhere_account_code; ?>&license_key=<?php echo $postcodeanwhere_license_key; ?>"></SCRIPT>
+		
 			<?php echo $form->labelEx($model,'country'); ?>
 			<?php echo $form->textField($model,'country',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'country'); ?>
-			
+	
 			<?php echo $form->labelEx($model,'telephone'); ?>
 			<?php echo $form->textField($model,'telephone',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'telephone'); ?>

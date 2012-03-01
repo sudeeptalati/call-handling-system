@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'UK Whitegoods',
+	'name'=>'YOUR COMPANY NAME ',
 	'defaultController'=>'customer/freeSearch',
 
 	// preloading 'log' component

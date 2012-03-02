@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('UpdateServicecall','ExistingCustomer','preview','create','update','admin'),
+				'actions'=>array('PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','preview','create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -59,21 +59,24 @@ class ServicecallController extends Controller
 	public function actionPreview($id)
 	{
 		$model=$this->loadModel($id);
+		$config= Config::model()->findByPk(1);	
+    
 
 		//echo 'I M HERE';		
 // 		$this->renderPartial('Preview',array(
-// 			'model'=>$this->loadModel($id),
+// 			'model'=>$this->loadModel($id),'config'=>$config,
 // 		));
 		# You can easily override default constructor's params
-		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
+		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
 		# render (full page)
-		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,), true));
+		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
 		# Load a stylesheet
 		//$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
-		$mPDF1->WriteHTML($stylesheet, 1);
+		//$mPDF1->WriteHTML($stylesheet, 1);
 		# Outputs ready PDF
 		$mPDF1->Output();
 		
+
 	}
 	
 	
@@ -274,6 +277,12 @@ class ServicecallController extends Controller
 	}//end of updateServicecall.
 
 		
+	public function actionPrintAllJobsForDay()
+	{
+		echo "I AM HERE ";
 	
+	
+	}
+ 	
 	
 }//end of class.

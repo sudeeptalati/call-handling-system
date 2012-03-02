@@ -114,7 +114,7 @@ class SiteController extends Controller
 		$createZip->zipDirectory('protected/data', '');
 		
 		$date=date('d-F-y-h-i');
-		$zipFileName = $date.'_ims_backup.zip';
+		$zipFileName = $date.'_call_handling_backup.zip';
 		$handle       = fopen($zipFileName, 'wb');
 		$out           = fwrite($handle, $createZip->getZippedFile());
 		 

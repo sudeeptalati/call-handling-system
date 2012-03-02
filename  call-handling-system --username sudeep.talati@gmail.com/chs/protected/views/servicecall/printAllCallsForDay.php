@@ -1,7 +1,10 @@
 <?php
 $this->layout=false;
 ?>
- 
+<?php 
+for ($x=1;$x<21;$x++)
+{
+?>
 	
 <style type="text/css">
 
@@ -366,5 +369,5 @@ td { 	vertical-align:top;
 			
 			 -->
 			 
-			  
+			 <?php }?>
 	

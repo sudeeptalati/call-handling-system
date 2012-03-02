@@ -170,7 +170,7 @@ class Enggdiary extends CActiveRecord
     {
     	//$result=array();
     	return Enggdiary::model()->findAllByAttributes(
-    								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date));
+    								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date, 'status'=>1));/*WE will only display the active appointmenst*/
     	
     }//end of fetchDiaryDetails(). 
     	
@@ -185,8 +185,8 @@ class Enggdiary extends CActiveRecord
     	//echo $status_code;
     	switch ($status_code)
     	{
+   			case 0:$str="Cancelled"; break;
     		case 1:$str="Booked"; break;
-    		case 2:$str="Cancelled"; break;
     	}
     	return $str;
     }

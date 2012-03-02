@@ -1,7 +1,7 @@
 <?php
 $this->layout=false;
 ?>
- 
+
 	
 <style type="text/css">
 
@@ -340,7 +340,12 @@ td { 	vertical-align:top;
 		<td></td>
 	</tr>
 	<tr>
-		<td><?php echo date('d-M-Y',$model->job_finished_date); ?><hr></td>
+		<td><?php 
+			if(!empty($model->job_finished_date))
+				echo date('d-M-Y',$model->job_finished_date); 
+			else 
+				echo "<br>";
+		?><hr></td>
 		<td></td>
 		<td><br><hr></td>
 		<td></td>

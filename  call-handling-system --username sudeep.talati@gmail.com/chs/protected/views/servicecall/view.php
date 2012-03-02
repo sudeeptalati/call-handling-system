@@ -150,10 +150,16 @@
 	
 	<tr>
 		<td>
-		<?php $viewFaultDate=date('d-M-y', $model->fault_date);?>
+		<?php 
+				if (!empty($viewFaultDate)){
+					
+				
+				$viewFaultDate=date('d-M-y', $model->fault_date);?>
 		<?php echo $form->labelEx($model,'fault_date'); ?>
 		<br>
-		<?php echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled')); ?>
+		<?php echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled'));
+				}//end of if empty
+		?>
 		<br>
 		<?php echo $form->labelEx($model,'fault_code'); ?>
 		<br>

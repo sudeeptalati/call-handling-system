@@ -44,12 +44,12 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 	
 if ( (isset($_GET['month'])) && (isset($_GET['year'])))
 {
-$month = (int) ($_GET['month'] ? $_GET['month'] : date('m'));
+$month = (int) ($_GET['month'] ? $_GET['month'] : date('n'));
 $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
 }
 else
 {
-$month=date('m');
+$month=date('n');
 $year=date('Y');
 
 	
@@ -141,19 +141,49 @@ function draw_calendar($month,$year,$engg_id){
 
 	/* keep going with days.... */
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
-		$calendar.= '<td class="calendar-day">';
+		
+			$todays_date=date('j-n-Y');
+			$current_date='';
+			$current_date=$list_day.'-'.$month.'-'.$year;
+			
+			if ($todays_date==$current_date)
+			{
+			$calendar.= '<td class="calendar-day" style="background-color:#CCFF99;" >';
+				
+			}else
+			{			
+			$calendar.= '<td class="calendar-day">';
+			}
+			
+			
+			$day_content='';
+			
+			//$day_content.= "<br>".$todays_date;
 			/* add in the day number */
 			$calendar.= '<div class="day-number">'.$list_day.'</div>';
 
 			/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
-			$current_date='';
-			$current_date=$list_day.'-'.$month.'-'.$year;
+
+			//$day_content.= "<br>".$current_date;
 			$mysql_date=strtotime($current_date);
 			
-			$day_content='';
-//			$day_content.='<br>ENGGG  :'.$engg_id;
-//			
+			
+			
+			
 			$results=Enggdiary::model()->fetchDiaryDetails($engg_id,$mysql_date);			
+
+			
+			$print_link="../../servicecall/PrintAllJobsForDay/?engg_id=".$engg_id."&date=".$current_date;
+			
+			if (!empty($engg_id)){
+			$count_sql = "SELECT COUNT(*) FROM enggdiary WHERE engineer_id = ".$engg_id." AND visit_start_date = ".$mysql_date." AND status = '1'";
+			$total_records = Yii::app()->db->createCommand($count_sql)->queryScalar();
+				if ($total_records!=0)
+				{
+				$day_content.="<a href='".$print_link."'  target='_blank' ><b>Print All Jobs</b> <a><br><br>";
+				}		
+			}///end of if for empty engg id
+			
 			foreach($results as $data)
 			{
 //			echo " <br>ENGINEER ID ".$data->engineer->fullname;

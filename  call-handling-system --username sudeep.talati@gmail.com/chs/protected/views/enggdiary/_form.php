@@ -196,12 +196,12 @@ td.calendar-day, td.calendar-day-np { width:120px; padding:5px; border-bottom:1p
 	
 if (isset($_GET['month']) && isset($_GET['year']))
 {
-$month = (int) ($_GET['month'] ? $_GET['month'] : date('m'));
+$month = (int) ($_GET['month'] ? $_GET['month'] : date('n'));
 $year = (int)  ($_GET['year'] ? $_GET['year'] : date('Y'));
 }
 else
 {
-	$month=date('m');
+	$month=date('n');
 	$year=date('Y');
 	
 }
@@ -287,13 +287,27 @@ function draw_calendar($month,$year,$engg_id){
 
 	/* keep going with days.... */
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
-		$calendar.= '<td class="calendar-day">';
+		
+			$todays_date=date('j-n-Y');
+			$current_date='';
+			$current_date=$list_day.'-'.$month.'-'.$year;
+			
+			if ($todays_date==$current_date)
+			{
+			$calendar.= '<td class="calendar-day" style="background-color:#CCFF99;" >';
+				
+			}else
+			{			
+			$calendar.= '<td class="calendar-day">';
+			}
+	
 			/* add in the day number */
 			$calendar.= '<div class="day-number">'.$list_day.'</div>';
 
 			/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
-			$current_date='';
-			$current_date=$list_day.'-'.$month.'-'.$year;
+			
+			
+			
 			$mysql_date=strtotime($current_date);
 			
 			$day_content='';

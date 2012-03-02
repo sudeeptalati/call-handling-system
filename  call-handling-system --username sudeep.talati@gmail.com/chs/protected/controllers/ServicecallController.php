@@ -279,7 +279,36 @@ class ServicecallController extends Controller
 		
 	public function actionPrintAllJobsForDay()
 	{
-		echo "I AM HERE ";
+		$engg_id=$_GET['engg_id'];
+		$visit_date=$_GET['date'];
+//		$visit_date='14-3-2012';
+		
+		
+		
+		
+		$mysql_visit_date=strtotime($visit_date);
+		
+		
+		
+		
+		$service_id_list=Enggdiary::model()->fetchDiaryDetails($engg_id, $mysql_visit_date);
+		
+		$config= Config::model()->findByPk(1);	
+		
+		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
+		
+		$content='';
+		foreach ($service_id_list as $data)
+		{
+			$servicecall_id= $data->servicecall_id;
+			$model=$this->loadModel($servicecall_id);
+			$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
+		}
+		
+ 
+		
+		$mPDF1->Output();
+		
 	
 	
 	}

@@ -43,6 +43,11 @@
 	<tr>
 		<td><b><a href="javascript: history.go(-1)">Back</a></b></td>
 		<td style="text-align:right"><b>
+				<?php 	echo CHtml::link('Edit',array('update',
+											'id'=>$model->id)
+										);
+				?>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<?php 	echo CHtml::link('Preview',array('Preview',
 											'id'=>$model->id), array('target'=>'_blank')
 										);

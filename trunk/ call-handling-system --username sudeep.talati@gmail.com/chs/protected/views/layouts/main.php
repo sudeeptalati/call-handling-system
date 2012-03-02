@@ -43,12 +43,14 @@ $header_name=$config->company;
 
 <div class="container" id="page">
 	
-	<table><tr>
+	<table>
+	<tr>
 		<td style="margin:20px; vertical-align:middle;" ><div id="logo" ><?php echo $header_name; ?><br><small>Call Handling</small></div></td>
 		<td style="margin:20px; text-align:right;" >
-	<?php echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
+		<?php //echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
+		<?php echo CHtml::image($company_logo); ?>
 	</td>
-	<tr>
+	</tr>
 	</table>
 	
 	

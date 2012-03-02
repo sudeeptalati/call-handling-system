@@ -129,7 +129,7 @@ class Servicecall extends CActiveRecord
 			'net_cost' => 'Net Cost',
 			'job_payment_date' => 'Job Payment Date',
 			'job_finished_date' => 'Job Finished Date',
-			'notes' => 'Service Notes',
+			'notes' => 'Call Requirement / Instruction Notes',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
@@ -386,4 +386,6 @@ class Servicecall extends CActiveRecord
  
     }//end of free search.
     
+    
+  
 }//end of class.

@@ -3,7 +3,7 @@
 <?php 
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
-	array('label'=>'Recent Servicecalls', 'url'=>array('/servicecall/admin')),
+	array('label'=>'Recent Service Calls', 'url'=>array('/servicecall/admin')),
 );	
 ?>
  <?php 

@@ -65,7 +65,16 @@ $productTypeModel=ProductType::model()->findByPk($productModel->product_type_id)
 	<tr>
 	<td style="vertical-align:top;">
 			<?php echo $form->labelEx($serviceModel,'fault_date'); ?>
-			<?php echo $form->textField($serviceModel,'fault_date', array('disabled'=>'disabled')); ?>
+			<?php
+					if (!empty($serviceModel->fault_date))
+					{ 
+					$php_fault_date=$serviceModel->fault_date;
+					$serviceModel->fault_date= date('d-M-y',$php_fault_date);
+					echo $form->textField($serviceModel,'fault_date', array('disabled'=>'disabled')); 
+					}
+					else 
+					echo '<br>';
+					?>
 			
 			<?php echo $form->labelEx($serviceModel,'fault_description'); ?>
 			<?php echo $form->textArea($serviceModel,'fault_description', array('disabled'=>'disabled','rows'=>4, 'cols'=>18)); ?>		

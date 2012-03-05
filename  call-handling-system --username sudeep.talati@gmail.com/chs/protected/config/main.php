@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'YOUR COMPANY NAME ',
+	'name'=>'Rapport Call Handing',
 	'defaultController'=>'customer/freeSearch',
 
 	// preloading 'log' component
@@ -159,7 +159,7 @@ return array(
 		'company_address'=>'Unit 5/6 Bonnyton Industrial Estate, Munro Place, Kilmarnock, East Ayrshire, KA1 2NP, Scotland',
 		'company_contact_details'=>' phone:0845 172 8003  fax:0845 172 8003 email:admin@ukwhitegoods.co.uk',
 		'vat_in_percentage'=>'20',	
-		'software_version'=>'0.5.1beta',	
+		'software_version'=>'0.5.2beta',	
 			
 	),
 );

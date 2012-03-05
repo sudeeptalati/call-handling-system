@@ -36,8 +36,14 @@
 		
 			$php_warranty_date=$productModel->warranty_date;
 			$php_waranty_months=$productModel->warranty_for_months;
+			
+			$res='';
+			if (!empty($php_warranty_date))
+			{
 			$warranty_until= strtotime(date("Y-M-d", $php_warranty_date) . " +".$php_waranty_months." month");
 			$res=date('d-M-Y', $warranty_until);
+			//echo $res;							
+			}							
 			//echo $res;							
 			
 		?>
@@ -90,7 +96,12 @@
 			<?php echo $form->error($model,'fault_description'); ?>
 		</td>
 		<td>
-			<?php $viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);?>
+			<?php 	$viewVisitStartDate='';
+					if(!empty($enggDiaryModel->visit_start_date))
+					{ 
+					$viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);
+					}
+					?>
 			<?php echo "<b>Current Appointment</b><br>";?>
 			<?php //echo $form->labelEx($enggDiaryModel,'visit_start_date'); ?>
 			<?php //echo $form->textField($enggDiaryModel,'visit_start_date'); ?>
@@ -262,12 +273,22 @@
 					<?php echo $form->labelEx($productModel,'purchased_from'); ?>
 					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
 					
-					<?php $viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
+					<?php	$viewPurchaseDate='';
+							if (!empty($productModel->purchase_date))
+							{
+							$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);
+							}
+							?>
 					<?php echo $form->labelEx($productModel,'purchase_date'); ?>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
 					<?php //echo $form->textField($productModel,'purchase_date', array('disabled'=>'disabled')); ?>
 					
-					<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
+					<?php	$viewWarrantyDate='';
+						 	if (!empty($productModel->warranty_date))
+							{
+								$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);
+							}
+							?>
 					<?php echo $form->labelEx($productModel,'warranty_date'); ?>
 					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 					<?php //echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>

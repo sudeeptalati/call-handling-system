@@ -34,10 +34,13 @@
 	$php_warranty_date=$productModel->warranty_date;
 	$php_waranty_months=$productModel->warranty_for_months;
 
+	$res='';
+	if (!empty($php_warranty_date))
+	{
 	$warranty_until= strtotime(date("Y-M-d", $php_warranty_date) . " +".$php_waranty_months." month");
 	$res=date('d-M-Y', $warranty_until);
 	//echo $res;							
-								
+	}							
 	
 	
 	$brandModel=Brand::model()->findByPk($productModel->brand_id);
@@ -108,12 +111,23 @@
 		<?php echo $form->labelEx($productModel,'purchased_from'); ?>
 		<?php echo $form->textField($productModel,'purchased_from',array('disabled'=>'disabled')); ?>
 		
-		<?php $viewPurschaseDate=date('d-M-y', $productModel->purchase_date);?>
-		<?php echo $form->labelEx($productModel,'purchase_date'); ?>
-		<?php //echo $form->textField($productModel,'purchase_date)',array('disabled'=>'disabled')); ?>
-		<?php echo CHtml::textField('Purchase Date',$viewPurschaseDate,  array('disabled'=>'disabled')); ?>
 		
-		<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
+		
+		<?php 
+				if (!empty($productModel->purchase_date))
+				{
+				$viewPurschaseDate=date('d-M-y', $productModel->purchase_date);
+				 echo $form->labelEx($productModel,'purchase_date');
+				 echo $form->textField($productModel,'purchase_date)',array('disabled'=>'disabled')); 
+				 echo CHtml::textField('Purchase Date',$viewPurschaseDate,  array('disabled'=>'disabled')); 
+				}
+				?>
+		
+		<?php 	$viewWarrantyDate='';
+				if (!empty($productModel->warranty_date)){
+				$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);
+				}
+				?>
 		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
 		<?php //echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
 		<?php echo CHtml::textField('Purchase Date',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
@@ -154,6 +168,8 @@
 	<tr><td>
 	<?php echo $form->labelEx($model,'fault_date'); ?>
 		<?php 
+		
+			$model->fault_date=date('d-m-Y');
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			    'name'=>CHtml::activeName($model, 'fault_date'),
 				'model'=>$model,

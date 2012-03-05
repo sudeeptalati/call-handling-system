@@ -23,6 +23,9 @@
 	
 	<?php echo $form->labelEx($model,'fault_date'); ?>
 		<?php 
+		
+		
+			$model->fault_date=date('d-m-Y');
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			    'name'=>CHtml::activeName($model, 'fault_date'),
 				'model'=>$model,
@@ -332,7 +335,18 @@
 		<?php echo $form->textArea($productModel,'notes',array('rows'=>8, 'cols'=>20)); ?>
 		<?php echo $form->error($productModel,'notes'); ?>
 	</td>
+	
+	
 	</tr>
+	
+	<tr><td colspan="2"><div class="row buttons">
+				<?php echo $form->labelEx($productModel,'engineer_id'); ?>
+				<?php //echo $form->textField($model,'engineer_id'); ?>
+				<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
+				<?php echo $form->error($productModel,'engineer_id'); ?>
+	</div></td></tr>
+	
+	
 	<tr><td colspan="2"><div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Raise Call' : 'Save'); ?>
 	</div></td></tr>

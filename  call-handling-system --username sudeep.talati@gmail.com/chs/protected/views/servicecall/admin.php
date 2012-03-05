@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('index')),
-	array('label'=>'Create Servicecall', 'url'=>array('customer/freeSearch')),
+	array('label'=>'Create Service Call', 'url'=>array('customer/freeSearch')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -52,7 +52,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array('name'=>'product_name','value'=>'$data->product->productType->name'),
 		//'contract_id',
 	//	array('name'=>'contract_name','value'=>'$data->contract->name'),
-		//'engineer_id',
+//		'engineer_id',
 		array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
 		//'created_by_user_id',
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),

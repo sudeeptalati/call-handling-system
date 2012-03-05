@@ -31,10 +31,13 @@
 	
 		$php_warranty_date=$productModel->warranty_date;
 		$php_waranty_months=$productModel->warranty_for_months;
+		$res='';
+		if (!empty ($php_warranty_date))
+		{
 		$warranty_until= strtotime(date("Y-M-d", $php_warranty_date) . " +".$php_waranty_months." month");
 		$res=date('d-M-Y', $warranty_until);
 		//echo $res;							
-		
+		}
 	?>
 	
 
@@ -116,11 +119,20 @@
 					<?php echo $form->labelEx($productModel,'purchased_from'); ?><br>
 					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
 					<br>
-					<?php $viewPurchaseDate=date('d-M-y', $productModel->purchase_date);?>
+					<?php $viewPurchaseDate='';
+							if(!empty($productModel->purchase_date)){
+								$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);
+							}
+						?>
 					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
 					<br>
-					<?php $viewWarrantyDate=date('d-M-y', $productModel->warranty_date);?>
+					<?php 	$viewWarrantyDate='';
+							if ($productModel->warranty_date)
+							{
+							$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);
+							}
+							?>
 					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
 					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 					<br>
@@ -172,10 +184,17 @@
 	<td style="vertical-align:top;">
 	
 		<table><tr><td>
-		<?php $viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);?>
-		<?php echo $form->labelEx($enggDiaryModel,'visit_start_date'); ?>
-		<br>
-		<?php echo CHtml::textField('',$viewVisitStartDate,  array('disabled'=>'disabled')); ?>
+		Engineer Visit Date	<br>
+		<?php 
+				//echo $form->labelEx($enggDiaryModel,'visit_start_date').'<br>';	
+				$viewVisitStartDate='';
+				if (!empty($enggDiaryModel->visit_start_date)){
+				$viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);
+				echo CHtml::textField('',$viewVisitStartDate,  array('disabled'=>'disabled')); 
+				}
+				?>
+				
+				
 		</td><td>
 		<?php echo $form->labelEx($model,'engineer_id'); ?>
 		<br>

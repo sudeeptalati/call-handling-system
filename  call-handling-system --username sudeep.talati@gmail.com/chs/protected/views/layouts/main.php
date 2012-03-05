@@ -21,10 +21,15 @@
 		$available_version = file_get_contents($request, true);
 		$installed_version=Yii::app()->params['software_version'];
 		if ($available_version!=$installed_version)
-		{	?>
+		{	
+			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_message.txt';	
+			$server_msg = file_get_contents($server_msg_url, true);
+			
+			?>
 			<span style="background-color:yellow; color:black;">
 			Your current version is <?php echo $installed_version; ?>
 			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
+			<?php echo $server_msg; ?>
 			</span>
 			<?php 
 		}
@@ -69,7 +74,7 @@ $header_name=$config->company;
 				//array('label'=>'Contact Details', 'url'=>array('/contactDetails/admin')),
 				//array('label'=>'Product', 'url'=>array('/product/admin')),
 				
-				array('label'=>'Servicecall', 'url'=>array('/customer/freeSearch')),					
+				array('label'=>'Service Call', 'url'=>array('/customer/freeSearch')),					
 				array('label'=>'Customer', 'url'=>array('/customer/admin')),
 				array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
@@ -77,7 +82,7 @@ $header_name=$config->company;
 				array('label'=>'Setup', 'url'=>array('/config/1')),
 				array('label'=>'Back Up', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('confirm'=>'Are you sure you want to Logout?'))
 			),
 		)); ?>
 	</div><!-- mainmenu -->

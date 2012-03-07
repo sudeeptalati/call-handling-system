@@ -388,14 +388,10 @@ class Servicecall extends CActiveRecord
  
     }//end of free search.
     
-<<<<<<< .mine
+
     public function getStatus()
     {
     	return CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');
     }//end of getStatus().
     
-=======
-    
-  
->>>>>>> .r47
 }//end of class.

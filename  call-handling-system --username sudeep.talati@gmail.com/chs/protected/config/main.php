@@ -9,6 +9,8 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'UK Whitegoods',
 	'defaultController'=>'customer/freeSearch',
+	
+		
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -17,11 +19,14 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.extensions.yii-mail.*',
+		'application.extensions.yii-zip.*',
+		'application.vendors.*',
+
+			
 	),
 
 	'modules'=>array(
-		// uncomment the following to enable the Gii tool
-		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'chs',
@@ -50,8 +55,8 @@ return array(
 											'default_font'      => '', // Sets the default font-family for the new document.
 											'mgl'               => 15, // margin_left. Sets the page margins for the new document.
 											'mgr'               => 15, // margin_right
-											'mgt'               => 10, // margin_top
-											'mgb'               => 10, // margin_bottom
+											'mgt'               => 16, // margin_top
+											'mgb'               => 16, // margin_bottom
 											'mgh'               => 9, // margin_header
 											'mgf'               => 9, // margin_footer
 											'orientation'       => 'P', // landscape or portrait orientation
@@ -76,6 +81,7 @@ return array(
 			/*
 			 *MAIL CONFIGURATION 
 			 */
+					
 			'mail' => array(
 		        'class' => 'application.extensions.yii-mail.YiiMail',
 		        'transportType'=>'smtp', /// case sensitive!
@@ -91,12 +97,15 @@ return array(
 		        'logging' => true,
 		        'dryRun' => false
 		    ),	
-	
+			
+			
+			
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
-		),
-		// uncomment the following to enable URLs in path-format
+			),
+			
+
 		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
@@ -161,4 +170,5 @@ return array(
 		'software_version'=>'0.5beta',	
 
 	),
+
 );

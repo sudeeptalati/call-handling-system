@@ -1,7 +1,7 @@
 <div class="form">
 
 <?php 
-	
+	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
 	$changeEnggUrl=$baseUrl.'/enggdiary/changeEngineer/';		
 
@@ -13,6 +13,7 @@
 	
 )); ?>
 <?php 
+	
 	$engg_id=$model->engineer_id;
  	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
  	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";

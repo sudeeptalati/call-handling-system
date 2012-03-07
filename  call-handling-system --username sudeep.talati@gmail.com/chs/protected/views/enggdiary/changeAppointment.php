@@ -19,7 +19,7 @@
 		$productTypeModel=ProductType::Model()->findByPk($productModel->product_type_id);
 		$brandModel=Brand::model()->findByPk($productModel->brand_id);
 
-		echo "ENGINEER ID".$model->engineer_id;
+		//echo "ENGINEER ID".$model->engineer_id;
 		$engineerModel=Engineer::model()->findByPk($model->engineer_id);
 		$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
 		
@@ -37,6 +37,7 @@
 	</tr>
 	<tr>
 	<td style="vertical-align:top;">
+			<?php $serviceModel->fault_date=date('d-M-y', $serviceModel->fault_date);?>
 			<?php echo $form->labelEx($serviceModel,'fault_date'); ?>
 			<?php echo $form->textField($serviceModel,'fault_date', array('disabled'=>'disabled')); ?>
 			
@@ -245,8 +246,8 @@ $controls = '<table><tr><td>'.$previous_month_link.'</td><td><form method="get" 
 
 //echo $controls;	
 
-$cuurent_month=strtotime('1-'.$month.'-'.$year);
-$this_month= '<h2 style=" padding-right:30px;">'.date('F - Y',$cuurent_month).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
+$current_month=strtotime('1-'.$month.'-'.$year);
+$this_month= '<h2 style=" padding-right:30px;">'.date('F - Y',$current_month).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>';
 
 $draw='<table><tr><td style="text-align:center;" >'.$this_month.'</td></tr>';
 $draw.='<tr><td>'.$controls.'</td></tr>';

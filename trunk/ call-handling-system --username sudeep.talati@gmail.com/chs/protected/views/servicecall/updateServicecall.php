@@ -96,16 +96,25 @@
 			<?php echo $form->error($model,'fault_description'); ?>
 		</td>
 		<td>
+<<<<<<< .mine
+			<?php 
+				if(!empty($enggDiaryModel->visit_start_date))
+				{
+					$enggDiaryModel->visit_start_date = date('d-M-y', $enggDiaryModel->visit_start_date);
+				}
+				?>
+=======
 			<?php 	$viewVisitStartDate='';
 					if(!empty($enggDiaryModel->visit_start_date))
 					{ 
 					$viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);
 					}
 					?>
+>>>>>>> .r47
 			<?php echo "<b>Current Appointment</b><br>";?>
 			<?php //echo $form->labelEx($enggDiaryModel,'visit_start_date'); ?>
-			<?php //echo $form->textField($enggDiaryModel,'visit_start_date'); ?>
-			<?php echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
+			<?php echo $form->textField($enggDiaryModel,'visit_start_date', array('disabled'=>'disabled')); ?>
+			<?php //echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
 			<?php //echo $form->error($enggDiaryModel,'visit_start_date'); ?>
 			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
@@ -213,6 +222,15 @@
 				<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>30)); ?>
 				<?php echo $form->error($model,'notes'); ?>
 			</td>
+			<?php if($model->job_status_id!=5)
+					{
+			?>
+			<td style="vertical-align:top;">
+				<?php echo $form->labelEx($model,'job_status_id'); ?>
+				<?php echo $form->dropDownList($model,'job_status_id', array('3'=>'Waiting for Parts', '4'=>'Waiting for Technical', '5'=>'Completed', '6'=>'Recalled', '7'=>'Cancelled',)); ?>
+				<?php echo $form->error($model,'job_status_id'); ?>
+			</td>
+			<?php }?>
 			
 		</tr>
 			

@@ -71,7 +71,7 @@ class EnggdiaryController extends Controller
 		$model=new Enggdiary;
 		$model->servicecall_id=$service_id;
 		$model->engineer_id=$engg_id;
-		$model->status='1';
+		$model->status='1';//STATUS OF APPOINTMENT(VISIT START DATE).
 		//echo "THIS IS SELECTED :".$model->engineer_id;
 		
 		
@@ -85,6 +85,10 @@ class EnggdiaryController extends Controller
 			
 			if($model->save())
 			{
+				$seviceQueryModel=Servicecall::model()->findByPk($service_id);
+				$serviceModel=Servicecall::model()->updateByPk($seviceQueryModel->id,
+													array('job_status_id'=>'2')	
+													);
 				$service_id=$model->servicecall_id;
         		$engg_id=$model->engineer_id;
 	        	
@@ -200,12 +204,14 @@ class EnggdiaryController extends Controller
 	
 	public function actionChangeEngineer()
 	{
-
-	  	$model=new Enggdiary();
-     
+		
+		$model=new Enggdiary();
+		
 		if (isset($_GET['engineer_id']))
 		{
+			
 		$model->engineer_id=$_GET['engineer_id'];
+		//echo "ENGINEER ID IN CONTROLLER :".$model->engineer_id;
 		}
 	    
 		if(isset($_POST['Enggdiary']))
@@ -214,11 +220,13 @@ class EnggdiaryController extends Controller
         //echo "I M INSIDE AND id is ".$model->engineer_id;
         if ($model->servicecall_id)
         	{
-        	$service_id=$model->servicecall_id;
-        	$engg_id=$model->engineer_id;
-        	
-			$baseUrl=Yii::app()->request->baseUrl;
-			$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
+//			if($model->save())
+//			{
+	        	$service_id=$model->servicecall_id;
+	        	$engg_id=$model->engineer_id;
+	        	
+				$baseUrl=Yii::app()->request->baseUrl;
+				$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
         	}	
 
     	}//
@@ -243,13 +251,6 @@ class EnggdiaryController extends Controller
 	    $model->engineer_id=$engg_id;
 	    //$model->servicecall_id=$service_id;
 	    $model->id=$diaryid;
-	    
-	    
-	    
-	    
-	    //model=new Enggdiary;
-	    
-	   //$model->servicecall_id=$service_id;
 	    
 	    if(isset($_POST['Enggdiary']))
 	    {
@@ -300,23 +301,11 @@ class EnggdiaryController extends Controller
 			
 			
 			}
-			else {
-			echo "AWW";
+			else 
+			{
+				echo "AWW";
 			}
 			
-													
-//			$enggDiaryUpdateModel=Enggdiary::model()->updateByPk($enggDiaryModel->id,
-//														array(
-//														'status'=>'0',//change old appointment status to Cancelled.
-//														));
-		   
-//			if($model->save())
-//			{
-//				$baseUrl=Yii::app()->request->baseUrl;
-//				$this->redirect($baseUrl.'/servicecall/'.$service_id);
-//	        }//end of if(save());
-
-	    
 	    }//end of if(isset());
 	    $this->render('changeAppointment',array('model'=>$model));
 	}//END OF CHANGE appointment.

@@ -74,7 +74,7 @@ class Product extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('contract_id, brand_id, product_type_id', 'required'),
+			array('contract_id, brand_id, product_type_id, model_number', 'required'),
 			array('contract_id, brand_id, product_type_id, customer_id, engineer_id, discontinued, warranty_for_months, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('purchase_price', 'numerical'),
 			array('purchased_from, warranty_until, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode', 'safe'),

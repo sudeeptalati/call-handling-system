@@ -106,12 +106,45 @@ class CustomerController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Customer']))
+		if(isset($_POST['Customer'],$_POST['Product']))
 		{
 			$model->attributes=$_POST['Customer'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+			$productModel=new Product;
+			$productModel->attributes=$_POST['Product'];
+			
+			$valid=$model->validate();
+			$valid=$productModel->validate() && $valid;
+			
+			if($valid)
+			{
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
+			else 
+			{
+				$message="Fill all the mandatory fields of Product also.";
+				
+				$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+	    				'id'=>'juiDialog',
+	    				'options'=>array(
+	    						'title'=>'Enter all fields',
+	    						'autoOpen'=>true,
+	    						'modal'=>'true',
+	    						'show' => 'blind',
+                            	'hide' => 'explode',
+                            	//'color' => 'blue',
+	    						//'width'=>'40px',
+	    						//'height'=>'40px',
+	    						),
+	    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
+       					
+	    				
+	    		));
+	    		
+	    		echo $message;
+	    		$this->endWidget();
+			}//end of else.
+		}//end of if(isset()).
 
 		$this->render('update',array(
 			'model'=>$model,

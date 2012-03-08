@@ -185,11 +185,16 @@ class Customer extends CActiveRecord
 				$this->product_id=$productQueryModel->id;
         		
         		return true;
-            }
+            }//end of if($this->isNewRecord).
             else
             {
-
-            	$this->modified=time();
+            	$productModel=Product::model()->findByPk($this->product_id);
+            	$productModel->attributes=$_POST['Product'];
+            	if($productModel->save())
+            	{
+            		
+            	}
+				$this->modified=time();
                 return true;
             }
         }//end of if(parent())

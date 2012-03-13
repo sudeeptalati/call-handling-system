@@ -74,7 +74,7 @@ class Product extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('contract_id, brand_id, product_type_id, model_number', 'required'),
+			array('contract_id, brand_id, product_type_id', 'required'),
 			array('contract_id, brand_id, product_type_id, customer_id, engineer_id, discontinued, warranty_for_months, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('purchase_price', 'numerical'),
 			array('purchased_from, warranty_until, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode', 'safe'),
@@ -116,7 +116,7 @@ class Product extends CActiveRecord
 			'product_type_id' => 'Product Type',
 			'customer_id' => 'Customer',
 			'engineer_id' => 'Engineer',
-			'purchased_from' => 'Reatiler',
+			'purchased_from' => 'Retailer',
 			'purchase_date' => 'Purchase Date',
 			'warranty_date' => 'Warranty Start',
 			'model_number' => 'Model Number',
@@ -201,18 +201,31 @@ class Product extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
-
-        	$this->purchase_date=strtotime($this->purchase_date);
+			$this->purchase_date=strtotime($this->purchase_date);
         	$this->warranty_date=strtotime($this->warranty_date);
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		$this->lockcode=Yii::app()->user->id*1000;
-        		$this->customer_id=0;
-
-        		$this->created=time();
+        		
+        		//$this->customer_id=0;
+        		
+        		//if(isset($_GET['customer_id']))
+        		if($this->customer_id=='0')
+        		{
+        			//echo "CUSTOMER DOSENT EXIST.<br>";
+        			$this->customer_id=0;
+        			$this->lockcode=Yii::app()->user->id*1000;
+        		}
+        		else 
+        		{
+        			//echo "<hr>CUSTOMER ID IN BEFORE SAVE :".$this->customer_id."<BR>";
+        			$this->lockcode=0;
+        			
+        		}
+        		
+				$this->created=time();
         		return true;
-            }
+            }//end if($this->isNewRecord).
             else
             {
             	$this->modified=time();
@@ -223,6 +236,9 @@ class Product extends CActiveRecord
     
     protected function afterSave()
     {
-    
+    	
+    	//$this->lockcode=0;
     }//end of afterSave().
+    
+    
 }//end of class.

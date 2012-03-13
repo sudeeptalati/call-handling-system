@@ -294,9 +294,5 @@ class CustomerController extends Controller
         ));
     }//end of searchEngine().
     
-	
-	
-	
-	
-	
+    
 }//end of class.

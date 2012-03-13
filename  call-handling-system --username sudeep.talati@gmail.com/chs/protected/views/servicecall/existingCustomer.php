@@ -116,21 +116,23 @@
 		<?php 
 				if (!empty($productModel->purchase_date))
 				{
-				$viewPurschaseDate=date('d-M-y', $productModel->purchase_date);
-				 echo $form->labelEx($productModel,'purchase_date');
-				 echo $form->textField($productModel,'purchase_date)',array('disabled'=>'disabled')); 
-				 echo CHtml::textField('Purchase Date',$viewPurschaseDate,  array('disabled'=>'disabled')); 
+					$productModel->purchase_date=date('d-M-y', $productModel->purchase_date);
 				}
+				 echo $form->labelEx($productModel,'purchase_date');
+				 echo $form->textField($productModel,'purchase_date',array('disabled'=>'disabled')); 
+				 //echo CHtml::textField('Purchase Date',$viewPurschaseDate,  array('disabled'=>'disabled')); 
+				
 				?>
 		
-		<?php 	$viewWarrantyDate='';
-				if (!empty($productModel->warranty_date)){
-				$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);
+		<?php 	//$viewWarrantyDate='';
+				if (!empty($productModel->warranty_date))
+				{
+					$productModel->warranty_date=date('d-M-y', $productModel->warranty_date);
 				}
 				?>
 		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
-		<?php //echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
-		<?php echo CHtml::textField('Purchase Date',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
+		<?php echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
+		<?php //echo CHtml::textField('Purchase Date',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 		
 		<?php echo $form->labelEx($productModel,'warranty_until'); ?>
 		<?php 

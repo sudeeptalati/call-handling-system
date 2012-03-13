@@ -255,7 +255,7 @@ class Servicecall extends CActiveRecord
 				$cust_id=$_GET['customer_id'];
 				//echo "CUSTOMER ID FROM URL :".$cust_id;
 				
-				if($this->customer_id=='0')
+				if($this->customer_id=='0')//customer_id=0 INDICATES NEW CUSTOMER.
 				{
 					//SAVING NEW CUSTOMER DATA TO CUSTOMER TABLE.
 					$customerModel=new Customer;

@@ -69,5 +69,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'class'=>'CButtonColumn',
 			'template'=>'{view}{update}',
 		),
+		array(
+			//'name'=>'',
+			'type' => 'raw',
+			//'value' => 'CHtml::link("Add another Product")',
+			'value' => 'CHtml::link("Add another product",array("product/addProduct", "id"=>$data->id))',
+		),
 	),
 )); ?>

@@ -96,21 +96,21 @@
 			<?php echo $form->error($model,'fault_description'); ?>
 		</td>
 		<td>
-<<<<<<< .mine
+
 			<?php 
 				if(!empty($enggDiaryModel->visit_start_date))
 				{
 					$enggDiaryModel->visit_start_date = date('d-M-y', $enggDiaryModel->visit_start_date);
 				}
 				?>
-=======
-			<?php 	$viewVisitStartDate='';
-					if(!empty($enggDiaryModel->visit_start_date))
-					{ 
-					$viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);
-					}
+
+			<?php 	//$viewVisitStartDate='';
+//					if(!empty($enggDiaryModel->visit_start_date))
+//					{ 
+//					$enggDiaryModel->visit_start_date= date('d-M-y', $enggDiaryModel->visit_start_date);
+//					}
 					?>
->>>>>>> .r47
+
 			<?php echo "<b>Current Appointment</b><br>";?>
 			<?php //echo $form->labelEx($enggDiaryModel,'visit_start_date'); ?>
 			<?php echo $form->textField($enggDiaryModel,'visit_start_date', array('disabled'=>'disabled')); ?>

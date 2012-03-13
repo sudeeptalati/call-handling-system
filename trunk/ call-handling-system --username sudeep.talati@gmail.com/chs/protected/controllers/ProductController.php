@@ -31,7 +31,7 @@ class ProductController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'admin'),
+				'actions'=>array('create','update', 'admin','addProduct'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,7 +62,11 @@ class ProductController extends Controller
 	public function actionCreate()
 	{
 		$model=new Product;
-
+		//echo "ID FROM URL :".$_GET['id'];
+//		if(!empty($_GET['id']))
+//			$model->customer_id=$_GET['id'];
+//		else 
+//			$model->customer_id=0;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -172,5 +176,34 @@ class ProductController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-}
+	}//end of AjaxValidation.
+	
+	public function actionAddProduct()
+	{
+		//echo "IN ADD PRODUCT CONTROLLER";
+		//echo "<hr>ID FROM URL IN CONTROLLER :".$_GET['id'];
+		
+		$model=new Product;
+		
+		if(isset($_POST['Product']))
+		{
+			$model->attributes=$_POST['Product'];
+			//$model->customer_id=$_GET['id'];
+			$model->lockcode=0;
+		
+			if($model->save())
+			{
+				
+				//echo "cust id after save :".$model->customer_id;
+				$this->redirect(array('view','id'=>$model->id));
+			}
+		}//end of if(isset()).
+		
+		$this->render('create',array(
+			'model'=>$model,
+		));
+			
+	}//end of addProduct.
+	
+	
+}//end of class.

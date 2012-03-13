@@ -23,8 +23,6 @@
 	
 	<?php echo $form->labelEx($model,'fault_date'); ?>
 		<?php 
-		
-		
 			$model->fault_date=date('d-m-Y');
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			    'name'=>CHtml::activeName($model, 'fault_date'),
@@ -55,6 +53,7 @@
 	<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number'); ?>
 		<?php echo $form->error($model,'insurer_reference_number'); ?>
+		
 		<?php echo $form->labelEx($model,'notes'); ?>
 		<?php echo $form->textArea($model,'notes',array('rows'=>7, 'cols'=>40)); ?>
 		<?php echo $form->error($model,'notes'); ?>
@@ -232,6 +231,14 @@
 		<?php echo $form->textField($productModel,'serial_number',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($productModel,'serial_number'); ?>
 	</div>
+	
+	<div class="row">
+			<?php //echo $form->labelEx($productModel,'customer_id'); ?>
+			<?php //CUSTOMER ID SET TO ZERO TO CHECK WHETHER NEW CUSTOMER.?>
+			<?php echo $form->hiddenField($productModel,'customer_id',array('value'=>0)); ?>
+			<?php echo $form->error($productModel,'customer_id'); ?>
+	</div>
+	
 	</td>
 	
 	

@@ -33,12 +33,14 @@ $this->menu=array(
 		//'purchase_date',
 		array(
 				'name'=>'Purchase Date',
-				'value'=>date('d-M-y',$model->purchase_date),
+				//'value'=>date('d-M-y',$model->purchase_date),
+				'value'=>(!empty($model->purchase_date)) ? CHtml::encode(date('d-M-y',$model->purchase_date)) : '',
 		),
 		//'warranty_date',
 		array(
 				'name'=>'Warranty Date',
-				'value'=>date('d-M-y',$model->warranty_date),
+				//'value'=>date('d-M-y',$model->warranty_date),
+				'value'=>(!empty($model->purchase_date)) ? CHtml::encode(date('d-M-y',$model->warranty_date)) : '',
 		),
 		'model_number',
 		'serial_number',

@@ -117,6 +117,11 @@
 			<?php echo $form->textField($productModel,'purchased_from',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($productModel,'purchased_from'); ?>
 			
+			<?php //echo $form->labelEx($productModel,'customer_id'); ?>
+			<?php //CUSTOMER ID SET TO ZERO TO CHECK WHETHER NEW CUSTOMER.?>
+			<?php echo $form->hiddenField($productModel,'customer_id',array('value'=>0)); ?>
+			<?php echo $form->error($productModel,'customer_id'); ?>
+			
 			<?php //echo $form->labelEx($productModel,'purchase_date'); ?>
 			<?php //echo $form->textField($productModel,'purchase_date'); ?>
 			<?php //echo $form->error($productModel,'purchase_date'); ?>

@@ -291,13 +291,24 @@ function draw_calendar($month,$year,$engg_id){
 
 	/* keep going with days.... */
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
-		$calendar.= '<td class="calendar-day">';
+		
+			$todays_date=date('j-n-Y');
+			$current_date='';
+			$current_date=$list_day.'-'.$month.'-'.$year;
+			
+			if($todays_date==$current_date)
+			{
+				$calendar.= '<td class="calendar-day" style="background-color:#CCFF99;" >';
+			}
+			else 
+			{
+				$calendar.= '<td class="calendar-day">';
+			}
 			/* add in the day number */
 			$calendar.= '<div class="day-number">'.$list_day.'</div>';
 
 			/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
-			$current_date='';
-			$current_date=$list_day.'-'.$month.'-'.$year;
+			
 			$mysql_date=strtotime($current_date);
 			
 			$day_content='';

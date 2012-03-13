@@ -303,11 +303,11 @@ function draw_calendar($month,$year,$engg_id){
 			
 			if ($todays_date==$current_date)
 			{
-			$calendar.= '<td class="calendar-day" style="background-color:#CCFF99;" >';
-				
-			}else
+				$calendar.= '<td class="calendar-day" style="background-color:#CCFF99;" >';
+			}
+			else
 			{			
-			$calendar.= '<td class="calendar-day">';
+				$calendar.= '<td class="calendar-day">';
 			}
 	
 			/* add in the day number */

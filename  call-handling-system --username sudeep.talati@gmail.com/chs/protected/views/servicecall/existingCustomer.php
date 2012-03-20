@@ -13,6 +13,10 @@
 	
 	<?php 
 	$cust_id=$_GET['customer_id'];
+	$prod_id=$_GET['product_id'];
+	//echo $prod_id;
+	
+	
 	
 	//TO GET CUSTOMER DETAILS.
 	$customerModel=Customer::model()->findByPk($cust_id);
@@ -24,11 +28,13 @@
 	$address=$str1." ".$str2." ".$str3." ".$str4." ".$str5;
 	//echo "address :".$address;
 	
-	
+
 	//TO GET PRODUCT DETAILS.
-	$productModel=Product::model()->findByAttributes(
-								array('customer_id'=>$cust_id)
-								);
+//	$productModel=Product::model()->findByAttributes(
+//								array('customer_id'=>$cust_id)
+//								);
+
+	$productModel=Product::model()->findByPk($prod_id);
 	//CALCULATING VALID UNTILL.
 	
 	$php_warranty_date=$productModel->warranty_date;
@@ -86,6 +92,9 @@
 	<!-- END OF CUSTOMER DETAILS -->
 	
 	<!-- ***** SECOND PART DISPLAYING PRODUCT DETAILS ******* -->
+	<?php 
+		
+		?>
 	<td>
 	<div class="row">
 	<table>
@@ -104,7 +113,6 @@
 		
 		<?php echo $form->labelEx($productModel,'serial_number'); ?>
 		<?php echo $form->textField($productModel,'serial_number',array('disabled'=>'disabled')); ?>
-		
 		
 		</td>
 		<td>

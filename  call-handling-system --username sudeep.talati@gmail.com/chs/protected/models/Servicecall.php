@@ -157,7 +157,9 @@ class Servicecall extends CActiveRecord
 		
 		$criteria->with = array( 'customer','jobStatus');
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
+		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
+		
 		
 		$criteria->compare('id',$this->id);
 		$criteria->compare('service_reference_number',$this->service_reference_number);

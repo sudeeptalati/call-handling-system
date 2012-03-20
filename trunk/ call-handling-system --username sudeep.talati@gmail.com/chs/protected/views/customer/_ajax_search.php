@@ -22,12 +22,15 @@ $displayResults=$results->getData();
 </tr>
 
 
-<?php 
+<?php
+
 foreach ($displayResults as $row)
 {
+	
 ?>	
 	<tr>
-	<td><?php echo CHtml::link($row->fullname, array('Servicecall/existingCustomer', 'customer_id'=>$row->id));?></td>
+	<td><?php //echo CHtml::link($row->fullname, array('Servicecall/existingCustomer', 'customer_id'=>$row->id));?>
+		<?php echo $row->fullname;?></td>
 	<td><?php echo $row->town;?></td>
 	<td><?php echo $row->postcode;?></td>
 	<td>
@@ -61,3 +64,24 @@ echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 }
 ?>
 </table>
+<?php 
+
+	$custModel=Customer::model()->findByPk($row->id);
+	//echo $custModel->id."<br>";
+?>
+	<span style="color:#A15A0E"><?php echo "Select the product<br>";?></span>
+<?php 
+	$result=$custModel->getAllProducts($custModel->id);
+	foreach ($result as $data)
+	{
+?>
+	<table>
+		<tr>
+		<!-- <td><?php //echo $data->id; ?></td>-->
+		<td><?php echo CHtml::link($data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?></td>
+		</tr>
+	</table>		
+<?php 		
+	}
+
+?>

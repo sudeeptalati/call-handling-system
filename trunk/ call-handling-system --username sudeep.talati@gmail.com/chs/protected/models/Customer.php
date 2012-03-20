@@ -238,4 +238,11 @@ class Customer extends CActiveRecord
     	
     }//end of freeSearch().
     
+    public function getAllProducts($id)
+    {
+    	return Product::model()->findAllByAttributes(array('customer_id'=>$id));
+    }
+    
+    
+    
 }//end of class.

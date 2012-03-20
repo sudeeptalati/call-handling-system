@@ -127,15 +127,16 @@
 					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
 					<br>
-					<?php 	$viewWarrantyDate='';
-							if ($productModel->warranty_date)
+					<?php 	//$viewWarrantyDate='';
+							if (!empty($productModel->warranty_date))
 							{
-							$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);
+							$productModel->warranty_date=date('d-M-y', $productModel->warranty_date);
 							}
 							?>
 					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
-					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
-					<br>
+					<?php //echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
+					<?php echo $form->textField($productModel, 'warranty_date', array('disabled'=>'disabled'));?>
+					
 					<?php echo $form->labelEx($productModel,'warranty_until'); ?><br>
 					<?php 
 						echo CHtml::textField('Warranty Date',$res,  array('disabled'=>'disabled'));

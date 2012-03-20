@@ -168,12 +168,8 @@ function draw_calendar($month,$year,$engg_id){
 			//$day_content.= "<br>".$current_date;
 			$mysql_date=strtotime($current_date);
 			
-			
-			
-			
 			$results=Enggdiary::model()->fetchDiaryDetails($engg_id,$mysql_date);			
 
-			
 			$print_link="../../servicecall/PrintAllJobsForDay/?engg_id=".$engg_id."&date=".$current_date;
 			
 			if (!empty($engg_id)){

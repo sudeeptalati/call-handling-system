@@ -191,4 +191,14 @@ class Enggdiary extends CActiveRecord
     	return $str;
     }
     
+    public function weeklyReport($engg_id,$start_date,$end_date)
+    {
+    	$str_start_date=strtotime($start_date);
+    	$str_end_date=strtotime($end_date);
+    	
+    	return Enggdiary::model()->findAllByAttributes(
+    								array('engineer_id'=>$engg_id, 'status'=>1), "visit_start_date <= $str_end_date AND visit_start_date >= $str_start_date"
+    								);
+    }
+    
 }//end of class.

@@ -139,7 +139,10 @@ function draw_calendar($month,$year,$engg_id){
 		$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
 		$days_in_this_week++;
 	endfor;
-
+	
+	$week_start_date= '';/* VARIABLE CREATED TO STORE WEEK START DATE */
+	$week_end_date= '';/* VARIABLE CREATED TO STORE WEEK END DATE */ 
+	
 	/* keep going with days.... */
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 		
@@ -192,27 +195,49 @@ function draw_calendar($month,$year,$engg_id){
 			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
 			$day_content.="</a>";
 			//$day_content.="</p>";
-			}
+			}//end of foreach().
 
 			$calendar.= str_repeat('<p>'.$day_content.'</p>',1);
 			
 		$calendar.= '</td>';
+		/*MY CODE TO GET URL*/
+		if($day_counter=='0')
+		{
+			$week_start_date=$current_date;
+			echo "<hr>Begin week :" .$week_start_date;
+		}
+		if($days_in_this_week=='1')
+		{
+			$week_start_date=$current_date;
+			echo "<hr>Begin week :" .$week_start_date;
+		}
+		$baseUrl=Yii::app()->baseUrl;
+		//echo $baseUrl;
+		/*END OF MY CODE */
 		if($running_day == 6):
-			$calendar.= '</tr>';
+			$week_end_date=$current_date;
+			echo "End week :". $week_end_date."<br>"; /* GIVES THE DATES OF WEEKENDS */
+			$url=$baseUrl.'/enggdiary/weeklyReport/?engg_id='.$engg_id.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
+			$calendar.= '<td> <a href="'.$url.'">View Week</a>       <td></tr>';
 			if(($day_counter+1) != $days_in_month):
 				$calendar.= '<tr class="calendar-row">';
 			endif;
 			$running_day = -1;
 			$days_in_this_week = 0;
+			//$weekEndDate=$current_date;
+			
+			
 		endif;
 		$days_in_this_week++; $running_day++; $day_counter++;
 	endfor;
+	//echo $current_date; GIVES THE MONTH END DATE.
 
 	/* finish the rest of the days in the week */
 	if($days_in_this_week < 8):
 		for($x = 1; $x <= (8 - $days_in_this_week); $x++):
 			$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
 		endfor;
+		//echo "<hr>".$current_date;
 	endif;
 
 	/* final row */

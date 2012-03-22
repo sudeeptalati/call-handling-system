@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment'),
+				'actions'=>array('ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -335,6 +335,32 @@ class EnggdiaryController extends Controller
     	}//
 	
 	}//end of function change engineer Only
+	
+	public function actionWeeklyReport()
+	{
+		
+		$model=new Enggdiary('view');
+		
+		// uncomment the following code to enable ajax-based validation
+		/*
+		if(isset($_POST['ajax']) && $_POST['ajax']==='enggdiary-weeklyReport-form')
+		{
+			echo CActiveForm::validate($model);
+		    Yii::app()->end();
+		 }
+		 */
+		
+		 if(isset($_POST['Enggdiary']))
+		 {
+		 	$model->attributes=$_POST['Enggdiary'];
+		    if($model->validate())
+		    {
+		    	// form inputs are valid, do something here
+		        return;
+		     }
+		 }
+		 $this->render('weeklyReport',array('model'=>$model));
+	}
 	
 	
 	

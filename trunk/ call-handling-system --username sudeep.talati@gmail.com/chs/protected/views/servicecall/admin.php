@@ -44,6 +44,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		//'id',
 		'service_reference_number',
+		array('name'=>'job_status',
+			  'value'=>'$data->jobStatus->name'
+		),
 		//'customer_id',
 		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
@@ -51,9 +54,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'product_id',
 		array('name'=>'product_name','value'=>'$data->product->productType->name'),
 		//'job_status_id',
-		array('name'=>'job_status',
-			  'value'=>'$data->jobStatus->name'
-		),
+		
 //		array('name'=>'job_status',
 //			  'filter'=> CHtml::listData(JobStatus::model()->findAll(), 'id', 'name'),
 //			  'value'=>'$data->jobStatus->name',

@@ -10,8 +10,8 @@ $displayResults=$results->getData();
 <th>Postcode</th>
 
 <th>Product</th>
-<th>Model Number</th>
-<th>Serial Number</th>
+<!--<th>Model Number</th>-->
+<!--<th>Serial Number</th>-->
 <!-- 
 <th>Date of Purchase</th>
 <th>Warranty Date</th>
@@ -69,18 +69,20 @@ echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 	$custModel=Customer::model()->findByPk($row->id);
 	//echo $custModel->id."<br>";
 ?>
-	<span style="color:#A15A0E"><?php echo "Select the product<br>";?></span>
+	<span style="color:#A15A0E"><?php echo "Select the product";?></span><br><br>
 <?php 
 	$result=$custModel->getAllProducts($custModel->id);
 	foreach ($result as $data)
 	{
 ?>
-	<table>
-		<tr>
-		<!-- <td><?php //echo $data->id; ?></td>-->
-		<td><?php echo CHtml::link($data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?></td>
-		</tr>
-	</table>		
+<!--	<table>-->
+<!--		<tr>-->
+<!-- 		 <td><?php //echo $data->id; ?></td> -->
+<!--		<td>-->
+		<?php echo CHtml::link($data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<!--		</td>-->
+<!--		</tr>-->
+<!--	</table>		-->
 <?php 		
 	}
 

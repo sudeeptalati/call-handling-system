@@ -24,7 +24,7 @@
 		//address of customer.
 		$str1=$customerModel->address_line_1." ".$customerModel->address_line_2." ".$customerModel->address_line_3."\n";
 		$str2=$customerModel->town."\n";
-		$str3=$customerModel->postcode;
+		$str3=$customerModel->postcode_s." ".$customerModel->postcode_e;
 		$address=$str1." ".$str2." ".$str3;
 		
 		//CALCULATING VALID UNTILL.
@@ -191,9 +191,18 @@
 				$viewVisitStartDate='';
 				if (!empty($enggDiaryModel->visit_start_date)){
 				$viewVisitStartDate= date('d-M-y', $enggDiaryModel->visit_start_date);
-				echo CHtml::textField('',$viewVisitStartDate,  array('disabled'=>'disabled')); 
-				}
-				?>
+ 				}
+				echo CHtml::textField('',$viewVisitStartDate,  array('disabled'=>'disabled'));
+		?>
+		<?php 
+//			if(!empty($enggDiaryModel->visit_start_date))
+//			{
+//				$enggDiaryModel->visit_start_date=date('d-M-y', $enggDiaryModel->visit_start_date);
+//			}
+		?>
+		 
+		<?php //echo $form->textField($enggDiaryModel,'visit_start_date', array('disabled'=>'disabled')); ?>
+		
 				
 				
 		</td><td>
@@ -229,30 +238,46 @@
 			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>
 			<br>
 			
-			<?php $job_payment_date=$model->job_payment_date;
-					if ($job_payment_date!='')
-					{
-						$job_payment_date=date('d-M-y',$model->job_payment_date);
-						 echo $form->labelEx($model,'job_payment_date'); 
-						 echo CHtml::textField('',$job_payment_date,  array('disabled'=>'disabled')); 
-					}			
-			
+			<?php 
+//			$job_payment_date=$model->job_payment_date;
+//					if ($job_payment_date!='')
+//					{
+//						$job_payment_date=date('d-M-y',$model->job_payment_date);
+//						 echo $form->labelEx($model,'job_payment_date'); 
+//						 echo CHtml::textField('',$job_payment_date,  array('disabled'=>'disabled')); 
+//					}			
+//			
+			?>
+			<?php 
+				if(!empty($model->job_payment_date))
+				{
+					$model->job_payment_date=date('d-M-y',$model->job_payment_date);
+				}
+				echo $form->labelEx($model,'job_payment_date');
+				echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled')); 
 			?>
 			<br>
 			<br>
-			<?php $job_finished_date=$model->job_finished_date;
-					if ($job_payment_date!='')
-					{
-						$job_finished_date=date('d-M-y',$model->job_finished_date);
-						 echo $form->labelEx($model,'job_finished_date'); 
-						 echo CHtml::textField('',$job_finished_date,  array('disabled'=>'disabled')); 
-					}			
-			
+			<?php  
+//			$job_finished_date=$model->job_finished_date;
+//					if ($job_payment_date!='')
+//					{
+//						$job_finished_date=date('d-M-y',$model->job_finished_date);
+//						 echo $form->labelEx($model,'job_finished_date'); 
+//						 echo CHtml::textField('',$job_finished_date,  array('disabled'=>'disabled')); 
+//					}			
+//			
+			?>
+			<?php 
+				if(!empty($model->job_finished_date))
+				{
+					$model->job_finished_date=date('d-M-y',$model->job_finished_date);
+				}
+				echo $form->labelEx($model,'job_finished_date');
+				echo $form->textField($model,'job_finished_date', array('disabled'=>'disabled')); 
 			?>
 									
-			
-
-			</td>
+		</td>
 		<td>
 			<table>
 				<tr><td>

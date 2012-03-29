@@ -61,9 +61,11 @@
 			<?php echo $form->textField($model,'town',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'town'); ?>
 			
-			<?php echo $form->labelEx($model,'postcode'); ?>
-			<?php echo $form->textField($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo $form->error($model,'postcode'); ?>
+			<?php echo $form->labelEx($model,'postcode_s'); ?>
+			<?php echo $form->textField($model,'postcode_s',array('size'=>6)); ?>
+			<?php echo $form->textField($model,'postcode_e',array('size'=>6)); ?>
+			<?php echo $form->error($model,'postcode_s'); ?>
+			<?php echo $form->error($model,'postcode_e'); ?>
 			
 			<?php
 					$config=Config::model()->findByPk(1);

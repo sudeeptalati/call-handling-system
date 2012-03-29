@@ -32,7 +32,7 @@ foreach ($displayResults as $row)
 	<td><?php //echo CHtml::link($row->fullname, array('Servicecall/existingCustomer', 'customer_id'=>$row->id));?>
 		<?php echo $row->fullname;?></td>
 	<td><?php echo $row->town;?></td>
-	<td><?php echo $row->postcode;?></td>
+	<td><?php echo $row->postcode_s;?></td>
 	<td>
 		<?php echo $row->product->brand->name;?>
 		<?php echo $row->product->productType->name;?>	

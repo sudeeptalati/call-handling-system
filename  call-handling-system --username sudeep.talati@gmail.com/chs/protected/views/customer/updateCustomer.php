@@ -117,9 +117,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'postcode'); ?>
-		<?php echo $form->textField($model,'postcode'); ?>
-		<?php echo $form->error($model,'postcode'); ?>
+		<?php echo $form->labelEx($model,'postcode_s'); ?>
+		<?php echo $form->textField($model,'postcode_s'); ?>
+		<?php echo $form->error($model,'postcode_s'); ?>
 	</div>
 	
 	<div class="row">

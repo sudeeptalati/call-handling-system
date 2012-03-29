@@ -19,7 +19,7 @@
 		
 		$engineerModel=Engineer::model()->findByPk($engg_id);
 		$str=$engineerModel->contactDetails->address_line_1." ".$engineerModel->contactDetails->address_line_3." ".$engineerModel->contactDetails->address_line_3;
-		$address=$str."\n".$engineerModel->contactDetails->town."\n".$engineerModel->contactDetails->postcode;
+		$address=$str."\n".$engineerModel->contactDetails->town."\n".$engineerModel->contactDetails->postcode_s." ".$engineerModel->contactDetails->postcode_e;
 				
 		$result=$model->weeklyReport($engg_id, $start_date, $end_date);
 		//echo $result;
@@ -44,7 +44,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5" style="text-align:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<td colspan="6" style="text-align:right">
 			<h3>Appointments for the Week from <?php echo $start_date;?> to <?php echo $end_date;?></h3></td>
 		</tr>
 		<tr>
@@ -63,7 +63,7 @@
 				echo "<td>".$serviceModel->service_reference_number."</td>";
 				echo "<td>".date('d-M-Y',$data->visit_start_date)."</td>";
 				echo "<td>".$serviceModel->customer->fullname."</td>";
-				echo "<td>".$serviceModel->customer->postcode."</td>";
+				echo "<td>".$serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e."</td>";
 				echo "<td>".$data->slots."</td>";
 				echo "<td>".$data->servicecall->jobStatus->name."</td>";
 				echo "</tr>";

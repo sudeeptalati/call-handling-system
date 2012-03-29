@@ -24,7 +24,7 @@
 	$str2=$customerModel->address_line_2;
 	$str3=$customerModel->address_line_3."\n";
 	$str4=$customerModel->town."\n";
-	$str5=$customerModel->postcode;
+	$str5=$customerModel->postcode_s." ".$customerModel->postcode_e;
 	$address=$str1." ".$str2." ".$str3." ".$str4." ".$str5;
 	//echo "address :".$address;
 	

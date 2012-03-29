@@ -125,9 +125,10 @@ $('.technical-form').toggle();
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($contactDetailsModel,'postcode'); ?>
-		<?php echo $form->textField($contactDetailsModel,'postcode',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($contactDetailsModel,'postcode'); ?>
+		<?php echo $form->labelEx($contactDetailsModel,'postcode_s'); ?>
+		<?php echo $form->textField($contactDetailsModel,'postcode_s',array('size'=>6)); ?>
+		<?php echo $form->textField($contactDetailsModel,'postcode_e',array('size'=>6)); ?>
+		<?php echo $form->error($contactDetailsModel,'postcode_s'); ?>
 	</div>
 
 	<div class="row">

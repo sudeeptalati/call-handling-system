@@ -51,8 +51,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'postcode'); ?>
-		<?php echo $form->textArea($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'postcode_s'); ?>
+		<?php echo $form->textArea($model,'postcode_s',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">

@@ -113,9 +113,11 @@
 
 	-->
 	<div class="row">
-		<?php echo $form->labelEx($customerModel,'postcode'); ?>
-		<?php echo $form->textField($customerModel,'postcode',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($customerModel,'postcode'); ?>
+		<?php echo $form->labelEx($customerModel,'postcode_s'); ?>
+		<?php echo $form->textField($customerModel,'postcode_s',array('size'=>6)); ?>
+		<?php echo $form->textField($customerModel,'postcode_e',array('size'=>6)); ?>
+		<?php echo $form->error($customerModel,'postcode_s'); ?>
+		<?php echo $form->error($customerModel,'postcode_e'); ?>
 
 			<?php
 					$config=Config::model()->findByPk(1);

@@ -29,7 +29,7 @@
 			//address of customer.
 			$str1=$customerModel->address_line_1." ".$customerModel->address_line_2." ".$customerModel->address_line_3."\n";
 			$str2=$customerModel->town."\n";
-			$str3=$customerModel->postcode;
+			$str3=$customerModel->postcode_s;
 			$address=$str1." ".$str2." ".$str3;
 			
 			//CALCULATING VALID UNTILL.
@@ -97,30 +97,34 @@
 		</td>
 		<td>
 
-			<?php 
-				if(!empty($enggDiaryModel->visit_start_date))
-				{
-					$enggDiaryModel->visit_start_date = date('d-M-y', $enggDiaryModel->visit_start_date);
-				}
+				<?php
+				 	$viewVisitStartDate='';
+				 	if(!empty($enggDiaryModel->visit_start_date))
+					{
+						//$enggDiaryModel->visit_start_date= date('d-M-y', $enggDiaryModel->visit_start_date);
+						$viewVisitStartDate=date('d-M-y', $enggDiaryModel->visit_start_date);
+					}
 				?>
 
-			<?php 	//$viewVisitStartDate='';
-//					if(!empty($enggDiaryModel->visit_start_date))
-//					{ 
-//					$enggDiaryModel->visit_start_date= date('d-M-y', $enggDiaryModel->visit_start_date);
-//					}
-					?>
-
 			<?php echo "<b>Current Appointment</b><br>";?>
-			<?php //echo $form->labelEx($enggDiaryModel,'visit_start_date'); ?>
-			<?php echo $form->textField($enggDiaryModel,'visit_start_date', array('disabled'=>'disabled')); ?>
-			<?php //echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
+			<?php //echo $form->textField($enggDiaryModel,'visit_start_date', array('disabled'=>'disabled')); ?>
+			<?php echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
 			<?php //echo $form->error($enggDiaryModel,'visit_start_date'); ?>
 			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
 			<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
 			<?php echo $form->error($model,'engineer_id'); ?>
-			<?php echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id)); ?>
+			<?php if(empty($model->engg_diary_id))
+				  {
+					echo CHtml::link('Create Appointment', array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
+				  }
+				  else 
+				  {
+				  	echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
+				  }
+			?>
+				
+			<?php //echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id)); ?>
 			
 			<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 			<?php echo $form->textField($model,'insurer_reference_number'); ?>

@@ -37,8 +37,8 @@
 	<?php echo CHtml::encode($data->town); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('postcode')); ?>:</b>
-	<?php echo CHtml::encode($data->postcode); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('postcode_s')); ?>:</b>
+	<?php echo CHtml::encode($data->postcode_s); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('country')); ?>:</b>

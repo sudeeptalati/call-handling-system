@@ -21,7 +21,7 @@
 	$customerModel=Customer::model()->findByPk($customerId);
 	
 	$str1=$customerModel->address_line_1." ".$customerModel->address_line_2." ".$customerModel->address_line_3."\n";
-	$address=$str1." ".$customerModel->town."\n ".$customerModel->postcode;
+	$address=$str1." ".$customerModel->town."\n ".$customerModel->postcode_s;
 	
 	?>
 	

@@ -13,7 +13,7 @@
  * @property string $address_line_2
  * @property string $address_line_3
  * @property string $town
- * @property string $postcode
+ * @property string $postcode_s
  * @property string $country
  * @property string $telephone
  * @property string $mobile
@@ -25,6 +25,7 @@
  * @property string $modified
  * @property string $fullname
  * @property string $lockcode
+ * @property string $postcode_e
  *
  * The followings are the available model relations:
  * @property Product $product
@@ -60,7 +61,7 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, first_name, last_name, address_line_1, town, postcode, telephone, email', 'required'),
+			array('title, first_name, last_name, address_line_1, town, postcode_s, postcode_e, telephone, email', 'required'),
 			array('product_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('address_line_2, address_line_3, country, mobile, fax, notes, modified, fullname, lockcode', 'safe'),
 			// The following rule is used by search().
@@ -99,7 +100,7 @@ class Customer extends CActiveRecord
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode' => 'Postcode',
+			'postcode_s' => 'Postcode',
 			'country' => 'Country',
 			'telephone' => 'Telephone',
 			'mobile' => 'Mobile',
@@ -133,7 +134,8 @@ class Customer extends CActiveRecord
 		$criteria->compare('address_line_2',$this->address_line_2,true);
 		$criteria->compare('address_line_3',$this->address_line_3,true);
 		$criteria->compare('town',$this->town,true);
-		$criteria->compare('postcode',$this->postcode,true);
+		$criteria->compare('postcode_s',$this->postcode_s,true);
+		$criteria->compare('postcode_e',$this->postcode_e,true);
 		$criteria->compare('country',$this->country,true);
 		$criteria->compare('telephone',$this->telephone,true);
 		$criteria->compare('mobile',$this->mobile,true);
@@ -224,7 +226,7 @@ class Customer extends CActiveRecord
     	$criteria=new CDbCriteria;
     	
     	$criteria->compare('fullname', $keyword, true, 'OR');
-    	$criteria->compare('postcode', $keyword, true, 'OR');
+    	$criteria->compare('postcode_s', $keyword, true, 'OR');
     	$criteria->compare('town', $keyword, true, 'OR');
     	$criteria->compare('telephone', $keyword, true, 'OR');
     	$criteria->compare('mobile', $keyword, true, 'OR');

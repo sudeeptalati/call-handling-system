@@ -25,7 +25,7 @@
 		
 		$str1=$contactDetailsModel->address_line_1." ".$contactDetailsModel->address_line_2." ".$contactDetailsModel->address_line_3."\n";
 		$str2=$contactDetailsModel->town."\n";
-		$str3=$contactDetailsModel->postcode;
+		$str3=$contactDetailsModel->postcode_s." ".$contactDetailsModel->postcode_e;
 		$address=$str1." ".$str2." ".$str3;
 		$enggDetails=$engineerModel->fullname."\n".$address;
 	?>
@@ -53,8 +53,9 @@
 			<?php echo $form->labelEx($customerModel,'town'); ?>
 			<?php echo $form->textField($customerModel,'town', array('disabled'=>'disabled')); ?>
 			
-			<?php echo $form->labelEx($customerModel,'postcode'); ?>
-			<?php echo $form->textField($customerModel,'postcode', array('disabled'=>'disabled')); ?>
+			<?php echo $form->labelEx($customerModel,'postcode_s'); ?>
+			<?php echo $form->textField($customerModel,'postcode_s', array('size'=>6,'disabled'=>'disabled')); ?>
+			<?php echo $form->textField($customerModel,'postcode_e', array('size'=>6,'disabled'=>'disabled')); ?>
 		</td>
 		<td style="vertical-align:top;">
 			<?php echo $form->labelEx($brandModel,'name'); ?>
@@ -325,7 +326,7 @@ function draw_calendar($month,$year,$engg_id){
 			//$day_content.="<p>";
 			$link="../../servicecall/".$data->servicecall_id;
 			$day_content.="<a href='".$link."'>";
-			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
+			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode_s.$data->servicecall->customer->postcode_e."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
 			$day_content.="</a>";
 			//$day_content.="</p>";
 			}

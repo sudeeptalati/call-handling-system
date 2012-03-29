@@ -9,7 +9,7 @@
  * @property string $address_line_2
  * @property string $address_line_3
  * @property string $town
- * @property string $postcode
+ * @property string $postcode_s
  * @property string $country
  * @property string $latitudes
  * @property string $longitudes
@@ -20,6 +20,8 @@
  * @property string $website
  * @property string $created
  * @property string $lockcode
+ * @property string $postcode_e
+ * 
  *
  * The followings are the available model relations:
  * @property Contract[] $contracts
@@ -57,7 +59,7 @@ class ContactDetails extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('address_line_1, town, postcode, telephone, email', 'required'),
+			array('address_line_1, town, postcode_s, telephone, email, postcode_e', 'required'),
 			array('address_line_2, address_line_3, country, latitudes, longitudes, mobile, fax, website', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -94,7 +96,7 @@ class ContactDetails extends CActiveRecord
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode' => 'Postcode',
+			'postcode_s' => 'Postcode',
 			'country' => 'Country',
 			'latitudes' => 'Latitudes',
 			'longitudes' => 'Longitudes',
@@ -104,6 +106,7 @@ class ContactDetails extends CActiveRecord
 			'email' => 'Email',
 			'website' => 'Website',
 			'created' => 'Created',
+			'postcode_e' => 'Postcode South',
 		);
 	}
 

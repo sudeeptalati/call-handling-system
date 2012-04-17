@@ -44,9 +44,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		//'id',
 		'service_reference_number',
+		
+/*
 		array('name'=>'job_status',
 			  'value'=>'$data->jobStatus->name'
 		),
+*/
 		//'customer_id',
 		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
@@ -65,6 +68,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
 		//'created_by_user_id',
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
+		
+		array(
+			'name'=>'job_status_id',
+			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
+			'filter'=>JobStatus::items('JobStatus'),
+		),
+		
+		
+		
 		/*
 		'insurer_reference_number',
 		'job_status_id',

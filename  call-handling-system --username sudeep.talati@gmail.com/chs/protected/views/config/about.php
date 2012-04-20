@@ -1,4 +1,14 @@
+<?php  
+$this->menu=array(
+	array('label'=>'Change Logo', 'url'=>array('config/changeLogo')),
+	array('label'=>'About & Help', 'url'=>array('config/about')),
+	array('label'=>'Restore Database', 'url'=>array('config/restoreDatabase')),
+	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
+	
+);
 
+
+?>
 <table style="width:40%;">
 <tr>
 	<td style="vertical-align:top;"><h4>Version</h4></td>

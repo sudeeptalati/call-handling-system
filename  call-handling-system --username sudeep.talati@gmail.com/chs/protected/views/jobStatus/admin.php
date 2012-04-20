@@ -1,58 +1,56 @@
-<?php
-$this->breadcrumbs=array(
-	'Job Statuses'=>array('index'),
-	'Manage',
-);
-
+<?php  
 $this->menu=array(
-	array('label'=>'List JobStatus', 'url'=>array('index')),
-	array('label'=>'Create JobStatus', 'url'=>array('create')),
+	array('label'=>'Change Logo', 'url'=>array('config/changeLogo')),
+	array('label'=>'About & Help', 'url'=>array('config/about')),
+	array('label'=>'Restore Database', 'url'=>array('config/restoreDatabase')),
+	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
+	
 );
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('job-status-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
+ 
 ?>
 
-<h1>Manage Job Statuses</h1>
+<h4>Manage Job Status</h4>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<div align="right"><small>See Next Page for custom status</small></div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'job-status-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+	//	'id',
 		'name',
 		'information',
-		'published',
-		'view_order',
-		'updated_by_user_id',
+
+	array(
+      		'name'=>'published',
+      		'value'=>'$data->published ? "Yes" : "No"',
+    		'type'=>'text',
+			'filter'=>array('1'=>'Yes','0'=>'No'),
+	
+    	),
+ 		'view_order',
+    	
+    	array(
+      		'name'=>'dashboard_display',
+      		'value'=>'$data->dashboard_display ? "Yes" : "No"',
+    		'type'=>'text',
+			'filter'=>array('1'=>'Yes','0'=>'No'),
+	
+    	),
+    	
+    
 		/*
+		
+		'updated_by_user_id',
 		'updated',
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}	{update}',
 		),
 	),
 )); ?>
+
+
+			

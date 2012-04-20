@@ -1,9 +1,9 @@
 <?php  
 $this->menu=array(
-	array('label'=>'Change Logo', 'url'=>array('changeLogo')),
-//	array('label'=>'Email Settings', 'url'=>array('emailSetup')),
-	array('label'=>'About & Help', 'url'=>array('about')),
-	array('label'=>'Restore Database', 'url'=>array('restoreDatabase')),
+	array('label'=>'Change Logo', 'url'=>array('config/changeLogo')),
+	array('label'=>'About & Help', 'url'=>array('config/about')),
+	array('label'=>'Restore Database', 'url'=>array('config/restoreDatabase')),
+	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
 	
 );
 

@@ -1,18 +1,13 @@
-<?php
-$this->breadcrumbs=array(
-	'Job Statuses'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
-
+<?php  
 $this->menu=array(
-	array('label'=>'List JobStatus', 'url'=>array('index')),
-	array('label'=>'Create JobStatus', 'url'=>array('create')),
-	array('label'=>'View JobStatus', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage JobStatus', 'url'=>array('admin')),
+	array('label'=>'Change Logo', 'url'=>array('config/changeLogo')),
+	array('label'=>'About & Help', 'url'=>array('config/about')),
+	array('label'=>'Restore Database', 'url'=>array('config/restoreDatabase')),
+	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
+	
 );
 ?>
 
-<h1>Update JobStatus <?php echo $model->id; ?></h1>
+<h1>Update Job Status </h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

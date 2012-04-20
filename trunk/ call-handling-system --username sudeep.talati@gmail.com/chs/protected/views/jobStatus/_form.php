@@ -6,12 +6,24 @@
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
+	
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php
+			 	if  ($model->id>100)///id greater than 100 are custom statuses
+			 	{
+			 		echo $form->textField($model,'name',array('size'=>50));
+			 	}
+				else
+				{
+					echo $form->textField($model,'name',array('size'=>50, 'disabled'=>'disabled' ));
+					echo "<br><small>This is  system set status, therefore above name cannot be edited</small><br><br>";	
+				}
+					
+				?>
+				
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
@@ -23,8 +35,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'published'); ?>
-		<?php echo $form->textField($model,'published'); ?>
+		<?php echo $form->dropDownList($model,'published',array('1'=>'Yes', '0'=>'No',));?>
 		<?php echo $form->error($model,'published'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'dashboard_display'); ?>
+		<?php echo $form->dropDownList($model,'dashboard_display',array('1'=>'Yes', '0'=>'No',));?>
+		<?php echo $form->error($model,'dashboard_display'); ?>
 	</div>
 
 	<div class="row">
@@ -32,18 +50,7 @@
 		<?php echo $form->textField($model,'view_order'); ?>
 		<?php echo $form->error($model,'view_order'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'updated_by_user_id'); ?>
-		<?php echo $form->textField($model,'updated_by_user_id'); ?>
-		<?php echo $form->error($model,'updated_by_user_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'updated'); ?>
-		<?php echo $form->textField($model,'updated'); ?>
-		<?php echo $form->error($model,'updated'); ?>
-	</div>
+ 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

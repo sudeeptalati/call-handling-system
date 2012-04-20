@@ -45,10 +45,10 @@ class JobStatus extends CActiveRecord
 		return array(
 			array('name, published, view_order', 'required'),
 			array('published, view_order, updated_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('information, updated', 'safe'),
+			array('dashboard_display,information, updated', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, information, published, view_order, updated_by_user_id, updated', 'safe', 'on'=>'search'),
+			array('id, name, information, published, view_order, updated_by_user_id, updated, dashboard_display', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,12 +72,14 @@ class JobStatus extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Status Name',
 			'information' => 'Information',
 			'published' => 'Published',
 			'view_order' => 'View Order',
 			'updated_by_user_id' => 'Updated By User',
-			'updated' => 'Updated',
+			'updated' => 'Last Changed',
+			'dashboard_display' => 'Display on Dashboard',
+		
 		);
 	}
 
@@ -99,6 +101,7 @@ class JobStatus extends CActiveRecord
 		$criteria->compare('view_order',$this->view_order);
 		$criteria->compare('updated_by_user_id',$this->updated_by_user_id);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('dashboard_display',$this->dashboard_display,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -154,5 +157,19 @@ class JobStatus extends CActiveRecord
 		foreach($models as $model)
 			self::$_items[$type][$model->id]=$model->name;
 	}
+	
+	
+	
+	
+	protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	   	$this->updated=time();
+        	   	$this->updated_by_user_id=Yii::app()->user->id;
+                return true;
+            
+        }//end of if(parent())
+    }//end of beforeSave().
 	
 }

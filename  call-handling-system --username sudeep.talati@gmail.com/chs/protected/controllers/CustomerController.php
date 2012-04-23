@@ -31,7 +31,7 @@ class CustomerController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','freeSearch','admin', 'SearchEngine','UpdateCustomer', 'ListOfCustomers'),
+				'actions'=>array('create','update','freeSearch','admin','allProducts', 'SearchEngine','UpdateCustomer', 'ListOfCustomers'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -109,16 +109,17 @@ class CustomerController extends Controller
 		if(isset($_POST['Customer'],$_POST['Product']))
 		{
 			$model->attributes=$_POST['Customer'];
-			$productModel=new Product;
-			$productModel->attributes=$_POST['Product'];
+//			$productModel=new Product;
+//			$productModel->attributes=$_POST['Product'];
 			
-			$valid=$model->validate();
-			$valid=$productModel->validate() && $valid;
+			//$valid=$model->validate();
+			//$valid=$productModel->validate() && $valid;
 			
-			if($valid)
+			//if($valid)
+			if($model->validate())
 			{
 				if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
+					$this->redirect(array('viewProduct','customer_id'=>$model->id, 'product_id'=>$model->product_id));
 			}
 			else 
 			{
@@ -248,11 +249,12 @@ class CustomerController extends Controller
     	$this->render('listOfCustomers',array('model'=>$model));
 	}//end of actionListOfCustomers.
 	
-	public function actionUpdateCustomer()
+	public function actionUpdateCustomer($customer_id, $product_id)
 	{
-	    $model=new Customer('update');
-	
-	    // uncomment the following code to enable ajax-based validation
+	    //$model=new Customer('update');
+	    $model=$this->loadModel($customer_id);
+	    
+	   // uncomment the following code to enable ajax-based validation
 	    /*
 	    if(isset($_POST['ajax']) && $_POST['ajax']==='customer-updateCustomer-form')
 	    {
@@ -264,10 +266,18 @@ class CustomerController extends Controller
 	    if(isset($_POST['Customer']))
 	    {
 	        $model->attributes=$_POST['Customer'];
+	        $productModel=new Product;
+			$productModel->attributes=$_POST['Product'];
 	        if($model->validate())
 	        {
+	        	if($model->save())
+	        	{
+	        		
+	        	}
+	        		
+					$this->redirect(array('viewProduct','customer_id'=>$model->id,'product_id'=>$product_id));
 	            // form inputs are valid, do something here
-	            return;
+	            //return;
 	        }
 	    }
 	    $this->render('updateCustomer',array('model'=>$model));
@@ -294,5 +304,29 @@ class CustomerController extends Controller
         ));
     }//end of searchEngine().
     
+	public function actionViewProduct($customer_id, $product_id)
+	{
+    	$model=new Customer('view');
+
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='customer-viewProduct-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['Customer']))
+	    {
+	        $model->attributes=$_POST['Customer'];
+	        if($model->validate())
+	        {
+	            // form inputs are valid, do something here
+	            return;
+	        }
+	    }
+	    $this->render('viewProduct',array('model'=>$model));
+	}
     
 }//end of class.

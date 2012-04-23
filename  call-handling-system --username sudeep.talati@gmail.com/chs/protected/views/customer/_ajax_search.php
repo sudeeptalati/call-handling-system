@@ -1,15 +1,17 @@
 
 <?php 
 $displayResults=$results->getData();
-
 ?>
 
 <table border="1"><tr>
 <th>Customer Name</th>
 <th>Town</th>
 <th>Postcode</th>
-
 <th>Product</th>
+<th>Model Number</th>
+<th>Serial Number</th>
+<th></th>
+
 <!--<th>Model Number</th>-->
 <!--<th>Serial Number</th>-->
 <!-- 
@@ -26,6 +28,9 @@ $displayResults=$results->getData();
 
 foreach ($displayResults as $row)
 {
+//	$result=Product::model()->findAllByAttributes(array('customer_id'=>$row->id));
+//	foreach($result as $data)
+//	{
 	
 ?>	
 	<tr>
@@ -33,15 +38,42 @@ foreach ($displayResults as $row)
 		<?php echo $row->fullname;?></td>
 	<td><?php echo $row->town;?></td>
 	<td><?php echo $row->postcode_s;?></td>
+	<?php 
+		
+		$result=Product::model()->findAllByAttributes(array('customer_id'=>$row->id));
+		$i=0;
+		foreach($result as $data)
+		{
+			//echo $i;
+			if($i>0)
+			{
+			
+	?>
+		<td><?php echo " ";?></td>
+		<td><?php echo " ";?></td>
+		<td><?php echo " ";?></td>
+	<?php }//end of if(i>0).?>
+	
 	<td>
-		<?php echo $row->product->brand->name;?>
-		<?php echo $row->product->productType->name;?>	
+		<?php //echo $row->product->brand->name;?>
+		<?php //echo $row->product->productType->name;?>
+		<?php //echo $data->productType->name;?>
+		<?php echo CHtml::link($data->brand->name." ".$data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?>	
+		
 	</td>
 	<td><?php echo $row->product->model_number;?></td>
 	<td><?php echo $row->product->serial_number;?></td>
+	<td>
+		<form method="get" action="http://www.google.com/search" target="_blank">
+			<input type="hidden"   name="q" size="10"
+		 	maxlength="255" value= "<?php echo $row->product->productType->name." ".$row->product->model_number;?>" />
+			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" height="30" width="50" alt="submit form" />
+		</form>	
+	</td>
 	<td><?php //echo date('d-M-y', $row->product->purchase_date);?></td>
 	<td><?php //echo date('d-M-y', $row->product->warranty_date);?></td>
 	<td><?php //echo $row->product->warranty_for_months;?></td>
+	
 	<?php 
 //	$warranty_date=$row->product->warranty_date;
 //	$warranty_months=$row->product->warranty_for_months;
@@ -50,8 +82,14 @@ foreach ($displayResults as $row)
 //	$warranty_until= strtotime(date("Y-M-d", $warranty_date) . " +".$warranty_months." month");
 //	$res=date('d-M-Y', $warranty_until);
 	?>
-	<td><?php //echo $res;?></td>
 	</tr>
+	<?php 
+		$i++;
+		}//end of inner foreach().
+		
+	}//end of outer forrach().
+	
+	?>
 	
 <?php 	
 /*FOR $model
@@ -61,29 +99,5 @@ echo "Customer Name : ".$row['customer_name']."			";
 echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 
 */
-}
 ?>
 </table>
-<?php 
-
-	$custModel=Customer::model()->findByPk($row->id);
-	//echo $custModel->id."<br>";
-?>
-	<span style="color:#A15A0E"><?php echo "Select the product";?></span><br><br>
-<?php 
-	$result=$custModel->getAllProducts($custModel->id);
-	foreach ($result as $data)
-	{
-?>
-<!--	<table>-->
-<!--		<tr>-->
-<!-- 		 <td><?php //echo $data->id; ?></td> -->
-<!--		<td>-->
-		<?php echo CHtml::link($data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<!--		</td>-->
-<!--		</tr>-->
-<!--	</table>		-->
-<?php 		
-	}
-
-?>

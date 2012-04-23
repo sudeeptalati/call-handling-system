@@ -36,6 +36,7 @@
 class Customer extends CActiveRecord
 {
 	public $created_by_user;
+	public $Products;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Customer the static model class
@@ -190,15 +191,34 @@ class Customer extends CActiveRecord
             }//end of if($this->isNewRecord).
             else
             {
-            	$productModel=Product::model()->findByPk($this->product_id);
-            	$productModel->attributes=$_POST['Product'];
-            	if($productModel->save())
+            	if(isset($_GET['product_id']))
             	{
+            		$product_id=$_GET['product_id'];/* CHECKING FOR PRIMARY PRODUCT */
+            		echo $product_id;
             		
-            	}
-				$this->modified=time();
-                return true;
-            }
+            		$productModel=Product::model()->findByPk($product_id);
+	            	$productModel->attributes=$_POST['Product'];
+	            	if($productModel->save())
+	            	{
+	            		
+	            	}
+					$this->modified=time();
+	                return true;
+            	}//end of if(isset()).
+            	
+            	else 
+            	{
+	            	$productModel=Product::model()->findByPk($this->product_id);
+		            $productModel->attributes=$_POST['Product'];
+		            if($productModel->save())
+		            {
+		            	
+		            }
+					$this->modified=time();
+		            return true;
+            	}//end of else of if(isset()).
+            	//}//end of if().
+          }//end of else of if($this->isNewRecord).
         }//end of if(parent())
 	}//end of beforeSave().
 	
@@ -244,7 +264,6 @@ class Customer extends CActiveRecord
     {
     	return Product::model()->findAllByAttributes(array('customer_id'=>$id));
     }
-    
     
     
 }//end of class.

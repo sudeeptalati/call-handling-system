@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','preview','create','update','admin'),
+				'actions'=>array('PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -283,13 +283,7 @@ class ServicecallController extends Controller
 		$visit_date=$_GET['date'];
 //		$visit_date='14-3-2012';
 		
-		
-		
-		
 		$mysql_visit_date=strtotime($visit_date);
-		
-		
-		
 		
 		$service_id_list=Enggdiary::model()->fetchDiaryDetails($engg_id, $mysql_visit_date);
 		
@@ -305,13 +299,7 @@ class ServicecallController extends Controller
 			$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
 		}
 		
- 
-		
 		$mPDF1->Output();
-		
-	
-	
 	}
- 	
 	
 }//end of class.

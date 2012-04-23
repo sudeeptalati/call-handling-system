@@ -92,3 +92,17 @@ $current_url=$baseUrl."/".$model_name;
        <?php echo CHtml::link('New Customer', array('servicecall/create')); ?>
         
      </div>
+     
+      
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     

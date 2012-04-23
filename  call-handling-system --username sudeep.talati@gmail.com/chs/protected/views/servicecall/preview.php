@@ -109,7 +109,7 @@ td { 	vertical-align:top;
 		<tr>
 <td><small><b>Postcode</b></small>
 			<br>
-			<?php echo $model->customer->postcode?>
+			<?php echo $model->customer->postcode_s." ".$model->customer->postcode_e?>
 		</td>		
 		
 

@@ -1,45 +1,25 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'customer-form',
+	'id'=>'customer-viewProduct-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
 <?php 
 
-		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
-		if(count($result)>1)
-		{
-			echo "<h3>Select product for customer ".$model->fullname." to view details</h3>";
-	    	foreach ($result as $data)
-	    	{
-//	    		$baseUrl=Yii::app()->baseUrl;
-//	    		$url=$baseUrl.'/customer/updateCustomer/?customer_id='.$.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
-//	    		$url= Y
-	    		echo CHtml::link($data->productType->name, array('customer/viewProduct/?customer_id='.$model->id.'&product_id='.$data->id))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
-	    	}
-		}//end of if.
-		
-		else 
-		{
-
-?>
-
-<?php 
-
-$cust_id=$_GET['id'];
-$customerModel=Customer::model()->findByPk($cust_id);
-$productModel=Product::model()->findByPk($customerModel->product_id);
-$user=$customerModel->createdByUser->username;
-$brand=$productModel->brand->name;
-$type=$productModel->productType->name;
-$contract=$productModel->contract->name;
-$engineer=$productModel->engineer->fullname;
-$productUser=$productModel->createdByUser->username;
-
-
-//$str=$customerModel->address_line_1." ".$customerModel->address_line_2." ".$customerModel->address_line_3;
-//$address=$str."\n".$customerModel->town."\n".$customerModel->postcode;
+	$customer_id=$_GET['customer_id'];
+	//echo $customer_id;
+	$product_id=$_GET['product_id'];
+	//echo $product_id;
+	
+	$customerModel=Customer::model()->findByPk($customer_id);
+	$productModel=Product::model()->findByPk($product_id);
+	$user=$customerModel->createdByUser->username;
+	$brand=$productModel->brand->name;
+	$type=$productModel->productType->name;
+	$contract=$productModel->contract->name;
+	$engineer=$productModel->engineer->fullname;
+	$productUser=$productModel->createdByUser->username;
 
 ?>
 
@@ -65,8 +45,8 @@ $productUser=$productModel->createdByUser->username;
 		</td>
 	
 	</tr>
-	
-	<tr>	
+
+		<tr>	
 		<td>
 			<?php echo $form->labelEx($customerModel,'address_line_1'); ?>
 			<?php echo $form->textField($customerModel,'address_line_1',array('disabled'=>'disabled')); ?>
@@ -84,7 +64,7 @@ $productUser=$productModel->createdByUser->username;
 		</td>
 	</tr>
 	
-	<tr>
+		<tr>
 		<td>
 			<?php echo $form->labelEx($customerModel,'town'); ?>
 			<?php echo $form->textField($customerModel,'town',array('disabled'=>'disabled')); ?>
@@ -134,8 +114,8 @@ $productUser=$productModel->createdByUser->username;
 			<?php echo $form->error($model,'notes'); ?>
 		</td>
 	</tr>
-
-	<tr>
+	
+		<tr>
 		<td colspan="3" style="text-align:center"><h2>Product Details</h2></td>
 	</tr>
 	<tr>
@@ -226,11 +206,7 @@ $productUser=$productModel->createdByUser->username;
 		</td>
 	</tr>
 </table>
-
-<?php 
-		}//end of else of if($result).
-?>
-
+	
 
 <?php $this->endWidget(); ?>
 

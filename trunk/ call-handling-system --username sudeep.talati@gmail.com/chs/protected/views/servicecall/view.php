@@ -213,7 +213,7 @@
 		</td></tr>
 		<tr><td>
 		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
-		<br>
+<!--		<br>-->
 		<?php echo $form->textField($model,'insurer_reference_number', array('disabled'=>'disabled')); ?>
 		
 		</td><td>

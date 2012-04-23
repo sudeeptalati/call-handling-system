@@ -23,6 +23,8 @@
 class Enggdiary extends CActiveRecord
 {
 	public $engineer_name;
+	public $date_of_visit;
+	public $appointment_status;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Enggdiary the static model class
@@ -68,6 +70,7 @@ class Enggdiary extends CActiveRecord
 		'engineer' => array(self::BELONGS_TO, 'Engineer', 'engineer_id'),
 		'servicecall' => array(self::BELONGS_TO, 'Servicecall', 'servicecall_id'),
 		'userid' => array(self::BELONGS_TO, 'User', 'user_id'),
+		'jobStatus' => array(self::BELONGS_TO, 'JobStatus', 'status'),
 		
 		
 		);
@@ -170,7 +173,7 @@ class Enggdiary extends CActiveRecord
     {
     	//$result=array();
     	return Enggdiary::model()->findAllByAttributes(
-    								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date, 'status'=>1));/*WE will only display the active appointmenst*/
+    								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date, 'status'=>2));/*WE will only display the active appointmenst*/
     	
     }//end of fetchDiaryDetails(). 
     	
@@ -196,9 +199,9 @@ class Enggdiary extends CActiveRecord
     	$str_start_date=strtotime($start_date);
     	$str_end_date=strtotime($end_date);
     	
-    	return Enggdiary::model()->findAllByAttributes(
-    								array('engineer_id'=>$engg_id, 'status'=>1), "visit_start_date <= $str_end_date AND visit_start_date >= $str_start_date"
+    	return Enggdiary::model()->findAllByAttributes( 
+    								array('engineer_id'=>$engg_id, 'status'=>2), "visit_start_date <= $str_end_date AND visit_start_date >= $str_start_date"
     								);
-    }
+    }//end of weeklyReport.
     
 }//end of class.

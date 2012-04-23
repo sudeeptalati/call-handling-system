@@ -5,9 +5,32 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
+	
 	<?php echo $form->errorSummary($model); ?>
+	
+	<?php 
+		 
+		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
+		if(count($result)>1)
+		{
+			echo "<h3>Select product for customer ".$model->fullname." to update details</h3>";
+	    	foreach ($result as $data)
+	    	{
+//	    		$baseUrl=Yii::app()->baseUrl;
+//	    		$url=$baseUrl.'/customer/updateCustomer/?customer_id='.$.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
+//	    		$url= Y
+	    		echo CHtml::link($data->productType->name, array('customer/updateCustomer/?customer_id='.$model->id.'&product_id='.$data->id))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+	    	}
+		}//end of if.
+		
+		else 
+		{
+		
+	
+	
+	?>
 	
 	<?php 
 		if(!empty($model->product->id))
@@ -18,6 +41,7 @@
 		{
 			$productModel=Product::model();
 		}
+		
 	?>
 	
 	<!-- ******* DISPLAYING CUSTOMER  ********* -->
@@ -131,6 +155,10 @@
 				
 	<?php echo $form->labelEx($productModel,'purchase_date'); ?>
 		<?php 
+			if(!empty($productModel->purchase_date))
+			{
+				$productModel->purchase_date = date('d-m-Y', $productModel->purchase_date);
+			}
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			    'name'=>CHtml::activeName($productModel, 'purchase_date'),
 				'model'=>$productModel,
@@ -150,6 +178,12 @@
 		
 		<?php echo $form->labelEx($productModel,'warranty_date'); ?>
 		<?php 
+			
+			if(!empty($productModel->warranty_date))
+			{
+				$productModel->warranty_date = date('d-m-Y', $productModel->warranty_date);
+			}
+			
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			    'name'=>CHtml::activeName($productModel, 'warranty_date'),
 				'model'=>$productModel,
@@ -228,7 +262,8 @@
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Register' : 'Modify'); ?>
 	</div>
-
+	
+	<?php }//end of else of count($result).?>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

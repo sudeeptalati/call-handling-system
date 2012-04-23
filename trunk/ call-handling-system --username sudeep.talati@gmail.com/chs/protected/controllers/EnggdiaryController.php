@@ -71,7 +71,7 @@ class EnggdiaryController extends Controller
 		$model=new Enggdiary;
 		$model->servicecall_id=$service_id;
 		$model->engineer_id=$engg_id;
-		$model->status='1';//STATUS OF APPOINTMENT(VISIT START DATE).
+		$model->status='2';//STATUS OF APPOINTMENT(VISIT START DATE).
 		//echo "THIS IS SELECTED :".$model->engineer_id;
 		
 		
@@ -262,7 +262,7 @@ class EnggdiaryController extends Controller
 			//echo '<br>Current Fdiary id :'.$current_engg_diary_id;
 		    Enggdiary::model()->updateByPk($current_engg_diary_id,
 														array(
-														'status'=>'0',//change old appointment status to Cancelled.
+														'status'=>'7',//change old appointment status to Cancelled.
 														)
 												);
 	    												
@@ -273,7 +273,7 @@ class EnggdiaryController extends Controller
 			$newmodel->engineer_id=$model->engineer_id;;
 		
 			$newmodel->attributes=$_POST['Enggdiary'];
-			$newmodel->status='1';
+			$newmodel->status='2';
 			
 			//echo 'SERVICECALL ID'.$newmodel->servicecall_id;
 			
@@ -282,7 +282,7 @@ class EnggdiaryController extends Controller
 		 		$new_diary_model=Enggdiary::model()->findByAttributes(
 		 																array(
 		 																'servicecall_id'=>$newmodel->servicecall_id,
-		 																'status'=>1,
+		 																'status'=>2,
 		 																)
 		 															);				
 			//	echo 'Engg Diary Id'. $new_diary_model->id;		 															

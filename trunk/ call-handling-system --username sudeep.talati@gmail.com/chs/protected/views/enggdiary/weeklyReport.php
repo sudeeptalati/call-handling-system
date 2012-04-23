@@ -22,6 +22,7 @@
 		$address=$str."\n".$engineerModel->contactDetails->town."\n".$engineerModel->contactDetails->postcode_s." ".$engineerModel->contactDetails->postcode_e;
 				
 		$result=$model->weeklyReport($engg_id, $start_date, $end_date);
+	
 		//echo $result;
 //		foreach($result as $data)
 //		{

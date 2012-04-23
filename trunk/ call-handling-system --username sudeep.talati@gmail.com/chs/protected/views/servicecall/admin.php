@@ -53,7 +53,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'customer_id',
 		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
-		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s'),
+		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
 		//'product_id',
 		array('name'=>'product_name','value'=>'$data->product->productType->name'),
 		//'job_status_id',

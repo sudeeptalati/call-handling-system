@@ -61,12 +61,12 @@ foreach ($displayResults as $row)
 		<?php echo CHtml::link($data->brand->name." ".$data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?>	
 		
 	</td>
-	<td><?php echo $row->product->model_number;?></td>
-	<td><?php echo $row->product->serial_number;?></td>
+	<td><?php echo $data->model_number;?></td>
+	<td><?php echo $data->serial_number;?></td>
 	<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
-		 	maxlength="255" value= "<?php echo $row->product->productType->name." ".$row->product->model_number;?>" />
+		 	maxlength="255" value= "<?php echo $data->brand->name." ".$data->productType->name." ".$data->model_number;?>" />
 			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" height="30" width="50" alt="submit form" />
 		</form>	
 	</td>

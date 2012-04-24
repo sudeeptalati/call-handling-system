@@ -10,6 +10,12 @@
 		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
 		if(count($result)>1)
 		{
+			?>
+			
+			
+			<?php 
+			
+			
 			echo "<h3>Select product for customer ".$model->fullname." to view details</h3>";
 	    	foreach ($result as $data)
 	    	{

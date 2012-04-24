@@ -52,12 +52,37 @@
 		
 		<div class="row">
 		<table>
-		<tr>
-			<th></th>
-			<th colspan="2"><h2>Service Ref. No.# <?php echo $model->service_reference_number;?></h2></th>
+		<tr><td colspan='2' style="text-align:center"><h1>Service Call Details</h1></td>
 		</tr>
+		
+		<tr>
+			<td style="vertical-align:top;"><b>Job Status</b><br>
+				
+				
+				<?php if($model->job_status_id!=5)
+					{
+				?>
+			
+				<?php //echo $form->labelEx($model,'job_status_id'); ?>
+				<?php echo $form->dropDownList($model,'job_status_id', array('3'=>'Waiting for Parts', '4'=>'Waiting for Technical', '5'=>'Completed', '6'=>'Recalled', '7'=>'Cancelled',)); ?>
+				<?php echo $form->error($model,'job_status_id'); ?>
+			
+			<?php }?>
+			
+			
+			
+			
+			</td>
+			
+			<td><b>Service Ref. No.#</b><br><h2 style="color: green;"><?php echo $model->service_reference_number;?></h2></td>
+		</tr>
+		
+		
+		
+		
+		
 		<tr><td colspan="2" style="text-align:center">
-			<h2>Service Call Details</h2>
+			 
 			</td>
 		</tr>
 		
@@ -226,15 +251,6 @@
 				<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>30)); ?>
 				<?php echo $form->error($model,'notes'); ?>
 			</td>
-			<?php if($model->job_status_id!=5)
-					{
-			?>
-			<td style="vertical-align:top;">
-				<?php echo $form->labelEx($model,'job_status_id'); ?>
-				<?php echo $form->dropDownList($model,'job_status_id', array('3'=>'Waiting for Parts', '4'=>'Waiting for Technical', '5'=>'Completed', '6'=>'Recalled', '7'=>'Cancelled',)); ?>
-				<?php echo $form->error($model,'job_status_id'); ?>
-			</td>
-			<?php }?>
 			
 		</tr>
 			

@@ -251,8 +251,40 @@ class CustomerController extends Controller
 	
 	public function actionUpdateCustomer($customer_id, $product_id)
 	{
-	    //$model=new Customer('update');
+		//$model=new Customer('update');
 	    $model=$this->loadModel($customer_id);
+	    
+	    
+//	    $message = " ";
+//		
+//	    $result=Product::model()->findAllByAttributes(array('customer_id'=>$customer_id));
+//		foreach ($result as $data)
+//		{
+//			$message.= CHtml::link($data->productType->name."\t<br> ", array('Customer/updateCustomer', 'customer_id'=>$customer_id,'product_id'=>$data->id));
+//		}
+	    
+	   //$message="Fill all the mandatory fields of Product also.";
+//				
+//				$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+//	    				'id'=>'juiDialog',
+//	    				'options'=>array(
+//	    						'title'=>'Select the Product',
+//	    						'autoOpen'=>true,
+//	    						'modal'=>'true',
+//	    						'show' => 'blind',
+//                            	'hide' => 'explode',
+//                            	//'color' => 'blue',
+//	    						//'width'=>'40px',
+//	    						//'height'=>'40px',
+//	    						),
+//	    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
+//       					
+//	    				
+//	    		));
+//	    		
+//	    		echo $message;
+//	    		$this->endWidget();
+//	    
 	    
 	   // uncomment the following code to enable ajax-based validation
 	    /*
@@ -262,7 +294,9 @@ class CustomerController extends Controller
 	        Yii::app()->end();
 	    }
 	    */
-	
+	    
+	    
+	    
 	    if(isset($_POST['Customer']))
 	    {
 	        $model->attributes=$_POST['Customer'];
@@ -327,6 +361,55 @@ class CustomerController extends Controller
 	        }
 	    }
 	    $this->render('viewProduct',array('model'=>$model));
-	}
+	}//end of viewProduct().
+	
+	public function actionOpenDialog($customer_id,$product_id)
+	{
+		//$model=$this->loadModel($customer_id);
+		$model=$this->loadModel($customer_id);
+		
+		$result = Product::model()->findAllByAttributes(array('customer_id'=>$customer_id));
+		//echo count($result);
+	    if(count($result)>1)
+	    {
+	    	//echo ">1";
+	    	$message = " ";
+			foreach ($result as $data)
+			{
+				$message.= CHtml::link($data->productType->name."<br><br> ", array('Customer/updateCustomer', 'customer_id'=>$customer_id,'product_id'=>$data->id));
+			}
+		    
+		   //$message="Fill all the mandatory fields of Product also.";
+					
+					$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+		    				'id'=>'juiDialog',
+		    				'options'=>array(
+		    						'title'=>'Select the product',
+		    						'autoOpen'=>true,
+		    						'modal'=>'true',
+		    						'show' => 'blind',
+	                            	'hide' => 'explode',
+	                            	//'color' => 'blue',
+		    						//'width'=>'40px',
+		    						//'height'=>'40px',
+		    						),
+		    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
+	       					
+		    				
+		    		));
+		    		
+		    		echo $message;
+		    		$this->endWidget();
+	    	
+		    		
+	 		$this->render('updateCustomer',array('model'=>$model));
+	    }//end if if(count).
+	    
+	    else 
+	    {
+	    	//echo "<1";
+	    	$this->render('update',array('model'=>$model));
+	    }
+	}//end of openDialog().
     
 }//end of class.

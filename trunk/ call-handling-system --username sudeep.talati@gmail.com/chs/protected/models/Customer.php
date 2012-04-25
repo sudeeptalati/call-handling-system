@@ -36,7 +36,10 @@
 class Customer extends CActiveRecord
 {
 	public $created_by_user;
-	public $Products;
+	public $product_type;
+	public $product_brand;
+	public $model_number;
+	public $serial_number;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Customer the static model class
@@ -62,7 +65,7 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, first_name, last_name, address_line_1, town, postcode_s, postcode_e, telephone, email', 'required'),
+			array('title, first_name, last_name, address_line_1, town, postcode_s, postcode_e, telephone', 'required'),
 			array('product_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('address_line_2, address_line_3, country, mobile, fax, notes, modified, fullname, lockcode', 'safe'),
 			// The following rule is used by search().

@@ -242,6 +242,13 @@ td { 	vertical-align:top;
 		<tr>
 			<td ><small><b>Reported </b></small>
 			<br>
+			<?php 
+				if(!empty($model->fault_date))
+				{
+					$model->fault_date=date('d-M-Y', $model->fault_date);		
+				}
+			
+			?>
 			<?php echo date('d-M-Y',$model->fault_date); ?>
 			</td >
 			<td><small><b>Fault code</b></small>

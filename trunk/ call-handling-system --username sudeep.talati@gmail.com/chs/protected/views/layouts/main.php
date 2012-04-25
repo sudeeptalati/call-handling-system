@@ -76,7 +76,7 @@ $header_name=$config->company;
 				
 				array('label'=>'Service Call', 'url'=>array('/customer/freeSearch')),					
 				array('label'=>'Customer', 'url'=>array('/customer/admin')),
-				array('label'=>'Contract', 'url'=>array('/contract/admin')),
+				//array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
 				array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
 				array('label'=>'Setup', 'url'=>array('/config/1')),

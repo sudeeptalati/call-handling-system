@@ -397,4 +397,13 @@ class Servicecall extends CActiveRecord
     	return CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');
     }//end of getStatus().
     
+    
+    public function updateStatus()
+    {
+    	$result = JobStatus::model()->findAllByAttributes(array(),'id>:t1 AND published=:t2', array(':t1'=>3,':t2'=>1));
+    	
+    	return $result;
+    }
+    
+    
 }//end of class.

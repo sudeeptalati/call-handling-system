@@ -117,6 +117,8 @@
 			<?php echo $form->labelEx($model,'email'); ?>
 			<?php echo $form->textField($model,'email',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'email'); ?>
+			<small style="color:maroon"><br>User will be notified via email.</small>
+			
 			
 			<?php echo $form->labelEx($model,'notes'); ?>
 			<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>30)); ?>

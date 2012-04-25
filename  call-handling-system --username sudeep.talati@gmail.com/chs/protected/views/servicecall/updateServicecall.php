@@ -1,9 +1,21 @@
 	<div class="form">
+
 	
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'servicecall-updateServicecall-form',
 		'enableAjaxValidation'=>false,
 	)); ?>
+	
+		<script type="text/javascript">
+		function my_change(id)
+		{
+			if(id == 9)
+			{
+		        alert("Once it is COMPLETED, you can not change again");
+			}
+		}
+		</script>
+		
 	
 		<p class="note">Fields with <span class="required">*</span> are required.</p>
 	
@@ -56,30 +68,29 @@
 		</tr>
 		
 		<tr>
-			<td style="vertical-align:top;"><b>Job Status</b><br>
+			
+				
+			<td style="vertical-align:top;"><b>Job Status : </b>
+			<span style="color:maroon"><?php echo $model->jobStatus->name;?></span>
+			<br>
 				
 				
-				<?php if($model->job_status_id!=5)
+				<?php 
+					if($model->job_status_id!=9)
 					{
+						$result=$model->updateStatus();
+						$list=CHtml::listData($result, 'id','name');
+						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)') );
+						echo $form->error($model,'job_status_id'); 
+					}//end of if().
+					
 				?>
-			
-				<?php //echo $form->labelEx($model,'job_status_id'); ?>
-				<?php echo $form->dropDownList($model,'job_status_id', array('3'=>'Waiting for Parts', '4'=>'Waiting for Technical', '5'=>'Completed', '6'=>'Recalled', '7'=>'Cancelled',)); ?>
-				<?php echo $form->error($model,'job_status_id'); ?>
-			
-			<?php }?>
-			
-			
-			
+			<?php //$model->updateStatus(); ?>
 			
 			</td>
 			
 			<td><b>Service Ref. No.#</b><br><h2 style="color: green;"><?php echo $model->service_reference_number;?></h2></td>
 		</tr>
-		
-		
-		
-		
 		
 		<tr><td colspan="2" style="text-align:center">
 			 
@@ -173,7 +184,8 @@
 			<td>
 				<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
 				<?php //echo $form->textField($model,'spares_used_status_id'); ?>
-				<?php echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'Yes', '1'=>'No'));?>
+				<?php //$model->spares_used_status_id='';?>
+				<?php echo $form->dropDownList($model, 'spares_used_status_id', array(' '=>" ",'1'=>'Yes', '0'=>'No'), array('options' => array(' '=>array('selected'=>true))));?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?>
 				
 				<?php echo $form->labelEx($model,'work_carried_out'); ?>

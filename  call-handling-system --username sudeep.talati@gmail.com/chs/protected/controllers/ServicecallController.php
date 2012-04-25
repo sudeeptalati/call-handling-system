@@ -267,9 +267,10 @@ class ServicecallController extends Controller
 	    if(isset($_POST['Servicecall']))
 	    {
 	        $model->attributes=$_POST['Servicecall'];
+	       
 	        if($model->validate())
 	        {
-	            // form inputs are valid, do something here
+	        	// form inputs are valid, do something here
 	            return;
 	        }
 	    }

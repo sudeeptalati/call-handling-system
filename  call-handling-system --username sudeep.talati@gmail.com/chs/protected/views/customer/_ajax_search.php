@@ -74,14 +74,6 @@ foreach ($displayResults as $row)
 	<td><?php //echo date('d-M-y', $row->product->warranty_date);?></td>
 	<td><?php //echo $row->product->warranty_for_months;?></td>
 	
-	<?php 
-//	$warranty_date=$row->product->warranty_date;
-//	$warranty_months=$row->product->warranty_for_months;
-//	
-//	$php_w_date=strtotime($warranty_date);
-//	$warranty_until= strtotime(date("Y-M-d", $warranty_date) . " +".$warranty_months." month");
-//	$res=date('d-M-Y', $warranty_until);
-	?>
 	</tr>
 	<?php 
 		$i++;
@@ -89,6 +81,14 @@ foreach ($displayResults as $row)
 		
 	}//end of outer forrach().
 	
+	?>
+	<?php 
+//	$warranty_date=$row->product->warranty_date;
+//	$warranty_months=$row->product->warranty_for_months;
+//	
+//	$php_w_date=strtotime($warranty_date);
+//	$warranty_until= strtotime(date("Y-M-d", $warranty_date) . " +".$warranty_months." month");
+//	$res=date('d-M-Y', $warranty_until);
 	?>
 	
 <?php 	

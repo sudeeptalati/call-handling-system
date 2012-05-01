@@ -241,8 +241,8 @@ class EnggdiaryController extends Controller
 	
 	public function actionChangeAppointment()
 	{
-		$service_id=$_GET['serviceId'];
-	    $engg_id=$_GET['engineerId'];
+		$service_id=$_GET['service_id'];
+	    $engg_id=$_GET['engineer_id'];
 	    
 	//    echo "<br>EWNDF I D ID ".$engg_id;
 		$diaryid=$_GET['enggdiary_id'];

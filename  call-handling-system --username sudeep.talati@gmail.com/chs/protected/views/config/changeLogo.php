@@ -1,6 +1,6 @@
 
 <div id="sidemenu">             
-<?php include('Menu.php'); ?>   
+<?php include('setup_sidemenu.php'); ?>   
 </div>
 
 

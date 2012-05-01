@@ -12,25 +12,25 @@
 	
 	<?php 
 		 
-		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
-		if(count($result)>1)
-		{
-			echo "<h3>Select product for customer ".$model->fullname." to update details</h3>";
-	    	foreach ($result as $data)
-	    	{
-//	    		$baseUrl=Yii::app()->baseUrl;
-//	    		$url=$baseUrl.'/customer/updateCustomer/?customer_id='.$.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
-//	    		$url= Y
-	    		echo CHtml::link($data->productType->name, array('customer/updateCustomer/?customer_id='.$model->id.'&product_id='.$data->id))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
-	    	}
-		}//end of if.
-		
-		else 
-		{
-		
-	
-	
-	?>
+//		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
+//		if(count($result)>1)
+//		{
+//			echo "<h3>Select product for customer ".$model->fullname." to update details</h3>";
+//	    	foreach ($result as $data)
+//	    	{
+////	    		$baseUrl=Yii::app()->baseUrl;
+////	    		$url=$baseUrl.'/customer/updateCustomer/?customer_id='.$.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
+////	    		$url= Y
+//	    		echo CHtml::link($data->productType->name, array('customer/updateCustomer/?customer_id='.$model->id.'&product_id='.$data->id))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+//	    	}
+//		}//end of if.
+//		
+//		else 
+//		{
+//		
+//	
+//	
+//	?>
 	
 	<?php 
 		if(!empty($model->product->id))
@@ -265,7 +265,7 @@
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Register' : 'Modify'); ?>
 	</div>
 	
-	<?php }//end of else of count($result).?>
+	<?php // }//end of else of count($result).?>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

@@ -200,9 +200,13 @@ class Customer extends CActiveRecord
             else
             {
             	if(isset($_GET['product_id']))
+//            		$prod_id=$_GET['product_id'];
+//            		
+//            	if($prod_id != $this->product_id)
             	{
+            		//echo "SECONDARY PROD";
             		$product_id=$_GET['product_id'];/* CHECKING FOR PRIMARY PRODUCT */
-            		echo $product_id;
+            		//echo $product_id;
             		
             		$productModel=Product::model()->findByPk($product_id);
 	            	$productModel->attributes=$_POST['Product'];
@@ -216,6 +220,8 @@ class Customer extends CActiveRecord
             	
             	else 
             	{
+            	//	echo "PRIMARY PROD";
+            		
 	            	$productModel=Product::model()->findByPk($this->product_id);
 		            $productModel->attributes=$_POST['Product'];
 		            if($productModel->save())

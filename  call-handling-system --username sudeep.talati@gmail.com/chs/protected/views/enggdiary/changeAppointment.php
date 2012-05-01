@@ -10,8 +10,10 @@
 	<?php echo $form->errorSummary($model); ?>
 	
 	<?php 
-		$service_id=$_GET['serviceId'];
+		$service_id=$_GET['service_id'];
 		//echo "service id:".$service_id;
+		$enggdiary_id=$_GET['enggdiary_id'];
+		//echo $enggdiary_id;
 		$serviceModel=Servicecall::model()->findByPk($service_id);
 		$engg_id=$serviceModel->engineer_id;
 		$customerModel=Customer::model()->findByPk($serviceModel->customer_id);
@@ -212,7 +214,7 @@ $year=date('Y');
 
 	
 }
-$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id;
+$add_params='&amp;engineer_id='.$engg_id.'&amp;service_id='.$service_id.'&amp;enggdiary_id='.$enggdiary_id;
 
 /* select month control */
 $select_month_control = '<select name="month" id="month">';
@@ -223,6 +225,7 @@ $select_month_control.= '</select>';
 
 $hidden_fields='<input type="hidden" name="engineer_id" value="'.$engg_id.'" /> ';
 $hidden_fields.='<input type="hidden" name="service_id" value="'.$service_id.'" /> ';
+$hidden_fields.='<input type="hidden" name="enggdiary_id" value="'.$enggdiary_id.'" /> ';
 
 /* select year control */
 $year_range = 7;
@@ -293,11 +296,11 @@ function draw_calendar($month,$year,$engg_id){
 	/* keep going with days.... */
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 		
-			$todays_date=date('j-n-Y');
+			$todays_date=date('j-m-Y');
 			//echo $todays_date;
 			$current_date='';
 			$current_date=$list_day.'-'.$month.'-'.$year;
-			//echo $current_date;
+			//echo '<br>'.$current_date.'<hr>';
 			
 			if ($todays_date==$current_date)
 			{

@@ -156,7 +156,7 @@
 				  }
 				  else 
 				  {
-				  	echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
+				  	echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
 				  }
 			?>
 				

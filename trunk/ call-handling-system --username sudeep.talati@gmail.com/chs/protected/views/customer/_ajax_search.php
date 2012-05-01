@@ -70,9 +70,10 @@ foreach ($displayResults as $row)
 			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" height="30" width="50" alt="submit form" />
 		</form>	
 	</td>
-	<td><?php //echo date('d-M-y', $row->product->purchase_date);?></td>
+	
+	<!--<td><?php //echo date('d-M-y', $row->product->purchase_date);?></td>
 	<td><?php //echo date('d-M-y', $row->product->warranty_date);?></td>
-	<td><?php //echo $row->product->warranty_for_months;?></td>
+	<td><?php //echo $row->product->warranty_for_months;?></td>-->
 	
 	</tr>
 	<?php 
@@ -82,6 +83,7 @@ foreach ($displayResults as $row)
 	}//end of outer forrach().
 	
 	?>
+	
 	<?php 
 //	$warranty_date=$row->product->warranty_date;
 //	$warranty_months=$row->product->warranty_for_months;
@@ -101,3 +103,4 @@ echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 */
 ?>
 </table>
+ <p align="right"><?php echo CHtml::link('Create Customer', array('customer/create'))?></p>

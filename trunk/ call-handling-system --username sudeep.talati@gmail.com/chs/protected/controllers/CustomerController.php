@@ -300,8 +300,8 @@ class CustomerController extends Controller
 	    if(isset($_POST['Customer']))
 	    {
 	        $model->attributes=$_POST['Customer'];
-	        $productModel=new Product;
-			$productModel->attributes=$_POST['Product'];
+//	        $productModel=new Product;
+//			$productModel->attributes=$_POST['Product'];
 	        if($model->validate())
 	        {
 	        	if($model->save())
@@ -408,7 +408,11 @@ class CustomerController extends Controller
 	    else 
 	    {
 	    	//echo "<1";
-	    	$this->render('update',array('model'=>$model));
+//	    	$this->render('updateCustomer',array('model'=>$model,
+//	    	));
+	    	$this->redirect('update/'.$customer_id);
+	    	//$this->redirect('update',array('model'=>$model));
+	    	
 	    }
 	}//end of openDialog().
     

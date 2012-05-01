@@ -180,6 +180,7 @@
 		<?php echo $form->labelEx($customerModel,'email'); ?>
 		<?php echo $form->textField($customerModel,'email',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'email'); ?>
+		<small style="color:maroon"><br>User will be notified via email.</small>
 	</div>
 
 	<div class="row">

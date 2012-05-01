@@ -22,7 +22,7 @@
  * @property string $website
  * @property string $vat_reg_no
  * @property string $company_number
- * @property string $custom4
+ * @property string $postcode
  * @property string $custom5
  */
 class Config extends CActiveRecord
@@ -55,7 +55,7 @@ class Config extends CActiveRecord
 			array('company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, custom4, custom5', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key,  custom4, custom5', 'safe', 'on'=>'search'),
+			array('id, company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, postcode, custom5', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,8 +80,9 @@ class Config extends CActiveRecord
 			'company' => 'Company',
 			'address' => 'Address',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode',
+			'postcode_s' => 'Postcode S',
 			'postcode_e' => 'Postcode E',
+			'postcode' => 'Postcode',
 			'county' => 'County',
 			'country' => 'Country',
 			'email' => 'Email',
@@ -116,6 +117,7 @@ class Config extends CActiveRecord
 		$criteria->compare('town',$this->town,true);
 		$criteria->compare('postcodes',$this->postcode_s,true);
 		$criteria->compare('postcode_e',$this->postcode_e,true);
+		$criteria->compare('postcode',$this->postcode,true);
 		$criteria->compare('county',$this->county,true);
 		$criteria->compare('country',$this->country,true);
 		$criteria->compare('email',$this->email,true);

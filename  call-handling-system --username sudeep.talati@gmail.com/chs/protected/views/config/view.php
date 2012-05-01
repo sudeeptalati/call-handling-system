@@ -1,16 +1,7 @@
-<?php
 
-
-$this->menu=array(
-	array('label'=>'Change Logo', 'url'=>array('config/changeLogo')),
-	array('label'=>'About & Help', 'url'=>array('config/about')),
-	array('label'=>'Restore Database', 'url'=>array('config/restoreDatabase')),
-	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
-	array('label'=>'Contract', 'url'=>array('/contract/admin')),
-	
-);
-
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
 
 <h1>Set Up</h1>
@@ -48,7 +39,7 @@ $this->menu=array(
 		'postcodeanywhere_license_key',
 
 
-		'custom4',
+		//'custom4',
 		'custom5',
 	),
 )); ?>

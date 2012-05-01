@@ -60,8 +60,9 @@
 		</td>
 	</tr>
 	<tr>
-		<th></th>
-		<th >Service Ref. No.# <h1><?php echo $model->service_reference_number;?></h1></th>
+		<th><b>Job Status : </b> 
+		<h6 style="color:maroon"><?php echo $model->jobStatus->name; ?></h6></th>
+		<th >Service Ref. No.# <h1 style="color:green"><?php echo $model->service_reference_number;?></h1></th>
 	</tr>
 	
 	<tr>
@@ -232,7 +233,7 @@
 	<tr>
 		<td>
 			<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
-			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'Yes', '1'=>'No' ),array('disabled'=>'disabled')); ?>
+			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('1'=>'Yes', '0'=>'No' ),array('disabled'=>'disabled')); ?>
 			<br>			
 			<?php echo $form->labelEx($model,'work_carried_out'); ?>
 			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>

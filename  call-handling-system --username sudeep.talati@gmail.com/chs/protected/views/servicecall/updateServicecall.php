@@ -102,7 +102,7 @@
 		?>
 		<?php 	if (!empty($model->fault_date))
 		{
-				$model->fault_date=date('d-M-y', $model->fault_date);
+				$model->fault_date=date('d-M-Y', $model->fault_date);
 		}
 			?>
 			<?php 

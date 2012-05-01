@@ -167,7 +167,17 @@
 		
 		</td>
 	</tr>
-	</table><!-- end of product service table -->
+	</table>
+	<!-- end of product service table -->
+	
+	<!-- ******************* PREVIOUS SERVICECALLS RECORD *************** -->
+	
+	<tr><td colspan="6">
+		<?php $model->previousCall($cust_id,$prod_id);?>
+	</td></tr>
+	<!-- ******************* END OF PREVIOUS SERVICECALLS RECORD *************** -->
+	
+	
 	<!-- ****** THIRD PART OF FORM TO ENTER SERVICECALL DETAILS ****** -->
 	
 	<tr><td colspan="2" style="text-align:center">

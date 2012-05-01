@@ -26,6 +26,7 @@
  * @property string $fullname
  * @property string $lockcode
  * @property string $postcode_e
+ * @property string $postcode
  *
  * The followings are the available model relations:
  * @property Product $product
@@ -70,7 +71,7 @@ class Customer extends CActiveRecord
 			array('address_line_2, address_line_3, country, mobile, fax, notes, modified, fullname, lockcode', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname', 'safe', 'on'=>'search'),
+			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,7 +105,8 @@ class Customer extends CActiveRecord
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode',
+			'postcode_s' => 'Postcode_s',
+			'postcode_e' => 'Postcode_e',
 			'country' => 'Country',
 			'telephone' => 'Telephone',
 			'mobile' => 'Mobile',
@@ -115,6 +117,7 @@ class Customer extends CActiveRecord
 			'created' => 'Created',
 			'modified' => 'Modified',
 			'fullname' => 'Customer Name',
+			'postcode' => 'Postcode',
 		);
 	}
 
@@ -140,6 +143,7 @@ class Customer extends CActiveRecord
 		$criteria->compare('town',$this->town,true);
 		$criteria->compare('postcode_s',$this->postcode_s,true);
 		$criteria->compare('postcode_e',$this->postcode_e,true);
+		$criteria->compare('postcode',$this->postcode,true);
 		$criteria->compare('country',$this->country,true);
 		$criteria->compare('telephone',$this->telephone,true);
 		$criteria->compare('mobile',$this->mobile,true);
@@ -161,6 +165,7 @@ class Customer extends CActiveRecord
 		if(parent::beforeSave())
         {
         	$this->fullname=$this->first_name." ".$this->last_name;
+        	$this->postcode=$this->postcode_s." ".$this->postcode_e;
         	
         	if($this->isNewRecord)  // Creating new record 
             {
@@ -221,7 +226,7 @@ class Customer extends CActiveRecord
 		            return true;
             	}//end of else of if(isset()).
             	//}//end of if().
-          }//end of else of if($this->isNewRecord).
+          	}//end of else of if($this->isNewRecord).
         }//end of if(parent())
 	}//end of beforeSave().
 	
@@ -250,6 +255,7 @@ class Customer extends CActiveRecord
     	
     	$criteria->compare('fullname', $keyword, true, 'OR');
     	$criteria->compare('postcode_s', $keyword, true, 'OR');
+    	$criteria->compare('postcode', $keyword, true, 'OR');
     	$criteria->compare('town', $keyword, true, 'OR');
     	$criteria->compare('telephone', $keyword, true, 'OR');
     	$criteria->compare('mobile', $keyword, true, 'OR');

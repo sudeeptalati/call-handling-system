@@ -11,6 +11,9 @@
  * @property integer $view_order
  * @property integer $updated_by_user_id
  * @property string $updated
+ * @property integer $dashboard_display
+ * @property integer $dropdown_display
+ * @property string $html_name
  *
  * The followings are the available model relations:
  * @property User $updatedByUser
@@ -79,6 +82,8 @@ class JobStatus extends CActiveRecord
 			'updated_by_user_id' => 'Updated By User',
 			'updated' => 'Last Changed',
 			'dashboard_display' => 'Display on Dashboard',
+			'dropdown_display' => 'Display in Dropdown',
+			'html_name' => 'Name in HTML',
 		
 		);
 	}
@@ -102,6 +107,8 @@ class JobStatus extends CActiveRecord
 		$criteria->compare('updated_by_user_id',$this->updated_by_user_id);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('dashboard_display',$this->dashboard_display,true);
+		$criteria->compare('dropdown_display',$this->dropdown_display,true);
+		$criteria->compare('html_name',$this->html_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

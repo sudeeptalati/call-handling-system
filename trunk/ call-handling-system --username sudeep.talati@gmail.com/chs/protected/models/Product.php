@@ -203,6 +203,7 @@ class Product extends CActiveRecord
         {
 			$this->purchase_date=strtotime($this->purchase_date);
         	$this->warranty_date=strtotime($this->warranty_date);
+        	
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;

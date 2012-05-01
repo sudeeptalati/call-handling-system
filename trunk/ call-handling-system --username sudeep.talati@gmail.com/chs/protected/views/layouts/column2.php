@@ -12,11 +12,12 @@
 				'title'=>'Operations',
 			));
 			$this->widget('zii.widgets.CMenu', array(
-				'items'=>$this->menu,
+				'items'=> $this->menu,
 				'htmlOptions'=>array('class'=>'operations'),
 			));
 			$this->endWidget();
 		?>
+		
 		</div><!-- sidebar -->
 	</div>
 </div>

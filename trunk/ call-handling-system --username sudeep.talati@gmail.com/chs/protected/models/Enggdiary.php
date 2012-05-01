@@ -173,7 +173,7 @@ class Enggdiary extends CActiveRecord
     {
     	//$result=array();
     	return Enggdiary::model()->findAllByAttributes(
-    								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date, 'status'=>2));/*WE will only display the active appointmenst*/
+    								array('engineer_id'=>$engg_id , 'visit_start_date'=>$date, 'status'=>3));/*WE will only display the active appointmenst*/
     	
     }//end of fetchDiaryDetails(). 
     	
@@ -200,7 +200,7 @@ class Enggdiary extends CActiveRecord
     	$str_end_date=strtotime($end_date);
     	
     	return Enggdiary::model()->findAllByAttributes( 
-    								array('engineer_id'=>$engg_id, 'status'=>2), "visit_start_date <= $str_end_date AND visit_start_date >= $str_start_date"
+    								array('engineer_id'=>$engg_id, 'status'=>3), "visit_start_date <= $str_end_date AND visit_start_date >= $str_start_date"
     								);
     }//end of weeklyReport.
     

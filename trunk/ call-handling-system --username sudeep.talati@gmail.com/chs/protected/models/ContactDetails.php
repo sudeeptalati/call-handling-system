@@ -21,6 +21,7 @@
  * @property string $created
  * @property string $lockcode
  * @property string $postcode_e
+ * @property string $postcode
  * 
  *
  * The followings are the available model relations:
@@ -96,7 +97,7 @@ class ContactDetails extends CActiveRecord
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode',
+			'postcode_s' => 'Postcode_s',
 			'country' => 'Country',
 			'latitudes' => 'Latitudes',
 			'longitudes' => 'Longitudes',
@@ -107,6 +108,7 @@ class ContactDetails extends CActiveRecord
 			'website' => 'Website',
 			'created' => 'Created',
 			'postcode_e' => 'Postcode South',
+			'postcode' => 'Postcode',
 		);
 	}
 
@@ -126,6 +128,8 @@ class ContactDetails extends CActiveRecord
 		$criteria->compare('address_line_2',$this->address_line_2,true);
 		$criteria->compare('address_line_3',$this->address_line_3,true);
 		$criteria->compare('town',$this->town,true);
+		$criteria->compare('postcode_s',$this->postcode_s,true);
+		$criteria->compare('postcode_e',$this->postcode_e,true);
 		$criteria->compare('postcode',$this->postcode,true);
 		$criteria->compare('country',$this->country,true);
 		$criteria->compare('latitudes',$this->latitudes,true);
@@ -146,9 +150,11 @@ class ContactDetails extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
+        	$this->postcode = $this->postcode_s." ".$this->postcode_e;
+        		
         	if($this->isNewRecord)  // Creating new record 
             {
-        		$this->created=time();
+            	$this->created=time();
         		//SAVING lockcode DATA.
         		$this->lockcode=Yii::app()->user->id*1000;
     			return true;

@@ -132,5 +132,6 @@ class Config extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-}
+	}//end of search().
+	
+}//end of class.

@@ -50,15 +50,19 @@
 		<?php echo $form->error($model,'fault_description'); ?>
 	</td>
 	<td>
-	<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
+		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number'); ?>
 		<?php echo $form->error($model,'insurer_reference_number'); ?>
 		
+		<?php echo $form->labelEx($model,'recalled_job'); ?>
+		<?php echo $form->dropDownList($model,'recalled_job',array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->error($model,'recalled_job'); ?>
+		
 		<?php echo $form->labelEx($model,'notes'); ?>
-		<?php echo $form->textArea($model,'notes',array('rows'=>7, 'cols'=>40)); ?>
+		<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>40)); ?>
 		<?php echo $form->error($model,'notes'); ?>
 	</td>
-
+	
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<!-- FIELDS OF CUSTOMER AND PRODUCT FORM -->

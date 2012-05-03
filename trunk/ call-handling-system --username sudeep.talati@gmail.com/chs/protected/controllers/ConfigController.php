@@ -315,4 +315,49 @@ class ConfigController extends Controller
 //	    	}//end of isset post finish
 	    
 	}///end of function Restore Database
-}
+	
+	public function actionProgressbar()
+	{
+		//echo "hello";
+		//$message="Hello";
+		
+		$message=array();
+		
+		//$message = ?>
+		
+		
+				<?php 					
+		$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+		    				'id'=>'progressbar',
+		    				'options'=>array(
+		    						'title'=>'Select the product',
+		    						'autoOpen'=>true,
+		    						'modal'=>'true',
+		    						'show' => 'blind',
+	                            	'hide' => 'explode',
+	                            	//'color' => 'blue',
+		    						//'width'=>'40px',
+		    						//'height'=>'40px',
+		    						),
+		    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
+	       					
+		    				
+		    		),true);
+		    		
+		    		//echo $message;
+		    		echo  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+					    'id'=>'progress',
+					    'value'=>10,
+					    'htmlOptions'=>array(
+					        'style'=>'width:200px; height:20px; float:left; background-color:#44F44F ;background:#EFFDFF',
+					        'color' => 'blue'
+					    ),
+					));
+				
+		 $this->endWidget();
+		 
+		 $this->render('about');
+		 
+	}//end of progressbar().
+
+}//end of class.

@@ -29,6 +29,8 @@
  * @property string $modified
  * @property string $cancelled
  * @property string $closed
+ * @property integer $recalled_job
+ * @property string $activity_log
  *
  * The followings are the available model relations:
  * @property SparesUsedStatus $sparesUsedStatus
@@ -75,10 +77,10 @@ class Servicecall extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('job_status_id, fault_description', 'required'),
+			array('job_status_id, fault_description, recalled_job', 'required'),
 			array('service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('number_of_visits, customer_town,customer_postcode , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed', 'safe'),
+			array('number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, ', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes, created_by_user_id, created, modified, cancelled, closed', 'safe', 'on'=>'search'),
@@ -187,6 +189,8 @@ class Servicecall extends CActiveRecord
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('cancelled',$this->cancelled,true);
 		$criteria->compare('closed',$this->closed,true);
+		$criteria->compare('recalled_job',$this->recalled_job);
+		$criteria->compare('activity_log',$this->activity_log);
 
 //		return new CActiveDataProvider($this, array(
 //			'criteria'=>$criteria,
@@ -214,6 +218,8 @@ class Servicecall extends CActiveRecord
 	
 	protected function beforeSave()
     {
+    	
+        	
     	if(parent::beforeSave())
         {
         	
@@ -221,13 +227,14 @@ class Servicecall extends CActiveRecord
         	$this->job_payment_date=strtotime($this->job_payment_date);
         	$this->job_finished_date=strtotime($this->job_finished_date);
         	$this->fault_date=strtotime($this->fault_date);
-        	
+        		 
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
 
         		$this->created=time();
-        		
+        		//$user=Yii::app()->user->id
+        		$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time())."\n";
         		
         		
         		//SETTING SERVICE REFERENCE NUMBER.
@@ -308,9 +315,8 @@ class Servicecall extends CActiveRecord
             }//end of if(newrecord).
             else
             {
-            	
-            	
-            	$this->net_cost=$this->total_cost+$this->vat_on_total;
+            
+            	$this->activity_log.="Status is changed to ".$this->jobStatus->name.".";
             	$this->modified=time();
                 return true;
             }

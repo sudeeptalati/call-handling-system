@@ -139,9 +139,19 @@ class ServicecallController extends Controller
 
 		if(isset($_POST['Servicecall']))
 		{
+			echo "I M HERE";
 			$model->attributes=$_POST['Servicecall'];
+			 
 			if($model->save())
+			{
 				$this->redirect(array('view','id'=>$model->id));
+			}
+			else
+			{
+			echo "Not Save";
+			
+			}
+			
 		}//end of if(isset()).
 
 		$this->render('updateServicecall',array(

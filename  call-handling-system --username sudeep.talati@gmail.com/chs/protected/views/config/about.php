@@ -1,13 +1,68 @@
-<div id="sidemenu">             
-<?php include('setup_sidemenu.php'); ?>   
+
+
+
+<div id="sidemenu">
+<?php include ('setup_sidemenu.php');?>
 </div>
 
+<?php 
+	
+$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+$available_version = file_get_contents($request, true);
+$current_version=Yii::app()->params['software_version'];
+//if ($available_version!=$current_version)
+//{
+//		
+//}
 
- 
+?>
+
+<!--<script type="text/javascript">-->
+<!--function my_code()-->
+<!--{-->
+<!--	//alert("UPDATE");-->
+<!--	i=0;-->
+	
+		<?php 
+//			$i=0;
+//			for ($i=0;$i<=100;$i++)
+//			{
+//		
+//				$this->widget('zii.widgets.jui.CJuiProgressBar', array(
+//					    'id'=>'progress',
+//					    'value'=>$i,
+//					    'htmlOptions'=>array(
+//					        'style'=>'width:200px; height:20px; float:left;'
+//					    ),
+//					    ));
+//			}
+		?>
+<!--}//end of function.-->
+<!---->
+<!--</script>-->
+           
 <table style="width:40%;">
 <tr>
 	<td style="vertical-align:top;"><h4>Version</h4></td>
 	<td style="vertical-align :top;"><?php echo Yii::app()->params['software_version'];?></td>
+	<td style="vertical-align :top;">
+	<?php 
+		if($available_version!=$current_version)
+		{
+			//echo "UPDATE......!!!!!";
+			echo CHtml::button('Update',array('submit'=>'progressbar'));
+			//echo time();
+			$this->widget('zii.widgets.jui.CJuiProgressBar', array(
+					    'id'=>'progress',
+					    'value'=>10,
+					    'htmlOptions'=>array(
+					        'style'=>'width:200px; height:15px; float:left; background-color:#44F44F ;background:#EFFDFF',
+					        'color' => 'blue'
+					    ),
+					    ));
+		}
+	?>
+	</td>
 </tr>
 <tr>
 	<td style="vertical-align:top;"><h4>Support</h4></td>
@@ -29,7 +84,5 @@
 </tr>
 
 </table>
+ 	
  
-	
-	
-		  	

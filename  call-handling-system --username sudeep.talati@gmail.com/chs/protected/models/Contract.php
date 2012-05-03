@@ -24,6 +24,7 @@
  * @property string $spares_contact_details
  * @property string $accounts_contact_details
  * @property string $technical_contact_details
+ * @property integer $short_name
  *
  * The followings are the available model relations:
  * @property User $inactivatedByUser
@@ -62,7 +63,7 @@ class Contract extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, active', 'required'),
+			array('name, active, short_name', 'required'),
 			array('contract_type_id, main_contact_details_id, active, inactivated_by_user_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('vat_reg_number, notes, inactivated_on, management_contact_details, spares_contact_details, accounts_contact_details, accounts_contact_details, technical_contact_details, modified', 'safe'),
 			//CUSTOMISED RULES.
@@ -117,6 +118,7 @@ class Contract extends CActiveRecord
 			'created' => 'Created',
 			'modified' => 'Modified',
 			'management_contact_details' => 'Management Details',
+			'short_name' => 'Short Name',
 		);
 	}
 
@@ -147,6 +149,7 @@ class Contract extends CActiveRecord
 		$criteria->compare('created_by_user_id',$this->created_by_user_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
+		$criteria->compare('short_name',$this->short_name);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

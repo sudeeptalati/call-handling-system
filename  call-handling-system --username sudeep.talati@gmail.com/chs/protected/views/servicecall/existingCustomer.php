@@ -228,6 +228,11 @@
 		<?php //echo $form->hiddenField($model,'contract_id'); ?>
 		<?php echo CHtml::activeDropDownList($model,'contract_id', $model->getAllContract()); ?>
 		<?php echo $form->error($model,'contract_id'); ?>
+		
+		<?php echo $form->labelEx($model,'recalled_job'); ?>
+		<?php echo $form->dropDownList($model,'recalled_job',array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->error($model,'recalled_job'); ?>
+		
 		<?php echo $form->labelEx($model,'notes'); ?>
 		<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>30)); ?>
 		<?php echo $form->error($model,'notes'); ?>

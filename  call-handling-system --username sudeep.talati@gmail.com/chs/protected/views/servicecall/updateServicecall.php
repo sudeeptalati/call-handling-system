@@ -80,7 +80,8 @@
 					{
 						$result=$model->updateStatus();
 						$list=CHtml::listData($result, 'id','name');
-						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)') );
+						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)'));
+						//echo CHtml::activeDropDownList($model, 'job_status_id', $list, array('empty'=>'Select Status'), array('onchange'=>'js:my_change(this.value)'));
 						echo $form->error($model,'job_status_id'); 
 					}//end of if().
 					
@@ -98,13 +99,19 @@
 		</tr>
 		
 		<tr><td>
-		<?php echo $form->labelEx($model,'fault_date'); 
-		?>
-		<?php 	if (!empty($model->fault_date))
-		{
-				$model->fault_date=date('d-M-Y', $model->fault_date);
-		}
+		<?php echo $form->labelEx($model,'fault_date');?>
+		<?php 	
+			if (!empty($model->fault_date))
+			{
+				$model->fault_date= date('d-M-y', $model->fault_date);
+				//echo "not zero";
+			}
+//			else 
+//			{
+//				echo "zero";
+//			}
 			?>
+			<?php //echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled'))."<br>";?>
 			<?php 
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'fault_date'),
@@ -138,7 +145,7 @@
 				 	if(!empty($enggDiaryModel->visit_start_date))
 					{
 						//$enggDiaryModel->visit_start_date= date('d-M-y', $enggDiaryModel->visit_start_date);
-						$viewVisitStartDate=date('d-M-y', $enggDiaryModel->visit_start_date);
+						$viewVisitStartDate=date('d-M-Y', $enggDiaryModel->visit_start_date);
 					}
 				?>
 
@@ -185,7 +192,7 @@
 				<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
 				<?php //echo $form->textField($model,'spares_used_status_id'); ?>
 				<?php //$model->spares_used_status_id='';?>
-				<?php echo $form->dropDownList($model, 'spares_used_status_id', array(' '=>" ",'1'=>'Yes', '0'=>'No'), array('options' => array(' '=>array('selected'=>true))));?>
+				<?php echo $form->dropDownList($model, 'spares_used_status_id', array(' '=>" ",'1'=>'Yes', '0'=>'No'));?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?>
 				
 				<?php echo $form->labelEx($model,'work_carried_out'); ?>

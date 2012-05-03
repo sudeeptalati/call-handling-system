@@ -22,9 +22,8 @@ return array(
 		'application.extensions.yii-mail.*',
 		'application.extensions.yii-zip.*',
 		'application.vendors.*',
-
-			
-	),
+		'application.extensions.jui.*',
+		),
 
 	'modules'=>array(
 		'gii'=>array(
@@ -74,7 +73,7 @@ return array(
 													'encoding'    => 'UTF-8', // charset encoding; Default is UTF-8
 													'marges'      => array(5, 5, 5, 8), // margins by default, in order (left, top, right, bottom)
 											)*/
-									)
+									),
 								),
 							),
 
@@ -156,7 +155,8 @@ return array(
 				*/
 			),
 		),
-	),
+		
+	),//end of components.
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']

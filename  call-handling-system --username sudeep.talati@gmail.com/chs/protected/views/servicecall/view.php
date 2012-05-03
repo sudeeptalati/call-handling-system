@@ -164,8 +164,9 @@
 	
 	<tr>
 		<td>
-		<?php 
-				if (!empty($viewFaultDate)){
+		<?php
+				$viewFaultDate='';
+				if (!empty($model->fault_date)){
 					
 				
 				$viewFaultDate=date('d-M-y', $model->fault_date);?>

@@ -72,6 +72,7 @@
 				
 			<td style="vertical-align:top;"><b>Job Status : </b>
 			<span style="color:maroon"><?php echo $model->jobStatus->name;?></span>
+
 			<br>
 				
 				
@@ -81,13 +82,10 @@
 						$result=$model->updateStatus();
 						$list=CHtml::listData($result, 'id','name');
 						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)'));
-						//echo CHtml::activeDropDownList($model, 'job_status_id', $list, array('empty'=>'Select Status'), array('onchange'=>'js:my_change(this.value)'));
 						echo $form->error($model,'job_status_id'); 
 					}//end of if().
 					
 				?>
-			<?php //$model->updateStatus(); ?>
-			
 			</td>
 			
 			<td><b>Service Ref. No.#</b><br><h2 style="color: green;"><?php echo $model->service_reference_number;?></h2></td>

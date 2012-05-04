@@ -31,7 +31,7 @@ class JobStatusController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','ChangeOrder','order'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -174,4 +174,67 @@ class JobStatusController extends Controller
 			Yii::app()->end();
 		}
 	}
+	
+	public function actionChangeOrder()
+	{
+	    $model=new JobStatus('view');
+	
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='job-status-changeOrder-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['JobStatus']))
+	    {
+	        $model->attributes=$_POST['JobStatus'];
+	        if($model->validate())
+	        {
+	            // form inputs are valid, do something here
+	            return;
+	        }
+	    }
+	    $this->render('changeOrder',array('model'=>$model));
+	}//end of changeOrder().
+	
+
+
+	
+	
+	 public function actionOrder()
+        {
+             //ajax draggable sorter cggridview
+
+             // Handle the POST request data submission
+            if (isset($_POST['Order']))
+            {
+                // Since we converted the Javascript array to a string,
+                // convert the string back to a PHP array
+                $models = explode(',', $_POST['Order']);
+
+                for ($i = 0; $i < sizeof($models); $i++)
+                {
+                    if ($model = JobStatus::model()->findbyPk($models[$i]))
+                    {
+                        $model->view_order = $i;
+
+                        $model->save();
+                    }
+                }///end of for loop
+              $ansver = array('msg'=>'Ok');
+                echo CJSON::encode($ansver);
+                
+				
+                
+            }///end of isset if POST
+        
+        }///end of public function action order
+ 
+
+	
+	
+
 }

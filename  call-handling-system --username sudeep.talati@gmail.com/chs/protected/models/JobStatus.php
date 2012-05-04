@@ -92,6 +92,12 @@ class JobStatus extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	
+	
+	
+	
+	
+	
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -112,8 +118,31 @@ class JobStatus extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			//'order'=>'view_order ASC',
+			
 		));
 	}
+	
+	
+	
+	public function publishedStatus()
+	{
+
+		
+		
+		return JobStatus::model()->findAllByAttributes(
+    								array('published'=>1 )
+    								);/*WE will only display the published Status*/
+	
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -159,6 +188,7 @@ class JobStatus extends CActiveRecord
 		self::$_items[$type]=array();
 		$models=self::model()->findAll(array(
 			'condition'=>'published=1',
+			'order'=>'view_order ASC',
 			
 		));
 		foreach($models as $model)

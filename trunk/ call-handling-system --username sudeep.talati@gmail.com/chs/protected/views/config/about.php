@@ -10,11 +10,6 @@
 $request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
 $available_version = file_get_contents($request, true);
 $current_version=Yii::app()->params['software_version'];
-//if ($available_version!=$current_version)
-//{
-//		
-//}
-
 ?>
 
 <!--<script type="text/javascript">-->

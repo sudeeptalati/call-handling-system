@@ -9,11 +9,63 @@ $this->menu=array(
  
 ?>
 
+
+
+<?php 
+
+$dataProvider=new CActiveDataProvider('JobStatus', array(
+    'criteria'=>array(
+        'condition'=>'published=1',
+        'order'=>'view_order ASC',
+       
+    ),
+    'pagination'=>array(
+        'pageSize'=>50,
+    ),
+));
+
+
+	$this->widget('ext.yii-RGridView.RGridViewWidget', array(
+    'dataProvider'=>$dataProvider,
+    'rowCssId'=>'$data->id',
+    'orderUrl'=>array('order'),
+    'successOrderMessage'=>'New Order Set, Please Refresh Page',
+    'buttonLabel'=>'Save',
+    'template' => '{summary} {items} {order} {pager}',
+    'options'=>array(
+        'cursor' => 'crosshair',
+    ),
+    'columns'=>array(
+      		
+    'view_order',
+    'name',
+			'information',
+
+	array(
+      		'name'=>'published',
+      		'value'=>'$data->published ? "Yes" : "No"',
+    		'type'=>'text',
+			'filter'=>array('1'=>'Yes','0'=>'No'),
+	
+    	),
+ 		  
+    ),
+));
+
+?>
+
+
+
 <h4>Manage Job Status</h4>
 
-<div align="right"><small>See Next Page for custom status</small></div>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+
+
+<div align="right"><small>See Next Page for custom status</small></div>
+<?php 
+
+
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'job-status-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -39,6 +91,8 @@ $this->menu=array(
 	
     	),
     	
+    	
+    	
     
 		/*
 		
@@ -51,6 +105,8 @@ $this->menu=array(
 		),
 	),
 )); ?>
+
+
 
 
 			

@@ -21,8 +21,10 @@ return array(
 		'application.components.*',
 		'application.extensions.yii-mail.*',
 		'application.extensions.yii-zip.*',
+		'application.extensions.yii-RGridView.*',
+		//'application.extensions.*',
+
 		'application.vendors.*',
-		'application.extensions.jui.*',
 		),
 
 	'modules'=>array(

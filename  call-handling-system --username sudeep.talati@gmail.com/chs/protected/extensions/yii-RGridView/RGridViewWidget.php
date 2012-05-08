@@ -133,7 +133,16 @@ class RGridViewWidget extends CGridView
 			'dataType' => 'json',
 			'success' => 'js:function(ansver){
 				if(ansver.msg=="Ok")
+					{
 					alert("'.$this->successOrderMessage.'");
+					
+					/* If you want to refresh page after save alert uncomment me	
+					$(document).ajaxStop(function(){
+						window.location.reload();
+						});
+					*/
+					
+					}///end of if
 				else
 					alert(ansver.msg);
 			}',

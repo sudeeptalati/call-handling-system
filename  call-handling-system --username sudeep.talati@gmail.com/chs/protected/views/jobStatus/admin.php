@@ -29,7 +29,7 @@ $dataProvider=new CActiveDataProvider('JobStatus', array(
     'dataProvider'=>$dataProvider,
     'rowCssId'=>'$data->id',
     'orderUrl'=>array('order'),
-    'successOrderMessage'=>'New Order Set, Please Refresh Page',
+    'successOrderMessage'=>'New Order Set',
     'buttonLabel'=>'Save',
     'template' => '{summary} {items} {order} {pager}',
     'options'=>array(
@@ -37,9 +37,9 @@ $dataProvider=new CActiveDataProvider('JobStatus', array(
     ),
     'columns'=>array(
       		
-    'view_order',
+    //'view_order',
     'name',
-			'information',
+	'information',
 
 	array(
       		'name'=>'published',
@@ -104,7 +104,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'template'=>'{view}	{update}',
 		),
 	),
-)); ?>
+)); 
+
+?>
 
 
 

@@ -7,8 +7,7 @@ $displayResults=$results->getData();
 <th>Customer Name</th>
 <th>Town</th>
 <th>Postcode</th>
-<th></th>
-<th>Product</th>
+<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Product</th>
 <th>Model Number</th>
 <th>Serial Number</th>
 <th></th>
@@ -35,18 +34,14 @@ foreach ($displayResults as $row)
 	
 ?>	
 	<tr>
-	<td><?php //echo CHtml::link($row->fullname, array('Servicecall/existingCustomer', 'customer_id'=>$row->id));?>
-		<?php echo $row->fullname;?></td>
-	<td><?php echo $row->town;?></td>
-	<td><?php echo $row->postcode_s." ".$row->postcode_e;?></td>
 	<td>
-		<form method="get" action="http://maps.google.com/maps" target="_blank" name="map">
-			<input type="hidden"   name="q" size="10"
-		 	maxlength="255" value= "<?php echo $row->postcode_s." ".$row->postcode_e;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/googlemap.png';?>"  width="30" height="30" alt="submit form" />
-		</form>	
-	</td>
-	
+		<?php echo $row->fullname;?>
+		<br><small><?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$row->id,'product_id'=>$row->product_id));?>
+		</small>
+		
+		</td>
+	<td><?php echo $row->town;?></td>
+	<td><?php echo $row->postcode;?></td>
 	<?php 
 		
 		$result=Product::model()->findAllByAttributes(array('customer_id'=>$row->id));
@@ -61,15 +56,38 @@ foreach ($displayResults as $row)
 		<td><?php echo " ";?></td>
 		<td><?php echo " ";?></td>
 		<td><?php echo " ";?></td>
-		<td><?php echo " ";?></td>
 	<?php }//end of if(i>0).?>
 	
+	
+	
+	<?php 
+			$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>20,'height'=>20)); 
+			?>	
+			
+<style type="text/css">
+
+#my{
+padding: 0px 0px 0px 0px;
+}			
+
+
+</style>
 	<td>
-		<?php //echo $row->product->brand->name;?>
-		<?php //echo $row->product->productType->name;?>
-		<?php //echo $data->productType->name;?>
-		<?php echo CHtml::link($data->brand->name." ".$data->productType->name, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?>	
+		<table>
+			<tr>
+				<td id="my"><?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?></td>
+				<td id="my"><?php echo $data->brand->name;?>
+				<?php echo $data->productType->name;?>
 		
+					<br>
+					<small><b>
+				<?php echo CHtml::link('Raise Service Call', array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?>	
+				</b></small>
+				</td>
+			<tr>
+		</table>
+	
 	</td>
 	<td><?php echo $data->model_number;?></td>
 	<td><?php echo $data->serial_number;?></td>
@@ -77,7 +95,7 @@ foreach ($displayResults as $row)
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
 		 	maxlength="255" value= "<?php echo $data->brand->name." ".$data->productType->name." ".$data->model_number;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>"  alt="submit form" />
+			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" height="30" width="50" alt="submit form" />
 		</form>	
 	</td>
 	
@@ -90,27 +108,11 @@ foreach ($displayResults as $row)
 		$i++;
 		}//end of inner foreach().
 		
-	}//end of outer forrach().
+	}//end of outer foreach().
 	
 	?>
 	
-	<?php 
-//	$warranty_date=$row->product->warranty_date;
-//	$warranty_months=$row->product->warranty_for_months;
-//	
-//	$php_w_date=strtotime($warranty_date);
-//	$warranty_until= strtotime(date("Y-M-d", $warranty_date) . " +".$warranty_months." month");
-//	$res=date('d-M-Y', $warranty_until);
-	?>
-	
-<?php 	
-/*FOR $model
-echo "<br>";
-echo "Fault Description: ".$row['fault_description']."	   ";
-echo "Customer Name : ".$row['customer_name']."			";
-echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 
-*/
-?>
 </table>
- <p align="right"><?php echo CHtml::link('Create Customer', array('customer/create'))?></p>
+ <p align="right"><?php //echo CHtml::link('Create Customer', array('customer/create'))?></p>
+			

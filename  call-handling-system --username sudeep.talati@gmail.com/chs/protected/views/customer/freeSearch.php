@@ -74,24 +74,173 @@ $current_url=$baseUrl."/".$model_name;
 //echo "Search   :".$current_url."<br>";
 ?>
 
-<h2>Create New Service Call</h2>
 <input type="hidden" id="current_url" value="<?php echo $current_url;?>"/> 
         <!-- if YOU WANT TO SEND ADDITIONAL HIDDEN VARIABLES-->
 <!--        <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> -->
 <!--        <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/>  -->
-        
-              Search by Customer Name or Postcode or Town or Phone 	number<br><br>
+        		
+        		
+        		<h4>Raise Service Call</h4>
+              	<small>Search by Customer Name or Postcode or Town or Phone 	number</small>
+                
+                
+                
                 <!-- The Searchbox Starts Here  -->
-                <form  name="search_form">
+                 <form  name="search_form">
                  <input  name="query" type="text" id="faq_search_input" style="background-color: #FFFFFF" />
                 </form>
                 <!-- The Searchbox Ends  Here  -->
         <div id="searchresultdata" class="faq-articles"> </div>
-        <br/>
         
-       <?php echo CHtml::link('New Customer', array('servicecall/create')); ?>
+       <?php //echo CHtml::link('New Customer Service', array('servicecall/create'));
+       		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>20,'height'=>20)); 
+
+			?>
+			<p align="right">
+       <?php echo CHtml::link('New Customer Service', array('servicecall/create')); ?>
+       <?php echo CHtml::link($service_img_html, array('Servicecall/create'));?>	
+       </p>
+        <br>
+  <br>
+  
         
+        
+        
+        
+        
+        
+<style type="text/css">
+
+#dashboard_container {
+	width: 700px;
+	margin: 0 auto;
+	background-color:#ecffe3;
+
+}
+
+
+#first_column {
+	float: left;
+	width: 50%;
+	background-color:#B7E6D7;
+	border-radius: 15px;
+	vertical-align:top;
+
+}
+#second_column_top {
+	float: left;
+	width: 50%;
+	background-color:#B7D6E7;
+	border-radius: 15px;
+}
+
+#second_column_bottom {
+	float: left;
+	width: 50%;
+	background-color:#ffaba8;
+border-radius: 15px;
+}
+.td{
+
+}
+ 
+</style>
+        
+ <div id="dashboard_container">
+
+<table >
+	<tr>
+		<td id="first_column"><br>
+		
+		<span><b>Recent Service Calls</b></span>
+		
+	<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'servicecall-grid',
+	'dataProvider'=>Servicecall::model()->search(),
+	//'filter'=>Servicecall::model(),
+	'columns'=>array(
+		//'id',
+		
+		
+		//'service_reference_number',
+		array(	'name'=>'service_reference_number',
+				'value'=>'$data->service_reference_number',
+			    'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
+		 		'type'=>'raw',
+            	
+		),
+	
+	
+	
+		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
+		//array('name'=>'customer_town','value'=>'$data->customer->town'),
+		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
+		array('name'=>'product_name','value'=>'$data->product->productType->name'),
+		array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
+		
+	/*	array(
+			'name'=>'job_status_id',
+			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
+			'filter'=>JobStatus::items('JobStatus'),
+		),
+	*/
+ 
+	),
+)); ?>
+		</td>
+		
+		
+		<td style="	vertical-align:top;">		
+		<table>
+		<tr><td id="second_column_top">
+		<br>
+		<h4> Service calls</h4>
+		Logged (10)<br>
+		Booked(50)<br>
+		Awaiting parts (50)<br>
+		Logged (10)<br>
+		Booked(50)<br>
+		Awaiting parts (50)<br>
+		Logged (10)<br>
+		Booked(50)<br>
+		Awaiting parts (50)<br>
+		Logged (10)<br>
+		Booked(50)<br>
+		Awaiting parts (50)<br>
+		
+		</td></tr>
+		
+		<tr><td></td></tr>
+		<tr><td id="second_column_bottom">
+		<h4>Notifications</h4>
+		
+	
+		</td>
+		
+		</tr>
+
+</table>
+		</td>
+		
+		
+	</tr>
+</table>
+
+
+
+
+
+
+</div>
+         
+     
+     
+     
+     
      </div>
+     
+     
      
       
      

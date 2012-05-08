@@ -201,11 +201,8 @@ class JobStatusController extends Controller
 	}//end of changeOrder().
 	
 
-
-	
-	
-	 public function actionOrder()
-        {
+	public function actionOrder()
+    {
              //ajax draggable sorter cggridview
 
              // Handle the POST request data submission
@@ -225,16 +222,14 @@ class JobStatusController extends Controller
                     }
                 }///end of for loop
               $ansver = array('msg'=>'Ok');
-                echo CJSON::encode($ansver);
+              echo CJSON::encode($ansver);
                 
 				
                 
             }///end of isset if POST
         
-        }///end of public function action order
+    }///end of public function action order
+    
+    
  
-
-	
-	
-
-}
+}//end of class.

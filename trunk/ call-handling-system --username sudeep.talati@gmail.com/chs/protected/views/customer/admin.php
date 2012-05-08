@@ -23,6 +23,32 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<?php 
+
+        //Yii::import('application.extensions.egmap.*');
+//        Yii::import('ext.EGMap.*');
+//        $gMap = new EGMap();
+
+//		Yii::import('ext.egmap.*');
+//		$gMap = new EGMap();
+
+	//echo CHtml::link('google map','hhtp:www.google.maps');
+	
+	//Yii::import('ext.EGMap.*');
+//	Yii::import('application.extensions.EGMap.*');
+// 
+//	$gMap = new EGMap();
+//	$gMap->zoom = 10;
+//	$gMap->renderMap();
+
+//	Yii::import('ext.EGMap.*');
+//	$gMap = new EGMap();
+//	$gMap->zoom = 10;
+//	$gMap->renderMap();
+
+?>
+
+
 <?php ?>
 <h1>Manage Customers</h1>
 

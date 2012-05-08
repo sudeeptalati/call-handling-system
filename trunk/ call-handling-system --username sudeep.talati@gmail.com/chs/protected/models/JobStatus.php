@@ -127,31 +127,15 @@ class JobStatus extends CActiveRecord
 	
 	public function publishedStatus()
 	{
-
-		
-		
 		return JobStatus::model()->findAllByAttributes(
     								array('published'=>1 )
     								);/*WE will only display the published Status*/
-	
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	/*MY CUSTOM STATUS*/
 	
 	
 	private static $_items=array();
-	
-	
 	
 	/**
 	 * Returns the items for the specified type.

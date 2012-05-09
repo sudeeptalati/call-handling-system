@@ -207,7 +207,7 @@
 		<?php //echo $form->textField($model,'fault_date'); ?>
 		<?php echo $form->error($model,'fault_date'); ?>
 		
-				<?php echo $form->labelEx($model,'fault_code'); ?>
+		<?php echo $form->labelEx($model,'fault_code'); ?>
 		<?php echo $form->textField($model,'fault_code'); ?>
 		<?php echo $form->error($model,'fault_code'); ?>
 		
@@ -216,7 +216,7 @@
 		<?php echo $form->error($model,'fault_description'); ?>
 	</td>
 	<td>
-	<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
+		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number'); ?>
 		<?php echo $form->error($model,'insurer_reference_number'); ?>
 		

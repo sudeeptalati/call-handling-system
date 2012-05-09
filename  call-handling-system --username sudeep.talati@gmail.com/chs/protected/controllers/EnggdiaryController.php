@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('ICalLink','ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -360,9 +360,57 @@ class EnggdiaryController extends Controller
 		     }
 		 }
 		 $this->render('weeklyReport',array('model'=>$model));
-	}
+	}//end of function weeklyReport().
 	
 	
+	public function actionICalLink($id)
+	{
+		$serviceModel = Servicecall::model()->findByPk($id);
+		$str = $serviceModel->customer->address_line_1." ".$serviceModel->customer->address_line_2." ".$serviceModel->customer->address_line_3;
+		$str1 = $serviceModel->customer->town;
+		$str2 = $serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e;
+		$address = $str." \t "."Town :".$str1." \t "."Postcode :".$str2;
+		$visit_date = date('Ymd',$serviceModel->enggdiary->visit_start_date);
+		
+		$date      = $visit_date;
+$startTime = $visit_date;
+$endTime   = $visit_date;
+$subject   = 'hi';
+$desc      = 'Customer Details'.
+			 '\n Name - '.$serviceModel->customer->fullname.
+			 '\n Address - '.$address.
+			 '\n Telephone - '.$serviceModel->customer->telephone."\t".'Mobile :'.$serviceModel->customer->mobile.
+			 '\n Email - '.$serviceModel->customer->email.
+			 '\n\n Product Details'.
+			 '\n Brand - '.$serviceModel->product->brand->name.
+			 '\n Product - '.$serviceModel->product->productType->name.
+			 '\n Model - '.$serviceModel->product->model_number.
+			 '\n\n Fault Details'.
+			 '\n Fault Description - '.$serviceModel->fault_description.
+			 '\n Fault report date - '.date('d-M-y', $serviceModel->fault_date);
+		 
+$ical = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+BEGIN:VEVENT
+UID:" . md5(uniqid(mt_rand(), true)) . "example.com
+DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
+DTSTART:".$date."T".$startTime."00Z
+DTEND:".$date."T".$endTime."00Z
+SUMMARY:".$subject."
+DESCRIPTION:".$desc."
+END:VEVENT
+END:VCALENDAR";
+ 
+//set correct content-type-header
+header('Content-type: text/calendar; charset=utf-8');
+header('Content-Disposition: inline; filename=calendar.ics');
+echo $ical;
+exit;
+
+
+		
+	}///end of function ICalLink
 	
 	
 }//end of class.

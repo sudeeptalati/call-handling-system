@@ -27,6 +27,7 @@
 		$str3=$customerModel->postcode_s." ".$customerModel->postcode_e;
 		$address=$str1." ".$str2." ".$str3;
 		
+		
 		//CALCULATING VALID UNTILL.
 	
 		$php_warranty_date=$productModel->warranty_date;
@@ -212,7 +213,13 @@
 		<br>
 		<?php echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers(), array('disabled'=>'disabled')); ?>
 		<br>
-		</td></tr>
+		</td>
+		<td><?php
+			$imgurl = Yii::app()->request->baseUrl.'/images/calendar.gif';
+			$imghtml = CHtml::image($imgurl,'Add to Calendar'); 
+			echo CHtml::link($imghtml, array('Enggdiary/iCalLink','id'=>$model->id));
+		?></td>
+		</tr>
 		<tr><td>
 		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 <!--		<br>-->

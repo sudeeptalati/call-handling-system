@@ -119,7 +119,7 @@ vertical-align:top;
 		}//end of inner foreach().
 		?>
 		
-		<tr><td></td><td></td><td></td><td><a href=''><b>Add product and Raise service</b></a><td></td>
+		<tr><td></td><td></td><td></td><td></td><td><b><?php echo CHtml::link('Add Product and Create Servicecall', array('servicecall/addProduct','cust_id'=>$row->id))?></b></td><td></td>
 		<?php 
 		
 	}//end of outer foreach().
@@ -128,5 +128,5 @@ vertical-align:top;
 	
 
 </table>
- <p align="right"><?php echo CHtml::link('Add Product and Create Servicecall', array('servicecall/addProduct','cust_id'=>$row->id))?></p>
+
 			

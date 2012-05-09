@@ -220,12 +220,15 @@ function draw_calendar($month,$year,$engg_id){
 			$url=$baseUrl.'/enggdiary/weeklyReport/?engg_id='.$engg_id.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
 			$calendar.= '<td> <a href="'.$url.'">Weekly Report</a>       <td></tr>';
 			if(($day_counter+1) != $days_in_month):
+				
 				$calendar.= '<tr class="calendar-row">';
 				//echo "here";
 			endif;
+				
 			$running_day = -1;
 			$days_in_this_week = 0;
 			//$weekEndDate=$current_date;
+			
 			
 			
 		endif;
@@ -238,9 +241,14 @@ function draw_calendar($month,$year,$engg_id){
 		for($x = 1; $x <= (8 - $days_in_this_week); $x++):
 			$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
 		endfor;
-		//echo "<hr>".$current_date;
+		
+//		echo "current date".$current_date;/* GIVES MONTH END DATE */
+//		echo "week start of month end :".$week_start_date;
+		$url=$baseUrl.'/enggdiary/weeklyReport/?engg_id='.$engg_id.'&start_date='.$week_start_date.'&end_date='.$current_date;
+		$calendar.= '<td> <a href="'.$url.'">Weekly Report</a><td>';
+		
 	endif;
-
+	//echo $day_counter;/* GIVES NO OF DAYS IN MONTH. */
 	/* final row */
 	$calendar.= '</tr>';
 

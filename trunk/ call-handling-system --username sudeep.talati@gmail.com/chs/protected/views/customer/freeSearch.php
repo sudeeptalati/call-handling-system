@@ -94,7 +94,7 @@ $current_url=$baseUrl."/".$model_name;
         
        <?php //echo CHtml::link('New Customer Service', array('servicecall/create'));
        		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
-			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>20,'height'=>20)); 
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, title=>'Raise Service Call')); 
 
 			?>
 			<p align="right">
@@ -198,18 +198,19 @@ vertical-align:top;
 		<br>
 		<span><b>&nbsp;&nbsp;Service Calls</b></span><br><br>
 		
-		Logged (10)<br>
-		Booked(50)<br>
-		Awaiting parts (50)<br>
-		Logged (10)<br>
-		Booked(50)<br>
-		Awaiting parts (50)<br>
-		Logged (10)<br>
-		Booked(50)<br>
-		Awaiting parts (50)<br>
-		Logged (10)<br>
-		Booked(50)<br>
-		Awaiting parts (50)<br>
+		<table>
+			<tr><td>
+			Logged
+			
+			
+			
+			</td></tr>
+		
+		
+		
+		
+		</table>
+		
 		
 		</td></tr>
 		

@@ -212,11 +212,10 @@
 		<?php echo $form->labelEx($model,'engineer_id'); ?>
 		<br>
 		<?php echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers(), array('disabled'=>'disabled')); ?>
-		<br>
-		</td>
-		<td><?php
+		
+	<?php
 			$imgurl = Yii::app()->request->baseUrl.'/images/calendar.gif';
-			$imghtml = CHtml::image($imgurl,'Add to Calendar'); 
+			$imghtml = CHtml::image($imgurl,'Add to Calendar',array(width=>25, height=>25, title=>'Add to Outlook or iCal' )); 
 			echo CHtml::link($imghtml, array('Enggdiary/iCalLink','id'=>$model->id));
 		?></td>
 		</tr>

@@ -221,6 +221,7 @@ function draw_calendar($month,$year,$engg_id){
 			$calendar.= '<td> <a href="'.$url.'">Weekly Report</a>       <td></tr>';
 			if(($day_counter+1) != $days_in_month):
 				$calendar.= '<tr class="calendar-row">';
+				//echo "here";
 			endif;
 			$running_day = -1;
 			$days_in_this_week = 0;

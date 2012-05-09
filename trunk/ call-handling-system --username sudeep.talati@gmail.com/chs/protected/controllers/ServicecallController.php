@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
+				'actions'=>array('addProduct','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -109,11 +109,10 @@ class ServicecallController extends Controller
 				if($model->save())
 				{
 					$engg_id=$model->engineer_id;
-				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
-					
-				}
-			}
+					$baseUrl=Yii::app()->request->baseUrl;
+					$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+				}//end of $model->save().
+			}//end of if(valid).
 			else 
 			{
 				echo "Fill all madatory fields";
@@ -235,6 +234,7 @@ class ServicecallController extends Controller
 	{
 		$model=new Servicecall;
 		$model->job_status_id=1;
+		
 		//echo "IN ACTION EXISTING CUSTOMER ";
 		//echo "CUSTOMER ID IN SERVICE CONTROLLER :".$customer_id;
 		
@@ -312,5 +312,62 @@ class ServicecallController extends Controller
 		
 		$mPDF1->Output();
 	}//end of printAllJobs.
+	
+	public function actionAddProduct($cust_id)
+	{
+		$model = new Servicecall;
+		$model->job_status_id=1;
+		
+		$productModel = new Product;
+	
+		if(isset($_POST['Product']))
+		{
+			$productModel->customer_id=$cust_id;
+			$productModel->attributes=$_POST['Product'];
+			if($productModel->save())
+				echo "saved";
+				//$this->redirect(array('view','id'=>$model->id));
+		}
+		
+
+	    
+	   
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-addProduct-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['Servicecall']))
+	    {
+	    	
+	     	$model->customer_id=$cust_id;
+	     	$model->product_id=$productModel->id;
+	     	$model->engineer_id=$productModel->engineer_id;
+	     	$model->contract_id=$productModel->contract_id;
+	        $model->attributes=$_POST['Servicecall'];
+	        if($model->validate())
+	        {
+	        
+	        	if($model->save())
+				{
+					$engg_id=$model->engineer_id;
+					$baseUrl=Yii::app()->request->baseUrl;
+					$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+					//echo "saved";
+	            	// form inputs are valid, do something here
+	            	//return;
+	        	}
+	        	else 
+	        	{
+	        		echo "not saved";
+	        	}
+	    	}
+	    }
+	    $this->render('addProduct',array('model'=>$model));
+	}//end of addProduct().
 	
 }//end of class.

@@ -262,8 +262,15 @@ class Servicecall extends CActiveRecord
 				
         		//GETTING CUSTOMER ID FROM URL.
 				if (isset($_GET['customer_id']))
-				$cust_id=$_GET['customer_id'];
-				//echo "CUSTOMER ID FROM URL :".$cust_id;
+				{
+					$cust_id=$_GET['customer_id'];
+					//echo "CUSTOMER ID FROM URL :".$cust_id;
+				}
+				else 
+				{
+					if (isset($_GET['cust_id']))
+						echo $_GET['cust_id'];
+				}
 				
 				if($this->customer_id=='0')//customer_id=0 INDICATES NEW CUSTOMER.
 				{
@@ -305,10 +312,20 @@ class Servicecall extends CActiveRecord
 				
 				else 
 				{
+					if (isset($_GET['cust_id']))
+						echo $_GET['cust_id'];
+					else 
+					{
 					//EXISTING CUSTOMER.
 					$this->customer_id=$cust_id;
 					$customerQueryModel=Customer::model()->findByPk($cust_id);
 					$this->product_id=$customerQueryModel->product_id;
+					}
+
+					/* WORKING FINE TILL NOW DOT CHANGE HERE */
+					
+//					if (isset($_GET['id']))
+//						echo $_GET['id'];
 				}
 				
 				return true;

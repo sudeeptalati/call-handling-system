@@ -114,5 +114,5 @@ padding: 0px 0px 0px 0px;
 	
 
 </table>
- <p align="right"><?php //echo CHtml::link('Create Customer', array('customer/create'))?></p>
+ <p align="right"><?php echo CHtml::link('Add Product and create Servicecall', array('servicecall/addProduct','cust_id'=>$row->id))?></p>
 			

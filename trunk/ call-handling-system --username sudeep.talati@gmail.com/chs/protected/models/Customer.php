@@ -232,7 +232,7 @@ class Customer extends CActiveRecord
 		            return true;
             	}//end of else of if(isset()).
             	//}//end of if().
-          	}//end of else of if($this->isNewRecord).
+          	}//end of ELSE of if($this->isNewRecord).
         }//end of if(parent())
 	}//end of beforeSave().
 	

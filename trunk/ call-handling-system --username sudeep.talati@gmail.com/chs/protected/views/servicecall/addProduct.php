@@ -22,9 +22,6 @@
 		
 		$productModel = Product::model();
 		
-		$result = Servicecall::model()->findAllByAttributes(array('job_status_id'=>3));
-		echo count($result);
-	
 	?>
 	
 	<table>

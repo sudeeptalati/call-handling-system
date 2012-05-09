@@ -3,15 +3,29 @@
 $displayResults=$results->getData();
 ?>
 
-<table border="1"><tr>
+<style type="text/css">
+td,th{
+vertical-align:top;
+}
+ 
+
+#remove_padding{
+padding: 0px 0px 0px 0px;
+vertical-align:top;
+}			
+
+
+</style>
+
+
+<table style="border-radius:15px;"><tr style="background: #B7D6E7;">
 <th>Customer Name</th>
 <th>Town</th>
-<th></th>
-<th>Postcode</th>
+<th style="width:7em;">Postcode</th>
 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Product</th>
 <th>Model Number</th>
 <th>Serial Number</th>
-<th></th>
+<th>Search</th>
 
 <!--<th>Model Number</th>-->
 <!--<th>Serial Number</th>-->
@@ -26,15 +40,18 @@ $displayResults=$results->getData();
 
 
 <?php
-
+$count=0;
 foreach ($displayResults as $row)
 {
-//	$result=Product::model()->findAllByAttributes(array('customer_id'=>$row->id));
-//	foreach($result as $data)
-//	{
+
+if ($count%2==0)
+		$background='background: #EFFDFF;';
+		else
+		$background='background: #E5F1F4;';		
 	
 ?>	
-	<tr>
+	 
+	<tr style="<?php echo $background; ?>" >
 	<td>
 		<?php echo $row->fullname;?>
 		<br><small><?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$row->id,'product_id'=>$row->product_id));?>
@@ -43,13 +60,15 @@ foreach ($displayResults as $row)
 		</td>
 	<td><?php echo $row->town;?></td>
 	<td>
-		<form method="get" action="http://maps.google.com/maps/" target="_blank">
-			<input type="hidden"   name="q" size="10"
-		 	maxlength="255" value= "<?php echo $row->postcode_s." ".$row->postcode_e;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/googlemaps.png';?>" alt="submit form" />
-		</form>	
+			<form method="get" action="http://maps.google.com/maps/" target="_blank">
+					<input type="hidden"   name="q" size="10"
+				 	maxlength="255" value= "<?php echo $row->postcode_s." ".$row->postcode_e;?>" />
+					<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/googlemaps.png';?>" title="See on Google Map" width='30' 'height'='30' />
+					<span style="margin-left:-8px;">
+					<?php echo $row->postcode;?>
+					</span>	
+			</form>
 	</td>
-	<td><?php echo $row->postcode;?></td>
 	<?php 
 		
 		$result=Product::model()->findAllByAttributes(array('customer_id'=>$row->id));
@@ -59,10 +78,12 @@ foreach ($displayResults as $row)
 			//echo $i;
 			if($i>0)
 			{
+				
 			
-	?>
+			
+	?>	<tr style="<?php echo $background; ?>" >
 		<td><?php echo " ";?></td>
-		<td><?php echo " ";?></td>
+		
 		<td><?php echo " ";?></td>
 		<td><?php echo " ";?></td>
 	<?php }//end of if(i>0).?>
@@ -71,18 +92,9 @@ foreach ($displayResults as $row)
 	
 	<?php 
 			$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
-			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>20,'height'=>20)); 
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, title=>'Raise Service Call')); 
 			?>	
-			
-<style type="text/css">
 
-#remove_padding{
-padding: 0px 0px 0px 0px;
-vertical-align:top;
-}			
-
-
-</style>
 	<td>
 		<table>
 			<tr>
@@ -105,7 +117,7 @@ vertical-align:top;
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
 		 	maxlength="255" value= "<?php echo $data->brand->name." ".$data->productType->name." ".$data->model_number;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" alt="submit form" />
+			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
 		</form>	
 	</td>
 	
@@ -116,12 +128,47 @@ vertical-align:top;
 	</tr>
 	<?php 
 		$i++;
-		}//end of inner foreach().
+		}//end of inner foreach() for products.
 		?>
+			
 		
-		<tr><td></td><td></td><td></td><td></td><td><b><?php echo CHtml::link('Add Product and Create Servicecall', array('servicecall/addProduct','cust_id'=>$row->id))?></b></td><td></td>
+		<tr style="<?php echo $background; ?>">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>
+			
+			<table>
+			<tr>
+				<td id="remove_padding"><?php echo CHtml::link($service_img_html, array('servicecall/addProduct','cust_id'=>$row->id));?></td>
+				<td id="remove_padding"><?php //echo $data->brand->name;?>
+				<?php //echo $data->productType->name;?>
+		
+					
+					<small><b>
+				<?php echo CHtml::link('Add Product &  <br> Raise Service Call', array('servicecall/addProduct','cust_id'=>$row->id));?>	
+				</b></small>
+				</td>
+			<tr>
+		</table>
+			
+			
+			
+			
+			
+			
+			
+			
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>	
+		
+ 
+
 		<?php 
-		
+		$count++;
 	}//end of outer foreach().
 	
 	?>

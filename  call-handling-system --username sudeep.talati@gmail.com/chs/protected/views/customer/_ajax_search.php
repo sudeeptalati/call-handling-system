@@ -6,6 +6,7 @@ $displayResults=$results->getData();
 <table border="1"><tr>
 <th>Customer Name</th>
 <th>Town</th>
+<th></th>
 <th>Postcode</th>
 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Product</th>
 <th>Model Number</th>
@@ -41,6 +42,13 @@ foreach ($displayResults as $row)
 		
 		</td>
 	<td><?php echo $row->town;?></td>
+	<td>
+		<form method="get" action="http://maps.google.com/maps/" target="_blank">
+			<input type="hidden"   name="q" size="10"
+		 	maxlength="255" value= "<?php echo $row->postcode_s." ".$row->postcode_e;?>" />
+			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/googlemaps.png';?>" alt="submit form" />
+		</form>	
+	</td>
 	<td><?php echo $row->postcode;?></td>
 	<?php 
 		
@@ -53,6 +61,7 @@ foreach ($displayResults as $row)
 			{
 			
 	?>
+		<td><?php echo " ";?></td>
 		<td><?php echo " ";?></td>
 		<td><?php echo " ";?></td>
 		<td><?php echo " ";?></td>
@@ -95,7 +104,7 @@ padding: 0px 0px 0px 0px;
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
 		 	maxlength="255" value= "<?php echo $data->brand->name." ".$data->productType->name." ".$data->model_number;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" height="30" width="50" alt="submit form" />
+			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/google.jpg';?>" alt="submit form" />
 		</form>	
 	</td>
 	
@@ -114,5 +123,5 @@ padding: 0px 0px 0px 0px;
 	
 
 </table>
- <p align="right"><?php echo CHtml::link('Add Product and create Servicecall', array('servicecall/addProduct','cust_id'=>$row->id))?></p>
+ <p align="right"><?php echo CHtml::link('Add Product and Create Servicecall', array('servicecall/addProduct','cust_id'=>$row->id))?></p>
 			

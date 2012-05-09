@@ -141,7 +141,6 @@
 				<?php echo $form->textField($productModel,'discontinued',array('rows'=>6, 'cols'=>50)); ?>
 				<?php echo $form->error($productModel,'discontinued'); ?>
 				
-				
 			</td>
 			<td>
 				<?php echo $form->labelEx($productModel,'engineer_id'); ?>

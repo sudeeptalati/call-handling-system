@@ -173,8 +173,7 @@ vertical-align:top;
             	
 		),
 	
-	
-	
+		
 		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
 		//array('name'=>'customer_town','value'=>'$data->customer->town'),
 		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),

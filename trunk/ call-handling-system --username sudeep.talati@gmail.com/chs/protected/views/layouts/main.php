@@ -15,46 +15,39 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<?php 
-	
-		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
-		$available_version = file_get_contents($request, true);
-		$installed_version=Yii::app()->params['software_version'];
-		if ($available_version!=$installed_version)
-		{	
-			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_message.txt';	
-			$server_msg = file_get_contents($server_msg_url, true);
-			
-			?>
-			<span style="background-color:yellow; color:black;">
-			Your current version is <?php echo $installed_version; ?>
-			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
-			<?php echo $server_msg; ?>
-			</span>
-			<?php 
-		}
-	?>
+
 </head>
 
 <body>
 <?php
 $company_logo=Yii::app()->request->baseUrl."/images/company_logo.png";
 $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
+
+
 //$header_name= CHtml::encode(Yii::app()->name);
 $config=Config::model()->findByPk(1);
 $header_name=$config->company;
-
+$baseUrl= Yii::app()->request->baseUrl; 
 ?>
 
 <div class="container" id="page">
 	
-	<table>
+	<table style="width:100%;">
 	<tr>
-		<td style="margin:20px; vertical-align:middle;" ><div id="logo" ><?php echo $header_name; ?><br><small>Call Handling</small></div></td>
-		<td style="margin:20px; text-align:right;" >
-		<?php //echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
-		<?php echo CHtml::image($company_logo); ?>
-	</td>
+		
+		<td style="margin:50px; text-align:left;" >
+			<?php //echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
+			<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:  none;' >
+			<?php echo CHtml::image($company_logo); ?>
+			</a>
+		</td>
+		
+		<td style="margin:20px; text-align:right;" ><div id="logo" >
+		<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:  none;' >
+			<?php echo $header_name; ?><br><small>Call Handling</small></div>
+		</a>
+		</td>
+		
 	</tr>
 	</table>
 	

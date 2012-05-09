@@ -123,7 +123,7 @@ $current_url=$baseUrl."/".$model_name;
 #first_column {
 	float: left;
 	width: 50%;
-	background-color:#B7E6D7;
+	background-color:#B7D6E7;
 	border-radius: 15px;
 	vertical-align:top;
 
@@ -131,15 +131,17 @@ $current_url=$baseUrl."/".$model_name;
 #second_column_top {
 	float: left;
 	width: 50%;
-	background-color:#B7D6E7;
+	background-color:#B7E6D7;
 	border-radius: 15px;
+	vertical-align:top;
 }
 
 #second_column_bottom {
 	float: left;
 	width: 50%;
-	background-color:#ffaba8;
+	background-color:#FAF88D;
 border-radius: 15px;
+vertical-align:top;
 }
 .td{
 
@@ -153,7 +155,7 @@ border-radius: 15px;
 	<tr>
 		<td id="first_column"><br>
 		
-		<span><b>Recent Service Calls</b></span>
+		<span><b>&nbsp;&nbsp;Recent Service Calls</b></span>
 		
 	<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'servicecall-grid',
@@ -195,7 +197,8 @@ border-radius: 15px;
 		<table>
 		<tr><td id="second_column_top">
 		<br>
-		<h4> Service calls</h4>
+		<span><b>&nbsp;&nbsp;Service Calls</b></span><br><br>
+		
 		Logged (10)<br>
 		Booked(50)<br>
 		Awaiting parts (50)<br>
@@ -213,9 +216,38 @@ border-radius: 15px;
 		
 		<tr><td></td></tr>
 		<tr><td id="second_column_bottom">
-		<h4>Notifications</h4>
-		
+		<br>
+		<span><b>&nbsp;&nbsp;Notifications</b></span><br><br>
+			<?php 
 	
+		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+		$available_version = file_get_contents($request, true);
+		$installed_version=Yii::app()->params['software_version'];
+		if ($available_version!=$installed_version)
+		{	
+			
+			
+			?>
+			<ul>
+			<li style="text-align:justify; margin-left:10px;">
+			<span style="color:red;">
+			Your current version is <?php echo $installed_version; ?>
+			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
+			</span>
+			</li>
+			<?php 
+		}
+	?>
+	
+		<li style="text-align:justify; margin-left:10px;">	
+		<?php
+			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_message.txt';	
+			$server_msg = file_get_contents($server_msg_url, true);
+
+			echo $server_msg; 
+		?>
+		</li>
+		</ul>
 		</td>
 		
 		</tr>

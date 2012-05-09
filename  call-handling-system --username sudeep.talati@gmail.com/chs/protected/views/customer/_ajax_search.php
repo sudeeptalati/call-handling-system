@@ -76,8 +76,9 @@ foreach ($displayResults as $row)
 			
 <style type="text/css">
 
-#my{
+#remove_padding{
 padding: 0px 0px 0px 0px;
+vertical-align:top;
 }			
 
 
@@ -85,8 +86,8 @@ padding: 0px 0px 0px 0px;
 	<td>
 		<table>
 			<tr>
-				<td id="my"><?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?></td>
-				<td id="my"><?php echo $data->brand->name;?>
+				<td id="remove_padding"><?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$row->id, 'product_id'=>$data->id));?></td>
+				<td id="remove_padding"><?php echo $data->brand->name;?>
 				<?php echo $data->productType->name;?>
 		
 					<br>
@@ -116,6 +117,10 @@ padding: 0px 0px 0px 0px;
 	<?php 
 		$i++;
 		}//end of inner foreach().
+		?>
+		
+		<tr><td></td><td></td><td></td><td><a href=''><b>Add product and Raise service</b></a><td></td>
+		<?php 
 		
 	}//end of outer foreach().
 	

@@ -1,8 +1,4 @@
 <?php
-$this->breadcrumbs=array(
- 
-	'Manage',
-);
 
 $this->menu=array(
 	//array('label'=>'List Customer', 'url'=>array('index')),
@@ -23,48 +19,8 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<?php 
 
-        //Yii::import('application.extensions.egmap.*');
-//        Yii::import('ext.EGMap.*');
-//        $gMap = new EGMap();
-
-//		Yii::import('ext.egmap.*');
-//		$gMap = new EGMap();
-
-	//echo CHtml::link('google map','hhtp:www.google.maps');
-	
-	//Yii::import('ext.EGMap.*');
-//	Yii::import('application.extensions.EGMap.*');
-// 
-//	$gMap = new EGMap();
-//	$gMap->zoom = 10;
-//	$gMap->renderMap();
-
-//	Yii::import('ext.EGMap.*');
-//	$gMap = new EGMap();
-//	$gMap->zoom = 10;
-//	$gMap->renderMap();
-
-?>
-
-
-<?php ?>
 <h1>Manage Customers</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'customer-grid',

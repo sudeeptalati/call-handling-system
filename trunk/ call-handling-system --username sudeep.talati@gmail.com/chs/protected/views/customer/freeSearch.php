@@ -294,7 +294,7 @@ vertical-align:top;
 						{?>
 							  
 							<tr><td>							
-								<?php echo $row->service_reference_number; ?>
+								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/".$data->id)); ?>
 							</td><td>
 								<?php echo $row->customer->fullname; ?>							
 							</td><td style="width:25px;">

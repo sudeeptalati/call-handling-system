@@ -4,6 +4,7 @@
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
 	array('label'=>'Recent Service Calls', 'url'=>array('/servicecall/admin')),
+	array('label'=>'Recent Customers', 'url'=>array('/customer/admin')),
 );	
 ?>
  <?php 
@@ -94,7 +95,7 @@ $current_url=$baseUrl."/".$model_name;
         
        <?php //echo CHtml::link('New Customer Service', array('servicecall/create'));
        		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
-			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, title=>'Raise Service Call')); 
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call')); 
 
 			?>
 			<p align="right">
@@ -204,6 +205,7 @@ vertical-align:top;
 			
 			
 			
+			
 			</td></tr>
 		
 		
@@ -252,25 +254,15 @@ vertical-align:top;
 		
 		</tr>
 
-</table>
+	</table>
 		</td>
 		
 		
 	</tr>
-</table>
+	</table>
 
-
-
-
-
-
+	</div>
 </div>
-         
-     
-     
-     
-     
-     </div>
      
      
      

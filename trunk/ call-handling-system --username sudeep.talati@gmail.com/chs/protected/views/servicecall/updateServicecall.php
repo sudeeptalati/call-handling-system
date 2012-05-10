@@ -100,14 +100,10 @@
 		<?php echo $form->labelEx($model,'fault_date');?>
 		<?php 	
 			if (!empty($model->fault_date))
+			//if($model->fault_date != " ")
 			{
-				$model->fault_date= date('d-M-y', $model->fault_date);
-				//echo "not zero";
+				$model->fault_date= date('d-M-Y', $model->fault_date);
 			}
-//			else 
-//			{
-//				echo "zero";
-//			}
 			?>
 			<?php //echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled'))."<br>";?>
 			<?php 

@@ -423,7 +423,18 @@ class Servicecall extends CActiveRecord
     
     public function updateStatus()
     {
-    	$result = JobStatus::model()->findAllByAttributes(array(),'id>:t1 AND published=:t2', array(':t1'=>2,':t2'=>1));
+//    	$result = JobStatus::model()->findAllByAttributes(array(), 
+//    														'id>:t1 AND published=:t2', 
+//    														array(':t1'=>2,':t2'=>1), 
+//    														array('order'=>'view_order')
+//    													);
+
+    	$result=JobStatus::model()->findAll(
+											array(
+												'condition'=>'published=1',
+												'order'=>'view_order ASC',
+												)
+				    						);
     	return $result;
     }//end of updateStatus().
     

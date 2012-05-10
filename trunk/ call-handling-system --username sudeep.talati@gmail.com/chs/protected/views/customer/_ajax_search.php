@@ -25,7 +25,7 @@ vertical-align:top;
 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Product</th>
 <th>Model Number</th>
 <th>Serial Number</th>
-<th>Search</th>
+<th>Search Web</th>
 
 <!--<th>Model Number</th>-->
 <!--<th>Serial Number</th>-->
@@ -92,7 +92,7 @@ if ($count%2==0)
 	
 	<?php 
 			$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
-			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, title=>'Raise Service Call')); 
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call')); 
 			?>	
 
 	<td>
@@ -152,13 +152,6 @@ if ($count%2==0)
 			<tr>
 		</table>
 			
-			
-			
-			
-			
-			
-			
-			
 			</td>
 			<td></td>
 			<td></td>
@@ -176,4 +169,4 @@ if ($count%2==0)
 
 </table>
 
-			
+				

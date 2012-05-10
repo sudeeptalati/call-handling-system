@@ -181,7 +181,6 @@ class JobStatus extends CActiveRecord
 	
 	
 	
-	
 	protected function beforeSave()
     {
     	if(parent::beforeSave())
@@ -193,4 +192,4 @@ class JobStatus extends CActiveRecord
         }//end of if(parent())
     }//end of beforeSave().
 	
-}
+}//end of class.

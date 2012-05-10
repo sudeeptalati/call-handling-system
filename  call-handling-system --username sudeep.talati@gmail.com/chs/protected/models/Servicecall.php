@@ -157,11 +157,13 @@ class Servicecall extends CActiveRecord
 		
 		$criteria->order = 'service_reference_number DESC';
 		
-		$criteria->with = array( 'customer','jobStatus');
+		$criteria->with = array( 'customer','jobStatus','engineer');
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
 		$criteria->compare( 'customer.town', $this->customer_town, true );
 		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
+		
+		$criteria->compare( 'engineer.fullname', $this->engineer_name, true );
 		
 		
 		$criteria->compare('id',$this->id);
@@ -169,7 +171,7 @@ class Servicecall extends CActiveRecord
 		//$criteria->compare('customer_id',$this->customer_id);
 		$criteria->compare('product_id',$this->product_id);
 		$criteria->compare('contract_id',$this->contract_id);
-		//$criteria->compare('engineer_id',$this->engineer_id);
+		$criteria->compare('engineer_id',$this->engineer_id);
 		$criteria->compare('insurer_reference_number',$this->insurer_reference_number,true);
 		$criteria->compare('job_status_id',$this->job_status_id);
 		$criteria->compare('fault_date',$this->fault_date,true);

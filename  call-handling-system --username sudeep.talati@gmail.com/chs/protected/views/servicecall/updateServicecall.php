@@ -89,6 +89,8 @@
 			</td>
 			
 			<td><b>Service Ref. No.#</b><br><h2 style="color: green;"><?php echo $model->service_reference_number;?></h2></td>
+			
+			<td colspan="3" style="vertical-align:top;"><?php echo CHtml::submitButton('Modify'); ?></td>
 		</tr>
 		
 		<tr><td colspan="2" style="text-align:center">
@@ -99,10 +101,9 @@
 		<tr><td>
 		<?php echo $form->labelEx($model,'fault_date');?>
 		<?php 	
-			if (!empty($model->fault_date))
-			//if($model->fault_date != " ")
+			if(!empty($model->fault_date))
 			{
-				$model->fault_date= date('d-M-Y', $model->fault_date);
+				$model->fault_date=date('d-M-Y', $model->fault_date);	
 			}
 			?>
 			<?php //echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled'))."<br>";?>

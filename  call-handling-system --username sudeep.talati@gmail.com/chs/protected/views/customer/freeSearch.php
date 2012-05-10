@@ -3,7 +3,7 @@
 <?php 
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
-	array('label'=>'Recent Service Calls', 'url'=>array('/servicecall/admin')),
+	//array('label'=>'Recent Service Calls', 'url'=>array('/servicecall/admin')),
 	array('label'=>'Recent Customers', 'url'=>array('/customer/admin')),
 );	
 ?>
@@ -158,6 +158,7 @@ vertical-align:top;
 		<td id="first_column"><br>
 		
 		<span><b>&nbsp;&nbsp;Recent Service Calls</b></span>
+		<span style="float:right"><?php echo CHtml::link('Recent Servicecalls', array('servicecall/admin'));?></span>
 		
 	<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'servicecall-grid',

@@ -1,8 +1,5 @@
 <?php
-$this->breadcrumbs=array(
-	'Servicecalls'=>array('index'),
-	'Manage',
-);
+
 
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('index')),
@@ -25,17 +22,6 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Servicecalls</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'servicecall-grid',
@@ -43,7 +29,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		//'id',
-		'service_reference_number',
+		//'service_reference_number',
+		array(	'name'=>'service_reference_number',
+				'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
+		 		'type'=>'raw',
+        ),
 		
 /*
 		array('name'=>'job_status',
@@ -65,7 +55,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'contract_id',
 	//	array('name'=>'contract_name','value'=>'$data->contract->name'),
 //		'engineer_id',
-		array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
+		//array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
+		array(
+			'name'=>'engineer_id',
+			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
+			'filter'=>Engineer::items('Engineer'),
+		),
 		//'created_by_user_id',
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
 		
@@ -99,7 +94,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{view}{update}',
+			'template'=>'{update}',
 		),
 	),
 )); ?>

@@ -106,18 +106,18 @@ $current_url=$baseUrl."/".$model_name;
   <br>
   
         
+<!-- ***********************************END OF SEARCH FORM ****************************** -->
         
         
-        
-        
+<!-- ***********************************DASHBOARD ****************************** -->
+
         
 <style type="text/css">
 
 #dashboard_container {
 	width: 700px;
 	margin: 0 auto;
-	background-color:#ecffe3;
-
+	
 }
 
 
@@ -144,8 +144,9 @@ $current_url=$baseUrl."/".$model_name;
 border-radius: 15px;
 vertical-align:top;
 }
-.td{
 
+td,th{
+vertical-align:top;
 }
  
 </style>
@@ -200,11 +201,130 @@ vertical-align:top;
 		<span><b>&nbsp;&nbsp;Service Calls</b></span><br><br>
 		
 		<table>
-			<tr><td>
-			Logged
 			
 			
 			
+			<?php
+			
+			
+			
+//EVENT LISTENER FOR MANAGEMENT FIELD.
+
+ 
+
+
+ 
+?>
+
+ 
+
+
+<?php 
+
+
+
+
+				$allStatus = JobStatus::model()->findAll( array(
+												'condition'=>'dashboard_display=1',
+												'order'=>'dashboard_prority_order ASC',
+												));
+				foreach ($allStatus as $data)
+				{
+					
+					$anchor_var=$data->id.'anchor';
+					$div_var=$data->id.'div';
+					
+					?>
+					
+					
+					 <script type="text/javascript">
+ 						$(document).ready(function(){
+						        $(".<?php echo $div_var; ?>").hide();
+						        $(".<?php echo $anchor_var; ?>").show();
+						    $('.<?php echo $anchor_var; ?>').click(function(){
+						    $(".<?php echo $div_var; ?>").slideToggle();
+						    });
+						 
+						});
+					</script>
+					
+					 
+					
+					
+					<?php
+					//echo $data->name."<br>";
+					$result = Servicecall::model()->findAll(array(
+															'condition'=>'job_status_id='.$data->id,
+															)
+															);
+					if(count($result)>0)
+					{?>
+						<tr style="background:<?php echo $data->html_name;?>;">
+						<td style="border-radius:15px;  padding:10px;">
+						<span style="margin-left:20px;margin-top:10px;  ">
+						<?php 
+						echo "<b>".$data->name."&nbsp;&nbsp;&nbsp;(".count($result).")"."</b>";
+						?>
+						
+						<a href="#" class="<?php echo $anchor_var; ?>">
+						
+						<?php 
+						$down_arrow_img = Yii::app()->request->baseUrl.'/images/arrow_down.png';
+						echo CHtml::image($down_arrow_img,'Raise Service Call',array('width'=>16,'height'=>16, 'title'=>'Show Service Calls')); 
+						?>
+						</a>
+					
+					
+					
+						<div class="<?php echo $div_var; ?>">
+ 						
+ 						<table><tr><td></td></tr>
+						<tr style="background: #B7D6E7;">
+							<th>Ref. No#</th>
+							<th>Customer</th>
+							<th style="width:7em;">Postcode</th>
+							<th>Product</th>
+							</tr>
+							
+						
+						
+						<?php 
+						foreach ($result as $row)
+						{?>
+							  
+							<tr><td>							
+								<?php echo $row->service_reference_number; ?>
+							</td><td>
+								<?php echo $row->customer->fullname; ?>							
+							</td><td style="width:25px;">
+								<?php echo $row->customer->postcode; ?>							
+							</td><td>
+								<?php echo $row->product->productType->name; ?>							
+							
+							</td></tr>
+							
+						
+						
+						
+						<?php }//end of foreach(). 
+						
+						?> 
+						</table>
+						</div>
+						<?php 
+					}//end of if count.
+					 									
+				
+					?>
+					</span>	
+					</td></tr>
+					
+					<?php 
+				
+				}///end of foreeach													   	
+			
+			
+			?>			
 			
 			</td></tr>
 		

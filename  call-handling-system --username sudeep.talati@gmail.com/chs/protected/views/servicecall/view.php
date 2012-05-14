@@ -52,9 +52,16 @@
 										);
 				?>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<?php 
+					$previewImgUrl = Yii::app()->request->baseUrl.'/images/pdf.gif';
+					$previewImg = CHtml::image($previewImgUrl, 'Preview', array('width'=>35, 'height'=>35, 'title'=>'Preview in Pdf'));
+				?>
 				<?php 	echo CHtml::link('Preview',array('Preview',
 											'id'=>$model->id), array('target'=>'_blank')
 										);
+						echo CHtml::link($previewImg, array('Preview',
+											'id'=>$model->id), array('target'=>'_blank'))				
+						
 				?>
 				
 			</b>

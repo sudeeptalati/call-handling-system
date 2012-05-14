@@ -103,7 +103,7 @@
 		<?php 	
 			if(!empty($model->fault_date))
 			{
-				$model->fault_date=date('d-M-Y', $model->fault_date);	
+				$model->fault_date = date('d-M-Y',$model->fault_date);	
 			}
 			?>
 			<?php //echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled'))."<br>";?>
@@ -149,16 +149,26 @@
 			<?php echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
 			<?php //echo $form->error($enggDiaryModel,'visit_start_date'); ?>
 			
+			<!-- code for image link to change appointment -->
+			<?php 
+				$imgurl = Yii::app()->request->baseUrl.'/images/engineer_diary.gif';
+				$imghtml = CHtml::image($imgurl,'Engineer Appointment',array('width'=>30, 'height'=>30, 'title'=>'Add to Outlook or iCal' )); 
+				//echo CHtml::link($imghtml, array('Enggdiary/iCalLink','id'=>$model->id));
+			?>
+			<!-- end of code. -->
+			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
 			<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
 			<?php echo $form->error($model,'engineer_id'); ?>
 			<?php if(empty($model->engg_diary_id))
 				  {
 					echo CHtml::link('Create Appointment', array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
+					echo CHtml::link($imghtml, array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 				  }
 				  else 
 				  {
-				  	echo CHtml::link('Change the Engineer or Appointment', array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
+				  	echo CHtml::link('Change Engineer or Appointment', array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
+				  	echo CHtml::link($imghtml, array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));
 				  }
 			?>
 				

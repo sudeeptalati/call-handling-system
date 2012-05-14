@@ -74,15 +74,13 @@
 		 </td>
 	</tr>
 	<tr>
-		<td colspan="3">
+		<td>
 		<?php echo "<b>	Engineer Details</b><br>" ,
 		  CHtml::textArea('Address', $enggDetails,  array('rows'=>4, 'cols'=>20,'disabled'=>'disabled')); ?>
 
 		</td>
-	</tr>
-	<tr>
-	
-		<td class="row" colspan="3">
+<!--		<td class="row" colspan="3">-->
+		<td style="vertical-align:top">
 		<?php $model->visit_start_date=date('d-M-y',$model->visit_start_date);?>
 		<?php //echo $viewVisitData;?>
 		<?php echo $form->labelEx($model,'visit_start_date'); ?>
@@ -101,21 +99,22 @@
 			    ),
 			));		
 		?>
- 
-
-		<?php echo $form->labelEx($model,'slots'); ?>
-		<?php echo $form->dropDownList($model,'slots', array('1'=>1, '2'=>2,'3'=>3, '4'=>4,'5'=>5, '6'=>6,'7'=>7,'8'=>8,'9'=>9,'10'=>10,'11'=>11, '12'=>12,'13'=>13, '14'=>14,'15'=>15, '16'=>16,'17'=>17,'18'=>18,'19'=>19,'20'=>20,));?>
-		<small>Each Slot is of 30 Mins</small>
-		<?php echo $form->error($model,'slots'); ?>
-	</td>
+		</td>
+		<td style="vertical-align:top;">
+			<?php echo $form->labelEx($model,'slots'); ?>
+			<?php echo $form->dropDownList($model,'slots', array('1'=>1, '2'=>2,'3'=>3, '4'=>4,'5'=>5, '6'=>6,'7'=>7,'8'=>8,'9'=>9,'10'=>10,'11'=>11, '12'=>12,'13'=>13, '14'=>14,'15'=>15, '16'=>16,'17'=>17,'18'=>18,'19'=>19,'20'=>20,));?>
+			<small>Each Slot is of 30 Mins</small>
+			<?php echo $form->error($model,'slots'); ?>
+		</td>
 	</tr>
 	</table>
+	<span style="float:right"><?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?></span><!--
 	<div class="row buttons">
 		<?php //echo $form->textField($model,'servicecall_id'); ?>
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?>
+		<?php //echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+--><?php $this->endWidget(); ?>
 	<div>
 <!-- CRAETED BY ST -->
 

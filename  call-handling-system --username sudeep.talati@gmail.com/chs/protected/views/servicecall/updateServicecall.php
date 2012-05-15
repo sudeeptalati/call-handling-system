@@ -152,7 +152,7 @@
 			<!-- code for image link to change appointment -->
 			<?php 
 				$imgurl = Yii::app()->request->baseUrl.'/images/engineer_diary.gif';
-				$imghtml = CHtml::image($imgurl,'Engineer Appointment',array('width'=>30, 'height'=>30, 'title'=>'Add to Outlook or iCal' )); 
+				$imghtml = CHtml::image($imgurl,'Engineer Appointment',array('width'=>25, 'height'=>25, 'title'=>'Engineer Appointment' )); 
 				//echo CHtml::link($imghtml, array('Enggdiary/iCalLink','id'=>$model->id));
 			?>
 			<!-- end of code. -->
@@ -162,13 +162,13 @@
 			<?php echo $form->error($model,'engineer_id'); ?>
 			<?php if(empty($model->engg_diary_id))
 				  {
+				  	echo CHtml::link($imghtml, array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 					echo CHtml::link('Create Appointment', array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
-					echo CHtml::link($imghtml, array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 				  }
 				  else 
 				  {
-				  	echo CHtml::link('Change Engineer or Appointment', array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
 				  	echo CHtml::link($imghtml, array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));
+				  	echo CHtml::link('Change Engineer or Appointment', array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
 				  }
 			?>
 				

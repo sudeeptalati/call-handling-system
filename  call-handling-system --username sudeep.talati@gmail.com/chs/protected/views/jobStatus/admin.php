@@ -9,59 +9,26 @@ $this->menu=array(
  
 ?>
 
-
-
 <?php 
-
-$dataProvider=new CActiveDataProvider('JobStatus', array(
-    'criteria'=>array(
-        'condition'=>'published=1',
-        'order'=>'view_order ASC',
-       
-    ),
-    'pagination'=>array(
-        'pageSize'=>50,
-    ),
-));
-
-
-	$this->widget('ext.yii-RGridView.RGridViewWidget', array(
-    'dataProvider'=>$dataProvider,
-    'rowCssId'=>'$data->id',
-    'orderUrl'=>array('order'),
-    'successOrderMessage'=>'New Order Set',
-    'buttonLabel'=>'Save',
-    'template' => '{summary} {items} {order} {pager}',
-    'options'=>array(
-        'cursor' => 'crosshair',
-    ),
-    'columns'=>array(
-      		
-    //'view_order',
-    'name',
-	'information',
-
-	array(
-      		'name'=>'published',
-      		'value'=>'$data->published ? "Yes" : "No"',
-    		'type'=>'text',
-			'filter'=>array('1'=>'Yes','0'=>'No'),
-	
-    	),
- 		  
-    ),
-));
-
+Yii::app()->clientScript->registerScript('view-order-listener', "
+$('.sort-view-order-link').click(function(){
+	$('.sort_view_order').toggle();
+	return false;
+});
+");
+//
+//Yii::app()->clientScript->registerScript('dashboard-order-listener', "
+//$('.sort-dashboard-order-link').click(function(){
+//	$('.sort_dashpriority_order').toggle();
+//	return false;
+//});
+//");
 ?>
-
 
 
 <h4>Manage Job Status</h4>
 
-
-
-
-<div align="right"><small>See Next Page for custom status</small></div>
+<!--<div align="right"><small>See Next Page for custom status</small></div>-->
 <?php 
 
 
@@ -109,6 +76,57 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 
 
+<!-- ************* CODE FOR SORTING VIEW ORDER ****************** -->
+<?php 
+
+$dataProvider=new CActiveDataProvider('JobStatus', array(
+    'criteria'=>array(
+        'condition'=>'published=1',
+        'order'=>'view_order ASC',
+       
+    ),
+    'pagination'=>array(
+        'pageSize'=>50,
+    ),
+));
+
+?>
+
+<h4><?php echo CHtml::link('Change View Order','#', array('class'=>'sort-view-order-link'));?></h4>
+
+<div class="sort_view_order" style="display:none">
+<?php 
+	$this->widget('ext.yii-RGridView.RGridViewWidget', array(
+    'dataProvider'=>$dataProvider,
+    'rowCssId'=>'$data->id',
+    'orderUrl'=>array('order'),
+    'successOrderMessage'=>'New Order Set',
+    'buttonLabel'=>'Save',
+    'template' => '{summary} {items} {order} {pager}',
+    'options'=>array(
+        'cursor' => 'crosshair',
+    ),
+    'columns'=>array(
+      		
+    //'view_order',
+    'name',
+	'information',
+
+	array(
+      		'name'=>'published',
+      		'value'=>'$data->published ? "Yes" : "No"',
+    		'type'=>'text',
+			'filter'=>array('1'=>'Yes','0'=>'No'),
+	
+    	),
+ 		  
+    ),
+));
+
+?>
+</div>
+
+<!-- **************** END OF CODE OF SORTING OF VIEW ORDER ***************** -->
 
 
-			
+

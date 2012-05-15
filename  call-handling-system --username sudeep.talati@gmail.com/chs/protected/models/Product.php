@@ -93,7 +93,7 @@ class Product extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customers' => array(self::HAS_MANY, 'Customer', 'product_id'),
+			//'customers' => array(self::HAS_MANY, 'Customer', 'product_id'),
 			'engineer' => array(self::BELONGS_TO, 'Engineer', 'engineer_id'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 			'productType' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
@@ -101,6 +101,7 @@ class Product extends CActiveRecord
 			'contract' => array(self::BELONGS_TO, 'Contract', 'contract_id'),
 			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by_user_id'),
 			'servicecalls' => array(self::HAS_MANY, 'Servicecall', 'product_id'),
+			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by_user_id'),
 		);
 	}
 

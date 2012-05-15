@@ -60,18 +60,7 @@ $('.search-form form').submit(function(){
 			'buttons' => array(
 				'update' =>array
 				(
-//					'label'=>'update Customer',
-//		            'imageUrl'=>Yii::app()->request->baseUrl.'/images/update.png',
-//					'options' => array('class'=>'update-button'),
-//					'url' => 'Yii::app()->createUrl("customer/updateCustomer" , array("customer_id"=>$data->id, "product_id"=>$data->product_id))',
 					'url' => 'Yii::app()->createUrl("Customer/openDialog" , array("customer_id"=>$data->id, "product_id"=>$data->product_id))',
-//					//'click' => 'function(){alert("id is :'.$model->allProducts($model->id).'");}',
-//					//'click' => 'function(){alert("'.$model->displayAllProducts(array("id"=>$data["id"])).'");}',
-//					//'click' => 'function(){alert("'.$model->displayAllProducts($data["id"]).'");}',
-//					//'click' => "js:'function(){alert("$row['id']");}'",
-//					//'click' => 'js:function(){alert("first element in cgridview is "+$(this).parent().parent().children(":nth-child(1)").text());}'
-//					//'click' => 'click' => 'js:function(){alert("first element in cgridview is "+$(this).attr(id)+;}'
-					
 				),
 			),	
 		) ,
@@ -82,3 +71,7 @@ $('.search-form form').submit(function(){
 		),
 	),
 )); ?>
+
+
+
+

@@ -31,7 +31,7 @@ class JobStatusController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','ChangeOrder','order','DashboardOrder','admin'),
+				'actions'=>array('orderdropdown','dropdownorder','create','update','ChangeOrder','order','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -175,31 +175,7 @@ class JobStatusController extends Controller
 		}
 	}
 	
-	public function actionChangeOrder()
-	{
-	    $model=new JobStatus('view');
-	
-	    // uncomment the following code to enable ajax-based validation
-	    /*
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='job-status-changeOrder-form')
-	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
-	    */
-	
-	    if(isset($_POST['JobStatus']))
-	    {
-	        $model->attributes=$_POST['JobStatus'];
-	        if($model->validate())
-	        {
-	            // form inputs are valid, do something here
-	            return;
-	        }
-	    }
-	    $this->render('changeOrder',array('model'=>$model));
-	}//end of changeOrder().
-	
+ 
 
 	public function actionOrder()
     {
@@ -216,7 +192,7 @@ class JobStatusController extends Controller
                 {
                     if ($model = JobStatus::model()->findbyPk($models[$i]))
                     {
-                        $model->view_order = $i;
+                        $model->dashboard_prority_order = $i;
 
                         $model->save();
                     }
@@ -228,38 +204,49 @@ class JobStatusController extends Controller
         
     }///end of public function action order
     
-    public function actionDashboardOrder()
+    public function actionDropdownorder()
     {
     	
-    	
-    	$model=new JobStatus('view');
-    	
-    	  //ajax draggable sorter cggridview
+    	$model=new JobStatus('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['JobStatus']))
+			$model->attributes=$_GET['JobStatus'];
+
+		$this->render('dropdownorder',array(
+			'model'=>$model,
+		));
+    }//end of actionDropdownorder().
+
+	public function actionOrderdropdown()
+    {
+             //ajax draggable sorter cggridview
 
              // Handle the POST request data submission
-            if (isset($_POST['dashboardOrder']))
-            {
+        	if (isset($_POST['Order']))
+        	{
+        		
             	// Since we converted the Javascript array to a string,
                 // convert the string back to a PHP array
-                $models = explode(',', $_POST['dashboardOrder']);
+                $models = explode(',', $_POST['Order']);
 
                 for ($i = 0; $i < sizeof($models); $i++)
                 {
+                	
                     if ($model = JobStatus::model()->findbyPk($models[$i]))
                     {
-                        $model->dashboard_prority_order = $i;
-
-                        $model->save();
+                    	
+                        $model->view_order = $i;
+                        //echo $models[$i][0]."....";
+						$model->save();
                     }
                 }///end of for loop
               $ansver = array('msg'=>'Ok');
               echo CJSON::encode($ansver);
                 
 			}///end of isset if POST
-            
-           $this->render('dashboardOrder',array('model'=>$model));
-    	
-    }//end of dashboardOrder().
+        
+    }///end of public function action order    
+
     
     
  

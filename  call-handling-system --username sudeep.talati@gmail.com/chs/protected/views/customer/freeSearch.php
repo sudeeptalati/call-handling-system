@@ -157,13 +157,13 @@ vertical-align:top;
 	<tr>
 		<td id="first_column"><br>
 		
-		<span><b>&nbsp;&nbsp;Recent Service Calls</b></span>
-		<span style="float:right"><?php echo CHtml::link('Recent Servicecalls', array('servicecall/admin'));?></span>
+ 
+		<span style="float:left"><b><?php echo CHtml::link('Recent Servicecalls', array('servicecall/admin'));?></b></span>
 		
 	<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'servicecall-grid',
 	'dataProvider'=>Servicecall::model()->search(),
-	//'filter'=>Servicecall::model(),
+	'filter'=>Servicecall::model(),
 	'columns'=>array(
 		//'id',
 		

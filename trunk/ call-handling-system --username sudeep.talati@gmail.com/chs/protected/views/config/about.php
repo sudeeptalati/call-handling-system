@@ -45,7 +45,8 @@ $current_version=Yii::app()->params['software_version'];
 		if($available_version!=$current_version)
 		{
 			//echo "UPDATE......!!!!!";
-			echo CHtml::button('Update',array('submit'=>'progressbar'));
+			echo CHtml::button('Update',array('submit'=>'showUpdateProgress'));
+			
 			//echo time();
 			$this->widget('zii.widgets.jui.CJuiProgressBar', array(
 					    'id'=>'progress',

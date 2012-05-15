@@ -31,7 +31,7 @@ class ConfigController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('restoreDatabase','update','admin','changeLogo','emailSetup','about'),
+				'actions'=>array('restoreDatabase','showUpdateProgress','progressBar','update','admin','changeLogo','emailSetup','about'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -320,42 +320,15 @@ class ConfigController extends Controller
 	{
 		//echo "hello";
 		//$message="Hello";
-		
-		$message=array();
-		
-		//$message = ?>
-		
-		
-				<?php 					
-		$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
-		    				'id'=>'progressbar',
-		    				'options'=>array(
-		    						'title'=>'Select the product',
-		    						'autoOpen'=>true,
-		    						'modal'=>'true',
-		    						'show' => 'blind',
-	                            	'hide' => 'explode',
-	                            	//'color' => 'blue',
-		    						//'width'=>'40px',
-		    						//'height'=>'40px',
-		    						),
-		    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-	       					
-		    				
-		    		),true);
-		    		
-		    		//echo $message;
-		    		echo  $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+		$this->widget('zii.widgets.jui.CJuiProgressBar', array(
 					    'id'=>'progress',
 					    'value'=>10,
 					    'htmlOptions'=>array(
-					        'style'=>'width:200px; height:20px; float:left; background-color:#44F44F ;background:#EFFDFF',
+					        'style'=>'width:200px; height:15px; float:left; background-color:#44F44F ;background:#EFFDFF',
 					        'color' => 'blue'
 					    ),
-					));
+					    ));
 				
-		 $this->endWidget();
-		 
 		 $this->render('about');
 		 
 	}//end of progressbar().
@@ -643,52 +616,15 @@ class ConfigController extends Controller
 				}///end of else of step 3
 
 
-
-
-
-
-
-
-
-
-
-
-
-		
 		}//////END OF ELSE OF STEP 1
+		
+		//$this->render('showUpdateStatus');
 }///end of 	public function actionDownloadZip()
 	
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	public function recurse_copy($src,$dst) { 
+	public function recurse_copy($src,$dst) 
+	{ 
    		 $dir = opendir($src); 
     		@mkdir($dst); 
    			 while(false !== ( $file = readdir($dir)) ) { 
@@ -712,26 +648,73 @@ class ConfigController extends Controller
 	
 	
 	/**
- * Deletes a directory and all files and folders under it
- * @return Null
- * @param $dir String Directory Path
- */
-public function rmdir_files($dir) {
- $dh = opendir($dir);
- if ($dh) {
-  while($file = readdir($dh)) {
-   if (!in_array($file, array('.', '..'))) {
-    if (is_file($dir.$file)) {
-     unlink($dir.$file);
-    }
-    else if (is_dir($dir.$file)) {
-     rmdir_files($dir.$file);
-    }
-   }
-  }
-  rmdir($dir);
- }
-}///end of function rmdir_files($dir) {
+	 * Deletes a directory and all files and folders under it
+	 * @return Null
+	 * @param $dir String Directory Path
+	 */
+	public function rmdir_files($dir) 
+	{
+	 $dh = opendir($dir);
+	 if ($dh) {
+	  while($file = readdir($dh)) {
+	   if (!in_array($file, array('.', '..'))) {
+	    if (is_file($dir.$file)) {
+	     unlink($dir.$file);
+	    }
+	    else if (is_dir($dir.$file)) {
+	     rmdir_files($dir.$file);
+	    }
+	   }
+	  }
+	  rmdir($dir);
+	 }
+	}///end of function rmdir_files($dir) {
+
+	public function actionShowUpdateProgress($id)
+	{
+	    $model=new Config('view');
+	    
+	    $i=0;
+	    switch ($i)
+	    {
+	    	case 0: 
+	    		echo "value is zero";
+	    		$i=$model->testing();
+	    		$this->widget('zii.widgets.jui.CJuiProgressBar', array(
+					    'id'=>'progress',
+					    'value'=>$i,
+					    'htmlOptions'=>array(
+					        'style'=>'width:200px; height:15px; float:left; background-color:#44F44F ;background:#EFFDFF',
+					        'color' => 'blue'
+					    ),
+					    ));
+	    		break;
+	    	case 1: 
+	    		echo "value is not zero"; 
+	    		break;
+	    	
+	    }//end of switch.
+	
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='config-showUpdateProgress-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+//	    if(isset($_POST['Config']))
+//	    {
+//	        $model->attributes=$_POST['Config'];
+//	        if($model->validate())
+//	        {
+//	            // form inputs are valid, do something here
+//	            return;
+//	        }
+//	    }
+	    $this->render('showUpdateProgress',array('model'=>$model));
+	}//end of showUpdateProgress().
 	
 	
 

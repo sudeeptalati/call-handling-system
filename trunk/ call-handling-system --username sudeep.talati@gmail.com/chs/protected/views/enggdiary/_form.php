@@ -107,48 +107,41 @@ $productTypeModel=ProductType::model()->findByPk($productModel->product_type_id)
 		 </td>
 	</tr>
 	<tr>
-		<td colspan="3">
-		<?php echo "<b>	Engineer Details</b><br>" ,
-		  CHtml::textArea('Address', $enggDetails,  array('rows'=>4, 'cols'=>20,'disabled'=>'disabled')); ?>
-
+		<td>
+			<?php echo "<b>	Engineer Details</b><br>" ,
+		  	CHtml::textArea('Address', $enggDetails,  array('rows'=>4, 'cols'=>20,'disabled'=>'disabled')); ?>
 		</td>
-	</tr>
-
-	<tr>
-	
-		<td class="row" colspan="3">
-		<?php echo $form->labelEx($model,'visit_start_date'); ?>
-		<?php 
-			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-			    'name'=>CHtml::activeName($model, 'visit_start_date'),
-				'model'=>$model,
-        		'value' => $model->attributes['visit_start_date'],
-			    // additional javascript options for the date picker plugin
-			    'options'=>array(
-			        'showAnim'=>'fold',
-					'dateFormat' => 'dd-mm-yy',
-			    ),
-			    'htmlOptions'=>array(
-			        'style'=>'height:20px;'
-			    ),
-			));		
-		?>
- 
-
-		<?php echo $form->labelEx($model,'slots'); ?>
-		<?php echo $form->dropDownList($model,'slots', array('1'=>1, '2'=>2,'3'=>3, '4'=>4,'5'=>5, '6'=>6,'7'=>7,'8'=>8,'9'=>9,'10'=>10,'11'=>11, '12'=>12,'13'=>13, '14'=>14,'15'=>15, '16'=>16,'17'=>17,'18'=>18,'19'=>19,'20'=>20,));?>
-		<small>Each Slot is of 30 Mins</small>
-		<?php echo $form->error($model,'slots'); ?>
+		<td style="vertical-align:top">
+			<?php echo $form->labelEx($model,'visit_start_date'); ?>
+			<?php 
+				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				    'name'=>CHtml::activeName($model, 'visit_start_date'),
+					'model'=>$model,
+	        		'value' => $model->attributes['visit_start_date'],
+				    // additional javascript options for the date picker plugin
+				    'options'=>array(
+				        'showAnim'=>'fold',
+						'dateFormat' => 'dd-mm-yy',
+				    ),
+				    'htmlOptions'=>array(
+				        'style'=>'height:20px;'
+				    ),
+				));		
+			?>
+		</td>
+		<td style="vertical-align:top">
+			<?php echo $form->labelEx($model,'slots'); ?>
+			<?php echo $form->dropDownList($model,'slots', array('1'=>1, '2'=>2,'3'=>3, '4'=>4,'5'=>5, '6'=>6,'7'=>7,'8'=>8,'9'=>9,'10'=>10,'11'=>11, '12'=>12,'13'=>13, '14'=>14,'15'=>15, '16'=>16,'17'=>17,'18'=>18,'19'=>19,'20'=>20,));?>
+			<small>Each Slot is of 30 Mins</small>
+			<?php echo $form->error($model,'slots'); ?>
+		</td>
 		
-		<?php //echo $form->labelEx($model,'status'); ?>
-		<?php //echo $form->dropDownList($model,'status', array('1'=>'Booked', '2'=>'Cancelled',));?>
-		<?php //echo $form->error($model,'status'); ?>
-	</td>
 	</tr>
+
 	</table>
 
 
-<div class="row buttons">
+<div align="right">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add to Diary' : 'Modify'); ?>
 	</div>
 

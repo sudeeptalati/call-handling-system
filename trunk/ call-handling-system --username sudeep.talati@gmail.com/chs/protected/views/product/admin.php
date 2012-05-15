@@ -50,9 +50,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'product_type_id',
 		array( 'name'=>'product_name', 'value'=>'$data->productType->name' ),
 		//'customer_id',
-		array( 'name'=>'customer_name', 'value'=>'$data->customer->first_name' ),
+		array('name'=>'customer_name', 'value'=>'$data->customer->fullname'),
 		//'engineer_id',
-		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->first_name' ),
+		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->fullname' ),
 		//'created_by_user',
 		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
 		/*
@@ -78,4 +78,5 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'template'=>'{view}{update}',
 		),
 	),
-)); ?>
+));
+?>

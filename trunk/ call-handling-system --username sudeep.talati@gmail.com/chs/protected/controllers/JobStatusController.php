@@ -31,7 +31,7 @@ class JobStatusController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','ChangeOrder','order','admin'),
+				'actions'=>array('create','update','ChangeOrder','order','DashboardOrder','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -206,9 +206,9 @@ class JobStatusController extends Controller
              //ajax draggable sorter cggridview
 
              // Handle the POST request data submission
-            if (isset($_POST['Order']))
-            {
-                // Since we converted the Javascript array to a string,
+        	if (isset($_POST['Order']))
+        	{
+            	// Since we converted the Javascript array to a string,
                 // convert the string back to a PHP array
                 $models = explode(',', $_POST['Order']);
 
@@ -224,11 +224,42 @@ class JobStatusController extends Controller
               $ansver = array('msg'=>'Ok');
               echo CJSON::encode($ansver);
                 
-				
-                
-            }///end of isset if POST
+			}///end of isset if POST
         
     }///end of public function action order
+    
+    public function actionDashboardOrder()
+    {
+    	
+    	
+    	$model=new JobStatus('view');
+    	
+    	  //ajax draggable sorter cggridview
+
+             // Handle the POST request data submission
+            if (isset($_POST['dashboardOrder']))
+            {
+            	// Since we converted the Javascript array to a string,
+                // convert the string back to a PHP array
+                $models = explode(',', $_POST['dashboardOrder']);
+
+                for ($i = 0; $i < sizeof($models); $i++)
+                {
+                    if ($model = JobStatus::model()->findbyPk($models[$i]))
+                    {
+                        $model->dashboard_prority_order = $i;
+
+                        $model->save();
+                    }
+                }///end of for loop
+              $ansver = array('msg'=>'Ok');
+              echo CJSON::encode($ansver);
+                
+			}///end of isset if POST
+            
+           $this->render('dashboardOrder',array('model'=>$model));
+    	
+    }//end of dashboardOrder().
     
     
  

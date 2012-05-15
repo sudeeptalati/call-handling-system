@@ -76,9 +76,9 @@
 			<?php echo $form->error($customerModel,'country'); ?>
 		</td>
 		<td>
-			<?php echo $form->labelEx($customerModel,'postcode_s'); ?>
-			<?php echo $form->textField($customerModel,'postcode_s',array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($customerModel,'postcode_s'); ?>
+			<?php echo $form->labelEx($customerModel,'postcode'); ?>
+			<?php echo $form->textField($customerModel,'postcode',array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($customerModel,'postcode'); ?>
 		</td>
 	</tr>
 	<tr>

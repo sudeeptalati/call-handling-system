@@ -134,4 +134,345 @@ class Config extends CActiveRecord
 		));
 	}//end of search().
 	
+	
+	public function updateVersion()
+	{
+		
+		$last_successful_step='';
+		$last_successful_step_message='';
+		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+		
+		$installed_version=Yii::app()->params['software_version'];
+		$available_version = file_get_contents($request, true);
+				
+		$filename = $installed_version."_to_".$available_version."_update.zip";
+		$filepath = "http://www.rapportsoftware.co.uk/versions/";
+		$fullpath=$filepath.$filename;
+ 		
+		$from=$fullpath;
+		$update_directory='updates';
+		$to=$update_directory.'/'.$filename;
+		
+		
+/*STEP 1*//*Downlaoding the update file*/
+		if (!@copy($from,$to)) {
+				$errors= error_get_last();
+ 			    echo "File Download ERROR: ".$errors['type']."<br>".$from;
+ 				echo "<br />\n".$errors['message'];
+				echo "<br /><span style='color:red;'>There was some problem in downloading the file from the server. Please check your internet connection. If Problem still persist, contact support at <a href='mailto:support@rapportsoftware.co.uk'>support@rapportsoftware.co.uk</a><br /></span> ";
+		} else {
+			$last_successful_step=1;
+			$last_successful_step_message="Files succesfully downloaded!";
+			echo "<hr><br /><span style='color:green;'>STEP-".$last_successful_step;
+			echo "  : ".$last_successful_step_message.'</span>';
+			
+/*STEP 2*//*Creating a backup of database*/		
+			/*Creating a backup of database*/
+			$db_current_location=getcwd().'\protected\data\chs.db';
+			$db_backup_location = $update_directory.'\backup\version_'.$installed_version.'_database';
+			$db_backup_filename=$db_backup_location.'\ver_'.$installed_version.'.data.db';
+			
+			if( !file_exists($db_backup_filename) )
+			{
+			
+				if(!is_dir($db_backup_location))
+				{
+					if (!mkdir($db_backup_location, 0, true)) {
+						die('Failed to create folders...');
+					}
+				}
+				
+ 			if (!@copy($db_current_location,$db_backup_filename)) {
+			$errors= error_get_last();
+			echo "<br>Database backup creation error: ".$errors['type'];
+ 			echo "<br />\n".$errors['message'];
+			echo "<br /><span style='color:red;'>There was some problem in creating backup of database. Make sure all users are logged out of the system.  If Problem still persist, contact support at <a href='mailto:support@rapportsoftware.co.uk'>support@rapportsoftware.co.uk</a><br /></span> ";
+			}///end of if of STEP 2 database backup error
+				else {
+						echo "";
+						$last_successful_step=2;
+						$last_successful_step_message="Database successfully Backuped";
+						echo "<hr><br /><span style='color:green;'>STEP-".$last_successful_step;
+						echo "  : ".$last_successful_step_message.'</span>';
+					}
+
+
+			}//////end of if of is backup file present .i.e. to check backup already created
+				else
+				{
+						$last_successful_step=2;
+						$last_successful_step_message="Database backup skipped because data is already backed up";
+						echo "<hr><br /><span style='color:green;'>STEP-".$last_successful_step;
+						echo "  : ".$last_successful_step_message.'</span>';
+				}////end of else of database backup skipped
+
+
+
+				if ($last_successful_step==2)
+				{
+/*STEP 3*//*Creating Backup of Files*/
+					/*Creating Backup of Files*/
+					$source=getcwd().'\protected';
+					$dest=$update_directory.'\backup\version_'.$installed_version.'_files\protected';
+					
+					if(!is_dir($dest))
+					{
+						if (!mkdir($dest, 0, true)) {
+							die('Failed to create folders...');
+						}
+					}
+				
+					if ($this->recurse_copy($source, $dest)==true)
+					{
+							$last_successful_step=3;
+							$last_successful_step_message="Files have been successfully backed up";
+							echo "<hr><br /><span style='color:green;'>STEP-".$last_successful_step;
+							echo "  : ".$last_successful_step_message.'</span>';
+
+/*STEP 4*//*Unzipping Downloaded files*/
+					
+							/*Unzipping Downloaded files*/
+							if(!is_dir($update_directory))
+							{
+								if (!mkdir($update_directory, 0, true)) {
+									die('Failed to create folders...');
+								}
+							}
+							$zip = new ZipArchive;
+							$res = $zip->open( $to);
+							if ($res === TRUE) {
+								$zip->extractTo($update_directory);
+								$zip->close();
+
+								$last_successful_step=4;
+								$last_successful_step_message="Downloaded Files have been successfully unzipped";
+								echo "<hr><br /><span style='color:green;'>STEP-".$last_successful_step;
+								echo "  : ".$last_successful_step_message.'</span>';
+								
+
+/*STEP 5*//*Modifying the Database*/
+							/*Modifying the Database*/			
+								$unzip_folder = $update_directory.'/'.$installed_version."_to_".$available_version."_update";
+								
+								$setup_file=$unzip_folder.'/setup.json';/*THE SETUP FILES IS LIKE CONTENTS OF NEW FILES TO BE COPIED*/
+								
+								$json=file_get_contents($setup_file);
+								$jsonIterator = new RecursiveIteratorIterator(
+											new RecursiveArrayIterator(json_decode($json, TRUE)),
+													RecursiveIteratorIterator::SELF_FIRST);	
+								 
+								
+								
+								$db_update_file='';
+								foreach ($jsonIterator as $key => $val) {
+										if ($key=='database')
+										{
+										$db_update_file=getcwd().'/'.$unzip_folder.$val;
+										}	
+								}///end of foreach iterator
+
+
+								try
+								{
+									$db = new PDO('sqlite:protected\data\my.db');
+									//	echo '<hr>'.$db_update_file;
+									$file_handle=fopen($db_update_file,'r');
+									echo "<br />";
+									while(!feof($file_handle))
+									{
+										$line=fgets($file_handle);
+										
+										$db->exec($line);
+										echo $line."<br>";
+									/*
+										$worked=$db->exec($line);
+										
+										if (!$worked) {
+											@$db->exec('ROLLBACK');
+											echo "\nPDO::errorInfo():\n";
+											print_r($db->errorInfo());
+											$error='';
+											throw new Exception('Unable to create Code Coverage SQLite3 database: ' . $error);
+											}
+											
+										*/
+									}
+									fclose($file_handle);
+								// close the database connection
+								$db = NULL;
+								
+
+								$last_successful_step=5;
+								$last_successful_step_message="Database is successfully changed";
+								echo "<hr><br /><span style='color:green;'>STEP-".$last_successful_step;
+								echo "  : ".$last_successful_step_message.'<br></span>';
+						
+/*STEP 6*//*Moving updated Files*/
+							/*Moving updated Files*/				
+
+								$folder='';
+								foreach ($jsonIterator as $key => $val) {
+									if(is_array($val)) {
+										echo "$key:<br>";
+										if ($key=='folders')
+										{
+											$folder=true;
+										}
+										else{
+											$folder=false;
+										}/////end of if of folder check
+									} ////end of if of is_array
+										else {
+											if ($folder)
+												{
+													echo "<hr><span style='color:green;'> $key => $val</span><br>";
+													/*COPY FOLDERS NOW*/
+													$folder_name=$key;
+													$folder_copy_from=getcwd().'/'.$unzip_folder.''.$val;
+													$folder_copy_to=getcwd().'/protected/'.$folder_name;
+													
+													echo " <span style='color:green;'>";
+													echo "COPY FROM :".$folder_copy_from;
+													echo "<br>COPY TO :".$folder_copy_to;
+													echo "</span><hr>";
+													
+													
+													if ($this->recurse_copy($folder_copy_from, $folder_copy_to)==false)
+														{
+															throw new Exception('Unable to copy folders.');
+														
+														}///end of if copy
+														else
+														{
+														echo " <span style='color:green;'> COPIED</span><hr>";
+														
+														}
+													
+
+												}////end of if of copy folders
+									}///end of else of is_array
+								}///end of foreach iterator
+								
+								
+								
+								
+								
+								
+								
+								}
+								catch(PDOException $e)
+								{
+									print 'Exception : '.$e->getMessage();
+									}
+												
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							}///end of if of file unzipped
+							else
+							{
+							
+							$last_successful_step=4;
+							$last_successful_step_message=" There was some problem in unzippping the downloaded files. If Problem still persist, contact support at <a href='mailto:support@rapportsoftware.co.uk'>support@rapportsoftware.co.uk</a><br /> ";;
+							echo "<hr><br /><span style='color:red;'> UNSUCCESSFUL STEP-".$last_successful_step;
+							echo "  : ".$last_successful_step_message.'</span>';
+							exit;
+							
+							}//end of else of file not unzippped
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					}//end of if not recursive copy
+					else
+						{
+							$last_successful_step=3;
+							$last_successful_step_message=" There was some problem in creating mannual backup of files. Try again to run the backup. If Problem still persist, contact support at <a href='mailto:support@rapportsoftware.co.uk'>support@rapportsoftware.co.uk</a><br /> ";;
+							echo "<hr><br /><span style='color:red;'> UNSUCCESSFUL STEP-".$last_successful_step;
+							echo "  : ".$last_successful_step_message.'</span>';
+							exit;
+						}///end of else of recursive copy
+				}////end of if of step 3
+				else
+				{
+					$last_successful_step=2;
+					$last_successful_step_message="Database not backup was not performed so cannot proceed";
+					echo "<hr><br /><span style='color:red;'> UNSUCCESSFUL STEP-".$last_successful_step;
+					echo "  : ".$last_successful_step_message.'</span>';
+ 						exit;
+				}///end of else of step 3
+
+
+		}//////END OF ELSE OF STEP 1
+		
+		
+		
+	}//end of updateVersion().
+	
+	public function recurse_copy($src,$dst) 
+	{ 
+   		 $dir = opendir($src); 
+    		@mkdir($dst); 
+   			 while(false !== ( $file = readdir($dir)) ) { 
+       		 if (( $file != '.' ) && ( $file != '..' )) { 
+	            if ( is_dir($src . '/' . $file) ) { 
+	                $this->recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	            else { 
+						if (!copy($src . '/' . $file,$dst . '/' . $file))
+							{
+							echo 'Error in copying files';
+							return false;
+							exit;
+							}
+	            } //end of if else is_dir
+       		 }///end of if $file 
+    		}//////end of while 
+    	closedir($dir); 
+		return true;
+	}//end of function   recurse_copy($src,$dst) { 
+	
+	
+	/**
+	 * Deletes a directory and all files and folders under it
+	 * @return Null
+	 * @param $dir String Directory Path
+	 */
+	public function rmdir_files($dir) 
+	{
+	 $dh = opendir($dir);
+	 if ($dh) {
+	  while($file = readdir($dh)) {
+	   if (!in_array($file, array('.', '..'))) {
+	    if (is_file($dir.$file)) {
+	     unlink($dir.$file);
+	    }
+	    else if (is_dir($dir.$file)) {
+	     rmdir_files($dir.$file);
+	    }
+	   }
+	  }
+	  rmdir($dir);
+	 }
+	}///end of function rmdir_files($dir) {
+	
+	public function testing()
+	{
+		$j=50;
+		return $j;
+	}
+	
+	
 }//end of class.

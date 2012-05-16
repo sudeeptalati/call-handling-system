@@ -670,52 +670,24 @@ class ConfigController extends Controller
 	 }
 	}///end of function rmdir_files($dir) {
 
-	public function actionShowUpdateProgress($id)
+	public function actionShowUpdateProgress($curr_step)
 	{
-	    $model=new Config('view');
+	    $model=new Config;
 	    
-	    $i=0;
-	    switch ($i)
+	   //echo "step value in controller ".$curr_step; 
+	    
+	   $step=$curr_step;
+	    
+	        
+	    if($step!=6)
 	    {
-	    	case 0: 
-	    		echo "value is zero";
-	    		$i=$model->testing();
-	    		$this->widget('zii.widgets.jui.CJuiProgressBar', array(
-					    'id'=>'progress',
-					    'value'=>$i,
-					    'htmlOptions'=>array(
-					        'style'=>'width:200px; height:15px; float:left; background-color:#44F44F ;background:#EFFDFF',
-					        'color' => 'blue'
-					    ),
-					    ));
-	    		break;
-	    	case 1: 
-	    		echo "value is not zero"; 
-	    		break;
-	    	
-	    }//end of switch.
-	
-	    // uncomment the following code to enable ajax-based validation
-	    /*
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='config-showUpdateProgress-form')
-	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
-	    */
-	
-//	    if(isset($_POST['Config']))
-//	    {
-//	        $model->attributes=$_POST['Config'];
-//	        if($model->validate())
-//	        {
-//	            // form inputs are valid, do something here
-//	            return;
-//	        }
-//	    }
-	    $this->render('showUpdateProgress',array('model'=>$model));
+	    	$currStep = $model->updateVersion($step);
+	    }//end of if.
+	    
+	   
+	    $this->render('showUpdateProgress',array('currStep'=>$currStep));
 	}//end of showUpdateProgress().
 	
-	
+		
 
 }//end of class.

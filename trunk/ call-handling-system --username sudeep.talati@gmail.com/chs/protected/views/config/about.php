@@ -44,18 +44,12 @@ $current_version=Yii::app()->params['software_version'];
 	<?php 
 		if($available_version!=$current_version)
 		{
-			//echo "UPDATE......!!!!!";
-			echo CHtml::button('Update',array('submit'=>'showUpdateProgress'));
+			$step = 1;
 			
-			//echo time();
-			$this->widget('zii.widgets.jui.CJuiProgressBar', array(
-					    'id'=>'progress',
-					    'value'=>10,
-					    'htmlOptions'=>array(
-					        'style'=>'width:200px; height:15px; float:left; background-color:#44F44F ;background:#EFFDFF',
-					        'color' => 'blue'
-					    ),
-					    ));
+			//echo "UPDATE......!!!!!";
+			echo CHtml::button('Update',array('submit'=>'showUpdateProgress/?curr_step='.$step));
+			//echo CHtml::button('Update',array($this->showUpdateProgress($step)));
+			//echo CHtml::button('Update',array('submit'=>$configModel->showProgress($step)));
 		}
 	?>
 	</td>

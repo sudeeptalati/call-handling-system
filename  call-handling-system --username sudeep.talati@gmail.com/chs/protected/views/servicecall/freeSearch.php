@@ -356,6 +356,13 @@ vertical-align:top;
 			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
 			</span>
 			</li>
+			<li style="text-align:justify; margin-left:10px;">	
+		<?php
+			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_update_message.txt';	
+			$server_msg = file_get_contents($server_msg_url, true);
+
+			echo $server_msg; 
+		?></li>
 			<?php 
 		}
 	?>
@@ -367,7 +374,8 @@ vertical-align:top;
 
 			echo $server_msg; 
 		?>
-		</li>
+		<br><br></li>
+		
 		</ul>
 		</td>
 		

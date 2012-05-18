@@ -139,6 +139,8 @@ class Config extends CActiveRecord
 	{
 
 		$last_successful_step='';
+ 		
+		
 		$last_successful_step_message='';
 		$step_info=array();
 
@@ -288,7 +290,7 @@ class Config extends CActiveRecord
 						$zip->extractTo($update_directory);
 						$zip->close();
 
-						$last_successful_step=0;
+						$last_successful_step=4;
 						$last_successful_step_message="Downloaded Files have been successfully unzipped";
 				}///end of if
 				else

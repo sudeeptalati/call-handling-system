@@ -679,7 +679,7 @@ class ConfigController extends Controller
 		}//end of if.
 		 
 
-		$this->render('showUpdateProgress',array('step_info'=>$step_info));
+		$this->renderPartial('showUpdateProgress',array('step_info'=>$step_info));
 	}//end of showUpdateProgress().
 
 

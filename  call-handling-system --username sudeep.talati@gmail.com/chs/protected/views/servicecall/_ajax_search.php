@@ -10,6 +10,8 @@ echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 */
 ?>
 <?php 
+$bg_color='#EFFDFF;';
+
 
 //$str = "	hello adsfdsaf	";
 //$trim_str = trim($str); 
@@ -32,18 +34,32 @@ vertical-align:top;
 
 </style>
 
+
+<STYLE>
+<!--
+  tr { background-color: <?php echo $bg_color; ?>}
+  .initial{ background-color: <?php echo $bg_color; ?>}
+  .normal { background-color: <?php echo $bg_color; ?>}
+  .highlight { background-color: #B7D6E7 }
+//-->
+</style>
+
+
+
 <!-- ************ DISPLAYING DATA FROM SERVICECALL SEARCH RESULTS *********************** -->
 
 <table style="border-radius:15px;">
 	<tr style="background: #B7D6E7;">
-		<th>Customer Name</th>
+		<th style="width:7em;">Customer Name</th>
 		<th style="width:7em;">Postcode</th>
-		<th>Product</th>
-		<th>Search Web</th>
-		<th>Servicecalls</th>
+		<th style="width:10em;">Product</th>
+		<th style="width:10em;">Servicecalls</th>
+		
+		<!-- <th>Search Web</th>
+ -->
 	</tr>
 	<?php 
-	$count=0;
+	$row_count=1;
 	
 	$GLOBALS['my_gbp']='NAYA WALA';
 	
@@ -53,20 +69,25 @@ vertical-align:top;
 	
 	foreach ($displayResults as $data)
 	{
-		/*Creating array List of coustomer ids sho that they are not displayed again*/
-		array_push($GLOBALS['service_cust_id_list'], $data->customer->id );
-		array_push($list, $data->customer->id );
+
 		
 		
 	if ( ! in_array($data->customer->id, $list)) 
 		{
-		if ($count%2==0)
-		$background='background: #EFFDFF;';
-		else
-		$background='background: #E5F1F4;';
-
+			
+		/*Creating array List of coustomer ids sho that they are not displayed again*/
+		array_push($GLOBALS['service_cust_id_list'], $data->customer->id );
+		array_push($list, $data->customer->id );
+		
+		setBgColor($row_count);
+		
+		
+		
 	?>
-	<tr style="<?php echo $background; ?>" >
+<!--	<tr style="<?php //echo $background; ?>" >-->
+
+
+<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
 		<td>
 			<?php echo $data->customer->fullname;?>
 			<br><small><?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$data->customer->id,'product_id'=>$data->customer->product_id));?>
@@ -94,24 +115,23 @@ vertical-align:top;
 				if($i>0)
 				{	
 		?>
-			<tr style="<?php echo $background; ?>" >
+	
+<!--	<tr style="<?php //echo $background; ?>" >-->
+		
+
+<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
 			<td><?php echo " ";?></td>
 			<td><?php echo " ";?></td>
 			<?php 
 				}//end of if products grater than 1.
 			?>
 		
-		<td><?php echo $product->brand->name;?>
-			<?php echo $product->productType->name;?></td>
-		
 		<td>
-		<form method="get" action="http://www.google.com/search" target="_blank">
-			<input type="hidden"   name="q" size="10"
-		 	maxlength="255" value= "<?php echo $product->brand->name." ".$product->productType->name." ".$product->model_number;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
-		</form>	
+			<?php echo $product->brand->name;?>
+			<?php echo $product->productType->name;?>
 		</td>
 		
+			
 		<?php 
 			$serviceModel = Servicecall::model()->findAllByAttributes(
 															array(
@@ -134,8 +154,10 @@ vertical-align:top;
 			
 			
 			
-			<td><?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
-			<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?></td>
+			<td>
+				<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
+				<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
+			</td>
 			
 			<?php 
 			}//end of if no active servicecalls with this cust and prod. 
@@ -150,24 +172,48 @@ vertical-align:top;
 
 			<?php }//end of foreach of servicecall.?>
 		<?php }//end of else of no active calls i.e, display call details.?>
-		
+		<!--
+		<td>
+		<form method="get" action="http://www.google.com/search" target="_blank">
+			<input type="hidden"   name="q" size="10"
+		 	maxlength="255" value= "<?php echo $product->brand->name." ".$product->productType->name." ".$product->model_number;?>" />
+			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
+		</form>	
+		</td>
+		-->
 	</tr>
 
 	<?php $i++; }//end of product foreach.?>
 	
-	<tr style="<?php echo $background; ?>" >
+
 	
-	<tr style="<?php echo $background; ?>" >
+<!--	<tr style="<?php //echo $background; ?>" >-->
+
+		<tr    onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
 		<td></td>
 		<td></td>
-		<td></td>
-		<td></td>
-		<td><?php echo CHtml::link($service_img_html, array('servicecall/addProduct','cust_id'=>$data->customer->id));?>
-		<?php echo CHtml::link('Add Product & <br> Raise Servicecall', array('servicecall/addProduct','cust_id'=>$data->customer->id))?></td>
+
+		<td>
+			<?php echo CHtml::link($service_img_html, array('servicecall/addProduct','cust_id'=>$data->customer->id));?>
+			<?php echo CHtml::link('Add Product & <br> Raise Servicecall', array('servicecall/addProduct','cust_id'=>$data->customer->id))?>
+		</td>
+		 		<td></td>
 	</tr>
+	
 	<?php
-		$count++;
+		$row_count++;
 		}///end of if customer present
+		?>
+		<tr>
+			<td style="background:#599FC8;"></td>
+			<td style="background:#599FC8;"></td>
+			<td style="background:#599FC8;"></td>
+			<td style="background:#599FC8;"></td>
+			
+		</tr>
+		
+		
+		<?php 
 	}//end of foreach service call foreeach.
 	?>
 	
@@ -178,22 +224,30 @@ vertical-align:top;
 <!--		<th>Postcode</th>-->
 <!--	</tr>-->
 
-<!-- ******************* DISPLAYING DETAILS OF CUSTOMER IN POSTCODE BUT DONT HVAVE SERVICECALL ********************* -->
+<!-- ******************* DISPLAYING DETAILS FROM CUSTOMER SEARCH ********************* -->
+
 	<?php 
-		$count=0;
+		$cust_count=0;
 		foreach($customerResults as $custData)
 		{
 			if ( ! in_array($custData->id, $list)) 
 			{
-				if ($count%2==0)
-				$background='background: #EFFDFF;';
-				else
-				$background='background: #E5F1F4;';
+
 	?>
 	
-	<tr style="<?php echo $background; ?>" >
+ 
+
+
+
+
+<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
+
 		
-		<td><?php echo $custData->fullname;?></td>
+		<td>
+			<?php echo $custData->fullname;?>
+			<br><small><?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$custData->id,'product_id'=>$custData->product_id));?>
+			</small>
+		</td>
 		
 		<td>
 			<form method="get" action="http://maps.google.com/maps/" target="_blank">
@@ -217,7 +271,8 @@ vertical-align:top;
 				{															
 		?>
 			
-		<tr style="<?php echo $background; ?>" >
+		
+<tr    onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
 			<td><?php echo " ";?></td>
 			<td><?php echo " ";?></td>
 			
@@ -229,6 +284,19 @@ vertical-align:top;
 			<?php echo $row->productType->name;?>
 		</td>
 		
+		
+		
+		<?php 
+		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
+		$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call'));
+		?>
+		
+		<td>
+			<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id));?>
+			<?php echo CHtml::link('Raise Servicecall', array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id))?>
+		</td>
+		
+		<!-- 
 		<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
@@ -236,43 +304,69 @@ vertical-align:top;
 			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
 		</form>	
 		</td>
-		
-		<?php 
-		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
-		$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call'));
-		?>
-		
-		<td><?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id));?>
-		<?php echo CHtml::link('Raise Servicecall', array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id))?></td>
-		
+		 -->
 		</tr>
 		
 		<?php $x++; }//end of foreach of $cust_product to display product details. ?>
 	
 	</tr>
 	
-	<tr style="<?php echo $background; ?>" ></tr>
+	 
+<!--	-->
+<!--	<tr style="<?php //echo $background; ?>" >-->
+	<tr    onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
+		<td></td>
+		<td></td>
+		
+		<td>
+			<?php echo CHtml::link($service_img_html, array('servicecall/addProduct','cust_id'=>$custData->id));?>
+			<?php echo CHtml::link('Add Product & <br> Raise Servicecall', array('servicecall/addProduct','cust_id'=>$custData->id))?>
+		</td>
+		<td></td>
+		</tr>
 	
-	<tr style="<?php echo $background; ?>" >
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td><?php echo CHtml::link($service_img_html, array('servicecall/addProduct','cust_id'=>$custData->id));?>
-		<?php echo CHtml::link('Add Product & <br> Raise Servicecall', array('servicecall/addProduct','cust_id'=>$custData->id))?></td>
 
 	
 	<?php
-		$count++;
-
+		$cust_count++;
+		
 			}//end of if of customer list	
+			?>
+				<tr>
+			<td style="background:#599FC8;"></td>
+			<td style="background:#599FC8;"></td>
+			<td style="background:#599FC8;"></td>
+			<td style="background:#599FC8;"></td>
+			
+		</tr>
+			<?php 
 		}//end of foreach of displaying customer search data.
 	?>
 	
 	
 </table>
 
+<?php 
 
+
+ function setBgColor($row_count)
+{
+	$bg_color='';
+	if ($row_count%2==0){
+			$background='background: #EFFDFF;';
+		   	$bg_color='#EFFDFF;';
+		}
+		else{
+			$background='background: #E5F1F4;';
+		  	$bg_color='#E5F1F4;';
+		}
+			
+	return $bg_color;
+	
+}
+
+
+?>
 
 
 

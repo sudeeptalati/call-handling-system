@@ -1,3 +1,12 @@
+<?php 
+$this->menu=array(
+	//array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
+	//array('label'=>'Recent Service Calls', 'url'=>array('/servicecall/admin')),
+	array('label'=>'Recent Customers', 'url'=>array('/customer/admin')),
+);	
+?>
+
+
 <body onload="document.search_form.query.focus()">
  <?php 
   /*To import the client script*/
@@ -389,7 +398,7 @@ vertical-align:top;
 	</table>
 
 	</div>
-</div>
+
      
      
      

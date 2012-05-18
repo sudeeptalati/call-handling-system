@@ -127,7 +127,8 @@ else
 {
 	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
 	$_SESSION['message']='';
-	echo CHTml::link('Restart Call Handling',array('../chs/'));
+	echo "<br>";
+	echo CHTml::link('Restart Browser',array('../chs/'));
 }
 
 ?>

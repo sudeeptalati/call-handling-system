@@ -55,7 +55,7 @@
 		<?php echo $form->error($model,'insurer_reference_number'); ?>
 		
 		<?php echo $form->labelEx($model,'recalled_job'); ?>
-		<?php echo $form->dropDownList($model,'recalled_job',array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->dropDownList($model,'recalled_job',array('0'=>'No', '1'=>'Yes')); ?>
 		<?php echo $form->error($model,'recalled_job'); ?>
 		
 		<?php echo $form->labelEx($model,'notes'); ?>

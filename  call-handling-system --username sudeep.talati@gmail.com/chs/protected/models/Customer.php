@@ -169,8 +169,10 @@ class Customer extends CActiveRecord
 	{
 		if(parent::beforeSave())
         {
+        	$trimmed_s = $this->postcode_s;
+        	$trimmed_e = $this->postcode_e;
         	$this->fullname=$this->first_name." ".$this->last_name;
-        	$this->postcode=$this->postcode_s." ".$this->postcode_e;
+        	$this->postcode=$trimmed_s." ".$trimmed_e;
         	
         	if($this->isNewRecord)  // Creating new record 
             {

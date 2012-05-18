@@ -58,7 +58,8 @@ vertical-align:top;
 		array_push($list, $data->customer->id );
 		
 		
-		
+	if ( ! in_array($data->customer->id, $list)) 
+		{
 		if ($count%2==0)
 		$background='background: #EFFDFF;';
 		else
@@ -166,7 +167,8 @@ vertical-align:top;
 	</tr>
 	<?php
 		$count++;
-	}//end of foreach.
+		}///end of if customer present
+	}//end of foreach service call foreeach.
 	?>
 	
 	<!-- ************************ END OF SERVICECALL SEARCH RESULTS ******************** -->

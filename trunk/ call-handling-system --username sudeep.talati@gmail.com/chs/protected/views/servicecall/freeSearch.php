@@ -82,7 +82,7 @@ $current_url=$baseUrl."/".$model_name;
 <!--        <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> -->
 <!--        <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/>  -->
         
-              Enter Fault Description<br><br>
+              Search by Customer Name or Postcode or Phone number<br><br>
                 <!-- The Searchbox Starts Here  -->
                 <form  name="search_form">
                  <input  name="query" type="text" id="faq_search_input" style="background-color: #FFFFFF" />
@@ -91,6 +91,19 @@ $current_url=$baseUrl."/".$model_name;
         <div id="searchresultdata" class="faq-articles"> </div>
      </div>
      
+     <?php //echo CHtml::link('New Customer Service', array('servicecall/create'));
+       		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call')); 
+
+			?>
+			<p align="right">
+       <?php echo CHtml::link('New Customer Service', array('servicecall/create')); ?>
+       <?php echo CHtml::link($service_img_html, array('Servicecall/create'));?>	
+       </p>
+        <br>
+  <br>
+  
+  <!-- ***********************************END OF SEARCH FORM ****************************** -->
      
      
             

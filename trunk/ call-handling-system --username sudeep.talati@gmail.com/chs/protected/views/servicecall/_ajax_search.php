@@ -102,6 +102,7 @@ vertical-align:top;
 		
 		<td><?php echo $product->brand->name;?>
 			<?php echo $product->productType->name;?></td>
+		
 		<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
@@ -109,6 +110,7 @@ vertical-align:top;
 			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
 		</form>	
 		</td>
+		
 		<?php 
 			$serviceModel = Servicecall::model()->findAllByAttributes(
 															array(
@@ -194,7 +196,7 @@ vertical-align:top;
 		<td>
 			<form method="get" action="http://maps.google.com/maps/" target="_blank">
 					<input type="hidden"   name="q" size="10"
-				 	maxlength="255" value= "<?php echo $data->customer->postcode;?>" />
+				 	maxlength="255" value= "<?php echo $custData->postcode;?>" />
 					<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/googlemaps.png';?>" title="See on Google Map" width='30' 'height'='30' />
 					<span style="margin-left:-8px;">
 					<?php echo $custData->postcode;?>
@@ -213,14 +215,17 @@ vertical-align:top;
 				{															
 		?>
 			
-			<tr style="<?php echo $background; ?>" >
+		<tr style="<?php echo $background; ?>" >
 			<td><?php echo " ";?></td>
 			<td><?php echo " ";?></td>
+			
 		
 		<?php $x++; }//end of if of $cust_product products more than 1.?>
 		
-		<td><?php echo $row->brand->name;?>
-			<?php echo $row->productType->name;?></td>
+		<td>
+			<?php echo $row->brand->name;?>
+			<?php echo $row->productType->name;?>
+		</td>
 		
 		<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
@@ -230,8 +235,6 @@ vertical-align:top;
 		</form>	
 		</td>
 		
-		
-		
 		<?php 
 		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
 		$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call'));
@@ -239,7 +242,11 @@ vertical-align:top;
 		
 		<td><?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id));?>
 		<?php echo CHtml::link('Raise Servicecall', array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id))?></td>
-		<?php }//end of foreach of $cust_product to display product details. ?>
+		
+		</tr>
+		
+		<?php $x++; }//end of foreach of $cust_product to display product details. ?>
+	
 	</tr>
 	
 	<tr style="<?php echo $background; ?>" ></tr>
@@ -251,7 +258,7 @@ vertical-align:top;
 		<td></td>
 		<td><?php echo CHtml::link($service_img_html, array('servicecall/addProduct','cust_id'=>$custData->id));?>
 		<?php echo CHtml::link('Add Product & <br> Raise Servicecall', array('servicecall/addProduct','cust_id'=>$custData->id))?></td>
-	</tr>
+
 	
 	<?php
 		$count++;

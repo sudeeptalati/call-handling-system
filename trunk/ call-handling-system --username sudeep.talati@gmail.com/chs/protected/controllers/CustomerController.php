@@ -333,6 +333,7 @@ class CustomerController extends Controller
         $results=$model->freeSearch($keyword);
         //echo 'Results '.$results;
         
+        
         $this->renderPartial('_ajax_search',array(
                 'results'=>$results,
         ));

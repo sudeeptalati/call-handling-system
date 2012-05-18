@@ -12,7 +12,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php
-			 	if  ($model->id>100)///id greater than 100 are custom statuses
+			 	if  ($model->id>50 && $model->id<100 )///id greater than 100 are custom statuses
 			 	{
 			 		echo $form->textField($model,'name',array('size'=>50));
 			 	}

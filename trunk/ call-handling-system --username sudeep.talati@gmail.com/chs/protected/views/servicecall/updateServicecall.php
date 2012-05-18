@@ -9,9 +9,9 @@
 		<script type="text/javascript">
 		function my_change(id)
 		{
-			if(id == 9)
+			if(id > 100)
 			{
-		        alert("Once it is COMPLETED, you can not change again");
+		        alert("You can not change this status again");
 			}
 		}
 		</script>

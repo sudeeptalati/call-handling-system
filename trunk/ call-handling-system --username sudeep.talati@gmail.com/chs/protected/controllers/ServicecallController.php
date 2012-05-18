@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('addProduct','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
+				'actions'=>array('addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -329,10 +329,7 @@ class ServicecallController extends Controller
 				//$this->redirect(array('view','id'=>$model->id));
 		}
 		
-
-	    
-	   
-	    // uncomment the following code to enable ajax-based validation
+		// uncomment the following code to enable ajax-based validation
 	    /*
 	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-addProduct-form')
 	    {
@@ -369,5 +366,91 @@ class ServicecallController extends Controller
 	    }
 	    $this->render('addProduct',array('model'=>$model));
 	}//end of addProduct().
+	
+	public function actionFreeSearch()
+    {
+    	//WE ARE SEARCHING IN CUSTOMER TABLE, SO CREATING INSTANCE OF CUSTOMER MODEL.
+        $model=new Servicecall('search');
+        $this->render('freeSearch',array('model'=>$model));
+    }//end of freeSearch().
+    
+    public function actionSearchEngine($keyword)
+    {
+      //echo "THIS IS IAJAXX  ".$keyword;
+ 
+        $model=new Servicecall();
+        $model->unsetAttributes();  // clear any default values
+        $results=$model->freeSearch($keyword);
+        //echo 'Results '.$results;
+        //echo count($results->getData());
+        //echo getItemCount
+
+         $customer_search_data = Customer::model()->freeSearch($keyword);
+   
+        $this->renderPartial('_ajax_search',array(
+	                'results'=>$results, 'customer_results'=>$customer_search_data,
+	        ));
+	        
+       // echo "<hr>NEW:   ".$GLOBALS['my_gbp'];
+        
+//        foreach ($GLOBALS['service_cust_id_list'] as $id)
+//        {
+//        	echo "<hr> Id:  ".$id;       
+//        }
+        
+       
+ 
+ //       $GLOBALS['service_cust_id_list']=array();
+//        $this->renderPartial('/customer/_ajax_search',array(
+//	                'results'=>$customer_search_data, 
+//	        ));
+        
+        
+        
+        
+        $cust_id_from_service_results= array();
+        
+        
+   /*     
+        if(count($results->getData()) == 0)
+        {
+        	//echo "no data";
+        	//$this->render('Customer/searchEngine', array('keyword'=>$keyword));
+ //       	$this->redirect(array('Customer/searchEngine', 'keyword'=>$keyword));
+        	
+        }
+        else 
+        {
+//        	$service_search_results=$results->getData();
+//        	foreach ($service_search_results as $data)
+//        	{
+//        		array_push($cust_id_from_service_results, $data->customer->id );
+//        	}
+        	//echo count($cust_id_from_service_results);
+        	
+        	$this->renderPartial('_ajax_search',array(
+	                'results'=>$results,
+	        ));
+        }
+        
+ */       
+        
+//        $customerModel=Customer::model();
+//        $customer_search_data = Customer::model()->freeSearch($keyword);
+//        if(count($customer_search_data->getData())==0)
+//        {
+//        	echo "No Data";
+//        }
+//        else 
+//        {
+//        	//echo "Data is thr";
+//        	
+//        }
+//        
+        
+
+    
+    
+    }//end of searchEngine().
 	
 }//end of class.

@@ -20,11 +20,8 @@ vertical-align:top;
 
 <table style="border-radius:15px;"><tr style="background: #B7D6E7;">
 <th>Customer Name</th>
-<th>Town</th>
 <th style="width:7em;">Postcode</th>
 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Product</th>
-<th>Model Number</th>
-<th>Serial Number</th>
 <th>Search Web</th>
 
 <!--<th>Model Number</th>-->
@@ -43,6 +40,14 @@ vertical-align:top;
 $count=0;
 foreach ($displayResults as $row)
 {
+	
+//	$GLOBALS['service_cust_id_list'];
+//		
+//	if ( ! in_array($row->id, $GLOBALS['service_cust_id_list'])) {
+//
+//		//echo "Got mac";
+	
+	
 
 if ($count%2==0)
 		$background='background: #EFFDFF;';
@@ -58,8 +63,8 @@ if ($count%2==0)
 		</small>
 		
 		</td>
-	<td><?php echo $row->town;?></td>
-	<td>
+	<!--<td><?php //echo $row->town;?></td>
+	--><td>
 			<form method="get" action="http://maps.google.com/maps/" target="_blank">
 					<input type="hidden"   name="q" size="10"
 				 	maxlength="255" value= "<?php echo $row->postcode_s." ".$row->postcode_e;?>" />
@@ -83,10 +88,10 @@ if ($count%2==0)
 			
 	?>	<tr style="<?php echo $background; ?>" >
 		<td><?php echo " ";?></td>
+		<td><?php echo " ";?></td>
+		<!--<td><?php echo " ";?></td>
 		
-		<td><?php echo " ";?></td>
-		<td><?php echo " ";?></td>
-	<?php }//end of if(i>0).?>
+	--><?php }//end of if(i>0).?>
 	
 	
 	
@@ -111,8 +116,6 @@ if ($count%2==0)
 		</table>
 	
 	</td>
-	<td><?php echo $data->model_number;?></td>
-	<td><?php echo $data->serial_number;?></td>
 	<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
@@ -135,7 +138,7 @@ if ($count%2==0)
 		<tr style="<?php echo $background; ?>">
 			<td></td>
 			<td></td>
-			<td></td>
+<!--			<td></td>-->
 			<td>
 			
 			<table>
@@ -154,14 +157,14 @@ if ($count%2==0)
 			
 			</td>
 			<td></td>
-			<td></td>
-			<td></td>
+ 
 		</tr>	
 		
  
 
 		<?php 
 		$count++;
+		//}//end of if id is not present in array
 	}//end of outer foreach().
 	
 	?>

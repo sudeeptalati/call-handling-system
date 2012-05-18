@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'UK Whitegoods',
-	'defaultController'=>'customer/freeSearch',
+	'defaultController'=>'servicecall/freeSearch',
 	
 		
 

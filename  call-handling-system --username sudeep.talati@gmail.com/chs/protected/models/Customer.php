@@ -41,6 +41,7 @@ class Customer extends CActiveRecord
 	public $product_brand;
 	public $model_number;
 	public $serial_number;
+	public $service_number;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Customer the static model class
@@ -131,6 +132,9 @@ class Customer extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		$criteria->with = array('servicecalls');
+    	
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
@@ -154,6 +158,7 @@ class Customer extends CActiveRecord
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('fullname',$this->fullname,true);
+		//$criteria->compare('servicecalls.service_reference_number',$this->service_number,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -259,12 +264,15 @@ class Customer extends CActiveRecord
     {   
     	$criteria=new CDbCriteria;
     	
+    	//$criteria->with = array('servicecalls');
+    	
     	$criteria->compare('fullname', $keyword, true, 'OR');
-    	$criteria->compare('postcode_s', $keyword, true, 'OR');
+ 
     	$criteria->compare('postcode', $keyword, true, 'OR');
     	$criteria->compare('town', $keyword, true, 'OR');
     	$criteria->compare('telephone', $keyword, true, 'OR');
     	$criteria->compare('mobile', $keyword, true, 'OR');
+    	
     	
     	/*result limit*/
         $criteria->limit = 100;

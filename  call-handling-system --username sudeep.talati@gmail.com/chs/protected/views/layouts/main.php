@@ -67,7 +67,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				//array('label'=>'Contact Details', 'url'=>array('/contactDetails/admin')),
 				//array('label'=>'Product', 'url'=>array('/product/admin')),
 				
-				array('label'=>'Service Call', 'url'=>array('/customer/freeSearch')),					
+				array('label'=>'Service Call', 'url'=>array('/servicecall/freeSearch')),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
 				array('label'=>'New Customer', 'url'=>array('/customer/create')),
 				//array('label'=>'Contract', 'url'=>array('/contract/admin')),

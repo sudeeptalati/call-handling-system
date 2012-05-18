@@ -400,8 +400,14 @@ class Servicecall extends CActiveRecord
         /*Creating a new criteria for search*/
         $criteria = new CDbCriteria;
         
-        $criteria->with=array('customer');
+        $criteria->with = array('customer');
+        
+        $criteria->compare('service_reference_number', $keyword, true, 'OR');
         $criteria->compare('customer.fullname', $keyword, true, 'OR');
+        $criteria->compare('customer.postcode', $keyword, true, 'OR');
+        
+//        $criteria->with=array('customer');
+//        $criteria->compare('customer.fullname', $keyword, true, 'OR');
        
         /*result limit*/
         $criteria->limit = 100;

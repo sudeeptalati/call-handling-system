@@ -8,65 +8,56 @@
 	<?php 
 	
 	$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
-	$available_version = file_get_contents($request, true);
+	$available_version = Config::model()->curl_file_get_contents($request);
 	
 	?>
 	
-	<?php echo "Updating Software to ".$available_version."<br><br><br>";?>
-	
-	<?php
-	
-		$msg='';
-		$currentStep = $currStep;
-		echo "Step ".$currentStep." of 6 steps is completed."."<br><br>";
-		//echo $msg;
-		//echo "currentStep = ".$currentStep."     ";
+	<?php echo "Updating Software to ".$available_version."<br><br><br>";
+		$message=$step_info[1];
+		$currentStep = $step_info[0];
+		$progressBarValue=$currentStep*16;
 		
-		if($currentStep == 1)
-		{
-			 
-			echo "Step 1:Files succesfully downloaded!"."<br><br><br>"; 
-			$progressVal = 15;
-		}
-		
-		else if($currentStep == 2)
-		{
-			echo "Step 1:Files succesfully downloaded!"."<br><br>". "Step 2 completed"."<br><br><br>";
-			$progressVal = 30;
-		}
-		
-	
 	?>
 	
-	<?php 
+<?php 
 		
 		$this->widget('zii.widgets.jui.CJuiProgressBar', array(
 					    'id'=>'progress',
-					    'value'=>$progressVal,
+					    'value'=>$progressBarValue,
 					    'htmlOptions'=>array(
 					        'style'=>'width:200px; height:15px; float:left; background-color:#44F44F ;background:#EFFDFF',
 					        'color' => 'blue'
 					    ),
 					    ));
-	?>
+		?>
 	   
 <?php $this->endWidget(); ?>
 
+
+
+
 <?php 
-if($currentStep < 2 )
+$_SESSION['message']=$_SESSION['message'].$message;
+echo $_SESSION['message'];
+
+
+if($currentStep != 0 && $currentStep < 7 )
 {
-	$passVal = $currentStep+1;
-	echo "<SCRIPT LANGUAGE='javascript'>location.href='Config/showUpdateProgress/?curr_step=$passVal';</SCRIPT>";
+	$next_step = $currentStep+1;
+	$url=Yii::app()->baseUrl.'/Config/showUpdateProgress/?curr_step='.$next_step;
+	//echo $url;
+	echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
 }
+else
+{
+	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
+	$_SESSION['message']='';
+
+}
+
 ?>
 
-<!--	<SCRIPT LANGUAGE='javascript'>location.href='Config/showUpdateProgress/?curr_step='<?php //echo $currentStep;?></SCRIPT>-->
-	<!--<script type="text/javascript">-->
-	<!--  // I would like to call a url using jQuery?-->
-	<!--  $.ajax({-->
-	<!--    url: "<?php //echo CController::createUrl('Config/showUpdateProgress/?curr_step='.$currentStep);?>"-->
-	<!--  });-->
-	<!--</script>-->
+
 	
 
 

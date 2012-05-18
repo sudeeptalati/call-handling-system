@@ -69,11 +69,12 @@
 	<tr	><td>
 			<h2 style="margin-bottom:0.01px;">Customer Details</h2>
 		</td>
-		<td>	
-			<h2 style="margin-bottom:0.01px;">Product Details</h2>
-		</td>		
-	</tr>
 	
+	</tr>
+	</table>
+	
+	
+	<table>
 	<tr>
 	<td style="vertical-align:top;">	
 	<!-- ***** SECOND ROW - FIRST COLUMN PART DISPLAYING CUSTOMER DETAILS ******* -->
@@ -95,16 +96,12 @@
 		<?php echo $form->labelEx($customerModel,'title'); ?>
 		<?php echo $form->dropDownList($customerModel,'title',array('Mr'=>'Mr', 'Miss'=>'Miss', 'Mrs'=>'Mrs','Mrs'=>'Mrs', 'Dr'=>'Dr',)); ?>
 		<?php echo $form->error($customerModel,'title'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'first_name'); ?>
+		<?php //echo $form->labelEx($customerModel,'first_name'); ?>
 		<?php echo $form->textField($customerModel,'first_name',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'first_name'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'last_name'); ?>
+	
+		<?php //echo $form->labelEx($customerModel,'last_name'); ?>
 		<?php echo $form->textField($customerModel,'last_name',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'last_name'); ?>
 	</div>
@@ -134,7 +131,7 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'address_line_1'); ?>
-		<?php echo $form->textField($customerModel,'address_line_1',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($customerModel,'address_line_1',array('size'=>60)); ?>
 		<?php echo $form->error($customerModel,'address_line_1'); ?>
 	</div>
 
@@ -142,10 +139,8 @@
 		<?php echo $form->labelEx($customerModel,'address_line_2'); ?>
 		<?php echo $form->textField($customerModel,'address_line_2',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'address_line_2'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'address_line_3'); ?>
+ 
+		<?php //echo $form->labelEx($customerModel,'address_line_3'); ?>
 		<?php echo $form->textField($customerModel,'address_line_3',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'address_line_3'); ?>
 	</div>
@@ -154,11 +149,8 @@
 		<?php echo $form->labelEx($customerModel,'town'); ?>
 		<?php echo $form->textField($customerModel,'town',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'town'); ?>
-	</div>
 
-
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'country'); ?>
+		<?php //echo $form->labelEx($customerModel,'country'); ?>
 		<?php echo $form->textField($customerModel,'country',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'country'); ?>
 	</div>
@@ -166,26 +158,26 @@
 		<?php echo $form->labelEx($customerModel,'telephone'); ?>
 		<?php echo $form->textField($customerModel,'telephone',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'telephone'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'mobile'); ?>
+		<?php //echo $form->labelEx($customerModel,'mobile'); ?>
 		<?php echo $form->textField($customerModel,'mobile',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'mobile'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($customerModel,'fax'); ?>
-		<?php echo $form->textField($customerModel,'fax',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($customerModel,'fax'); ?>
-	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'email'); ?>
 		<?php echo $form->textField($customerModel,'email',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($customerModel,'email'); ?>
-		<small style="color:maroon"><br>User will be notified via email.</small>
+
+		
+
+		<?php //echo $form->labelEx($customerModel,'fax'); ?>
+		<?php echo $form->textField($customerModel,'fax',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($customerModel,'fax'); ?>
+		
 	</div>
+
+
 
 	<div class="row">
 		<?php echo $form->labelEx($customerModel,'notes'); ?>
@@ -194,10 +186,16 @@
 	</div>
 	
 	</td>
+	</tr>
+	</table>
 	
 	<td style="vertical-align:top;">
 	<!-- FIELDS FROM PRODUCT TABLE -->
 	<table>
+	<tr>	<td>	
+			<h2 style="margin-bottom:0.01px;">Product Details</h2>
+		</td>	
+		</tr>
 	<tr>
 		<td style="vertical-align:top;">
 	

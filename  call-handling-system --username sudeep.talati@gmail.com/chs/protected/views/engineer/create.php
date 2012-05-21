@@ -1,15 +1,13 @@
-<?php
-$this->breadcrumbs=array(
-	'Engineers'=>array('index'),
-	'Create',
-);
 
-$this->menu=array(
-	array('label'=>'List Engineer', 'url'=>array('index')),
-	array('label'=>'Manage Engineer', 'url'=>array('admin')),
-);
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-<h1>Create Engineer</h1>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Engineers',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add New Engineer',array('create')); ?></td>
+</tr></table>
+
+<h1>Add New Engineer</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

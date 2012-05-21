@@ -1,19 +1,15 @@
-<?php
-$this->breadcrumbs=array(
-	'Contracts'=>array('index'),
-	$model->name,
-);
 
-$this->menu=array(
-	array('label'=>'List Contract', 'url'=>array('admin')),
-	array('label'=>'Create Contract', 'url'=>array('create')),
-// 	array('label'=>'Update Contract', 'url'=>array('update', 'id'=>$model->id)),
-// 	//array('label'=>'Delete Contract', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-// 	array('label'=>'Manage Contract', 'url'=>array('admin')),
-);
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-<h1>View Contract #<?php echo $model->id; ?></h1>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Contracts',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Contracts',array('create')); ?></td>
+</tr></table>
+
+
+<h1>View Contract #<?php echo $model->name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

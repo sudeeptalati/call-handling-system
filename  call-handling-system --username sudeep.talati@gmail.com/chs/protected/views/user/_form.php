@@ -3,12 +3,27 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>false,
-)); ?>
+)); 
+
+
+$model->password='';
+
+
+
+?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textField($model,'name',array('rows'=>4, 'cols'=>25)); ?>
+		<?php echo $form->error($model,'name'); ?>
+	</div>
+	
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username',array('rows'=>6, 'cols'=>50)); ?>
@@ -32,6 +47,8 @@
 		<?php echo $form->textArea($model,'profile',array('rows'=>4, 'cols'=>25)); ?>
 		<?php echo $form->error($model,'profile'); ?>
 	</div>
+	
+	
 
 	<!--<div class="row">
 		<?php //echo $form->labelEx($model,'created'); ?>

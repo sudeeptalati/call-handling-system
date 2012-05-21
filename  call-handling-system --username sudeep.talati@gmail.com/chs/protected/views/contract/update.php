@@ -1,17 +1,12 @@
-<?php
-$this->breadcrumbs=array(
-	'Contracts'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
 
-$this->menu=array(
-	array('label'=>'List Contract', 'url'=>array('index')),
-	array('label'=>'Create Contract', 'url'=>array('create')),
-	array('label'=>'View Contract', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Contract', 'url'=>array('admin')),
-);
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Contracts',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Contracts',array('create')); ?></td>
+</tr></table>
 
 <h1>Update Contract <?php echo $model->id; ?></h1>
 

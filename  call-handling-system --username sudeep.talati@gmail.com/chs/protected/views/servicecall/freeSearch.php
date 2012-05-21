@@ -91,7 +91,7 @@ $current_url=$baseUrl."/".$model_name;
 <!--        <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> -->
 <!--        <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/>  -->
         
-              Search by Customer Name or Postcode or Phone number<br><br>
+              Search by Customer Name or Postcode or Phone number or Reference Number<br><br>
                 <!-- The Searchbox Starts Here  -->
                 <form  name="search_form">
                  <input  name="query" type="text" id="faq_search_input" style="background-color: #FFFFFF" />

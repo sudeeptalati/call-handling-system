@@ -1,19 +1,15 @@
-<?php
-$this->breadcrumbs=array(
-	'Engineers'=>array('index'),
-	$model->id,
-);
 
-$this->menu=array(
-	array('label'=>'List Engineer', 'url'=>array('index')),
-	array('label'=>'Create Engineer', 'url'=>array('create')),
-	array('label'=>'Update Engineer', 'url'=>array('update', 'id'=>$model->id)),
-	//array('label'=>'Delete Engineer', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Engineer', 'url'=>array('admin')),
-);
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-<h1>View Engineer #<?php echo $model->id; ?></h1>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Engineers',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add New Engineer',array('create')); ?></td>
+</tr></table>
+
+
+<h1>View Engineer #<?php echo $model->first_name."  ".$model->last_name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

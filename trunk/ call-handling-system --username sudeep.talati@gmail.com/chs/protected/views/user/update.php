@@ -1,18 +1,13 @@
-<?php
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->username=>array('view','id'=>$model->id),
-	'Update',
-);
 
-$this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-);
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-<h1>Update User <?php echo $model->id; ?></h1>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Users',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Create New User',array('create')); ?></td>
+</tr></table>
+
+<h1>Update User <?php echo $model->name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

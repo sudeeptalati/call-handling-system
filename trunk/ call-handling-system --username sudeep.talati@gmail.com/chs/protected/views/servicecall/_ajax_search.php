@@ -44,6 +44,16 @@ vertical-align:top;
 //-->
 </style>
 
+<p align="right">
+     <?php //echo CHtml::link('New Customer Service', array('servicecall/create'));
+       		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
+			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call')); 
+
+			?>
+		
+       <?php echo CHtml::link('New Customer Service', array('servicecall/create')); ?>
+       <?php echo CHtml::link($service_img_html, array('Servicecall/create'));?>	
+       </p>
 
 
 <!-- ************ DISPLAYING DATA FROM SERVICECALL SEARCH RESULTS *********************** -->
@@ -139,7 +149,7 @@ vertical-align:top;
 															'product_id' => $product->id
 															),
 															'job_status_id<:status',
-															array(':status<5')
+															array(':status<100')
 															);
 
 			 
@@ -151,8 +161,6 @@ vertical-align:top;
 			{
 				//echo "new";
 			?>
-			
-			
 			
 			<td>
 				<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
@@ -167,7 +175,7 @@ vertical-align:top;
 				{	
 			?>
 			
-		<td><?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?></td>
+			<td><?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?></td>
 		<!--<td><?php //echo $service->jobStatus->name;?></td>-->
 
 			<?php }//end of foreach of servicecall.?>
@@ -199,18 +207,18 @@ vertical-align:top;
 		</td>
 		 		<td></td>
 	</tr>
-	
-	<?php
-		$row_count++;
-		}///end of if customer present
-		?>
-		<tr>
+	<tr>
 			<td style="background:#599FC8;"></td>
 			<td style="background:#599FC8;"></td>
 			<td style="background:#599FC8;"></td>
 			<td style="background:#599FC8;"></td>
 			
 		</tr>
+	<?php
+		$row_count++;
+		}///end of if customer present
+		?>
+		
 		
 		
 		<?php 
@@ -293,7 +301,7 @@ vertical-align:top;
 		
 		<td>
 			<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id));?>
-			<?php echo CHtml::link('Raise Servicecall', array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id))?>
+			<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$custData->id, 'product_id'=>$row->id))?>
 		</td>
 		
 		<!-- 

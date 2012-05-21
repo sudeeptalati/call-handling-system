@@ -233,6 +233,9 @@ class Servicecall extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
+//        		$this->fault_date=strtotime($this->fault_date);
+//        		$this->job_finished_date=strtotime($this->job_finished_date);
+//        		$this->job_payment_date=strtotime($this->job_payment_date);
 
         		$this->created=time();
         		//$user=Yii::app()->user->id
@@ -262,17 +265,19 @@ class Servicecall extends CActiveRecord
 					}///end of foreach
 				}//end of else.
 				
+				/******* END OF SETTING service_reference_number ********/
+				
         		//GETTING CUSTOMER ID FROM URL.
 				if (isset($_GET['customer_id']))
 				{
 					$cust_id=$_GET['customer_id'];
 					//echo "CUSTOMER ID FROM URL :".$cust_id;
 				}
-				else 
-				{
-					if (isset($_GET['cust_id']))
-						echo $_GET['cust_id'];
-				}
+//				else 
+//				{
+//					if (isset($_GET['cust_id']))
+//						echo $_GET['cust_id'];
+//				}
 				
 				if($this->customer_id=='0')//customer_id=0 INDICATES NEW CUSTOMER.
 				{
@@ -312,30 +317,38 @@ class Servicecall extends CActiveRecord
 					$this->engineer_id=$productModel->engineer_id;
 				}//end of if($this->customer_id=='0').
 				
+				/********* SAVING EXISTING CUSTOMER DETAILS*********/
+				
 				else 
 				{
-					if (isset($_GET['cust_id']))
-						echo $_GET['cust_id'];
-					else 
+					if(isset($_GET['product_id']))
 					{
-					//EXISTING CUSTOMER.
-					$this->customer_id=$cust_id;
-					$customerQueryModel=Customer::model()->findByPk($cust_id);
-					$this->product_id=$customerQueryModel->product_id;
+						//echo "product id in model :".$_GET['product_id'];
+						//echo "customer id in model :".$_GET['customer_id'];
+						$this->customer_id=$cust_id;
+						$this->product_id = $_GET['product_id'];
 					}
-
-					/* WORKING FINE TILL NOW DOT CHANGE HERE */
-					
-//					if (isset($_GET['id']))
-//						echo $_GET['id'];
-				}
+					else
+					{
+						//EXISTING CUSTOMER.
+						$this->customer_id=$cust_id;
+						$customerQueryModel=Customer::model()->findByPk($cust_id);
+						$this->product_id=$customerQueryModel->product_id;
+						/* WORKING FINE TILL NOW DOT CHANGE HERE */
+					}
+				}//END OF ELSE OF EXISTING CUST.
+				
+				/****** END OF SAVING EXIXTING CUSTOMERS DETAILS *****/
 				
 				return true;
+				
             }//end of if(newrecord).
-            else
-            {
+            /****** END OF IF OF NEW RECORD ************/
             
-            	$this->activity_log.="Status is changed to ".$this->jobStatus->name.".";
+            /********* THIS BIT IS CALLED DURING UPDATE *********/
+            else
+            {     	
+            	$this->activity_log.="\n Status is changed to ".$this->jobStatus->name." by ".$this->createdByUser->username.".";
             	$this->modified=time();
                 return true;
             }

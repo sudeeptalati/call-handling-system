@@ -16,8 +16,6 @@
 	$prod_id=$_GET['product_id'];
 	//echo $prod_id;
 	
-	
-	
 	//TO GET CUSTOMER DETAILS.
 	$customerModel=Customer::model()->findByPk($cust_id);
 	$str1=$customerModel->address_line_1;

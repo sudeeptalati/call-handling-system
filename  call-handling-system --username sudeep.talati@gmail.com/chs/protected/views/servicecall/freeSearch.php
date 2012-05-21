@@ -1,12 +1,3 @@
-<?php 
-$this->menu=array(
-	//array('label'=>'List Servicecall', 'url'=>array('/servicecall/index')),
-	//array('label'=>'Recent Service Calls', 'url'=>array('/servicecall/admin')),
-	array('label'=>'Recent Customers', 'url'=>array('/customer/admin')),
-);	
-?>
-
-
 <body onload="document.search_form.query.focus()">
  <?php 
   /*To import the client script*/
@@ -99,13 +90,13 @@ $current_url=$baseUrl."/".$model_name;
                 <!-- The Searchbox Ends  Here  -->
         <div id="searchresultdata" class="faq-articles"> </div>
      </div>
-     
+     <p align="right">
      <?php //echo CHtml::link('New Customer Service', array('servicecall/create'));
        		$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
 			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>30,'height'=>30, 'title'=>'Raise Service Call')); 
 
 			?>
-			<p align="right">
+		
        <?php echo CHtml::link('New Customer Service', array('servicecall/create')); ?>
        <?php echo CHtml::link($service_img_html, array('Servicecall/create'));?>	
        </p>
@@ -301,7 +292,7 @@ vertical-align:top;
 						{?>
 							  
 							<tr><td>							
-								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/".$data->id)); ?>
+								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/".$row->id)); ?>
 							</td><td>
 								<?php echo $row->customer->fullname; ?>							
 							</td><td style="width:25px;">
@@ -365,13 +356,6 @@ vertical-align:top;
 			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
 			</span>
 			</li>
-			<li style="text-align:justify; margin-left:10px;">	
-		<?php
-			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_update_message.txt';	
-			$server_msg = file_get_contents($server_msg_url, true);
-
-			echo $server_msg; 
-		?></li>
 			<?php 
 		}
 	?>
@@ -383,8 +367,7 @@ vertical-align:top;
 
 			echo $server_msg; 
 		?>
-		<br><br></li>
-		
+		</li>
 		</ul>
 		</td>
 		
@@ -398,7 +381,7 @@ vertical-align:top;
 	</table>
 
 	</div>
-
+</div>
      
      
      

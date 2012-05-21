@@ -77,7 +77,7 @@
 				
 				
 				<?php 
-					if($model->job_status_id!=9)
+					if($model->job_status_id<100)
 					{
 						$result=$model->updateStatus();
 						$list=CHtml::listData($result, 'id','name');
@@ -101,29 +101,34 @@
 		<tr><td>
 		<?php echo $form->labelEx($model,'fault_date');?>
 		<?php 	
-			if(!empty($model->fault_date))
-			{
-				$model->fault_date = date('d-M-Y',$model->fault_date);	
-			}
-			?>
-			<?php //echo CHtml::textField('',$viewFaultDate,array('disabled'=>'disabled'))."<br>";?>
-			<?php 
+				//echo $model->fault_date;
+				
+ 				if ($model->fault_date!=''){
+	 				$fault_date=date('j-M-y',$model->fault_date);
+					}	
+					else 
+						{
+						$fault_date='';	
+					}
+				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'fault_date'),
 					'model'=>$model,
-	        		'value' => $model->attributes['fault_date'],
-				    // additional javascript options for the date picker plugin
+	        		'value' => $fault_date,
+ 
 				    'options'=>array(
 				        'showAnim'=>'fold',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'd-M-y',
 				    ),
 				    'htmlOptions'=>array(
 				        'style'=>'height:20px;'
 				    ),
 				));
+				
+					
 			?>
 			<?php //echo $form->textField($model,'fault_date'); ?>
-			<?php //echo $form->error($model,'fault_date'); ?>
+			<?php echo $form->error($model,'fault_date'); ?>
 			
 			<?php echo $form->labelEx($model,'fault_code'); ?>
 			<?php echo $form->textField($model,'fault_code'); ?>
@@ -197,7 +202,7 @@
 				<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
 				<?php //echo $form->textField($model,'spares_used_status_id'); ?>
 				<?php //$model->spares_used_status_id='';?>
-				<?php echo $form->dropDownList($model, 'spares_used_status_id', array(' '=>" ",'1'=>'Yes', '0'=>'No'));?>
+				<?php echo $form->dropDownList($model, 'spares_used_status_id', array(  '0'=>'No','1'=>'Yes'));?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?>
 				
 				<?php echo $form->labelEx($model,'work_carried_out'); ?>
@@ -205,10 +210,11 @@
 				<?php echo $form->error($model,'work_carried_out'); ?>
 			
 				<?php echo $form->labelEx($model,'job_payment_date'); ?>
-				<?php 	if (!empty($model->job_payment_date))
-							{
-									$model->job_payment_date=date('d-M-y', $model->job_payment_date);
-							}
+				<?php 	
+//					if (!empty($model->job_payment_date))
+//					{
+//						$model->job_payment_date=date('d-M-y', $model->job_payment_date);
+//					}
 					?>
 				<?php 
 					
@@ -234,10 +240,11 @@
 				
 				
 				<?php echo $form->labelEx($model,'job_finished_date'); ?>
-				<?php 	if (!empty($model->job_finished_date))
-							{
-									$model->job_finished_date=date('d-M-y', $model->job_finished_date);
-							}
+				<?php 
+					if (!empty($model->job_finished_date))
+					{
+						$model->job_finished_date=date('d-M-y', $model->job_finished_date);
+					}
 					?>
 				
 				<?php 

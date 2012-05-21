@@ -138,9 +138,9 @@ class ServicecallController extends Controller
 
 		if(isset($_POST['Servicecall']))
 		{
-			echo "I M HERE";
+			//echo "I M HERE";
 			$model->attributes=$_POST['Servicecall'];
-			 
+			
 			if($model->save())
 			{
 				$this->redirect(array('view','id'=>$model->id));
@@ -261,31 +261,31 @@ class ServicecallController extends Controller
 	
 //CODE FROM GII FORM GENERATOR.	
 	
-	public function actionUpdateServicecall()
-	{
-    	$model=new Servicecall('update');
-
-	    // uncomment the following code to enable ajax-based validation
-	    /*
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-updateServicecall-form')
-	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
-	    */
-	
-	    if(isset($_POST['Servicecall']))
-	    {
-	        $model->attributes=$_POST['Servicecall'];
-	       
-	        if($model->validate())
-	        {
-	        	// form inputs are valid, do something here
-	            return;
-	        }
-	    }
-	    $this->render('updateServicecall',array('model'=>$model));
-	}//end of updateServicecall.
+//	public function actionUpdateServicecall()
+//	{
+//    	$model=new Servicecall('update');
+//
+//	    // uncomment the following code to enable ajax-based validation
+//	    /*
+//	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-updateServicecall-form')
+//	    {
+//	        echo CActiveForm::validate($model);
+//	        Yii::app()->end();
+//	    }
+//	    */
+//	
+//	    if(isset($_POST['Servicecall']))
+//	    {
+//	        $model->attributes=$_POST['Servicecall'];
+//	       
+//	        if($model->validate())
+//	        {
+//	        	// form inputs are valid, do something here
+//	            return;
+//	        }
+//	    }
+//	    $this->render('updateServicecall',array('model'=>$model));
+//	}//end of updateServicecall.
 
 		
 	public function actionPrintAllJobsForDay()

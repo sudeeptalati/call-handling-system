@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $username
  * @property string $password
+ * @property string $name
  * @property string $email
  * @property string $profile
  * @property string $created
@@ -54,7 +55,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
+			array('username, password, name, email', 'required'),
 			array('usergroup_id', 'numerical', 'integerOnly'=>true),
 			array('profile, modified', 'safe'),
 			//CUSTOMIZED RULES.
@@ -62,7 +63,7 @@ class User extends CActiveRecord
 			array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, email, profile, created, modified, usergroup_id', 'safe', 'on'=>'search'),
+			array('id, username, password, name, email, profile, created, modified, usergroup_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,6 +99,7 @@ class User extends CActiveRecord
 			'id' => 'ID',
 			'username' => 'Username',
 			'password' => 'Password',
+			'name' => 'Name',
 			'email' => 'Email',
 			'profile' => 'Profile',
 			'created' => 'Created',
@@ -119,6 +121,7 @@ class User extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
+		$criteria->compare('name',$this->name,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('profile',$this->profile,true);
@@ -150,10 +153,7 @@ class User extends CActiveRecord
             }
             else
             {
-            	if($user->password!=$this->password)
-                {
-                	$this->password = hash('sha256', $this->password);
-                }
+            	$this->password = hash('sha256', $this->password);
                 $this->modified=time();
                 return true;
             }

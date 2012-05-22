@@ -2,7 +2,7 @@
 
 $this->menu=array(
 	//array('label'=>'List Customer', 'url'=>array('index')),
-	array('label'=>'Create Customer', 'url'=>array('create')),
+	array('label'=>'Register Customer', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

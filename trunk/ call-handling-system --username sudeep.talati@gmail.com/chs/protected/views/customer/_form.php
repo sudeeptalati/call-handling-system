@@ -1,3 +1,112 @@
+<script type="text/javascript">
+function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin(Key, Postcode,  UserName)
+   {
+      var scriptTag = document.getElementById("PCA38d38252878f434581f85b249661cd94");
+      var headTag = document.getElementsByTagName("head").item(0);
+      var strUrl = "";
+
+      //Build the url
+      strUrl = "http://services.postcodeanywhere.co.uk/PostcodeAnywhere/Interactive/RetrieveByPostcodeAndBuilding/v1.10/json.ws?";
+      strUrl += "&Key=" + escape(Key);
+      strUrl += "&Postcode=" + escape(Postcode);
+      //strUrl += "&Building=" + escape(Building);
+      strUrl += "&UserName=" + escape(UserName);
+      strUrl += "&CallbackFunction=PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End";
+
+      //Make the request
+      if (scriptTag) 
+         {
+            try
+              {
+                  headTag.removeChild(scriptTag);
+              }
+            catch (e)
+              {
+                  //Ignore
+              }
+         }
+      scriptTag = document.createElement("script");
+      scriptTag.src = strUrl
+      scriptTag.type = "text/javascript";
+      scriptTag.id = "PCA38d38252878f434581f85b249661cd94";
+      headTag.appendChild(scriptTag);
+   }
+
+function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(response)
+   {
+      //Test for an error
+      if (response.length==1 && typeof(response[0].Error) != 'undefined')
+         {
+            //Show the error message
+            alert(response[0].Description);
+         }
+      else
+         {
+            //Check if there were any items found
+            if (response.length==0)
+               {
+                  alert("Sorry, no matching items found");
+               }
+            else
+               {
+         
+ 		 
+		 
+               }
+         }
+   }///end of call function
+   
+   
+   function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(response)
+   {
+      //Test for an error
+      if (response.length==1 && typeof(response[0].Error) != 'undefined')
+         {
+            //Show the error message
+            
+			var msg='!  Please Set A valid Key from setup page';
+			alert(response[0].Description+msg);
+			
+         }
+      else
+         {
+            //Check if there were any items found
+            if (response.length==0)
+               {
+                  alert("Sorry, no matching items found");
+               }
+            else
+               {
+	 
+	document.getElementById("Customer_address_line_1").value= response[0].Line1;
+	document.getElementById("Customer_address_line_2").value= response[0].Line2;
+	document.getElementById("Customer_address_line_3").value= response[0].Line3;
+	document.getElementById("Customer_town").value= response[0].PostTown;
+	document.getElementById("Customer_country").value= response[0].CountryName;
+	//document.getElementById("postcode").value= response[0].Postcode;
+
+               }
+         }
+   }
+   
+   
+   
+   
+   
+</script>
+
+
+<STYLE type="text/css">
+select:focus,textarea:focus, input:focus { 
+
+border: 1px solid #900; 
+background-color: #FFFF9D; 
+}
+
+
+</STYLE>
+
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -9,6 +118,28 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 	
 	<?php echo $form->errorSummary($model); ?>
+	
+	<?php 
+		 
+//		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
+//		if(count($result)>1)
+//		{
+//			echo "<h3>Select product for customer ".$model->fullname." to update details</h3>";
+//	    	foreach ($result as $data)
+//	    	{
+////	    		$baseUrl=Yii::app()->baseUrl;
+////	    		$url=$baseUrl.'/customer/updateCustomer/?customer_id='.$.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
+////	    		$url= Y
+//	    		echo CHtml::link($data->productType->name, array('customer/updateCustomer/?customer_id='.$model->id.'&product_id='.$data->id))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+//	    	}
+//		}//end of if.
+//		
+//		else 
+//		{
+//		
+//	
+//	
+//	?>
 	
 	<?php 
 		if(!empty($model->product->id))
@@ -47,6 +178,27 @@
 			<?php echo $form->textField($model,'last_name',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'last_name'); ?>
 			
+			
+				<?php echo $form->labelEx($model,'postcode_s'); ?>
+			<?php echo $form->textField($model,'postcode_s',array('size'=>6,'maxlength'=>4 )); ?>
+			<?php echo $form->textField($model,'postcode_e',array('size'=>6,'maxlength'=>4)); ?>
+			<?php echo $form->error($model,'postcode_s'); ?>
+			<?php echo $form->error($model,'postcode_e'); ?>
+			
+			<?php
+					$config=Config::model()->findByPk(1);
+				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
+					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
+			?>
+								 <input type=button value="Find" 
+   onclick="Javascript: PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin
+      ('<?php echo $postcodeanwhere_license_key; ?>',
+       (document.getElementById('Customer_postcode_s').value + document.getElementById('Customer_postcode_e').value),
+       ''
+      )"> 
+	  
+	  
+
 			<?php echo $form->labelEx($model,'address_line_1'); ?>
 			<?php echo $form->textField($model,'address_line_1',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'address_line_1'); ?>
@@ -63,18 +215,6 @@
 			<?php echo $form->textField($model,'town',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'town'); ?>
 			
-			<?php echo $form->labelEx($model,'postcode_s'); ?>
-			<?php echo $form->textField($model,'postcode_s',array('size'=>6, 'maxlength'=>4)); ?>
-			<?php echo $form->textField($model,'postcode_e',array('size'=>6, 'maxlength'=>4)); ?>
-			<?php echo $form->error($model,'postcode_s'); ?>
-			<?php echo $form->error($model,'postcode_e'); ?>
-			
-			<?php
-					$config=Config::model()->findByPk(1);
-				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
-					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
-			?>
-			<SCRIPT LANGUAGE=JAVASCRIPT SRC="http://services.postcodeanywhere.co.uk/popups/javascript.aspx?account_code=<?php echo $postcodeanwhere_account_code; ?>&license_key=<?php echo $postcodeanwhere_license_key; ?>"></SCRIPT>
 		
 			<?php echo $form->labelEx($model,'country'); ?>
 			<?php echo $form->textField($model,'country',array('rows'=>6, 'cols'=>50)); ?>
@@ -97,8 +237,6 @@
 			<?php echo $form->error($model,'email'); ?>
 			<small style="color:maroon"><br>User will be notified via email.</small>
 			
-			<?php echo $form->hiddenField($model,'lockcode',array('value'=>0)); ?>
-			<?php echo $form->error($model,'lockcode'); ?>
 			
 			<?php echo $form->labelEx($model,'notes'); ?>
 			<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>30)); ?>

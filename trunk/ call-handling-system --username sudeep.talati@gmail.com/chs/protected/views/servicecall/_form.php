@@ -62,8 +62,20 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
       //Test for an error
       if (response.length==1 && typeof(response[0].Error) != 'undefined')
          {
+          	var msg=response[0].Description;
             //Show the error message
-            alert(response[0].Description);
+            if (response[0].Error==2)
+           	 {	
+            	msg+='!  Please Set A valid Key from setup page';
+          	  }
+            if (response[0].Error==1002)
+          	 {	
+           	msg+='!  Please Enter Outward Code of postcode in First part like KA1 (part before space) and Inward code in second like 2NP';
+         	  }
+
+
+    		alert(msg);
+			
          }
       else
          {

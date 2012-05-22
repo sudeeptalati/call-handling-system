@@ -1,5 +1,13 @@
 <body onload="document.search_form.query.focus()">
- <?php 
+ 
+<?php
+
+$this->menu=array(
+	array('label'=>'Manage Customer', 'url'=>array('/customer/admin')),
+);
+?>
+
+<?php 
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 
   $cs = Yii::app()->getClientScript();
@@ -381,8 +389,7 @@ vertical-align:top;
 	</table>
 
 	</div>
-</div>
-     
+
      
      
       

@@ -443,7 +443,8 @@ background-color: #FFFF9D;
 			<?php echo $form->hiddenField($productModel,'customer_id',array('value'=>0)); ?>
 			<?php echo $form->error($productModel,'customer_id'); ?>
  
-	
+			<?php echo $form->hiddenField($model,'lockcode',array('value'=>0)); ?>
+			<?php echo $form->error($model,'lockcode'); ?>
  
 	
  

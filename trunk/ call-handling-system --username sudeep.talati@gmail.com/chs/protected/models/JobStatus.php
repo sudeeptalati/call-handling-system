@@ -48,7 +48,7 @@ class JobStatus extends CActiveRecord
 		return array(
 			array('name, published, view_order', 'required'),
 			array('published, view_order, updated_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('dashboard_display,information, updated', 'safe'),
+			array('dashboard_display,information, updated, html_name', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, information, published, view_order, updated_by_user_id, updated, dashboard_display', 'safe', 'on'=>'search'),
@@ -83,7 +83,7 @@ class JobStatus extends CActiveRecord
 			'updated' => 'Last Changed',
 			'dashboard_display' => 'Display on Dashboard',
 			'dropdown_display' => 'Display in Dropdown',
-			'html_name' => 'Name in HTML',
+			'html_name' => 'Color on Dashboard',
 		
 		);
 	}

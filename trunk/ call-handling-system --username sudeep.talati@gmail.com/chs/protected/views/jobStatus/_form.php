@@ -5,6 +5,15 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	<script type="text/javascript">
+
+		function color_change(id)
+		{
+			document.getElementById('aaa')='#E01B6A';
+		}
+	
+	</script>
+
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 	
 	<?php echo $form->errorSummary($model); ?>
@@ -45,13 +54,32 @@
 		<?php echo $form->error($model,'dashboard_display'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'view_order'); ?>
-		<?php echo $form->textField($model,'view_order'); ?>
-		<?php echo $form->error($model,'view_order'); ?>
-	</div>
- 
+	
+	<div class="row" >
+		<?php echo $form->labelEx($model,'html_name'); ?>
+		<?php //echo $form->textField($model,'html_name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'html_name',array('rows'=>6, 'cols'=>50), array('onChange'=>'js:color_change('.$model->html_name.')')); ?>
+		
+		<?php //echo CHtml::textField($model,'html_name');?>
+		<?php 
+//		echo CHtml::activeTextField($model,'html_name',array('ajax' =>
+//															array('background-color':'#ffccff')
+//															));?>
+		<?php echo $form->error($model,'html_name'); ?>
+		
+		<?php echo CHtml::link('Click here to choose the color', 'http://www.colorpicker.com/', array('target'=>'_blank'));?>
+		<table style="width:50%">
+			<tr style="background:<?php echo $model->html_name;?>;">
+				<td style="border-radius:15px;  padding:10px;">
+				Current Layout<br>
+				&nbsp;	&nbsp;	&nbsp;	&nbsp;<b><?php echo $model->name ;?></b>
+		
+		</td></tr></table>
 
+
+	</div>
+ 		
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

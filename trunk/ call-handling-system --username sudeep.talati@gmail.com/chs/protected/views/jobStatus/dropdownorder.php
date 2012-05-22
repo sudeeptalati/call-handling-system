@@ -2,12 +2,12 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<h4>Job Status</h4>
-<small><?php echo CHtml::link('Change Dashboard Priority Order', array('JobStatus/admin'));?></small>
-<br><hr>
-<small><?php echo CHtml::link('Manage JobStatus', array('JobStatus/admin'));?></small>
-<br><hr>
-<small><?php echo CHtml::link('Change Drop Down View Order', array('JobStatus/dropdownorder'));?></small>
+<h1>Job Status</h1>
+<?php echo CHtml::link('Change Dashboard Priority Order', array('JobStatus/admin'));?>
+<br><br>
+<?php echo CHtml::link('Manage JobStatus', array('JobStatus/admin'));?>
+<br><br>
+<?php echo CHtml::link('Change Drop Down View Order', array('JobStatus/dropdownorder'));?>
 <br><hr>
 
 

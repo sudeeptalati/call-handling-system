@@ -63,7 +63,7 @@
 				$serviceModel=Servicecall::model()->findByPk($data->servicecall_id);
 				?>
 				<tr>
-				<td><?php echo $serviceModel->service_reference_number;?></td>
+				<td><?php echo CHtml::link($serviceModel->service_reference_number, array('Servicecall/'.$serviceModel->id));?></td>
 				<td><?php echo date('d-M-Y',$data->visit_start_date);?></td>
 				<td><?php echo $serviceModel->customer->fullname;?></td>
 				<td><?php echo $serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e;?></td>

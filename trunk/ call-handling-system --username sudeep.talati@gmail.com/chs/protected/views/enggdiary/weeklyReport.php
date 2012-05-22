@@ -59,17 +59,19 @@
 		<?php 
 			foreach ($result as $data)
 			{
+		
 				$serviceModel=Servicecall::model()->findByPk($data->servicecall_id);
-				echo "<tr>";
-				echo "<td>".$serviceModel->service_reference_number."</td>";
-				echo "<td>".date('d-M-Y',$data->visit_start_date)."</td>";
-				echo "<td>".$serviceModel->customer->fullname."</td>";
-				echo "<td>".$serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e."</td>";
-				echo "<td>".$data->slots."</td>";
-				echo "<td>".$data->servicecall->jobStatus->name."</td>";
-				echo "</tr>";
-			}
-		?>
+				?>
+				<tr>
+				<td><?php echo $serviceModel->service_reference_number;?></td>
+				<td><?php echo date('d-M-Y',$data->visit_start_date);?></td>
+				<td><?php echo $serviceModel->customer->fullname;?></td>
+				<td><?php echo $serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e;?></td>
+				<td><?php echo $data->slots;?></td>
+				<td><?php echo $data->servicecall->jobStatus->name;?></td>
+				</tr>
+		<?php 	} ?>
+		
 	
 	</table>
 

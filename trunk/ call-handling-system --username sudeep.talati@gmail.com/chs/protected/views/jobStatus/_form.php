@@ -66,8 +66,10 @@
 //															array('background-color':'#ffccff')
 //															));?>
 		<?php echo $form->error($model,'html_name'); ?>
+		For example :#F0B28C
+		<br>
+		 <?php echo CHtml::link('Click here to choose the color', 'http://www.december.com/html/spec/colorshades.html', array('target'=>'_blank'));?>
 		
-		<?php echo CHtml::link('Click here to choose the color', 'http://www.colorpicker.com/', array('target'=>'_blank'));?>
 		<table style="width:50%">
 			<tr style="background:<?php echo $model->html_name;?>;">
 				<td style="border-radius:15px;  padding:10px;">

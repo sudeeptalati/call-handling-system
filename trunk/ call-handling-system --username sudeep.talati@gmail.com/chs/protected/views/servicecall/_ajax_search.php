@@ -155,6 +155,8 @@ vertical-align:top;
 			 
 			$service_img_url = Yii::app()->request->baseUrl.'/images/service.gif';
 			$service_img_html = CHtml::image($service_img_url,'Raise Service Call',array('width'=>25,'height'=>25, 'title'=>'Raise Service Call'));
+			$booked_service_img_url = Yii::app()->request->baseUrl.'/images/engineer_diary.gif';
+			$booked_service_img_html = CHtml::image($booked_service_img_url,'OPen Service Call',array('width'=>25,'height'=>25, 'title'=>'Open Service Call'));
 																		
 																		
 			if(count($serviceModel)==0)
@@ -175,7 +177,9 @@ vertical-align:top;
 				{	
 			?>
 			
-			<td><?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?></td>
+			<td>
+				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id));?>
+				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?></td>
 		<!--<td><?php //echo $service->jobStatus->name;?></td>-->
 
 			<?php }//end of foreach of servicecall.?>

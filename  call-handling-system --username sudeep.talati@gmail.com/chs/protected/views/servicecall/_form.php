@@ -134,7 +134,7 @@ background-color: #FFFF9D;
 	</tr>
 	<tr>
 			<td>
-				<?php echo $form->labelEx($customerModel,'postcode'); ?>
+				<?php echo $form->labelEx($customerModel,'postcode_s'); ?> <small>First Part &nbsp; Second Part</small><br>
 				<?php echo $form->textField($customerModel,'postcode_s',array('size'=>3,'maxlength'=>4)); ?>
 				<?php echo $form->error($customerModel,'postcode_s'); ?>
 			

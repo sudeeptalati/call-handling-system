@@ -11,28 +11,6 @@
 	<?php echo $form->errorSummary($model); ?>
 	
 	<?php 
-		 
-//		$result= Product::model()->findAllByAttributes(array('customer_id'=>$model->id));
-//		if(count($result)>1)
-//		{
-//			echo "<h3>Select product for customer ".$model->fullname." to update details</h3>";
-//	    	foreach ($result as $data)
-//	    	{
-////	    		$baseUrl=Yii::app()->baseUrl;
-////	    		$url=$baseUrl.'/customer/updateCustomer/?customer_id='.$.'&start_date='.$week_start_date.'&end_date='.$week_end_date;
-////	    		$url= Y
-//	    		echo CHtml::link($data->productType->name, array('customer/updateCustomer/?customer_id='.$model->id.'&product_id='.$data->id))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
-//	    	}
-//		}//end of if.
-//		
-//		else 
-//		{
-//		
-//	
-//	
-//	?>
-	
-	<?php 
 		if(!empty($model->product->id))
 		{
 			$productModel=Product::model()->findByPk($model->product_id);
@@ -86,8 +64,8 @@
 			<?php echo $form->error($model,'town'); ?>
 			
 			<?php echo $form->labelEx($model,'postcode_s'); ?>
-			<?php echo $form->textField($model,'postcode_s',array('size'=>6)); ?>
-			<?php echo $form->textField($model,'postcode_e',array('size'=>6)); ?>
+			<?php echo $form->textField($model,'postcode_s',array('size'=>6, 'maxlength'=>4)); ?>
+			<?php echo $form->textField($model,'postcode_e',array('size'=>6, 'maxlength'=>4)); ?>
 			<?php echo $form->error($model,'postcode_s'); ?>
 			<?php echo $form->error($model,'postcode_e'); ?>
 			
@@ -119,6 +97,8 @@
 			<?php echo $form->error($model,'email'); ?>
 			<small style="color:maroon"><br>User will be notified via email.</small>
 			
+			<?php echo $form->hiddenField($model,'lockcode',array('value'=>0)); ?>
+			<?php echo $form->error($model,'lockcode'); ?>
 			
 			<?php echo $form->labelEx($model,'notes'); ?>
 			<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>30)); ?>

@@ -106,7 +106,7 @@ class Customer extends CActiveRecord
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode_s',
+			'postcode_s' => 'Postcode',
 			'postcode_e' => 'Postcode_e',
 			'country' => 'Country',
 			'telephone' => 'Telephone',
@@ -178,7 +178,19 @@ class Customer extends CActiveRecord
             {
         		$this->created_by_user_id=Yii::app()->user->id;
         		
-        		$this->lockcode=Yii::app()->user->id*1000;        		
+        		/******CHECKING WHETHER CUSTOMER IS CREATED FROM CREATE OF CUSTOMER*/
+        		if($this->lockcode == '0')
+        		{
+        			//echo "Lockcode is set to zeero, In Create of customers";
+        			$this->lockcode=0;
+        		}
+        		else 
+        		{
+        			//echo "Lockdode is not set, some error";
+        			$this->lockcode=Yii::app()->user->id*1000;
+        		}
+        		
+        		        		
         		$this->created=time();
         		
         		//SAVING DETAILS TO PRODUCT TABLE.
@@ -204,6 +216,7 @@ class Customer extends CActiveRecord
         		
         		return true;
             }//end of if($this->isNewRecord).
+            /******** END OF SAVING NEW RECORD *************/
             else
             {
             	if(isset($_GET['product_id']))

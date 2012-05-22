@@ -183,11 +183,11 @@
  
 <tr>	
 	<td>
-		<?php echo $form->labelEx($model,'custom4'); ?>
+		<?php //echo $form->labelEx($model,'custom4'); ?>
 	</td>
 	<td>
-		<?php echo $form->textField($model,'custom4',array('size'=>30)); ?>
-		<?php echo $form->error($model,'custom4'); ?>
+		<?php //echo $form->textField($model,'custom4',array('size'=>30)); ?>
+		<?php //echo $form->error($model,'custom4'); ?>
 	</td>
 </tr>
 
@@ -214,9 +214,9 @@
  <!-- 
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'custom4'); ?>
-		<?php echo $form->textField($model,'custom4',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'custom4'); ?>
+		<?php //echo $form->labelEx($model,'custom4'); ?>
+		<?php //echo $form->textField($model,'custom4',array('rows'=>6, 'cols'=>50)); ?>
+		<?php //echo $form->error($model,'custom4'); ?>
 	</div>
 
 	<div class="row">

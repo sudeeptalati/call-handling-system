@@ -35,10 +35,10 @@ $dataProvider=new CActiveDataProvider('JobStatus', array(
     ),
     'columns'=>array(
 
-    'id',
+    //'id',
     'name',
 	'information',
- 'view_order',
+ //'view_order',
    
 	array(
       		'name'=>'published',

@@ -1,3 +1,98 @@
+<script type="text/javascript">
+function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin(Key, Postcode,  UserName)
+   {
+      var scriptTag = document.getElementById("PCA38d38252878f434581f85b249661cd94");
+      var headTag = document.getElementsByTagName("head").item(0);
+      var strUrl = "";
+
+      //Build the url
+      strUrl = "http://services.postcodeanywhere.co.uk/PostcodeAnywhere/Interactive/RetrieveByPostcodeAndBuilding/v1.10/json.ws?";
+      strUrl += "&Key=" + escape(Key);
+      strUrl += "&Postcode=" + escape(Postcode);
+      //strUrl += "&Building=" + escape(Building);
+      strUrl += "&UserName=" + escape(UserName);
+      strUrl += "&CallbackFunction=PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End";
+
+      //Make the request
+      if (scriptTag) 
+         {
+            try
+              {
+                  headTag.removeChild(scriptTag);
+              }
+            catch (e)
+              {
+                  //Ignore
+              }
+         }
+      scriptTag = document.createElement("script");
+      scriptTag.src = strUrl
+      scriptTag.type = "text/javascript";
+      scriptTag.id = "PCA38d38252878f434581f85b249661cd94";
+      headTag.appendChild(scriptTag);
+   }
+
+function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(response)
+   {
+      //Test for an error
+      if (response.length==1 && typeof(response[0].Error) != 'undefined')
+         {
+            //Show the error message
+            alert(response[0].Description);
+         }
+      else
+         {
+            //Check if there were any items found
+            if (response.length==0)
+               {
+                  alert("Sorry, no matching items found");
+               }
+            else
+               {
+         
+ 		 
+		 
+               }
+         }
+   }///end of call function
+   
+   
+   function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(response)
+   {
+      //Test for an error
+      if (response.length==1 && typeof(response[0].Error) != 'undefined')
+         {
+            //Show the error message
+            alert(response[0].Description);
+         }
+      else
+         {
+            //Check if there were any items found
+            if (response.length==0)
+               {
+                  alert("Sorry, no matching items found");
+               }
+            else
+               {
+	 
+	document.getElementById("Customer_address_line_1").value= response[0].Line1;
+	document.getElementById("Customer_address_line_2").value= response[0].Line2;
+	document.getElementById("Customer_address_line_3").value= response[0].Line3;
+	document.getElementById("Customer_town").value= response[0].PostTown;
+	document.getElementById("Customer_country").value= response[0].CountryName;
+	//document.getElementById("postcode").value= response[0].Postcode;
+
+               }
+         }
+   }
+   
+   
+   
+   
+   
+</script>
+
+
 <STYLE type="text/css">
 select:focus,textarea:focus, input:focus { 
 
@@ -148,8 +243,12 @@ background-color: #FFFF9D;
 					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
  
 			?>
-			<SCRIPT LANGUAGE=JAVASCRIPT SRC="http://services.postcodeanywhere.co.uk/popups/javascript.aspx?account_code=<?php echo $postcodeanwhere_account_code; ?>&license_key=<?php echo $postcodeanwhere_license_key; ?>"></SCRIPT>
-	
+					 <input type=button value="Find" 
+   onclick="Javascript: PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin
+      ('<?php echo $postcodeanwhere_license_key; ?>',
+       (document.getElementById('Customer_postcode_s').value + document.getElementById('Customer_postcode_e').value),
+       ''
+      )"> 
 		</td>
 	</tr>
 	

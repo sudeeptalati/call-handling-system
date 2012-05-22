@@ -233,13 +233,9 @@ class Servicecall extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-//        		$this->fault_date=strtotime($this->fault_date);
-//        		$this->job_finished_date=strtotime($this->job_finished_date);
-//        		$this->job_payment_date=strtotime($this->job_payment_date);
-
         		$this->created=time();
         		//$user=Yii::app()->user->id
-        		$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time())."\n";
+        		$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time()).".\n";
         		
         		
         		//SETTING SERVICE REFERENCE NUMBER.
@@ -273,11 +269,13 @@ class Servicecall extends CActiveRecord
 					$cust_id=$_GET['customer_id'];
 					//echo "CUSTOMER ID FROM URL :".$cust_id;
 				}
-//				else 
-//				{
-//					if (isset($_GET['cust_id']))
-//						echo $_GET['cust_id'];
-//				}
+				elseif (isset($_GET['cust_id']))
+				{
+					//echo $_GET['cust_id'];
+					//$cust_id = $_GET['cust_id'];
+					$this->customer_id = $_GET['cust_id'];
+				}
+
 				
 				if($this->customer_id=='0')//customer_id=0 INDICATES NEW CUSTOMER.
 				{
@@ -317,20 +315,27 @@ class Servicecall extends CActiveRecord
 					$this->engineer_id=$productModel->engineer_id;
 				}//end of if($this->customer_id=='0').
 				
+				/********* END OF SAVING NEW CUSTOMER DETAILS*********/
+				
 				/********* SAVING EXISTING CUSTOMER DETAILS*********/
 				
 				else 
 				{
-					if(isset($_GET['product_id']))
+					if(isset($_GET['product_id']))/***** THIS BIT IS CALLED WHILE RAISING CALL FOR SECONDARY PROD FROM DASHBOARD.*/
 					{
 						//echo "product id in model :".$_GET['product_id'];
 						//echo "customer id in model :".$_GET['customer_id'];
 						$this->customer_id=$cust_id;
 						$this->product_id = $_GET['product_id'];
 					}
-					else
+					elseif (isset($_GET['cust_id']))/* THIS BIT ID CALLED WHEN ADDING PRODUCT AND CREATING CALL */
+					{
+						$this->customer_id = $_GET['cust_id'];
+					}
+					else /* THIS BIT ID CALLED WHEN CREATING SERVICECALL WITH PRIMARY PROD.*/
 					{
 						//EXISTING CUSTOMER.
+						//echo $_GET['cust_id'];
 						$this->customer_id=$cust_id;
 						$customerQueryModel=Customer::model()->findByPk($cust_id);
 						$this->product_id=$customerQueryModel->product_id;
@@ -338,7 +343,7 @@ class Servicecall extends CActiveRecord
 					}
 				}//END OF ELSE OF EXISTING CUST.
 				
-				/****** END OF SAVING EXIXTING CUSTOMERS DETAILS *****/
+				/****** END OF SAVING EXISTING CUSTOMERS DETAILS *****/
 				
 				return true;
 				

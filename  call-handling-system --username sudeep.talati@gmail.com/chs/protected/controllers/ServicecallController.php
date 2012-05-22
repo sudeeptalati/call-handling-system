@@ -351,6 +351,7 @@ class ServicecallController extends Controller
 	        
 	        	if($model->save())
 				{
+					//echo $model->product_id;
 					$engg_id=$model->engineer_id;
 					$baseUrl=Yii::app()->request->baseUrl;
 					$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);

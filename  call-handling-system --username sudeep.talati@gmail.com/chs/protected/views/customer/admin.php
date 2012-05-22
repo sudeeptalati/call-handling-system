@@ -33,7 +33,7 @@ $('.search-form form').submit(function(){
 		//'last_name',
 		'fullname',
 		'town',
-		'postcode_s',
+		'postcode',
 		//'product_id',
 		array('name'=>'product_brand', 'value'=>'$data->product->brand->name'),
 		array('name'=>'product_type', 'value'=>'$data->product->productType->name'),

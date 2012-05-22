@@ -22,7 +22,7 @@ $('.admin-table-link').click(function(){
 ?>
 
 
-<h4>Job Status</h4>
+<h1>Job Status</h1>
 
 <!-- ************* CODE FOR SORTING VIEW ORDER ****************** -->
 <?php 
@@ -39,8 +39,8 @@ $dataProvider=new CActiveDataProvider('JobStatus', array(
 
 ?>
 
-<small><?php echo CHtml::link('Change Dashboard View Order','#', array('class'=>'sort-view-order-link'));?></small>
-<br><hr>
+<?php echo CHtml::link('Change Dashboard View Order','#', array('class'=>'sort-view-order-link'));?>
+<br><br>
 <div class="sort_view_order" style="display:none">
 
 <b>Drag and Move Staus to desired order. Success will be refected by alert box</b>
@@ -83,8 +83,8 @@ $dataProvider=new CActiveDataProvider('JobStatus', array(
 
 
 <!--<div align="right"><small>See Next Page for custom status</small></div>-->
-<small><?php echo CHtml::link('Manage JobStaus','#', array('class'=>'admin-table-link'));?></small>
-<br><hr>
+<?php echo CHtml::link('Manage JobStaus','#', array('class'=>'admin-table-link'));?>
+<br><br>
 <div class="admin-table" style="display:none">
 
 
@@ -136,8 +136,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 </div>
  
-<small><?php echo CHtml::link('Change Drop Down View Order', array('JobStatus/dropdownorder'));?></small>
-<br><hr>
+<?php echo CHtml::link('Change Drop Down View Order', array('JobStatus/dropdownorder'));?>
+<br><br>
 
 
 

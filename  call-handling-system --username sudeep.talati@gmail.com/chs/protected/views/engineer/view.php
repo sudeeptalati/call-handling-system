@@ -36,6 +36,10 @@
 				'name'=>'Created',
 				'value'=>date('d-M-y',$model->created),
 		),
-		'modified',
+		//'modified',
+		array(
+				'name'=>'Modified',
+				'value'=>date('d-M-y',$model->modified),
+		),
 	),
 )); ?>

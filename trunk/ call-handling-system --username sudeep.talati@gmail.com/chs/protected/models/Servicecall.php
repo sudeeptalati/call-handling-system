@@ -43,7 +43,7 @@
  */
 class Servicecall extends CActiveRecord
 {
-	public $created_by_user;
+	public $user_name;
 	public $customer_name;
 	public $customer_town;
 	public $customer_postcode;
@@ -102,7 +102,7 @@ class Servicecall extends CActiveRecord
 			'contract' => array(self::BELONGS_TO, 'Contract', 'contract_id'),
 			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
-			//'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by_user_id'),
+			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by_user_id'),
 			'enggdiary' => array(self::BELONGS_TO, 'Enggdiary', 'engg_diary_id'),
 		);
 	}
@@ -158,11 +158,12 @@ class Servicecall extends CActiveRecord
 		$criteria->order = 'service_reference_number DESC';
 		
 		$criteria->with = array( 'customer','jobStatus','engineer');
-		
-		
+		//$criteria->together= true;
 		
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
 		$criteria->compare( 'customer.town', $this->customer_town, true );
+		$criteria->compare( 'customer.postcode', $this->customer_postcode, true );
+		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
 		$criteria->compare( 'engineer.fullname', $this->engineer_name, true );
 		

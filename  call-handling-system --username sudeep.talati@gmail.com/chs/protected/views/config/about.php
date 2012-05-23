@@ -8,7 +8,7 @@
 <?php 
 	
 $request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
-$available_version = file_get_contents($request, true);
+$available_version = curl_file_get_contents($request, true);
 $current_version=Yii::app()->params['software_version'];
 ?>
 
@@ -74,5 +74,21 @@ $current_version=Yii::app()->params['software_version'];
 </tr>
 
 </table>
+      <?php
+
+function curl_file_get_contents($request)
+{
+$curl_req = curl_init($request);
+
+curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl_req, CURLOPT_HEADER, FALSE);
+
+$contents = curl_exec($curl_req);
+
+curl_close($curl_req);
+
+return $contents;
+}///end of functn curl File get contents
+?> 
  	
  

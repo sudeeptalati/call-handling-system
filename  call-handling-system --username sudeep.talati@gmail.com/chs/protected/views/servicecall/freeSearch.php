@@ -350,7 +350,7 @@ vertical-align:top;
 			<?php 
 	
 		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
-		$available_version = file_get_contents($request, true);
+		$available_version = curl_file_get_contents($request, true);
 		$installed_version=Yii::app()->params['software_version'];
 		if ($available_version!=$installed_version)
 		{	
@@ -363,6 +363,8 @@ vertical-align:top;
 			Your current version is <?php echo $installed_version; ?>
 			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
 			</span>
+
+
 			</li>
 			<?php 
 		}
@@ -370,8 +372,8 @@ vertical-align:top;
 	
 		<li style="text-align:justify; margin-left:10px;">	
 		<?php
-			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_message.txt';	
-			$server_msg = file_get_contents($server_msg_url, true);
+			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
+			$server_msg = curl_file_get_contents($server_msg_url, true);
 
 			echo $server_msg; 
 		?>
@@ -390,6 +392,21 @@ vertical-align:top;
 
 	</div>
 
-     
+         <?php
+
+function curl_file_get_contents($request)
+{
+$curl_req = curl_init($request);
+
+curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl_req, CURLOPT_HEADER, FALSE);
+
+$contents = curl_exec($curl_req);
+
+curl_close($curl_req);
+
+return $contents;
+}///end of functn curl File get contents
+?>      
      
       

@@ -45,7 +45,7 @@ $('.search-form form').submit(function(){
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
 		array('name'=>'customer_postcode','value'=>'$data->customer->postcode'),
 		//'product_id',
-		array('name'=>'product_name','value'=>'$data->product->productType->name'),
+		array('name'=>'product_name','value'=>'$data->product->productType->name','filter'=>false),
 		
 		//'job_status_id',
 		
@@ -62,8 +62,8 @@ $('.search-form form').submit(function(){
 			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
 			'filter'=>Engineer::items('Engineer'),
 		),
-		'created_by_user_id',
-		//array('name'=>'user_name','value'=>'$data->createdByUser->name'),
+		//'created_by_user_id',
+		array('name'=>'user_name','value'=>'$data->createdByUser->name','filter'=>false),
 		
 //		array(
 //			'name'=>'created_by_user_id',

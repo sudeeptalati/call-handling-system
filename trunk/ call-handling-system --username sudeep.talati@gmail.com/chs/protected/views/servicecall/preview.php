@@ -224,22 +224,24 @@ td { 	vertical-align:top;
 			<br>
 			<?php 	if ($model->product->warranty_date!='')
 					{
-						echo date('d-M-Y',$model->product->warranty_date); 
+						
 						$php_warranty_date=$model->product->warranty_date;
 						$warranty_months=$model->product->warranty_for_months;
 						$end_date = strtotime(date("Y-m-d",$php_warranty_date) . " + ".$warranty_months." month");
-	 					echo date('d-M-Y',$end_date );
+	 					echo date('d-M-Y',$model->product->warranty_date); 
+	 		 	 					
+						 
 	 				}
 			?>
 			</td>			
 			<td><small><b>End</b></small>
 			<br>
 			<?php 
-				
-//					$php_warranty_date=$model->product->warranty_date;
-//					$warranty_months=$model->product->warranty_for_months;
-//					$end_date = strtotime(date("Y-m-d",$php_warranty_date) . " + ".$warranty_months." month");
-// 					echo date('d-M-Y',$end_date );
+			if ($model->product->warranty_date!='')
+					{
+						
+						echo date('d-M-Y',$end_date );
+	 				}
 					
 			?>
 			</td>
@@ -252,11 +254,14 @@ td { 	vertical-align:top;
 			<?php 
 				if(!empty($model->fault_date))
 				{
-					$model->fault_date=date('d-M-Y', $model->fault_date);		
+					//echo $model->fault_date;
+					$fault_date=date('d-M-Y', $model->fault_date);		
+					echo $fault_date;
+					
 				}
 			
 			?>
-			<?php echo date('d-M-Y',$model->fault_date); ?>
+			
 			</td >
 			<td><small><b>Fault code</b></small>
 			<br>
@@ -279,7 +284,7 @@ td { 	vertical-align:top;
 		</table>
 
 	
-<table style="width:100%">
+<table style="width:100%;padding:-5;" >
 <tr><td colspan="4"><h3><i>Technician Report</i></h3></td></tr>
 		<tr><td colspan="4">
 			<small><b>Work Carried out or Inspection</b></small>
@@ -332,12 +337,6 @@ td { 	vertical-align:top;
 </tr>
 
 </table><!-- end of Spares Table -->
-
-
-
-
-
-
 </td></tr><!-- END OF SPARES TD -->
 
 		

@@ -26,6 +26,7 @@
 	
 <style type="text/css">
 /* calendar */
+td{vertical-align:top;}
 table.calendar		{ border-left:1px solid #999; }
 tr.calendar-row	{  }
 td.calendar-day	{ min-height:80px; font-size:11px; position:relative; } * html div.calendar-day { height:80px; }
@@ -175,28 +176,29 @@ function draw_calendar($month,$year,$engg_id){
 
 			$print_link="../../servicecall/PrintAllJobsForDay/?engg_id=".$engg_id."&date=".$current_date;
 			
-			if (!empty($engg_id)){
-			$count_sql = "SELECT COUNT(*) FROM enggdiary WHERE engineer_id = ".$engg_id." AND visit_start_date = ".$mysql_date." AND status = '1'";
-			$total_records = Yii::app()->db->createCommand($count_sql)->queryScalar();
-				if ($total_records!=0)
-				{
-				$day_content.="<a href='".$print_link."'  target='_blank' ><b>Print All Jobs</b> <a><br><br>";
-				}		
-			}///end of if for empty engg id
-			
+			$count_records=0;
+			$day_content.="<table>";
 			foreach($results as $data)
 			{
-//			echo " <br>ENGINEER ID ".$data->engineer->fullname;
-//			echo " <br>Servise call".$data->servicecall->service_reference_number;
-			//$day_content.=" <br>Servise call".$data->servicecall->service_reference_number;
-			//$day_content.="<p>";
-			$link="../../servicecall/".$data->servicecall_id;
+			$link= Yii::app()->getBaseUrl()."/servicecall/".$data->servicecall_id;
+				
+			$day_content.="<tr><td>";
 			$day_content.="<a href='".$link."'>";
-			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode_s.$data->servicecall->customer->postcode_e."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
+			$day_content.="".$data->servicecall->customer->last_name."</td><td>".$data->servicecall->customer->postcode_s.$data->servicecall->customer->postcode_e."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
 			$day_content.="</a>";
-			//$day_content.="</p>";
+			$day_content.="</td></tr>";
+			 
+			$count_records++;
+			
 			}//end of foreach().
-
+			if ($count_records>0)
+			{
+				
+				$day_content.="<tr><td colspan='2'><hr>";
+				$day_content.="<a href='".$print_link."'  target='_blank' ><b>Print All Jobs</b> <a><br><br>";
+				$day_content.="</td></tr>";
+			}
+			$day_content.="</table>";
 			$calendar.= str_repeat('<p>'.$day_content.'</p>',1);
 			
 		$calendar.= '</td>';

@@ -360,14 +360,24 @@ background-color: #FFFF9D;
 		<td>			
 			<?php echo $form->labelEx($productModel,'warranty_date'); ?>
 			<?php 
+ 				if ($productModel->warranty_date!=''){
+	 				$warranty_date=date('j-M-y',$productModel->warranty_date);
+					}	
+					else 
+						{
+						$warranty_date='';	
+					}
+			?>
+			<?php 
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($productModel, 'warranty_date'),
 					'model'=>$productModel,
-	        		'value' => $productModel->attributes['warranty_date'],
+	        		//'value' => $productModel->attributes['warranty_date'],
+	        		'value' => $warranty_date,
 				    // additional javascript options for the date picker plugin
 				    'options'=>array(
 				        'showAnim'=>'fold',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'd-M-y',
 				    ),
 				    'htmlOptions'=>array(
 				        'style'=>'height:20px;'
@@ -399,15 +409,25 @@ background-color: #FFFF9D;
 		</td>
 		<td>
 				<?php echo $form->labelEx($productModel,'purchase_date'); ?>
+					<?php 
+		 				if ($productModel->purchase_date!=''){
+			 				$purchase_date=date('j-M-y',$productModel->purchase_date);
+							}	
+							else 
+								{
+								$purchase_date='';	
+							}
+					?>
 				<?php 
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					    'name'=>CHtml::activeName($productModel, 'purchase_date'),
 						'model'=>$productModel,
-		        		'value' => $productModel->attributes['purchase_date'],
+		        		//'value' => $productModel->attributes['purchase_date'],
+		        		'value' => $purchase_date,
 					    // additional javascript options for the date picker plugin
 					    'options'=>array(
 					        'showAnim'=>'fold',
-							'dateFormat' => 'dd-mm-yy',
+							'dateFormat' => 'd-M-y',
 					    ),
 					    'htmlOptions'=>array(
 					        'style'=>'height:20px;'

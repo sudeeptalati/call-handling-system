@@ -44,7 +44,8 @@ $('.search-form form').submit(function(){
 	*/		
 		'company',
 		'vat_reg_number',
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
+		//'created_by_user_id',
+		array('name'=>'user','value'=>'$data->createdByUser->name'),
 		/*
 		'notes',
 		'inactivated_by_user_id',

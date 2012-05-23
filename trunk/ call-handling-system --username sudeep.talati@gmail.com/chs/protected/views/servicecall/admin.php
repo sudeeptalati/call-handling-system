@@ -61,8 +61,8 @@ $('.search-form form').submit(function(){
 			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
 			'filter'=>Engineer::items('Engineer'),
 		),
-		//'created_by_user_id',
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
+		'created_by_user_id',
+		//array('name'=>'created_by_user','value'=>'$data->createdByUser->name'),
 		
 		array(
 			'name'=>'job_status_id',

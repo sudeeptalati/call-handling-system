@@ -69,7 +69,7 @@ class Customer extends CActiveRecord
 		return array(
 			array('title, first_name, last_name, address_line_1, town, postcode_s, postcode_e, telephone', 'required'),
 			array('product_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('address_line_2, address_line_3, country, mobile, fax, notes, modified, fullname, lockcode', 'safe'),
+			array('address_line_2, address_line_3, country, mobile, email, fax, notes, modified, fullname, lockcode', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode', 'safe', 'on'=>'search'),
@@ -171,8 +171,9 @@ class Customer extends CActiveRecord
         {
         	$trimmed_s = $this->postcode_s;
         	$trimmed_e = $this->postcode_e;
-        	$this->fullname=$this->first_name." ".$this->last_name;
         	$this->postcode=$trimmed_s." ".$trimmed_e;
+        	$this->fullname=$this->first_name." ".$this->last_name;
+        	
         	
         	if($this->isNewRecord)  // Creating new record 
             {
@@ -234,6 +235,9 @@ class Customer extends CActiveRecord
 	            	{
 	            		
 	            	}
+	            	$trimmed_s = $this->postcode_s;
+			        $trimmed_e = $this->postcode_e;
+			        $this->postcode=$trimmed_s." ".$trimmed_e;
 					$this->modified=time();
 	                return true;
             	}//end of if(isset()).
@@ -248,6 +252,9 @@ class Customer extends CActiveRecord
 		            {
 		            	
 		            }
+		            $trimmed_s = $this->postcode_s;
+			        $trimmed_e = $this->postcode_e;
+			        $this->postcode=$trimmed_s." ".$trimmed_e;
 					$this->modified=time();
 		            return true;
             	}//end of else of if(isset()).

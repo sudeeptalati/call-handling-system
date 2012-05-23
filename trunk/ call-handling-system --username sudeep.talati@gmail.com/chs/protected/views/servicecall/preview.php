@@ -223,16 +223,23 @@ td { 	vertical-align:top;
 			<td><small><b>Start</b></small>
 			<br>
 			<?php 	if ($model->product->warranty_date!='')
-					echo date('d-M-Y',$model->product->warranty_date); ?>
+					{
+						echo date('d-M-Y',$model->product->warranty_date); 
+						$php_warranty_date=$model->product->warranty_date;
+						$warranty_months=$model->product->warranty_for_months;
+						$end_date = strtotime(date("Y-m-d",$php_warranty_date) . " + ".$warranty_months." month");
+	 					echo date('d-M-Y',$end_date );
+	 				}
+			?>
 			</td>			
 			<td><small><b>End</b></small>
 			<br>
 			<?php 
-			
-					$php_warranty_date=$model->product->warranty_date;
-					$warranty_months=$model->product->warranty_for_months;
-					$end_date = strtotime(date("Y-m-d",$php_warranty_date) . " + ".$warranty_months." month");
- 					echo date('d-M-Y',$end_date );
+				
+//					$php_warranty_date=$model->product->warranty_date;
+//					$warranty_months=$model->product->warranty_for_months;
+//					$end_date = strtotime(date("Y-m-d",$php_warranty_date) . " + ".$warranty_months." month");
+// 					echo date('d-M-Y',$end_date );
 					
 			?>
 			</td>

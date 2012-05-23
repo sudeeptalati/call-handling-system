@@ -21,7 +21,11 @@
 //		'password',
 		'email',
 		'profile',
-		'created',
+		//'created',
+		array(
+				'name'=>'Created',
+				'value'=>date('d-M-y',$model->created),
+		),
 		'modified',
 	),
 )); ?>

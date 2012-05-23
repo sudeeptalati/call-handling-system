@@ -37,7 +37,10 @@ $('.search-form form').submit(function(){
 		'username',
 		'email',
 		'profile',
-		'created',
+		array(
+		'name'=>'created',
+		'type'=>'datetime',
+		),
 		/*
 		'password',
 		'modified',

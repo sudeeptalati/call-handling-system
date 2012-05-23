@@ -10,7 +10,7 @@
 	<?php echo $form->errorSummary($model); ?>
 	
 	<?php 
-		$service_id=$_GET['service_id'];
+		$service_id=$_GET['serviceId'];
 		//echo "service id:".$service_id;
 		$enggdiary_id=$_GET['enggdiary_id'];
 		//echo $enggdiary_id;
@@ -326,7 +326,7 @@ function draw_calendar($month,$year,$engg_id){
 //			echo " <br>Servise call".$data->servicecall->service_reference_number;
 			//$day_content.=" <br>Servise call".$data->servicecall->service_reference_number;
 			//$day_content.="<p>";
-			$link="../../servicecall/".$data->servicecall_id;
+			$link= Yii::app()->getBaseUrl()."/servicecall/".$data->servicecall_id;
 			$day_content.="<a href='".$link."'>";
 			$day_content.="".$data->servicecall->customer->last_name."&nbsp;".$data->servicecall->customer->postcode_s.$data->servicecall->customer->postcode_e."<span style='color:#5BA0C9; font-size:10px;'><b>(".$data->slots.")</b></span><br>"; ;
 			$day_content.="</a>";

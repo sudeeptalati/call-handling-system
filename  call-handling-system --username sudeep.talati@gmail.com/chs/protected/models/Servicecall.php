@@ -406,9 +406,12 @@ class Servicecall extends CActiveRecord
         
         $criteria->with = array('customer');
         
+        $criteria->compare('insurer_reference_number',$keyword,true);
         $criteria->compare('service_reference_number', $keyword, true, 'OR');
         $criteria->compare('customer.fullname', $keyword, true, 'OR');
         $criteria->compare('customer.postcode', $keyword, true, 'OR');
+        $criteria->compare('customer.mobile', $keyword, true, 'OR');
+        $criteria->compare('customer.telephone', $keyword, true, 'OR');
         
 //        $criteria->with=array('customer');
 //        $criteria->compare('customer.fullname', $keyword, true, 'OR');

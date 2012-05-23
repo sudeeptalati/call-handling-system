@@ -333,7 +333,7 @@ class Config extends CActiveRecord
 						////////*NOW By reading the update file we will be changing the main database
 						try
 						{
-							$db = new PDO('sqlite:protected\data\my.db');
+							$db = new PDO('sqlite:protected\data\chs.db');
 							//	echo '<hr>'.$db_update_file;
 							$file_handle=fopen($db_update_file,'r');
 							echo "<br />";
@@ -382,7 +382,7 @@ class Config extends CActiveRecord
 						$non_copied_files_flag=1;
 						
 						
-						/*
+						
 						$json=$file_get_contents($setup_file);
 						$jsonIterator = new RecursiveIteratorIterator(
 												new RecursiveArrayIterator(json_decode($json, TRUE)),
@@ -432,7 +432,7 @@ class Config extends CActiveRecord
 								}///end of else of is_array
 							}///end of foreach iterator
 						
-							 */
+							
 							$last_successful_step_message= " All new files copied";
 							$last_successful_step=6;
 											

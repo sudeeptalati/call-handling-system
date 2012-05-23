@@ -11,7 +11,7 @@
 		{
 			if(id > 100)
 			{
-		        alert("You can not change this status again");
+		        alert("This status will close the call and it won't be editable afterwards.");
 			}
 		}
 		</script>

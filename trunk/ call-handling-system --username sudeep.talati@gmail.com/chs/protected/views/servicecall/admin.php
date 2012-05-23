@@ -3,7 +3,7 @@
 
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('index')),
-	array('label'=>'Create Service Call', 'url'=>array('customer/freeSearch')),
+	array('label'=>'Create Service Call', 'url'=>array('servicecall/freeSearch')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -43,9 +43,10 @@ $('.search-form form').submit(function(){
 		//'customer_id',
 		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
-		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
+		array('name'=>'customer_postcode','value'=>'$data->customer->postcode'),
 		//'product_id',
 		array('name'=>'product_name','value'=>'$data->product->productType->name'),
+		
 		//'job_status_id',
 		
 //		array('name'=>'job_status',
@@ -61,8 +62,16 @@ $('.search-form form').submit(function(){
 			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
 			'filter'=>Engineer::items('Engineer'),
 		),
+		//'created_by_user_id',
+		//array('name'=>'user_name','value'=>'$data->createdByUser->name'),
+		
+//		array(
+//			'name'=>'created_by_user_id',
+//			'value'=>'User::item("User",$data->created_by_user_id)',
+//			'filter'=>User::items('User'),
+//		),
+//		
 		'created_by_user_id',
-		//array('name'=>'created_by_user','value'=>'$data->createdByUser->name'),
 		
 		array(
 			'name'=>'job_status_id',

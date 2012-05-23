@@ -182,8 +182,7 @@ class Engineer extends CActiveRecord
 		foreach($models as $model)
 			self::$_items[$type][$model->id]=$model->fullname;
 	}//end of loaditems.
-	
-	
+		
 	
 	protected function beforeSave()
     {
@@ -233,10 +232,7 @@ class Engineer extends CActiveRecord
             	}					
             	
             	//UPDATING FULLNAME.
-            	if($engineer->fullname!=$this->fullname)
-            	{
-            		$this->fullname=$this->first_name." ".$this->last_name;
-            	}
+            	$this->fullname=$this->first_name." ".$this->last_name;
             	$this->modified=time();
                 return true;
             }

@@ -31,7 +31,7 @@
 class Engineer extends CActiveRecord
 {
 	
-	public $created_by_user;
+	public $user;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Engineer the static model class

@@ -353,11 +353,8 @@ class Servicecall extends CActiveRecord
             /********* THIS BIT IS CALLED DURING UPDATE *********/
             else
             {     	
-            	
             	$current_user=Yii::app()->user->name;
             	$this->activity_log.="\n Status is changed to ".$this->jobStatus->name." by ".$current_user;
-            	
-            	
             	$this->modified=time();
                 return true;
             }

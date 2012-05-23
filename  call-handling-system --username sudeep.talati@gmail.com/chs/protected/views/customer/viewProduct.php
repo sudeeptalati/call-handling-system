@@ -100,21 +100,21 @@
 	</tr>
 	<tr>
 		<td>
-			<?php echo $form->labelEx($model,'email'); ?>
-			<?php echo $form->textField($model,'email',array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($model,'email'); ?>
+			<?php echo $form->labelEx($customerModel,'email'); ?>
+			<?php echo $form->textField($customerModel,'email',array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($customerModel,'email'); ?>
 		</td>
 		<td>
 			<?php echo "Created by<br>";?>
 			<?php echo CHtml::textField('',$user,array('disabled'=>'disabled')); ?>
 		</td>
 		<td>
-			<?php echo $form->labelEx($model,'notes'); ?>
-			<?php echo $form->textArea($model,'notes',array('rows'=>2, 'cols'=>20,'disabled'=>'disabled')); ?>
-			<?php echo $form->error($model,'notes'); ?>
+			<?php echo $form->labelEx($customerModel,'notes'); ?>
+			<?php echo $form->textArea($customerModel,'notes',array('rows'=>2, 'cols'=>20,'disabled'=>'disabled')); ?>
+			<?php echo $form->error($customerModel,'notes'); ?>
 		</td>
 	</tr>
-	
+	<!-- ************************ END OF CUSTOMER DETAILS ******************** -->
 		<tr>
 		<td colspan="3" style="text-align:center"><h2>Product Details</h2></td>
 	</tr>

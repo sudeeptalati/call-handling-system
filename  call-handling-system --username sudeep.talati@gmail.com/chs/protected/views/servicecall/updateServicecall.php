@@ -243,7 +243,7 @@
 				<?php 
 					if (!empty($model->job_finished_date))
 					{
-						$model->job_finished_date=date('d-M-y', $model->job_finished_date);
+						$model->job_finished_date=date('j-M-y', $model->job_finished_date);
 					}
 					?>
 				
@@ -255,7 +255,7 @@
 				    // additional javascript options for the date picker plugin
 				    'options'=>array(
 				        'showAnim'=>'fold',
-						'dateFormat' =>'dd-mm-yy' ,
+						'dateFormat' =>'d-M-y' ,
 				    ),
 				    'htmlOptions'=>array(
 				        'style'=>'height:20px;'

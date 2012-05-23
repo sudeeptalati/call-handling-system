@@ -375,7 +375,7 @@ class EnggdiaryController extends Controller
 		$date      = $visit_date;
 $startTime = $visit_date;
 $endTime   = $visit_date;
-$subject   = 'hi';
+$subject   = 'Appointment Details';
 $desc      = 'Customer Details'.
 			 '\n Name - '.$serviceModel->customer->fullname.
 			 '\n Address - '.$address.

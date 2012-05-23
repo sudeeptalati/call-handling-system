@@ -86,8 +86,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($ContactDetailsModel,'postcode_s'); ?>
-		<?php echo $form->textField($ContactDetailsModel,'postcode_s',array('size'=>6)); ?>
-		<?php echo $form->textField($ContactDetailsModel,'postcode_e',array('size'=>6)); ?>
+		<?php echo $form->textField($ContactDetailsModel,'postcode_s',array('size'=>6, 'maxlength'=>4)); ?>
+		<?php echo $form->textField($ContactDetailsModel,'postcode_e',array('size'=>6, 'maxlength'=>4)); ?>
 		<?php echo $form->error($ContactDetailsModel,'postcode_s'); ?>
 		<?php echo $form->error($ContactDetailsModel,'postcode_e'); ?>
 	</div>

@@ -136,23 +136,34 @@ class ServicecallController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall']))
-		{
-			//echo "I M HERE";
-			$model->attributes=$_POST['Servicecall'];
-			
-			if($model->save())
+		if( $model->job_status_id < 100 )
+		/*THIS LOCKsJOBS with status greater than 100 to edit */
+		{ 
+			if(isset($_POST['Servicecall']))
 			{
-				$this->redirect(array('view','id'=>$model->id));
-			}
-			else
-			{
-			echo "Not Save";
+				//echo "I M HERE";
+				$model->attributes=$_POST['Servicecall'];
+				
+				if($model->save())
+				{
+					$this->redirect(array('view','id'=>$model->id));
+				}
+				else
+				{
+				echo "Not Save";
+				
+				}
+				
+			}//end of if(isset()).
+		
+		}/////end of if( $model->job_status_id < 100 )
+		else {
 			
-			}
-			
-		}//end of if(isset()).
-
+			$this->redirect(array('view','id'=>$model->id));
+				
+		
+		}
+	
 		$this->render('updateServicecall',array(
 			'model'=>$model,
 		));

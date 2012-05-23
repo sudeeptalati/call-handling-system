@@ -169,7 +169,7 @@ return array(
 		'company_address'=>'Kilmarnock',
 		'company_contact_details'=>'Telephone:321321312 Fax:23132231 E-mail:stalati@ukwhitegoods.co.uk',
 		'vat_in_percentage'=>'20%',	
-		'software_version'=>'0.5beta',	
+		'software_version'=>'0.5.1beta',	
 
 	),
 

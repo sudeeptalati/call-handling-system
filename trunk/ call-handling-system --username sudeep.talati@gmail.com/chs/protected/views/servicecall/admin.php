@@ -41,11 +41,16 @@ $('.search-form form').submit(function(){
 		),
 */
 		//'customer_id',
-		array('name'=>'customer_name','value'=>'$data->customer->fullname'),
+		array('header' => 'Customer',
+            	'name'=>'customer_name','value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
 		array('name'=>'customer_postcode','value'=>'$data->customer->postcode'),
 		//'product_id',
-		array('name'=>'product_name','value'=>'$data->product->productType->name','filter'=>false),
+		array(	'header' => 'Product',
+            	'name'=>'product_name',
+				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
+				'filter'=>false),
+		
 		
 		//'job_status_id',
 		
@@ -63,7 +68,8 @@ $('.search-form form').submit(function(){
 			'filter'=>Engineer::items('Engineer'),
 		),
 		//'created_by_user_id',
-		array('name'=>'user_name','value'=>'$data->createdByUser->name','filter'=>false),
+		array('header' => 'RaisedBy',
+            	'name'=>'user_name','value'=>'$data->createdByUser->name','filter'=>false),
 		
 //		array(
 //			'name'=>'created_by_user_id',

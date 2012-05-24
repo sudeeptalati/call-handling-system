@@ -114,7 +114,7 @@ class Servicecall extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'service_reference_number' => 'Service Reference Number',
+			'service_reference_number' => 'Job Ref. No#',
 			'customer_id' => 'Customer',
 			'product_id' => 'Product',
 			'contract_id' => 'Contract',

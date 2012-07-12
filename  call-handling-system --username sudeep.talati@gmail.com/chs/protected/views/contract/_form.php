@@ -68,6 +68,12 @@ $('.technical-form').toggle();
 	</div>
 	
 	<div class="row">
+		<?php echo $form->labelEx($model,'short_name'); ?>
+		<?php echo $form->textField($model,'short_name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'short_name'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($model,'vat_reg_number'); ?>
 		<?php echo $form->textField($model,'vat_reg_number',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'vat_reg_number'); ?>

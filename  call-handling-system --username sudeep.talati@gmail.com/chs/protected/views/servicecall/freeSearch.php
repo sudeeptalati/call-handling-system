@@ -157,6 +157,28 @@ vertical-align:top;
  
 </style>
         
+		<!-- ********** CODE ADDED TO EXPERIMENT OTHER DATABASE USAGE ******** -->
+		<?php  
+			//$data = Yii::app()->db1->user->id;
+			//echo $data;
+			
+			//$message = Items::model()->check();
+			//echo $message;
+			
+			//$connection = Yii::app()->db1;
+			//$sql="SELECT * from suppliers";
+			//$supp=$connection->createCommand($sql)->queryAll();
+			//$command=$connection->createCommand($sql);
+			//$supp = $command->execute();
+			//echo $supp;
+			//foreach($supp as $data)
+			//{
+				//echo $data['id']."\n";
+				//echo $data['name'];
+				//echo $supp->name;
+			//}
+		?>
+		<!-- ********** CODE ADDED TO EXPERIMENT OTHER DATABASE USAGE ******** -->
  <div id="dashboard_container">
 
 <table >
@@ -378,9 +400,9 @@ vertical-align:top;
 		<li style="text-align:justify; margin-left:10px;">	
 		<?php
 			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
-			$server_msg = curl_file_get_contents($server_msg_url, true);
+				$server_msg = curl_file_get_contents($server_msg_url, true);
 
-			echo $server_msg; 
+				echo $server_msg; 
 		?>
 		</li>
 		</ul>

@@ -43,9 +43,9 @@
 	<table>
 	
 	<tr>
-		<td><h3 style="margin-bottom:0.01px;">Service Call Details</h3>
+		<td><h3 style="margin-bottom:0.01px;">Service Call Details</h3></td>
 	
-		<td><h3 style="margin-bottom:0.01px;">Product Details</h3>
+		<td><h3 style="margin-bottom:0.01px;">Product Details</h3></td>
 	</tr>
 	
 	<tr>

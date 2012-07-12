@@ -1,3 +1,10 @@
+<?php 
+   $mtime = microtime(); 
+   $mtime = explode(" ",$mtime); 
+   $mtime = $mtime[1] + $mtime[0]; 
+   $starttime = $mtime; 
+;?> 
+
 <script type="text/javascript">
 function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin(Key, Postcode,  UserName)
    {
@@ -136,7 +143,7 @@ background-color: #FFFF9D;
 
 <!-- ***** FIRST PART DISPLAYING SERVICE CALL DETAILS ******* -->
 	<table style="margin:10px;">
-	<tr><td colspan="2"><h2 style="margin-bottom:0.01px;color:#555;"><label>Service Details</label></h2>
+	<tr><td colspan="2"><h2 style="margin-bottom:0.01px;color:#555;"><label>Service Details</label></h2></td></tr>
 	
 	<tr>
 	<td style="vertical-align:top;">	
@@ -360,7 +367,7 @@ background-color: #FFFF9D;
 	?>
 	
 	<table style="width:400px; margin:10px;">
-	<tr><td colspan="3"><h2 style="margin-bottom:0.01px;color:#555;"><label>Product Details</label></h2>
+	<tr><td colspan="3"><h2 style="margin-bottom:0.01px;color:#555;"><label>Product Details</label></h2></td></tr>
 	
 	<tr>
 		<td>
@@ -508,7 +515,7 @@ background-color: #FFFF9D;
 
  
 	<table style="width:400px; margin:10px;">
-		<tr><td colspan="2"><h2 style="margin-bottom:0.01px;color:#555;"><label>Assign Engineer</label></h2>
+		<tr><td colspan="2"><h2 style="margin-bottom:0.01px;color:#555;"><label>Assign Engineer</label></h2></td></tr>
 		<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
@@ -522,9 +529,6 @@ background-color: #FFFF9D;
 		</tr>
 	</table>
 	
-	
-	
-
 </tr>
 </table><!-- END OF MASTER TABLE WITH CURVES -->
 	
@@ -532,3 +536,42 @@ background-color: #FFFF9D;
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<?php 
+
+
+		for($i=0;$i<=100;$i++)
+		{
+			
+			$last_po_number = Yii::app()->db->createCommand()
+                                ->select('id , service_reference_number')                                
+                                ->from('servicecall')
+                               
+                                ;
+                	$data = $last_po_number->query();
+                					
+					foreach ($data as $out)
+					{
+						$serviceRefNo=$out['service_reference_number'];
+						if($serviceRefNo == '200001')
+						{
+							$id=$out['id'];
+//							echo $serviceRefNo;
+//							echo $id."&nbsp;&nbsp;&nbsp;&nbsp;";
+//							echo $i."<br>";
+						}
+					}///end of foreach
+	
+		}
+
+	//}
+?>
+
+<?php 
+   $mtime = microtime(); 
+   $mtime = explode(" ",$mtime); 
+   $mtime = $mtime[1] + $mtime[0]; 
+   $endtime = $mtime; 
+   $totaltime = ($endtime - $starttime); 
+   echo "This page was created in ".$totaltime." seconds"; 
+;?>

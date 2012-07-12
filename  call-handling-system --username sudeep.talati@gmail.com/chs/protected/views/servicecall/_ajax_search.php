@@ -12,11 +12,7 @@ echo "Insurence Reference Number : ".$row['insurer_reference_number']."			";
 <?php 
 $bg_color='#EFFDFF;';
 
-
-//$str = "	hello adsfdsaf	";
-//$trim_str = trim($str); 
-//echo "hi".$str."<hr>";
-//echo "hi".$trim_str;
+//echo "hello";
 
 
 ?>
@@ -101,7 +97,8 @@ vertical-align:top;
 		<td>
 			<?php echo $data->customer->fullname;?>
 			<br><small><?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$data->customer->id,'product_id'=>$data->customer->product_id));?>
-			</small>
+			</small><br>
+			<?php //echo CHtml::link('Existing Customer', array('servicecall/existingCustomer', 'customer_id'=>$data->customer_id, 'product_id'=>$data->product_id));?>
 		</td>
 		
 		<td>
@@ -193,7 +190,7 @@ vertical-align:top;
 		</form>	
 		</td>
 		-->
-	</tr>
+	
 
 	<?php $i++; }//end of product foreach.?>
 	

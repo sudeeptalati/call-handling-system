@@ -28,7 +28,7 @@ class ServicecallController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'Getitems','curl_file_get_contents'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -124,6 +124,7 @@ class ServicecallController extends Controller
 		));
 	}//end of create.
 
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -459,10 +460,33 @@ class ServicecallController extends Controller
 //        	
 //        }
 //        
-        
+ }//end of searchEngine().
+    
+	public function actionGetitems()
+	{
+//		$model=new Servicecall('search');
+//			$id = $_GET['master_id'];
+//			$service_id = $_GET['service_id'];
+//			echo "master id from get items action = ".$id."<br>";
+//			echo "service id in get items action = ".$service_id."<br>";
+			
+			//$server_items_url='http://localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?keyword='.$id;
+			
+//			$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$id;
+//			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
+//			echo $server_msg."<hr>";
+//			
+//			$decodedata = json_decode($server_msg, true);
+//			echo $decodedata['master_id']."<br>";
+//			echo $decodedata['part_num']."<br>";
+//			echo $decodedata['opn']."<br>";
+//			echo $decodedata['part_name']."<br>";
+			
+			$this->render('addToSpares');
+			
+			
+	}//end of getItems().
+	
 
-    
-    
-    }//end of searchEngine().
 	
 }//end of class.

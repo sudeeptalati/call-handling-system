@@ -248,7 +248,20 @@
 	<tr>
 		<td>
 			<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
-			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('1'=>'Yes', '0'=>'No' ),array('disabled'=>'disabled')); ?>
+			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('1'=>'Yes', '0'=>'No' ),array('disabled'=>'disabled')); ?><br>
+			<?php 
+				if($model->spares_used_status_id == 1)
+				{
+					//echo "Spares used";
+					$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
+					foreach ($sparesModel as $data)
+					{
+						echo $data->id."&nbsp;&nbsp;&nbsp;";
+						echo $data->item_name."<br>";
+					}
+				}	
+			
+			?>
 			<br>			
 			<?php echo $form->labelEx($model,'work_carried_out'); ?>
 			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>

@@ -1,10 +1,43 @@
+<?php 
+   $mtime = microtime(); 
+   $mtime = explode(" ",$mtime); 
+   $mtime = $mtime[1] + $mtime[0]; 
+   $starttime = $mtime; 
+;?> 
+
+<style type="text/css">
+td
+{
+
+vertical-align:top;
+}
+</style>
+
 	<div class="form">
 
 	
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'servicecall-updateServicecall-form',
 		'enableAjaxValidation'=>false,
+		//'focus'=>array($model,'spares_used_status_id'),
 	)); ?>
+	
+	    <script>
+	    	$(document).ready(function(){
+	    		  var droplist = $('#spares-dropdown-id');
+	    		  if(droplist.val()== '1')
+	    			  $('#freesearch-Form').show();
+	    		  
+	    		  droplist.change(function(e){
+	    		    if (droplist.val() == '1') {
+	    		      $('#freesearch-Form').show();
+	    		    }
+	    		    else {
+	    		      $('#freesearch-Form').hide();
+	    		    }
+	    		  })
+	    		});
+	    </script>
 	
 		<script type="text/javascript">
 		function my_change(id)
@@ -14,6 +47,7 @@
 		        alert("This status will close the call and it won't be editable afterwards.");
 			}
 		}
+
 		</script>
 		
 	
@@ -87,10 +121,15 @@
 					
 				?>
 			</td>
+			<td>
 			
-			<td><b>Service Ref. No.#</b><br><h2 style="color: green;"><?php echo $model->service_reference_number;?></h2></td>
+			<b>Service Ref. No.#</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo CHtml::submitButton('Modify'); ?>
+			<h2 style="color:green;"><?php echo $model->service_reference_number;?></h2>
 			
-			<td colspan="3" style="vertical-align:top;"><?php echo CHtml::submitButton('Modify'); ?></td>
+			</td>
+			
+			
+			
 		</tr>
 		
 		<tr><td colspan="2" style="text-align:center">
@@ -154,13 +193,13 @@
 			<?php echo CHtml::textField('',$viewVisitStartDate,array('disabled'=>'disabled')); ?>
 			<?php //echo $form->error($enggDiaryModel,'visit_start_date'); ?>
 			
-			<!-- code for image link to change appointment -->
+			<!-- ******* code for image link to change appointment ******* -->
 			<?php 
 				$imgurl = Yii::app()->request->baseUrl.'/images/engineer_diary.gif';
 				$imghtml = CHtml::image($imgurl,'Engineer Appointment',array('width'=>25, 'height'=>25, 'title'=>'Engineer Appointment' )); 
 				//echo CHtml::link($imghtml, array('Enggdiary/iCalLink','id'=>$model->id));
 			?>
-			<!-- end of code. -->
+			<!-- ****************** end of code. ******************** -->
 			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
 			<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
@@ -199,11 +238,203 @@
 		</tr>
 		<tr>
 			<td>
+			
+			
+			
 				<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
 				<?php //echo $form->textField($model,'spares_used_status_id'); ?>
 				<?php //$model->spares_used_status_id='';?>
-				<?php echo $form->dropDownList($model, 'spares_used_status_id', array(  '0'=>'No','1'=>'Yes'));?>
-				<?php echo $form->error($model,'spares_used_status_id'); ?>
+				<?php 
+					echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'No','1'=>'Yes'), 
+																		array('id'=> 'spares-dropdown-id')																			
+				);?>
+				<?php echo $form->error($model,'spares_used_status_id'); ?><br>
+				
+				<!-- ****** CODE TO DISPLAY SPARES ALREADY USED ******* -->
+				<?php 
+					if($model->spares_used_status_id == 1)
+					{
+						echo "Spares used :<br>";
+						$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
+						?>
+						<table>
+						<tr>
+						<th style="color:maroon">Part Number</th>
+						<th style="color:maroon">Item Name</th>
+						<th style="color:maroon">Qty</th>
+						</tr>
+						<?php 
+						foreach ($sparesModel as $data)
+						{
+							?>
+							<tr>
+							<td width="35%"><?php echo $data->part_number;?></td>
+							<td width="35%"><?php echo $data->item_name;?></td>
+							<td><?php echo $data->quantity."<br>";?></td>
+							</tr>
+							<?php 
+						}//end of foreach.
+						?>
+						</table>
+						<?php 
+					}//end of if spares_used_status_id == 1.
+					
+				?>
+				
+				<!-- ****** END OF CODE TO DISPLAY SPARES ALREADY USED ******* -->
+				
+				
+				<!-- ***** CODE TO GET THE FREES SEARCH OF MASTER DATABASE **** -->
+			
+				<?php //echo  CHtml::link('Select Item', array('sparesUsed/masterFreeSearch/?service_id='.$model->id));?>
+				
+				
+				<br><div id="freesearch-Form" style="display:none"><!-- ITEM SEARCH DIV -->
+				<?php  $service_id = $model->id;  
+				 
+				  $baseUrl = Yii::app()->baseUrl; 
+				  $cs = Yii::app()->getClientScript();
+				  $cs->registerScriptFile($baseUrl.'/js/jquery.js');
+				  //include ('jquery.js'); 
+			    ?>
+				
+				  <div class="admin">
+				  
+				  <script type="text/javascript">
+				 
+				 
+				$(document).ready(function() {
+				
+				$("#faq_search_input").keyup(function()
+				
+				{
+				var faq_search_input = $(this).val();
+				var dataString = 'keyword='+ faq_search_input;
+				
+				//var ref_id = $('#ref_id').val(); 
+				//var cust_id = $('#cust_id').val(); 
+				var search_url = $('#search_url').val(); 
+				var service_id = $('#service_id').val();
+				var temp_url = $('#temp_url').val();
+				var current_url = $('#current_url').val();
+				 
+				if(faq_search_input.length>2)
+				{
+				$.ajax({
+				type: "GET",
+				//url: current_url+"/MasterSearchData/?service_id="+service_id,
+				//url: current_url+"/getItems",
+				//url: search_url,
+				url: temp_url,
+				
+				data: dataString,
+				//data: dataString+"&refid="+ref_id+"&custid="+cust_id,
+				//data: dataString,
+				beforeSend:  function() {
+				
+				$('input#faq_search_input').addClass('loading');
+				
+				},
+				success: function(server_response)
+				{
+				$('#searchresultdata').html(server_response).show();
+				$('span#faq_category_title').html(faq_search_input);
+				
+				if ($('input#faq_search_input').hasClass("loading")) {
+				 $("input#faq_search_input").removeClass("loading");
+				        } 
+				
+				}
+				});
+				}return false;
+				});
+				});
+					  
+				</script>
+				
+				<?php
+				
+				$baseUrl = Yii::app()->baseUrl; 
+				$model_name=Yii::app()->controller->id;
+				$current_url=$baseUrl."/".$model_name;
+				//$current_url=$baseUrl."/Servicecall";
+				 
+				$search_url=$current_url."/MasterSearchData?service_id=".$service_id."&";
+				//echo "base url = ".$baseUrl."<br>";
+				$checkUrl = '../$baseUrl';
+				$fileUrl = '../../fitlist';
+				//$temp_url = '';
+				$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?service_id=".$service_id."&";
+				//$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine";
+				 
+				//$temp_url = 'http://192.168.1.200/old-30apr2012/amica/chs/servicecall/servicecall_edit_search_engine.php?';
+				
+				
+				?>
+				
+					<input type="hidden" id="search_url" value="<?php echo $search_url;?>"/> 
+					<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>
+					<input type="hidden" id="temp_url" value="<?php echo $temp_url;?>"/>
+					<input type="hidden" id="current_url" value="<?php echo $current_url;?>"/>
+					<!--<input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> 
+					<input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/>  -->
+					
+							  Enter Item Name, Part Number or barcode<br>
+				              <!-- The Searchbox Starts Here  -->
+				              <form  name="search_form">
+				              <input  name="query" type="text" id="faq_search_input" style="background-color: #F8D0C1" size='40' />
+				              </form>
+				             <!-- The Searchbox Ends  Here  -->
+				       <div id="searchresultdata" class="faq-articles"> </div>
+				     </div>
+				
+				
+				</div><!-- END OF ITEM SEARCH DIV -->
+				
+<!-- ********* CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->				
+<?php 
+//echo $master_id."<br>";
+if (!empty($_GET['master_id']))
+{
+	echo "<hr>";
+$master_id = $_GET['master_id'];
+
+$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$master_id;
+			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
+			//echo $server_msg."<hr>";
+			$decodedata = json_decode($server_msg, true);
+//			echo $decodedata['master_id']."<br>";
+//			echo $decodedata['part_num']."<br>";
+			$part_number = $decodedata['part_num'];
+			//echo $decodedata['opn']."<br>";
+			$opn = $decodedata['opn'];
+			//echo $decodedata['part_name']."<br>";
+			$name = $decodedata['part_name'];
+			//echo "item name = ".$name."<br>";
+?>
+
+	<form action="<?php echo Yii::app()->createUrl("SparesUsed/saveData");?>" method="POST">
+	<input type="hidden" name="master_id" value=<?php echo $master_id;?>>
+	<input type="hidden" name="service_id" value=<?php echo $model->id;?>>
+	<input type="hidden" value=<?php echo $opn;?>>
+	<input type="hidden" name="part_number" value=<?php echo $part_number;?>>
+	<input type="hidden" name="name" value="<?php echo $name;?>" >
+	<b>Part Name</b> &nbsp;&nbsp;&nbsp; <?php echo $name;?> <br> <b>Part number</b> &nbsp;&nbsp;&nbsp; <?php echo $part_number;?> <br><br>
+	Quantity <input type="text" name="quantity" size="3"> &nbsp;&nbsp;&nbsp;
+	Price <input type="text" name="unit_price" size="3"><br>
+	<input type="submit" style="width:100px">
+	</form>
+	<hr>
+	
+<?php }///end of items form?>
+	
+<!-- ********* END OF CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->
+				
+				<BR><BR><BR>	
+				
+
+			
+				<!-- ***** END OF CODE TO GET THE FREES SEARCH OF MASTER DATABASE ENDS **** -->
 				
 				<?php echo $form->labelEx($model,'work_carried_out'); ?>
 				<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30')); ?>
@@ -391,3 +622,12 @@
 	<?php $this->endWidget(); ?>
 	
 	</div><!-- form -->
+	
+<?php  
+   $mtime = microtime(); 
+   $mtime = explode(" ",$mtime); 
+   $mtime = $mtime[1] + $mtime[0]; 
+   $endtime = $mtime; 
+   $totaltime = ($endtime - $starttime); 
+   echo "This page was created in ".$totaltime." seconds"; 
+;?>

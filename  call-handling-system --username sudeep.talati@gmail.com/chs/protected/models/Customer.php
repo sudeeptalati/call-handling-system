@@ -99,8 +99,8 @@ class Customer extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
-			'first_name' => 'First Name',
-			'last_name' => 'Last Name',
+			'first_name' => 'Company Name',
+			'last_name' => 'Name',
 			'product_id' => 'Product',
 			'address_line_1' => 'Address Line 1',
 			'address_line_2' => 'Address Line 2',
@@ -212,8 +212,8 @@ class Customer extends CActiveRecord
         	$trimmed_s = $this->postcode_s;
         	$trimmed_e = $this->postcode_e;
         	$this->postcode=$trimmed_s." ".$trimmed_e;
-        	$this->fullname=$this->first_name." ".$this->last_name;
-        	
+        	//$this->fullname=$this->first_name." ".$this->last_name;
+        	$this->fullname=$this->first_name;
         	
         	if($this->isNewRecord)  // Creating new record 
             {

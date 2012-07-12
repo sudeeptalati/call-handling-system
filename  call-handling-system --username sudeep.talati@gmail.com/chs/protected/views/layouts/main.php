@@ -1,3 +1,11 @@
+
+<?php 
+   $mtime = microtime(); 
+   $mtime = explode(" ",$mtime); 
+   $mtime = $mtime[1] + $mtime[0]; 
+   $starttime = $mtime; 
+;?> 
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -102,3 +110,12 @@ $baseUrl= Yii::app()->request->baseUrl;
 
 </body>
 </html>
+
+<?php 
+   $mtime = microtime(); 
+   $mtime = explode(" ",$mtime); 
+   $mtime = $mtime[1] + $mtime[0]; 
+   $endtime = $mtime; 
+   $totaltime = ($endtime - $starttime); 
+   //echo "This page was created in ".$totaltime." seconds"; 
+;?>

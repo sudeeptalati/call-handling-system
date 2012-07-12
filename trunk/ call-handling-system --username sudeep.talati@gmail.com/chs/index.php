@@ -1,4 +1,6 @@
 <?php
+
+
 if (file_exists('install/index.php')) {
 	echo "<SCRIPT LANGUAGE='javascript'>location.href='install/index.php';</SCRIPT>";
 }

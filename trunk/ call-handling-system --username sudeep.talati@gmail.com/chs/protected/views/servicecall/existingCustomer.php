@@ -166,13 +166,46 @@
 		</td>
 	</tr>
 	</table>
+	</div>
+	</td>
 	<!-- end of product service table -->
 	
 	<!-- ******************* PREVIOUS SERVICECALLS RECORD *************** -->
 	
 	<tr><td colspan="6">
-		<?php $model->previousCall($cust_id,$prod_id);?>
+		<?php //$model->previousCall($cust_id,$prod_id);?>
+		<table><tr>
+    	<th>Service Reference Number</th>
+    	<th>Reported Date</th>
+    	<th>Fault Description</th>
+    	<th>Engineer Visited</th>
+    	<th>Visit Date</th>
+    	<th>Job Status</th>
+    	</tr>
+    	<?php $previousCall = $model->previousCall($cust_id,$prod_id);
+    	foreach ($previousCall as $data)
+    	{
+    		$enggdiaryModel=Enggdiary::model()->findByPk($data->engg_diary_id);
+		?>
+		<tr>
+    		<td><?php echo CHtml::link($data->service_reference_number, array('view', 'id'=>$data->id));?></td>
+    		<td><?php
+    				if(!empty($data->fault_date)) 
+    					echo date('d-M-Y', $data->fault_date);
+    			?>
+    		</td>
+    		<td><?php echo $data->fault_description;?></td>
+    		<td><?php echo $data->engineer->fullname;?></td>
+    		<td><?php
+    				if(!empty($enggdiaryModel->visit_start_date)) 
+    					echo date('d-M-Y',$enggdiaryModel->visit_start_date);?>
+    		</td>
+    		<td style="color:maroon"><?php echo $data->jobStatus->name;?></td>
+    		</tr>
+		<?php }//end of foreach().?>
+    	</table>
 	</td></tr>
+	
 	<!-- ******************* END OF PREVIOUS SERVICECALLS RECORD *************** -->
 	
 	

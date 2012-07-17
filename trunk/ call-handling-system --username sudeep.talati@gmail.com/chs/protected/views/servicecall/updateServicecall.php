@@ -250,7 +250,7 @@ vertical-align:top;
 				);?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?><br>
 				
-				<!-- ****** CODE TO DISPLAY SPARES ALREADY USED ******* -->
+				<!-- ****** CODE TO DISPLAY SPARES ALREADY USED *********** -->
 				<?php 
 					if($model->spares_used_status_id == 1)
 					{
@@ -401,6 +401,8 @@ $master_id = $_GET['master_id'];
 
 $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$master_id;
 			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
+			//$array= explode("\n", $server_msg);
+			//echo "Total No. of lines are ".count($array);
 			//echo $server_msg."<hr>";
 			$decodedata = json_decode($server_msg, true);
 //			echo $decodedata['master_id']."<br>";
@@ -411,7 +413,34 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 			//echo $decodedata['part_name']."<br>";
 			$name = $decodedata['part_name'];
 			//echo "item name = ".$name."<br>";
+			
+			if ($part_number == '')
+			{
+				//echo "no data";
+				$db = new PDO('sqlite:../master_database/api/master_database.db');
+				
+				$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
+				$rows = $result->fetchAll(); // assuming $result == true
+				$n = count($rows);
+				//echo "no of rows = ".$n."<br>";
+				
+				foreach($rows as $d)
+				{
+					//echo $d['id']."<br>";
+					//echo $d['name']."<br>";
+					$name = $d['name'];
+					//echo $d[''];
+					//echo $d['part_number']."<br>";
+					$part_number = $d['part_number'];
+					$var = preg_replace("/[^A-Za-z0-9]/", "", $part_number);
+					$trimmed = trim($var);
+					$opn = strtoupper($trimmed);
+				
+				}
+				
+			}//end of if part_number empty.
 ?>
+
 
 	<form action="<?php echo Yii::app()->createUrl("SparesUsed/saveData");?>" method="POST">
 	<input type="hidden" name="master_id" value=<?php echo $master_id;?>>
@@ -424,6 +453,7 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 	Price <input type="text" name="unit_price" size="3"><br>
 	<input type="submit" style="width:100px">
 	</form>
+
 	<hr>
 	
 <?php }///end of items form?>

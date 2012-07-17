@@ -244,11 +244,6 @@ vertical-align:top;
 
 	?>
 	
- 
-
-
-
-
 <tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" >
 
 		

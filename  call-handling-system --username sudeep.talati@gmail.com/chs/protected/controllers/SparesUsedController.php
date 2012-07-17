@@ -250,33 +250,6 @@ class SparesUsedController extends Controller
 	        ));
 	}//end of actionMasterSearchData().
 	
-	public function actionOpenDialogueBox($service_id)
-	{
-		$model=new SparesUsed;
-		$message = CHtml::link('Select');
-		$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
-		 				'id'=>'juiDialog',
-		  				'options'=>array(
-								'title'=>'Select the product',
-		    					'autoOpen'=>true,
-		    					'modal'=>'true',
-		    					'show' => 'blind',
-	                           	'hide' => 'explode',
-	                           	//'color' => 'blue',
-		    					//'width'=>'40px',
-		    					//'height'=>'40px',
-		    					),
-		    			'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-	       		));
-		    		
-		    echo $message;
-		    $this->endWidget();
-		    
-			$this->render('create',array(
-			'service_id'=>2,'model'=>$model,
-			));
-	}//end of actionOpenDialogueBox.
-	
 	public function actionSaveData()
 	{
 		//echo "in savedata action<hr>";
@@ -327,8 +300,14 @@ class SparesUsedController extends Controller
 				$enr_number = $model->servicecall->product->enr_number;
 				$fnr_number = $model->servicecall->product->fnr_number;
 				$productionCode = $model->servicecall->product->production_code;
-				$original_modelNumber = strtoupper($model_number);
-				$original_partNumber = strtoupper($model->part_number);
+				//$original_modelNumber = strtoupper($model_number);
+				$modelVar = preg_replace("/[^A-Za-z0-9]/", "", $model_number);
+				$modelTrimmed = trim($modelVar);
+				$original_modelNumber = strtoupper($modelTrimmed);
+				//$original_partNumber = strtoupper($model->part_number);
+				$partVar = preg_replace("/[^A-Za-z0-9]/", "", $model->part_number);
+				$partTrimmed = trim($partVar);
+				$original_partNumber = strtoupper($partTrimmed);
 				//echo strtoupper($serial_number);
 				//$var = preg_replace("/[^A-Za-z0-9]/", "", $var);
 				
@@ -382,13 +361,14 @@ class SparesUsedController extends Controller
 //		echo $master_id."<hr>";
 //		echo $service_id."<hr>";
 		
-		$model= new SparesUsed;
+		$model= new SparesUsed();
 		$model->master_item_id=$master_id;
 		$model->servicecall_id=$service_id;
 		$model->item_name=$item_name;
 		$model->part_number=$part_number;
 		$model->quantity=$quantity;
 		$model->unit_price=$unit_price;
+		
 		
 		if($model->save())
 		{
@@ -417,8 +397,15 @@ class SparesUsedController extends Controller
 				$enr_number = $model->servicecall->product->enr_number;
 				$fnr_number = $model->servicecall->product->fnr_number;
 				$productionCode = $model->servicecall->product->production_code;
-				$original_modelNumber = strtoupper($model_number);
-				$original_partNumber = strtoupper($model->part_number);
+//				$original_modelNumber = strtoupper($model_number);
+//				$original_partNumber = strtoupper($model->part_number);
+				$modelVar = preg_replace("/[^A-Za-z0-9]/", "", $model_number);
+				$modelTrimmed = trim($modelVar);
+				$original_modelNumber = strtoupper($modelTrimmed);
+				//$original_partNumber = strtoupper($model->part_number);
+				$partVar = preg_replace("/[^A-Za-z0-9]/", "", $model->part_number);
+				$partTrimmed = trim($partVar);
+				$original_partNumber = strtoupper($partTrimmed);
 				//echo strtoupper($serial_number);
 				
 				$paramArray = array();

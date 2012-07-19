@@ -318,7 +318,7 @@ vertical-align:top;
 				var temp_url = $('#temp_url').val();
 				var current_url = $('#current_url').val();
 				 
-				if(faq_search_input.length>2)
+				if(faq_search_input.length>3)
 				{
 				$.ajax({
 				type: "GET",
@@ -327,7 +327,8 @@ vertical-align:top;
 				//url: search_url,
 				url: temp_url,
 				
-				data: dataString,
+				//data: dataString,
+				data: dataString+"&service_id="+service_id,
 				//data: dataString+"&refid="+ref_id+"&custid="+cust_id,
 				//data: dataString,
 				beforeSend:  function() {
@@ -361,14 +362,12 @@ vertical-align:top;
 				 
 				$search_url=$current_url."/MasterSearchData?service_id=".$service_id."&";
 				//echo "base url = ".$baseUrl."<br>";
-				$checkUrl = '../$baseUrl';
+				$checkUrl = '../'.$baseUrl;
 				$fileUrl = '../../fitlist';
-				//$temp_url = '';
-				$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?service_id=".$service_id."&";
-				//$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine";
-				 
-				//$temp_url = 'http://192.168.1.200/old-30apr2012/amica/chs/servicecall/servicecall_edit_search_engine.php?';
-				
+				//$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?service_id=".$service_id."&";
+				//$temp_url = 'http://192.168.1.200/itemsfreesearch/searchapi.php?';
+				//$temp_url='../../../master_database/api/searchData.php?';
+				$temp_url='../../../local_items_database/api/searchData.php?';
 				
 				?>
 				
@@ -394,12 +393,17 @@ vertical-align:top;
 <!-- ********* CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->				
 <?php 
 //echo $master_id."<br>";
-if (!empty($_GET['master_id']))
+if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 {
 	echo "<hr>";
 $master_id = $_GET['master_id'];
+//echo "master id = ".$master_id;
+$cloud_id = $_GET['cloud_id'];
+//echo "cloud id = ".$cloud_id;
 
-$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$master_id;
+if($cloud_id != 0)
+{
+$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$cloud_id;
 			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
 			//$array= explode("\n", $server_msg);
 			//echo "Total No. of lines are ".count($array);
@@ -413,32 +417,32 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 			//echo $decodedata['part_name']."<br>";
 			$name = $decodedata['part_name'];
 			//echo "item name = ".$name."<br>";
+		
+		}// end of if getting cloud server data.
+		else
+		{
+			//echo "no data";
+			$db = new PDO('sqlite:../local_items_database/api/master_database.db');
 			
-			if ($part_number == '')
+			$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
+			$rows = $result->fetchAll(); // assuming $result == true
+			$n = count($rows);
+			//echo "no of rows = ".$n."<br>";
+				
+			foreach($rows as $d)
 			{
-				//echo "no data";
-				$db = new PDO('sqlite:../master_database/api/master_database.db');
+				//echo $d['id']."<br>";
+				//echo $d['name']."<br>";
+				$name = $d['name'];
+				//echo $d['part_number']."<br>";
+				$part_number = $d['part_number'];
+				$var = preg_replace("/[^A-Za-z0-9]/", "", $part_number);
+				$trimmed = trim($var);
+				$opn = strtoupper($trimmed);
+			
+			}
 				
-				$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
-				$rows = $result->fetchAll(); // assuming $result == true
-				$n = count($rows);
-				//echo "no of rows = ".$n."<br>";
-				
-				foreach($rows as $d)
-				{
-					//echo $d['id']."<br>";
-					//echo $d['name']."<br>";
-					$name = $d['name'];
-					//echo $d[''];
-					//echo $d['part_number']."<br>";
-					$part_number = $d['part_number'];
-					$var = preg_replace("/[^A-Za-z0-9]/", "", $part_number);
-					$trimmed = trim($var);
-					$opn = strtoupper($trimmed);
-				
-				}
-				
-			}//end of if part_number empty.
+		}//end of if part_number empty.
 ?>
 
 

@@ -433,7 +433,7 @@ class SparesUsedController extends Controller
 				
 		/********* CODE TO ADD ITEM TO MASTER DATABASE **********/																	
 			$created = time();																	
-			$db = new PDO('sqlite:../master_database/api/master_database.db');
+			$db = new PDO('sqlite:../local_items_database/api/master_database.db');
 			
 			$result = $db->query("INSERT INTO master_items (part_number,name,created) values('$part_number','$item_name','$created')");
 		/********* END OF CODE TO ADD ITEM TO MASTER DATABASE **********/
@@ -448,59 +448,5 @@ class SparesUsedController extends Controller
 		}
 		
 	}//end id newItemSave.
-	
-	/* *********** TEMP ACTION FOR JSON TEST MUST DELETE LATER ***********************
-	public function actionTempJson()
-	{
-		echo "in action TempJson<hr>";
-		$brand_id1=1;
-		$product_id1="dish washer";
-		$model_num1=1;
-		
-		$brand_id2=2;
-		$product_id2=2;
-		$model_num2=2;
-		
-		$brand_id3=3;
-		$product_id3=3;
-		$model_num3=3;
-		
-		//$jsonArr = array('results'=>null);
-		$jsonArr = array();
-
-		$temp = array('brand_id'=>$brand_id1, 'product_id'=>$product_id1, 'model_num'=>$model_num1);
-//		$temp['brand_id']=$brand_id1;
-//		$temp['product_id']=$product_id1;
-//		$temp['model_num']=$model_num1;
-		
-		$temp2 = array();
-		$temp2['brand_id']=$brand_id2;
-		$temp2['product_id']=$product_id2;
-		$temp2['model_num']=$model_num2;
-		
-//		$jsonArr['results']= $temp;
-		array_push($jsonArr, $temp);		
-
-		//echo json_encode(array('result'=>$temp), JSON_FORCE_OBJECT);
-		echo json_encode($temp);
-
-//		echo "<hr>".Yii::app()->baseUrl;
-//		echo "<hr>".dirname(__FILE__);
-		
-				
-		$filename = '../test.php';
-		$fp = fopen($filename, 'r');
-		$sData = fread($fp, filesize($filename));
-		echo "<hr>".$sData;
-		fclose($fp);
-		  
-		$fp1 = fopen($filename, 'a');
-		fwrite($fp1, json_encode($temp));
-		fwrite($fp1, json_encode($temp2));
-		fclose($fp1);
-}//end of actionTempJson.
-	
-	******************* END OF TEMP ACTION FOR JSON TEST MUST DELETE LATER **********************/
-	
 	
 }//END OF CLASS.

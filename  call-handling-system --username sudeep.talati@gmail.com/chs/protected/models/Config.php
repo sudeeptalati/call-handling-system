@@ -174,7 +174,7 @@ class Config extends CActiveRecord
 					$last_successful_step_message.= "<br />\n".$errors['message'];
 					$last_successful_step_message.="<br /><span style='color:red;'>There was some problem in downloading the file from the server. Please check your internet connection. If Problem still persist, contact support at <a href='mailto:support@rapportsoftware.co.uk'>support@rapportsoftware.co.uk</a><br /></span> ";
 					$last_successful_step=0;
-				} else
+				}else
 				{
 					$last_successful_step=1;
 					$last_successful_step_message="Files succesfully downloaded!";

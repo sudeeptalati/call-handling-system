@@ -31,7 +31,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','admin','about','changeLogo','restoreDatabase'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -173,4 +173,124 @@ class SetupController extends Controller
 			Yii::app()->end();
 		}
 	}
-}
+	
+	/***************** USER DEFINED ACTIONS ********************/
+	
+	public function actionAbout()
+	{
+		$this->render('about');
+	}//End of actionAbout().
+	
+	public function actionChangeLogo()
+	{
+	    $model=new Setup('view');
+	
+	    // uncomment the following code to enable ajax-based validation
+	    /*
+	    if(isset($_POST['ajax']) && $_POST['ajax']==='setup-changeLogo-form')
+	    {
+	        echo CActiveForm::validate($model);
+	        Yii::app()->end();
+	    }
+	    */
+	
+	    if(isset($_POST['Setup']))
+	    {
+	        $model->attributes=$_POST['Setup'];
+	        if($model->validate())
+	        {
+	            // form inputs are valid, do something here
+	            return;
+	        }
+	    }
+	    $this->render('changeLogo',array('model'=>$model));
+	}//end of changeLogo().
+	
+	
+	public function actionRestoreDatabase()
+	{
+	    if(isset($_POST['finish']))
+		{
+			//			echo 'DATA BASEFILE :  '. $_FILES["database"]["error"];
+
+			if ($_FILES["database"]["type"] == "application/octet-stream" && $_FILES["database"]["name"] == "chs.db")
+			{
+				if ($_FILES["database"]["error"] > 0)
+				{
+					echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
+				}//end of if for error
+				else
+				{
+					echo 'YEPPY';
+
+					$uploaded_file= $_FILES["database"]["tmp_name"];
+					$location="protected/data/chs.db";
+					//echo '<br>'.$location;
+					if (move_uploaded_file($uploaded_file,$location))
+					{
+						echo "<span style='background-color:green; color:black;' > Database Restored </span><br>";
+					}
+					else
+					{
+						echo '<span style="background-color:red; color:black;">Not Stored , Please try again</span><br> ';
+					}
+
+				}//end of else
+			}///end of if for check for database file check
+			else {
+				echo '<span style="background-color:red; color:black;">Please upload chs.db file only</span><br> ';
+			}
+
+
+
+		}//ennd of if of post finish
+
+		$this->render('restoreDatabase');
+
+		//	        if (( ($_FILES["database"]["type"] == "application/octet-stream")) && ($_FILES["logo_url"]["size"] < 1000000))
+		//				{
+		////					echo "YEPPTY";
+		//					if ($_FILES["logo_url"]["error"] > 0)
+		//						{
+		//							echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
+		//							}
+		//					else
+		//					{
+		////						echo "Upload: " . $_FILES["logo_url"]["name"] . "<br />";
+		////						echo "Type: " . $_FILES["logo_url"]["type"] . "<br />";
+		////						echo "Size: " . ($_FILES["logo_url"]["size"] / 1024) . " Kb<br />";
+		////						echo "Temp uploaded: " . $_FILES["logo_url"]["tmp_name"] . "<br />";
+		////						$uploadedname="company_logo.png";
+		//
+		//						$uploaded_file= $_FILES["logo_url"]["tmp_name"];
+		//						$location="images/company_logo.png";
+		//						//echo '<br>'.$location;
+		//							if (move_uploaded_file($uploaded_file,$location))
+		//							{
+		//								echo "Stored";
+		//							}
+		//							else
+		//								{
+		//									echo "Not Stored: ";
+		//								}
+		//
+		//
+		//					}//end of else
+		//
+		//				}///end of file upload if
+		//				else
+		//				{
+		//				echo "Invalid FILE";
+		//				}//end of else
+		//
+		//
+		//	    	}//end of isset post finish
+		 
+	
+		
+	}//end of RestoreDatabase().
+	
+
+	
+	
+}//end of class.

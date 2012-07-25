@@ -6,11 +6,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Setup', 'url'=>array('index')),
-	array('label'=>'Create Setup', 'url'=>array('create')),
-	array('label'=>'View Setup', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Setup', 'url'=>array('admin')),
+	array('label'=>'Change Logo', 'url'=>array('changeLogo')),
+//	array('label'=>'Email Settings', 'url'=>array('emailSetup')),
+	array('label'=>'About & Help', 'url'=>array('about')),
+	array('label'=>'Restore Database', 'url'=>array('restoreDatabase')),
+	
 );
+
 ?>
 
 <h1>Update Setup <?php echo $model->id; ?></h1>

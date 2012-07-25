@@ -80,7 +80,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				array('label'=>'New Customer', 'url'=>array('/customer/create')),
 				//array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				//array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
-				array('label'=>'Config', 'url'=>array('/config/1')),
+				//array('label'=>'Config', 'url'=>array('/config/1')),
 				array('label'=>'Set Up', 'url'=>array('/setup/1')),
 				array('label'=>'Back Up', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

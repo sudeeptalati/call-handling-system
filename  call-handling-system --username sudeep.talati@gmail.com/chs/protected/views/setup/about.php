@@ -91,5 +91,10 @@ return $contents;
 }///end of functn curl File get contents
 ?>
  
- 	
+<?php 
+$testUrl=Yii::app()->request->baseUrl.'/setup/testConnection/';
+?>
+<a href="<?php echo $testUrl;?>" onclick = "return confirm('Are you sure you wanna send email?')">
+<?php echo CHtml::button('Test Connection');?>
+</a>	
  

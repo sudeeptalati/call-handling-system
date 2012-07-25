@@ -31,7 +31,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','about','changeLogo','restoreDatabase'),
+				'actions'=>array('create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -241,8 +241,6 @@ class SetupController extends Controller
 				echo '<span style="background-color:red; color:black;">Please upload chs.db file only</span><br> ';
 			}
 
-
-
 		}//ennd of if of post finish
 
 		$this->render('restoreDatabase');
@@ -291,6 +289,62 @@ class SetupController extends Controller
 	}//end of RestoreDatabase().
 	
 
+	public function actionTestConnection()
+	{
+		//$model=$this->loadModel($id);
+		//echo "IN ACTION TEST CONNECTION <br>";
+		
+		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+		{
+			echo "PLEASE CHECK YOUR INTERNET CONNECTION";
+			//echo $model->id;
+		}
+		else 
+		{
+			
+			//echo "INTERNET IS CONNECTED";
+			
+			///$model=new PurchaseOrder;
+			
+			$reciever_email='mailtest.test10@gmail.com';
+			$sender_email='mailtest.test10@gmail.com';
+			
+			$message = new YiiMailMessage();
+			$message->setTo(array($reciever_email));
+		    $message->setFrom(array($sender_email));
+		    $message->setSubject('Test');
+			$message->setBody("This is a test mail from call handling");
+		    
+		    
+		    # You can easily override default constructor's params
+//			$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
+//			# render (full page)
+//			$mPDF1->WriteHTML($this->render('orderPreview',array('model'=>$model,), true));
+//		    # Load a stylesheet
+//		    $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+//		    $message->setBody($mPDF1->WriteHTML($stylesheet, 1));
+		   	//$message->setBody('THIS IS TEST MAIL');
+		    //$numsent = Yii::app()->mail->send($message);
+		    if(Yii::app()->mail->send($message))
+		   	{
+		   		echo "TEST EMAIL IS SENT, CONNECTION IS OK<br>"; 
+		   	}
+		   	
+		}//end of else.
+		
+	}//end of testConnection.
+	
+	public function actionMailServer()
+	{
+		$this->render('mailServer');
+	}//end of mailServer().
+	
+	
+	public function actionMailSettings()
+	{
+	    $model=new Setup('view');
+		$this->render('mailSettings',array('model'=>$model));
+	}//end of mailSettings().
 	
 	
 }//end of class.

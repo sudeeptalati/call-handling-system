@@ -1,5 +1,39 @@
 <?php
 
+/******** DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
+
+	//echo "HELLO WELCOME TO MAIN<br>";
+	//$filename = "mail_server.json";
+	//echo dirname(__FILE__)."<br>";
+	$smtp_host = '';
+	$smtp_username = '';
+	$smtp_password = '';
+	$smtp_encryption = '';
+	$smtp_port = '';
+	
+	$url = dirname(__FILE__);
+	$filename = $url."/mail_server.json";
+	if(file_exists($filename))
+	{
+		//echo "File is present<br>";
+		$data = file_get_contents($filename);
+		$decodedata = json_decode($data, true);
+		//echo $decodedata['smtp_host'];
+	
+		$smtp_host = $decodedata['smtp_host'];	
+		$smtp_username = $decodedata['smtp_username'];
+		$smtp_password = $decodedata['smtp_password'];
+		$smtp_encryption = $decodedata['smtp_encryption'];
+		$smtp_port = $decodedata['smtp_port'];
+			
+	}//end of if file present.
+	else 
+	{
+		echo "File not found";	
+	}//end of else().
+
+	/******** END OF DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
+
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -87,12 +121,22 @@ return array(
 		        'class' => 'application.extensions.yii-mail.YiiMail',
 		        'transportType'=>'smtp', /// case sensitive!
 		        'transportOptions'=>array(
-		            'host'=>'mail.laser.com',
-		            'username'=>'stalati@ukwhitegoods.co.uk',
+		            //'host'=>'mail.laser.com',
+		            //'host'=>'smtp.gmail.com',
+		            'host'=>$smtp_host,
+		            //'username'=>'stalati@ukwhitegoods.co.uk',
+		            //'username'=>'mailtest.test10@gmail.com',
+		            'username'=>$smtp_username,
 		            // or email@googleappsdomain.com
-		            'password'=>'#rev1s1on',
-		            'port'=>'543',
+		            //'password'=>'#rev1s1on',
+		            //'password'=>'testtest10',
+		            'password'=>$smtp_password,
+					//'port'=>'543',
+					//'port'=>'465',
+					'port'=>$smtp_port,
 		            //'encryption'=>'ssl',
+		            //'encryption'=>'tls',
+					'encryption'=>$smtp_encryption,
 		            ),
 		        'viewPath' => 'application.views.mail',
 		        'logging' => true,

@@ -115,7 +115,14 @@ vertical-align:top;
 					{
 						$result=$model->updateStatus();
 						$list=CHtml::listData($result, 'id','name');
-						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)'));
+						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)')
+//												array(
+//													'ajax' => array(
+//													'type'=>'POST', //request type
+//													'url'=>CController::createUrl('setup/testConnection'), //url to call.
+//												))
+						
+						);
 						echo $form->error($model,'job_status_id'); 
 					}//end of if().
 					
@@ -143,7 +150,8 @@ vertical-align:top;
 				//echo $model->fault_date;
 				
  				if ($model->fault_date!=''){
-	 				$fault_date=date('j-M-y',$model->fault_date);
+	 				//$fault_date=date('j-M-y',$model->fault_date);
+	 				$fault_date = $model->fault_date;
 					}	
 					else 
 						{
@@ -652,6 +660,13 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 		<div class="row buttons">
 			<?php echo CHtml::submitButton('Modify'); ?>
 		</div>
+		
+		<?php 
+		$testUrl=Yii::app()->request->baseUrl.'/setup/testConnection/';
+		?>
+		<a href="<?php echo $testUrl;?>" onclick = "return confirm('Are you sure you wanna send email?')">
+		<?php echo CHtml::button('Test Connection');?>
+		</a>
 	
 	<?php $this->endWidget(); ?>
 	
@@ -663,5 +678,5 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
    $mtime = $mtime[1] + $mtime[0]; 
    $endtime = $mtime; 
    $totaltime = ($endtime - $starttime); 
-   echo "This page was created in ".$totaltime." seconds"; 
+   //echo "This page was created in ".$totaltime." seconds"; 
 ;?>

@@ -134,6 +134,8 @@ class ServicecallController extends Controller
 	{
 		$model=$this->loadModel($id);
 		
+		
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -142,17 +144,31 @@ class ServicecallController extends Controller
 		{ 
 			if(isset($_POST['Servicecall']))
 			{
-				//echo "I M HERE";
+				//echo "I M HERE<br>";
+
+				$previous_status_id = $model->job_status_id;
+				//echo "Id before getting form values = ".$previous_status_id."<br>";
+				
 				$model->attributes=$_POST['Servicecall'];
+				
+				$current_status_id = $model->job_status_id;
+				//echo "id after getting values = ".$current_status_id;
 				
 				if($model->save())
 				{
 					$this->redirect(array('view','id'=>$model->id));
+					//echo "saved";
 				}
 				else
 				{
 				echo "Not Save";
 				
+				}
+
+			if($previous_status_id != $current_status_id)
+				{
+					//echo "Status Changed....";
+					$this->mailSettings($model->id);
 				}
 				
 			}//end of if(isset()).
@@ -486,6 +502,49 @@ class ServicecallController extends Controller
 			
 			
 	}//end of getItems().
+	
+	public function mailSettings($id)
+	{
+		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+		{
+			echo "PLEASE CHECK YOUR INTERNET CONNECTION";
+		}
+		else 
+		{
+			
+			//echo "INTERNET IS CONNECTED";
+			
+			//echo "id = ".$id."<br>";
+			
+			$setupModel = Setup::model()->findByPk('1');
+			//echo $setupModel->email;
+			$serviceModel = Servicecall::model()->findByPk($id);
+			//echo $serviceModel->customer_id;
+			
+			$customerModel = Customer::model()->findByPk($serviceModel->customer_id);
+			//echo "email = ".$customerModel->email;
+			
+			$str = "Your service call with REF.No:".$serviceModel->service_reference_number." status has changed to ".$serviceModel->jobStatus->name;
+			//echo $str;
+			
+			//$reciever_email='mailtest.test10@gmail.com';
+			$reciever_email = $customerModel->email;
+			//$sender_email='mailtest.test10@gmail.com';
+			$sender_email=$setupModel->email;
+			
+			$message = new YiiMailMessage();
+			$message->setTo(array($reciever_email));
+		    $message->setFrom(array($sender_email));
+		    $message->setSubject('Test');
+			$message->setBody($str);
+			if(Yii::app()->mail->send($message))
+		   	{
+		   		//echo "TEST EMAIL IS SENT, CONNECTION IS OK<br>"; 
+		   	}
+		   	
+		}//end of else.
+		
+	}//end of mailSettings().
 	
 
 	

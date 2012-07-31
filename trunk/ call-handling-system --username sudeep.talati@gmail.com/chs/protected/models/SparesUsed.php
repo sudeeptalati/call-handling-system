@@ -174,18 +174,21 @@ class SparesUsed extends CActiveRecord
     public function finalize()
     {
     	echo "<hr> Finalize is called";
-    	$finalStr = ']}';
+    	//$finalStr = ']}';
+    	$closingStr = '],';
+    	$status = '"status":0}';
 		
 		$filename = '../jsondata.json';
 		
 		$fh = fopen($filename, 'r+');
 		$stat = fstat($fh);
 		$trunkdata = ftruncate($fh, $stat['size']-1);
-		//echo "<hr>".$trunkdata;
+		echo "<hr>".$trunkdata;
 		fclose($fh); 
 		
 		$fh = fopen($filename, 'a');
-		fwrite($fh, $finalStr);
+		fwrite($fh, $closingStr);
+		fwrite($fh, $status);
 		fclose($fh);
     	
     	$oldname = '../jsondata.json';
@@ -208,6 +211,80 @@ class SparesUsed extends CActiveRecord
     	}	
     		
     }//end of finalize.
+    
+    public function uploadFile()
+    {
+	    	echo "Upload files function called<hr>";
+	    	
+	    	$server = '192.168.1.200';
+	    	$ftp_user_name = 'acerserver'; 
+	    	$ftp_user_pass = 'acer';
+	    	
+	    	$local_file = '../jsonDataOld.json';
+			$ftp_path = '/home/acerserver/jsonData.json';
+			
+	    	
+	 // set up basic connection
+//	$conn_id = ftp_connect($server);
+//	
+//	// login with username and password
+//	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+//	
+//	// upload a file
+//	if (ftp_put($conn_id, $ftp_path, $local_file, FTP_BINARY)) {
+//	 echo "successfully uploaded $local_file\n";
+//	} else {
+//	 echo "There was a problem while uploading $local_file\n";
+//	}
+//	
+//	// close the connection
+//	ftp_close($conn_id);
+
+
+    	
+    	
+    	
+	    // connect to FTP server (port 21)
+		$connection = ftp_connect($server, 21) or die ("Cannot connect to host");
+	
+		$login = ftp_login($connection, $ftp_user_name, $ftp_user_pass);
+		
+		if (!$connection || !$login) 
+		{ 
+			die('Connection attempt failed!');
+			echo "<hr>"; 
+		}
+		else 
+		{
+			echo "Connection success<hr>";
+		}
+		
+		$local_file = '../jsonDataOld.json';
+		$ftp_path = '/var/www/jsonData.json';
+		
+		if(file_exists($ftp_path))
+		{
+			echo "File present to upload<hr>";
+		}
+		else
+		{
+			echo "File not found<hr>";
+		}
+		
+		//$upload = ftp_put($connection, $ftp_path, $local_file, FTP_ASCII);
+		//$upload = ftp_put($connection, $ftp_path, $local_file, FTP_BINARY);
+		
+//    	if (!$upload)
+//    	{
+//    		echo 'FTP upload failed!<hr>'; 
+//    	}
+		
+		ftp_close($connection);
+		
+		
+			
+    	
+    }//end of uploadFile().
     
 
 }//end of class.

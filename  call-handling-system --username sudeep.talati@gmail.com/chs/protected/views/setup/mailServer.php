@@ -4,7 +4,6 @@ $this->menu=array(
 	);
 ?>
 
-
 <?php 
 	
 	$smtp_host = '';
@@ -40,6 +39,7 @@ $this->menu=array(
 	}
 ?>
 
+
 <script type="text/javascript">  
 function getSelectedValue() 
 {  
@@ -51,7 +51,6 @@ function getSelectedValue()
 
 alert(val);
 </script>  
-
 
 
 <form action="<?php echo Yii::app()->createUrl('setup/mailSettings')?>" method="post">

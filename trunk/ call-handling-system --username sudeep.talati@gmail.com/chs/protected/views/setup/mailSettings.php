@@ -31,6 +31,8 @@ $this->menu=array(
 	
 ?>
 
+
+
 	<div class="row">
 		<?php echo "<b>Host</b><br>";?>
 		<?php echo CHtml::textField('',$smtp_host, array('disabled'=>'disabled'));?>

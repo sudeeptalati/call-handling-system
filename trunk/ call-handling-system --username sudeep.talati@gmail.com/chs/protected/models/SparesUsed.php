@@ -214,35 +214,64 @@ class SparesUsed extends CActiveRecord
     
     public function uploadFile()
     {
-	    	echo "Upload files function called<hr>";
+    	echo "Upload files function called<hr>";
+    	
+    	$sparesLookupModel = SparesLookup::model()->findByPk(1);
+    	
+    	echo $sparesLookupModel->url."<hr>";
 	    	
-	    	$server = '192.168.1.200';
-	    	$ftp_user_name = 'acerserver'; 
-	    	$ftp_user_pass = 'acer';
+    	$server = $sparesLookupModel->url;
+    	$ftp_user_name = $sparesLookupModel->ftp_username; 
+    	$ftp_user_pass = $sparesLookupModel->ftp_password;
+    	
+    	$local_file = '../jsonDataOld.json';
+		//$ftp_path = '/home/acerserver/jsonData.json';
+		$ftp_path = '/html.demo/fitlist/newfiles/jsondata.json';
 	    	
-	    	$local_file = '../jsonDataOld.json';
-			$ftp_path = '/home/acerserver/jsonData.json';
-			
-	    	
-	 // set up basic connection
-//	$conn_id = ftp_connect($server);
-//	
-//	// login with username and password
-//	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
-//	
-//	// upload a file
-//	if (ftp_put($conn_id, $ftp_path, $local_file, FTP_BINARY)) {
-//	 echo "successfully uploaded $local_file\n";
-//	} else {
-//	 echo "There was a problem while uploading $local_file\n";
-//	}
-//	
-//	// close the connection
-//	ftp_close($conn_id);
+		// set up basic connection
+		$conn_id = ftp_connect($server);
+		
+		if(!$conn_id)
+		{
+			echo "Connection attemp failed<hr>";
+		}
+		else 
+		{
+			echo "Connection established<hr>";
+		}
+		
+		// login with username and password
+		$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+		
+		if(!$login_result)
+		{
+			echo "Login failure<hr>";
+		}
+		else 
+		{
+			echo "Login is success<hr>";
+		}
+		
+		// upload a file
+		if (ftp_put($conn_id, $ftp_path, $local_file, FTP_ASCII)) 
+		{
+		 echo "successfully uploaded $local_file\n";
+		}
+		else 
+		{
+		 echo "There was a problem while uploading $local_file\n";
+		}
+		
+		
+		
+		echo ftp_chmod($conn_id, 0777, $ftp_path) ? "CHMOD successful!" : 'Error';
+		
+		// close the connection
+		ftp_close($conn_id);
 
 
     	
-    	
+    	/****** ALTERNATIVE METHOD ****************
     	
 	    // connect to FTP server (port 21)
 		$connection = ftp_connect($server, 21) or die ("Cannot connect to host");
@@ -281,7 +310,7 @@ class SparesUsed extends CActiveRecord
 		
 		ftp_close($connection);
 		
-		
+		*/
 			
     	
     }//end of uploadFile().

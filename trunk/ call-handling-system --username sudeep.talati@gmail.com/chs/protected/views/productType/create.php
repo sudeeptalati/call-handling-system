@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ProductType', 'url'=>array('index')),
+	//array('label'=>'List ProductType', 'url'=>array('index')),
 	array('label'=>'Manage ProductType', 'url'=>array('admin')),
 );
 ?>

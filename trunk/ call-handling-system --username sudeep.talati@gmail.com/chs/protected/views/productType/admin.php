@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ProductType', 'url'=>array('index')),
-	array('label'=>'Create ProductType', 'url'=>array('create')),
+	//array('label'=>'List ProductType', 'url'=>array('index')),
+	array('label'=>'Create Product Type', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -50,6 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'modified',
 		array(
 			'class'=>'CButtonColumn',
+			'template'=> '{view}',
 		),
 	),
 )); ?>

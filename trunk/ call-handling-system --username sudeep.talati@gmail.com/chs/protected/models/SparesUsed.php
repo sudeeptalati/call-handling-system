@@ -173,6 +173,10 @@ class SparesUsed extends CActiveRecord
     
     public function finalize()
     {
+    	
+    	$today = date("F j, Y  his  A ");
+    	echo $today;
+    	
     	echo "<hr> Finalize is called";
     	//$finalStr = ']}';
     	$closingStr = '],';
@@ -192,8 +196,10 @@ class SparesUsed extends CActiveRecord
 		fclose($fh);
     	
     	$oldname = '../jsondata.json';
-    	echo "<hr> path ".$oldname;
-    	$newname = '../jsondataold.json';
+    	echo "<hr> path ".$oldname."<hr>";
+    	$name = 'jsondataold.json';
+    	$newname = '../'.$today . $name;
+    	echo $newname;
     	
     	if(file_exists($oldname))
     	{
@@ -209,6 +215,7 @@ class SparesUsed extends CActiveRecord
     	{
     		echo "<hr>file not present";
     	}	
+    		
     		
     }//end of finalize.
     

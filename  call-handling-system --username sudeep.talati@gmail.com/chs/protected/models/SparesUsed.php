@@ -174,8 +174,8 @@ class SparesUsed extends CActiveRecord
     public function finalize()
     {
     	
-    	$today = date("F j, Y  his  A ");
-    	echo $today;
+    	$today = date("FjYhisA");
+    	//echo $today;
     	
     	echo "<hr> Finalize is called";
     	//$finalStr = ']}';
@@ -187,7 +187,7 @@ class SparesUsed extends CActiveRecord
 		$fh = fopen($filename, 'r+');
 		$stat = fstat($fh);
 		$trunkdata = ftruncate($fh, $stat['size']-1);
-		echo "<hr>".$trunkdata;
+		//echo "<hr>".$trunkdata;
 		fclose($fh); 
 		
 		$fh = fopen($filename, 'a');
@@ -196,19 +196,22 @@ class SparesUsed extends CActiveRecord
 		fclose($fh);
     	
     	$oldname = '../jsondata.json';
-    	echo "<hr> path ".$oldname."<hr>";
+    	//echo "<hr> path ".$oldname."<hr>";
     	$name = 'jsondataold.json';
-    	$newname = '../'.$today . $name;
-    	echo $newname;
+    	$newname = '../'.$today.$name;
+    	//echo $newname;
+    	$uploadfileName = $today.$name;
     	
     	if(file_exists($oldname))
     	{
-    		echo "<hr>php file is present";
+    		//echo "<hr>php file is present";
     		rename($oldname, $newname);
-    		echo "<hr> file is renamed";
+    		//echo "<hr> file is renamed";
 
     		$sparesModel = SparesUsed::model()->initialize();
-    		echo "<hr> new file is created by initialize method";
+    		//echo "<hr> new file is created by initialize method";
+    		
+    		$uploadModel = SparesUsed::model()->uploadFile($uploadfileName);
     		
     	}
     	else
@@ -216,24 +219,29 @@ class SparesUsed extends CActiveRecord
     		echo "<hr>file not present";
     	}	
     		
+    	
     		
     }//end of finalize.
     
-    public function uploadFile()
+    public function uploadFile($newname)
     {
-    	echo "Upload files function called<hr>";
+    	//echo "Upload files function called<hr>";
     	
-    	$sparesLookupModel = SparesLookup::model()->findByPk(1);
+    	//echo "New name = ".$newname."<br>";
     	
-    	echo $sparesLookupModel->url."<hr>";
-	    	
-    	$server = $sparesLookupModel->url;
-    	$ftp_user_name = $sparesLookupModel->ftp_username; 
-    	$ftp_user_pass = $sparesLookupModel->ftp_password;
+    	$ftpsettingModel = FtpSettings::model()->findByPk(1);
     	
-    	$local_file = '../jsonDataOld.json';
+    	$server = $ftpsettingModel->url;
+    	echo "server = ".$server."<br>";
+    	$ftp_user_name = $ftpsettingModel->ftp_username;
+    	echo "user name = ".$ftp_user_name."<br>";
+    	$ftp_user_pass = $ftpsettingModel->ftp_password;
+    	echo "password = ".$ftp_user_pass."<br>";
+    	
+    	
+    	$local_file = '../'.$newname;
 		//$ftp_path = '/home/acerserver/jsonData.json';
-		$ftp_path = '/html.demo/fitlist/newfiles/jsondata.json';
+		$ftp_path = '/rapportsoftware.co.uk/html.spares/newfiles/'.$newname;
 	    	
 		// set up basic connection
 		$conn_id = ftp_connect($server);
@@ -276,7 +284,7 @@ class SparesUsed extends CActiveRecord
 		// close the connection
 		ftp_close($conn_id);
 
-
+	
     	
     	/****** ALTERNATIVE METHOD ****************
     	

@@ -376,9 +376,10 @@ vertical-align:top;
 		<span><b>&nbsp;&nbsp;Notifications</b></span><br><br>
 			<?php 
 	
-		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+		$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
 		$available_version = curl_file_get_contents($request, true);
 		$installed_version=Yii::app()->params['software_version'];
+		 
 		if ($available_version!=$installed_version)
 		{	
 			
@@ -399,7 +400,7 @@ vertical-align:top;
 	
 		<li style="text-align:justify; margin-left:10px;">	
 		<?php
-			$server_msg_url='http://rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
+			$server_msg_url='http://www.rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
 				$server_msg = curl_file_get_contents($server_msg_url, true);
 
 				echo $server_msg; 

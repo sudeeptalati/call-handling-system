@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('ICalLink','ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('viewFullDiary','ICalLink','ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -82,6 +82,7 @@ class EnggdiaryController extends Controller
 		if(isset($_POST['Enggdiary']))
 		{
 			$model->attributes=$_POST['Enggdiary'];
+			
 			
 			if($model->save())
 			{
@@ -411,6 +412,16 @@ exit;
 
 		
 	}///end of function ICalLink
+	
+	
+	
+	public function actionViewFullDiary()
+	{
+		$model=new Enggdiary('search');
+		$this->render('viewFullDiary',array('model'=>$model));
+		
+		
+	}////end of actionViewFullDiary
 	
 	
 }//end of class.

@@ -160,6 +160,9 @@ return array(
 				'gii'=>'gii',
             	'gii/<controller:\w+>'=>'gii/<controller>',
             	'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
+				// REST patterns
+				array('api/ViewFullDiaryJsonData', 'pattern'=>'api/ViewFullDiaryJsonData', 'verb'=>'GET'),
+				array('api/updateDiary', 'pattern'=>'api/updateDiary/<model:\w+>/<engg_id:\d+>', 'verb'=>'GET'),
 				//ACCESSING OTHER CONTROLLERS.
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

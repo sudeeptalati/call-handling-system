@@ -7,6 +7,7 @@ $this->menu=array(
 );
 ?>
 
+
 <?php 
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 

@@ -7,6 +7,16 @@ $this->menu=array(
 );
 ?>
 
+<!-- ********** FOR CHECKING CHANGE OF APP MUST DELETE LATER ****** -->
+<?php 
+
+//echo "start date ".date('d-m-Y H:i', '1345705200');
+//echo "end date ".date('d-m-Y H:i', '1345707000');
+//echo "end date ".date('d-m-Y H:i', '1345712400');
+?>
+
+<!-- ********** FOR CHECKING CHANGE OF APP MUST DELETE LATER ****** -->
+
 
 <?php 
   /*To import the client script*/

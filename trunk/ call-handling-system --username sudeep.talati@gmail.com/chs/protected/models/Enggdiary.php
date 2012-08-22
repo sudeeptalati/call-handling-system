@@ -164,11 +164,25 @@ class Enggdiary extends CActiveRecord
 				//$this->engineer_id=$serviceUpdateModel->engineer_id;        													
         		
         		return true;
-            }
+            }//end of isNewRecord.
             else
             {
-            	$this->visit_start_date=strtotime($this->visit_start_date);
-            	$this->visit_end_date=strtotime($this->visit_end_date);
+            	
+            	/****** ADDING MINUTES TO START DATE TO MAKE IT 9 AM ******/
+            	$phpdate = strtotime($this->visit_start_date);
+            	$new_date = date("d-m-Y H:i:s", strtotime('+540 minutes', $phpdate));
+            	$this->visit_start_date = strtotime($new_date);
+            	/****** END OF ADDING MINUTES TO START DATE TO MAKE IT 9 AM ******/
+            	
+            	/****** ADDING SLOT DURATION TO END TIME *******/
+				//echo "<br>start time after adding min = ".$this->visit_start_date;
+				$added_end_date = date("d-m-Y H:i:s", strtotime($prod.'minutes', $this->visit_start_date));            	
+            	//echo "<br>end time after adding slot = ".$added_end_date;
+            	$this->visit_end_date = strtotime($added_end_date);
+            	/****** END OF ADDING SLOT DURATION TO END TIME *******/
+            	
+//            	$this->visit_start_date=strtotime($this->visit_start_date);
+//            	$this->visit_end_date=strtotime($this->visit_end_date);
             	$this->modified=time();
                 return true;
             }
@@ -223,6 +237,7 @@ class Enggdiary extends CActiveRecord
     	//echo time();
 //    	echo "id from method in model = ".$id."<br>";
 //    	echo "days moved from method in model = ".$days_moved."<br>";
+    	    	
     	$diaryModel = Enggdiary::model()->findAllByPk($id);
     	
     	//echo $diaryModel->visit_start_date;
@@ -230,7 +245,7 @@ class Enggdiary extends CActiveRecord
     	
     	foreach($diaryModel as $data)
     	{
-    		$date= date("Y-m-d",$data->visit_start_date);
+    		$date= date("Y-m-d H:i",$data->visit_start_date);
     		//echo "service call from model = ".$data->servicecall_id."<br>";
     		echo "visit date from model = ".$date."<br>"; 
     		echo "visit date from model = ".$data->visit_start_date."<br>";
@@ -245,8 +260,39 @@ class Enggdiary extends CActiveRecord
     												'visit_start_date'=>$date
     											)
     										);
+		    							
     	
     }//end of updateAppointment().
+    
+    public function updateEndDateTime($id, $minutes)
+    {
+    	
+    	
+    	echo "minutes from func in model = ".$minutes."<br>";
+    	
+    	$enggModel = Enggdiary::model()->findAllByPk($id);
+    	
+    	foreach ($enggModel as $data)
+    	{
+    		echo "id from func in model = ".$data->id."<br>";
+    		echo "VISIT START DATE = ".date('d-m-Y H:i', $data->visit_start_date)."<br>";	
+    		echo "VISIT END DATE = ".date('d-m-Y H:i', $data->visit_end_date)."<br>";
+    		$date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $minutes."minutes");
+    		echo "time after adding min = ".date('d-m-Y H:i', $date);
+    		
+    		$enggUpdateModel = Enggdiary::model()->updateByPk($id,
+    											array('visit_end_date'=>$date
+    											)	
+    										);
+    		
+    		
+    		
+    		
+    	}//end of foreach().
+
+    	
+    	
+    }//end of updateEndTime(). 
     
     
     

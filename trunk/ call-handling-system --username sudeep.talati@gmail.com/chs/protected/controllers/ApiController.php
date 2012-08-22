@@ -36,14 +36,17 @@ class ApiController extends Controller
     		$customer_name=$data->servicecall->customer->fullname;
     		$customer_postcode=$data->servicecall->customer->postcode;
     		
-    		$date= date("Y-m-d",$data['visit_start_date']);
+    		$start_date= date("Y-m-d H:i",$data['visit_start_date']);
+    		$end_date = date("Y-m-d H:i",$data['visit_end_date']);
+    		
     		$diary_events_array['id'] = $data->id;///id of the engg diary
     		$diary_events_array['service_id'] = $data->servicecall_id;
 			$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
-			$diary_events_array['start'] = $date;
+			$diary_events_array['start'] = $start_date;
+			$diary_events_array['end'] = $end_date;
     		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
     		$diary_events_array['allDay'] = false ;
-    		
+    		//'end' => "$year-$month-22",
     		 
 //			echo "id = ".$data->id."<br>";
 //			echo "Visit date = ".$date."<br>";
@@ -66,13 +69,31 @@ class ApiController extends Controller
     	//echo "Days moved in api contr = ".$days_moved."<br>";
     	
     	
-    	if($model = 'Enggdiary')
-    	{
+//    	if($model = 'Enggdiary')
+//    	{
     		//echo "enggdiary is sent<br>";
     		Enggdiary::model()->updateAppointment($engg_id, $days_moved);
-    	}
+    	//}
     	
     }//end of updateDiary().
+    
+    
+    
+    
+    public function actionUpdateEndDateTime()
+    {
+    	
+    	echo "in action update actionUpdateEndDateTime<br>";
+    	
+    	$engg_id = $_GET['engg_id'];
+    	echo "Diary id = ".$engg_id."<br>";
+    	$minutes = $_GET['minutes'];
+    	echo "minutes in model func = ".$minutes."<br>";
+    	
+    	Enggdiary::model()->updateEndDateTime($engg_id, $minutes);
+    	
+    	
+    }//end of UpdateMinutes().
     
     
     public function actionList()

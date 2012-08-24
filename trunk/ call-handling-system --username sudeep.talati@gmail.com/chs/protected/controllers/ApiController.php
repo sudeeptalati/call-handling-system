@@ -67,7 +67,8 @@ class ApiController extends Controller
     	//echo "Diary id = ".$engg_id."<br>";
     	$days_moved = $_GET['days_moved'];
     	//echo "Days moved in api contr = ".$days_moved."<br>";
-    	
+//    	$end_date = $_GET['end_date'];
+//    	echo "end days in api contr = ".$end_date;
     	
 //    	if($model = 'Enggdiary')
 //    	{

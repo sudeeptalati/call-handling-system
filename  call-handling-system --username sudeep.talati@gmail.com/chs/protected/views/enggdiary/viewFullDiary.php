@@ -58,11 +58,11 @@ function isTouchDevice()
 			
 		    eventResize: function(event,dayDelta,minuteDelta,revertFunc) 
 		    {
-				alert(
-		            "The end date of " + event.title + "has been moved " +
-		            dayDelta + " days and " +
-		            minuteDelta + " minutes."
-		        );
+//				alert(
+//		            "The end date of " + event.title + "has been moved " +
+//		            dayDelta + " days and " +
+//		            minuteDelta + " minutes."
+//		        );
 
 		        alert("Engg diary id = "+event.id);
 		        engg_id = event.id;
@@ -91,6 +91,9 @@ function isTouchDevice()
 				days_moved=delta;
 				console.info("DAYS MOVED"+days_moved);
 				//alert('ID = '+event.id);
+				
+				alert('event end date = '+event.end)
+				end_date = event.end;
 				engg_id = event.id;
 				 
 				
@@ -137,6 +140,7 @@ function isTouchDevice()
 	function getResponse()
     {
 	    model = 'Enggdiary';
+	    //alert("EVENT END DATE IN FUNC = "+end_date);
 	   	//alert("EVENT ID IN FUNC = "+engg_id);
 	    //alert("DAYS MOVED IN FUNC = "+days_moved);
 
@@ -160,11 +164,11 @@ function isTouchDevice()
 
     function updateEndDateTime(engg_id, dayDelta, minuteDelta)
     {
-		alert('In updateMinutes func');
+		//alert('In updateMinutes func');
 
-		alert("MINUTES IN updateMinutes func = "+minuteDelta);
+		//alert("MINUTES IN updateMinutes func = "+minuteDelta);
 
-		alert("ENGG ID IN updateMinutes func = "+engg_id);
+		//alert("ENGG ID IN updateMinutes func = "+engg_id);
 
 		 var updateUrl= baseUrl+'/api/UpdateEndDateTime?engg_id='+engg_id+'&minutes='+minuteDelta;
 		 //model = 'Enggdiary';

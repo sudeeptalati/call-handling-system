@@ -167,24 +167,14 @@ class Enggdiary extends CActiveRecord
             }//end of isNewRecord.
             else
             {
+            	//echo "visit time in update in before save = ".$this->visit_start_date;
             	
-            	/****** ADDING MINUTES TO START DATE TO MAKE IT 9 AM ******/
-            	$phpdate = strtotime($this->visit_start_date);
-            	$new_date = date("d-m-Y H:i:s", strtotime('+540 minutes', $phpdate));
-            	$this->visit_start_date = strtotime($new_date);
-            	/****** END OF ADDING MINUTES TO START DATE TO MAKE IT 9 AM ******/
-            	
-            	/****** ADDING SLOT DURATION TO END TIME *******/
-				//echo "<br>start time after adding min = ".$this->visit_start_date;
-				$added_end_date = date("d-m-Y H:i:s", strtotime($prod.'minutes', $this->visit_start_date));            	
-            	//echo "<br>end time after adding slot = ".$added_end_date;
-            	$this->visit_end_date = strtotime($added_end_date);
-            	/****** END OF ADDING SLOT DURATION TO END TIME *******/
+            	console.info("visit time in update in before save = ". $this->visit_start_date);
             	
 //            	$this->visit_start_date=strtotime($this->visit_start_date);
 //            	$this->visit_end_date=strtotime($this->visit_end_date);
-            	$this->modified=time();
-                return true;
+//            	$this->modified=time();
+//                return true;
             }
         }//end of if(parent())
     }//end of beforeSave().
@@ -235,6 +225,8 @@ class Enggdiary extends CActiveRecord
     public function updateAppointment($id, $days_moved)
     {
     	//echo time();
+    	//echo "end date from method in model = ".$end_date."<br>";
+    	//echo "NORMAL END date from method in model = ".date("Y-m-d H:i",$end_date)."<br>";
 //    	echo "id from method in model = ".$id."<br>";
 //    	echo "days moved from method in model = ".$days_moved."<br>";
     	    	
@@ -245,19 +237,37 @@ class Enggdiary extends CActiveRecord
     	
     	foreach($diaryModel as $data)
     	{
+    		/****** UPDATING START DATE SETTING TIME TO 9 AM *******/
+    		echo "<br>******************** DATA FROM MODEL FUNC ***********<br>";
+    		echo "satrt date from db = ".date("Y-m-d H:i",$data->visit_start_date)."<br>";
     		$date= date("Y-m-d H:i",$data->visit_start_date);
     		//echo "service call from model = ".$data->servicecall_id."<br>";
-    		echo "visit date from model = ".$date."<br>"; 
-    		echo "visit date from model = ".$data->visit_start_date."<br>";
-    		$date = strtotime(date("Y-m-d", strtotime($date)) . $days_moved."day");
-    		echo "date from web = ".$date."<br>";
-    		echo "formated date from web = ".date('Y-m-d', $date);
+    		
+    		$date = strtotime(date("Y-m-d H:i", $data->visit_start_date) . $days_moved."day");
+    		echo "NEW UPDATED DATE AFTER ADDING DAYS = ".date('Y-m-d H:i', $date)."<br>";
+    		echo "<br>PHP UPDATED START DATE = ".$date;
+    		$new_start_date = strtotime($date);
+    		
+    		/****** END OF UPDATING START DATE SETTING TIME TO 9 AM *******/
+            
+            
+            /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
+            
+            echo "<br>end date from db = ".date("Y-m-d H:i",$data->visit_end_date);
+            $updated_end_date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $days_moved."day");
+            echo "<br>PHP END DATE = ".$updated_end_date;
+            echo "<br>NORMAL END DATE = ".date("Y-m-d H:i",$updated_end_date);
+            $new_end_date = date("Y-m-d H:i",$updated_end_date);
+            echo "<br>******************** END OF DATA FROM MODEL FUNC ***********<br>";
+            
+            /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
     		
     	}//end of foreach().
     	
     	$updateDiaryModel = Enggdiary::model()->updateByPk($id,
     											array(
-    												'visit_start_date'=>$date
+    												'visit_start_date'=>$date,
+    												'visit_end_date'=>$updated_end_date
     											)
     										);
 		    							

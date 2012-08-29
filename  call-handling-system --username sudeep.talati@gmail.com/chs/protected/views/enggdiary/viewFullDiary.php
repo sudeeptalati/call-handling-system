@@ -20,7 +20,10 @@
 	//$engg_id=$model->engineer_id;
  	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
  	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";
-	echo $enggdiaryform->DropDownList($model, 'engineer_id', $data);
+	echo $enggdiaryform->dropDownList($model, 'engineer_id', $data,
+								array('empty'=>array(0=>'All Engineers')) 
+								
+							  );
 	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
 	
 ?>
@@ -72,7 +75,7 @@ function isTouchDevice()
 	//var dataUrl = baseUrl;
 	//alert(engg_id);
 	var dataUrl  =  baseUrl+'/api/ViewFullDiaryJsonData/?engg_id='+engg_id;
-	alert(dataUrl);
+	//alert(dataUrl);
 	
 	
 	$(document).ready(function() 

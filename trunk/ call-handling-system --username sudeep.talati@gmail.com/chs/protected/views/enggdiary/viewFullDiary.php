@@ -1,6 +1,34 @@
+<div class="form">
+
+<?php 
+	//echo $model->engineer_id;
+	$baseUrl=Yii::app()->request->baseUrl;
+	$changeEnggUrl=$baseUrl.'/api/DisplayEngineerId/';		
+
+	$enggdiaryform=$this->beginWidget('CActiveForm', array(
+	'id'=>'enggdiary-changeEngineer-form',
+	'enableAjaxValidation'=>false,
+	//'action'=>$changeEnggUrl,
+	'method'=>'post'
+	
+)); 
+?>
+
+
+<?php 
+	
+	//$engg_id=$model->engineer_id;
+ 	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+ 	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";
+	echo $enggdiaryform->DropDownList($model, 'engineer_id', $data);
+	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
+	
+?>
+<?php $this->endWidget(); ?>
+</div><!-- ENd of form -->
+ 
  
 <?php
-
 
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 
@@ -10,16 +38,19 @@
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-1.7.1.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-ui-1.8.17.custom.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
- 	$cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery.ui.touch-punch.js');
+  $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery.ui.touch-punch.js');
+  
+  //echo "ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id;
  
-  ?>
+ ?>
   
-  <?php 
+
   
-  
-  ?>
+  <br><br><br>
 
 <script type='text/javascript'>
+
+
 function isTouchDevice()
 {
     var ua = navigator.userAgent;
@@ -36,11 +67,17 @@ function isTouchDevice()
 	
 	
 	var baseUrl='<?php echo $baseUrl; ?>';
-	dataUrl  =  baseUrl+'/api/ViewFullDiaryJsonData';
+	//alert(baseUrl);
+	var engg_id = '<?php echo $engg_id;?>';
+	//var dataUrl = baseUrl;
+	//alert(engg_id);
+	var dataUrl  =  baseUrl+'/api/ViewFullDiaryJsonData/?engg_id='+engg_id;
+	alert(dataUrl);
 	
-
+	
 	$(document).ready(function() 
 	{
+								
 		$('#calendar').fullCalendar({
 		
 			header: {
@@ -49,14 +86,16 @@ function isTouchDevice()
 				right: 'month,agendaWeek,agendaDay'
 			},
 
+			
 
 			editable: true,
 			events:dataUrl,
 		
 			editable: true,
 			selectable: true,
+
 			
-		    eventResize: function(event,dayDelta,minuteDelta,revertFunc) 
+			eventResize: function(event,dayDelta,minuteDelta,revertFunc) 
 		    {
 //				alert(
 //		            "The end date of " + event.title + "has been moved " +

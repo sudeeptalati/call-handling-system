@@ -294,18 +294,9 @@ class Enggdiary extends CActiveRecord
     											array('visit_end_date'=>$date
     											)	
     										);
-    		
-    		
-    		
-    		
     	}//end of foreach().
 
-    	
-    	
     }//end of updateEndTime(). 
-    
-    
-    
     
     
     

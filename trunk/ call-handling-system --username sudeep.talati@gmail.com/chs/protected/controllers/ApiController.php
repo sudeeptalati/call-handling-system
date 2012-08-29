@@ -23,40 +23,91 @@ class ApiController extends Controller
  
     // Actions
     
-	public function actionViewFullDiaryJsonData()
+	public function actionViewFullDiaryJsonData($engg_id)
     {
+    	//echo "ENGG ID IN API CONTROLLER = ".$engg_id."<br>";
     	$diary_events_array = array();
 		$mydata=array();
 		
-    	$diaryModel = Enggdiary::model()->findAll();
-    	$i=1;
-    	foreach ($diaryModel as $data)
-    	{
-    		//echo $data->servicecall_id;
-    		$customer_name=$data->servicecall->customer->fullname;
-    		$customer_postcode=$data->servicecall->customer->postcode;
-    		
-    		$start_date= date("Y-m-d H:i",$data['visit_start_date']);
-    		$end_date = date("Y-m-d H:i",$data['visit_end_date']);
-    		
-    		$diary_events_array['id'] = $data->id;///id of the engg diary
-    		$diary_events_array['service_id'] = $data->servicecall_id;
-			$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
-			$diary_events_array['start'] = $start_date;
-			$diary_events_array['end'] = $end_date;
-    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
-    		$diary_events_array['allDay'] = false ;
-    		//'end' => "$year-$month-22",
-    		 
-//			echo "id = ".$data->id."<br>";
-//			echo "Visit date = ".$date."<br>";
-//			echo "service_id = ".$data->servicecall_id."<hr>";
-    		
-    		array_push($mydata,$diary_events_array);
-    		$i++;
-    		
-    	}//end of foreach().
-    	echo json_encode($mydata);
+		
+		
+		if($engg_id == '0')
+		{
+			//echo "value is zero"."<br>";
+			
+		/*** CODE TO DISPLAY ALL THE ENGINEERS APPOINTMENTS THIS PART IS CALLED WHEN ENGG_ID=0 ***/
+		
+			$diaryModel = Enggdiary::model()->findAll();
+	    	$i=1;
+	    	foreach ($diaryModel as $data)
+	    	{
+	    		//echo $data->servicecall_id;
+	    		$customer_name=$data->servicecall->customer->fullname;
+	    		$customer_postcode=$data->servicecall->customer->postcode;
+	    		
+	    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+	    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+	    		
+	    		$diary_events_array['id'] = $data->id;///id of the engg diary
+	    		$diary_events_array['service_id'] = $data->servicecall_id;
+				$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
+				$diary_events_array['start'] = $start_date;
+				$diary_events_array['end'] = $end_date;
+	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+	    		$diary_events_array['allDay'] = false ;
+	    		//'end' => "$year-$month-22",
+	    		 
+				//echo "id = ".$data->id."<br>";
+				//echo "Visit date = ".$date."<br>";
+				//echo "service_id = ".$data->servicecall_id."<hr>";
+	    		
+	    		array_push($mydata,$diary_events_array);
+	    		$i++;
+	    		
+	    	}//end of foreach().
+	    	echo json_encode($mydata);
+			/***** END OF CODE TO DISPLAY ALL THE ENGINEERS APPOINTMENTS **********/
+		
+		}//end of if engg_id value is zero.
+		else
+		{
+			//echo "value is ".$engg_id."<br>";
+			
+		/*** CODE TO DISPLAY SPECIFIC ENGG DIARY, THIS CODE IS CALLED WHEN ENGG_ID!=0 ***/
+			
+			$diaryModel = Enggdiary::model()->findAllByPk($engg_id);
+	    	$i=1;
+	    	foreach ($diaryModel as $data)
+	    	{
+	    		//echo $data->servicecall_id;
+	    		$customer_name=$data->servicecall->customer->fullname;
+	    		$customer_postcode=$data->servicecall->customer->postcode;
+	    		
+	    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+	    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+	    		
+	    		$diary_events_array['id'] = $data->id;///id of the engg diary
+	    		$diary_events_array['service_id'] = $data->servicecall_id;
+				$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
+				$diary_events_array['start'] = $start_date;
+				$diary_events_array['end'] = $end_date;
+	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+	    		$diary_events_array['allDay'] = false ;
+	    		//'end' => "$year-$month-22",
+	    		 
+				//echo "id = ".$data->id."<br>";
+				//echo "Visit date = ".$date."<br>";
+				//echo "service_id = ".$data->servicecall_id."<hr>";
+	    		
+	    		array_push($mydata,$diary_events_array);
+	    		$i++;
+	    		
+	    	}//end of foreach().
+	    	echo json_encode($mydata);
+			
+		/*** END OF CODE TO DISPLAY SPECIFIC ENGG DIARY, THIS CODE IS CALLED WHEN ENGG_ID!=0 ***/
+
+		}//end of else of engg id value == 0.
     	
     }//end of displayDiary().
     
@@ -95,6 +146,52 @@ class ApiController extends Controller
     	
     	
     }//end of UpdateMinutes().
+    
+    public function actionDisplayEngineerId()
+    {
+    	$diary_events_array = array();
+		$mydata=array();
+		
+		$model=Enggdiary::model();
+    	
+    	$model->attributes=$_POST['Enggdiary'];
+    	 //echo $model->engineer_id;
+    	echo "ENGINEER ID IN CONTROLLER :".$model->engineer_id."<br>";
+    	$engg_id = $model->engineer_id;
+    	
+    	$enggAppointmentData = Enggdiary::model()->findAllByPk($engg_id);
+    	
+    	$i=1;
+		foreach ($enggAppointmentData as $data)
+    	{
+    		$customer_name=$data->servicecall->customer->fullname;
+    		$customer_postcode=$data->servicecall->customer->postcode;
+    		
+    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+    		
+    		$diary_events_array['id'] = $data->id;///id of the engg diary
+    		$diary_events_array['service_id'] = $data->servicecall_id;
+			$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
+			$diary_events_array['start'] = $start_date;
+			$diary_events_array['end'] = $end_date;
+    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+    		$diary_events_array['allDay'] = false ;
+    		
+    		echo "start date = ".date('d-m-Y H:i',$data->visit_start_date)."<br>";
+    		echo "Service id = ".$data->servicecall_id."<br>"; 
+    		echo "Customer name = ".$data->servicecall->customer->fullname."<br>";
+    		
+    		array_push($mydata,$diary_events_array);
+    		$i++;
+    		
+    	}//end of foreach().
+    	
+    	echo json_encode($mydata);
+    	
+    	 
+    }//end of actionDisplayEngineerId().
+    
     
     
     public function actionList()

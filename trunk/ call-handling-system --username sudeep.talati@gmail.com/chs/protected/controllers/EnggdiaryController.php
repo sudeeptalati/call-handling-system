@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('viewFullDiary','ICalLink','ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('viewFullDiary','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -215,6 +215,7 @@ class EnggdiaryController extends Controller
 		//echo "ENGINEER ID IN CONTROLLER :".$model->engineer_id;
 		}
 	    
+		
 		if(isset($_POST['Enggdiary']))
     	{
         $model->attributes=$_POST['Enggdiary'];
@@ -418,10 +419,30 @@ exit;
 	public function actionViewFullDiary()
 	{
 		$model=new Enggdiary('search');
-		$this->render('viewFullDiary',array('model'=>$model));
+		$engg_id = '';
+		
+		if(isset($_POST['Enggdiary']))
+		{
+			//echo "Value is present<br>";
+			$model->attributes=$_POST['Enggdiary'];
+			//echo "Value in  is = ".$model->engineer_id;
+			$engg_id = $model->engineer_id;
+			
+		}//end of if engg_id is present.
+		else 
+		{
+			//echo "value not found";
+			$engg_id = '0';
+			
+		}//END OF ELSE().
+		
+		//echo "<hr>Engg id in enggController = ".$engg_id;
+		
+		$this->render('viewFullDiary',array('model'=>$model,
+											'engg_id'=>$engg_id
+							));
 		
 		
 	}////end of actionViewFullDiary
-	
 	
 }//end of class.

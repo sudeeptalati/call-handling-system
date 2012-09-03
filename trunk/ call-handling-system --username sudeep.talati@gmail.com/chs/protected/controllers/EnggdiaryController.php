@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('viewFullDiary','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -84,6 +84,7 @@ class EnggdiaryController extends Controller
 			$model->attributes=$_POST['Enggdiary'];
 			
 			
+			
 			if($model->save())
 			{
 				$seviceQueryModel=Servicecall::model()->findByPk($service_id);
@@ -96,7 +97,7 @@ class EnggdiaryController extends Controller
 				$baseUrl=Yii::app()->request->baseUrl;
 				$this->redirect($baseUrl.'/servicecall/'.$service_id);
 			}
-		
+			
 		}
 
 		$this->render('create',array(
@@ -233,9 +234,11 @@ class EnggdiaryController extends Controller
 
     	}//
     
-		$this->render('changeEngineer',array(
-			'model'=>$model,
-		));
+//		$this->render('changeEngineer',array(
+//			'model'=>$model,
+//		));
+
+    	$this->render('viewFullDiary', array('model'=>$model,'engg_id'=>'0'));
     	
     
 	}
@@ -421,28 +424,94 @@ exit;
 		$model=new Enggdiary('search');
 		$engg_id = '';
 		
-		if(isset($_POST['Enggdiary']))
+		
+		if (isset($_GET['engg_id']))
 		{
-			//echo "Value is present<br>";
-			$model->attributes=$_POST['Enggdiary'];
-			//echo "Value in  is = ".$model->engineer_id;
-			$engg_id = $model->engineer_id;
-			
-		}//end of if engg_id is present.
+			$engg_id=$_GET['engg_id'];
+			//echo "CAUGT ISSET ".$engg_id;
+		}
 		else 
 		{
 			//echo "value not found";
 			$engg_id = '0';
 			
-		}//END OF ELSE().
+		}//END OF ELSE, i.e, no id is got from dropdown in viewFullDiary view.
 		
+		
+		
+		/*
+		
+		if(isset($_GET['engineer_id']) && isset($_GET['id']) )
+		{
+			echo "ENGG_ID IN VIEWFULLCAL CONTR = ". $_GET['engineer_id']."<br>";
+			$engg_id = $_GET['engineer_id'];
+			echo "SERVICECALL ID IN VIEWFULLCAL CONTR = ". $_GET['id']."<br>";
+			$service_id  = $_GET['id'];
+			
+		}//end of if of isset of engineer_id and service_id got from servicecall controller.
+		*/
+		
+		
+		
+		if(isset($_GET['Enggdiary']))
+		{
+			//echo "Value is present<br>";
+			$model->attributes=$_GET['Enggdiary'];
+			//echo "Value in  is = ".$model->engineer_id;
+			$engg_id = $model->engineer_id;
+			//echo "CAUGT ".$engg_id;
+			
+			
+		}//end of if engg_id is present got from dropdown in viewFullDiary view.
+				
 		//echo "<hr>Engg id in enggController = ".$engg_id;
+		 
+		 
 		
 		$this->render('viewFullDiary',array('model'=>$model,
 											'engg_id'=>$engg_id
-							));
+									));
 		
 		
 	}////end of actionViewFullDiary
+	
+	public function actionBookingAppointment()
+	{
+	    //$model=new Enggdiary('view');
+	    
+	    $model=new Enggdiary('search');
+		$engg_id = '';
+		
+		if(isset($_GET['engineer_id']) && isset($_GET['id']) )
+		{
+			//echo "ENGG_ID IN VIEWFULLCAL CONTR = ". $_GET['engineer_id']."<br>";
+			$engg_id = $_GET['engineer_id'];
+			//echo "SERVICECALL ID IN VIEWFULLCAL CONTR = ". $_GET['id']."<br>";
+			$service_id  = $_GET['id'];
+			
+		}//end of if of isset of engineer_id and service_id got from servicecall controller.
+		
+		/*
+	
+	    if(isset($_POST['Enggdiary']))
+	    {
+	        $model->attributes=$_POST['Enggdiary'];
+	        if($model->validate())
+	        {
+	            // form inputs are valid, do something here
+	            return;
+	        }
+	    }
+	    
+	    */
+		
+	    $this->render('bookingAppointment',array('model'=>$model,
+	    										 'engg_id'=>$engg_id,
+												 'service_id'=>$service_id
+	    							));
+	}//end of bookingAppointment().
+	
+	
+	
 	
 }//end of class.

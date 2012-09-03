@@ -1,9 +1,7 @@
-<?php 
-   $mtime = microtime(); 
-   $mtime = explode(" ",$mtime); 
-   $mtime = $mtime[1] + $mtime[0]; 
-   $starttime = $mtime; 
-;?> 
+
+
+<!-- ********  CODE FOR POSTCODE SET-UP ***************** -->
+
 
 <script type="text/javascript">
 function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin(Key, Postcode,  UserName)
@@ -122,6 +120,7 @@ background-color: #FFFF9D;
 
 </STYLE>
 
+<!-- ******** END OF CODE FOR POSTCODE SET-UP ***************** -->
 
 <div class="form">
 
@@ -567,11 +566,3 @@ background-color: #FFFF9D;
 	//}
 ?>
 
-<?php 
-   $mtime = microtime(); 
-   $mtime = explode(" ",$mtime); 
-   $mtime = $mtime[1] + $mtime[0]; 
-   $endtime = $mtime; 
-   $totaltime = ($endtime - $starttime); 
-   echo "This page was created in ".$totaltime." seconds"; 
-;?>

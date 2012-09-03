@@ -150,8 +150,8 @@ vertical-align:top;
 				//echo $model->fault_date;
 				
  				if ($model->fault_date!=''){
-	 				//$fault_date=date('j-M-y',$model->fault_date);
-	 				$fault_date = $model->fault_date;
+	 				$fault_date=date('d-M-Y',$model->fault_date);
+	 				//$fault_date = $model->fault_date;
 					}	
 					else 
 						{
@@ -215,12 +215,13 @@ vertical-align:top;
 			<?php if(empty($model->engg_diary_id))
 				  {
 				  	echo CHtml::link($imghtml, array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
-					echo CHtml::link('Create Appointment', array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
+					echo CHtml::link('Create Appointment', array('enggdiary/bookingAppointment/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 				  }
 				  else 
 				  {
 				  	echo CHtml::link($imghtml, array('enggdiary/changeAppointment/', 'service_id'=>$model->id, 'engineer_id'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));
-				  	echo CHtml::link('Change Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
+				  	//echo CHtml::link('Change Engineer or Appointment', array('enggdiary/changeAppointment/', 'serviceId'=>$model->id, 'engineerId'=>$model->engineer_id, 'enggdiary_id'=>$model->engg_diary_id));				  	
+				  	echo CHtml::link('Change Engineer or Appointment', array('enggdiary/viewFullDiary/', 'engg_id'=>$model->engineer_id));
 				  }
 			?>
 				

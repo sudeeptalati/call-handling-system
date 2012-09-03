@@ -31,6 +31,7 @@ class ApiController extends Controller
 		
 		
 		
+		
 		if($engg_id == '0')
 		{
 			//echo "value is zero"."<br>";
@@ -44,13 +45,14 @@ class ApiController extends Controller
 	    		//echo $data->servicecall_id;
 	    		$customer_name=$data->servicecall->customer->fullname;
 	    		$customer_postcode=$data->servicecall->customer->postcode;
+	    		$engineer_name = $data->engineer->fullname;
 	    		
 	    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 	    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
 	    		
 	    		$diary_events_array['id'] = $data->id;///id of the engg diary
 	    		$diary_events_array['service_id'] = $data->servicecall_id;
-				$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
+				$diary_events_array['title'] = "\nCustomer Name & Postcode: ".$customer_name." ".$customer_postcode."\nEngineer Name:".$engineer_name; ///** HERE WE WIL DISPLAY custtomer name and postcode
 				$diary_events_array['start'] = $start_date;
 				$diary_events_array['end'] = $end_date;
 	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
@@ -75,7 +77,10 @@ class ApiController extends Controller
 			
 		/*** CODE TO DISPLAY SPECIFIC ENGG DIARY, THIS CODE IS CALLED WHEN ENGG_ID!=0 ***/
 			
-			$diaryModel = Enggdiary::model()->findAllByPk($engg_id);
+			$diaryModel = Enggdiary::model()->findAllByAttributes(
+												array('engineer_id'=>$engg_id)
+											);
+			
 	    	$i=1;
 	    	foreach ($diaryModel as $data)
 	    	{
@@ -114,9 +119,12 @@ class ApiController extends Controller
     public function actionUpdateDiary()
     {
     	//echo "IN ACTION UPDATE DIARY<br>";
-    	$engg_id = $_GET['engg_id'];
-    	//echo "Diary id = ".$engg_id."<br>";
+    	$diary_id = $_GET['diary_id'];
+    	echo "Diary id = ".$diary_id."<br>";
     	$days_moved = $_GET['days_moved'];
+    	echo "days moved = ".$days_moved;
+    	$minutes_moved = $_GET['minutes_moved'];
+    	echo "<br> Minutes moved = ".$minutes_moved;
     	//echo "Days moved in api contr = ".$days_moved."<br>";
 //    	$end_date = $_GET['end_date'];
 //    	echo "end days in api contr = ".$end_date;
@@ -124,7 +132,7 @@ class ApiController extends Controller
 //    	if($model = 'Enggdiary')
 //    	{
     		//echo "enggdiary is sent<br>";
-    		Enggdiary::model()->updateAppointment($engg_id, $days_moved);
+    		Enggdiary::model()->updateAppointment($diary_id, $days_moved, $minutes_moved);
     	//}
     	
     }//end of updateDiary().
@@ -137,12 +145,12 @@ class ApiController extends Controller
     	
     	echo "in action update actionUpdateEndDateTime<br>";
     	
-    	$engg_id = $_GET['engg_id'];
-    	echo "Diary id = ".$engg_id."<br>";
+    	$diary_id = $_GET['diary_id'];
+    	echo "Diary id = ".$diary_id."<br>";
     	$minutes = $_GET['minutes'];
     	echo "minutes in model func = ".$minutes."<br>";
     	
-    	Enggdiary::model()->updateEndDateTime($engg_id, $minutes);
+    	Enggdiary::model()->updateEndDateTime($diary_id, $minutes);
     	
     	
     }//end of UpdateMinutes().
@@ -159,7 +167,12 @@ class ApiController extends Controller
     	echo "ENGINEER ID IN CONTROLLER :".$model->engineer_id."<br>";
     	$engg_id = $model->engineer_id;
     	
+    	 //$this->forward('viewFullDiaryJson/'); 
+    	
+    	/*
+    	
     	$enggAppointmentData = Enggdiary::model()->findAllByPk($engg_id);
+    	
     	
     	$i=1;
 		foreach ($enggAppointmentData as $data)
@@ -189,8 +202,72 @@ class ApiController extends Controller
     	
     	echo json_encode($mydata);
     	
+    	*/
+    	
     	 
     }//end of actionDisplayEngineerId().
+    
+    public function actionCreateNewDiaryEntry()
+    {
+    	echo "IN CreateNewDiaryEntry action";
+    	echo "<hr>START DATE = ".date('d-m-Y H:i','1346313600')."<hr>";
+    	
+    	$engg_id = $_GET['engg_id'];
+    	echo "<br>ENGG_ID in api contr = ".$engg_id;
+    	$service_id = $_GET['service_id'];
+    	echo "<br>SERVICE_ID in api contr = ".$service_id;
+    	
+    	$start_date = $_GET['start_date'];
+    	echo "<br>START DATE = ".$start_date;
+    	echo "<br>STRTOTIME START DATE = ".strtotime($start_date);
+    	
+    	$newEnggDiaryModel = new Enggdiary;
+    	$newEnggDiaryModel->servicecall_id=$service_id;
+		$newEnggDiaryModel->engineer_id=$engg_id;
+		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT(VISIT START DATE).
+		$newEnggDiaryModel->visit_start_date=$start_date;
+		$newEnggDiaryModel->slots = '2';
+		
+		if($newEnggDiaryModel->save())
+		{
+			echo "<br>SAVED.......!!!!!!!!!!";
+		}
+		else 
+		{
+			echo "<br>Problem in saving";
+		}
+    	
+    	
+    	/*** ADDING MINUTES TO STRAT DATE IS NOT NEEDED AS WE WILL ADD IN BEFORE SAVE***
+    	$str_time = strtotime($start_date);
+    	echo "<br>NORMAL TIME START DATE = ".date('d-m-Y H:i',$str_time);
+    	$strat_time_to_pass = date('d-m-Y H:i',$str_time);
+    	echo "<br>START DATE to pass  = ".$start_date;
+    	
+    	$updated_start_time = date("d-m-Y H:i", strtotime('+540 minutes', $str_time));
+    	
+    	echo "<br>START DATE AFTER ADDING MIN = ".$updated_start_time;
+    	$str_updated_start_time = strtotime($updated_start_time);
+    	echo "<br>STR UPDATED STRAT TIME = ".$str_updated_start_time;
+    	
+    	$updated_end_date = date("d-m-Y H:i", strtotime('+1 hour', $str_updated_start_time));
+    	echo "<br>END DATE AFTER ADDING MIN = ".$updated_end_date;
+    	$str_updated_end_time = strtotime($updated_end_date);
+    	echo "<br>STR UPDATED END TIME = ".$str_updated_end_time;
+    	*/
+    	
+    	
+    	
+    	
+    	
+    	
+		
+    	
+    	
+    	
+    	
+    	
+    }//end of actionCreateNewDiaryEntry().
     
     
     

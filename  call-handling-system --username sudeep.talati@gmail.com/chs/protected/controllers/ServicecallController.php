@@ -110,7 +110,9 @@ class ServicecallController extends Controller
 				{
 					$engg_id=$model->engineer_id;
 					$baseUrl=Yii::app()->request->baseUrl;
-					$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+					//$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+					//$this->redirect($baseUrl.'/enggdiary/ViewFullDiary/'.$model->id.'?engineer_id='.$engg_id);
+					$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
 				}//end of $model->save().
 			}//end of if(valid).
 			else 
@@ -382,7 +384,8 @@ class ServicecallController extends Controller
 					//echo $model->product_id;
 					$engg_id=$model->engineer_id;
 					$baseUrl=Yii::app()->request->baseUrl;
-					$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+					//$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
+					$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
 					//echo "saved";
 	            	// form inputs are valid, do something here
 	            	//return;

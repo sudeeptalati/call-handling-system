@@ -184,6 +184,7 @@ class Enggdiary extends CActiveRecord
     	$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
     												array(
     												'engg_diary_id'=>$this->id,
+    												'job_status_id'=>'3'
     												));
     }
     
@@ -222,18 +223,18 @@ class Enggdiary extends CActiveRecord
     								);
     }//end of weeklyReport.
     
-    public function updateAppointment($id, $days_moved)
+    public function updateAppointment($id, $days_moved, $minutes_moved)
     {
-    	//echo time();
+    	
+    	 
     	//echo "end date from method in model = ".$end_date."<br>";
     	//echo "NORMAL END date from method in model = ".date("Y-m-d H:i",$end_date)."<br>";
-//    	echo "id from method in model = ".$id."<br>";
-//    	echo "days moved from method in model = ".$days_moved."<br>";
+    	echo "<hr>id from method in model = ".$id."<br>";
+    	echo "days moved from method in model = ".$days_moved."<br>";
+    	echo "minutes moved = ".$minutes_moved;
     	    	
     	$diaryModel = Enggdiary::model()->findAllByPk($id);
     	
-    	//echo $diaryModel->visit_start_date;
-    	//$date
     	
     	foreach($diaryModel as $data)
     	{
@@ -243,7 +244,7 @@ class Enggdiary extends CActiveRecord
     		$date= date("Y-m-d H:i",$data->visit_start_date);
     		//echo "service call from model = ".$data->servicecall_id."<br>";
     		
-    		$date = strtotime(date("Y-m-d H:i", $data->visit_start_date) . $days_moved."day");
+    		$date = strtotime(date("Y-m-d H:i", $data->visit_start_date) . $days_moved."day". $minutes_moved."minutes");
     		echo "NEW UPDATED DATE AFTER ADDING DAYS = ".date('Y-m-d H:i', $date)."<br>";
     		echo "<br>PHP UPDATED START DATE = ".$date;
     		$new_start_date = strtotime($date);
@@ -254,22 +255,25 @@ class Enggdiary extends CActiveRecord
             /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
             
             echo "<br>end date from db = ".date("Y-m-d H:i",$data->visit_end_date);
-            $updated_end_date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $days_moved."day");
+            $updated_end_date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $days_moved."day". $minutes_moved."minutes");
             echo "<br>PHP END DATE = ".$updated_end_date;
             echo "<br>NORMAL END DATE = ".date("Y-m-d H:i",$updated_end_date);
             $new_end_date = date("Y-m-d H:i",$updated_end_date);
             echo "<br>******************** END OF DATA FROM MODEL FUNC ***********<br>";
             
             /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
-    		
-    	}//end of foreach().
-    	
-    	$updateDiaryModel = Enggdiary::model()->updateByPk($id,
+            
+            $updateDiaryModel = Enggdiary::model()->updateByPk($data->id,
     											array(
     												'visit_start_date'=>$date,
+    												//'visit_start_date'=>$new_start_date,
     												'visit_end_date'=>$updated_end_date
     											)
     										);
+    		
+    	}//end of foreach().
+    	
+    	
 		    							
     	
     }//end of updateAppointment().

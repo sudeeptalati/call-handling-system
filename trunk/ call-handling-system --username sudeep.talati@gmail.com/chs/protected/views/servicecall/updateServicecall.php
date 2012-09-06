@@ -419,7 +419,7 @@ $cloud_id = $_GET['cloud_id'];
 //echo "cloud id = ".$cloud_id;
 
 
-/*
+
 		if($cloud_id != 0)
 		{
 			$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$cloud_id;
@@ -462,7 +462,7 @@ $cloud_id = $_GET['cloud_id'];
 			}
 				
 		}//end of if part_number empty.
-		*/
+		
 ?>
 
 

@@ -52,11 +52,15 @@ class ApiController extends Controller
 	    		
 	    		$diary_events_array['id'] = $data->id;///id of the engg diary
 	    		$diary_events_array['service_id'] = $data->servicecall_id;
-				$diary_events_array['title'] = "\nCustomer Name & Postcode: ".$customer_name." ".$customer_postcode."\nEngineer Name:".$engineer_name; ///** HERE WE WIL DISPLAY custtomer name and postcode
+				$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
 				$diary_events_array['start'] = $start_date;
 				$diary_events_array['end'] = $end_date;
 	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
 	    		$diary_events_array['allDay'] = false ;
+	    		$diary_events_array['textColor'] = "#FAE8D2" ;
+ 
+	    		
+	    		
 	    		//'end' => "$year-$month-22",
 	    		 
 				//echo "id = ".$data->id."<br>";
@@ -87,13 +91,14 @@ class ApiController extends Controller
 	    		//echo $data->servicecall_id;
 	    		$customer_name=$data->servicecall->customer->fullname;
 	    		$customer_postcode=$data->servicecall->customer->postcode;
+	    		$engineer_name = $data->engineer->fullname;
 	    		
 	    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 	    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
 	    		
 	    		$diary_events_array['id'] = $data->id;///id of the engg diary
 	    		$diary_events_array['service_id'] = $data->servicecall_id;
-				$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
+				$diary_events_array['title'] = $customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
 				$diary_events_array['start'] = $start_date;
 				$diary_events_array['end'] = $end_date;
 	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;

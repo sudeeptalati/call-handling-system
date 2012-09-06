@@ -149,14 +149,16 @@ vertical-align:top;
 		<?php 	
 				//echo $model->fault_date;
 				
- 				if ($model->fault_date!=''){
+ 				if ($model->fault_date!='')
+ 				{
 	 				$fault_date=date('d-M-Y',$model->fault_date);
 	 				//$fault_date = $model->fault_date;
-					}	
-					else 
-						{
-						$fault_date='';	
-					}
+				}	
+				else 
+				{
+					$fault_date='';	
+				}
+				
 				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'fault_date'),
@@ -171,6 +173,7 @@ vertical-align:top;
 				        'style'=>'height:20px;'
 				    ),
 				));
+				
 				
 					
 			?>
@@ -246,17 +249,18 @@ vertical-align:top;
 			</td>
 		</tr>
 		<tr>
+		
 			<td>
 			
 			
 			
 				<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
-				<?php //echo $form->textField($model,'spares_used_status_id'); ?>
 				<?php //$model->spares_used_status_id='';?>
 				<?php 
 					echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'No','1'=>'Yes'), 
 																		array('id'=> 'spares-dropdown-id')																			
-				);?>
+				);
+				?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?><br>
 				
 				<!-- ****** CODE TO DISPLAY SPARES ALREADY USED *********** -->
@@ -299,7 +303,8 @@ vertical-align:top;
 				
 				
 				<br><div id="freesearch-Form" style="display:none"><!-- ITEM SEARCH DIV -->
-				<?php  $service_id = $model->id;  
+				<?php 
+				  $service_id = $model->id;  
 				 
 				  $baseUrl = Yii::app()->baseUrl; 
 				  $cs = Yii::app()->getClientScript();
@@ -313,16 +318,16 @@ vertical-align:top;
 				 
 				 
 				$(document).ready(function() {
-				
+
 				$("#faq_search_input").keyup(function()
-				
+
 				{
 				var faq_search_input = $(this).val();
 				var dataString = 'keyword='+ faq_search_input;
-				
-				//var ref_id = $('#ref_id').val(); 
+
+				//var ref_id = $('#ref_id').val();
 				//var cust_id = $('#cust_id').val(); 
-				var search_url = $('#search_url').val(); 
+				var search_url = $('#search_url').val();
 				var service_id = $('#service_id').val();
 				var temp_url = $('#temp_url').val();
 				var current_url = $('#current_url').val();
@@ -361,7 +366,7 @@ vertical-align:top;
 				});
 					  
 				</script>
-				
+
 				<?php
 				
 				$baseUrl = Yii::app()->baseUrl; 
@@ -378,21 +383,24 @@ vertical-align:top;
 				//$temp_url='../../../master_database/api/searchData.php?';
 				$temp_url='../../../local_items_database/api/searchData.php?';
 				
+				//$temp_url='http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?';
+				
+				
 				?>
 				
 					<input type="hidden" id="search_url" value="<?php echo $search_url;?>"/> 
 					<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>
 					<input type="hidden" id="temp_url" value="<?php echo $temp_url;?>"/>
 					<input type="hidden" id="current_url" value="<?php echo $current_url;?>"/>
-					<!--<input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> 
-					<input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/>  -->
+					<!-- <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> --> 
+					<!-- <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/> -->  
 					
 							  Enter Item Name, Part Number or barcode<br>
-				              <!-- The Searchbox Starts Here  -->
+				            <!-- The Searchbox Starts Here  -->
 				              <form  name="search_form">
 				              <input  name="query" type="text" id="faq_search_input" style="background-color: #F8D0C1" size='40' />
 				              </form>
-				             <!-- The Searchbox Ends  Here  -->
+				            <!-- The Searchbox Ends  Here  -->
 				       <div id="searchresultdata" class="faq-articles"> </div>
 				     </div>
 				
@@ -410,16 +418,18 @@ $master_id = $_GET['master_id'];
 $cloud_id = $_GET['cloud_id'];
 //echo "cloud id = ".$cloud_id;
 
-if($cloud_id != 0)
-{
-$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$cloud_id;
+
+/*
+		if($cloud_id != 0)
+		{
+			$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$cloud_id;
 			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
 			//$array= explode("\n", $server_msg);
 			//echo "Total No. of lines are ".count($array);
 			//echo $server_msg."<hr>";
 			$decodedata = json_decode($server_msg, true);
-//			echo $decodedata['master_id']."<br>";
-//			echo $decodedata['part_num']."<br>";
+			//echo $decodedata['master_id']."<br>";
+			//echo $decodedata['part_num']."<br>";
 			$part_number = $decodedata['part_num'];
 			//echo $decodedata['opn']."<br>";
 			$opn = $decodedata['opn'];
@@ -430,7 +440,7 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 		}// end of if getting cloud server data.
 		else
 		{
-			//echo "no data";
+			echo "no data";
 			$db = new PDO('sqlite:../local_items_database/api/master_database.db');
 			
 			$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
@@ -452,6 +462,7 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 			}
 				
 		}//end of if part_number empty.
+		*/
 ?>
 
 
@@ -469,7 +480,7 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 
 	<hr>
 	
-<?php }///end of items form?>
+<?php }//end of items form?>
 	
 <!-- ********* END OF CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->
 				
@@ -484,14 +495,10 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 				<?php echo $form->error($model,'work_carried_out'); ?>
 			
 				<?php echo $form->labelEx($model,'job_payment_date'); ?>
-				<?php 	
-//					if (!empty($model->job_payment_date))
-//					{
-//						$model->job_payment_date=date('d-M-y', $model->job_payment_date);
-//					}
-					?>
+
 				<?php 
-					
+				
+				
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'job_payment_date'),
 					'model'=>$model,
@@ -505,6 +512,7 @@ $itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?i
 				        'style'=>'height:20px;'
 				    ),
 				));
+				
 				
 				?>
 				<?php //echo $form->textField($model,'job_payment_date'); ?>

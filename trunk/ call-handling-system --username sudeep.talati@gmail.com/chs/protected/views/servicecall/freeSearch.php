@@ -7,24 +7,6 @@ $this->menu=array(
 );
 ?>
 
-<?php 
-
-//echo "<br>START DATE = ".date('d-m-Y H:i','1346655600');
-//echo "<br>END DATE = ".date('d-m-Y H:i','1346659200');
-
-//$temp_date = '1346655600';
-//
-//echo "<br>TEMP DATE = ".date('d-m-Y H:i',$temp_date);
-//$days_moved = '0';
-//$min_moved = "-60";
-//
-//$moved_date = strtotime(date("Y-m-d H:i", $temp_date) . $days_moved."day" . $min_moved."minutes");
-//echo "<br>MOVED DATE = ".date('Y-m-d H:i', $moved_date);
-
-
-
-
-?>
 
 <?php 
   /*To import the client script*/

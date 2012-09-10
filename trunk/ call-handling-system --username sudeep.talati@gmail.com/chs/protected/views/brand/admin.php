@@ -1,13 +1,13 @@
-<?php
-$this->breadcrumbs=array(
-	'Brands'=>array('index'),
-	'Manage',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	//array('label'=>'List Brand', 'url'=>array('index')),
-	array('label'=>'Create Brand', 'url'=>array('create')),
-);
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Brands',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add New Brand',array('create')); ?></td>
+</tr></table>
+
+<?php
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

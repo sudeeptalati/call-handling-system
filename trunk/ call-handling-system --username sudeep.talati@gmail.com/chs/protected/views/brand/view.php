@@ -1,8 +1,8 @@
 <?php
-$this->breadcrumbs=array(
-	'Brands'=>array('index'),
-	$model->name,
-);
+//$this->breadcrumbs=array(
+//	'Brands'=>array('index'),
+//	$model->name,
+//);
 
 $this->menu=array(
 //	array('label'=>'List Brand', 'url'=>array('index')),

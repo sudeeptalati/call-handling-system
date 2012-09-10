@@ -1,14 +1,11 @@
-<?php
-$this->breadcrumbs=array(
-	'Brands'=>array('index'),
-	'Create',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	//array('label'=>'List Brand', 'url'=>array('index')),
-	array('label'=>'Manage Brand', 'url'=>array('admin')),
-);
-?>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Brands',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add New Brand',array('create')); ?></td>
+</tr></table>
 
 <h1>Create Brand</h1>
 

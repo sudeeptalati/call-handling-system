@@ -1,14 +1,13 @@
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Products',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add New Product',array('create')); ?></td>
+</tr></table>
+
 <?php
-$this->breadcrumbs=array(
-	'Product Types'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	//array('label'=>'List ProductType', 'url'=>array('index')),
-	array('label'=>'Create Product Type', 'url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();

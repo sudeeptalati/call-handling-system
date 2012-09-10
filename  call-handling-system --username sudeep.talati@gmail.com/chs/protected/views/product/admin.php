@@ -8,7 +8,9 @@ $this->menu=array(
 	array('label'=>'List Product', 'url'=>array('index')),
 	//array('label'=>'Create Product', 'url'=>array('create')),
 );
+?>
 
+<?php
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();

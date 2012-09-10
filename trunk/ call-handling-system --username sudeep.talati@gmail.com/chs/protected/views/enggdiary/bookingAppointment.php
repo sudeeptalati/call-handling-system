@@ -1,18 +1,28 @@
 <div class="form">
 
+
+
 <?php 
 	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';		
+	$changeEnggUrl=$baseUrl.'/api/DisplayEngineerId/';		
 
 	$enggdiaryform=$this->beginWidget('CActiveForm', array(
 	'id'=>'enggdiary-changeEngineer-form',
 	'enableAjaxValidation'=>false,
-	'action'=>$changeEnggUrl,
-	'method'=>'get'
+	//'action'=>$changeEnggUrl,
+	'method'=>'post'
 	
 )); 
 ?>
+
+<?php 
+
+//echo "BEFORE DROP ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
+
+?>
+
+
 
 
 <?php 
@@ -29,7 +39,6 @@
 ?>
 <?php $this->endWidget(); ?>
 </div><!-- ENd of form -->
-
  
  
 <?php
@@ -44,11 +53,63 @@
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery.ui.touch-punch.js');
   
-  //echo "ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
-  
-  //echo "SERVICECALL ID IN VIEWFULLDIARY FORM = ".$service_id;
-  
+//  echo "ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
+//  
+//  echo "SERVICECALL ID IN VIEWFULLDIARY FORM = ".$service_id;
 ?>
+
+<?php 
+
+//echo "ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id;
+//echo "<br>SERVICECALL ID IN VIEWFULLDIARY FORM = ".$service_id;
+
+$serviceModel = Servicecall::model()->findByPk($service_id);
+
+$customer_name = $serviceModel->customer->fullname;
+$custAddress = $serviceModel->customer->town." ".$serviceModel->customer->postcode;
+$prodType = $serviceModel->product->productType->name;
+$prodBrand = $serviceModel->product->brand->name;
+$faultDesrc = $serviceModel->fault_description;
+$faultDate = date('d-m-Y',$serviceModel->fault_date);
+
+$engineerModel  =Engineer::model()->findByPk($engg_id);
+$enggName = $engineerModel->fullname; 
+$enggAddress = $engineerModel->contactDetails->town." ".$engineerModel->contactDetails->postcode;
+
+?>
+
+<br><br>
+<table>
+
+<tr>
+	<th>Customer</th>
+	<th>Engineer</th>
+	<th>Product</th>
+	<th>Fault</th>
+</tr>
+
+<tr>
+	<td>
+		<?php echo $customer_name;?><br>
+		<?php echo $custAddress;?>
+	</td>
+	<td>
+		<?php echo $enggName;?><br>
+		<?php echo $enggAddress;?>
+	</td>
+	<td>
+		<?php echo $prodBrand;?><br>
+		<?php echo $prodType;?>
+	</td>
+	<td>
+		<?php echo $faultDate;?><br>
+		<?php echo $faultDesrc;?>
+	</td>
+</tr>
+
+</table>
+
+
   
 <br><br><br>
 
@@ -76,7 +137,6 @@ function isTouchDevice()
 	//var dataUrl = baseUrl;
 	//alert(engg_id);
 	var dataUrl  =  baseUrl+'/api/ViewFullDiaryJsonData/?engg_id='+engg_id;
-	//var dataUrl  =  baseUrl+'/api/ViewFullDiaryJsonData;
 	//alert(dataUrl);
 	
 	
@@ -109,11 +169,11 @@ function isTouchDevice()
 //		            minuteDelta + " minutes."
 //		        );
 
-		        //alert("Engg diary id = "+event.id);
-		        diary_id = event.id;
+		        alert("Engg diary id = "+event.id);
+		        engg_id = event.id;
 
 				////CALL UPDATE STATEMNET HERE 
-				updateEndDateTime(diary_id, dayDelta, minuteDelta);
+				updateEndDateTime(engg_id, dayDelta, minuteDelta);
 
 //		        if (!confirm("is this okay?")) 
 //				{
@@ -123,22 +183,23 @@ function isTouchDevice()
 		    },//end of eventResize.
 			
 
-			eventDrop: function (event,delta, minuteDelta) 
+			eventDrop: function (event,delta) 
 			{
 				
-//				alert(event.title + ' was moved ' + delta + ' days\n' + 'and '+ minuteDelta +' minutes\n'+
-//					'(should probably update your database)');
+				alert(event.title + ' was moved ' + delta + ' days\n' +
+					'(should probably update your database)');
 				
 				//alert ('Add Logic here to call and change database');	
 
 				//alert (document.location.hostname);
 				
 				days_moved=delta;
-				//alert("DAYS MOVED = "+days_moved);
+				console.info("DAYS MOVED"+days_moved);
 				//alert('ID = '+event.id);
 				
-				diary_id = event.id;
-				minutes_moved = minuteDelta;
+				alert('event end date = '+event.end)
+				end_date = event.end;
+				engg_id = event.id;
 				 
 				
 				////CALL UPDATE STATEMNET HERE 
@@ -151,8 +212,51 @@ function isTouchDevice()
 
 				},//end of eventDrop.
 
+				dayClick: function(date, allDay, jsEvent, view) 
+				{
+					var retVal = confirm("Do you want to book appointment for "+date+" ?");
+					if( retVal == true )
+					{
+						engg_id = '<?php echo $engg_id;?>';
+						//alert("engg_id = "+ engg_id);
+
+						service_id = '<?php echo $service_id;?>';
+						//alert('service id = '+service_id);
+						var curr_date = date.getDate();
+
+						var curr_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
+
+						var curr_year = date.getFullYear();
+
+						//window.alert(curr_date + "-" + curr_month + "-" + curr_year);
+
+						var normal_format = curr_date + "-" + curr_month + "-" + curr_year;
+						//alert(normal_format);
+						
+						createNewDiaryEntry(normal_format, engg_id, service_id);
+						return true;
+					}
+					else
+					{
+						//alert("User does not want to continue!");
+						return false;
+					}
 
 
+
+
+
+					
+//			        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+//
+//			        alert('Current view: ' + view.name);
+
+			        // change the day's background color just for fun
+			        //$(this).css('background-color', 'pink');
+
+			    },//end of dayClick function().
+				
+			
 				loading: function(isLoading)
 				{
 				    if(!isLoading && isTouchDevice())
@@ -185,43 +289,39 @@ function isTouchDevice()
 	function updateAppointmentDay()
     {
 	    model = 'Enggdiary';
-//	    alert("EVENT START DATE IN FUNC = "+start_date);
-//	    alert("EVENT END DATE IN FUNC = "+end_date);
-//	   	alert("EVENT ID IN FUNC = "+diary_id);
-//	    alert("DAYS MOVED IN FUNC = "+days_moved);
-//	    alert("MINUTES MOVED IN FUNC = "+minutes_moved);
+	    //alert("EVENT END DATE IN FUNC = "+end_date);
+	   	//alert("EVENT ID IN FUNC = "+engg_id);
+	    //alert("DAYS MOVED IN FUNC = "+days_moved);
 
-	    
-		//var updateUrl= baseUrl+'/api/UpdateDiary?diary_id='+diary_id+'&days_moved='+days_moved;
-	    var updateUrl= baseUrl+'/api/UpdateDiary?diary_id='+diary_id+'&days_moved='+days_moved+'&minutes_moved='+minutes_moved;
- 
+	    var updateUrl= baseUrl+'/api/UpdateDiary?engg_id='+engg_id+'&days_moved='+days_moved;
+	    //model = 'Enggdiary';
 	    $.ajax({
         	type: 'POST',
             url: updateUrl ,
-
+            
+          
           success: function(data) 
           { 
-	          alert('Appointment Updated');
+	          //alert(updateUrl);
 	      },
           error: function()
           {
-	       	alert("ERROR"); 
+	       	alert("EWRROR"); 
           }
           });
-        
 
-    }//end of updateAppointmentDay func().
+    }//end of getResponse func().
 
 
-    function updateEndDateTime(diary_id, dayDelta, minuteDelta)
+    function updateEndDateTime(engg_id, dayDelta, minuteDelta)
     {
 		//alert('In updateMinutes func');
 
 		//alert("MINUTES IN updateMinutes func = "+minuteDelta);
 
-		//alert("ENGG ID IN updateMinutes func = "+diary_id);
+		//alert("ENGG ID IN updateMinutes func = "+engg_id);
 
-		 var updateUrl= baseUrl+'/api/UpdateEndDateTime?diary_id='+diary_id+'&minutes='+minuteDelta;
+		 var updateUrl= baseUrl+'/api/UpdateEndDateTime?engg_id='+engg_id+'&minutes='+minuteDelta;
 		 //model = 'Enggdiary';
 		 $.ajax
 		 ({
@@ -229,7 +329,7 @@ function isTouchDevice()
 	        url: updateUrl ,
 	        success: function(data) 
 	        { 
-		    	alert('Appointment Updated');
+		    	alert('SUCESS');
 		    },
 	        error: function()
 	        {
@@ -241,9 +341,9 @@ function isTouchDevice()
 
 	function createNewDiaryEntry(event_date, engg_id, service_id)
 	{
-//		alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
-//		alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
-//		alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
+		alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
+		alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
+		alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
 
 		var urlToCreate = baseUrl+'/api/createNewDiaryEntry/?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
 		//alert(urlToCreate);
@@ -254,8 +354,8 @@ function isTouchDevice()
 	        url: urlToCreate ,
 	        success: function(data) 
 	        { 
-		    	alert('Appointment Created');
-		    	location.href="../viewFullDiary";
+		    	alert('ENTRY CREATED');
+		    	location.href="../viewFullDiary?engg_id="+engg_id;
 		    },
 	        error: function()
 	        {

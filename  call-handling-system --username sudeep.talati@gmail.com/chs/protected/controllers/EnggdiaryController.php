@@ -491,19 +491,16 @@ exit;
 			
 		}//end of if of isset of engineer_id and service_id got from servicecall controller.
 		
-		/*
-	
-	    if(isset($_POST['Enggdiary']))
-	    {
-	        $model->attributes=$_POST['Enggdiary'];
-	        if($model->validate())
-	        {
-	            // form inputs are valid, do something here
-	            return;
-	        }
-	    }
-	    
-	    */
+		if(isset($_GET['Enggdiary']))
+		{
+			//echo "Value is present<br>";
+			$model->attributes=$_GET['Enggdiary'];
+			//echo "Value in  is = ".$model->engineer_id;
+			$engg_id = $model->engineer_id;
+			//echo "CAUGT ".$engg_id;
+			
+			
+		}//end of if engg_id is present got from dropdown in viewFullDiary view.
 		
 	    $this->render('bookingAppointment',array('model'=>$model,
 	    										 'engg_id'=>$engg_id,

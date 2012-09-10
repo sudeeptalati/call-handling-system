@@ -5,13 +5,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
-	
-	<!-- FIRST PART OF FORM TO DISPLAY THE PRODUCT DETAILS. -->
-	
-	<?php 
+<?php 
 	$customerId=$_GET['customer_id'];
 	$model=Customer::model()->findByPk($customerId);
 	//echo "CUSTOMER ID FROM URL IN UPDATE CUSTOMER FORM :".$customerId;
@@ -30,8 +24,15 @@
 	$productTypeModel=ProductType::model()->findByPk($productTypeId);
 	$engineerModel=Engineer::model()->findByPk($engineerId);							
 									
-									
-	?>
+?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php echo $form->errorSummary($model); ?>
+	
+	<!-- FIRST PART OF FORM TO DISPLAY THE PRODUCT DETAILS. -->
+	
+
 	
 	<table>
 	<tr>

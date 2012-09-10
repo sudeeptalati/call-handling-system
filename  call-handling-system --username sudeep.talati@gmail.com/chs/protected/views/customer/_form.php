@@ -197,13 +197,14 @@ background-color: #FFFF9D;
 				<?php //echo $form->labelEx($customerModel,'postcode_e'); ?>
 				<?php echo $form->textField($model,'postcode_e',array('size'=>3, 'maxlength'=>4)); ?>
 				<?php echo $form->error($model,'postcode_e'); ?>
- 			</td><td>
-			<?php
+ 			</td>
+ 			<td>
+				<?php
 					$config=Config::model()->findByPk(1);
 				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
 					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
  
-			?>
+				?>
 					 <input type=button value="Find" 
    onclick="Javascript: PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin
       ('<?php echo $postcodeanwhere_license_key; ?>',
@@ -223,7 +224,7 @@ background-color: #FFFF9D;
 	
 	
 	<tr>
-		<td>
+			<td>
 				<?php echo $form->labelEx($model,'address_line_2'); ?>
 				<?php echo $form->textField($model,'address_line_2',array('size'=>30)); ?>
 				<?php echo $form->error($model,'address_line_2'); ?>
@@ -310,6 +311,8 @@ background-color: #FFFF9D;
 	
 	<table style="width:400px; margin:10px;">
 	<tr><td colspan="3"><h2 style="margin-bottom:0.01px;color:#555;"><label>Product Details</label></h2>
+	
+	</td></tr>
 	
 	<tr>
 		<td>
@@ -479,6 +482,7 @@ background-color: #FFFF9D;
  
 	<table style="width:400px; margin:10px;">
 		<tr><td colspan="2"><h2 style="margin-bottom:0.01px;color:#555;"><label>Assign Engineer</label></h2>
+		</td></tr>
 		<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>

@@ -43,9 +43,9 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			
 			<table>
 			<tr>
-			<th> Part Number </th>
-			<th> Name </th>
-			<th> ID </th>
+			<th>Part Number</th>
+			<th>Name</th>
+			<th>ID</th>
 			</tr>
 			
 			<?php
@@ -55,7 +55,6 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			//echo count($result);
 			if($rows)
 			{
-				
 				foreach($rows as $data)
 				{
 				?>
@@ -65,79 +64,113 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 					<td><?php echo $data['name'];?></td>
 					<td><?php echo $data['id'];?></td>
 					<td>
-				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>'>select me</a> <br>
+				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>'>select me</a> <br> 
 					</td>
 					</tr>
 				 <?php
 					
-				}	
-			}
-			else
+				}//end of foreach() displaying local db data.	
+			}//end of if rows, i.e, matching data is found in local db.
+			else if($n == 0)
 			{
 				//echo "No Data available matching your search";
-			}
+				$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
+				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".$keyword."&service_id=".$service_id;
+				//echo "<br>".$cloud_url;
+				$dataResponse =curl_file_get_contents($cloud_url,true);
+				//echo "<hr>DATA OF SERVER DISPLAYED FROM LOCAL FILE <br>".$dataResponse;
+				echo $dataResponse;
+				if($dataResponse == 0)
+				{
+					//echo "ITEM NOT FOUND IN LOCAL AND CLOUD DB";
+					?>
+					<!--
+					<tr>
+					<td>
+					<form action="<?php //echo '../../SparesUsed/newItemDetails';?>" method="POST">
+							<table>
+							<tr>
+							<td colspan="4" style="text-align:center;">
+							<span style="color:green;" ><b>Add item</b><br><small>(If Item not in above list)</small></span>
+							</td>
+							</tr>
+							
+							<tr>
+							<td><b>Item Name</b></td>
+							<td colspan="3">
+							<input type="text" name="item_name">
+							</td>
+							</tr>
+							<tr>
+							<td>
+							<b>Part Number</b></td><td colspan="3"><input type="text" name="part_number">
+							</td>
+							</tr>
+							<tr>
+							<td>
+							<b>Unit Price</b></td><td><input type="text" name="unit_price" size="3">
+							<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input type="text" name="quantity" size="3">
+							</td>
+							</tr>
+							<tr>
+							<td colspan="4">
+							
+							<input type="hidden" name="master_id" value="0">
+							<input type="hidden" name="service_id" value="<?php //echo $service_id;?>">
+							<div align="center"><input value="Add" type="submit" align="middle" style="width:100px"></div>
+							</td></tr>
+							</table>
+							</form>
+					</td>
+					</tr> 
+					-->
+				<?php
+				}//end of if dataResponce == 0 , i.e, matching data is not found in cloud server.
 			
-			//echo "*********************CLOUD START*********************<br>";
-			/**CLOUD CALCULATIONS*/
-			 
-			//echo $keyword."<br>";
-			//echo "service id in local =".$service_id."<br>";
-				
-			$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
-			//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".$keyword."&service_id=".$service_id;
-			//echo "<br>".$cloud_url;
-			$dataResponse =curl_file_get_contents($cloud_url,true);
-			echo $dataResponse;
+			}//end of else of rows, i.e, no matching data in local db.
 			
-			if(trim($dataResponse)=='0' && $n == 0)
-			 {
-				echo "no data";
-				?>
-				<tr>
+			?>
+			<tr>
 				<td>
 				<form action="<?php echo '../../SparesUsed/newItemDetails';?>" method="POST">
-						<table>
-						<tr>
+				<table>
+					<tr>
 						<td colspan="4" style="text-align:center;">
 						<span style="color:green;" ><b>Add item</b><br><small>(If Item not in above list)</small></span>
 						</td>
-						</tr>
-						
-						<tr>
+					</tr>
+							
+					<tr>
 						<td><b>Item Name</b></td>
 						<td colspan="3">
 						<input type="text" name="item_name">
 						</td>
-						</tr>
-						<tr>
+					</tr>
+					<tr>
 						<td>
 						<b>Part Number</b></td><td colspan="3"><input type="text" name="part_number">
 						</td>
-						</tr>
-						<tr>
+					</tr>
+					<tr>
 						<td>
 						<b>Unit Price</b></td><td><input type="text" name="unit_price" size="3">
 						<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input type="text" name="quantity" size="3">
 						</td>
-						</tr>
-						<tr>
+					</tr>
+					<tr>
 						<td colspan="4">
-						
+							
 						<input type="hidden" name="master_id" value="0">
 						<input type="hidden" name="service_id" value="<?php echo $service_id;?>">
 						<div align="center"><input value="Add" type="submit" align="middle" style="width:100px"></div>
-						</td></tr>
-						</table>
-						</form>
+						</td>
+					</tr>
+				</table>
+				</form>
 				</td>
-				</tr> 
+			</tr> 
 			<?php
-			 }//end of 
-			 
-			
-			//echo "<br>**************************CLOUD END ***********************";
-			
-		}
+		}//end of try.
 		
 		catch(PDOException $e)
 		{

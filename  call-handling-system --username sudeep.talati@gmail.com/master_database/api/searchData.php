@@ -64,7 +64,9 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 					<td><?php echo $data['name'];?></td>
 					<td><?php echo $data['id'];?></td>
 					<td>
-				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>'>select me</a> <br> 
+				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>'>
+					<img src="../../images/plus.jpg" alt="HTML tutorial" width="35" height="35" />
+					</a> <br> 
 					</td>
 					</tr>
 				 <?php
@@ -74,8 +76,9 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			else if($n == 0)
 			{
 				//echo "No Data available matching your search";
-				$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
+				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
 				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".$keyword."&service_id=".$service_id;
+				$cloud_url="http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
 				//echo "<br>".$cloud_url;
 				$dataResponse =curl_file_get_contents($cloud_url,true);
 				//echo "<hr>DATA OF SERVER DISPLAYED FROM LOCAL FILE <br>".$dataResponse;
@@ -131,7 +134,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			
 			?>
 			<tr>
-				<td>
+				<td colspan="4">
 				<form action="<?php echo '../../SparesUsed/newItemDetails';?>" method="POST">
 				<table>
 					<tr>

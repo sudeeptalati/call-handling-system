@@ -5,13 +5,13 @@
 <?php 
 	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/api/DisplayEngineerId/';		
+	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';	
 
 	$enggdiaryform=$this->beginWidget('CActiveForm', array(
 	'id'=>'enggdiary-changeEngineer-form',
 	'enableAjaxValidation'=>false,
 	//'action'=>$changeEnggUrl,
-	'method'=>'post'
+	'method'=>'get'
 	
 )); 
 ?>
@@ -169,7 +169,7 @@ function isTouchDevice()
 //		            minuteDelta + " minutes."
 //		        );
 
-		        alert("Engg diary id = "+event.id);
+		        //alert("Engg diary id = "+event.id);
 		        engg_id = event.id;
 
 				////CALL UPDATE STATEMNET HERE 
@@ -186,8 +186,8 @@ function isTouchDevice()
 			eventDrop: function (event,delta) 
 			{
 				
-				alert(event.title + ' was moved ' + delta + ' days\n' +
-					'(should probably update your database)');
+//				alert(event.title + ' was moved ' + delta + ' days\n' +
+//					'(should probably update your database)');
 				
 				//alert ('Add Logic here to call and change database');	
 
@@ -197,7 +197,7 @@ function isTouchDevice()
 				console.info("DAYS MOVED"+days_moved);
 				//alert('ID = '+event.id);
 				
-				alert('event end date = '+event.end)
+				//alert('event end date = '+event.end)
 				end_date = event.end;
 				engg_id = event.id;
 				 
@@ -341,9 +341,9 @@ function isTouchDevice()
 
 	function createNewDiaryEntry(event_date, engg_id, service_id)
 	{
-		alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
-		alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
-		alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
+//		alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
+//		alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
+//		alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
 
 		var urlToCreate = baseUrl+'/api/createNewDiaryEntry/?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
 		//alert(urlToCreate);
@@ -354,7 +354,7 @@ function isTouchDevice()
 	        url: urlToCreate ,
 	        success: function(data) 
 	        { 
-		    	alert('ENTRY CREATED');
+		    	alert('Appointment Created');
 		    	location.href="../viewFullDiary?engg_id="+engg_id;
 		    },
 	        error: function()

@@ -31,7 +31,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -345,6 +345,28 @@ class SetupController extends Controller
 	    $model=new Setup('view');
 		$this->render('mailSettings',array('model'=>$model));
 	}//end of mailSettings().
+	
+	public function actionShowUpdateProgress($curr_step)
+	{
+		$model=new Setup();
+		 
+		//echo "step value in controller ".$curr_step;
+		 
+		
+		/*
+		$step=$curr_step;
+		 
+			
+		if($step!=0)
+		{
+			$step_info = $model->updateVersion($step);
+		}//end of if.
+		 
+		*/
+		
+		
+		$this->renderPartial('showUpdateProgress',array('step_info'=>$step_info));
+	}//end of showUpdateProgress().
 	
 	
 }//end of class.

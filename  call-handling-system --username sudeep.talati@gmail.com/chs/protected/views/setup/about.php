@@ -7,7 +7,7 @@
 
 <?php 
 	
-$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
 $available_version = curl_file_get_contents($request, true);
 $current_version=Yii::app()->params['software_version'];
 ?>
@@ -94,7 +94,7 @@ return $contents;
 <?php 
 $testUrl=Yii::app()->request->baseUrl.'/setup/testConnection/';
 ?>
-<a href="<?php echo $testUrl;?>" onclick = "return confirm('Are you sure you wanna send email?')">
+<a href="<?php echo $testUrl;?>" onclick = "return confirm('Testing Connection will send an email to admin. Do you want to continue ?')">
 <?php echo CHtml::button('Test Connection');?>
 </a>	
  

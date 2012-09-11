@@ -122,21 +122,21 @@ return array(
 		        'transportType'=>'smtp', /// case sensitive!
 		        'transportOptions'=>array(
 		            //'host'=>'mail.laser.com',
-		            //'host'=>'smtp.gmail.com',
+		            //'host'=>'smtp.gmail.com',//Correct host for gmail.
 		            'host'=>$smtp_host,
 		            //'username'=>'stalati@ukwhitegoods.co.uk',
-		            //'username'=>'mailtest.test10@gmail.com',
+		            //'username'=>'mailtest.test10@gmail.com',//Correct user name ofr gmail.
 		            'username'=>$smtp_username,
 		            // or email@googleappsdomain.com
 		            //'password'=>'#rev1s1on',
-		            //'password'=>'testtest10',
+		            //'password'=>'testtest10',//Correct password for gmail.
 		            'password'=>$smtp_password,
 					//'port'=>'543',
-					//'port'=>'465',
-					'port'=>$smtp_port,
+					'port'=>'465',
+					//'port'=>$smtp_port,
 		            //'encryption'=>'ssl',
-		            //'encryption'=>'tls',
-					'encryption'=>$smtp_encryption,
+		            'encryption'=>'tls',
+					//'encryption'=>$smtp_encryption,
 		            ),
 		        'viewPath' => 'application.views.mail',
 		        'logging' => true,

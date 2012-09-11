@@ -302,12 +302,34 @@ class SetupController extends Controller
 		else 
 		{
 			
-			//echo "INTERNET IS CONNECTED";
+			//echo "INTERNET IS CONNECTED<br>";
 			
 			///$model=new PurchaseOrder;
 			
-			$reciever_email='mailtest.test10@gmail.com';
-			$sender_email='mailtest.test10@gmail.com';
+			$root = dirname(dirname(__FILE__));
+			//echo $root."<br>";
+			$filename = $root.'/config/mail_server.json';
+			
+			$reciever_email='';
+			$sender_email='';
+			
+			if(file_exists($filename))
+			{
+				//echo "File is present<br>";
+				$data = file_get_contents($filename);
+				$decodedata = json_decode($data, true);
+				//echo $decodedata;
+				//echo "Username = ".$decodedata['smtp_username']."<br>";
+				//echo "new user name = ".$decodedata['smtp_username']."<br>";
+				$sender_email = $decodedata['smtp_username'];
+				$smtp_password = $decodedata['smtp_password'];
+				$smtp_encryption = $decodedata['smtp_encryption'];
+				$smtp_port = $decodedata['smtp_port'];
+			}
+			
+			//echo "<br> sender address outsode if loop = ".$sender_email;
+			
+			$reciever_email=$sender_email;
 			
 			$message = new YiiMailMessage();
 			$message->setTo(array($reciever_email));
@@ -329,6 +351,7 @@ class SetupController extends Controller
 		   	{
 		   		echo "TEST EMAIL IS SENT, CONNECTION IS OK<br>"; 
 		   	}
+		   	
 		   	
 		}//end of else.
 		

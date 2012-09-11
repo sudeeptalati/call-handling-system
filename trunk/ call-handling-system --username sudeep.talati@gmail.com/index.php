@@ -75,13 +75,13 @@ else
 <td colspan='2'><br></td>
 </tr>
 <tr>
-	<td><a href="javascript:location.href='chs/';"><img src="rapportchsbox.png" alt="Smiley face" height="" width="" /></a></td>
-	<td><a href="javascript:location.href='ims/';"><img src="rapportstkbox.png" alt="Smiley face" height="" width="" /></a></td>
+	<td><a href="javascript:location.href='chs/';"><img src="images/rapportchsbox.png" alt="Smiley face" height="" width="" /></a></td>
+	<td><a href="javascript:location.href='ims/';"><img src="images/rapportstkbox.png" alt="Smiley face" height="" width="" /></a></td>
 </td>
 </tr>
 <tr>
-	<td><a href="javascript:location.href='chs/';"><img src="rapport-logo.png" alt="Smiley face" height="67" width="200" /></a></td>
-	<td><a href="javascript:location.href='ims/';"><img src="rapport-stock-logo.png" alt="Smiley face" height="67" width="200" /></a></td>
+	<td><a href="javascript:location.href='chs/';"><img src="images/rapport-logo.png" alt="Smiley face" height="67" width="200" /></a></td>
+	<td><a href="javascript:location.href='ims/';"><img src="images/rapport-stock-logo.png" alt="Smiley face" height="67" width="200" /></a></td>
 	
 </tr>
 </table>

@@ -327,10 +327,10 @@ vertical-align:top;
 
 				//var ref_id = $('#ref_id').val();
 				//var cust_id = $('#cust_id').val(); 
-				var search_url = $('#search_url').val();
+				//var search_url = $('#search_url').val();
 				var service_id = $('#service_id').val();
-				var temp_url = $('#temp_url').val();
-				var current_url = $('#current_url').val();
+				var local_db_url = $('#local_db_url').val();
+				//var current_url = $('#current_url').val();
 				 
 				if(faq_search_input.length>3)
 				{
@@ -339,7 +339,7 @@ vertical-align:top;
 				//url: current_url+"/MasterSearchData/?service_id="+service_id,
 				//url: current_url+"/getItems",
 				//url: search_url,
-				url: temp_url,
+				url: local_db_url,
 				
 				//data: dataString,
 				data: dataString+"&service_id="+service_id,
@@ -381,17 +381,18 @@ vertical-align:top;
 				//$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?service_id=".$service_id."&";
 				//$temp_url = 'http://192.168.1.200/itemsfreesearch/searchapi.php?';
 				//$temp_url='../../../master_database/api/searchData.php?';
-				$temp_url='../../../local_items_database/api/searchData.php?';
+				$local_db_url='../../../local_items_database/api/searchData.php?';
 				
 				//$temp_url='http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?';
 				
 				
 				?>
 				
-					<input type="hidden" id="search_url" value="<?php echo $search_url;?>"/> 
+
 					<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>
-					<input type="hidden" id="temp_url" value="<?php echo $temp_url;?>"/>
-					<input type="hidden" id="current_url" value="<?php echo $current_url;?>"/>
+					<input type="hidden" id="local_db_url" value="<?php echo $local_db_url;?>"/>
+					<!--<input type="hidden" id="search_url" value="<?php //echo $search_url;?>"/> -->
+					<!--<input type="hidden" id="current_url" value="<?php //echo $current_url;?>"/>-->
 					<!-- <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> --> 
 					<!-- <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/> -->  
 					

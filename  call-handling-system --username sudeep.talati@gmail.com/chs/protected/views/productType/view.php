@@ -25,5 +25,6 @@ $this->menu=array(
 		'createdByUser.username',
 		'created',
 		'modified',
+		'server_product_type_id',
 	),
 )); ?>

@@ -34,6 +34,11 @@
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textField($model,'modified'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'server_product_type_id'); ?>
+		<?php echo $form->textField($model,'server_product_type_id'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>

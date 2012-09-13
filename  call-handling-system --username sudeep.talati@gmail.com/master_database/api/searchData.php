@@ -78,58 +78,36 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				//echo "No Data available matching your search";
 				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
 				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".$keyword."&service_id=".$service_id;
-				$cloud_url="http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
-				//echo "<br>".$cloud_url;
-				$dataResponse =curl_file_get_contents($cloud_url,true);
-				//echo "<hr>DATA OF SERVER DISPLAYED FROM LOCAL FILE <br>".$dataResponse;
-				echo $dataResponse;
-				if($dataResponse == 0)
-				{
-					//echo "ITEM NOT FOUND IN LOCAL AND CLOUD DB";
-					?>
-					<!--
-					<tr>
-					<td>
-					<form action="<?php //echo '../../SparesUsed/newItemDetails';?>" method="POST">
-							<table>
-							<tr>
-							<td colspan="4" style="text-align:center;">
-							<span style="color:green;" ><b>Add item</b><br><small>(If Item not in above list)</small></span>
-							</td>
-							</tr>
-							
-							<tr>
-							<td><b>Item Name</b></td>
-							<td colspan="3">
-							<input type="text" name="item_name">
-							</td>
-							</tr>
-							<tr>
-							<td>
-							<b>Part Number</b></td><td colspan="3"><input type="text" name="part_number">
-							</td>
-							</tr>
-							<tr>
-							<td>
-							<b>Unit Price</b></td><td><input type="text" name="unit_price" size="3">
-							<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input type="text" name="quantity" size="3">
-							</td>
-							</tr>
-							<tr>
-							<td colspan="4">
-							
-							<input type="hidden" name="master_id" value="0">
-							<input type="hidden" name="service_id" value="<?php //echo $service_id;?>">
-							<div align="center"><input value="Add" type="submit" align="middle" style="width:100px"></div>
-							</td></tr>
-							</table>
-							</form>
-					</td>
-					</tr> 
-					-->
-				<?php
-				}//end of if dataResponce == 0 , i.e, matching data is not found in cloud server.
+				
+			/**********WORKING PROPERLY, COMMENTED FOR TESTING **********///$cloud_url="http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
+			/**********WORKING PROPERLY, COMMENTED FOR TESTING **********/
 			
+				
+				
+			/************** GETTING CLOUD URL FROM DATABASE AND GETTING DATA FROM CLOUD SERVER ***************/
+				$cloud_setup_id = 1;
+				$get_url_result = $db->query("SELECT spares_lookup_cloud_url FROM cloud_setup WHERE id = '$cloud_setup_id'");
+				$url_result = $get_url_result->fetchAll(); // assuming $result == true
+				$n = count($url_result);
+				//echo "<br>no of rows = ".$n."<br>";
+				
+				$cloud_url_from_db = '';
+				foreach($url_result as $data)
+				{
+					//echo $data['spares_lookup_cloud_url']."<br>";
+					$cloud_url_from_db = $data['spares_lookup_cloud_url'];
+				}//end of foreach().
+				
+				
+				$cloud_url = $cloud_url_from_db.'?keyword='.urlencode($keyword)."&service_id=".$service_id;
+				//echo "<br> CLOUD URL GOT FROM DB = ".$cloud_url;
+				
+				$dataResponse =curl_file_get_contents($cloud_url,true);
+				//echo "<hr>DATA OF SERVER DISPLAYING FROM LOCAL FILE <br>".$dataResponse;
+				echo $dataResponse;
+				
+			/************** GETTING CLOUD URL FROM DATABASE AND GETTING DATA FROM CLOUD SERVER ***************/
+				
 			}//end of else of rows, i.e, no matching data in local db.
 			
 			?>
@@ -173,6 +151,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				</td>
 			</tr> 
 			<?php
+			
 		}//end of try.
 		
 		catch(PDOException $e)

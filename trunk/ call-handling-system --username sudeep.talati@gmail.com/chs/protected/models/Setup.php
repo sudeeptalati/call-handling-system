@@ -23,7 +23,7 @@
  * @property string $vat_reg_no
  * @property string $company_number
  * @property string $postcode
- * @property string $custom5
+ * @property string $version_update_url
  */
 class Setup extends CActiveRecord
 {
@@ -52,10 +52,10 @@ class Setup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, postcode, custom5', 'safe'),
+			array('company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, postcode, version_update_url', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, postcode, custom5', 'safe', 'on'=>'search'),
+			array('id, company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, postcode, version_update_url', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,7 +95,7 @@ class Setup extends CActiveRecord
 			'vat_reg_no' => 'Vat Reg No',
 			'company_number' => 'Company Number',
 			'postcode' => 'Postcode',
-			'custom5' => 'Custom5',
+			'version_update_url' => 'Version Update Url',
 		);
 	}
 
@@ -129,7 +129,7 @@ class Setup extends CActiveRecord
 		$criteria->compare('vat_reg_no',$this->vat_reg_no,true);
 		$criteria->compare('company_number',$this->company_number,true);
 		$criteria->compare('postcode',$this->postcode,true);
-		$criteria->compare('custom5',$this->custom5,true);
+		$criteria->compare('version_update_url',$this->version_update_url,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

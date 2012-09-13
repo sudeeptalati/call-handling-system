@@ -1,7 +1,5 @@
 <?php 
-$this->menu=array(
-	array('label'=>'Manage Setup', 'url'=>array('setup/1')),
-	);
+include 'setup_sidemenu.php';
 ?>
 
 <?php 

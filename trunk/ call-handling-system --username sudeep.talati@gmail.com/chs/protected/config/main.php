@@ -41,7 +41,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'UK Whitegoods',
+	'name'=>'Demo',
 	'defaultController'=>'servicecall/freeSearch',
 	
 		
@@ -121,23 +121,12 @@ return array(
 		        'class' => 'application.extensions.yii-mail.YiiMail',
 		        'transportType'=>'smtp', /// case sensitive!
 		        'transportOptions'=>array(
-		            //'host'=>'mail.laser.com',
-		            //'host'=>'smtp.gmail.com',//Correct host for gmail.
 		            'host'=>$smtp_host,
-		            //'username'=>'stalati@ukwhitegoods.co.uk',
-		            //'username'=>'mailtest.test10@gmail.com',//Correct user name ofr gmail.
 		            'username'=>$smtp_username,
-		            // or email@googleappsdomain.com
-		            //'password'=>'#rev1s1on',
-		            //'password'=>'testtest10',//Correct password for gmail.
 		            'password'=>$smtp_password,
-					//'port'=>'543',
 					'port'=>'465',
-					//'port'=>$smtp_port,
-		            //'encryption'=>'ssl',
-		            'encryption'=>'tls',
-					//'encryption'=>$smtp_encryption,
-		            ),
+					'encryption'=>'tls',
+					),
 		        'viewPath' => 'application.views.mail',
 		        'logging' => true,
 		        'dryRun' => false
@@ -212,12 +201,12 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'stalati@ukwhitegoods.co.uk',
-		'company_name'=>'UK Whitegoods',
-		'company_address'=>'Kilmarnock',
-		'company_contact_details'=>'Telephone:321321312 Fax:23132231 E-mail:stalati@ukwhitegoods.co.uk',
-		'vat_in_percentage'=>'20%',	
-		'software_version'=>'0.5.1beta',	
+		'adminEmail'=>'demo.co.uk',
+		'company_name'=>'DEMO',
+		'company_address'=>'Demo',
+		'company_contact_details'=>'Telephone:00000000 Fax:00000000 E-mail:demo.co.uk',
+		'vat_in_percentage'=>'',	
+		'software_version'=>'0.5.2beta',	
 
 	),
 

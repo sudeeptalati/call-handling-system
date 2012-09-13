@@ -262,20 +262,7 @@ class ApiController extends Controller
     	echo "<br>STR UPDATED END TIME = ".$str_updated_end_time;
     	*/
     	
-    	
-    	
-    	
-    	
-    	
-		
-    	
-    	
-    	
-    	
-    	
     }//end of actionCreateNewDiaryEntry().
-    
-    
     
     public function actionList()
     {

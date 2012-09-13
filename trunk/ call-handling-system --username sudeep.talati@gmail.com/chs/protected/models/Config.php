@@ -147,7 +147,7 @@ class Config extends CActiveRecord
 
 
 
-		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';
+		$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
 			
 		$installed_version=Yii::app()->params['software_version'];
 		$available_version = $this->curl_file_get_contents($request);
@@ -383,7 +383,7 @@ class Config extends CActiveRecord
 						
 						
 						
-						$json=$file_get_contents($setup_file);
+						$json=file_get_contents($setup_file);
 						$jsonIterator = new RecursiveIteratorIterator(
 												new RecursiveArrayIterator(json_decode($json, TRUE)),
 													RecursiveIteratorIterator::SELF_FIRST);

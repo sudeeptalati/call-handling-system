@@ -83,7 +83,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 <div style="margin:20px;">
 	<?php 
 	
-	$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+	$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
 	$available_version = Config::model()->curl_file_get_contents($request);
 	
 	?>

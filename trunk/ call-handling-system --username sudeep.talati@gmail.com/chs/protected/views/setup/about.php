@@ -56,11 +56,11 @@ $current_version=Yii::app()->params['software_version'];
 </tr>
 <tr>
 	<td style="vertical-align:top;"><h4>Support</h4></td>
-	<td style="vertical-align :top;"><a href="http://rapportsoftware.co.uk/index.php/support" target="_blank" >Online</a> support desk and knowledgebase</td>
+	<td style="vertical-align :top;"><a href="http://www.rapportsoftware.co.uk/index.php/support" target="_blank" >Online</a> support desk and knowledgebase</td>
 </tr>
 <tr>
 	<td style="vertical-align:top;"><h4>Tutorials</h4></td>
-	<td style="vertical-align :top;"><a href="http://rapportsoftware.co.uk/index.php/instructions" target="_blank" >Help tutorials</a>  on installation and use.</td>
+	<td style="vertical-align :top;"><a href="http://www.rapportsoftware.co.uk/index.php/instructions" target="_blank" >Help tutorials</a>  on installation and use.</td>
 </tr>
 <tr>
 	<td style="vertical-align:top;"><h4>Forums</h4></td>

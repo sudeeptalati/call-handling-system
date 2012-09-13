@@ -145,10 +145,13 @@ class Setup extends CActiveRecord
 		$last_successful_step_message='';
 		$step_info=array();
 
+		$setupModel = Setup::model()->findAllByPk('1');
+		echo $setupModel->version_update_url;
+		
+		
 
 
-
-		$request='http://rapportsoftware.co.uk/versions/rapport_callhandling.txt';
+		$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
 			
 		$installed_version=Yii::app()->params['software_version'];
 		$available_version = $this->curl_file_get_contents($request);
@@ -384,7 +387,7 @@ class Setup extends CActiveRecord
 						
 						
 						
-						$json=$file_get_contents($setup_file);
+						$json=file_get_contents($setup_file);
 						$jsonIterator = new RecursiveIteratorIterator(
 												new RecursiveArrayIterator(json_decode($json, TRUE)),
 													RecursiveIteratorIterator::SELF_FIRST);
@@ -407,8 +410,10 @@ class Setup extends CActiveRecord
 										echo "<hr><span style='color:green;'> $key => $val</span><br>";
 										////*COPY FOLDERS NOW
 										$folder_name=$key;
+										$src_folder_name=$key;
 										$folder_copy_from=getcwd().'/'.$unzip_folder.''.$val;
-										$folder_copy_to=getcwd().'/protected/'.$folder_name;
+										//$folder_copy_to=getcwd().'/protected/'.$folder_name;
+										$folder_copy_to=getDestinationPath($json, $src_folder_name);
 											
 										echo " <span style='color:green;'>";
 										echo "COPY FROM :".$folder_copy_from;
@@ -576,6 +581,72 @@ class Setup extends CActiveRecord
 		return $message;
 	}//end of createMessage().
 	
+	
+	public function getDestinationPath($json, $src_folder_name)
+	{
+
+		$destination_path='';
+		$jsonIterator = new RecursiveIteratorIterator(
+								new RecursiveArrayIterator(json_decode($json, TRUE)),
+								RecursiveIteratorIterator::SELF_FIRST);
+
+		foreach ($jsonIterator as $key => $val) 
+		{
+			if(is_array($val)) 
+			{
+				//echo "$key:<br>";
+				if ($key=='destination_folders')
+				{
+					$destination_folders=true;
+				}
+				else
+				{
+					$destination_folders=false;
+				}/////end of if of folder check
+			} ////end of if of is_array
+			else 
+			{
+				if ($destination_folders)
+				{
+					//echo "<hr><span style='color:green;'> $key => $val</span><br>";
+					////*COPY FOLDERS NOW
+					$destination_folder_name=$key;
+					if ($destination_folder_name==$src_folder_name)
+					{
+						$destination_path=$val;
+														
+						// if ../ is present in destination_path variable, come outside current directory, get the path and set back the directory
+						if (strpos($destination_path,'../') !== false) 
+						{
+							$current_working_directory=getcwd();
+											
+							/////Chopping the '..' first two charecters from destination part as they contain
+							$destination_path=substr($destination_path, 2);
+														
+							chdir('../'); ///getting outside the current directory
+											
+							$destination_path=getcwd().$destination_path;
+																 
+							chdir($current_working_directory);////setting back the old directory path
+																 
+		    				echo " <span style='color:red;'>Hurray</span>";
+						}//////end of if if (strpos($destination_path,'../') 
+						else
+						{
+							$destination_path=getcwd().$destination_path;
+						}///end of else
+														
+						echo " <span style='color:blue;'>";
+						echo "<br>Destination PATH :".$destination_path;
+						echo "</span><hr>";
+					}///end of 	if ($destination_folder_name==$src_folder_name)
+				}////end of if of copy folder
+			}///end of else of is_array
+		}///end of foreach iterator
+			
+		return $destination_path;
+
+	}//end of getDestinationPath().
 	
 	
 	

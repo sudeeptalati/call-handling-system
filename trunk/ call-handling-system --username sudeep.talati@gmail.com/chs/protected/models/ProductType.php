@@ -10,6 +10,7 @@
  * @property integer $created_by_user_id
  * @property string $created
  * @property string $modified
+ * @property string $server_product_type_id
  *
  * The followings are the available model relations:
  * @property Product[] $products
@@ -44,10 +45,10 @@ class ProductType extends CActiveRecord
 		return array(
 			array('name', 'required'),
 			array('created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('information, modified', 'safe'),
+			array('information, modified','server_product_type_id', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, information, created_by_user_id, created, modified', 'safe', 'on'=>'search'),
+			array('id, name, information, created_by_user_id, created, modified, server_product_type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +77,7 @@ class ProductType extends CActiveRecord
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',
 			'modified' => 'Modified',
+			'server_product_type_id' => 'Server Product Type Id',
 		);
 	}
 
@@ -96,6 +98,7 @@ class ProductType extends CActiveRecord
 		$criteria->compare('created_by_user_id',$this->created_by_user_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
+		$criteria->compare('server_product_type_id',$this->server_product_type_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

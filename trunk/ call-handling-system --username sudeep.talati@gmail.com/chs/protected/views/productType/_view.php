@@ -23,6 +23,11 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
 	<?php echo CHtml::encode($data->modified); ?>
 	<br />
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('server_product_type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->server_product_type_id); ?>
+	<br />
+	
 
 
 </div>

@@ -77,7 +77,7 @@
 	<?php echo CHtml::encode($data->postcode); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('custom5')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('version_update_url')); ?>:</b>
 	<?php echo CHtml::encode($data->custom5); ?>
 	<br />
 

@@ -118,9 +118,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'custom5'); ?>
-		<?php echo $form->textArea($model,'custom5',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'custom5'); ?>
+		<?php echo $form->labelEx($model,'version_update_url'); ?>
+		<?php echo $form->textArea($model,'version_update_url',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'version_update_url'); ?>
 	</div>
 
 	<div class="row buttons">

@@ -36,7 +36,7 @@
 		),
 		'postcodeanywhere_license_key',
 		//'postcode',
-		//'custom5',
+		//'version_update_url',
 	),
 )); 
 ?>

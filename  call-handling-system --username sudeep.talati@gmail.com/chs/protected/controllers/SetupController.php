@@ -31,7 +31,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -390,6 +390,21 @@ class SetupController extends Controller
 		
 		$this->renderPartial('showUpdateProgress',array('step_info'=>$step_info));
 	}//end of showUpdateProgress().
+	
+	/******** ACTION TO RENDER VIEW TO SETUP CLOUD URL********/
+	
+	public function actionCloudSetup()
+	{
+		//echo "In action CLOUD SETUP";
+		$this->render('cloudSetup');
+	}//end of cloudSetup().
+	
+	
+	public function actionCloudUrlUpdated()
+	{
+		$this->render('cloudUrlUpdated');
+		
+	}
 	
 	
 }//end of class.

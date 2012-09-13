@@ -8,6 +8,7 @@ $this->menu=array(
 	array('label'=>'Brand Setup', 'url'=>array('Brand/admin')),
 	array('label'=>'Product Setup', 'url'=>array('ProductType/admin')),
 	array('label'=>'Mail Settings', 'url'=>array('setup/mailServer')),
+	array('label'=>'Spares Cloud URL Setup', 'url'=>array('setup/cloudSetup')),
 	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
 	//array('label'=>'FTP Settings', 'url'=>array('sparesLookup/update/1')),
 	array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),

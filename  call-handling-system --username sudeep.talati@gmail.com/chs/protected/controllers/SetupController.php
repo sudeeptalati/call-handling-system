@@ -376,7 +376,7 @@ class SetupController extends Controller
 		//echo "step value in controller ".$curr_step;
 		 
 		
-		/*
+		
 		$step=$curr_step;
 		 
 			
@@ -385,7 +385,7 @@ class SetupController extends Controller
 			$step_info = $model->updateVersion($step);
 		}//end of if.
 		 
-		*/
+		
 		
 		
 		$this->renderPartial('showUpdateProgress',array('step_info'=>$step_info));

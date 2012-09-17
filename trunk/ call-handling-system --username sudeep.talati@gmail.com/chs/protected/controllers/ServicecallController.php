@@ -71,7 +71,7 @@ class ServicecallController extends Controller
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
 		# render (full page)
 		//$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
-		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$setupModel), true));
+		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'company_details'=>$setupModel), true));
 		# Load a stylesheet
 		//$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
 		//$mPDF1->WriteHTML($stylesheet, 1);

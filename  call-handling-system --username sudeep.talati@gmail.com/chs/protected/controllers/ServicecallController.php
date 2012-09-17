@@ -59,7 +59,8 @@ class ServicecallController extends Controller
 	public function actionPreview($id)
 	{
 		$model=$this->loadModel($id);
-		$config= Config::model()->findByPk(1);	
+		$setupModel = Setup::model()->findByPk(1);
+		//$config= Config::model()->findByPk(1);	
     
 
 		//echo 'I M HERE';		
@@ -69,7 +70,8 @@ class ServicecallController extends Controller
 		# You can easily override default constructor's params
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
 		# render (full page)
-		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
+		//$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
+		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$setupModel), true));
 		# Load a stylesheet
 		//$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
 		//$mPDF1->WriteHTML($stylesheet, 1);
@@ -328,7 +330,8 @@ class ServicecallController extends Controller
 		
 		$service_id_list=Enggdiary::model()->fetchDiaryDetails($engg_id, $mysql_visit_date);
 		
-		$config= Config::model()->findByPk(1);	
+		//$config= Config::model()->findByPk(1);
+		$setupModel = Setup::model()->findByPk(1);
 		
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
 		
@@ -337,7 +340,8 @@ class ServicecallController extends Controller
 		{
 			$servicecall_id= $data->servicecall_id;
 			$model=$this->loadModel($servicecall_id);
-			$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
+			//$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
+			$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$setupModel), true));
 		}
 		
 		$mPDF1->Output();

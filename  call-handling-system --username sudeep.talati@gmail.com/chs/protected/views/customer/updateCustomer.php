@@ -205,9 +205,13 @@ background-color: #FFFF9D;
  			</td>
  			<td>
 				<?php
-					$config=Config::model()->findByPk(1);
-				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
-					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
+//					$config=Config::model()->findByPk(1);
+//				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
+//					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
+					
+					$setupModel = Setup::model()->findByPk(1);
+				 	$postcodeanwhere_account_code=$setupModel->postcodeanywhere_account_code;
+					$postcodeanwhere_license_key=$setupModel->postcodeanywhere_license_key;
  
 				?>
 					 <input type=button value="Find" 

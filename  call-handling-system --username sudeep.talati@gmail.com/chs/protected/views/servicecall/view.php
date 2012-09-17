@@ -13,7 +13,10 @@
 		$customerModel=Customer::model()->findByPk($model->customer_id);
 		$productModel=Product::model()->findByPk($model->product_id);
 		$brandModel=Brand::model()->findByPk($productModel->brand_id);
-		$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
+		//$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
+		$productType = $productModel->productType->name;
+		$productTypeModel = ProductType::model()->findByPk($productModel->product_type_id);
+		
 		$contractModel=Contract::model()->findByPk($model->contract_id);
 		$contractName=$contractModel->name;
 		$contractTypeModel=ContractType::model()->findByPk($contractModel->contract_type_id);
@@ -111,9 +114,15 @@
 				<td style="vertical-align:top;">
 					<?php echo $form->labelEx($brandModel,'name'); ?><br>
 					<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
-					<br>
-					<?php echo $form->labelEx($productTypeModel,'name'); ?><br>
+					
+					<?php echo $form->labelEx($productTypeModel ,'name'); ?><br>
 					<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
+					
+					<?php //echo CHtml::textField('',$productType, array('disabled'=>'disabled')); ?>
+					
+					
+					
+					
 					<br>
 					<?php echo $form->labelEx($productModel,'model_number'); ?><br>
 					<?php echo $form->textField($productModel,'model_number',array('disabled'=>'disabled')); ?>

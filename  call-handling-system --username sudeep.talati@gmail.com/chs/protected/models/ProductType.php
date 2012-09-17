@@ -44,11 +44,11 @@ class ProductType extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('information, modified','server_product_type_id', 'safe'),
+			array('server_product_type_id,created_by_user_id', 'numerical', 'integerOnly'=>true),
+			array('server_product_type_id, information, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, information, created_by_user_id, created, modified, server_product_type_id', 'safe', 'on'=>'search'),
+			array('server_product_type_id, id, name, information, created_by_user_id, created, modified ', 'safe', 'on'=>'search'),
 		);
 	}
 

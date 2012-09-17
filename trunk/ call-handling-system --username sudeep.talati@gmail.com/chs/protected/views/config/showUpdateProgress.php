@@ -112,6 +112,12 @@ $baseUrl= Yii::app()->request->baseUrl;
 
 
 <?php 
+if(empty($_SESSION['message']))
+{
+	$_SESSION['message'] = '';
+}
+
+
 $_SESSION['message']=$_SESSION['message'].$message;
 echo $_SESSION['message'];
 

@@ -413,7 +413,7 @@ class Setup extends CActiveRecord
 										$src_folder_name=$key;
 										$folder_copy_from=getcwd().'/'.$unzip_folder.''.$val;
 										//$folder_copy_to=getcwd().'/protected/'.$folder_name;
-										$folder_copy_to=getDestinationPath($json, $src_folder_name);
+										$folder_copy_to=$this->getDestinationPath($json, $src_folder_name);
 											
 										echo " <span style='color:green;'>";
 										echo "COPY FROM :".$folder_copy_from;

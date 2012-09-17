@@ -81,7 +81,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 	<?php 
 	
 	$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
-	$available_version = Config::model()->curl_file_get_contents($request);
+	$available_version = Setup::model()->curl_file_get_contents($request);
 	
 	?>
 	
@@ -121,7 +121,7 @@ echo $_SESSION['message'];
 if($currentStep != 0 && $currentStep < 7 )
 {
 	$next_step = $currentStep+1;
-	$url=Yii::app()->baseUrl.'/Config/showUpdateProgress/?curr_step='.$next_step;
+	$url=Yii::app()->baseUrl.'/Setup/showUpdateProgress/?curr_step='.$next_step;
 	//echo $url;
 	echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
 }

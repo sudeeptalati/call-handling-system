@@ -256,9 +256,9 @@ background-color: #FFFF9D;
 				<?php echo $form->error($customerModel,'postcode_e'); ?>
  			</td><td>
 			<?php
-					$config=Config::model()->findByPk(1);
-				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
-					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
+					$postcode_service=Setup::model()->findByPk(1);
+				 	$postcodeanwhere_account_code=$postcode_service->postcodeanywhere_account_code;
+					$postcodeanwhere_license_key=$postcode_service->postcodeanywhere_license_key;
  
 			?>
 					 <input type=button value="Find" 

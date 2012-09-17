@@ -53,20 +53,20 @@ td { 	vertical-align:top;
 			<br>
 			<?php 
 
-			$company_name=$config->company;
-			$company_address=$config->address;
-			$company_town=$config->town;
-			$company_postcode_s=$config->postcode_s;
-			$company_postcode_e=$config->postcode_e;
+			$company_name=$company_details->company;
+			$company_address=$company_details->address;
+			$company_town=$company_details->town;
+			$company_postcode_s=$company_details->postcode_s;
+			$company_postcode_e=$company_details->postcode_e;
 			
-			$company_email=$config->email;
-			$company_telephone=$config->telephone;
-			$company_mobile=$config->mobile;
-			$company_alternate=$config->alternate;
-			$company_fax=$config->fax;
-			$company_website=$config->website;
-			$company_vat_no=$config->vat_reg_no;
-			$company_reg_no=$config->company_number;
+			$company_email=$company_details->email;
+			$company_telephone=$company_details->telephone;
+			$company_mobile=$company_details->mobile;
+			$company_alternate=$company_details->alternate;
+			$company_fax=$company_details->fax;
+			$company_website=$company_details->website;
+			$company_vat_no=$company_details->vat_reg_no;
+			$company_reg_no=$company_details->company_number;
  
 			echo $company_name."<br>".$company_address." ,".$company_town."&nbsp;".$company_postcode_s."&nbsp;".$company_postcode_e;
 			echo "<br> Phone:".$company_telephone."&nbsp;&nbsp;&nbsp;&nbsp; Fax:".$company_fax."&nbsp;&nbsp;&nbsp;&nbsp;Email:".$company_email;

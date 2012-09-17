@@ -45,8 +45,9 @@ $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 
 
 //$header_name= CHtml::encode(Yii::app()->name);
-$config=Config::model()->findByPk(1);
-$header_name=$config->company;
+//$config=Config::model()->findByPk(1);
+$setupModel = Setup::model()->findByPk(1);
+$header_name=$setupModel->company;
 $baseUrl= Yii::app()->request->baseUrl; 
 ?>
 
@@ -78,15 +79,6 @@ $baseUrl= Yii::app()->request->baseUrl;
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				//array('label'=>'Home', 'url'=>array('/site/index')),
-				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				//array('label'=>'Contact', 'url'=>array('/site/contact')),
-				//array('label'=>'Brand', 'url'=>array('/brand/admin')),
-				//array('label'=>'Product Type', 'url'=>array('/productType/admin')),
-				//array('label'=>'Contract Type', 'url'=>array('/contractType/admin')),
-				//array('label'=>'Contact Details', 'url'=>array('/contactDetails/admin')),
-				//array('label'=>'Product', 'url'=>array('/product/admin')),
-				
 				array('label'=>'Service Call', 'url'=>array('/servicecall/freeSearch')),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
 				array('label'=>'New Customer', 'url'=>array('/customer/create')),

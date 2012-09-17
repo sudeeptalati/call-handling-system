@@ -677,6 +677,10 @@ class ConfigController extends Controller
 		{
 			$step_info = $model->updateVersion($step);
 		}//end of if.
+		else 
+		{
+			 session_unset(); 
+		}
 		 
 
 		$this->renderPartial('showUpdateProgress',array('step_info'=>$step_info));

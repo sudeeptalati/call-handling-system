@@ -384,6 +384,10 @@ class SetupController extends Controller
 		{
 			$step_info = $model->updateVersion($step);
 		}//end of if.
+		else 
+		{
+			 session_unset(); 
+		}
 		 
 		
 		

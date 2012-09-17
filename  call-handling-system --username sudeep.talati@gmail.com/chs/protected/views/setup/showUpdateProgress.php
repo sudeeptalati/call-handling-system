@@ -27,8 +27,8 @@ $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 
 
 //$header_name= CHtml::encode(Yii::app()->name);
-$config=Config::model()->findByPk(1);
-$header_name=$config->company;
+//$config=Config::model()->findByPk(1);
+$header_name='';
 $baseUrl= Yii::app()->request->baseUrl; 
 ?>
 
@@ -109,6 +109,11 @@ $baseUrl= Yii::app()->request->baseUrl;
 
 
 <?php 
+if(empty($_SESSION['message']))
+{
+	$_SESSION['message'] = '';
+}
+
 $_SESSION['message']=$_SESSION['message'].$message;
 echo $_SESSION['message'];
 

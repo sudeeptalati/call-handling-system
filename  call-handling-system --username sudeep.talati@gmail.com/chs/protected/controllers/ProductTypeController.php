@@ -31,7 +31,7 @@ class ProductTypeController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','create','update'),
+				'actions'=>array('UpdateProductType','admin','create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -172,5 +172,12 @@ class ProductTypeController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-}
+	}//end of AJAX function().
+	
+	
+	
+	
+	
+	
+	
+}//end of class.

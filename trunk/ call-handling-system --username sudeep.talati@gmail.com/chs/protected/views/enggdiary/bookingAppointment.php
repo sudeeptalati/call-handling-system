@@ -76,6 +76,14 @@ $engineerModel  =Engineer::model()->findByPk($engg_id);
 $enggName = $engineerModel->fullname; 
 $enggAddress = $engineerModel->contactDetails->town." ".$engineerModel->contactDetails->postcode;
 
+$diaryModel = Enggdiary::model()->findAllByAttributes(
+                                array('servicecall_id'=>$service_id), 
+                                "status = 3" 
+                            );	
+foreach ($diaryModel as $data)
+{                                                        
+	$appointment_date = date('d-M-Y', $data->visit_start_date);                           
+}
 ?>
 
 <br><br>
@@ -86,6 +94,9 @@ $enggAddress = $engineerModel->contactDetails->town." ".$engineerModel->contactD
 	<th>Engineer</th>
 	<th>Product</th>
 	<th>Fault</th>
+	<?php if($diaryModel!= null){?>
+	<th>Current Appointment</th>
+	<?php }//end of if.?>
 </tr>
 
 <tr>
@@ -105,6 +116,11 @@ $enggAddress = $engineerModel->contactDetails->town." ".$engineerModel->contactD
 		<?php echo $faultDate;?><br>
 		<?php echo $faultDesrc;?>
 	</td>
+	<?php if($diaryModel!= null){?>
+	<td>
+		<?php echo $appointment_date; ?>
+	</td>
+	<?php }//end of if.?>
 </tr>
 
 </table>
@@ -158,7 +174,9 @@ function isTouchDevice()
 		
 			//editable: true,
 			selectable: true,
-
+			minTime:'8',
+			maxTime:'18',
+			weekends:false,
 			
 			
 			eventResize: function(event,dayDelta,minuteDelta,revertFunc) 
@@ -333,7 +351,7 @@ function isTouchDevice()
 		    },
 	        error: function()
 	        {
-		        alert("EWRROR"); 
+		        alert("ERROR"); 
 	        }
 	     });//end of AJAX.
 	    

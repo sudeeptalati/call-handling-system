@@ -488,9 +488,10 @@ exit;
 			$engg_id = $_GET['engineer_id'];
 			//echo "SERVICECALL ID IN VIEWFULLCAL CONTR = ". $_GET['id']."<br>";
 			$service_id  = $_GET['id'];
-			
+
 		}//end of if of isset of engineer_id and service_id got from servicecall controller.
 		
+		/****** PROCESSING ENGG_ID GOT FROM DROPDOWN ********/
 		if(isset($_GET['Enggdiary']))
 		{
 			//echo "Value is present<br>";
@@ -501,6 +502,7 @@ exit;
 			
 			
 		}//end of if engg_id is present got from dropdown in viewFullDiary view.
+		/****** END OF PROCESSING ENGG_ID GOT FROM DROPDOWN ********/
 		
 	    $this->render('bookingAppointment',array('model'=>$model,
 	    										 'engg_id'=>$engg_id,

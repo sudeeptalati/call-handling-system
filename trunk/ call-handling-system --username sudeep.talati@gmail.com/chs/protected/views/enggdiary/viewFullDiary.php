@@ -98,6 +98,9 @@ function isTouchDevice()
 		
 			//editable: true,
 			selectable: true,
+//			minTime:'8',
+//			maxTime:'18',
+//			weekends:false,
 
 			
 			

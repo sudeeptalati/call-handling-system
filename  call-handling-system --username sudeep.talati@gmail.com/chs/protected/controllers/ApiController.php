@@ -42,34 +42,29 @@ class ApiController extends Controller
 	    	$i=1;
 	    	foreach ($diaryModel as $data)
 	    	{
-	    		//echo $data->servicecall_id;
-	    		$customer_name=$data->servicecall->customer->fullname;
-	    		$customer_postcode=$data->servicecall->customer->postcode;
-	    		$engineer_name = $data->engineer->fullname;
-	    		$engineer_name = $data->engineer->fullname;
-	    		
-	    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
-	    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
-	    		
-	    		$diary_events_array['id'] = $data->id;///id of the engg diary
-	    		$diary_events_array['service_id'] = $data->servicecall_id;
-				$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
-				$diary_events_array['start'] = $start_date;
-				$diary_events_array['end'] = $end_date;
-	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
-	    		$diary_events_array['allDay'] = false ;
-	    		$diary_events_array['textColor'] = "white" ;
- 
-	    		
-	    		
-	    		//'end' => "$year-$month-22",
-	    		 
-				//echo "id = ".$data->id."<br>";
-				//echo "Visit date = ".$date."<br>";
-				//echo "service_id = ".$data->servicecall_id."<hr>";
-	    		
-	    		array_push($mydata,$diary_events_array);
-	    		$i++;
+	    		if($data->status!= '102')
+	    		{
+		    		//echo $data->servicecall_id;
+		    		$customer_name=$data->servicecall->customer->fullname;
+		    		$customer_postcode=$data->servicecall->customer->postcode;
+		    		$engineer_name = $data->engineer->fullname;
+		    		$engineer_name = $data->engineer->fullname;
+		    		
+		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+		    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+		    		
+		    		$diary_events_array['id'] = $data->id;///id of the engg diary
+		    		$diary_events_array['service_id'] = $data->servicecall_id;
+					$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
+					$diary_events_array['start'] = $start_date;
+					$diary_events_array['end'] = $end_date;
+		    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+		    		$diary_events_array['allDay'] = false ;
+		    		$diary_events_array['textColor'] = "white" ;
+	 
+		    		array_push($mydata,$diary_events_array);
+		    		$i++;
+	    		}//end of displaying only those appointments that are not cancelled 
 	    		
 	    	}//end of foreach().
 	    	echo json_encode($mydata);
@@ -89,29 +84,32 @@ class ApiController extends Controller
 	    	$i=1;
 	    	foreach ($diaryModel as $data)
 	    	{
-	    		//echo $data->servicecall_id;
-	    		$customer_name=$data->servicecall->customer->fullname;
-	    		$customer_postcode=$data->servicecall->customer->postcode;
-	    		$engineer_name = $data->engineer->fullname;
-	    		
-	    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
-	    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
-	    		
-	    		$diary_events_array['id'] = $data->id;///id of the engg diary
-	    		$diary_events_array['service_id'] = $data->servicecall_id;
-				$diary_events_array['title'] = $customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
-				$diary_events_array['start'] = $start_date;
-				$diary_events_array['end'] = $end_date;
-	    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
-	    		$diary_events_array['allDay'] = false ;
-	    		//'end' => "$year-$month-22",
-	    		 
-				//echo "id = ".$data->id."<br>";
-				//echo "Visit date = ".$date."<br>";
-				//echo "service_id = ".$data->servicecall_id."<hr>";
-	    		
-	    		array_push($mydata,$diary_events_array);
-	    		$i++;
+	    		if($data->status!= '102')
+	    		{
+		    		//echo $data->servicecall_id;
+		    		$customer_name=$data->servicecall->customer->fullname;
+		    		$customer_postcode=$data->servicecall->customer->postcode;
+		    		$engineer_name = $data->engineer->fullname;
+		    		
+		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+		    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+		    		
+		    		$diary_events_array['id'] = $data->id;///id of the engg diary
+		    		$diary_events_array['service_id'] = $data->servicecall_id;
+					$diary_events_array['title'] = $customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
+					$diary_events_array['start'] = $start_date;
+					$diary_events_array['end'] = $end_date;
+		    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+		    		$diary_events_array['allDay'] = false ;
+		    		//'end' => "$year-$month-22",
+		    		 
+					//echo "id = ".$data->id."<br>";
+					//echo "Visit date = ".$date."<br>";
+					//echo "service_id = ".$data->servicecall_id."<hr>";
+		    		
+		    		array_push($mydata,$diary_events_array);
+		    		$i++;
+	    		}//end of if, displaying only those that are not cancelled.
 	    		
 	    	}//end of foreach().
 	    	echo json_encode($mydata);
@@ -218,19 +216,41 @@ class ApiController extends Controller
     	echo "IN CreateNewDiaryEntry action";
     	echo "<hr>START DATE = ".date('d-m-Y H:i','1346313600')."<hr>";
     	
+    	$start_date = $_GET['start_date'];
+    	echo "<br>START DATE = ".$start_date;
+    	echo "<br>STRTOTIME START DATE = ".strtotime($start_date);
+    	
     	$engg_id = $_GET['engg_id'];
     	echo "<br>ENGG_ID in api contr = ".$engg_id;
     	$service_id = $_GET['service_id'];
     	echo "<br>SERVICE_ID in api contr = ".$service_id;
     	
-    	$start_date = $_GET['start_date'];
-    	echo "<br>START DATE = ".$start_date;
-    	echo "<br>STRTOTIME START DATE = ".strtotime($start_date);
+/*
+    	$diaryModel = Enggdiary::model()->findAllByAttributes(
+                                array('servicecall_id'=>$service_id), 
+                                "status = 3" 
+                            );				
+		foreach ($diaryModel as $data)
+		{
+			echo "<hr>Serviecall id from controller = ".$data->servicecall_id;
+			echo "<br>engineer name = ".$data->engineer->fullname;
+				
+			$findDiaryModel = Enggdiary::model()->findByPk($data->id);
+				
+			$updateDiaryModel = Enggdiary::model()->updateByPk($findDiaryModel->id,
+												array(
+													'status'=>'102',
+													'modified'=>time()
+												)
+											);
+		}//end of foreach().                            
+    	
+ */   	
     	
     	$newEnggDiaryModel = new Enggdiary;
     	$newEnggDiaryModel->servicecall_id=$service_id;
 		$newEnggDiaryModel->engineer_id=$engg_id;
-		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT(VISIT START DATE).
+		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
 		$newEnggDiaryModel->visit_start_date=$start_date;
 		$newEnggDiaryModel->slots = '2';
 		
@@ -263,6 +283,41 @@ class ApiController extends Controller
     	*/
     	
     }//end of actionCreateNewDiaryEntry().
+    
+    public function actionGetAllBookedAppointment()
+    {
+    	
+    	//echo "actionGetAllBookedAppointment is called ";
+    	$diary_events_array = array();
+		$mydata=array();
+    	
+    	
+    	$diaryModel = Enggdiary::model()->findAll();
+	    $i=1;
+	    foreach ($diaryModel as $data)
+	    {
+	    	if($data->status!='102')
+	    	{
+//		    	echo "<hr>Engg diary id = ".$data->id;
+//		    	echo "<br> Engg name = ".$data->engineer->fullname;
+//		    	echo "<br>servicecall id = ".$data->servicecall_id;
+//		    	echo "<br>Appt start time = ".date('Y-m-d H:i', $data->visit_start_date);
+//		    	echo "<br>Appt end time = ".date('Y-m-d H:i', $data->visit_end_date);
+		    	
+		    	$diary_events_array['title'] = 'Booked';
+		    	$diary_events_array['start'] = date('Y-m-d H:i', $data->visit_start_date);
+		    	$diary_events_array['end'] = date('Y-m-d H:i', $data->visit_end_date);
+		    	$diary_events_array['textColor'] = "pink" ;
+		    	
+		    	array_push($mydata, $diary_events_array);	    	
+	    	}//end of displaying only those appointmens that are not cancelled.
+	    }//end of foreach().
+	    
+	    
+	    //echo "<hr>JSON ENCODED DATA <hr>";
+	    echo json_encode($mydata); 
+    	
+    }//end of actionGetAllBookedAppointment().
     
     public function actionList()
     {

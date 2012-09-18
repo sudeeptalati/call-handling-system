@@ -122,6 +122,7 @@ class Brand extends CActiveRecord
             }
             else
             {
+            	$this->created_by_user_id=Yii::app()->user->id;
             	$this->modified=time();
                 return true;
             }

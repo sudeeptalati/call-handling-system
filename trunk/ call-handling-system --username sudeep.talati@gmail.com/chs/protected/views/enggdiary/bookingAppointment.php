@@ -363,23 +363,42 @@ function isTouchDevice()
 //		alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
 //		alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
 
-		var urlToCreate = baseUrl+'/api/createNewDiaryEntry/?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
-		//alert(urlToCreate);
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
 
-		 $.ajax
-		 ({
-	     	type: 'POST',
-	        url: urlToCreate ,
-	        success: function(data) 
-	        { 
-		    	alert('Appointment Created');
-		    	location.href="../viewFullDiary?engg_id="+engg_id;
-		    },
-	        error: function()
-	        {
-		        alert("ERROR"); 
-	        }
-	     });//end of AJAX.
+		var yyyy = today.getFullYear();
+
+		today = dd+'/'+mm+'/'+yyyy;
+		//alert("Today's date = "+today);
+
+		if(today>event_date)
+		{
+			alert("Cannot book appointmaents for previous days.");
+			//location.href="../viewFullDiary?engg_id="+engg_id;
+		}
+		else
+		{
+			//alert("Can book appointment for this day");
+			var urlToCreate = baseUrl+'/api/createNewDiaryEntry/?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
+			//alert(urlToCreate);
+	
+			
+			 $.ajax
+			 ({
+		     	type: 'POST',
+		        url: urlToCreate ,
+		        success: function(data) 
+		        { 
+			    	alert('Appointment Created');
+			    	location.href="../viewFullDiary?engg_id="+engg_id;
+			    },
+		        error: function()
+		        {
+			        alert("ERROR"); 
+		        }
+		     });//end of AJAX.
+		}//end of else.
 		
 	}//end of createNewDiaryEntry().
     

@@ -306,7 +306,11 @@ class Servicecall extends CActiveRecord
 				
 				else 
 				{
-					if(isset($_GET['product_id']))/***** THIS BIT IS CALLED WHILE RAISING CALL FOR SECONDARY PROD FROM DASHBOARD.*/
+					if($this->job_status_id = '2')
+					{
+						//echo "<br>THIS IS A REMOTLY BOOKED CALL";
+					}
+					elseif (isset($_GET['product_id']))/***** THIS BIT IS CALLED WHILE RAISING CALL FOR SECONDARY PROD FROM DASHBOARD.*/
 					{
 						//echo "product id in model :".$_GET['product_id'];
 						//echo "customer id in model :".$_GET['customer_id'];

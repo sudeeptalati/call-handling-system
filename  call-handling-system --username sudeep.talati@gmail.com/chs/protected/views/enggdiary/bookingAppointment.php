@@ -91,7 +91,9 @@ foreach ($diaryModel as $data)
 
 <tr>
 	<th>Customer</th>
+	<?php if($engineerModel!=null){?>
 	<th>Engineer</th>
+	<?php }//end of if !null of enggmodel.?>
 	<th>Product</th>
 	<th>Fault</th>
 	<?php if($diaryModel!= null){?>
@@ -104,10 +106,12 @@ foreach ($diaryModel as $data)
 		<?php echo $customer_name;?><br>
 		<?php echo $custAddress;?>
 	</td>
+	<?php if($engineerModel!= null){?>
 	<td>
 		<?php echo $enggName;?><br>
 		<?php echo $enggAddress;?>
 	</td>
+	<?php }//end if if !null of enggmodel.?>
 	<td>
 		<?php echo $prodBrand;?><br>
 		<?php echo $prodType;?>

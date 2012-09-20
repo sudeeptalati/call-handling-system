@@ -218,53 +218,91 @@ class Customer extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created_by_user_id=Yii::app()->user->id;
-        		
-        		/******CHECKING WHETHER CUSTOMER IS CREATED FROM CREATE OF CUSTOMER*/
-        		if($this->lockcode == '0')
-        		{
-        			//echo "Lockcode is set to zeero, In Create of customers";
-        			$this->lockcode=0;
-        		}
-        		else 
-        		{
-        			//echo "Lockdode is not set, some error";
-        			$this->lockcode=Yii::app()->user->id*1000;
-        		}
-        		
-        		        		
         		$this->created=time();
         		
-        		//SAVING DETAILS TO PRODUCT TABLE.
+        		if($this->product_id == '0')
+        		{
+        			//echo "<hr>data will be coming from api contr";
+        			$brand_id = $_GET['brand_id'];
+        			//echo "<br>brand if in before save of cust = ".$brand_id;
+        			$productType_id = $_GET['productType_id'];
+        			//echo "<br>productType_id if in before save of cust = ".$productType_id;
+        			$contract_id = $_GET['contract_id'];
+        			//echo "<br>contract_id if in before save of cust = ".$contract_id;
+        			$model_number = $_GET['model_number'];
+			    	//echo "<br>model number from url = ".$model_number;
+			    	$serial_number = $_GET['serial_number'];
+			    	//echo "<br>serial number = ".$serial_number;
+        			
+        			$newProductModel = new Product;
+			    	$newProductModel->customer_id = '0';
+			    	$newProductModel->brand_id = $brand_id;
+			    	$newProductModel->product_type_id = $productType_id;
+			    	$newProductModel->contract_id = $contract_id;
+			    	$newProductModel->engineer_id = '0';
+			    	$newProductModel->model_number = $model_number;
+			    	$newProductModel->serial_number = $serial_number;
+			    	
+			    	if($newProductModel->save())
+			    	{
+			    		//echo "<hr>PRODUCT SAVED....!!!!!!!!!!!!!";
+			    	}
+			    	
+			    	//echo "<br> Id of PRODUCT model that is saved now = ".$newProductModel->id."<hr>";
+			    	
+			    	//$this->product_id = $newProductModel->id;
+			    	$this->lockcode = '0';
+			    	
+        			
+        		}//end of if(product_id ==0), saving data got from api contr.
         		
-        		$productModel=new Product;
-        		$productModel->attributes=$_POST['Product'];
-        		//$productModel->customer_id=0;
-				if($productModel->save())
-				{
-					//echo "lockcode of product model is :".$productModel->lockcode."<br>";
-				}
-				
-				//GETTING LOCKCODE FROM PRODUCT TABLE.
-				
-				$lockcode=$productModel->lockcode;
-				
-				$productQueryModel = Product::model()->findByAttributes(
-        											array('lockcode'=>$lockcode)
-													);
-				//echo "ID GOT FROM LOCKCODE : ".$productQueryModel->id;
-				
-				$this->product_id=$productQueryModel->id;
+        		else 
+        		{
+        			/******CHECKING WHETHER CUSTOMER IS CREATED FROM CREATE OF CUSTOMER*/
+	        		if($this->lockcode == '0')
+	        		{
+	        			//echo "Lockcode is set to zeero, In Create of customers";
+	        			$this->lockcode=0;
+	        		}
+	        		else 
+	        		{
+	        			//echo "Lockdode is not set, some error";
+	        			$this->lockcode=Yii::app()->user->id*1000;
+	        		}
+	        		
+	        		//SAVING DETAILS TO PRODUCT TABLE.
+	        		
+	        		$productModel=new Product;
+	        		$productModel->attributes=$_POST['Product'];
+	        		//$productModel->customer_id=0;
+					if($productModel->save())
+					{
+						//echo "lockcode of product model is :".$productModel->lockcode."<br>";
+					}
+					
+					//GETTING LOCKCODE FROM PRODUCT TABLE.
+					
+					$lockcode=$productModel->lockcode;
+					
+					$productQueryModel = Product::model()->findByAttributes(
+	        											array('lockcode'=>$lockcode)
+														);
+					//echo "ID GOT FROM LOCKCODE : ".$productQueryModel->id;
+					
+					$this->product_id=$productQueryModel->id;
+        		}//end of else, data is not coming from api contr().
         		
-        		return true;
+        		//return true;
             }//end of if($this->isNewRecord).
             /******** END OF SAVING NEW RECORD *************/
             else
             {
             	if(isset($_GET['product_id']))
+            	{
 //            		$prod_id=$_GET['product_id'];
 //            		
 //            	if($prod_id != $this->product_id)
-            	{
+            	
             		//echo "SECONDARY PROD";
             		$product_id=$_GET['product_id'];/* CHECKING FOR PRIMARY PRODUCT */
             		//echo $product_id;

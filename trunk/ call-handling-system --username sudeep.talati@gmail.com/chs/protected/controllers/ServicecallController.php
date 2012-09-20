@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
+				'actions'=>array('SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -552,6 +552,73 @@ class ServicecallController extends Controller
 		}//end of else.
 		
 	}//end of mailSettings().
+	
+	public function actionChangeEngineerOnly()
+	{
+		$this->render('changeEngineerOnly');
+		
+	}//end of ChangeEngineerOnly.
+	
+	public function actionEngineerDiary()
+	{
+		$model = new Servicecall('search');
+//		$engg_id = $_GET['engg_id'];
+//		echo "Engg id in controller = ".$engg_id;
+		$this->render('engineerDiary', array('model'=>$model));
+	}
+	
+	public function actionSelectEngineer()
+	{
+		echo "in action selectEngineer, change status and create new appt here";
+		
+		$engg_id = $_GET['engg_id'];
+		echo "<br>Engineer id in contr = ".$engg_id;
+		$diary_id = $_GET['diary_id'];
+		echo "<br>Diary id in contr = ".$diary_id;
+		$service_id = $_GET['service_id'];
+		echo "<br>Service id in contr = ".$service_id;
+		
+		/******** CHANGING THE STATUS OF PREVIOUS APPOINTMENT ***********/
+		Enggdiary::model()->changePreviousAppointment($diary_id);
+		
+		/***** END OF CHANGING THE STATUS OF PREVIOUS APPOINTMENT *******/
+		
+		
+		/******** CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
+		$diaryModel = Enggdiary::model()->findByPk($diary_id);
+		
+		echo "<br>Visit start date = ".$diaryModel->visit_start_date;
+		echo "<br>Visit end date = ".date('d-m-Y',$diaryModel->visit_end_date);
+		$start_date = date('d-m-Y',$diaryModel->visit_end_date);
+		echo "<br>No of slots = ".$diaryModel->slots;
+		
+		$newEnggDiaryModel = new Enggdiary;
+    	$newEnggDiaryModel->servicecall_id=$service_id;
+		$newEnggDiaryModel->engineer_id=$engg_id;
+		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
+		$newEnggDiaryModel->visit_start_date=$start_date;
+		//$newEnggDiaryModel->visit_end_date=$diaryModel->visit_end_date;
+		$newEnggDiaryModel->slots = '2';
+		
+		echo "<hr>START DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_start_date;
+		//echo "<br>END DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_end_date;
+		
+		if($newEnggDiaryModel->save())
+		{
+			echo "<br>SAVED.......!!!!!!!!!!";
+			$this->redirect(array('view','id'=>$service_id));
+		}
+		else 
+		{
+			echo "<br>Problem in saving";
+		}
+		/******** END OF CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
+		
+		
+		
+}//end of actionSelectEngineer.
+	
+	
 	
 
 	

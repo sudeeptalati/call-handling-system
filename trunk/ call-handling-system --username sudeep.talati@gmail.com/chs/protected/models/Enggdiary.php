@@ -302,6 +302,22 @@ class Enggdiary extends CActiveRecord
 
     }//end of updateEndTime(). 
     
+    public function changePreviousAppointment($diary_id)
+    {
+    	$previousDiaryModel = Enggdiary::model()->findByPk($diary_id);
+		echo "<hr>Visit start date = ".$previousDiaryModel->visit_start_date;
+		echo "<br>Visit end date = ".$previousDiaryModel->visit_end_date;
+		echo "<br>No of slots = ".$previousDiaryModel->slots;
+		echo "<br>status = ".$previousDiaryModel->status;
+		
+		$updateDiaryModel = Enggdiary::model()->updateByPk($previousDiaryModel->id,
+													array(
+														'status'=>'102'
+													)
+												);
+    }//end of statusPreviousAppointment.
+    
+    
     
     
 }//end of class.

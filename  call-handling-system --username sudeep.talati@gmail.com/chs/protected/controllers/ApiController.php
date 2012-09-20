@@ -226,6 +226,7 @@ class ApiController extends Controller
     	echo "<br>SERVICE_ID in api contr = ".$service_id;
     	
 
+/*    	
     	$diaryModel = Enggdiary::model()->findAllByAttributes(
                                 array('servicecall_id'=>$service_id), 
                                 "status = 3" 
@@ -244,7 +245,8 @@ class ApiController extends Controller
 												)
 											);
 		}//end of foreach().                            
-    	
+  
+*/    	
    	
     	
     	$newEnggDiaryModel = new Enggdiary;

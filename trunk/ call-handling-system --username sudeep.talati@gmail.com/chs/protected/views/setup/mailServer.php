@@ -50,6 +50,7 @@ function getSelectedValue()
 alert(val);
 </script>  
 
+<h2>Mail Settings</h2>
 
 <form action="<?php echo Yii::app()->createUrl('setup/mailSettings')?>" method="post">
 	

@@ -324,41 +324,43 @@ class ApiController extends Controller
     public function actionRaiseServicecall()
     {
     	$title = $_GET['title'];
-    	echo "title from url = ".$title;
+    	//echo "title from url = ".$title;
     	$first_name = $_GET['first_name'];
-    	echo "<br>first name from url = ".$first_name;
+    	//echo "<br>first name from url = ".$first_name;
     	$last_name = $_GET['last_name'];
-    	echo "<br>last name from url = ".$last_name;
+    	//echo "<br>last name from url = ".$last_name;
     	$phone = $_GET['phone'];
-    	echo "<br>phone from url = ".$phone;
+    	//echo "<br>phone from url = ".$phone;
     	$town = $_GET['town'];
-    	echo "<br>town from url = ".$town;
+    	//echo "<br>town from url = ".$town;
     	$email = $_GET['email'];
-    	echo "<br>email from url = ".$email;
+    	//echo "<br>email from url = ".$email;
     	$postcode_e = $_GET['postcode_e'];
-    	echo "<br>postcode_e from url = ".$postcode_e;
+    	//echo "<br>postcode_e from url = ".$postcode_e;
     	$postcode_s = $_GET['postcode_s'];
-    	echo "<br>postcode_s from url = ".$postcode_s;
+    	//echo "<br>postcode_s from url = ".$postcode_s;
     	$address_line_1 = $_GET['address_line_1'];
-    	echo "<br>address_line_1 from url = ".$address_line_1;
+    	//echo "<br>address_line_1 from url = ".$address_line_1;
     	$address_line_2 = $_GET['address_line_2'];
-    	echo "<br>address_line_2 from url = ".$address_line_2;
+    	//echo "<br>address_line_2 from url = ".$address_line_2;
     	$address_line_3 = $_GET['address_line_3'];
-    	echo "<br>address_line_3 from url = ".$address_line_3;
+    	//echo "<br>address_line_3 from url = ".$address_line_3;
     	$county = $_GET['county'];
-    	echo "<br>county from url = ".$county;
+    	//echo "<br>county from url = ".$county;
     	$brand_id = $_GET['brand_id'];
-    	echo "<br>brand id from url = ".$brand_id;
+    	//echo "<br>brand id from url = ".$brand_id;
     	$productType_id = $_GET['productType_id'];
-    	echo "<br>productType_id from url = ".$productType_id;
+    	//echo "<br>productType_id from url = ".$productType_id;
     	$contract_id = $_GET['contract_id'];
-    	echo "<br>contract id from url = ".$contract_id;
+    	//echo "<br>contract id from url = ".$contract_id;
     	$model_number = $_GET['model_number'];
-    	echo "<br>model number from url = ".$model_number;
+    	//echo "<br>model number from url = ".$model_number;
     	$serial_number = $_GET['serial_number'];
-    	echo "<br>serial number = ".$serial_number; 
+    	//echo "<br>serial number = ".$serial_number; 
     	
     	/***** SAVING CUSTOMER DEATILS WITH PROD ID = 0 *******/
+    	
+    	/*
     	$product_id = '0';
     	$newCustomerModel = new Customer();
     	$newCustomerModel->product_id = $product_id;
@@ -371,6 +373,8 @@ class ApiController extends Controller
     	$newCustomerModel->postcode_e = $postcode_e;
     	$newCustomerModel->postcode_s = $postcode_s;
     	
+    	
+    	
     	if($newCustomerModel->save())
     	{
     		echo "<hr>CUSTOMER SAVED....!!!!!!!!!!!!!";
@@ -379,15 +383,24 @@ class ApiController extends Controller
     	{
     		echo "<br>PROBLEM IN SAVING CUSTOMER........";
     	}
+    	
+    	
+    	
+    	
     	$customer_id = $newCustomerModel->id;
     	$prod_id_from_cust = $newCustomerModel->product_id;
     	echo "<br> Customer id of saved model = ".$customer_id."<hr>";
     	$newProdModel = Product::model()->findByPk($prod_id_from_cust);
     	$engg_id = $newProdModel->engineer_id; 
+    	*/
+    	
     	
     	/***** SAVING CUSTOMER DEATILS WITH PREVIOUS PROD ID = 0 *******/
     	
     	/* SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */
+    	
+    	
+    	/*
     	$newServicecall = new Servicecall;
     	$newServicecall->customer_id = $customer_id;
     	$newServicecall->product_id = $prod_id_from_cust;
@@ -405,6 +418,11 @@ class ApiController extends Controller
     	{
     		echo "<br>PROBLEM IN SAVING";
     	}
+    	
+    	*/
+    	
+    	
+    	
     	/* END OF SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */
     	
     }//end of actionRaiseServicecall().

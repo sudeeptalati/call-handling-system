@@ -217,7 +217,8 @@ class Customer extends CActiveRecord
         	
         	if($this->isNewRecord)  // Creating new record 
             {
-        		$this->created_by_user_id=Yii::app()->user->id;
+        		//$this->created_by_user_id=Yii::app()->user->id;
+        		$this->created_by_user_id="1";
         		
         		/******CHECKING WHETHER CUSTOMER IS CREATED FROM CREATE OF CUSTOMER*/
         		if($this->lockcode == '0')
@@ -235,25 +236,31 @@ class Customer extends CActiveRecord
         		
         		//SAVING DETAILS TO PRODUCT TABLE.
         		
-        		$productModel=new Product;
-        		$productModel->attributes=$_POST['Product'];
-        		//$productModel->customer_id=0;
-				if($productModel->save())
-				{
-					//echo "lockcode of product model is :".$productModel->lockcode."<br>";
-				}
-				
-				//GETTING LOCKCODE FROM PRODUCT TABLE.
-				
-				$lockcode=$productModel->lockcode;
-				
-				$productQueryModel = Product::model()->findByAttributes(
-        											array('lockcode'=>$lockcode)
-													);
-				//echo "ID GOT FROM LOCKCODE : ".$productQueryModel->id;
-				
-				$this->product_id=$productQueryModel->id;
         		
+        		if (empty($this->product_id))
+        		{
+	        		$productModel=new Product;
+	        		$productModel->attributes=$_POST['Product'];
+	        		//$productModel->customer_id=0;
+					if($productModel->save())
+					{
+						//echo "lockcode of product model is :".$productModel->lockcode."<br>";
+					}
+					
+					//GETTING LOCKCODE FROM PRODUCT TABLE.
+					
+					$lockcode=$productModel->lockcode;
+					
+					$productQueryModel = Product::model()->findByAttributes(
+	        											array('lockcode'=>$lockcode)
+														);
+					//echo "ID GOT FROM LOCKCODE : ".$productQueryModel->id;
+					
+					$this->product_id=$productQueryModel->id;
+	        	}
+	        	
+	        	
+	        	
         		return true;
             }//end of if($this->isNewRecord).
             /******** END OF SAVING NEW RECORD *************/

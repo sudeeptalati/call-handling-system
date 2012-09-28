@@ -217,7 +217,8 @@ class Servicecall extends CActiveRecord
         		 
         	if($this->isNewRecord)  // Creating new record 
             {
-        		$this->created_by_user_id=Yii::app()->user->id;
+        		//$this->created_by_user_id=Yii::app()->user->id;
+        		$this->created_by_user_id="1";
         		$this->created=time();
         		//$user=Yii::app()->user->id
         		$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time()).".\n";
@@ -476,6 +477,29 @@ class Servicecall extends CActiveRecord
 		curl_close($curl_req);
 		
 		return $contents;
-	}///end of functn curl File get contents
+	}///end of functn curl File get contents.
+
+
+	public function latestTenResults()
+	{
+		$criteria = array(
+			'order' => 'service_reference_number desc',
+            'offset' => 0,
+            'limit' => 20
+        );
+ 		$list = Servicecall::model()->findAll($criteria);
+        
+ 		$latestResults = new CArrayDataProvider($list, array(
+                       'id' => 'listid',
+                       'keyField' => 'id', /*table primary field name*/
+                       'pagination'=>array(
+                       'pageSize'=>10
+                      ),
+                  ));
+		
+		return $latestResults;
+	
+	}//end of latestTenResults().
+
     
 }//end of class.

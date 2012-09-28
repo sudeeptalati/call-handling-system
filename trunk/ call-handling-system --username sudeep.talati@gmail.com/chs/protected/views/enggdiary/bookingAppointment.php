@@ -236,6 +236,20 @@ function isTouchDevice()
 
 				dayClick: function(date, allDay, jsEvent, view) 
 				{
+					var clicked_date=date;
+					var today = new Date();
+
+					/*		
+					if(clicked_date>today)
+					  {
+					  alert("Today is before "+clicked_date);
+					  }
+					else
+					  {
+					  alert("Today is after"+clicked_date);
+					  }
+					*/
+					
 					var curr_date = date.getDate();
 					
 					var curr_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
@@ -247,6 +261,7 @@ function isTouchDevice()
 					var normal_format = curr_date + "-" + curr_month + "-" + curr_year;
 					//alert("normal date = "+normal_format);
 					
+					/*
 					var today = new Date();
 					var dd = today.getDate();
 					var mm = today.getMonth()+1; //January is 0!
@@ -254,9 +269,11 @@ function isTouchDevice()
 					var yyyy = today.getFullYear();
 
 					today = dd+'-'+mm+'-'+yyyy;
-					//alert("Today's date = "+today);
+					 */
 
-					if(today<=normal_format)
+					
+					
+					if(clicked_date>today)
 					{
 						var retVal = confirm("Do you want to book appointment for "+date+" ?");
 						if( retVal == true )
@@ -280,7 +297,7 @@ function isTouchDevice()
 					{
 						alert("Cannot book appointment for previous days");
 					}	
-
+					
 			        // change the day's background color just for fun
 			        //$(this).css('background-color', 'pink');
 

@@ -93,7 +93,52 @@
 			<?php echo $form->error($customerModel,'fullname'); ?>
 			
 			<?php echo "<br>Address<br>" ,
-		  		 CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>40,'disabled'=>'disabled')); ?>
+		  		 CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+		  	<br>
+		  	<!--********** CODE TO GET GOOGLE MAP FOR GIVEN POSTCODE ******** -->
+		  	<?php //if($model->id == '21'){
+		  	 
+		  	//echo "<b>get map here</b>";?>
+		  	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false"
+            type="text/javascript"></script> 
+            
+            <div id="map_canvas" style="width: 300px; height: 150px"></div> 
+            
+            <script type="text/javascript"> 
+
+		    //var userLocation = 'G41 1BH';
+		    var userLocation = '<?php echo $customerModel->postcode;?>';
+		
+		    if (GBrowserIsCompatible()) {
+		       var geocoder = new GClientGeocoder();
+		       geocoder.getLocations(userLocation, function (locations) {         
+		          if (locations.Placemark)
+		          {
+		             var north = locations.Placemark[0].ExtendedData.LatLonBox.north;
+		             var south = locations.Placemark[0].ExtendedData.LatLonBox.south;
+		             var east  = locations.Placemark[0].ExtendedData.LatLonBox.east;
+		             var west  = locations.Placemark[0].ExtendedData.LatLonBox.west;
+		
+		             var bounds = new GLatLngBounds(new GLatLng(south, west), 
+		                                            new GLatLng(north, east));
+		
+		             var map = new GMap2(document.getElementById("map_canvas"));
+		             map.addControl(new GSmallMapControl());
+		             map.addControl(new GMapTypeControl());
+		
+		             map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
+		             map.addOverlay(new GMarker(bounds.getCenter()));
+
+				}
+		       });
+		    }
+
+ 			</script> 
+		    
+	   
+            
+		  	<?php //}//end of if.?>
+		  	<!--********** END OF CODE TO GET GOOGLE MAP FOR GIVEN POSTCODE ******** -->
 		  	<br>
 		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
 			<br>

@@ -250,11 +250,13 @@ class Product extends CActiveRecord
         	
         	if($this->isNewRecord)  // Creating new record 
             {
-        		$this->created_by_user_id=Yii::app()->user->id;
+        		//$this->created_by_user_id=Yii::app()->user->id;
+        		$this->created_by_user_id='1';
         		
         		//$this->customer_id=0;
         		
         		//if(isset($_GET['customer_id']))
+        		//if($this->customer_id=='0')
         		if($this->customer_id=='0')
         		{
         			//echo "CUSTOMER DOSENT EXIST.<br>";
@@ -265,7 +267,17 @@ class Product extends CActiveRecord
         		{
         			//echo "<hr>CUSTOMER ID IN BEFORE SAVE :".$this->customer_id."<BR>";
         			$this->lockcode=0;
-        			
+        		}
+        		
+        		if(empty($this->customer_id))
+        		{
+        			$this->customer_id=0;
+        			$this->lockcode=Yii::app()->user->id*1000;
+        		}
+        		else 
+        		{
+        			//echo "<hr>CUSTOMER ID IN BEFORE SAVE :".$this->customer_id."<BR>";
+        			$this->lockcode=0;
         		}
         		
 				$this->created=time();

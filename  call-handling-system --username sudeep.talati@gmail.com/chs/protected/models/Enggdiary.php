@@ -143,7 +143,8 @@ class Enggdiary extends CActiveRecord
             	$this->visit_end_date = strtotime($added_end_date);
             	/****** END OF ADDING SLOT DURATION TO END TIME *******/
 
-				$this->user_id=Yii::app()->user->id;
+			//	$this->user_id=Yii::app()->user->id;
+        		$this->user_id="1";
         		$this->created=time();
         		
         		//SAVING CHANGED ENGG_ID TO SERVICE TABLE.

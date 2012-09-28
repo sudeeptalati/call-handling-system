@@ -357,11 +357,29 @@ class ApiController extends Controller
     	//echo "<br>model number from url = ".$model_number;
     	$serial_number = $_GET['serial_number'];
     	//echo "<br>serial number = ".$serial_number; 
+    	$visit_date = $_GET['visit_date'];
     	
     	/***** SAVING CUSTOMER DEATILS WITH PROD ID = 0 *******/
     	
-    	/*
-    	$product_id = '0';
+    	$newProductModel = new Product;
+    	$newProductModel->customer_id = '';
+    	$newProductModel->contract_id = $contract_id;
+    	$newProductModel->brand_id = $brand_id;
+    	$newProductModel->product_type_id = $productType_id;
+
+    	if($newProductModel->save())
+    	{
+    		echo "Product Saved";
+    		echo "<br> Prodduct ID :".$newProductModel->id;
+    		
+    		
+    	}else 
+    	{
+    		echo "Product nOT Saved";
+    	}
+    	
+    	
+    	$product_id = $newProductModel->id;
     	$newCustomerModel = new Customer();
     	$newCustomerModel->product_id = $product_id;
     	$newCustomerModel->title = $title;
@@ -392,7 +410,7 @@ class ApiController extends Controller
     	echo "<br> Customer id of saved model = ".$customer_id."<hr>";
     	$newProdModel = Product::model()->findByPk($prod_id_from_cust);
     	$engg_id = $newProdModel->engineer_id; 
-    	*/
+    	
     	
     	
     	/***** SAVING CUSTOMER DEATILS WITH PREVIOUS PROD ID = 0 *******/
@@ -400,7 +418,7 @@ class ApiController extends Controller
     	/* SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */
     	
     	
-    	/*
+    	
     	$newServicecall = new Servicecall;
     	$newServicecall->customer_id = $customer_id;
     	$newServicecall->product_id = $prod_id_from_cust;
@@ -408,19 +426,38 @@ class ApiController extends Controller
     	$newServicecall->recalled_job = '0';
     	$newServicecall->job_status_id = '2';
     	$newServicecall->contract_id = $contract_id;
-    	$newServicecall->engineer_id = $engg_id;
+    	$newServicecall->engineer_id = '0';
     	
     	if($newServicecall->save())
     	{
     		echo "<hr>SERVICE CALL SAVED......!!!!!!!";
+    		echo "<hr>SERVICE ID is".$newServicecall->id;
+    		
     	}
     	else 
     	{
     		echo "<br>PROBLEM IN SAVING";
     	}
     	
-    	*/
+    	/***** END of saving servicecall details *********/
     	
+    	
+    	$newDiaryModel = new Enggdiary();
+    	$newDiaryModel->engineer_id = '0';
+    	$newDiaryModel->visit_start_date = $visit_date;
+    	$newDiaryModel->servicecall_id = $newServicecall->id;
+    	$newDiaryModel->slots = "2";
+    	    	
+        if($newDiaryModel->save())
+    	{
+    		echo "<hr>DIARY  SAVED......!!!!!!!";
+    		///echo "<hr>SERVICE ID is".$newServicecall->id;
+    		
+    	}
+    	else 
+    	{
+    		echo "<br>PROBLEM IN SAVING";
+    	}
     	
     	
     	/* END OF SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */

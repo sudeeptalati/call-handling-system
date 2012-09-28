@@ -158,29 +158,7 @@ vertical-align:top;
  
 </style>
         
-		<!-- ********** CODE ADDED TO EXPERIMENT OTHER DATABASE USAGE ******** -->
-		<?php  
-			//$data = Yii::app()->db1->user->id;
-			//echo $data;
-			
-			//$message = Items::model()->check();
-			//echo $message;
-			
-			//$connection = Yii::app()->db1;
-			//$sql="SELECT * from suppliers";
-			//$supp=$connection->createCommand($sql)->queryAll();
-			//$command=$connection->createCommand($sql);
-			//$supp = $command->execute();
-			//echo $supp;
-			//foreach($supp as $data)
-			//{
-				//echo $data['id']."\n";
-				//echo $data['name'];
-				//echo $supp->name;
-			//}
-		?>
-		<!-- ********** CODE ADDED TO EXPERIMENT OTHER DATABASE USAGE ******** -->
- <div id="dashboard_container">
+<div id="dashboard_container">
 
 <table >
 	<tr>
@@ -191,12 +169,11 @@ vertical-align:top;
 		
 	<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'servicecall-grid',
-	'dataProvider'=>Servicecall::model()->search(),
+	//'dataProvider'=>Servicecall::model()->search(),
+	'dataProvider'=>Servicecall::model()->latestTenResults(),
 	'filter'=>Servicecall::model(),
 	'columns'=>array(
 		//'id',
-		
-		
 		//'service_reference_number',
 		array(	'name'=>'service_reference_number',
 				'value'=>'$data->service_reference_number',
@@ -262,6 +239,7 @@ vertical-align:top;
 				$allStatus = JobStatus::model()->findAll( array(
 												'condition'=>'dashboard_display=1',
 												'order'=>'dashboard_prority_order ASC',
+												 //'limit' => 3
 												));
 				foreach ($allStatus as $data)
 				{
@@ -290,6 +268,7 @@ vertical-align:top;
 					//echo $data->name."<br>";
 					$result = Servicecall::model()->findAll(array(
 															'condition'=>'job_status_id='.$data->id,
+					 										'limit' => 10
 															)
 															);
 					if(count($result)>0)

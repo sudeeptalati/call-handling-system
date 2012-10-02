@@ -1,4 +1,13 @@
 
+<?php 
+$baseUrl = Yii::app()->baseUrl; 
+?>
+
+<link type="text/css" href="<?php echo $baseUrl;?>/css/dialoguebox/smoothness/jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
+<script type="text/javascript" src="<?php echo $baseUrl;?>/js/dialoguebox/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="<?php echo $baseUrl;?>/js/dialoguebox/jquery-ui-1.8.23.custom.min.js"></script>
+	
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'servicecall-updateServicecall-form',
 	'enableAjaxValidation'=>false,
@@ -92,53 +101,95 @@
 			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
 			<?php echo $form->error($customerModel,'fullname'); ?>
 			
-			<?php echo "<br>Address<br>" ,
-		  		 CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+			<?php echo "<br>Address";?>
+			<span id="opener"><img src="<?php echo $baseUrl;?>/images/maps.png" width="30px" height="30px"/></span><br>
+			 <?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+			
+		  	
 		  	<br>
-		  	<!--********** CODE TO GET GOOGLE MAP FOR GIVEN POSTCODE ******** -->
-		  	<?php //if($model->id == '21'){
-		  	 
-		  	//echo "<b>get map here</b>";?>
-		  	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false"
-            type="text/javascript"></script> 
-            
-            <div id="map_canvas" style="width: 300px; height: 150px"></div> 
-            
-            <script type="text/javascript"> 
+		  	
+		  	<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
+		  	
+		  	<?php 
+		  	
+			  	//$url = 'http://maps.google.com/maps/geo?q=ka88je,+UK&output=csv&sensor=false';
+			  	$url = "http://maps.google.com/maps/geo?q=$customerModel->postcode_s+$customerModel->postcode_e,+UK&output=csv&sensor=false";
+	
+				$data = @file_get_contents($url);
+				
+				$result = explode(",", $data);
+				
+				//echo $result[0]; // status code
+				//echo $result[1]; // accuracy
+				//echo $result[2]."<br>"; // latitude
+				$latitude = $result[2];
+				//echo $result[3]; // longitude
+				$longitude = $result[3];
+		  	
+		  	
+		  	
+		  	?>
+		  	
 
-		    //var userLocation = 'G41 1BH';
-		    var userLocation = '<?php echo $customerModel->postcode;?>';
-		
-		    if (GBrowserIsCompatible()) {
-		       var geocoder = new GClientGeocoder();
-		       geocoder.getLocations(userLocation, function (locations) {         
-		          if (locations.Placemark)
-		          {
-		             var north = locations.Placemark[0].ExtendedData.LatLonBox.north;
-		             var south = locations.Placemark[0].ExtendedData.LatLonBox.south;
-		             var east  = locations.Placemark[0].ExtendedData.LatLonBox.east;
-		             var west  = locations.Placemark[0].ExtendedData.LatLonBox.west;
-		
-		             var bounds = new GLatLngBounds(new GLatLng(south, west), 
-		                                            new GLatLng(north, east));
-		
-		             var map = new GMap2(document.getElementById("map_canvas"));
-		             map.addControl(new GSmallMapControl());
-		             map.addControl(new GMapTypeControl());
-		
-		             map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
-		             map.addOverlay(new GMarker(bounds.getCenter()));
 
-				}
-		       });
-		    }
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
- 			</script> 
-		    
-	   
-            
-		  	<?php //}//end of if.?>
-		  	<!--********** END OF CODE TO GET GOOGLE MAP FOR GIVEN POSTCODE ******** -->
+<script>
+	// increase the default animation speed to exaggerate the effect
+	$.fx.speeds._default = 500;
+	$(function() {
+		$( "#dialog" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 500,
+			width: 500,
+		});
+
+		$( "#opener" ).click(function() {
+			$( "#dialog" ).dialog( "open" );
+			drawmap();
+			
+			return false;
+		});
+	});
+
+
+	function drawmap()
+	{
+		///alert (" I M called");
+		var lat= "<?php echo $latitude; ?>";
+		var lon= "<?php echo $longitude ;?>";
+		var mapOptions = {
+		          center: new google.maps.LatLng(lat, lon),
+		          zoom: 12,
+		          mapTypeId: google.maps.MapTypeId.ROADMAP
+		        };
+		var map = new google.maps.Map(document.getElementById("map_canvas"),
+		            mapOptions);
+
+		   // Add a marker at the address.
+	    var marker = new google.maps.Marker({
+	      map: map,
+	      //position: results[0].geometry.location
+	      position: map.getCenter(),
+	    });
+				
+		
+	}
+
+</script>
+	
+
+<div id="dialog" title="Map ">
+	<div id="map_canvas" style="width: 475px; height: 450px"> </div> 
+</div>
+
+
+
+			
+
+		  	<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
 		  	<br>
 		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
 			<br>
@@ -164,9 +215,6 @@
 					<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
 					
 					<?php //echo CHtml::textField('',$productType, array('disabled'=>'disabled')); ?>
-					
-					
-					
 					
 					<br>
 					<?php echo $form->labelEx($productModel,'model_number'); ?><br>

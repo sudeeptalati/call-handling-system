@@ -51,7 +51,13 @@ class ApiController extends Controller
 		    		$engineer_name = $data->engineer->fullname;
 		    		
 		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
-		    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+		    		
+		    		if (!empty($data->visit_end_date))
+					{
+						$end_date = date("Y-m-d H:i",$data->visit_end_date);
+					}
+		    		
+		    		//$end_date = date("Y-m-d H:i",$data->visit_end_date);
 		    		
 		    		$diary_events_array['id'] = $data->id;///id of the engg diary
 		    		$diary_events_array['service_id'] = $data->servicecall_id;
@@ -92,7 +98,12 @@ class ApiController extends Controller
 		    		$engineer_name = $data->engineer->fullname;
 		    		
 		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
-		    		$end_date = date("Y-m-d H:i",$data->visit_end_date);
+		    		
+		    		if (!empty($data->visit_end_date))
+					{
+					$end_date = date("Y-m-d H:i",$data->visit_end_date);
+					}
+		    		//$end_date = date("Y-m-d H:i",$data->visit_end_date);
 		    		
 		    		$diary_events_array['id'] = $data->id;///id of the engg diary
 		    		$diary_events_array['service_id'] = $data->servicecall_id;
@@ -358,6 +369,28 @@ class ApiController extends Controller
     	$serial_number = $_GET['serial_number'];
     	//echo "<br>serial number = ".$serial_number; 
     	$visit_date = $_GET['visit_date'];
+    	//echo "<br>Vist date = ".$visit_date;
+    	$username = $_GET['username'];
+    	echo "<br>User name = ".$username;
+    	$password = $_GET['password'];
+    	echo "<br>Password = ".$password;
+    	
+    	$userModel = User::model()->findAllByAttributes(array('username'=>$username));
+    	
+    	if($userModel)
+    	{
+	    	foreach ($userModel as $user)
+	    	{
+	    		echo "<br>User name from database = ".$user->username;	
+	    	}
+    	}//end of if $userModel not null.
+    	else 
+    	{
+    		echo "<br>NO MATCHING DATA";
+    	}
+    	
+    	
+    	
     	
     	/***** SAVING CUSTOMER DEATILS WITH PROD ID = 0 *******/
     	
@@ -441,6 +474,7 @@ class ApiController extends Controller
     	
     	/***** END of saving servicecall details *********/
     	
+    	/****** SAVING DISRY DETAILS *****/
     	
     	$newDiaryModel = new Enggdiary();
     	$newDiaryModel->engineer_id = '0';
@@ -460,7 +494,7 @@ class ApiController extends Controller
     	}
     	
     	
-    	/* END OF SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */
+    	/* END OF SAVING DIARY DETAILS WITH PREVIOUS SERVICE CALL DETAILS */
     	
     }//end of actionRaiseServicecall().
     

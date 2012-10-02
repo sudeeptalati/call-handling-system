@@ -614,12 +614,7 @@ class ServicecallController extends Controller
 		}
 		/******** END OF CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
 		
-		
-		
-}//end of actionSelectEngineer.
+	}//end of actionSelectEngineer.
 	
-	
-	
-
 	
 }//end of class.

@@ -85,6 +85,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				
 				
 			/************** GETTING CLOUD URL FROM DATABASE AND GETTING DATA FROM CLOUD SERVER ***************/
+			
 				$cloud_setup_id = 1;
 				$get_url_result = $db->query("SELECT spares_lookup_cloud_url FROM cloud_setup WHERE id = '$cloud_setup_id'");
 				$url_result = $get_url_result->fetchAll(); // assuming $result == true
@@ -105,6 +106,8 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				$dataResponse =curl_file_get_contents($cloud_url,true);
 				//echo "<hr>DATA OF SERVER DISPLAYING FROM LOCAL FILE <br>".$dataResponse;
 				echo $dataResponse;
+				
+			
 				
 			/************** GETTING CLOUD URL FROM DATABASE AND GETTING DATA FROM CLOUD SERVER ***************/
 				

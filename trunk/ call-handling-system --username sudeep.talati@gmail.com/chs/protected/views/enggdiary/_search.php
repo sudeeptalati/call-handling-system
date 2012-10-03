@@ -49,6 +49,11 @@
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textField($model,'modified'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'notes'); ?>
+		<?php echo $form->textField($model,'notes'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>

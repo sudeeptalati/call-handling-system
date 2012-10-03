@@ -269,11 +269,11 @@ class ApiController extends Controller
 		
 		if($newEnggDiaryModel->save())
 		{
-			echo "<br>SAVED.......!!!!!!!!!!";
+			echo "<br>DIARY SAVED.......!!!!!!!!!!";
 		}
 		else 
 		{
-			echo "<br>Problem in saving";
+			echo "<br>Problem in saving diary";
 		}
     	
     	
@@ -334,6 +334,7 @@ class ApiController extends Controller
     
     public function actionRaiseServicecall()
     {
+    	$finalArray = array();
     	$title = $_GET['title'];
     	//echo "title from url = ".$title;
     	$first_name = $_GET['first_name'];
@@ -371,130 +372,160 @@ class ApiController extends Controller
     	$visit_date = $_GET['visit_date'];
     	//echo "<br>Vist date = ".$visit_date;
     	$username = $_GET['username'];
-    	echo "<br>User name = ".$username;
+    	//echo "<br>User name = ".$username;
     	$password = $_GET['password'];
-    	echo "<br>Password = ".$password;
+    	//echo "<br>Password = ".$password;
+    	$hassedPassword = hash('sha256', $password);
+    	//echo "<br>Hassed password = ".$hassedPassword;	
     	
-    	$userModel = User::model()->findAllByAttributes(array('username'=>$username));
     	
+    	$userModel = User::model()->findAllByAttributes(array('username'=>$username, 'password'=>$hassedPassword));
+    	
+    	/*
     	if($userModel)
     	{
 	    	foreach ($userModel as $user)
 	    	{
-	    		echo "<br>User name from database = ".$user->username;	
+//	    		echo "<br>User name from database = ".$user->username;
+//	    		echo "<br>User id from database = ".$user->id;
+	    		$userId = $user->id;
+	    			
 	    	}
     	}//end of if $userModel not null.
-    	else 
+    	
+    	*/
+    	
+    	if($userModel)
     	{
-    		echo "<br>NO MATCHING DATA";
+	    	foreach ($userModel as $user)
+			{
+		    	$userId = $user->id;
+	    		echo "<br>Authorised user";
+	    		echo "<br>user id outside foreach = ".$userId;
+		    	
+		    	/***** SAVING CUSTOMER DEATILS WITH PROD ID = 0 *******/
+		    	$newProductModel = new Product;
+		    	$newProductModel->customer_id = '';
+		    	$newProductModel->contract_id = $contract_id;
+		    	$newProductModel->brand_id = $brand_id;
+		    	$newProductModel->product_type_id = $productType_id;
+		
+		    	if($newProductModel->save())
+		    	{
+		    		echo "<br>Product Saved";
+		    		echo "<br> Prodduct ID :".$newProductModel->id;
+	//	    		$finalArray['status'] = 'ok'; 
+	//	    		$finalMessage = json_encode($finalArray);
+	//	    		echo "<br>".$finalMessage;
+		    	}
+		    	else 
+		    	{
+		    		echo "<br>Product nOT Saved";
+		    		$finalArray['status'] = '0';
+		    		$finalArray['message'] = 'Problem in saving product';
+	    			$finalMessage = json_encode($finalArray);
+	    			echo "<br>".$finalMessage;
+	    			return ;	
+		    	}
+		    	
+		    	/****** SAVING CUSTOMER DETAILS ********/
+		    	$product_id = $newProductModel->id;
+		    	$newCustomerModel = new Customer();
+		    	$newCustomerModel->product_id = $product_id;
+		    	$newCustomerModel->title = $title;
+		    	$newCustomerModel->first_name = $first_name;
+		    	$newCustomerModel->last_name = $last_name;
+		    	$newCustomerModel->address_line_1 = $address_line_1;
+		    	$newCustomerModel->town = $town;
+		    	$newCustomerModel->telephone = $phone;
+		    	$newCustomerModel->postcode_e = $postcode_e;
+		    	$newCustomerModel->postcode_s = $postcode_s;
+		    	
+		    	if($newCustomerModel->save())
+		    	{
+		    		echo "<hr>CUSTOMER SAVED....!!!!!!!!!!!!!";
+	//	    		$finalArray['status'] = 'ok'; 
+	//	    		$finalMessage = json_encode($finalArray);
+	//	    		echo "<br>".$finalMessage;
+		    	}
+		    	else 
+		    	{
+		    		echo "<br>PROBLEM IN SAVING CUSTOMER........";
+		    		$finalArray['status'] = '0';
+		    		$finalArray['message'] = 'Problem in saving Customer';
+	    			$finalMessage = json_encode($finalArray);
+	    			echo "<br>".$finalMessage;
+	    			return ;
+		    	}
+		    	$customer_id = $newCustomerModel->id;
+		    	$prod_id_from_cust = $newCustomerModel->product_id;
+		    	echo "<br> Customer id of saved model = ".$customer_id;
+		    	$newProdModel = Product::model()->findByPk($prod_id_from_cust);
+		    	$engg_id = $newProdModel->engineer_id; 
+		    	/***** END OF SAVING CUSTOMER DEATILS WITH PREVIOUS PROD ID = 0 *******/
+		    	
+		    	/* SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */
+		    	$newServicecall = new Servicecall;
+		    	$newServicecall->customer_id = $customer_id;
+		    	$newServicecall->product_id = $prod_id_from_cust;
+		    	$newServicecall->fault_description = 'This is test from api contr';
+		    	$newServicecall->recalled_job = '0';
+		    	$newServicecall->job_status_id = '2';
+		    	$newServicecall->contract_id = $contract_id;
+		    	$newServicecall->engineer_id = '0';
+		    	
+		    	if($newServicecall->save())
+		    	{
+		    		echo "<hr>SERVICE CALL SAVED......!!!!!!!";
+		    		echo "<hr>SERVICE ID is".$newServicecall->id;
+	//	    		$finalArray['status'] = 'ok'; 
+	//	    		$finalMessage = json_encode($finalArray);
+	//	    		echo "<br>".$finalMessage;
+		    	}
+		    	else 
+		    	{
+		    		echo "<br>PROBLEM IN SAVING SERVICECALL";
+		    		$finalArray['status'] = '0';
+		    		$finalArray['message'] = 'Problem in saving Service call';
+	    			$finalMessage = json_encode($finalArray);
+	    			echo "<br>".$finalMessage;
+	    			return ;
+		    	}
+		    	/***** END of saving servicecall details *********/
+	    	
+		    	/****** SAVING DIARY DETAILS *****/
+		    	$newDiaryModel = new Enggdiary();
+		    	$newDiaryModel->engineer_id = '0';
+		    	$newDiaryModel->visit_start_date = $visit_date;
+		    	$newDiaryModel->servicecall_id = $newServicecall->id;
+		    	$newDiaryModel->status = '3';
+		    	$newDiaryModel->slots = "2";
+		    	
+		    	    	
+		        if($newDiaryModel->save())
+		    	{
+		    		echo "<hr>DIARY  SAVED......!!!!!!!";
+		    		$finalArray['status'] = '1'; 
+		    		$finalArray['message'] = 'All details saved';
+		    		$finalMessage = json_encode($finalArray);
+		    		echo "<br>".$finalMessage;
+				}
+		    	else 
+		    	{
+		    		echo "<br>PROBLEM IN SAVING DIARY";
+		    		$finalArray['status'] = '0';
+		    		$finalArray['message'] = 'Problem in saving Diary';
+	    			$finalMessage = json_encode($finalArray);
+	    			echo "<br>".$finalMessage;
+	    			return ;
+		    	}
+		    	/* END OF SAVING DIARY DETAILS WITH PREVIOUS SERVICE CALL DETAILS */
+	    	}//end of foreach().
+	    }//end of if valid user().
+    	else
+    	{
+    		echo "<br>Not an authorised user";
     	}
-    	
-    	
-    	
-    	
-    	/***** SAVING CUSTOMER DEATILS WITH PROD ID = 0 *******/
-    	
-    	$newProductModel = new Product;
-    	$newProductModel->customer_id = '';
-    	$newProductModel->contract_id = $contract_id;
-    	$newProductModel->brand_id = $brand_id;
-    	$newProductModel->product_type_id = $productType_id;
-
-    	if($newProductModel->save())
-    	{
-    		echo "Product Saved";
-    		echo "<br> Prodduct ID :".$newProductModel->id;
-    		
-    		
-    	}else 
-    	{
-    		echo "Product nOT Saved";
-    	}
-    	
-    	
-    	$product_id = $newProductModel->id;
-    	$newCustomerModel = new Customer();
-    	$newCustomerModel->product_id = $product_id;
-    	$newCustomerModel->title = $title;
-    	$newCustomerModel->first_name = $first_name;
-    	$newCustomerModel->last_name = $last_name;
-    	$newCustomerModel->address_line_1 = $address_line_1;
-    	$newCustomerModel->town = $town;
-    	$newCustomerModel->telephone = $phone;
-    	$newCustomerModel->postcode_e = $postcode_e;
-    	$newCustomerModel->postcode_s = $postcode_s;
-    	
-    	
-    	
-    	if($newCustomerModel->save())
-    	{
-    		echo "<hr>CUSTOMER SAVED....!!!!!!!!!!!!!";
-    	}
-    	else 
-    	{
-    		echo "<br>PROBLEM IN SAVING CUSTOMER........";
-    	}
-    	
-    	
-    	
-    	
-    	$customer_id = $newCustomerModel->id;
-    	$prod_id_from_cust = $newCustomerModel->product_id;
-    	echo "<br> Customer id of saved model = ".$customer_id."<hr>";
-    	$newProdModel = Product::model()->findByPk($prod_id_from_cust);
-    	$engg_id = $newProdModel->engineer_id; 
-    	
-    	
-    	
-    	/***** SAVING CUSTOMER DEATILS WITH PREVIOUS PROD ID = 0 *******/
-    	
-    	/* SAVING SERVICE CALL DETAILS WITH PREVIOUS PRODUCT AND CUSTOMER DETAILS */
-    	
-    	
-    	
-    	$newServicecall = new Servicecall;
-    	$newServicecall->customer_id = $customer_id;
-    	$newServicecall->product_id = $prod_id_from_cust;
-    	$newServicecall->fault_description = 'This is test from api contr';
-    	$newServicecall->recalled_job = '0';
-    	$newServicecall->job_status_id = '2';
-    	$newServicecall->contract_id = $contract_id;
-    	$newServicecall->engineer_id = '0';
-    	
-    	if($newServicecall->save())
-    	{
-    		echo "<hr>SERVICE CALL SAVED......!!!!!!!";
-    		echo "<hr>SERVICE ID is".$newServicecall->id;
-    		
-    	}
-    	else 
-    	{
-    		echo "<br>PROBLEM IN SAVING";
-    	}
-    	
-    	/***** END of saving servicecall details *********/
-    	
-    	/****** SAVING DISRY DETAILS *****/
-    	
-    	$newDiaryModel = new Enggdiary();
-    	$newDiaryModel->engineer_id = '0';
-    	$newDiaryModel->visit_start_date = $visit_date;
-    	$newDiaryModel->servicecall_id = $newServicecall->id;
-    	$newDiaryModel->slots = "2";
-    	    	
-        if($newDiaryModel->save())
-    	{
-    		echo "<hr>DIARY  SAVED......!!!!!!!";
-    		///echo "<hr>SERVICE ID is".$newServicecall->id;
-    		
-    	}
-    	else 
-    	{
-    		echo "<br>PROBLEM IN SAVING";
-    	}
-    	
-    	
-    	/* END OF SAVING DIARY DETAILS WITH PREVIOUS SERVICE CALL DETAILS */
     	
     }//end of actionRaiseServicecall().
     

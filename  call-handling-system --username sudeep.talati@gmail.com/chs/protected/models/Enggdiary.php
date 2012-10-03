@@ -14,6 +14,7 @@
  * @property string $created
  * @property string $modified
  * @property string $status
+ * @property string $notes
  
  * * The followings are the available model relations:
  * @property Enginner $engineer
@@ -52,10 +53,10 @@ class Enggdiary extends CActiveRecord
 		return array(
 			array('visit_start_date, servicecall_id', 'required'),
 			array('engineer_id, slots, servicecall_id, user_id', 'numerical', 'integerOnly'=>true),
-			array('visit_end_date, modified, status', 'safe'),
+			array('visit_end_date, modified, status, notes', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, engineer_id, visit_start_date, visit_end_date, slots, servicecall_id, user_id, created, modified', 'safe', 'on'=>'search'),
+			array('id, engineer_id, visit_start_date, visit_end_date, slots, servicecall_id, user_id, created, modified, notes', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,6 +93,7 @@ class Enggdiary extends CActiveRecord
 			'created' => 'Created',
 			'modified' => 'Modified',
 			'status' => 'Appointment Status',
+			'notes' => 'Notes',
 		);
 	}
 
@@ -115,6 +117,7 @@ class Enggdiary extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
+		$criteria->compare('notes',$this->notes,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -130,6 +133,7 @@ class Enggdiary extends CActiveRecord
         	//echo $prod;
         	if($this->isNewRecord)  // Creating new record 
             {
+            	
             	/****** ADDING MINUTES TO START DATE TO MAKE IT 9 AM ******/
             	$phpdate = strtotime($this->visit_start_date);
             	$new_date = date("d-m-Y H:i:s", strtotime('+540 minutes', $phpdate));
@@ -146,6 +150,7 @@ class Enggdiary extends CActiveRecord
 			//	$this->user_id=Yii::app()->user->id;
         		$this->user_id="1";
         		$this->created=time();
+            	$this->notes = "An appointment is created on ".date('d-m-Y H:i', $this->visit_start_date)." by ".$this->userid->name.".";
         		
         		//SAVING CHANGED ENGG_ID TO SERVICE TABLE.
         		$serviceQueryModel = Servicecall::model()->findByPk($this->servicecall_id);
@@ -169,9 +174,7 @@ class Enggdiary extends CActiveRecord
             else
             {
             	//echo "visit time in update in before save = ".$this->visit_start_date;
-            	
             	console.info("visit time in update in before save = ". $this->visit_start_date);
-            	
 //            	$this->visit_start_date=strtotime($this->visit_start_date);
 //            	$this->visit_end_date=strtotime($this->visit_end_date);
 //            	$this->modified=time();
@@ -182,12 +185,22 @@ class Enggdiary extends CActiveRecord
     protected function afterSave()
     {
     	$serviceModel=Servicecall::model()->findByPk($this->servicecall_id);
-    	$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
+    	if($serviceModel->job_status_id == '1')
+    	{
+    		$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
     												array(
     												'engg_diary_id'=>$this->id,
     												'job_status_id'=>'3'
     												));
-    }
+    	}//end of if, changing status of servicecall to booked.
+    	elseif($serviceModel->job_status_id == '2')
+    	{
+    		$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
+    												array(
+    												'engg_diary_id'=>$this->id,
+    												));
+    	}//end of else, changing status of servicecall to remotely booked.   												
+    }//end of afterSave().
     
     public function fetchDiaryDetails($engg_id,$date )
     {
@@ -245,10 +258,10 @@ class Enggdiary extends CActiveRecord
     		$date= date("Y-m-d H:i",$data->visit_start_date);
     		//echo "service call from model = ".$data->servicecall_id."<br>";
     		
-    		$date = strtotime(date("Y-m-d H:i", $data->visit_start_date) . $days_moved."day". $minutes_moved."minutes");
-    		echo "NEW UPDATED DATE AFTER ADDING DAYS = ".date('Y-m-d H:i', $date)."<br>";
-    		echo "<br>PHP UPDATED START DATE = ".$date;
-    		$new_start_date = strtotime($date);
+    		$updated_start_date = strtotime(date("Y-m-d H:i", $data->visit_start_date) . $days_moved."day". $minutes_moved."minutes");
+    		echo "NEW UPDATED DATE AFTER ADDING DAYS = ".date('Y-m-d H:i', $updated_start_date)."<br>";
+    		echo "<br>PHP UPDATED START DATE = ".$updated_start_date;
+    		$new_start_date = strtotime($updated_start_date);
     		
     		/****** END OF UPDATING START DATE SETTING TIME TO 9 AM *******/
             
@@ -264,25 +277,23 @@ class Enggdiary extends CActiveRecord
             
             /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
             
+            $notesStr = $data->notes."\n Appointment has been updated to ".date('d-m-Y H:i', $updated_start_date)." by ".Yii::app()->user->name.".";
+            
             $updateDiaryModel = Enggdiary::model()->updateByPk($data->id,
     											array(
-    												'visit_start_date'=>$date,
+    												'visit_start_date'=>$updated_start_date,
     												//'visit_start_date'=>$new_start_date,
-    												'visit_end_date'=>$updated_end_date
+    												'visit_end_date'=>$updated_end_date,
+    												'notes'=>$notesStr
     											)
     										);
     		
     	}//end of foreach().
     	
-    	
-		    							
-    	
     }//end of updateAppointment().
     
     public function updateEndDateTime($id, $minutes)
     {
-    	
-    	
     	echo "minutes from func in model = ".$minutes."<br>";
     	
     	$enggModel = Enggdiary::model()->findAllByPk($id);
@@ -294,9 +305,12 @@ class Enggdiary extends CActiveRecord
     		echo "VISIT END DATE = ".date('d-m-Y H:i', $data->visit_end_date)."<br>";
     		$date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $minutes."minutes");
     		echo "time after adding min = ".date('d-m-Y H:i', $date);
+    		$notesStr = $data->notes."\n Appointment end time was changed to ".date('d-m-Y H:i', $date)." by ".Yii::app()->user->name.".";
     		
     		$enggUpdateModel = Enggdiary::model()->updateByPk($id,
-    											array('visit_end_date'=>$date
+    											array(
+    											'visit_end_date'=>$date,
+    											'notes'=>$notesStr
     											)	
     										);
     	}//end of foreach().
@@ -310,10 +324,12 @@ class Enggdiary extends CActiveRecord
 		echo "<br>Visit end date = ".$previousDiaryModel->visit_end_date;
 		echo "<br>No of slots = ".$previousDiaryModel->slots;
 		echo "<br>status = ".$previousDiaryModel->status;
+		$notesStr = $previousDiaryModel."\n This appointment has been cancelled by ".Yii::app()->user->name.".";
 		
 		$updateDiaryModel = Enggdiary::model()->updateByPk($previousDiaryModel->id,
 													array(
-														'status'=>'102'
+														'status'=>'102',
+														'notes'=>$notesStr
 													)
 												);
     }//end of statusPreviousAppointment.

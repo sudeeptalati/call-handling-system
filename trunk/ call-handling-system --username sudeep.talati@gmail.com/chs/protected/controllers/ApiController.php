@@ -473,6 +473,7 @@ class ApiController extends Controller
 		    	$newServicecall->job_status_id = '2';
 		    	$newServicecall->contract_id = $contract_id;
 		    	$newServicecall->engineer_id = '0';
+		    	//$newServicecall->activity_log = 'Service status is changed to remotly booked by admin on'
 		    	
 		    	if($newServicecall->save())
 		    	{

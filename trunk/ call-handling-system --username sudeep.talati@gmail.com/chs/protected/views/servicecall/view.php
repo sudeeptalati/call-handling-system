@@ -130,66 +130,58 @@ $baseUrl = Yii::app()->baseUrl;
 		  	
 		  	?>
 		  	
+			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
-<script>
-	// increase the default animation speed to exaggerate the effect
-	$.fx.speeds._default = 500;
-	$(function() {
-		$( "#dialog" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: 500,
-			width: 500,
-		});
-
-		$( "#opener" ).click(function() {
-			$( "#dialog" ).dialog( "open" );
-			drawmap();
+			<script>
+				// increase the default animation speed to exaggerate the effect
+				$.fx.speeds._default = 500;
+				$(function() {
+					$( "#dialog" ).dialog({
+						autoOpen: false,
+						show: "blind",
+						hide: "explode",
+						width: 500,
+						width: 500,
+					});
 			
-			return false;
-		});
-	});
-
-
-	function drawmap()
-	{
-		///alert (" I M called");
-		var lat= "<?php echo $latitude; ?>";
-		var lon= "<?php echo $longitude ;?>";
-		var mapOptions = {
-		          center: new google.maps.LatLng(lat, lon),
-		          zoom: 12,
-		          mapTypeId: google.maps.MapTypeId.ROADMAP
-		        };
-		var map = new google.maps.Map(document.getElementById("map_canvas"),
-		            mapOptions);
-
-		   // Add a marker at the address.
-	    var marker = new google.maps.Marker({
-	      map: map,
-	      //position: results[0].geometry.location
-	      position: map.getCenter(),
-	    });
-				
-		
-	}
-
-</script>
+					$( "#opener" ).click(function() {
+						$( "#dialog" ).dialog( "open" );
+						drawmap();
+						
+						return false;
+					});
+				});
+			
+			
+				function drawmap()
+				{
+					///alert (" I M called");
+					var lat= "<?php echo $latitude; ?>";
+					var lon= "<?php echo $longitude ;?>";
+					var mapOptions = {
+					          center: new google.maps.LatLng(lat, lon),
+					          zoom: 12,
+					          mapTypeId: google.maps.MapTypeId.ROADMAP
+					        };
+					var map = new google.maps.Map(document.getElementById("map_canvas"),
+					            mapOptions);
+			
+					   // Add a marker at the address.
+				    var marker = new google.maps.Marker({
+				      map: map,
+				      //position: results[0].geometry.location
+				      position: map.getCenter(),
+				    });
+				}//end od function drawmap().
+			
+			</script>
 	
 
-<div id="dialog" title="Map ">
-	<div id="map_canvas" style="width: 475px; height: 450px"> </div> 
-</div>
+			<div id="dialog" title="Map ">
+				<div id="map_canvas" style="width: 475px; height: 450px"> </div> 
+			</div>
 
-
-
-			
-
-		  	<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
+			<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
 		  	<br>
 		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
 			<br>

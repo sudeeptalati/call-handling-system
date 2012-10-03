@@ -324,7 +324,7 @@ class Enggdiary extends CActiveRecord
 		echo "<br>Visit end date = ".$previousDiaryModel->visit_end_date;
 		echo "<br>No of slots = ".$previousDiaryModel->slots;
 		echo "<br>status = ".$previousDiaryModel->status;
-		$notesStr = $previousDiaryModel."\n This appointment has been cancelled by ".Yii::app()->user->name.".";
+		$notesStr = $previousDiaryModel->notes."\n This appointment has been cancelled by ".Yii::app()->user->name.".";
 		
 		$updateDiaryModel = Enggdiary::model()->updateByPk($previousDiaryModel->id,
 													array(

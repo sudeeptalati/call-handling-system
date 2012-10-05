@@ -176,7 +176,22 @@ vertical-align:top;
 			
 			<td>
 				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id));?>
-				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?></td>
+				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?>
+				<small>(completed)</small>
+				<?php 
+				
+					if($service->job_status_id >100)
+					{
+						//echo "new call";
+						echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+						echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+					}
+				
+					
+					
+				?>
+			</td>
+				
 		<!--<td><?php //echo $service->jobStatus->name;?></td>-->
 
 			<?php }//end of foreach of servicecall.?>

@@ -16,21 +16,19 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				
 			$keyword = $_GET['keyword'];
 			$service_id=$_GET['service_id'];
-			$keyword = mysql_escape_string($keyword);
-			//echo "keyword in local = ".$keyword;
+			//$keyword = mysql_escape_string($keyword);//to remove all special charecters.
+			//echo "<br>keyword BEFORE preg_replace is called = ".$keyword;
+			$keyword = preg_replace('/[^A-Za-z0-9 ]/', "", $keyword);
+			//echo "<br>keyword AFTER preg_replace is called = ".$keyword;
+			$keyword = strtolower(trim(str_replace (" ", "", $keyword)));
+			//echo "<br>keyword AFTER removing spaces = ".$keyword;
+	
 	
 		try
 		{
 			echo "<hr>";
 				
 			$db = new PDO('sqlite:master_database.db');
-			
-			//$keyword = trim(" flange");
-			//$keyword = mysql_escape_string($keyword);
-
-			
-			//$keyword = mysqli_real_escape_string($dbc, $keyword);
-			//$query = "SELECT * FROM master_items WHERE name like '%$keyword%' ";
 			
 			$result = $db->query("SELECT * FROM master_items WHERE name like '%$keyword%' or id like '%$keyword%' or part_number like 
 			'%$keyword%' or barcode like '%$keyword%'");
@@ -86,6 +84,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				
 			/************** GETTING CLOUD URL FROM DATABASE AND GETTING DATA FROM CLOUD SERVER ***************/
 			
+				
 				$cloud_setup_id = 1;
 				$get_url_result = $db->query("SELECT spares_lookup_cloud_url FROM cloud_setup WHERE id = '$cloud_setup_id'");
 				$url_result = $get_url_result->fetchAll(); // assuming $result == true
@@ -161,6 +160,9 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 		{
 			print 'Exception : '.$e->getMessage();
 		}
+		
+		
+	
 	}////end of if idsset keyword
 
 ?>

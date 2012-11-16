@@ -43,7 +43,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			<tr>
 			<th>Part Number</th>
 			<th>Name</th>
-			<th>ID</th>
+			 
 			</tr>
 			
 			<?php
@@ -60,7 +60,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 					<tr>
 					<td><?php echo $data['part_number'];?></td>
 					<td><?php echo $data['name'];?></td>
-					<td><?php echo $data['id'];?></td>
+					 
 					<td>
 				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>'>
 					<img src="../../images/plus.jpg" alt="HTML tutorial" width="35" height="35" />
@@ -71,7 +71,10 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 					
 				}//end of foreach() displaying local db data.	
 			}//end of if rows, i.e, matching data is found in local db.
-			else if($n == 0)
+			
+			
+			//**VALUE CHANGEWD To 100 to deactivate the CLOUD URL ASK KRUTHIKA TO EXPLAIN as if item not in localdatabase and cloud url is deactivated taking to blank screen**//
+			else if($n > 100)
 			{
 				//echo "No Data available matching your search";
 				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
@@ -126,7 +129,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 					<tr>
 						<td><b>Item Name</b></td>
 						<td colspan="3">
-						<input type="text" name="item_name">
+						<input type="text" name="item_name"><small>(required)</small>
 						</td>
 					</tr>
 					<tr>
@@ -137,7 +140,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 					<tr>
 						<td>
 						<b>Unit Price</b></td><td><input type="text" name="unit_price" size="3">
-						<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input type="text" name="quantity" size="3">
+						<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input type="text" name="quantity" size="3"><small>(required)</small>
 						</td>
 					</tr>
 					<tr>

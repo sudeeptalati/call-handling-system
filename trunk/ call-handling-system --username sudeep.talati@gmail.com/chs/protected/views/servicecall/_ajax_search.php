@@ -135,7 +135,9 @@ vertical-align:top;
 		
 		<td>
 			<?php echo $product->brand->name;?>
-			<?php echo $product->productType->name;?>
+			<?php echo $product->productType->name;?><br>
+			<?php echo $product->model_number;?><br>
+			<?php echo $product->serial_number;?>
 		</td>
 		
 			
@@ -177,21 +179,23 @@ vertical-align:top;
 			<td>
 				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id));?>
 				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?>
-				<small>(completed)</small>
+			
 				<?php 
 				
 					if($service->job_status_id >100)
 					{
 						//echo "new call";
-						echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
-						echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+						
+						
+						?><br> 	<small>(locked)</small><?php
 					}
 				
 					
 					
 				?>
 			</td>
-				
+			
+			
 		<!--<td><?php //echo $service->jobStatus->name;?></td>-->
 
 			<?php }//end of foreach of servicecall.?>
@@ -200,7 +204,7 @@ vertical-align:top;
 		<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
-		 	maxlength="255" value= "<?php echo $product->brand->name." ".$product->productType->name." ".$product->model_number;?>" />
+		 	maxlength="255" value= "<?php echo $product->brand->name."-- ".$product->productType->name." ".$product->model_number;?>" />
 			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
 		</form>	
 		</td>
@@ -209,7 +213,15 @@ vertical-align:top;
 
 	<?php $i++; }//end of product foreach.?>
 	
-
+<td style="width:150px;background-color:#DCDCF2;">
+			<?php
+			
+			echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+			echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+			?>
+			
+			</td>
+				
 	
 <!--	<tr style="<?php //echo $background; ?>" >-->
 
@@ -300,7 +312,10 @@ vertical-align:top;
 		
 		<td>
 			<?php echo $row->brand->name;?>
-			<?php echo $row->productType->name;?>
+			<?php echo $row->productType->name;?><br>
+			<?php echo $row->model_number;?><br>
+			<?php echo $row->serial_number;?>
+			
 		</td>
 		
 		

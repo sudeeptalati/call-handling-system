@@ -291,7 +291,8 @@ $baseUrl = Yii::app()->baseUrl;
 	
 		<table><tr><td>
 		Engineer Visit Date	<br>
-		<?php 
+			<b><i><?php 	echo $model->engineer->company;?></i></b>
+		<?php 	 
 				//echo $form->labelEx($enggDiaryModel,'visit_start_date').'<br>';	
 				$viewVisitStartDate='';
 				if (!empty($enggDiaryModel->visit_start_date)){
@@ -311,9 +312,13 @@ $baseUrl = Yii::app()->baseUrl;
 				
 				
 		</td><td>
-		<?php echo $form->labelEx($model,'engineer_id'); ?>
-		<br>
-		<?php echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers(), array('disabled'=>'disabled')); ?>
+		<?php  	//echo $form->labelEx($model,'engineer_id'); 
+				 
+		
+		?>
+		 
+		
+		<?php //echo $form->DropDownList($model, 'engineer_id', $productModel->getAllCompanyNames	(), array('disabled'=>'disabled')); ?>
 		
 	<?php
 			$imgurl = Yii::app()->request->baseUrl.'/images/calendar.gif';
@@ -342,7 +347,7 @@ $baseUrl = Yii::app()->baseUrl;
 	<tr>
 		<td>
 			<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
-			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('1'=>'Yes', '0'=>'No' ),array('disabled'=>'disabled')); ?><br>
+			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'No', '1'=>'Yes'),array('disabled'=>'disabled')); ?><br>
 			<?php 
 				if($model->spares_used_status_id == 1)
 				{

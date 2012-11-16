@@ -57,9 +57,9 @@ $baseUrl= Yii::app()->request->baseUrl;
 	<tr>
 		
 		<td style="margin:50px; text-align:left;" >
-			<?php //echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
+			<?php echo CHtml::image($company_logo,"ballpop",array("width"=>"75", "height"=>"75")); ?>
 			<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:  none;' >
-			<?php echo CHtml::image($company_logo); ?>
+			<?php //echo CHtml::image($company_logo); ?>
 			</a>
 		</td>
 		
@@ -79,14 +79,16 @@ $baseUrl= Yii::app()->request->baseUrl;
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Service Call', 'url'=>array('/servicecall/freeSearch')),
+				array('label'=>'ServiceCall', 'url'=>array('/servicecall/freeSearch')),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
-				array('label'=>'New Customer', 'url'=>array('/customer/create')),
+				array('label'=>'NewCustomer', 'url'=>array('/customer/create')),
+				array('label'=>'Reports', 'url'=>array('/servicecall/displayDropdown')),
+				
 				//array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				//array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
 				//array('label'=>'Config', 'url'=>array('/config/1')),
-				array('label'=>'Set Up', 'url'=>array('/setup/1')),
-				array('label'=>'Back Up', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'SetUp', 'url'=>array('/setup/1')),
+				array('label'=>'BackUp', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('confirm'=>'Are you sure you want to Logout?'))
 			),

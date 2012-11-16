@@ -192,7 +192,7 @@ vertical-align:top;
 				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
 				),
 		array( 'header' => 'Engineer',      	
-			'name'=>'engineer_name','value'=>'$data->engineer->fullname'),
+			'name'=>'engineer_name','value'=>'$data->engineer->company'),
 		
 	/*	array(
 			'name'=>'job_status_id',

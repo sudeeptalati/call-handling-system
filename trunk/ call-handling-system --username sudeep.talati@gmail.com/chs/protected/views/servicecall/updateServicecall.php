@@ -12,7 +12,6 @@ td
 vertical-align:top;
 }
 </style>
-
 	<div class="form">
 
 	
@@ -70,12 +69,14 @@ vertical-align:top;
 			$contractTypeModel=ContractType::model()->findByPk($contractModel->contract_type_id);
 			$engineerModel=Engineer::model()->findByPk($model->engineer_id);
 			$engineerName=$engineerModel->fullname;
+			$engineerCompanyName=$engineerModel->company;
+			
 			$enggDiaryModel=Enggdiary::model()->findByPk($model->engg_diary_id);
 			
 			//address of customer.
 			$str1=$customerModel->address_line_1." ".$customerModel->address_line_2." ".$customerModel->address_line_3."\n";
 			$str2=$customerModel->town."\n";
-			$str3=$customerModel->postcode_s;
+			$str3=$customerModel->postcode;
 			$address=$str1." ".$str2." ".$str3;
 			
 			//CALCULATING VALID UNTILL.
@@ -213,12 +214,19 @@ vertical-align:top;
 			<!-- ****************** end of code. ******************** -->
 			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
-			<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
+			 
+			<?php echo $form->textField($engineerModel, 'company', array('disabled'=>'disabled'));?>
 			<?php echo $form->error($model,'engineer_id'); ?>
+			<?php echo CHtml::link('Change Engineer', array('servicecall/changeEngineerOnly/', 'service_id'=>$model->id));
+					?>
+			<br>
 			<?php if(empty($model->engg_diary_id))
-				  {
+				  {	
 				  	echo CHtml::link($imghtml, array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 					echo CHtml::link('Create Appointment', array('enggdiary/bookingAppointment/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
+					echo "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+					
+					
 					
 				  }
 				  else 
@@ -278,20 +286,33 @@ vertical-align:top;
 						echo "Spares used :<br>";
 						$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
 						?>
+						
+						<?php echo CHtml::link('Print Spares Order',array('sparesUsed/GenerateSparesOrderFormPdf', 'service_id'=>$model->id), array('target'=>'_blank'));
+						?>
+						
 						<table>
 						<tr>
 						<th style="color:maroon">Part Number</th>
 						<th style="color:maroon">Item Name</th>
 						<th style="color:maroon">Qty</th>
+						<th style="color:maroon">Action</th>
 						</tr>
 						<?php 
 						foreach ($sparesModel as $data)
 						{
+						$spares_id=$data->id;
 							?>
 							<tr>
 							<td width="35%"><?php echo $data->part_number;?></td>
 							<td width="35%"><?php echo $data->item_name;?></td>
 							<td><?php echo $data->quantity."<br>";?></td>
+							<td>
+								
+								<?php echo CHtml::link('Delete', array('sparesUsed/delete', 'id'=>$spares_id, 'servicecall_id'=>$model->id));?>
+							
+							</td>
+							
+							
 							</tr>
 							<?php 
 						}//end of foreach.
@@ -449,7 +470,7 @@ $cloud_id = $_GET['cloud_id'];
 		}// end of if getting cloud server data.
 		else
 		{
-			echo "no data";
+			//echo "no data";
 			$db = new PDO('sqlite:../local_items_database/api/master_database.db');
 			
 			$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
@@ -481,9 +502,14 @@ $cloud_id = $_GET['cloud_id'];
 	<input type="hidden" value=<?php echo $opn;?>>
 	<input type="hidden" name="part_number" value=<?php echo $part_number;?>>
 	<input type="hidden" name="name" value="<?php echo $name;?>" >
-	<b>Part Name</b> &nbsp;&nbsp;&nbsp; <?php echo $name;?> <br> <b>Part number</b> &nbsp;&nbsp;&nbsp; <?php echo $part_number;?> <br><br>
-	Quantity <input type="text" name="quantity" size="3"> &nbsp;&nbsp;&nbsp;
-	Price <input type="text" name="unit_price" size="3"><br>
+	<b>Part number</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $part_number;?> <br>
+	<b>Part Name</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $name;?> <br>
+	
+	<br><br>
+	
+	<b>Price </b> <input type="text" name="unit_price" size="3">&nbsp;&nbsp;&nbsp;
+	<b>Quantity</b>  <input type="text" name="quantity" size="3"><small><b>(Required)</b></small>
+	<br>
 	<input type="submit" style="width:100px">
 	</form>
 

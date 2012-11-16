@@ -32,7 +32,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
+				'actions'=>array('exportTest','DisplayDropdown','export','EnggJobReport','SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -58,10 +58,17 @@ class ServicecallController extends Controller
 	
 	public function actionPreview($id)
 	{
+	
 		$model=$this->loadModel($id);
 		$setupModel = Setup::model()->findByPk(1);
 		//$config= Config::model()->findByPk(1);	
     
+		$service_ref_no=$model->service_reference_number;
+		$customer_name=$model->customer->fullname;
+		$model_number=$model->product->model_number;
+		$warranty=$model->contract->name;
+		$filename=$service_ref_no.' '.$customer_name.' '.$model_number.' '.$warranty.'.pdf';
+	
 
 		//echo 'I M HERE';		
 // 		$this->renderPartial('Preview',array(
@@ -69,14 +76,18 @@ class ServicecallController extends Controller
 // 		));
 		# You can easily override default constructor's params
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
+		
+		
+		 
+		//$mPDF1->SetDisplayMode('fullpage','two');
 		# render (full page)
 		//$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'config'=>$config), true));
-		$mPDF1->WriteHTML($this->renderPartial('Preview',array('model'=>$model,'company_details'=>$setupModel), true));
+		$mPDF1->WriteHTML($this->renderPartial('preview',array('model'=>$model,'company_details'=>$setupModel), true));
 		# Load a stylesheet
 		//$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
 		//$mPDF1->WriteHTML($stylesheet, 1);
 		# Outputs ready PDF
-		$mPDF1->Output();
+		$mPDF1->Output($filename,'I');
 		
 
 	}
@@ -89,24 +100,74 @@ class ServicecallController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Servicecall;
+		$serviceCallModel=new Servicecall;
 		$customerModel=new Customer;
-		$model->job_status_id=1;
+		$productModel=new Product;
+
+		
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Servicecall'],$_POST['Customer']))
+		if(isset($_POST['Servicecall'],$_POST['Customer'],$_POST['Product'] ))
 		{
-			$model->attributes=$_POST['Servicecall'];
-			
+			$serviceCallModel->attributes=$_POST['Servicecall'];
 			$customerModel->attributes=$_POST['Customer'];
+			$productModel->attributes=$_POST['Product'];
 			
 			
-			$valid=$model->validate();
-			$valid=$customerModel->validate() && $valid;
+			//////FIRST SAVING PRODUCT
+			$productModelValid=$productModel->validate();
+			 if($productModelValid)
+			 {
+				//echo "Product Model OK";
+				if($productModel->save())
+				{
+					//echo "<hr>Product Model SAVED----product id is ".$productModel->id;
+					$customerModel->product_id=$productModel->id;
+					$customerModelValid=$customerModel->validate();
+					///////SECOND SAVING CUSTOMER
+					if($customerModelValid)
+					{
+						if($customerModel->save())
+						{
+							//echo "<hr>CUSTOMER  Model SAVED----CUSTIOMER id is ".$customerModel->id;
+							//Setting the Primary Product of Customer
+								$serviceCallModel->job_status_id=1;///status is logged
+								$serviceCallModel->customer_id=$customerModel->id;
+								$serviceCallModel->product_id=$productModel->id;
+								$serviceCallModel->engineer_id=$productModel->engineer_id;
+								$serviceCallModel->contract_id=$productModel->contract_id;
+								$serviceModelValid=$serviceCallModel->validate();
+								
+								if($serviceModelValid)
+								{
+									if($serviceCallModel->save())
+										{
+										$engg_id=$serviceCallModel->engineer_id;
+										$baseUrl=Yii::app()->request->baseUrl;
+										$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
+										}
+								}/////end of 
+								
+						
+						}///enf of customer model saved
+					
+						
+					}///end of customer model valid
+					
+					
+					
+					
+					
+				}//end of $productModel->save()
+				
+			 
+			 }//end of "Product Model VALID";
 			
-			if($valid)
+			
+			
+			/*if($valid)
 			{
 				if($model->save())
 				{
@@ -121,10 +182,14 @@ class ServicecallController extends Controller
 			{
 				echo "Fill all madatory fields";
 			}
+			*/
+			
+			
+			
 		}//end of if(isset()).
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$serviceCallModel,
 		));
 	}//end of create.
 
@@ -231,6 +296,12 @@ class ServicecallController extends Controller
 		if(isset($_GET['Servicecall']))
 			$model->attributes=$_GET['Servicecall'];
 
+		if(Yii::app()->request->getParam('export')) 
+		{
+		    $this->actionExport();
+		    Yii::app()->end();
+		}
+			
 		$this->render('admin',array(
 			'model'=>$model,
 		));
@@ -273,15 +344,19 @@ class ServicecallController extends Controller
 		if(isset($_POST['Servicecall']))
 		{
 			$model->attributes=$_POST['Servicecall'];
-			//echo "NEW  ENGG".$model->engineer_id;
-			//echo "CONTRACT ID :".$model->contract_id;
+			$model->customer_id=$_GET['customer_id'];
+			$model->product_id=$_GET['product_id'];
 			
+
 			if($model->save())
 			{
 				$engg_id=$model->engineer_id;
 				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
-			}		
+				$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
+			}
+							
+		
+		
 		}//end of if(isset()).
 		
 		
@@ -578,7 +653,9 @@ class ServicecallController extends Controller
 		$service_id = $_GET['service_id'];
 		echo "<br>Service id in contr = ".$service_id;
 		
+		if ($diary_id!=0){
 		/******** CHANGING THE STATUS OF PREVIOUS APPOINTMENT ***********/
+		
 		Enggdiary::model()->changePreviousAppointment($diary_id);
 		
 		/***** END OF CHANGING THE STATUS OF PREVIOUS APPOINTMENT *******/
@@ -613,8 +690,126 @@ class ServicecallController extends Controller
 			echo "<br>Problem in saving";
 		}
 		/******** END OF CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
+		}///end of  if ($diary_id!=0){
+		else
+		{
+		///COntrol will come here if diary id is 0 or call is in the logged state
+		
+		
+		Servicecall::model()->updateByPk($service_id,
+        											array(
+        													'engineer_id'=>$engg_id,
+        												)
+        					);
+		
+		
+		$serviceModel=Servicecall::model()->findByPk($service_id);
+		
+		$product_id=$serviceModel->product_id;
+		echo "PRODUCT ID IS".$product_id;
+		Product::model()->updateByPk($product_id,
+													array(
+															'engineer_id'=>$engg_id,
+															)
+									); 
+		
+			echo "<br>SAVED.......!!!!!!!!!!";
+			$this->redirect(array('view','id'=>$service_id));
+			
+		}///end of else
+		
+		
+		
 		
 	}//end of actionSelectEngineer.
+	
+	public function actionEnggJobReport($engg_id, $status_id, $startDate, $endDate)
+	{
+		header("Cache-Control: public");
+  		header("Content-Description: File Transfer");
+    	//header("Content-Disposition: attachment; filename=$file");
+ 		header("Content-Transfer-Encoding: binary");
+    	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past	
+		header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+		header( "Content-Disposition: inline; filename=\"Engineer Report  ".date("F j, Y").".xls\"" );
+		
+		
+        $dataProvider = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
+        $dataProvider->pagination = False;
+        
+        ?>
+        <table border="1"> 
+        <tr>
+			<th>Service reff no</th>
+			<th>Customer </th>
+			<th>Town </th>
+			<th>Postcode </th>
+			<th>Product </th>
+			<th>Engineer </th>
+			<th>Job Status </th>
+		</tr>
+		<?php 
+		foreach( $dataProvider->data as $data )
+		{
+		?>
+			<tr> 
+				<td><?php echo $data->service_reference_number;?></td>
+				<td><?php echo $data->customer->fullname;?></td>
+				<td><?php echo $data->customer->town;?></td>
+				<td><?php echo $data->customer->postcode;?></td>
+				<td><?php echo $data->product->productType->name;?></td>
+				<td><?php echo $data->engineer->fullname;?></td>
+				<td><?php echo $data->jobStatus->name;?></td>
+			</tr>
+        
+        <?php }//end of foreach($dataProvider); ?> 
+		
+		</table>
+		
+        <?php 
+		
+	}//end of actionEnggJobReport().
+	
+	public function actionExport()
+	{
+		//echo "in action test";
+		//echo "<br>Value of engg id from engineer_id  = ".$_GET['engglist'];
+		$engg_id = $_GET['engglist'];
+		//echo "<br>Value of Stattus id  = ".$_GET['statuslist'];
+		$status_id = $_GET['statuslist'];
+		//echo "<br>Start date = ".$_GET['startDate'];
+		$startDate = $_GET['startDate'];
+		//echo "<br>Start date = ".$_GET['endDate'];
+		$endDate = $_GET['endDate'];
+			
+		$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
+		
+//		$serviceData = $exportData->getData();
+//	
+//		foreach($serviceData as $test)
+//		{
+//			echo "<hr>Service call id = ".$test->id;
+//			echo "<br>Reference id = ".$test->service_reference_number."<hr>";
+//		}
+
+		
+	
+		$this->render('engg_job_report',
+					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)		 
+				);
+		
+	}//end of test
+	
+	public function actionDisplayDropdown()
+	{
+		//$model=new Servicecall('search');
+		$model=new Servicecall();
+		$model->unsetAttributes();
+		 
+		$this->render('enggReportDropdown',array('model'=>$model));	
+	}//end of actionDisplayDropdown();
+	
 	
 	
 }//end of class.

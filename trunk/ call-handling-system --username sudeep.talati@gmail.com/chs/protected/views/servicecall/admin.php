@@ -18,15 +18,22 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+
+
+
+
 ?>
+
+
+
 
 <h1>Manage Servicecalls</h1>
 
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $gridVar = $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'servicecall-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+ 	'filter'=>$model,
 	'columns'=>array(
 		//'id',
 		//'service_reference_number',
@@ -84,6 +91,9 @@ $('.search-form form').submit(function(){
 			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
 			'filter'=>JobStatus::items('JobStatus'),
 		),
+		array(
+			'name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)'
+		),
 		
 		
 		
@@ -112,4 +122,19 @@ $('.search-form form').submit(function(){
 			'template'=>'{update}',
 		),
 	),
-)); ?>
+));
+
+
+
+//$i=0;
+//foreach ($gridVar->dataProvider->data as $data)
+//{
+//
+//echo "<br>reff no = ".$data->service_reference_number;
+//
+//$i++;
+//}
+//
+//echo "<br>i = ".$i;
+
+?>

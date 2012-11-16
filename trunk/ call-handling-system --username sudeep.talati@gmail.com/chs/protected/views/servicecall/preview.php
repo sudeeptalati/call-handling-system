@@ -37,18 +37,26 @@ td { 	vertical-align:top;
 			<h3>Service Call ID</h3>
 			<h2><?php echo $model->	service_reference_number; ?></h2>
 			<br><b><small>Attending Engineer:</small></b><br>
+			<?php echo $model->engineer->company;?><br>
 			<?php echo $model->engineer->fullname;?>
 			<br>
-			<?php //echo $model->engineer->contactDetails->town;?>&nbsp;
-			<?php //echo $model->engineer->contactDetails->postcode;?>
+			<?php echo $model->engineer->contactDetails->town;?>&nbsp;
+			<?php echo $model->engineer->contactDetails->postcode;?>
 			<br>
-			<?php //echo $model->engineer->contactDetails->email;?>
+			Phone:
+			<?php if($model->engineer->contactDetails->telephone!="")
+					echo $model->engineer->contactDetails->telephone;
+			?> <?php if($model->engineer->contactDetails->mobile!="")
+					echo ",".$model->engineer->contactDetails->mobile;
+			?><br>
+			<?php echo $model->engineer->contactDetails->email;?>
 			
 		</td>
 		<td align="right" style="font-size:8px;">
 			<?php 
-			$logo_url=Yii::app()->request->baseUrl.'/images/company_logo.png';
-			echo CHtml::image($logo_url);
+			$company_logo=Yii::app()->request->baseUrl.'/images/company_logo.png';
+			 
+			  echo CHtml::image($company_logo,"ballpop",array("width"=>"65", "height"=>"65")); 
 			?>
 			<br>
 			<?php 
@@ -308,7 +316,7 @@ td { 	vertical-align:top;
 	<td width=15% style="border:1px solid black;">Total</td>
 </tr>
 
-<?php for ($i=1;$i<=7;$i++){?>
+<?php for ($i=1;$i<7;$i++){?>
 <tr>
 	<td style="border-right:1px solid black; border-left:1px solid black;"><br></td>
 	<td style="border-right:1px solid black;"><br></td>

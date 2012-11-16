@@ -1,6 +1,33 @@
+<?php
+if (isset($_GET['engg_id']))
+{
+$engg_id=$_GET['engg_id'];
+$enggModel = Engineer::model()->findByPk($engg_id);
+
+?>
+<div style="text-align:left;">
+<?php
+echo $enggModel->company;
+?>
+
+</div>
+
+<?php
+}
+
+//echo $enggModel->company;
+?>
+
+
 <div class="form">
 
+
+
+
 <?php 
+
+
+
 	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
 	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';		
@@ -18,8 +45,10 @@
 <?php 
 	
 	//$engg_id=$model->engineer_id;
- 	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
- 	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";
+ 	$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+ 	
+	
+	echo "<b>Change Engineer&nbsp;&nbsp;&nbsp;</b>";
 	echo $enggdiaryform->dropDownList($model, 'engineer_id', $data,
 								array('empty'=>array(0=>'All Engineers')) 
 								

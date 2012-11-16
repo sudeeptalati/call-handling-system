@@ -15,7 +15,7 @@ $servicecallModel = Servicecall::model()->findByPk($service_id);
  <center>
  	<b>
  		Changing Engineer for service call no :<?php echo $servicecallModel->service_reference_number;?>
- 		<br>Current Engineer : <?php echo $servicecallModel->enggdiary->engineer->fullname;?>
+ 		<br>Current Engineer : <?php echo $servicecallModel->engineer->company;?>
  	</b>
  </center>
  
@@ -23,7 +23,7 @@ $servicecallModel = Servicecall::model()->findByPk($service_id);
 <?php 
 echo "<hr>LIST OF ALL ENGINEERS<br>";
 
-$engineerModel = Engineer::model()->findAll();
+$engineerModel = Engineer::model()->findAll(array('order'=>"`company` ASC"));
 ?>
 <table>
   <tr>
@@ -42,7 +42,7 @@ foreach ($engineerModel as $engineer)
 	<tr>
     <!--<td><?php //echo $engineer->fullname;?></td>
     <td><?php //echo CHtml::link('View Diary', array('servicecall/engineerDiary', 'engg_id'=>$engineer->id));?></td>-->
-    <td><?php echo CHtml::link($engineer->fullname, 
+    <td><?php echo CHtml::link($engineer->company, 
     								array('servicecall/selectEngineer', 'engg_id'=>$engineer->id, 'diary_id'=>$servicecallModel->engg_diary_id, 'service_id'=>$service_id)
     							);?></td>
   </tr>

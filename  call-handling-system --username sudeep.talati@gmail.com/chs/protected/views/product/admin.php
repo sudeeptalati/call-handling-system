@@ -54,7 +54,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'customer_id',
 		array('name'=>'customer_name', 'value'=>'$data->customer->fullname'),
 		//'engineer_id',
-		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->fullname' ),
+		//array( 'name'=>'engineer_name', 'value'=>'$data->engineer->fullname' ),
+		array(
+			'name'=>'engineer_id',
+			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
+			'filter'=>Engineer::items('Engineer'),
+		),
 		//'created_by_user',
 		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
 		/*

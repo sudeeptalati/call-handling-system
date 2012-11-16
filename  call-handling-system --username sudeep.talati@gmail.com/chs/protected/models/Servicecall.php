@@ -51,6 +51,7 @@ class Servicecall extends CActiveRecord
 	public $engineer_name;
 	public $contract_name;
 	public $job_status;
+	public $product_serial_number;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -80,10 +81,10 @@ class Servicecall extends CActiveRecord
 			array('job_status_id, fault_description, recalled_job', 'required'),
 			array('created_by_user_id,	service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, ', 'safe'),
+			array('product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, ', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed', 'safe', 'on'=>'search'),
+			array('product_serial_number,created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed', 'safe', 'on'=>'search'),
 			
 		);
 	}
@@ -198,8 +199,8 @@ class Servicecall extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			//'pagination'=>false,
 		));
- 
 		
 	}//end of search().
 	
@@ -217,13 +218,10 @@ class Servicecall extends CActiveRecord
         		 
         	if($this->isNewRecord)  // Creating new record 
             {
-        		//$this->created_by_user_id=Yii::app()->user->id;
-        		$this->created_by_user_id="1";
+				$this->created_by_user_id="1";
         		$this->created=time();
-        		//$user=Yii::app()->user->id
-        		$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time()).".\n";
-        		
-        		
+				$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time()).".\n";
+        	
         		//SETTING SERVICE REFERENCE NUMBER.
         		$count_sql = "SELECT COUNT(*) FROM servicecall";
 				$total_records = Yii::app()->db->createCommand($count_sql)->queryScalar();
@@ -246,94 +244,10 @@ class Servicecall extends CActiveRecord
 						$this->service_reference_number=$serviceRefNo+1;
 					}///end of foreach
 				}//end of else.
-				
 				/******* END OF SETTING service_reference_number ********/
 				
-        		//GETTING CUSTOMER ID FROM URL.
-				if (isset($_GET['customer_id']))
-				{
-					$cust_id=$_GET['customer_id'];
-					//echo "CUSTOMER ID FROM URL :".$cust_id;
-				}
-				elseif (isset($_GET['cust_id']))
-				{
-					//echo $_GET['cust_id'];
-					//$cust_id = $_GET['cust_id'];
-					$this->customer_id = $_GET['cust_id'];
-				}
-
 				
-				if($this->customer_id=='0')//customer_id=0 INDICATES NEW CUSTOMER.
-				{
-					//SAVING NEW CUSTOMER DATA TO CUSTOMER TABLE.
-					$customerModel=new Customer;
-	        		$customerModel->attributes=$_POST['Customer'];
-	        		if($customerModel->save())
-	        		{
-	        			//echo "lockcode of customer id : ".$customerModel->lockcode."<br>";
-	        		}
-	        		
-	        		$lockcode=$customerModel->lockcode;
-	        		
-	        		$customerQueryModel=Customer::model()->findByAttributes(
-	        									array('lockcode'=>$lockcode)
-	        									);
-	        									
-					$productModel=Product::model()->findByAttributes(
-	        									array('lockcode'=>$lockcode)
-	        									);      									
-	        									
-					//echo "ID FROM LOCKCODE IN CUSTOMER IS : ".$customerQueryModel->id."<br>";
-					//echo "PRODUCT ID FROM CUSTOMER TABLE IS : ".$customerQueryModel->product_id;
-	
-					$this->customer_id=$customerQueryModel->id;
-					$this->product_id=$customerQueryModel->product_id;
-					
-					//SETTING contract_id OF SERVICECALL, BY GETTING VALUE FROM PRODUCT TABLE.
-					
-					$productId=$customerQueryModel->product_id;
-					
-					$productModel=Product::model()->findByAttributes(
-        									array('id'=>$productId)
-        									);      						
-        			//echo "CONTRACT ID FROM PRODUCT TABLE : ".$productModel->contract_id;									
-        			$this->contract_id=$productModel->contract_id;
-					$this->engineer_id=$productModel->engineer_id;
-				}//end of if($this->customer_id=='0').
 				
-				/********* END OF SAVING NEW CUSTOMER DETAILS*********/
-				
-				/********* SAVING EXISTING CUSTOMER DETAILS*********/
-				
-				else 
-				{
-					if($this->job_status_id = '2')
-					{
-						//echo "<br>THIS IS A REMOTLY BOOKED CALL";
-					}
-					elseif (isset($_GET['product_id']))/***** THIS BIT IS CALLED WHILE RAISING CALL FOR SECONDARY PROD FROM DASHBOARD.*/
-					{
-						//echo "product id in model :".$_GET['product_id'];
-						//echo "customer id in model :".$_GET['customer_id'];
-						$this->customer_id=$cust_id;
-						$this->product_id = $_GET['product_id'];
-					}
-					elseif (isset($_GET['cust_id']))/* THIS BIT ID CALLED WHEN ADDING PRODUCT AND CREATING CALL */
-					{
-						$this->customer_id = $_GET['cust_id'];
-					}
-					else /* THIS BIT ID CALLED WHEN CREATING SERVICECALL WITH PRIMARY PROD.*/
-					{
-						//EXISTING CUSTOMER.
-						//echo $_GET['cust_id'];
-						$this->customer_id=$cust_id;
-						$customerQueryModel=Customer::model()->findByPk($cust_id);
-						$this->product_id=$customerQueryModel->product_id;
-						/* WORKING FINE TILL NOW DOT CHANGE HERE */
-					}
-				}//END OF ELSE OF EXISTING CUST.
-				
-				/****** END OF SAVING EXISTING CUSTOMERS DETAILS *****/
 				
 				return true;
 				
@@ -353,24 +267,27 @@ class Servicecall extends CActiveRecord
     
     protected function afterSave()
     {
-    	$customerQueryModel = Customer::model()->findByPK($this->customer_id);
-													
-    	$customerUpdateModel = Customer::model()->updateByPk(
-													$customerQueryModel->id,
+	
+		echo "AFTER SAVE OF SERVICECALL CALLED";
+    								
+    	$productUpdateModel = Customer::model()->updateByPk(
+													$this->product_id,
 													array
 													(
 														'lockcode'=>0,
 													)
 													);
 													
-		$productQueryModel = Product::model()->findByPk($this->product_id);
-		
-		$productUpdateModel = Product::model()->updateByPk($productQueryModel->id,
-												array(
-												'contract_id'=>$this->contract_id,
-												
-												)
-												);
+													
+		$customerUpdateModel = Customer::model()->updateByPk(
+													$this->customer_id,
+													array
+													(
+														'lockcode'=>0,
+													)
+													);
+													
+		 
 															
     	
     }//END OF afterSave().
@@ -409,14 +326,21 @@ class Servicecall extends CActiveRecord
         /*Creating a new criteria for search*/
         $criteria = new CDbCriteria;
         
-        $criteria->with = array('customer');
+        //$criteria->with = array('customer');
+        $criteria->with = array( 'customer','product');
+	
         
         $criteria->compare('insurer_reference_number',$keyword,true);
         $criteria->compare('service_reference_number', $keyword, true, 'OR');
-        $criteria->compare('customer.fullname', $keyword, true, 'OR');
+       
+	   
+		$criteria->compare('customer.fullname', $keyword, true, 'OR');
         $criteria->compare('customer.postcode', $keyword, true, 'OR');
         $criteria->compare('customer.mobile', $keyword, true, 'OR');
-        $criteria->compare('customer.telephone', $keyword, true, 'OR');
+        $criteria->compare('customer.mobile', $keyword, true, 'OR');
+        
+		//$criteria->with = array('product');
+		$criteria->compare('product.serial_number', $keyword, true, 'OR');
         
 //        $criteria->with=array('customer');
 //        $criteria->compare('customer.fullname', $keyword, true, 'OR');
@@ -500,6 +424,94 @@ class Servicecall extends CActiveRecord
 		return $latestResults;
 	
 	}//end of latestTenResults().
-
+	
+	public function enggJobReport($engg_id, $status_id, $startDate, $endDate)
+	{
+		//$engg_id = '90000001';
+		//$status_id = '1';
+		$from_date = strtotime($startDate);
+		$to_date = strtotime($endDate);
+//		echo "<br>strtotime of aug = ".strtotime('1-8-12');
+//		echo "<br>strtotime of aug = ".strtotime('1-aug-12');
+		
+		
+		if($engg_id == '0')
+		{
+			$criteria=new CDbCriteria();
+			//$criteria->condition = 'engineer_id='.$engg_id;
+			$criteria->condition = 'job_status_id='.$status_id;
+			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+			$criteria->params = array(
+			  ':from_date' => $from_date,
+			  ':to_date' => $to_date,
+			);
+//			return new CActiveDataProvider(Servicecall::model(),
+//							 array(
+//    							'criteria' => $criteria
+//					));
+			
+		}//Seraches with status_id.
+		
+		elseif ($status_id == '0')
+		{
+			//echo "IN ELASE OF FINC";
+			$criteria=new CDbCriteria();
+			$criteria->condition = 'engineer_id='.$engg_id;
+			//$criteria->addCondition('job_status_id='.$status_id);
+			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+			$criteria->params = array(
+			  ':from_date' => $from_date,
+			  ':to_date' => $to_date,
+			);
+//			return new CActiveDataProvider(Servicecall::model(),
+//							 array(
+//    							'criteria' => $criteria
+//					));
+		}//Seraches with engg_id
+		
+		elseif ($from_date == '' && $to_date == '')
+		{
+			$criteria=new CDbCriteria();
+			$criteria->condition = 'engineer_id='.$engg_id;
+			$criteria->addCondition('job_status_id='.$status_id);
+//			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+//			$criteria->params = array(
+//			  ':from_date' => $from_date,
+//			  ':to_date' => $to_date,
+//			);
+//			return new CActiveDataProvider(Servicecall::model(),
+//							 array(
+//    							'criteria' => $criteria
+//					));
+		}//searches with both engg_id and status_id.
+		
+		else 
+		{
+		
+			$criteria=new CDbCriteria();
+			$criteria->condition = 'engineer_id='.$engg_id;
+			$criteria->addCondition('job_status_id='.$status_id);
+			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+			$criteria->params = array(
+			  ':from_date' => $from_date,
+			  ':to_date' => $to_date,
+			);
+//			return new CActiveDataProvider(Servicecall::model(),
+//							 array(
+//    							'criteria' => $criteria
+//					));
+		}
+		//$criteria->condition = 't.date BETWEEN :from_date AND :to_date';
+		
+		//$criteria->condition = 'job_status_id='.$status_id;
+		
+		return new CActiveDataProvider(Servicecall::model(),
+							 array(
+    							'criteria' => $criteria
+					));
+		
+	}//end of enggJobReport().
+	
+	
     
 }//end of class.

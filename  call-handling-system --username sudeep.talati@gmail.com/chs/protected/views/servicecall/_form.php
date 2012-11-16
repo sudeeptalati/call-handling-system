@@ -381,8 +381,31 @@ background-color: #FFFF9D;
 		</td>	
 		<td>
 			<?php echo $form->labelEx($productModel,'model_number'); ?>
-			<?php echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
+			<?php //echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
 			<?php echo $form->error($productModel,'model_number'); ?>
+			<?php 
+			/*
+				$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+				    'model'=>$productModel,
+				    'attribute'=>'model_number',
+				    //'source'=>$this->createUrl('jui/autocompleteTest'),
+				    //'source'=>array('ac1', 'ac2', 'ac3', 'b1', 'ba', 'ba34', 'ba33'),
+				    'source'=>Product::model()->getAllModelNumbers(),
+				    // additional javascript options for the autocomplete plugin
+				    'options' => array(
+					    'showAnim' => 'fold',
+					    //'select' => 'js:function(event, ui){ alert(ui.item.value) }',
+					),
+					'htmlOptions' => array(
+						'style'=>'height:20px;',
+					   // 'onClick' => 'document.getElementById("test1_id").value=""'
+					),
+				    'cssFile'=>false,
+				));
+				*/
+			
+			?>
+			
 		</td>
 	</tr>
 	
@@ -519,7 +542,8 @@ background-color: #FFFF9D;
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 			<?php //echo $form->textField($model,'engineer_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllCompanyNames());?>
+			<?php //CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');?>
 			<?php echo $form->error($productModel,'engineer_id'); ?>
 		</td>
 		<td> 

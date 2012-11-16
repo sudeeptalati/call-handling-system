@@ -61,6 +61,8 @@
 	<table>
 	<tr><td>
 			<h2>Customer Details</h2>
+			 <?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$cust_id,'product_id'=>$prod_id),array('target'=>'_blank'));?>
+			
 		</td>
 		<td>	
 			<h2>Product Details</h2>
@@ -274,7 +276,7 @@
 	<tr><td colspan="2">
 	<?php 
 		echo $form->labelEx($model,'engineer_id');
-		echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
+		echo $form->DropDownList($model, 'engineer_id', $productModel->getAllCompanyNames());
 		echo $form->error($model,'engineer_id');
 	?>
 	</td></tr>

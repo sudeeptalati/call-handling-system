@@ -145,7 +145,7 @@
 			<td>
 				<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 				<?php //echo $form->textField($model,'engineer_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
+				<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllCompanyNames());?>
 				<?php echo $form->error($productModel,'engineer_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'product_type_id'); ?>

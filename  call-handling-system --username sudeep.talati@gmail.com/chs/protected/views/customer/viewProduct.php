@@ -1,5 +1,13 @@
 <div class="form">
 
+<?
+$this->menu=array(
+	//array('label'=>'List Servicecall', 'url'=>array('index')),
+	array('label'=>'Manage Customer', 'url'=>array('customer/admin')),
+);
+
+
+?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'customer-viewProduct-form',
 	'enableAjaxValidation'=>false,
@@ -24,6 +32,14 @@
 ?>
 
 <table>
+
+	<tr>
+		<td colspan="3" style="text-align:right"><b>
+		<?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$customer_id,'product_id'=>$product_id));?>
+			
+		</b></td>
+	</tr>
+	
 	<tr>
 		<td colspan="3" style="text-align:center"><h2>Customer Details</h2></td>
 	</tr>
@@ -42,6 +58,7 @@
 			<?php echo $form->labelEx($customerModel,'last_name'); ?>
 			<?php echo $form->textField($customerModel,'last_name',array('disabled'=>'disabled')); ?>
 			<?php echo $form->error($customerModel,'last_name'); ?>
+			
 		</td>
 	
 	</tr>

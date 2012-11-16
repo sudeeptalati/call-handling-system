@@ -178,9 +178,9 @@ class Engineer extends CActiveRecord
 	private static function loadItems($type)
 	{
 		self::$_items[$type]=array();
-		$models=self::model()->findAll();
+		$models=self::model()->findAll(array('order'=>"`company` ASC"));
 		foreach($models as $model)
-			self::$_items[$type][$model->id]=$model->fullname;
+			self::$_items[$type][$model->id]=$model->company;
 	}//end of loaditems.
 		
 	
@@ -256,5 +256,20 @@ class Engineer extends CActiveRecord
 													);
     	
     }//END OF afterSave().
+	
+	    
+    public function getAllEngineers()
+    {
+    	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
+    }//end of getAllEngineers().
+    
+	
+	public function getAllCompanyNames()
+    {
+    	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+    }//end of getAllEngineers().
+	
+	
+	
     
 }//end of class.

@@ -1,44 +1,4 @@
-<div class="form">
 
-
-
-<?php 
-	//echo $model->engineer_id;
-	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';	
-
-	$enggdiaryform=$this->beginWidget('CActiveForm', array(
-	'id'=>'enggdiary-changeEngineer-form',
-	'enableAjaxValidation'=>false,
-	//'action'=>$changeEnggUrl,
-	'method'=>'get'
-	
-)); 
-?>
-
-<?php 
-
-//echo "BEFORE DROP ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
-
-?>
-
-
-
-
-<?php 
-	
-	//$engg_id=$model->engineer_id;
- 	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
- 	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";
-	echo $enggdiaryform->dropDownList($model, 'engineer_id', $data,
-								array('empty'=>array(0=>'All Engineers')) 
-								
-							  );
-	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
-	
-?>
-<?php $this->endWidget(); ?>
-</div><!-- ENd of form -->
  
  
 <?php
@@ -74,6 +34,8 @@ $faultDate = date('d-m-Y',$serviceModel->fault_date);
 
 $engineerModel  =Engineer::model()->findByPk($engg_id);
 $enggName = $engineerModel->fullname; 
+$companyName = $engineerModel->company; 
+
 $enggAddress = $engineerModel->contactDetails->town." ".$engineerModel->contactDetails->postcode;
 
 $diaryModel = Enggdiary::model()->findAllByAttributes(
@@ -87,13 +49,14 @@ foreach ($diaryModel as $data)
 ?>
 
 <br><br>
-<table>
+<table style="width:900px;">
 
 <tr>
-	<th>Customer</th>
 	<?php if($engineerModel!=null){?>
 	<th>Engineer</th>
 	<?php }//end of if !null of enggmodel.?>
+	<th>Customer</th>
+	
 	<th>Product</th>
 	<th>Fault</th>
 	<?php if($diaryModel!= null){?>
@@ -101,16 +64,16 @@ foreach ($diaryModel as $data)
 	<?php }//end of if.?>
 </tr>
 
-<tr>
+<tr><td>
+		<?php echo $companyName;?><br>
+		<?php echo $enggAddress;?>
+	</td>
 	<td>
 		<?php echo $customer_name;?><br>
 		<?php echo $custAddress;?>
 	</td>
 	<?php if($engineerModel!= null){?>
-	<td>
-		<?php echo $enggName;?><br>
-		<?php echo $enggAddress;?>
-	</td>
+
 	<?php }//end if if !null of enggmodel.?>
 	<td>
 		<?php echo $prodBrand;?><br>
@@ -132,6 +95,47 @@ foreach ($diaryModel as $data)
 
   
 <br><br><br>
+<div class="form">
+
+
+
+<?php 
+	//echo $model->engineer_id;
+	$baseUrl=Yii::app()->request->baseUrl;
+	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';	
+
+	$enggdiaryform=$this->beginWidget('CActiveForm', array(
+	'id'=>'enggdiary-changeEngineer-form',
+	'enableAjaxValidation'=>false,
+	//'action'=>$changeEnggUrl,
+	'method'=>'get'
+	
+)); 
+?>
+
+<?php 
+
+//echo "BEFORE DROP ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
+
+?>
+
+
+
+
+<?php 
+	
+	//$engg_id=$model->engineer_id;
+ 	$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+ 	echo "<b>Select to Change Engineer&nbsp;&nbsp;&nbsp;</b>";
+	echo $enggdiaryform->dropDownList($model, 'engineer_id', $data,
+								array('empty'=>array(0=>'All Engineers')) 
+								
+							  );
+	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
+	
+?>
+<?php $this->endWidget(); ?>
+</div><!-- ENd of form -->
 
 <script type='text/javascript'>
 

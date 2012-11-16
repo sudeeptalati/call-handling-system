@@ -48,6 +48,8 @@ class Product extends CActiveRecord
 	public $customer_name;
 	public $engineer_name;
 	public $warranty_until;
+	public $customer_town;
+	public $customer_postcode;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -149,6 +151,11 @@ class Product extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->with = array( 'customer','engineer');
+		
+		$criteria->compare( 'customer.fullname', $this->customer_name, true );
+		$criteria->compare( 'customer.town', $this->customer_town, true );
+		$criteria->compare( 'customer.postcode', $this->customer_postcode, true );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('contract_id',$this->contract_id);
@@ -238,7 +245,13 @@ class Product extends CActiveRecord
     
     public function getAllEngineers()
     {
-    	return CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+    	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
+    }//end of getAllEngineers().
+    
+	
+	public function getAllCompanyNames()
+    {
+    	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
     }//end of getAllEngineers().
     
     protected function beforeSave()
@@ -291,11 +304,50 @@ class Product extends CActiveRecord
         }//end of if(parent())
     }//end of beforeSave().
     
-    protected function afterSave()
+    public function enggProductReport($engg_id)
     {
+    	//echo "<br>Engg id in prod method = ".$engg_id;
     	
-    	//$this->lockcode=0;
-    }//end of afterSave().
+    	if($engg_id == '0')
+    	{
+    		// or using: $rawData=Yii::app()->db->createCommand('SELECT * FROM tbl_user')->queryAll();
+			$allProdData=Product::model()->findAll();
+			$prodDataProvider=new CArrayDataProvider($allProdData);
+			return $prodDataProvider;
+			
+    	}//end of if, returnd all prods.
+    	else 
+    	{
+    	
+	    	$criteria=new CDbCriteria();
+			$criteria->condition = 'engineer_id='.$engg_id;
+	//		$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+	//		$criteria->params = array(
+	//		  ':from_date' => $from_date,
+	//		  ':to_date' => $to_date,
+	//		);
+			return new CActiveDataProvider(Product::model(),
+						 array(
+	    					'criteria' => $criteria
+					));
+    	}//end of else, returns selected engg's prods.
+    	
+    }//end of enggProductReport($engg_id).
+    
+    public function getAllModelNumbers()
+    {
+    	$modelArray = array();
+    	$modelResult = ModelNumbers::model()->findAll();
+    	
+    	foreach ($modelResult as $data)
+    	{
+    		//echo "model no = ".$data->model_number."<br>";
+    		array_push($modelArray, $data->model_number);
+		}//end pf foreach.
+		
+    	return $modelArray;
+    	
+    }//end of getAllModelNumbers().
     
     
 }//end of class.

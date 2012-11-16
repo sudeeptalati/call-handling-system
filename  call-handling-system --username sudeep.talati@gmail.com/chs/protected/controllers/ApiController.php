@@ -47,8 +47,8 @@ class ApiController extends Controller
 		    		//echo $data->servicecall_id;
 		    		$customer_name=$data->servicecall->customer->fullname;
 		    		$customer_postcode=$data->servicecall->customer->postcode;
-		    		$engineer_name = $data->engineer->fullname;
-		    		$engineer_name = $data->engineer->fullname;
+		    		$engineer_name = $data->engineer->company;
+		    		//$engineer_name = $data->engineer_id;
 		    		
 		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 		    		
@@ -61,7 +61,7 @@ class ApiController extends Controller
 		    		
 		    		$diary_events_array['id'] = $data->id;///id of the engg diary
 		    		$diary_events_array['service_id'] = $data->servicecall_id;
-					$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
+					$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 					$diary_events_array['start'] = $start_date;
 					$diary_events_array['end'] = $end_date;
 		    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
@@ -95,7 +95,7 @@ class ApiController extends Controller
 		    		//echo $data->servicecall_id;
 		    		$customer_name=$data->servicecall->customer->fullname;
 		    		$customer_postcode=$data->servicecall->customer->postcode;
-		    		$engineer_name = $data->engineer->fullname;
+		    		$engineer_name = $data->engineer->company;
 		    		
 		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 		    		

@@ -31,11 +31,11 @@ class SparesUsedController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','admin','update','TempJson' ,'NewItemDetails','SaveData','MasterFreeSearch','MasterSearchData','OpenDialogueBox'),
+				'actions'=>array('GenerateSparesOrderFormPdf','delete','create','admin','update','TempJson' ,'NewItemDetails','SaveData','MasterFreeSearch','MasterSearchData','OpenDialogueBox'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('GetPdf','admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -154,6 +154,15 @@ class SparesUsedController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+		 
+		 
+		$this->loadModel($id)->delete();
+		$service_id = $_GET['servicecall_id'];
+		
+		$this->redirect(array('/servicecall/update/'.$service_id));
+		
+		
+		/*
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
@@ -165,6 +174,8 @@ class SparesUsedController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		*/
+	
 	}
 
 	/**
@@ -448,5 +459,53 @@ class SparesUsedController extends Controller
 		}
 		
 	}//end id newItemSave.
+	
+	public function actionGenerateSparesOrderFormPdf()
+	{
+		$service_id=$_GET['service_id'];
+	
+		$servicecallModel = Servicecall::model()->findByPk($service_id);
+		$reference_id=$servicecallModel->service_reference_number;
+		  
+		 $footer='   <hr style="color:maroon;size:2;width:800px;margin:-5px; " /><p style="clear: both;	font-family: Arial, Helvetica, sans-serif;	font-size:	11px;">  
+Please report error or damaage within three days of delivery
+to <strong>ISE Limited</strong>, Unit 5/6, Bonnyton Industrial Estate,&nbsp;Kilmarnock,&nbsp;KA1 2NP&nbsp;&nbsp; 
+|
+Phone Number(Direct Dial): 01563-557152|&nbsp;&nbsp;&nbsp;&nbsp;|FAX: 0845 250 8698|&nbsp;&nbsp;&nbsp;&nbsp;|email: service@iseappliances.co.uk|
+</p>';
+		  
+		$filename=$reference_id.' '.$servicecallModel->engineer->company.'.pdf';
+
+		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
+		$mPDF1->SetHTMLFooter($footer);
+		$mPDF1->WriteHTML($this->renderPartial('sparesform',array('service_id'=>$service_id), true));
+ 		$mPDF1->Output($filename,'I');
+		//$this->renderPartial('sparesform',array('service_id'=>$service_id));
+	
+	}//end of actionGeneratePdf().
+	
+	
+	public function actionGetPdf()
+	{
+	
+		$service_id=3764;
+		$servicecallModel = Servicecall::model()->findByPk($service_id);
+		$reference_id=$servicecallModel->service_reference_number;
+		  
+		 $footer='   <hr style="color:maroon;size:2;width:800px;margin:-5px; " /><p style="clear: both;	font-family: Arial, Helvetica, sans-serif;	font-size:	11px;">  
+Please report error or damaage within three days of delivery
+to <strong>ISE Limited</strong>, Unit 5/6, Bonnyton Industrial Estate,&nbsp;Kilmarnock,&nbsp;KA1 2NP&nbsp;&nbsp; 
+|
+Phone Number(Direct Dial): 01563-557152|&nbsp;&nbsp;&nbsp;&nbsp;|FAX: 0845 250 8698|&nbsp;&nbsp;&nbsp;&nbsp;|email: service@iseappliances.co.uk|
+</p>';
+		  
+		$filename=$reference_id.' '.$servicecallModel->engineer->company.'.pdf';
+
+		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
+		$mPDF1->SetHTMLFooter($footer);
+		$mPDF1->WriteHTML($this->renderPartial('sparesform',array('service_id'=>$service_id), true));
+ 		$mPDF1->Output($filename,'I');
+		//$this->renderPartial('sparesform',array('service_id'=>$service_id));
+	}
 	
 }//END OF CLASS.

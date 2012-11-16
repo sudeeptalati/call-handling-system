@@ -47,6 +47,10 @@ $productUser=$productModel->createdByUser->username;
 //$str=$customerModel->address_line_1." ".$customerModel->address_line_2." ".$customerModel->address_line_3;
 //$address=$str."\n".$customerModel->town."\n".$customerModel->postcode;
 
+
+
+
+
 ?>
 
 <table>

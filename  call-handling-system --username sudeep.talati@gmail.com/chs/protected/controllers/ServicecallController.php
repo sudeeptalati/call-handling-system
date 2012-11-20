@@ -747,7 +747,9 @@ class ServicecallController extends Controller
 			<th>Postcode </th>
 			<th>Product </th>
 			<th>Engineer </th>
+			<th>Raised By</th>
 			<th>Job Status </th>
+			<th>Reported Date</th>
 		</tr>
 		<?php 
 		foreach( $dataProvider->data as $data )
@@ -760,7 +762,9 @@ class ServicecallController extends Controller
 				<td><?php echo $data->customer->postcode;?></td>
 				<td><?php echo $data->product->productType->name;?></td>
 				<td><?php echo $data->engineer->fullname;?></td>
+				<td><?php echo $data->createdByUser->name;?></td>
 				<td><?php echo $data->jobStatus->name;?></td>
+				<td><?php echo date('d-M-Y',$data->fault_date);?></td>
 			</tr>
         
         <?php }//end of foreach($dataProvider); ?> 
@@ -799,7 +803,7 @@ class ServicecallController extends Controller
 					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)		 
 				);
 		
-	}//end of test
+	}//end of export.
 	
 	public function actionDisplayDropdown()
 	{

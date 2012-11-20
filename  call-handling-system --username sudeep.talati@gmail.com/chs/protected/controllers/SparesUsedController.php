@@ -466,14 +466,30 @@ class SparesUsedController extends Controller
 	
 		$servicecallModel = Servicecall::model()->findByPk($service_id);
 		$reference_id=$servicecallModel->service_reference_number;
+		
+		$setupModel = Setup::model()->findByPk(1);
+		$address = $setupModel->address;
+		$postcode = $setupModel->postcode;
+		$phone = $setupModel->telephone;
+		$fax = $setupModel->fax;
+		$email = $setupModel->email;
+		 
 		  
+		/*
 		 $footer='   <hr style="color:maroon;size:2;width:800px;margin:-5px; " /><p style="clear: both;	font-family: Arial, Helvetica, sans-serif;	font-size:	11px;">  
 Please report error or damaage within three days of delivery
 to <strong>ISE Limited</strong>, Unit 5/6, Bonnyton Industrial Estate,&nbsp;Kilmarnock,&nbsp;KA1 2NP&nbsp;&nbsp; 
 |
 Phone Number(Direct Dial): 01563-557152|&nbsp;&nbsp;&nbsp;&nbsp;|FAX: 0845 250 8698|&nbsp;&nbsp;&nbsp;&nbsp;|email: service@iseappliances.co.uk|
 </p>';
-		  
+*/
+		
+		$footer='   <hr style="color:maroon;size:2;width:800px;margin:-5px; " /><p style="clear: both;	font-family: Arial, Helvetica, sans-serif;	font-size:	11px;">  
+Please report error or damaage within three days of delivery
+to <strong>ISE Limited</strong>, '.$address.'&nbsp;,&nbsp;'.$postcode.'&nbsp;&nbsp; 
+|Phone Number(Direct Dial):  '.$phone.'|&nbsp;&nbsp;&nbsp;&nbsp;|FAX: '.$fax.'|&nbsp;&nbsp;&nbsp;&nbsp;|email: '.$email.'|
+</p>';
+		 
 		$filename=$reference_id.' '.$servicecallModel->engineer->company.'.pdf';
 
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');

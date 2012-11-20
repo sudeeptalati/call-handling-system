@@ -48,8 +48,9 @@ class Product extends CActiveRecord
 	public $customer_name;
 	public $engineer_name;
 	public $warranty_until;
-	public $customer_town;
-	public $customer_postcode;
+	public $town;
+	public $postcode;
+	
 	
 	/**
 	 * Returns the static model of the specified AR class.

@@ -381,7 +381,7 @@ background-color: #FFFF9D;
 		</td>	
 		<td>
 			<?php echo $form->labelEx($productModel,'model_number'); ?>
-			<?php //echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
+			<?php echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
 			<?php echo $form->error($productModel,'model_number'); ?>
 			<?php 
 			/*

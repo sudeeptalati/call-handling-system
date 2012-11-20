@@ -1,11 +1,3 @@
-<?php 
-
-//echo "<br>engg id from contr = ".$engg_id;
-
-
-
-?>
-
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -22,6 +14,8 @@
 		array( 'name'=>'product_name', 'value'=>'$data->productType->name' ),
 		//'customer_id',
 		array('name'=>'customer_name', 'value'=>'$data->customer->fullname'),
+		array('name'=>'town', 'value'=>'$data->customer->town'),
+		array('name'=>'postcode', 'value'=>'$data->customer->postcode'),
 		//'engineer_id',
 		array( 'name'=>'engineer_name', 'value'=>'$data->engineer->fullname' ),
 		//'created_by_user',

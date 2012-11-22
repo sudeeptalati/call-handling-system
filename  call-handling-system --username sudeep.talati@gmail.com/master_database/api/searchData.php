@@ -74,7 +74,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			
 			
 			//**VALUE CHANGEWD To 100 to deactivate the CLOUD URL ASK KRUTHIKA TO EXPLAIN as if item not in localdatabase and cloud url is deactivated taking to blank screen**//
-			else if($n > 100)
+			else if($n < 1)
 			{
 				//echo "No Data available matching your search";
 				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;

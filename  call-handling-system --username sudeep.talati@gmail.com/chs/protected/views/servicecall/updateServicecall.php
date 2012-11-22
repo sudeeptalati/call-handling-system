@@ -593,8 +593,13 @@ $cloud_id = $_GET['cloud_id'];
 				<?php echo $form->error($model,'net_cost'); ?>
 				
 				<?php echo $form->labelEx($model,'notes'); ?>
-				<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>30)); ?>
+				<?php echo $form->textArea($model,'notes',array('rows'=>3, 'cols'=>40)); ?>
 				<?php echo $form->error($model,'notes'); ?>
+				
+				<?php echo $form->labelEx($model,'comments'); ?><small>(not visible on call sheet)</small>
+				<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>40)); ?>
+				<?php echo $form->error($model,'comments'); ?>
+				
 			</td>
 			
 		</tr>

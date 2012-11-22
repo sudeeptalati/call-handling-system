@@ -169,15 +169,22 @@ background-color: #FFFF9D;
 		<?php //echo $form->textField($model,'fault_date'); ?>
 		<?php echo $form->error($model,'fault_date'); ?>
 		
-				<?php echo $form->labelEx($model,'fault_code'); ?>
-		<?php echo $form->textField($model,'fault_code'); ?>
-		<?php echo $form->error($model,'fault_code'); ?>
+		
 		
 		<?php echo $form->labelEx($model,'fault_description'); ?>
 		<?php echo $form->textArea($model,'fault_description',array('rows'=>4, 'cols'=>40)); ?>
 		<?php echo $form->error($model,'fault_description'); ?>
+		
+		<?php echo $form->labelEx($model,'comments'); ?><small>(not visible on call sheet)</small>
+		<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>40)); ?>
+		<?php echo $form->error($model,'comments'); ?>
+		
 	</td>
 	<td>
+		<?php echo $form->labelEx($model,'fault_code'); ?>
+		<?php echo $form->textField($model,'fault_code'); ?>
+		<?php echo $form->error($model,'fault_code'); ?>
+	
 		<?php echo $form->labelEx($model,'insurer_reference_number'); ?>
 		<?php echo $form->textField($model,'insurer_reference_number'); ?>
 		<?php echo $form->error($model,'insurer_reference_number'); ?>

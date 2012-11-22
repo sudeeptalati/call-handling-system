@@ -530,6 +530,136 @@ class ApiController extends Controller
     	
     }//end of actionRaiseServicecall().
     
+    public function actioncurrentAppointments($id)
+    {
+    	//echo "Hello";
+    	
+    	$diary_events_array = array();
+    	$display_data = array();
+    	
+    	
+    	//echo "<br>Current time = ".strtotime('17-oct-2012');
+    	
+    	//echo "<hr>engg in surrent app api contr = ".$id."<hr>";
+    	
+    	/*** STARTING OF IF  ELSE ******/
+    	if($id == '0')
+    	{
+    		
+	    	$date = time();
+	    		
+	    	$diaryDetails=Enggdiary::model()->findAll(array(
+		    	'condition'=>'visit_start_date > :date',
+		    	'params'=>
+		    		array(':date'=>$date
+		    		),
+			));
+				
+				
+		    								
+		    foreach ($diaryDetails as $data)
+		    {
+		    	if($data->status!= '102')
+	    		{
+			   		//echo "<hr>visit time = ".date('d-M-Y',$data->visit_start_date);
+			   		//echo "<br>comp = ".$data->engineer->company;
+			   		//echo "<br>engg = ".$data->engineer->fullname;
+			   		//echo "<br>cust = ".$data->servicecall->customer->fullname;
+			    		
+			   		$customer_name=$data->servicecall->customer->fullname;
+				    $customer_postcode=$data->servicecall->customer->postcode;
+				    $engineer_name = $data->engineer->company;
+					    
+			   		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+				    		
+				    if (!empty($data->visit_end_date))
+					{
+						$end_date = date("Y-m-d H:i",$data->visit_end_date);
+					}
+			    		
+			   		$diary_events_array['id'] = $data->id;///id of the engg diary
+				    $diary_events_array['service_id'] = $data->servicecall_id;
+				    $diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+					$diary_events_array['start'] = $start_date;
+					$diary_events_array['end'] = $end_date;
+				    $diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+				    $diary_events_array['allDay'] = false ;
+				    $diary_events_array['textColor'] = "white" ;
+					    
+				    array_push($display_data,$diary_events_array);
+	    		}//end of if(status).
+		    		
+		    }//end of foreach().
+		    	
+		    //echo "<br>";
+		    echo (json_encode($display_data));
+	    	
+    		
+    	}//end of if, displays all enggs appointments.
+    	else 
+    	{
+    		
+		    //$diaryDetails = Enggdiary::model()->findAll('visit_start_date > time()');
+		    	
+		    $date = time();
+		
+		    $diaryDetails=Enggdiary::model()->findAll(array(
+		    	'condition'=>'engineer_id = :id AND visit_start_date > :date',
+		    	'params'=>
+		    		array(':id'=>$id,
+		    			  ':date'=>$date
+		    		),
+			));
+				
+			
+		    								
+		    foreach ($diaryDetails as $data)
+		    {
+		    	if($data->status!= '102')
+	    		{
+			   		//echo "<hr>visit time = ".date('d-M-Y',$data->visit_start_date);
+			   		//echo "<br>comp = ".$data->engineer->company;
+			   		//echo "<br>engg = ".$data->engineer->fullname;
+			   		//echo "<br>cust = ".$data->servicecall->customer->fullname;
+			   		
+			   		$customer_name=$data->servicecall->customer->fullname;
+				    $customer_postcode=$data->servicecall->customer->postcode;
+				    $engineer_name = $data->engineer->company;
+					    
+			   		$start_date= date("Y-m-d H:i",$data->visit_start_date);
+					    		
+				    if (!empty($data->visit_end_date))
+					{
+						$end_date = date("Y-m-d H:i",$data->visit_end_date);
+					}
+			    		
+			   		$diary_events_array['id'] = $data->id;///id of the engg diary
+				    $diary_events_array['service_id'] = $data->servicecall_id;
+				    $diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+					$diary_events_array['start'] = $start_date;
+					$diary_events_array['end'] = $end_date;
+				    $diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id;
+				    $diary_events_array['allDay'] = false ;
+				    $diary_events_array['textColor'] = "white" ;
+					    
+				    array_push($display_data,$diary_events_array);
+    			}//end of if(status).
+	    		
+	    	}//end of foreach().
+		    	
+	    	//echo "<br>";
+	    	echo (json_encode($display_data));
+
+    	}//end of else, displays perticular enggs appointments only.
+    	
+    	
+    	
+    	
+    								
+    	
+    	
+    }//end of actioncurrentAppointments().
+    
     public function actionList()
     {
     }

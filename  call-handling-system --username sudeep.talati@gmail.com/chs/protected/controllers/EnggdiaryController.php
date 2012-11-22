@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('currentAppointments','viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -509,6 +509,38 @@ exit;
 												 'service_id'=>$service_id
 	    							));
 	}//end of bookingAppointment().
+	
+	
+	public function actionCurrentAppointments()
+	{
+		//echo "here";
+		$model=new Enggdiary('search');
+		$engg_id = 0;
+		
+	    if(isset($_GET['Enggdiary']))
+	    {
+	    	$model->attributes = $_GET['Enggdiary'];
+	    	$engg_id = $model->engineer_id;
+	    	//echo "<hr>engineer id from dropdown of current Appointments form = ".$engg_id."<hr>";	
+	    }
+//	    else
+//	    {
+//	    	$engg_id = 0;
+//	    }
+
+//	 	if(isset($_POST['FutureAppointments']))
+//	    {
+//	    	$model->attributes = $_POST['FutureAppointments'];
+//	    	$engg_id = $_POST['engineer_id'];
+//	    	
+//	    	echo "<hr>engineer id got from dropdown of current Appointments form = ".$engg_id."<hr>";	
+//	    }
+	    
+	    $this->render('currentAppointments',
+	    					array(
+	    					'model'=>$model,'future_engg_id'=>$engg_id
+	    			));
+	}//end of futureAppointments().
 	
 	
 	

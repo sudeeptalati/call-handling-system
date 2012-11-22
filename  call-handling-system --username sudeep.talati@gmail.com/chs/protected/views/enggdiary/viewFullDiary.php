@@ -26,8 +26,6 @@ echo $enggModel->company;
 
 <?php 
 
-
-
 	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
 	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';		
@@ -129,7 +127,7 @@ function isTouchDevice()
 			selectable: true,
 //			minTime:'8',
 //			maxTime:'18',
-//			weekends:false,
+			weekends:false,
 
 			
 			

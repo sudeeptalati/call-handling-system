@@ -80,7 +80,8 @@ $baseUrl= Yii::app()->request->baseUrl;
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'ServiceCall', 'url'=>array('/servicecall/freeSearch')),
-				array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
+				//array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
+				array('label'=>'Diary', 'url'=>array('/enggdiary/currentAppointments')),
 				array('label'=>'NewCustomer', 'url'=>array('/customer/create')),
 				array('label'=>'Reports', 'url'=>array('/servicecall/displayDropdown')),
 				

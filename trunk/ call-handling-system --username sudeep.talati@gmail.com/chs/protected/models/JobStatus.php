@@ -132,6 +132,8 @@ class JobStatus extends CActiveRecord
     								);/*WE will only display the published Status*/
 	}
 	
+	
+	
 	/*MY CUSTOM STATUS*/
 	
 	
@@ -180,7 +182,6 @@ class JobStatus extends CActiveRecord
 	}
 	
 	
-	
 	protected function beforeSave()
     {
     	if(parent::beforeSave())
@@ -191,5 +192,11 @@ class JobStatus extends CActiveRecord
             
         }//end of if(parent())
     }//end of beforeSave().
+    
+    public function getAllStatuses()
+    {
+    	return CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');
+    	
+    }//end of getAllStatuses.
 	
 }//end of class.

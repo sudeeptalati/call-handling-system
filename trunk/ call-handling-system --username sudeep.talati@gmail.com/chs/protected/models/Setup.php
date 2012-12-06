@@ -148,8 +148,6 @@ class Setup extends CActiveRecord
 		$setupModel = Setup::model()->findAllByPk('1');
 		echo $setupModel->version_update_url;
 		
-		
-
 
 		$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
 			

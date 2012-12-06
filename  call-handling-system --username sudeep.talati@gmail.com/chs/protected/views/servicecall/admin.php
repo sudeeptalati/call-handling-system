@@ -57,6 +57,8 @@ $('.search-form form').submit(function(){
             	'name'=>'product_name',
 				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
 				'filter'=>false),
+		array('name'=>'model_number','value'=>'$data->product->model_number'),
+		array('name'=>'serial_number','value'=>'$data->product->serial_number'),
 		
 		
 		//'job_status_id',

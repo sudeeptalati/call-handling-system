@@ -53,4 +53,18 @@ foreach ($engineerModel as $engineer)
 </table>
 
 
+<hr>
+
+here
+
+<?php 
+$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'company');
+
+echo CHtml::DropDownList($model, 'engineer_id', $data);
+?>
+
+<hr>
+
+
+
 

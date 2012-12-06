@@ -155,8 +155,8 @@ class Product extends CActiveRecord
 		$criteria->with = array( 'customer','engineer');
 		
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
-		$criteria->compare( 'customer.town', $this->customer_town, true );
-		$criteria->compare( 'customer.postcode', $this->customer_postcode, true );
+		$criteria->compare( 'customer.town', $this->town, true );
+		$criteria->compare( 'customer.postcode', $this->postcode, true );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('contract_id',$this->contract_id);

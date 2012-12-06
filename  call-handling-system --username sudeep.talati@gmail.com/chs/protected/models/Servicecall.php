@@ -49,6 +49,8 @@ class Servicecall extends CActiveRecord
 	public $customer_town;
 	public $customer_postcode;
 	public $product_name;
+	public $model_number;
+	public $serial_number;
 	public $engineer_name;
 	public $contract_name;
 	public $job_status;
@@ -82,10 +84,10 @@ class Servicecall extends CActiveRecord
 			array('job_status_id, fault_description, recalled_job', 'required'),
 			array('created_by_user_id,	service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, comments ', 'safe'),
+			array('product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, comments, model_number, serial_number ', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('product_serial_number,created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed', 'safe', 'on'=>'search'),
+			array('product_serial_number,created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed, model_number, serial_number', 'safe', 'on'=>'search'),
 			
 		);
 	}
@@ -160,7 +162,7 @@ class Servicecall extends CActiveRecord
 		
 		$criteria->order = 'service_reference_number DESC';
 		
-		$criteria->with = array( 'customer','jobStatus','engineer');
+		$criteria->with = array( 'customer','jobStatus','engineer', 'product');
 		//$criteria->together= true;
 		
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
@@ -169,6 +171,9 @@ class Servicecall extends CActiveRecord
 		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
 		$criteria->compare( 'engineer.fullname', $this->engineer_name, true );
+		
+		$criteria->compare( 'product.model_number', $this->model_number, true );
+		$criteria->compare( 'product.serial_number', $this->serial_number, true );
 		
 		
 		$criteria->compare('id',$this->id);
@@ -323,41 +328,42 @@ class Servicecall extends CActiveRecord
     }//end of getJobStatus.
     
 	public function freeSearch($keyword)
-    {   
- 
+    {
+
         /*Creating a new criteria for search*/
         $criteria = new CDbCriteria;
-        
+
         //$criteria->with = array('customer');
         $criteria->with = array( 'customer','product');
-	
-        
+
+
         $criteria->compare('insurer_reference_number',$keyword,true);
         $criteria->compare('service_reference_number', $keyword, true, 'OR');
-       
-	   
-		$criteria->compare('customer.fullname', $keyword, true, 'OR');
+
+
+        $criteria->compare('customer.fullname', $keyword, true, 'OR');
         $criteria->compare('customer.postcode', $keyword, true, 'OR');
         $criteria->compare('customer.mobile', $keyword, true, 'OR');
         $criteria->compare('customer.mobile', $keyword, true, 'OR');
-        
-		//$criteria->with = array('product');
-		$criteria->compare('product.serial_number', $keyword, true, 'OR');
-        
+
+                //$criteria->with = array('product');
+                $criteria->compare('product.serial_number', $keyword, true, 'OR');
+
 //        $criteria->with=array('customer');
 //        $criteria->compare('customer.fullname', $keyword, true, 'OR');
-       
+
         /*result limit*/
-        $criteria->limit = 100;
+        //$criteria->limit = 100;
         /*When we want to return model*/
         //return  Servicecall::model()->findAll($criteria);
- 
+
         /*To return active dataprovider uncomment the following code*/
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+              'pagination'=>false,
         ));
-        
- 
+
+
     }//end of free search.
     
 

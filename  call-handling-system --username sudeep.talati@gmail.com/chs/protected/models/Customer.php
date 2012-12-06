@@ -69,10 +69,10 @@ class Customer extends CActiveRecord
 		return array(
 			array('title,  last_name, address_line_1, town, postcode_s, postcode_e, telephone', 'required'),
 			array('product_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('first_name, address_line_2, address_line_3, country, mobile, email, fax, notes, modified, fullname, lockcode', 'safe'),
+			array('first_name, address_line_2, address_line_3, country, mobile, email, fax, notes, modified, fullname, lockcode, model_number, serial_number', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode', 'safe', 'on'=>'search'),
+			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode, model_number, serial_number', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -133,14 +133,19 @@ class Customer extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		
-		$criteria->with = array('servicecalls');
-    	$criteria->order = 'id DESC';
+		
+		
+		
+    	$criteria->with = array( 'product' );
+    	
+    	$criteria->compare( 'product.model_number', $this->model_number, true );
+    	$criteria->compare( 'product.serial_number', $this->serial_number, true );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('first_name',$this->first_name,true);
 		$criteria->compare('last_name',$this->last_name,true);
-		$criteria->compare('product_id',$this->product_id);
+		
 		$criteria->compare('address_line_1',$this->address_line_1,true);
 		$criteria->compare('address_line_2',$this->address_line_2,true);
 		$criteria->compare('address_line_3',$this->address_line_3,true);
@@ -159,9 +164,12 @@ class Customer extends CActiveRecord
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('fullname',$this->fullname,true);
 		//$criteria->compare('servicecalls.service_reference_number',$this->service_number,true);
-
+		$criteria->order = 'product.created DESC';
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			 
+		
 		));
 	}//end of search().
 	
@@ -330,26 +338,29 @@ class Customer extends CActiveRecord
     }//END OF afterSave().
     
     public function freeSearch($keyword)
-    {   
-    	$criteria=new CDbCriteria;
-    	
-    	//$criteria->with = array('servicecalls');
-    	
-    	$criteria->compare('fullname', $keyword, true, 'OR');
- 
-    	$criteria->compare('postcode', $keyword, true, 'OR');
-    	$criteria->compare('town', $keyword, true, 'OR');
-    	$criteria->compare('telephone', $keyword, true, 'OR');
-    	$criteria->compare('mobile', $keyword, true, 'OR');
-    	
-    	
-    	/*result limit*/
-        $criteria->limit = 100;
-        
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->with = array('product');
+
+        $criteria->compare('fullname', $keyword, true, 'OR');
+
+        $criteria->compare('postcode', $keyword, true, 'OR');
+        $criteria->compare('town', $keyword, true, 'OR');
+        $criteria->compare('telephone', $keyword, true, 'OR');
+        $criteria->compare('mobile', $keyword, true, 'OR');
+        $criteria->compare('product.serial_number', $keyword, true, 'OR');
+
+
+        /*result limit*/
+        //$criteria->limit = 100;
+
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
-        	));
-    	
+         //  'pagination'=>array('pageSize'=>'100',),
+                  'pagination'=>false,
+                ));
+
     }//end of freeSearch().
     
     public function getAllProducts($id)

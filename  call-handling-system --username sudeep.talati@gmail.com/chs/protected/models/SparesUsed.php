@@ -48,7 +48,7 @@ class SparesUsed extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('master_item_id, servicecall_id, item_name, quantity', 'required'),
-			array('master_item_id, servicecall_id, part_number, quantity', 'numerical', 'integerOnly'=>true),
+			array('master_item_id, servicecall_id, quantity', 'numerical', 'integerOnly'=>true),
 			array('unit_price, total_price', 'numerical'),
 			array('date_ordered, modified', 'safe'),
 			// The following rule is used by search().

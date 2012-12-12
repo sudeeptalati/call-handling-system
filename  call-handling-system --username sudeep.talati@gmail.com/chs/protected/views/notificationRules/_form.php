@@ -3,10 +3,89 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'notification-rules-form',
 	'enableAjaxValidation'=>false,
-)); ?>
+)); 
+
+if (isset($_GET['showDialogue']))
+{
+$showDialogue = $_GET['showDialogue'];
+echo "Show valoue = ".$showDialogue;
+
+if ($showDialogue==1)
+{
+	/***** CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+		'id'=>'formdialog',
+		// additional javascript options for the dialog plugin
+		'options'=>array(
+		'title'=>'Person Details',
+		//'title'=>Yii::t('notificationContact','Create Job'),
+		//'autoOpen'=>$showDialogue,
+		'autoOpen'=>false,
+		'modal'=>'true',
+		'show' => 'blind',
+		'hide' => 'explode',
+		),
+		));
+			
+?>
+
+	<div class="divForForm"></div>
+						
+	<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
+
+<script type="text/javascript" language="javascript">
+
+	function addContact()
+	{
+		//alert('IN ADD CONTACT FUNC'+<?php echo $model->id;?> );
+		
+		<?php 
+				
+				
+		echo CHtml::ajax(array(
+	   'url'=>array('notificationContact/create', 'id'=>$model->id),
+	   'data'=> "js:$(this).serialize()",
+	   'type'=>'post',
+	   'dataType'=>'json',
+	   'success'=>"function(data)
+	   {
+			if (data.status == 'failure')
+		   {
+			$('#formdialog div.divForForm').html(data.div);
+		   // Here is the trick: on submit-> once again this function!
+		   $('#dialogClassroom div.divForForm form').submit(addContact);
+		   }
+	   else
+	   {
+			$('#formdialog div.divForForm').html(data.div);
+		   setTimeout(\"$('#formdialog').dialog('close') \",3000);
+	   }
+
+	   } ",
+	   ))
+	  ?>;
+	  return false;
+	}//end of function addContact().
+
+	 function openAddPersonDialogueHandler()
+	 {
+		 addContact();
+		$('#formdialog').dialog('open');
+	 }
+
+	window.onload = openAddPersonDialogueHandler;
+	//myElement.onclick= openAddPersonDialogueHandler;
+	 
+ 
+</script>
+<?php
+}/////end of if showDialogue
+}////end of iff isset
+?>
+
+
 
 <script type="text/javascript">
-
 /**** CODE TO DISPLAY EMAIL AND SMS ON CHECK OF CHECKBOX, FOR ALL CHECKBOXES ******/
 
 $(function() {//code inside this function will run when the document is ready
@@ -24,114 +103,17 @@ $(function() {//code inside this function will run when the document is ready
     }
 
 });
-
 /**** CODE TO DISPLAY EMAIL AND SMS ON CHECK OF CHECKBOX, FOR ALL CHECKBOXES ******/
-
-
-/**** CODE TO DISPLAY DIALOGUE BOX WITH CREATE FORM OF CONTACT DETAILS ********/
-
-function addContact()
-{
-	//alert('IN ADD CONTACT FUNC');
-	
-	<?php 
-	echo CHtml::ajax(array(
-    'url'=>array('notificationContact/create', 'id'=>$model->id),
-    'data'=> "js:$(this).serialize()",
-    'type'=>'post',
-    'dataType'=>'json',
-    'success'=>"function(data)
-    {
-    	if (data.status == 'failure')
-        {
-        	$('#formdialog div.divForForm').html(data.div);
-            // Here is the trick: on submit-> once again this function!
-            $('#dialogClassroom div.divForForm form').submit(addContact);
-        }
-        else
-        {
-        	$('#formdialog div.divForForm').html(data.div);
-            setTimeout(\"$('#formdialog').dialog('close') \",3000);
-        }
-
-    } ",
-    ))
-    ?>;
-    //return false;
-}//end of function addContact().
-
-
-
 </script>
 
 <?php 
 if($model->notify_others == 1)
 {
 ?>
-
-
-<?php 
-			
-	/***** CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
-	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-    	'id'=>'formdialog',
-    	// additional javascript options for the dialog plugin
-    	'options'=>array(
-        'title'=>'Person Details',
-		//'title'=>Yii::t('notificationContact','Create Job'),
-        'autoOpen'=>false,
-		'modal'=>'true',
-		'show' => 'blind',
-	    'hide' => 'explode',
-	),
-	));
-?>
-			
-<div class="divForForm"></div>
-			
-<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
-
-
-<!-- ****** END OF CODE TO DISPLAY DIALOGUE BOX WITH CREATE FORM OF CONTACT DETAILS ***** -->
-
-
-
 <script type="text/javascript">
 $(function()
 {//code inside this function will run when the document is ready
    $('.others-form').show();
-
-   function addContact()
-   {
-   	//alert('IN ADD CONTACT FUNC');
-   	
-   	<?php 
-   	echo CHtml::ajax(array(
-       'url'=>array('notificationContact/create', 'id'=>$model->id),
-       'data'=> "js:$(this).serialize()",
-       'type'=>'post',
-       'dataType'=>'json',
-       'success'=>"function(data)
-       {
-       	if (data.status == 'failure')
-           {
-           	$('#formdialog div.divForForm').html(data.div);
-               // Here is the trick: on submit-> once again this function!
-               $('#dialogClassroom div.divForForm form').submit(addContact);
-           }
-           else
-           {
-           	$('#formdialog div.divForForm').html(data.div);
-               setTimeout(\"$('#formdialog').dialog('close') \",3000);
-           }
-
-       } ",
-       ))
-       ?>;
-       //return false;
-   }//end of function addContact().
-
-
 });
 </script>
 <?php }//end of of($model->notify_others == 1).?>
@@ -139,6 +121,10 @@ $(function()
 
 <?php 
 $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
+
+
+
+
 ?>
 
 
@@ -258,20 +244,9 @@ $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
 			if($model->notify_others == 0)
 			{
 				echo CHtml::submitButton ('Give Details', array('name'=>'others_person_details'));
-				
-				//echo CHtml::submitButton ('Give Details', array('onclick'=>"{addContact(); $('#formdialog').dialog('open');}"));
-				
-//				echo CHtml::link('Add', "",
-//	    		array(
-//	        		'style'=>'cursor: pointer; text-decoration: underline;',
-//	        		'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
-//	    		));
 			}
 			
-			
-			
-			
-		 ?>
+		?>
         
         
 		<div class="others-form" style="display:none">
@@ -299,36 +274,28 @@ $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
 		//echo "<hr>count of result = ".count($contactModel)."<hr>";
 		/*********** CODE TO DISPLAY FORM TO ENTER OTHER PERSONS DETAILS **********/
 		if(count($contactModel) == '0')
-		{
-//			$notificationContactModel = NotificationContact::model();
-//			$notificationContactModel->notification_rule_id = $model->id;
-//			
-//			echo $form->labelEx($notificationContactModel,'person_name'); 
-//			echo $form->textField($notificationContactModel,'person_name',array('size'=>30));
-//			echo $form->labelEx($notificationContactModel,'person_info'); 
-//			echo $form->textField($notificationContactModel,'person_info',array('size'=>30));
-//			echo $form->labelEx($notificationContactModel,'email'); 
-//			echo $form->textField($notificationContactModel,'email',array('size'=>30));
-//			echo $form->labelEx($notificationContactModel,'mobile'); 
-//			echo $form->textField($notificationContactModel,'mobile',array('size'=>30));
-//			//echo CHtml::activeTextField($notificationContactModel,'mobile');
-//			echo $form->hiddenField($notificationContactModel,'notification_rule_id');
-//			echo "<br>Email&nbsp;&nbsp;";
-//			echo CHtml::checkBox('others_email_notification', false, array('uncheckValue' => 0));
-//			echo "&nbsp;&nbsp;&nbsp;SMS&nbsp;&nbsp;"; 
-//			echo CHtml::checkBox('others_sms_notification', false, array('uncheckValue' => 0));
-//			echo "<br>";
-//			echo CHtml::button('Save Details', array('submit' => array('notificationContact/addNotificationContact')));
-
+		{/*
+			$notificationContactModel = NotificationContact::model();
+			$notificationContactModel->notification_rule_id = $model->id;
 			
-			//the link for open the dialog
-			echo CHtml::link('Give Details', "",
-    		array(
-        		'style'=>'cursor: pointer; text-decoration: underline;',
-        		'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
-    		));
+			echo $form->labelEx($notificationContactModel,'person_name'); 
+			echo $form->textField($notificationContactModel,'person_name',array('size'=>30));
+			echo $form->labelEx($notificationContactModel,'person_info'); 
+			echo $form->textField($notificationContactModel,'person_info',array('size'=>30));
+			echo $form->labelEx($notificationContactModel,'email'); 
+			echo $form->textField($notificationContactModel,'email',array('size'=>30));
+			echo $form->labelEx($notificationContactModel,'mobile'); 
+			echo $form->textField($notificationContactModel,'mobile',array('size'=>30));
+			//echo CHtml::activeTextField($notificationContactModel,'mobile');
+			echo $form->hiddenField($notificationContactModel,'notification_rule_id');
+			echo "<br>Email&nbsp;&nbsp;";
+			echo CHtml::checkBox('others_email_notification', false, array('uncheckValue' => 0));
+			echo "&nbsp;&nbsp;&nbsp;SMS&nbsp;&nbsp;"; 
+			echo CHtml::checkBox('others_sms_notification', false, array('uncheckValue' => 0));
+			echo "<br>";
+			echo CHtml::button('Save Details', array('submit' => array('notificationContact/addNotificationContact')));
+			*/
     		
-			
 		}//end of if(data not present).
 		/*********** END OF CODE TO DISPLAY FORM TO ENTER OTHER PERSONS DETAILS **********/
 		
@@ -395,6 +362,64 @@ $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
         		'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
     		));
     		?>
+			
+			<?php 
+	
+			
+			
+			/***** CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
+				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+					'id'=>'formdialog',
+					// additional javascript options for the dialog plugin
+					'options'=>array(
+					'title'=>'Person Details',
+					//'title'=>Yii::t('notificationContact','Create Job'),
+					//'autoOpen'=>$showDialogue,
+					'autoOpen'=>false,
+					'modal'=>'true',
+					'show' => 'blind',
+					'hide' => 'explode',
+				),
+				));
+			?>
+						
+			<div class="divForForm"></div>
+						
+			<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
+			
+			<script type="text/javascript">
+				function addContact()
+			   {
+				//alert('IN ADD CONTACT FUNC'+<?php echo $model->id;?> );
+				
+				<?php 
+				
+				
+				echo CHtml::ajax(array(
+				   'url'=>array('notificationContact/create', 'id'=>$model->id),
+				   'data'=> "js:$(this).serialize()",
+				   'type'=>'post',
+				   'dataType'=>'json',
+				   'success'=>"function(data)
+				   {
+					if (data.status == 'failure')
+					   {
+						$('#formdialog div.divForForm').html(data.div);
+						   // Here is the trick: on submit-> once again this function!
+						   $('#dialogClassroom div.divForForm form').submit(addContact);
+					   }
+					   else
+					   {
+						$('#formdialog div.divForForm').html(data.div);
+						   setTimeout(\"$('#formdialog').dialog('close') \",3000);
+					   }
+
+				   } ",
+				   ))
+				   ?>;
+				   return false;
+			   }//end of function addContact().
+			</script>
 			
     					
 			<?php

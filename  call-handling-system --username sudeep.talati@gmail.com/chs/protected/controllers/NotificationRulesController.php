@@ -1,5 +1,11 @@
 <?php
 
+
+
+///*THISI SSUS A  TEST COMMENT***/////
+
+
+
 class NotificationRulesController extends Controller
 {
 	/**
@@ -187,7 +193,7 @@ class NotificationRulesController extends Controller
 				//if($model->notify_others == '1')
 				if(isset($_POST['others_person_details']))
 				{
-					$this->redirect(array('update','id'=>$model->id));
+					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'1'));
 					return ;
 				}//end of redirecting to update
 				else 
@@ -423,4 +429,5 @@ class NotificationRulesController extends Controller
 			Yii::app()->end();
 		}
 	}
-}
+	
+}//end of class.

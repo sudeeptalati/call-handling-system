@@ -275,7 +275,25 @@ class Servicecall extends CActiveRecord
     protected function afterSave()
     {
 	
-		echo "AFTER SAVE OF SERVICECALL CALLED";
+// 		echo "AFTER SAVE OF SERVICECALL CALLED";
+		
+// 		echo "<br>model id = ".$this->id;
+// 		echo "<br>model service reference id = ".$this->service_reference_number;
+// 		echo "<br>model job status id = ".$this->jobStatus->name;
+// 		echo "<br>model customer details = ".$this->customer->fullname;
+		
+		
+// 		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$this->job_status_id));
+		
+// 		foreach($notificationModel as $data)
+// 		{
+// 			echo "<br>Customer notification code = ".$data->customer_notification_code;
+			
+// 		}
+		
+		
+		
+		
     								
     	$productUpdateModel = Customer::model()->updateByPk(
 													$this->product_id,
@@ -293,6 +311,9 @@ class Servicecall extends CActiveRecord
 														'lockcode'=>0,
 													)
 													);
+        													
+													
+													
 													
 		 
 															

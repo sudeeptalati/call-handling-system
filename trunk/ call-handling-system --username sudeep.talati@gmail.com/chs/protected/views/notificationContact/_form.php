@@ -40,8 +40,8 @@
 	</div>
 	
 	<div class="row">
-	<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('others_email_notification', $others_email_checked, array('uncheckValue' => 0)); ?>
-	&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('others_sms_notification', $others_sms_checked, array('uncheckValue' => 0)); ?>
+	<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('others_email_notification', false, array('uncheckValue' => 0)); ?>
+	&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('others_sms_notification', false, array('uncheckValue' => 0)); ?>
 	</div>
 
 	

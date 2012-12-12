@@ -141,7 +141,7 @@ $baseUrl = Yii::app()->baseUrl;
 						show: "blind",
 						hide: "explode",
 						width: 500,
-						width: 500,
+						width: 500
 					});
 			
 					$( "#opener" ).click(function() {
@@ -170,7 +170,7 @@ $baseUrl = Yii::app()->baseUrl;
 				    var marker = new google.maps.Marker({
 				      map: map,
 				      //position: results[0].geometry.location
-				      position: map.getCenter(),
+				      position: map.getCenter()
 				    });
 				}//end od function drawmap().
 			

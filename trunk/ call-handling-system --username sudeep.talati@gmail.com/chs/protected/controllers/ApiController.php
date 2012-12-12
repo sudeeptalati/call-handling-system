@@ -29,9 +29,6 @@ class ApiController extends Controller
     	$diary_events_array = array();
 		$mydata=array();
 		
-		
-		
-		
 		if($engg_id == '0')
 		{
 			//echo "value is zero"."<br>";

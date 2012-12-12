@@ -1,13 +1,14 @@
 <div class="form">
 
-<?
-$this->menu=array(
-	//array('label'=>'List Servicecall', 'url'=>array('index')),
-	array('label'=>'Manage Customer', 'url'=>array('customer/admin')),
-);
+<?php 
 
+$this->menu=array(
+	array('label'=>'Manage Customers', 'url'=>array('admin'))
+	);
 
 ?>
+
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'customer-viewProduct-form',
 	'enableAjaxValidation'=>false,
@@ -41,7 +42,7 @@ $this->menu=array(
 	</tr>
 	
 	<tr>
-		<td colspan="3" style="text-align:center"><h2>Customer Details</h2></td>
+		<td colspan="3" style="text-align:center"><h2>Customer Details here</h2></td>
 	</tr>
 	<tr>
 		<td>

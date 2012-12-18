@@ -5,10 +5,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List NotificationRules', 'url'=>array('index')),
-	array('label'=>'Create NotificationRules', 'url'=>array('create')),
-	array('label'=>'Update NotificationRules', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete NotificationRules', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'SetUp', 'url'=>array('/setup/1')),
 	array('label'=>'Manage NotificationRules', 'url'=>array('admin')),
 );
 ?>

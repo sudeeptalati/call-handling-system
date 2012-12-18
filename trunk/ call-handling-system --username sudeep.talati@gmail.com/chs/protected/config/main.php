@@ -1,5 +1,7 @@
 <?php
 
+$job_status_before;
+
 /******** DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
 
 	//echo "HELLO WELCOME TO MAIN<br>";
@@ -73,8 +75,8 @@ return array(
 
 	// application components
 	'components'=>array(
-			
-			'ePdf' => array(
+
+				'ePdf' => array(
 					'class'         => 'ext.yii-pdf.EYiiPdf',
 					'params'        => array(
 							'mPDF'     => array(
@@ -111,6 +113,8 @@ return array(
 											)*/
 									),
 								),
+								
+								
 							),
 
 			/*
@@ -122,10 +126,15 @@ return array(
 		        'transportType'=>'smtp', /// case sensitive!
 		        'transportOptions'=>array(
 		            'host'=>$smtp_host,
+		            //'host'=>'smtp.gmail.com',
 		            'username'=>$smtp_username,
+					//'username'=>'mailtest.test10@gmail.com',
 		            'password'=>$smtp_password,
+		            //'password'=>'testtest10',
+					//'port'=>'543',
 					'port'=>'465',
 					'encryption'=>'tls',
+					//'encryption'=>'ssl',
 					),
 		        'viewPath' => 'application.views.mail',
 		        'logging' => true,

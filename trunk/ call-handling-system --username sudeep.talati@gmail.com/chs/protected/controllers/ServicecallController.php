@@ -2,6 +2,8 @@
 
 class ServicecallController extends Controller
 {
+	public $notify_flag;
+	public $job_status_before;
 	
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -216,12 +218,19 @@ class ServicecallController extends Controller
 				//echo "I M HERE<br>";
 
 				$previous_status_id = $model->job_status_id;
-				//echo "Id before getting form values = ".$previous_status_id."<br>";
+				echo "<br>Id before getting form values = ".$previous_status_id;
 				
 				$model->attributes=$_POST['Servicecall'];
 				
 				$current_status_id = $model->job_status_id;
-				//echo "id after getting values = ".$current_status_id;
+				echo "<br>id after getting values = ".$current_status_id;
+				$service_id = $model->id;
+				
+				if($previous_status_id != $current_status_id)
+				{
+					echo "<br>Status Changed....";
+					$this->performNotification($current_status_id, $service_id);
+				}
 				
 				if($model->save())
 				{
@@ -230,24 +239,17 @@ class ServicecallController extends Controller
 				}
 				else
 				{
-				echo "Not Save";
-				
+					echo "<br>Not Save";
 				}
 
-			if($previous_status_id != $current_status_id)
-				{
-					//echo "Status Changed....";
-					$this->mailSettings($model->id);
-				}
+				
 				
 			}//end of if(isset()).
 		
 		}/////end of if( $model->job_status_id < 100 )
-		else {
-			
+		else 
+		{
 			$this->redirect(array('view','id'=>$model->id));
-				
-		
 		}
 	
 		$this->render('updateServicecall',array(
@@ -366,34 +368,6 @@ class ServicecallController extends Controller
 		
 	}//end of actionExistingCustomer().
 	
-//CODE FROM GII FORM GENERATOR.	
-	
-//	public function actionUpdateServicecall()
-//	{
-//    	$model=new Servicecall('update');
-//
-//	    // uncomment the following code to enable ajax-based validation
-//	    /*
-//	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-updateServicecall-form')
-//	    {
-//	        echo CActiveForm::validate($model);
-//	        Yii::app()->end();
-//	    }
-//	    */
-//	
-//	    if(isset($_POST['Servicecall']))
-//	    {
-//	        $model->attributes=$_POST['Servicecall'];
-//	       
-//	        if($model->validate())
-//	        {
-//	        	// form inputs are valid, do something here
-//	            return;
-//	        }
-//	    }
-//	    $this->render('updateServicecall',array('model'=>$model));
-//	}//end of updateServicecall.
-
 		
 	public function actionPrintAllJobsForDay()
 	{
@@ -585,48 +559,6 @@ class ServicecallController extends Controller
 			
 	}//end of getItems().
 	
-	public function mailSettings($id)
-	{
-		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
-		{
-			echo "PLEASE CHECK YOUR INTERNET CONNECTION";
-		}
-		else 
-		{
-			
-			//echo "INTERNET IS CONNECTED";
-			
-			//echo "id = ".$id."<br>";
-			
-			$setupModel = Setup::model()->findByPk('1');
-			//echo $setupModel->email;
-			$serviceModel = Servicecall::model()->findByPk($id);
-			//echo $serviceModel->customer_id;
-			
-			$customerModel = Customer::model()->findByPk($serviceModel->customer_id);
-			//echo "email = ".$customerModel->email;
-			
-			$str = "Your service call with REF.No:".$serviceModel->service_reference_number." status has changed to ".$serviceModel->jobStatus->name;
-			//echo $str;
-			
-			//$reciever_email='mailtest.test10@gmail.com';
-			$reciever_email = $customerModel->email;
-			//$sender_email='mailtest.test10@gmail.com';
-			$sender_email=$setupModel->email;
-			
-			$message = new YiiMailMessage();
-			$message->setTo(array($reciever_email));
-		    $message->setFrom(array($sender_email));
-		    $message->setSubject('Test');
-			$message->setBody($str);
-			if(Yii::app()->mail->send($message))
-		   	{
-		   		//echo "TEST EMAIL IS SENT, CONNECTION IS OK<br>"; 
-		   	}
-		   	
-		}//end of else.
-		
-	}//end of mailSettings().
 	
 	public function actionChangeEngineerOnly()
 	{
@@ -814,6 +746,107 @@ class ServicecallController extends Controller
 		$this->render('enggReportDropdown',array('model'=>$model));	
 	}//end of actionDisplayDropdown();
 	
+	public function performNotification($status_id, $service_id)
+	{
+		echo "<hr>in perform validation function, follwoing data is from this func";
+		echo "<br>Value of status_id = ".$status_id;
+		echo "<br>Value of service_id = ".$service_id;
+
+		$serviceModel = Servicecall::model()->findByPk($service_id);
+
+		$cust_id = $serviceModel->customer_id;
+		$engineer_id = $serviceModel->engineer_id;
+		$contract_id = $serviceModel->product->contract_id;
+		
+		
+		echo "<br>cust id = ".$cust_id;
+		echo "<br>engg id = ".$engineer_id;
+		echo "<br>contract id = ".$contract_id;
+		
+		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id));
+		
+		foreach($notificationModel as $data)
+		{
+			$customerNotificationCode =$data->customer_notification_code;
+			$engineerNotificationCode =$data->engineer_notification_code;
+			$warrantyProviderNotificationCode =$data->warranty_provider_notification_code;
+			$othersNotificationCode =$data->notify_others;
+			
+			echo "<br>Customer notification code inside forloop = ".$customerNotificationCode;
+			echo "<br>Engineer notification code inside forloop = ".$engineerNotificationCode;
+			echo "<br>Warranty Provider notification code inside forloop = ".$warrantyProviderNotificationCode;
+			echo "<br>Others notification code inside forloop = ".$othersNotificationCode;
+			
+			if($customerNotificationCode != 0)
+			{
+				$customerModel = Customer::model()->findByPk($cust_id);
+				echo "<hr>Customer Notification code = ".$customerNotificationCode;
+				echo "<br>Customer id = ".$cust_id;
+				echo "<br>customer email = ".$customerModel->email;
+				$receiver_email_address = $customerModel->email;
+				echo "<br>customer telephone = ".$customerModel->mobile;
+				$telephone = $customerModel->mobile;
+					
+				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode);
+					
+			}//end of if of CUSTOMER.
+			
+			if($engineerNotificationCode != 0)
+			{
+				$engineerModel = Engineer::model()->findByPk($engineer_id);
+				echo "<hr>Engineer Notification code = ".$engineerNotificationCode;
+				echo "<br>engg_id  = ".$engineer_id;
+				echo "<br>Engineer email = ".$engineerModel->contactDetails->email;
+				$receiver_email_address = $engineerModel->contactDetails->email;
+				echo "<br>Engineer telephone = ".$engineerModel->contactDetails->mobile;
+				$telephone = $engineerModel->contactDetails->mobile;
+			
+					
+				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode);
+					
+			}//end of if of ENGINEER.
+				
+			if($warrantyProviderNotificationCode != 0)
+			{
+				$contractModel = Contract::model()->findByPk($contract_id);
+				echo "<hr>Warranty Provider Notification code = ".$warrantyProviderNotificationCode;
+				echo "<br>contract id = ".$contract_id;
+				echo "<br>Warranty Provider email = ".$contractModel->mainContactDetails->email;
+				$receiver_email_address = $contractModel->mainContactDetails->email;
+				echo "<br>Warranty Provider telephone = ".$contractModel->mainContactDetails->mobile;
+				$telephone = $contractModel->mainContactDetails->mobile;
+					
+				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode);
+					
+			}//end of if of WARRANTY PROVIDER.
+				
+			if($othersNotificationCode != 0)
+			{
+				echo "<hr>Others Notification code = ".$othersNotificationCode;
+				echo "<br>Notification rule id = ".$data->id;
+			
+				$notificationContactModel = NotificationContact::model()->findAllByAttributes(
+						array(
+								'notification_rule_id'=>$data->id
+						));
+				foreach ($notificationContactModel as $contact)
+				{
+					echo "<br>Others email addresss = ".$contact->email;
+					$receiver_email_address = $contact->email;
+					echo "<br>Others telephone = ".$contact->mobile;
+					$telephone = $contact->mobile;
+						
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode);
+				}//end of inner foreach($contact).
+			
+			}//end of if of OTHERS.
+			
+		}//end of foreach($notificationModel).
+		
+		
+		echo "<hr>";
+		
+	}//end of performNotification().
 	
 	
 }//end of class.

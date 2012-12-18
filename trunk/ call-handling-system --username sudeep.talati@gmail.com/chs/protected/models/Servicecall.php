@@ -55,6 +55,9 @@ class Servicecall extends CActiveRecord
 	public $contract_name;
 	public $job_status;
 	public $product_serial_number;
+	public $notify_flag = 0;
+	public $pervious_job_status;
+	
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -84,7 +87,7 @@ class Servicecall extends CActiveRecord
 			array('job_status_id, fault_description, recalled_job', 'required'),
 			array('created_by_user_id,	service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, comments, model_number, serial_number ', 'safe'),
+			array('product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, comments, model_number, serial_number, notify_flag, pervious_job_status', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('product_serial_number,created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed, model_number, serial_number', 'safe', 'on'=>'search'),
@@ -213,8 +216,6 @@ class Servicecall extends CActiveRecord
 	
 	protected function beforeSave()
     {
-    	
-        	
     	if(parent::beforeSave())
         {
         	
@@ -253,12 +254,9 @@ class Servicecall extends CActiveRecord
 				}//end of else.
 				/******* END OF SETTING service_reference_number ********/
 				
-				
-				
-				
 				return true;
 				
-            }//end of if(newrecord).
+			}//end of if(newrecord).
             /****** END OF IF OF NEW RECORD ************/
             
             /********* THIS BIT IS CALLED DURING UPDATE *********/
@@ -269,33 +267,17 @@ class Servicecall extends CActiveRecord
             	$this->modified=time();
                 return true;
             }
+            
         }//end of if(parent())
+        	
     }//end of beforeSave().
     
     protected function afterSave()
     {
 	
-// 		echo "AFTER SAVE OF SERVICECALL CALLED";
+		//echo "<br>AFTER SAVE OF SERVICECALL CALLED";
 		
-// 		echo "<br>model id = ".$this->id;
-// 		echo "<br>model service reference id = ".$this->service_reference_number;
-// 		echo "<br>model job status id = ".$this->jobStatus->name;
-// 		echo "<br>model customer details = ".$this->customer->fullname;
-		
-		
-// 		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$this->job_status_id));
-		
-// 		foreach($notificationModel as $data)
-// 		{
-// 			echo "<br>Customer notification code = ".$data->customer_notification_code;
-			
-// 		}
-		
-		
-		
-		
-    								
-    	$productUpdateModel = Customer::model()->updateByPk(
+		$productUpdateModel = Customer::model()->updateByPk(
 													$this->product_id,
 													array
 													(
@@ -311,11 +293,136 @@ class Servicecall extends CActiveRecord
 														'lockcode'=>0,
 													)
 													);
-        													
-													
-													
-													
-		 
+		
+		
+		/*
+		
+		Step 1: Get the number of notification rules by sending the job status id where active==1
+		Step 2: If number of results not equal to 0 go in the code
+		Step 3: Run the foreach for each result of notification rule
+		Step 4: Within foreach 
+					Read all the fields
+				(optional)	 get the value of notification code by passing notification code id 
+						Create a funtion to perform action and pass & notification code
+						
+						customer code
+						customer email
+						customer phone
+						
+						
+
+		
+		
+		*/
+		
+			/*
+			 * perform notifcation function
+			 * takes the email, telephone and notification code
+			 * 
+			 * Switch case (notification code)
+			 * 
+			 */	
+
+		// 		echo "<br>model job status id = ".$this->jobStatus->name;
+		
+		/*
+		
+		$cust_id = $this->customer_id;
+		$engineer_id = $this->engineer_id;
+		$contract_id = $this->product->contract_id;
+		$service_id = $this->id;
+		
+		
+		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$this->job_status_id));
+		
+		foreach($notificationModel as $data)
+		{
+			//echo "<br>Customer notification code = ".$data->customer_notification_code;
+			$customerNotificationCode =$data->customer_notification_code;
+			$engineerNotificationCode =$data->engineer_notification_code;
+			$warrantyProviderNotificationCode =$data->warranty_provider_notification_code;
+			$othersNotificationCode =$data->notify_others;
+			
+// 			echo "<br>Customer notification code inside forloop = ".$customerNotificationCode;
+// 			echo "<br>Engineer notification code inside forloop = ".$engineerNotificationCode;
+// 			echo "<br>Warranty Provider notification code inside forloop = ".$warrantyProviderNotificationCode;
+// 			echo "<br>Others notification code inside forloop = ".$othersNotificationCode;
+			
+			if($customerNotificationCode != 0)
+			{
+				$customerModel = Customer::model()->findByPk($cust_id);
+// 				echo "<br>Customer Notification code = ".$customerNotificationCode;
+// 				echo "<br>Customer id = ".$cust_id;
+// 				echo "<br>customer email = ".$customerModel->email;
+				$receiver_email_address = $customerModel->email;
+				//echo "<br>customer telephone = ".$customerModel->mobile;
+				$telephone = $customerModel->mobile;
+					
+				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode);
+			
+			}//end of if of CUSTOMER.
+			
+			if($engineerNotificationCode != 0)
+			{
+				$engineerModel = Engineer::model()->findByPk($engineer_id);
+// 				echo "<hr>Engineer Notification code = ".$engineerNotificationCode;
+// 				echo "<br>engg_id  = ".$engineer_id;
+// 				echo "<br>Engineer email = ".$engineerModel->contactDetails->email;
+				$receiver_email_address = $engineerModel->contactDetails->email;
+				//echo "<br>Engineer telephone = ".$engineerModel->contactDetails->mobile;
+				$telephone = $engineerModel->contactDetails->mobile;
+				
+					
+				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode);
+					
+			}//end of if of ENGINEER.
+			
+			if($warrantyProviderNotificationCode != 0)
+			{
+				$contractModel = Contract::model()->findByPk($contract_id);
+// 				echo "<hr>Warranty Provider Notification code = ".$warrantyProviderNotificationCode;
+// 				echo "<br>contract id = ".$contract_id;
+// 				echo "<br>Warranty Provider email = ".$contractModel->mainContactDetails->email;
+				$receiver_email_address = $contractModel->mainContactDetails->email;
+				//echo "<br>Warranty Provider telephone = ".$contractModel->mainContactDetails->mobile;
+				$telephone = $contractModel->mainContactDetails->mobile;
+					
+				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode);
+					
+			}//end of if of WARRANTY PROVIDER.
+			
+			if($othersNotificationCode != 0)
+			{
+// 				echo "<hr>Others Notification code = ".$othersNotificationCode;
+// 				echo "<br>Notification rule id = ".$data->id;
+				
+				$notificationContactModel = NotificationContact::model()->findAllByAttributes(
+																		array(
+																				'notification_rule_id'=>$data->id
+																	));
+				foreach ($notificationContactModel as $contact)
+				{
+					//echo "<br>Others email addresss = ".$contact->email;
+					$receiver_email_address = $contact->email;
+					//echo "<br>Others telephone = ".$contact->mobile;
+					$telephone = $contact->mobile;
+					
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode);
+				}//end of inner foreach($contact).
+				
+				
+					
+				
+					
+			}//end of if of WARRANTY PROVIDER.
+			
+		}//end of foreach().
+		
+		
+		*/
+		
+		
+	
 															
     	
     }//END OF afterSave().

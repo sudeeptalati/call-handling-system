@@ -234,6 +234,73 @@ class NotificationRules extends CActiveRecord
 		}//end of switch
 	}//getEmailCheckBoxStatus($notification_code)
 	
+	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode)
+	{
+		
+		switch ($notificaionCode)
+		{
+			case 1:
+				//echo "<br>in case 1";
+				NotificationRules::sendEmail($receiver_email_address);
+				break;
+			case 2:
+				echo "<br>Send SMS";
+				break;
+			case 3:
+				echo "<br>Send SMS also";
+				NotificationRules::sendEmail($receiver_email_address);
+				break;
+				
+			
+		}//end of switch().
+		
+		
+	}//end of sendCustomerEmailAndSms().
+	
+	
+	public function sendEmail($reciever_email_address)
+	{
+		$root = dirname(dirname(__FILE__));
+		//echo $root."<br>";
+		$filename = $root.'/config/mail_server.json';
+			
+		$reciever_email=$reciever_email_address;
+		$sender_email='';
+			
+		if(file_exists($filename))
+		{
+			//echo "<hr>json File with email details is present";
+			$data = file_get_contents($filename);
+			$decodedata = json_decode($data, true);
+			//echo "<br>Username = ".$decodedata['smtp_username'];
+			$sender_email = $decodedata['smtp_username'];
+		}
+		
+		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+		{
+			echo "PLEASE CHECK YOUR INTERNET CONNECTION";
+		}//end of inner if().
+		else
+		{
+			//echo "<br>Inernet Connection present";
+// 			echo "<br>Sender email = ".$sender_email;
+// 			echo "<br>Receiver email = ".$reciever_email;
+			
+			$message = new YiiMailMessage();
+			$message->setTo(array($reciever_email));
+			$message->setFrom(array($sender_email));
+			$message->setSubject('Test');
+			$message->setBody("This is a test mail from call handling");
+		
+			if(Yii::app()->mail->send($message))
+			{
+				echo "<br>TEST EMAIL IS SENT, CONNECTION IS OK";
+			}
+		
+		}//end of else.
+		
+	}//end of sendEmail().
+	
 	
 	
 	

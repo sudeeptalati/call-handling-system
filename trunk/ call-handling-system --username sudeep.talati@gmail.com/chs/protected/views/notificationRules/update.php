@@ -6,9 +6,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List NotificationRules', 'url'=>array('index')),
-	array('label'=>'Create NotificationRules', 'url'=>array('create')),
-	array('label'=>'View NotificationRules', 'url'=>array('view', 'id'=>$model->id)),
+// 	array('label'=>'List NotificationRules', 'url'=>array('index')),
+// 	array('label'=>'Create NotificationRules', 'url'=>array('create')),
+// 	array('label'=>'View NotificationRules', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'SetUp', 'url'=>array('/setup/1')),
 	array('label'=>'Manage NotificationRules', 'url'=>array('admin')),
 );
 ?>

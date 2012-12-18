@@ -89,7 +89,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				//array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
 				//array('label'=>'Config', 'url'=>array('/config/1')),
 				array('label'=>'SetUp', 'url'=>array('/setup/1')),
-				array('label'=>'Notification', 'url'=>array('/notificationRules/create')),
+				//array('label'=>'Notification', 'url'=>array('/notificationRules/create')),
 				array('label'=>'BackUp', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('confirm'=>'Are you sure you want to Logout?'))

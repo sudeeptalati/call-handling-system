@@ -65,6 +65,7 @@ class JobStatus extends CActiveRecord
 		return array(
 			'updatedByUser' => array(self::BELONGS_TO, 'User', 'updated_by_user_id'),
 			'servicecalls' => array(self::HAS_MANY, 'Servicecall', 'job_status_id'),
+			'notificationRulesRelation' => array(self::HAS_MANY, 'NotificationRules', 'job_status_id'),
 		);
 	}
 
@@ -186,17 +187,29 @@ class JobStatus extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
-        	   	$this->updated=time();
-        	   	$this->updated_by_user_id=Yii::app()->user->id;
-                return true;
+        	$this->updated=time();
+        	$this->updated_by_user_id=Yii::app()->user->id;
+            return true;
             
         }//end of if(parent())
     }//end of beforeSave().
     
     public function getAllStatuses()
     {
-    	return CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');
+    	$job_list = array();
+    	echo "<hr>";
     	
+    	$testArr = JobStatus::model()->findAll(array('condition'=> "not exists (select 'job_status_id' from notification_rules where job_status_id =  t.id)"));
+    	
+    	foreach ($testArr as $test)
+    	{
+//     		echo "<br>test id = ".$test->id;
+//     		echo "<br>test name = ".$test->name;
+    		array_push($job_list, $test->name);
+    	}//end of foreach().
+    		
+    	 return $job_list;
+    	  
     }//end of getAllStatuses.
 	
 }//end of class.

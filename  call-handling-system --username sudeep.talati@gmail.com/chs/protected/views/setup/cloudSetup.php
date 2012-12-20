@@ -25,7 +25,7 @@ $n = count($rows);
 foreach($rows as $data)
 {
 	//echo $data['id'];
-	echo "<br>";
+	//echo "<br>";
 	//echo $data['spares_lookup_cloud_url']."<br>";
 	$cloud_url = $data['spares_lookup_cloud_url'];
 }//end of foreach().
@@ -46,8 +46,5 @@ foreach($rows as $data)
 
 <input name="cloud_url_update"  type="submit" style="width:100px" value="Save Changes">
 
-
 </form>
-
-
 

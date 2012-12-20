@@ -28,6 +28,7 @@ class NotificationRules extends CActiveRecord
 	public $engineer_notification;
 	public $warranty_provider_notification;
 	public $created;
+	public $custom_column;
 			
 	/**
 	 * Returns the static model of the specified AR class.
@@ -235,21 +236,21 @@ class NotificationRules extends CActiveRecord
 		}//end of switch
 	}//getEmailCheckBoxStatus($notification_code)
 	
-	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode)
+	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode, $body, $subject)
 	{
 		
 		switch ($notificaionCode)
 		{
 			case 1:
 				//echo "<br>in case 1";
-				NotificationRules::sendEmail($receiver_email_address);
+				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				break;
 			case 2:
 				echo "<br>Send SMS";
 				break;
 			case 3:
 				echo "<br>Send SMS also";
-				NotificationRules::sendEmail($receiver_email_address);
+				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				break;
 				
 			
@@ -259,9 +260,10 @@ class NotificationRules extends CActiveRecord
 	}//end of sendCustomerEmailAndSms().
 	
 	
-	public function sendEmail($reciever_email_address)
+	public function sendEmail($reciever_email_address, $body, $subject)
 	{
 		$root = dirname(dirname(__FILE__));
+		$email_body = $body;
 		//echo $root."<br>";
 		$filename = $root.'/config/mail_server.json';
 			
@@ -290,8 +292,8 @@ class NotificationRules extends CActiveRecord
 			$message = new YiiMailMessage();
 			$message->setTo(array($reciever_email));
 			$message->setFrom(array($sender_email));
-			$message->setSubject('Test');
-			$message->setBody("This is a test mail from call handling");
+			$message->setSubject($subject);
+			$message->setBody($email_body);
 		
 			if(Yii::app()->mail->send($message))
 			{
@@ -301,6 +303,17 @@ class NotificationRules extends CActiveRecord
 		}//end of else.
 		
 	}//end of sendEmail().
+	
+	public function displayMessageInGrid($data,$row)
+	{
+		//echo "hello, value of row = ".$data->jobStatus->published;
+		
+		if($data->jobStatus->published != 1)
+		{
+			echo "This status is not published";
+		}
+			
+	}//end of displayMessageInGrid().
 	
 	
 	

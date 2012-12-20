@@ -27,7 +27,7 @@
 <!-- ************* CODE OF BUTTON TO DISPLAY ALL APPOINTMENTS ************* -->
 <form method ="Post">
 <!--<input type = "checkbox" name = "appointments" value = "all" onclick="javascript:showAll();">Show all Appointments-->
-<span style="float:right"><input type = "Submit" name = "show_all" value = "Show all Appointments"><br><small>(It may take sometime to load depending on number of appointments)</small></span>
+<span style="float:right"><input type = "Submit" name = "show_all" value = "Show all Appointments"><br><small>(Please be patient, it may take sometime to load depending on number of appointments)</small></span>
 
 </form>
 

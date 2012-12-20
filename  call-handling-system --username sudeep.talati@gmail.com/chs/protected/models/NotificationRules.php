@@ -57,6 +57,7 @@ class NotificationRules extends CActiveRecord
 			array('job_status_id', 'required'),
 			array('job_status_id, customer_notification_code, engineer_notification_code, warranty_provider_notification_code', 'numerical', 'integerOnly'=>true),
 			array('active, notify_others, created, modified, delete', 'safe'),
+			array('job_status_id','unique','message'=>'{attribute}:{value} already exists!'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, job_status_id, active, customer_notification_code, engineer_notification_code, warranty_provider_notification_code, notify_others, created, modified, delete', 'safe', 'on'=>'search'),

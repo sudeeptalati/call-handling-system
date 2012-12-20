@@ -202,6 +202,29 @@ class NotificationRulesController extends Controller
 					return ;
 				}//end of redirect to view.
 			}//end of outer if(save()).
+			
+			else 
+			{
+				
+				/**** DIALOGUE BOX TO DISPLAY ERROR CODE ***/
+				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+						'id'=>'formdialog',
+						// additional javascript options for the dialog plugin
+						'options'=>array(
+								'title'=>'Error',
+								'autoOpen'=>true,
+								'modal'=>'true',
+								'show' => 'blind',
+								'hide' => 'explode',
+						),
+				));
+				
+				echo "Problem in saving, there may already be a rule for this status";
+										
+				$this->endWidget('zii.widgets.jui.CJuiDialog'); 
+				
+				/**** END OF DIALOGUE BOX TO DISPLAY ERROR CODE ***/
+			}//END OF ELSE OF SAVE().
 				
 		}//end of if(issset()).
 

@@ -33,7 +33,7 @@ if ($showDialogue==1)
 						
 	<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
 
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 
 	function addContact()
 	{
@@ -103,9 +103,10 @@ $(function() {//code inside this function will run when the document is ready
     }
 
 });
-/**** CODE TO DISPLAY EMAIL AND SMS ON CHECK OF CHECKBOX, FOR ALL CHECKBOXES ******/
+/**** END OF CODE TO DISPLAY EMAIL AND SMS ON CHECK OF CHECKBOX, FOR ALL CHECKBOXES ******/
+ 
 </script>
-
+	
 <?php 
 if($model->notify_others == 1)
 {
@@ -119,13 +120,8 @@ $(function()
 <?php }//end of of($model->notify_others == 1).?>
 
 
-<?php 
-$jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
 
-
-
-
-?>
+<?php $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown ?>
 
 
 <table style="width:75%;">

@@ -34,7 +34,7 @@ vertical-align:top;
 	    		    else {
 	    		      $('#freesearch-Form').hide();
 	    		    }
-	    		  })
+	    		  });
 	    		});
 	    </script>
 	
@@ -707,12 +707,7 @@ $cloud_id = $_GET['cloud_id'];
 			<?php echo CHtml::submitButton('Modify'); ?>
 		</div>
 		
-		<?php 
-		$testUrl=Yii::app()->request->baseUrl.'/setup/testConnection/';
-		?>
-		<a href="<?php echo $testUrl;?>" onclick = "return confirm('Are you sure you wanna send email?')">
-		<?php echo CHtml::button('Test Connection');?>
-		</a>
+		
 	
 	<?php $this->endWidget(); ?>
 	

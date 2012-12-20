@@ -765,86 +765,90 @@ class ServicecallController extends Controller
 		
 		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id));
 		
-		foreach($notificationModel as $data)
+		if(count($notificationModel)!=0)
 		{
-			$customerNotificationCode =$data->customer_notification_code;
-			$engineerNotificationCode =$data->engineer_notification_code;
-			$warrantyProviderNotificationCode =$data->warranty_provider_notification_code;
-			$othersNotificationCode =$data->notify_others;
-			
-			echo "<br>Customer notification code inside forloop = ".$customerNotificationCode;
-			echo "<br>Engineer notification code inside forloop = ".$engineerNotificationCode;
-			echo "<br>Warranty Provider notification code inside forloop = ".$warrantyProviderNotificationCode;
-			echo "<br>Others notification code inside forloop = ".$othersNotificationCode;
-			
-			if($customerNotificationCode != 0)
+		
+			foreach($notificationModel as $data)
 			{
-				$customerModel = Customer::model()->findByPk($cust_id);
-				echo "<hr>Customer Notification code = ".$customerNotificationCode;
-				echo "<br>Customer id = ".$cust_id;
-				echo "<br>customer email = ".$customerModel->email;
-				$receiver_email_address = $customerModel->email;
-				echo "<br>customer telephone = ".$customerModel->mobile;
-				$telephone = $customerModel->mobile;
-					
-				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode);
-					
-			}//end of if of CUSTOMER.
-			
-			if($engineerNotificationCode != 0)
-			{
-				$engineerModel = Engineer::model()->findByPk($engineer_id);
-				echo "<hr>Engineer Notification code = ".$engineerNotificationCode;
-				echo "<br>engg_id  = ".$engineer_id;
-				echo "<br>Engineer email = ".$engineerModel->contactDetails->email;
-				$receiver_email_address = $engineerModel->contactDetails->email;
-				echo "<br>Engineer telephone = ".$engineerModel->contactDetails->mobile;
-				$telephone = $engineerModel->contactDetails->mobile;
-			
-					
-				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode);
-					
-			}//end of if of ENGINEER.
+				$customerNotificationCode =$data->customer_notification_code;
+				$engineerNotificationCode =$data->engineer_notification_code;
+				$warrantyProviderNotificationCode =$data->warranty_provider_notification_code;
+				$othersNotificationCode =$data->notify_others;
 				
-			if($warrantyProviderNotificationCode != 0)
-			{
-				$contractModel = Contract::model()->findByPk($contract_id);
-				echo "<hr>Warranty Provider Notification code = ".$warrantyProviderNotificationCode;
-				echo "<br>contract id = ".$contract_id;
-				echo "<br>Warranty Provider email = ".$contractModel->mainContactDetails->email;
-				$receiver_email_address = $contractModel->mainContactDetails->email;
-				echo "<br>Warranty Provider telephone = ".$contractModel->mainContactDetails->mobile;
-				$telephone = $contractModel->mainContactDetails->mobile;
-					
-				NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode);
-					
-			}//end of if of WARRANTY PROVIDER.
+				echo "<br>Customer notification code inside forloop = ".$customerNotificationCode;
+				echo "<br>Engineer notification code inside forloop = ".$engineerNotificationCode;
+				echo "<br>Warranty Provider notification code inside forloop = ".$warrantyProviderNotificationCode;
+				echo "<br>Others notification code inside forloop = ".$othersNotificationCode;
 				
-			if($othersNotificationCode != 0)
-			{
-				echo "<hr>Others Notification code = ".$othersNotificationCode;
-				echo "<br>Notification rule id = ".$data->id;
-			
-				$notificationContactModel = NotificationContact::model()->findAllByAttributes(
-						array(
-								'notification_rule_id'=>$data->id
-						));
-				foreach ($notificationContactModel as $contact)
+				if($customerNotificationCode != 0)
 				{
-					echo "<br>Others email addresss = ".$contact->email;
-					$receiver_email_address = $contact->email;
-					echo "<br>Others telephone = ".$contact->mobile;
-					$telephone = $contact->mobile;
+					$customerModel = Customer::model()->findByPk($cust_id);
+					echo "<hr>Customer Notification code = ".$customerNotificationCode;
+					echo "<br>Customer id = ".$cust_id;
+					echo "<br>customer email = ".$customerModel->email;
+					$receiver_email_address = $customerModel->email;
+					echo "<br>customer telephone = ".$customerModel->mobile;
+					$telephone = $customerModel->mobile;
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode);
-				}//end of inner foreach($contact).
-			
-			}//end of if of OTHERS.
-			
-		}//end of foreach($notificationModel).
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode);
+						
+				}//end of if of CUSTOMER.
+				
+				if($engineerNotificationCode != 0)
+				{
+					$engineerModel = Engineer::model()->findByPk($engineer_id);
+					echo "<hr>Engineer Notification code = ".$engineerNotificationCode;
+					echo "<br>engg_id  = ".$engineer_id;
+					echo "<br>Engineer email = ".$engineerModel->contactDetails->email;
+					$receiver_email_address = $engineerModel->contactDetails->email;
+					echo "<br>Engineer telephone = ".$engineerModel->contactDetails->mobile;
+					$telephone = $engineerModel->contactDetails->mobile;
+				
+						
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode);
+						
+				}//end of if of ENGINEER.
+					
+				if($warrantyProviderNotificationCode != 0)
+				{
+					$contractModel = Contract::model()->findByPk($contract_id);
+					echo "<hr>Warranty Provider Notification code = ".$warrantyProviderNotificationCode;
+					echo "<br>contract id = ".$contract_id;
+					echo "<br>Warranty Provider email = ".$contractModel->mainContactDetails->email;
+					$receiver_email_address = $contractModel->mainContactDetails->email;
+					echo "<br>Warranty Provider telephone = ".$contractModel->mainContactDetails->mobile;
+					$telephone = $contractModel->mainContactDetails->mobile;
+						
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode);
+						
+				}//end of if of WARRANTY PROVIDER.
+					
+				if($othersNotificationCode != 0)
+				{
+					echo "<hr>Others Notification code = ".$othersNotificationCode;
+					echo "<br>Notification rule id = ".$data->id;
+				
+					$notificationContactModel = NotificationContact::model()->findAllByAttributes(
+							array(
+									'notification_rule_id'=>$data->id
+							));
+					foreach ($notificationContactModel as $contact)
+					{
+						echo "<br>Others email addresss = ".$contact->email;
+						$receiver_email_address = $contact->email;
+						echo "<br>Others telephone = ".$contact->mobile;
+						$telephone = $contact->mobile;
+							
+						NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode);
+					}//end of inner foreach($contact).
+				
+				}//end of if of OTHERS.
+				
+			}//end of foreach($notificationModel).
+		}//end of count().
 		
 		
-		echo "<hr>";
+		//echo "<hr>";
 		
 	}//end of performNotification().
 	

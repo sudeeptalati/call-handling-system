@@ -4,67 +4,48 @@ $service_id = $_GET['service_id'];
 
 $servicecallModel = Servicecall::model()->findByPk($service_id);
 
-//echo "<br>Service call id in change engg = ".$service_id;
-//echo "<br>Diary id of servicecall = ".$servicecallModel->engg_diary_id;
-//echo "<br>Engineer name = ".$servicecallModel->enggdiary->engineer->fullname;
-//echo "<br>Status of the service call = ".$servicecallModel->enggdiary->status;
+// echo "<br>Service call id in change engg = ".$service_id;
+// echo "<br>Diary id of servicecall = ".$servicecallModel->engg_diary_id;
+// echo "<br>Engineer name = ".$servicecallModel->enggdiary->engineer->fullname;
+// echo "<br>Status of the service call = ".$servicecallModel->enggdiary->status;
 
 
 ?>
 
- <center>
+<center>
  	<b>
  		Changing Engineer for service call no :<?php echo $servicecallModel->service_reference_number;?>
  		<br>Current Engineer : <?php echo $servicecallModel->engineer->company;?>
  	</b>
  </center>
  
+ <br>
 
-<?php 
-echo "<hr>LIST OF ALL ENGINEERS<br>";
+<?php
 
-$engineerModel = Engineer::model()->findAll(array('order'=>"`company` ASC"));
-?>
-<table>
-  <tr>
-    <th>Engineer Name</th>
-    <th></th>
-    <th></th>
-  </tr>
-  
- <?php 
+$baseUrl=Yii::app()->request->baseUrl;
+$changeEnggUrl=$baseUrl.'/Servicecall/selectEngineer/?diary_id='.$servicecallModel->engg_diary_id.'&service_id='.$service_id;
 
-foreach ($engineerModel as $engineer)
-{
+$updateServicecallChangeEngineerForm=$this->beginWidget('CActiveForm', array(
+		'id'=>'updateService-changeEngineer-form',
+		'enableAjaxValidation'=>false,
+		'action'=>$changeEnggUrl,
+		'method'=>'get'
 
-?>
+));
 
-	<tr>
-    <!--<td><?php //echo $engineer->fullname;?></td>
-    <td><?php //echo CHtml::link('View Diary', array('servicecall/engineerDiary', 'engg_id'=>$engineer->id));?></td>-->
-    <td><?php echo CHtml::link($engineer->company, 
-    								array('servicecall/selectEngineer', 'engg_id'=>$engineer->id, 'diary_id'=>$servicecallModel->engg_diary_id, 'service_id'=>$service_id)
-    							);?></td>
-  </tr>
-
-
-<?php }//end of foreack of engineers.?>
-
-</table>
-
-
-<hr>
-
-here
-
-<?php 
+$model = Servicecall::model();
+//$engg_id = 0;
 $data=CHtml::listData(Engineer::model()->findAll(), 'id', 'company');
 
-echo CHtml::DropDownList($model, 'engineer_id', $data);
+echo $updateServicecallChangeEngineerForm->dropDownList($model, 'engineer_id', $data,
+		array('empty'=>'All Engineers')
+	);
+
+echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
+
+$this->endWidget();
+
 ?>
 
-<hr>
-
-
-
-
+ 

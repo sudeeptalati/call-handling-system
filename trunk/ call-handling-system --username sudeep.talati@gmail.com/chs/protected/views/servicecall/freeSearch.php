@@ -173,34 +173,23 @@ vertical-align:top;
 	'dataProvider'=>Servicecall::model()->latestTenResults(),
 	'filter'=>Servicecall::model(),
 	'columns'=>array(
-		//'id',
-		//'service_reference_number',
 		array(	'name'=>'service_reference_number',
 				'value'=>'$data->service_reference_number',
 			    'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
 		 		'type'=>'raw',
 				'header' => 'Ref No#'
-				
 		),
-	
+ 		array('name'=>'customer_name','value'=>'$data->customer->fullname','header' => 'Customer',),
+ 		//array('name'=>'customer_town','value'=>'$data->customer->town'),
+ 		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
+ 		array('header' => 'Product',
+             	'name'=>'product_name',
+ 				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
+ 				),
+ 		array( 'header' => 'Engineer',      	
+ 			'name'=>'engineer_name','value'=>'$data->engineer->company'),
 		
-		array('name'=>'customer_name','value'=>'$data->customer->fullname','header' => 'Customer',),
-		//array('name'=>'customer_town','value'=>'$data->customer->town'),
-		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
-		array('header' => 'Product',
-            	'name'=>'product_name',
-				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
-				),
-		array( 'header' => 'Engineer',      	
-			'name'=>'engineer_name','value'=>'$data->engineer->company'),
-		
-	/*	array(
-			'name'=>'job_status_id',
-			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
-			'filter'=>JobStatus::items('JobStatus'),
-		),
-	*/
- 
+
 	),
 )); ?>
 		</td>
@@ -221,22 +210,11 @@ vertical-align:top;
 			
 			
 //EVENT LISTENER FOR MANAGEMENT FIELD.
-
- 
-
-
- 
 ?>
-
- 
-
 
 <?php 
 
-
-
-
-				$allStatus = JobStatus::model()->findAll( array(
+$allStatus = JobStatus::model()->findAll( array(
 												'condition'=>'dashboard_display=1',
 												'order'=>'dashboard_prority_order ASC',
 												 //'limit' => 3

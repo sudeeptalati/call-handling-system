@@ -562,8 +562,7 @@ class ServicecallController extends Controller
 	
 	public function actionChangeEngineerOnly()
 	{
-		$this->render('changeEngineerOnly');
-		
+ 		$this->render('changeEngineerOnly');
 	}//end of ChangeEngineerOnly.
 	
 	public function actionEngineerDiary()
@@ -577,13 +576,30 @@ class ServicecallController extends Controller
 	public function actionSelectEngineer()
 	{
 		echo "in action selectEngineer, change status and create new appt here";
-		
-		$engg_id = $_GET['engg_id'];
-		echo "<br>Engineer id in contr = ".$engg_id;
+		$model=new Servicecall('search');
 		$diary_id = $_GET['diary_id'];
 		echo "<br>Diary id in contr = ".$diary_id;
 		$service_id = $_GET['service_id'];
 		echo "<br>Service id in contr = ".$service_id;
+		
+		if(isset($_GET['Servicecall']))
+		{
+			echo "<br>in if loop";
+			$model->attributes=$_GET['Servicecall'];
+			//echo "Value in  is = ".$model->engineer_id;
+			$engg_id = $model->engineer_id;
+			echo "<br>id got from view = ".$engg_id;
+			$serviceModel = Servicecall::model()->findByPk($service_id);
+				
+			$updateServiceModel = Servicecall::model()->updateByPk($serviceModel->id,
+					array(
+							'engineer_id'=>$engg_id
+					));
+		}
+		
+// 		$engg_id = $_GET['engg_id'];
+// 		echo "<br>Engineer id in contr = ".$engg_id;
+		
 		
 		if ($diary_id!=0){
 		/******** CHANGING THE STATUS OF PREVIOUS APPOINTMENT ***********/

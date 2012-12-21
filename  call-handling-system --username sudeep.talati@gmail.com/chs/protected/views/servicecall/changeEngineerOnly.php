@@ -36,7 +36,7 @@ $updateServicecallChangeEngineerForm=$this->beginWidget('CActiveForm', array(
 
 $model = Servicecall::model();
 //$engg_id = 0;
-$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'company');
+$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
 
 echo $updateServicecallChangeEngineerForm->dropDownList($model, 'engineer_id', $data,
 		array('empty'=>'All Engineers')

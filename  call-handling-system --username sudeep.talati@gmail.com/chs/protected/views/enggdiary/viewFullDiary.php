@@ -3,26 +3,17 @@ if (isset($_GET['engg_id']))
 {
 $engg_id=$_GET['engg_id'];
 $enggModel = Engineer::model()->findByPk($engg_id);
-
 ?>
+
 <div style="text-align:left;">
-<?php
-echo $enggModel->company;
-?>
-
+<?php echo $enggModel->company; ?>
 </div>
 
 <?php
-}
-
-//echo $enggModel->company;
+}//end of if(isset()).
 ?>
 
-
 <div class="form">
-
-
-
 
 <?php 
 

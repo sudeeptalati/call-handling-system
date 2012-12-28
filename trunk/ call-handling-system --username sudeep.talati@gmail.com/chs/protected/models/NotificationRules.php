@@ -288,12 +288,14 @@ class NotificationRules extends CActiveRecord
 			//echo "<br>Inernet Connection present";
 // 			echo "<br>Sender email = ".$sender_email;
 // 			echo "<br>Receiver email = ".$reciever_email;
-			
+
+ 			//header('Content-Type: text/html; charset=utf-8');
+						
 			$message = new YiiMailMessage();
 			$message->setTo(array($reciever_email));
 			$message->setFrom(array($sender_email));
 			$message->setSubject($subject);
-			$message->setBody($email_body);
+			$message->setBody($email_body, 'text/html');
 		
 			if(Yii::app()->mail->send($message))
 			{

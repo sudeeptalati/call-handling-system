@@ -802,7 +802,7 @@ class ServicecallController extends Controller
 			//echo "<br>Subject = ".$subject;
 			
 			$body = "<br>".'The status of servicecall with reference number '.$reference_number.' is changed to <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name;
-			 
+			
 			foreach($notificationModel as $data)
 			{
 				$customerNotificationCode =$data->customer_notification_code;

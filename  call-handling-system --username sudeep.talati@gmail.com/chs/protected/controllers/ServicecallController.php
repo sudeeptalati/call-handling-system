@@ -796,15 +796,13 @@ class ServicecallController extends Controller
 			
 			$jobStatusModel = JobStatus::model()->findByPk($status_id);
 			//echo "<br>Status id from job model = ".$jobStatusModel->name;
-			$status = $jobStatusModel->name;
+			$status = $jobStatusModel->name; 
 			
 			$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 			//echo "<br>Subject = ".$subject;
 			
-			$body = "\n".'The status of servicecall with reference number '.$reference_number.' is changed to '.$status."\n".'Customer Name : '.$customer_name."\n".'Engineer Name : '.$engineer_name;
-			//echo "<br>Body = ".$body;
-			
-			
+			$body = "<br>".'The status of servicecall with reference number '.$reference_number.' is changed to <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name;
+			 
 			foreach($notificationModel as $data)
 			{
 				$customerNotificationCode =$data->customer_notification_code;
@@ -827,7 +825,7 @@ class ServicecallController extends Controller
 					//echo "<br>customer telephone = ".$customerModel->mobile;
 					$telephone = $customerModel->mobile;
 					$name = $customerModel->fullname;
-					$customer_body = 'Dear '.$name.','."\n".$body;
+					$customer_body = 'Dear '.$name.','."<br>".$body;
 						
 					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject);
 						
@@ -891,12 +889,7 @@ class ServicecallController extends Controller
 				
 			}//end of foreach($notificationModel).
 			
-			
-			
 		}//end of count().
-		
-		
-		//echo "<hr>";
 		
 	}//end of performNotification().
 	

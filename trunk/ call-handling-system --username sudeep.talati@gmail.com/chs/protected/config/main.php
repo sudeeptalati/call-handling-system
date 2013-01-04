@@ -20,14 +20,19 @@ $job_status_before;
 		//echo "File is present<br>";
 		$data = file_get_contents($filename);
 		$decodedata = json_decode($data, true);
-		//echo $decodedata['smtp_host'];
-	
-		$smtp_host = $decodedata['smtp_host'];	
+		//echo "decoded data = ".var_dump($decodedata);
+		
+		$smtp_host = $decodedata['smtp_host'];
+		//echo "<br>host value = ".$smtp_host;
 		$smtp_username = $decodedata['smtp_username'];
+		//echo "<br>user name = ".$smtp_username;
 		$smtp_password = $decodedata['smtp_password'];
+		//echo "<br>passowrd = ".$smtp_password;
 		$smtp_encryption = $decodedata['smtp_encryption'];
+		//echo "<br>encryption = ".$smtp_encryption;
 		$smtp_port = $decodedata['smtp_port'];
-			
+		//echo "<br>post = ".$smtp_port;
+		
 	}//end of if file present.
 	else 
 	{
@@ -75,6 +80,18 @@ return array(
 
 	// application components
 	'components'=>array(
+				
+				'cache' => array( 'class' => 'system.caching.CFileCache', ),
+	
+				'sms' => array(
+						'class'=>'ext.ClickatellSms.ClickatellSms',
+						'clickatell_username'=>'kruthika',
+						'clickatell_password'=>'ukwgoods10',
+						'clickatell_apikey'=>'3406681',
+						'debug' => true,
+						'https' => false,
+						
+				),
 
 				'ePdf' => array(
 					'class'         => 'ext.yii-pdf.EYiiPdf',

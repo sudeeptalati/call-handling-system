@@ -31,7 +31,7 @@ class CustomerController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'viewProduct' , 'OpenDialog' ,'freeSearch','admin','allProducts', 'SearchEngine','UpdateCustomer', 'ListOfCustomers'),
+				'actions'=>array('create','update', 'viewProduct' , 'OpenDialog' ,'freeSearch','admin','allProducts', 'SearchEngine','UpdateCustomer', 'ListOfCustomers','testSMS'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -416,5 +416,13 @@ class CustomerController extends Controller
 	    	
 	    }
 	}//end of openDialog().
+	
+	public function actionTestSMS()
+	{
+		echo "In sms action<hr>";
+		
+		//Yii::app()->sms->send(array('to'=>'447550508559', 'message'=>'Happy New Year 2013!!!'));
+		
+	}//end of testSMS
     
 }//end of class.

@@ -58,17 +58,17 @@ alert(val);
 	
 	<b>Host</b><br><input type="text" name="smtp_host" value=<?php echo $smtp_host;?>><br>
 	
-	<b>User Name</b><br><input type="text" name="username" value=<?php echo $smtp_username;?>><br>
+	<b>User Name</b><br><input type="text" name="username" required="required" value=<?php echo $smtp_username;?>><br>
 	
 	<b>Password</b><br><input type="text" name="password" value=<?php echo $smtp_password;?>><br>
 	
 	<b>Encryption Type</b><br>
-	<SELECT name="server_encryption" id="server_encryption" onchange="getSelectedValue();">
-		<OPTION value="none" SELECTED>none</option>
+	<select name="server_encryption" id="server_encryption" onchange="getSelectedValue();">
+		<option value="none" selected>none</option>
 <!--		<OPTION value="smtp">smtp</option>-->
-		<OPTION value="ssl">ssl</option>
-		<OPTION value="tls">tls</option>
-	</SELECT>
+		<option value="ssl">ssl</option>
+		<option value="tls">tls</option>
+	</select>
 	<input type="hidden" name="encryption" id="encryption"><br>
 	
 	<b>Port</b><br><input type="text" name="port" value=<?php echo $smtp_port;?>><br><br>

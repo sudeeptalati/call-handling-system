@@ -56,11 +56,11 @@ alert(val);
 
 <form action="<?php echo Yii::app()->createUrl('setup/mailSettings')?>" method="post">
 	
-	<b>Host</b><br><input type="text" name="smtp_host" value=<?php echo $smtp_host;?>><br>
+	<b>Host</b><br><input type="text" name="smtp_host" value=<?php echo $smtp_host;?>><br><br>
 	
-	<b>User Name</b><br><input type="text" name="username" required="required" value=<?php echo $smtp_username;?>><br>
+	<b>User Name</b><br><input type="text" name="username" required="required" value=<?php echo $smtp_username;?>><br><br>
 	
-	<b>Password</b><br><input type="text" name="password" value=<?php echo $smtp_password;?>><br>
+	<b>Password</b><br><input type="text" name="password" value=<?php echo $smtp_password;?>><br><br>
 	
 	<b>Encryption Type</b><br>
 	<select name="server_encryption" id="server_encryption" onchange="getSelectedValue();">
@@ -69,7 +69,7 @@ alert(val);
 		<option value="ssl">ssl</option>
 		<option value="tls">tls</option>
 	</select>
-	<input type="hidden" name="encryption" id="encryption"><br>
+	<input type="hidden" name="encryption" id="encryption"><br><br>
 	
 	<b>Port</b><br><input type="text" name="port" value=<?php echo $smtp_port;?>><br><br>
 	

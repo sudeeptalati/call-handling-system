@@ -43,13 +43,13 @@ if(file_exists($filename))
 
 <form action="<?php echo Yii::app()->createUrl('setup/smsSettingsView')?>" method="post">
 	
-	<b>User Name</b>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="gateway_username" value=<?php echo $gateway_username;?>><br><br>
+	<b>User Name</b><br><input type="text" name="gateway_username" value=<?php echo $gateway_username;?>><br><br>
 	
-	<b>Password</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="gateway_password" required="required" value=<?php echo $gateway_password;?>><br><br>
+	<b>Password</b><br><input type="text" name="gateway_password" required="required" value=<?php echo $gateway_password;?>><br><br>
 	
-	<b>Api Key</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="gateway_apikey" value=<?php echo $gateway_apikey;?>><br><br>
+	<b>Api Key</b><br><input type="text" name="gateway_apikey" value=<?php echo $gateway_apikey;?>><br><br>
 	
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="smsgateway_setting_values"  type="submit" style="width:100px">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="smsgateway_setting_values"  type="submit" style="width:100px">
 	
 </form>	
 	

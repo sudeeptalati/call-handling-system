@@ -289,9 +289,7 @@ class NotificationRules extends CActiveRecord
 // 			echo "<br>Sender email = ".$sender_email;
 // 			echo "<br>Receiver email = ".$reciever_email;
 
- 			//header('Content-Type: text/html; charset=utf-8');
-						
-			$message = new YiiMailMessage();
+ 			$message = new YiiMailMessage();
 			$message->setTo(array($reciever_email));
 			$message->setFrom(array($sender_email));
 			$message->setSubject($subject);
@@ -305,6 +303,11 @@ class NotificationRules extends CActiveRecord
 		}//end of else.
 		
 	}//end of sendEmail().
+	
+	public function sendSMS()
+	{
+		
+	}//end of sendSMS().
 	
 	public function displayMessageInGrid($data,$row)
 	{

@@ -6,14 +6,12 @@
 )); ?>
 
 	<script type="text/javascript">
-
-		function color_change(id)
-		{
-			document.getElementById('aaa')='#E01B6A';
-		}
-	
+	function color_change(color_name)
+	{
+		alert('Color name selected = '+color_name);
+	}
 	</script>
-
+	
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 	
 	<?php echo $form->errorSummary($model); ?>
@@ -68,6 +66,22 @@
 		<?php echo $form->error($model,'html_name'); ?>
 		For example :#F0B28C
 		<br>
+		
+		 <?php echo CHtml::textField('extraNight', array(
+				'onKeyUp' => CHtml::ajax(array(
+				'type'=>'POST',
+				'dataType'=>'json',
+				'data'=>array('extraNight'=>'js:extraNight.value',
+				'success'=>'function(data){
+				$(“#totalPrice”).html(data.totalPrice);
+				$(“#totalPricex”).html(data.totalPricex);
+				$(“#hTotal”).val(data.totalPrice);
+				
+				}'))
+			)));
+?>
+		<br>
+		
 		 <?php echo CHtml::link('Click here to choose the color', 'http://www.december.com/html/spec/colorshades.html', array('target'=>'_blank'));?>
 		
 		<table style="width:50%">
@@ -76,7 +90,9 @@
 				Current Layout<br>
 				&nbsp;	&nbsp;	&nbsp;	&nbsp;<b><?php echo $model->name ;?></b>
 		
-		</td></tr></table>
+				</td>
+			</tr>
+		</table>
 
 
 	</div>

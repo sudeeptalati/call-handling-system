@@ -374,12 +374,8 @@ class SetupController extends Controller
 		$model=new Setup();
 		 
 		//echo "step value in controller ".$curr_step;
-		 
-		
-		
 		$step=$curr_step;
 		 
-			
 		if($step!=0)
 		{
 			$step_info = $model->updateVersion($step);
@@ -388,10 +384,6 @@ class SetupController extends Controller
 		{
 			 session_unset(); 
 		}
-		 
-		
-		
-		
 		$this->renderPartial('showUpdateProgress',array('step_info'=>$step_info));
 	}//end of showUpdateProgress().
 	

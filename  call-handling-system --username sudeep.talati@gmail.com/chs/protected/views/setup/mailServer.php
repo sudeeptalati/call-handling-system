@@ -21,15 +21,17 @@ include 'setup_sidemenu.php';
 		$data = file_get_contents($filename);
 		$decodedata = json_decode($data, true);
 		//echo "host = ".$decodedata['smtp_host']."<br>";
+		
 		$smtp_host = $decodedata['smtp_host'];
-		//echo "Username = ".$decodedata['smtp_username']."<br>";
+		//echo "<br>host value = ".$smtp_host;
 		$smtp_username = $decodedata['smtp_username'];
-		//echo "Password = ".$decodedata['smtp_password']."<br>";
+		//echo "<br>user name = ".$smtp_username;
 		$smtp_password = $decodedata['smtp_password'];
-		//echo "Encryption = ".$decodedata['smtp_encryption']."<br>";
+		//echo "<br>passowrd = ".$smtp_password;
 		$smtp_encryption = $decodedata['smtp_encryption'];
-		//echo "Port = ".$decodedata['smtp_port']."<br>";
+		//echo "<br>encryption = ".$smtp_encryption;
 		$smtp_port = $decodedata['smtp_port'];
+		//echo "<br>post = ".$smtp_port;
 	}//end of if file exists.
 	else 
 	{
@@ -54,7 +56,7 @@ alert(val);
 
 <form action="<?php echo Yii::app()->createUrl('setup/mailSettings')?>" method="post">
 	
-	<b>Host</b><br><input type="text" name="host" value=<?php echo $smtp_host;?>><br>
+	<b>Host</b><br><input type="text" name="smtp_host" value=<?php echo $smtp_host;?>><br>
 	
 	<b>User Name</b><br><input type="text" name="username" value=<?php echo $smtp_username;?>><br>
 	

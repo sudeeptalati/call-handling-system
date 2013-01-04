@@ -72,6 +72,14 @@ $('.search-form form').submit(function(){
 	),
 )); ?>
 
+<?php 
 
+echo "here<br>";
+$base = Yii::app()->baseUrl;
+
+echo Chtml::button('Check SMS', array('submit'=>$base.'/Customer/testSMS'));
+
+
+?>
 
 

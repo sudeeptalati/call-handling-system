@@ -1,10 +1,9 @@
 <?php
 
-$job_status_before;
-
 /******** DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
 
 	//echo "HELLO WELCOME TO MAIN<br>";
+	
 	//$filename = "mail_server.json";
 	//echo dirname(__FILE__)."<br>";
 	$smtp_host = '';
@@ -12,6 +11,9 @@ $job_status_before;
 	$smtp_password = '';
 	$smtp_encryption = '';
 	$smtp_port = '';
+	$gateway_username = '';
+	$gateway_password = '';
+	$gateway_apikey = '';
 	
 	$url = dirname(__FILE__);
 	$filename = $url."/mail_server.json";
@@ -36,10 +38,40 @@ $job_status_before;
 	}//end of if file present.
 	else 
 	{
-		echo "File not found";	
+		echo "MAIL settings File not found";	
 	}//end of else().
 
 	/******** END OF DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
+	
+	
+	/*********** DECODING SMS SETTING DETAILS FROM JSON FILE ***************/
+	
+	$url = dirname(__FILE__);
+	$smsjsonfilename = $url.'/smsgateway_settings.json';
+	
+	if(file_exists($smsjsonfilename))
+	{
+		//echo "File exists";
+		$smsdata = file_get_contents($smsjsonfilename);
+		$smsDecodedData = json_decode($smsdata, true);
+		//echo "<br>";
+		//print_r($smsDecodedData);
+	
+		$gateway_username = $smsDecodedData['gateway_username'];
+		//echo "<br>user name = ".$gateway_username;
+		$gateway_password = $smsDecodedData['gateway_password'];
+		//echo "<br>password = ".$gateway_password;
+		$gateway_apikey = $smsDecodedData['gateway_apikey'];
+		//echo "<br>Api key = ".$gateway_apikey;
+	
+	}
+	else
+	{
+		echo "<br>SMS settings file not present";	
+	}
+	
+	/******** END OF DECODING SMS SETTING DETAILS FROM JSON FILE *************/
+	
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -85,9 +117,12 @@ return array(
 	
 				'sms' => array(
 						'class'=>'ext.ClickatellSms.ClickatellSms',
-						'clickatell_username'=>'kruthika',
-						'clickatell_password'=>'ukwgoods10',
-						'clickatell_apikey'=>'3406681',
+						//'clickatell_username'=>'kruthika',
+						'clickatell_username'=>$gateway_username,
+						//'clickatell_password'=>'ukwgoods10',
+						'clickatell_password'=>$gateway_password,
+						//'clickatell_apikey'=>'3406681',
+						'clickatell_apikey'=>$gateway_apikey,
 						'debug' => true,
 						'https' => false,
 						

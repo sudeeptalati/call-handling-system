@@ -31,7 +31,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -401,6 +401,16 @@ class SetupController extends Controller
 		$this->render('cloudUrlUpdated');
 		
 	}//end of actionCloudUrlUpdated().
+	
+	public function actionSmsSettingsForm()
+	{
+		$this->render('smsSettingsForm');
+	}//end of actionSmsSettingsForm().
+	
+	public function actionSmsSettingsView()
+	{
+		$this->render('smsSettingsView');
+	}
 	
 	
 	

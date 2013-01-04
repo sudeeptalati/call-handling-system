@@ -1,9 +1,7 @@
 <div class="form">
 
 <?php 
-$this->menu=array(
-	array('label'=>'Manage Setup', 'url'=>array('setup/1')),
-	);
+include 'setup_sidemenu.php';
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -11,7 +9,8 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<h2>Mail Settings</h2>
+	
 
 <?php 
 	
@@ -28,6 +27,7 @@ $this->menu=array(
 		$smtp_port = $_POST['port'];
 		//echo $smtp_port."<br>";
 	
+	}//end of if isset().
 	
 ?>
 
@@ -35,8 +35,6 @@ $this->menu=array(
 
 <?php 
 
-	$gatewayArr = array();
-	$mailsettingsArr = array();
 	$root = dirname(dirname(dirname(__FILE__)));
 	//echo $root."<br>";
 	$filename = $root.'/config/mail_server.json';
@@ -65,7 +63,7 @@ $this->menu=array(
 		echo "file not present";
 	}
 	
-	}//end of if isset().
+	
 	
 
 ?>
@@ -98,6 +96,10 @@ $this->menu=array(
 	<div class="row">
 		<?php echo "<b>Port</b><br>";?>
 		<?php echo CHtml::textField('',$smtp_port, array('disabled'=>'disabled'));?>
+	</div>
+	
+	<div class="row">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo CHtml::button('Update', array('submit' => array('setup/mailServer'))); ?>
 	</div>
 
 	

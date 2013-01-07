@@ -335,20 +335,5 @@ class Product extends CActiveRecord
     	
     }//end of enggProductReport($engg_id).
     
-    public function getAllModelNumbers()
-    {
-    	$modelArray = array();
-    	$modelResult = ModelNumbers::model()->findAll();
-    	
-    	foreach ($modelResult as $data)
-    	{
-    		//echo "model no = ".$data->model_number."<br>";
-    		array_push($modelArray, $data->model_number);
-		}//end pf foreach.
-		
-    	return $modelArray;
-    	
-    }//end of getAllModelNumbers().
-    
     
 }//end of class.

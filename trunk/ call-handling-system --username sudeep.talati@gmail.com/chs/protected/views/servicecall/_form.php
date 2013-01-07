@@ -397,7 +397,7 @@ background-color: #FFFF9D;
 				    'attribute'=>'model_number',
 				    //'source'=>$this->createUrl('jui/autocompleteTest'),
 				    //'source'=>array('ac1', 'ac2', 'ac3', 'b1', 'ba', 'ba34', 'ba33'),
-				    'source'=>Product::model()->getAllModelNumbers(),
+				    'source'=>ModelNumbers::model()->getAllModelNumbers(),
 				    // additional javascript options for the autocomplete plugin
 				    'options' => array(
 					    'showAnim' => 'fold',

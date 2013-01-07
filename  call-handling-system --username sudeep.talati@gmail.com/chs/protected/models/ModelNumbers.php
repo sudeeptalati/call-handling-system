@@ -87,5 +87,22 @@ class ModelNumbers extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-}
+	}//end of search().
+	
+	public function getAllModelNumbers()
+	{
+		$modelArray = array();
+		$modelResult = ModelNumbers::model()->findAll();
+		 
+		foreach ($modelResult as $data)
+		{
+			//echo "model no = ".$data->model_number."<br>";
+			array_push($modelArray, $data->model_number);
+		}//end pf foreach.
+	
+		return $modelArray;
+		 
+	}//end of getAllModelNumbers().
+	
+	
+}//end of class.

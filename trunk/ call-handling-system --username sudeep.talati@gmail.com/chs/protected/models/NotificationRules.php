@@ -236,20 +236,22 @@ class NotificationRules extends CActiveRecord
 		}//end of switch
 	}//getEmailCheckBoxStatus($notification_code)
 	
-	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode, $body, $subject)
+	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode, $body, $subject, $smsMessage)
 	{
 		
 		switch ($notificaionCode)
 		{
 			case 1:
-				//echo "<br>in case 1";
+				//echo "<br>Send email";
 				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				break;
 			case 2:
-				echo "<br>Send SMS";
+				//echo "<br>Send SMS";
+				NotificationRules::sendSMS($telephone, $smsMessage);
 				break;
 			case 3:
-				echo "<br>Send SMS also";
+				//echo "<br>Send email and SMS also";
+				NotificationRules::sendSMS($telephone, $smsMessage);
 				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				break;
 				
@@ -304,9 +306,10 @@ class NotificationRules extends CActiveRecord
 		
 	}//end of sendEmail().
 	
-	public function sendSMS()
+	public function sendSMS($mobileNumber, $smsMessage)
 	{
-		
+		//Yii::app()->sms->send(array('to'=>'447550508559', 'message'=>$smsMessage));
+		Yii::app()->sms->send(array('to'=>$mobileNumber, 'message'=>$smsMessage));
 	}//end of sendSMS().
 	
 	public function displayMessageInGrid($data,$row)
@@ -319,7 +322,6 @@ class NotificationRules extends CActiveRecord
 		}
 			
 	}//end of displayMessageInGrid().
-	
 	
 	
 	

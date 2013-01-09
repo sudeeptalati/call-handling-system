@@ -112,8 +112,11 @@ $baseUrl = Yii::app()->baseUrl;
 		  	
 		  	<?php 
 		  	
+		  		$trimmed_postcode_s = trim($customerModel->postcode_s);
+		  		$trimmed_postcode_e = trim($customerModel->postcode_e);
+		  	
 			  	//$url = 'http://maps.google.com/maps/geo?q=ka88je,+UK&output=csv&sensor=false';
-			  	$url = "http://maps.google.com/maps/geo?q=$customerModel->postcode_s+$customerModel->postcode_e,+UK&output=csv&sensor=false";
+			  	$url = "http://maps.google.com/maps/geo?q=$trimmed_postcode_s+$trimmed_postcode_e,+UK&output=csv&sensor=false";
 	
 				$data = @file_get_contents($url);
 				

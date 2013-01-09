@@ -265,6 +265,7 @@ background-color: #FFFF9D;
 			<td>
 				<?php echo $form->labelEx($model,'mobile'); ?>
 				<?php echo $form->textField($model,'mobile',array('size'=>30)); ?>
+				<small><br>(Please enter number preceding with 44)</small>
 				<?php echo $form->error($model,'mobile'); ?>
 		</td>		
 	</tr>

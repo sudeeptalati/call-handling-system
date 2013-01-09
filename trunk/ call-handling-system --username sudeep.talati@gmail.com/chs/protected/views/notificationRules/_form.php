@@ -121,14 +121,24 @@ $(function()
 
 
 
-<?php $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown ?>
+<?php
+ $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
+//JobStatus::model()->getAllStatuses();
+ 
+ ?>
 
 
 <table style="width:75%;">
 <tr>
 	<td colspan='4'>
-		When job status is changed to <?php echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
-													 array('empty'=>'Please Select job status (required)'));?>
+		When job status is changed to <?php 
+// 								echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
+// 													 array('empty'=>'Please Select job status (required)'));
+
+								echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
+											array('empty'=>'Please Select job status (required)',
+												));
+							?>
 
 		<br><big><b>Notify</b></big>
 	</td>

@@ -451,6 +451,6 @@ class NotificationRulesController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
+	}//end of AJAX.
 	
 }//end of class.

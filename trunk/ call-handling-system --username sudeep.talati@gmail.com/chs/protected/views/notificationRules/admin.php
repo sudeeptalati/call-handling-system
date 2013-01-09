@@ -63,7 +63,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'value'=>'($data->notify_others == 0) ? "No" : "Yes"'
 		),
 		array(            
-            'name'=>'custom_column',
+            //'name'=>'custom_column',
             //call the method 'gridDataColumn' from the controller
             'value'=>array($model,'displayMessageInGrid'), 
         ),

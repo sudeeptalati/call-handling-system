@@ -196,17 +196,18 @@ class JobStatus extends CActiveRecord
     
     public function getAllStatuses()
     {
-    	$job_list = array();
+    	//echo "<br>Func called<hr>";
+		$job_status_array = array();
     	
-    	$jobStatusListArr = JobStatus::model()->findAll(array('condition'=> "not exists (select 'job_status_id' from notification_rules where job_status_id =  t.id)"));
+//     	$job_status_array = CHtml::listData(JobStatus::model()->findAll(array
+//     	('condition'=> "not exists (select 'id' from notification_rules where notification_rules.job_status_id = t.id)")
+//     	), 'id','name');
+
+		//print_r($final_array);
     	
-    	foreach ($jobStatusListArr as $arr)
-    	{
-     		//echo "<br>test name = ".$test->name;
-    		array_push($job_list, $arr->name);
-    	}//end of foreach().
-    		
-    	 return $job_list;
+    	//return $job_status_array;
+		
+		return CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');
     	  
     }//end of getAllStatuses.
 	

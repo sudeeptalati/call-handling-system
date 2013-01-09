@@ -266,31 +266,39 @@ class ApiController extends Controller
 		
 		if($newEnggDiaryModel->save())
 		{
-			echo "<br>DIARY SAVED.......!!!!!!!!!!";
+			//echo "<br>DIARY SAVED.......!!!!!!!!!!";
+			$sevicecallModel = Servicecall::model()->findByPk($service_id);
+			$setupModel = Setup::model()->findByPk(1);
+			
+			$customer_email_address = $sevicecallModel->customer->email;
+			$customer_mobileNumber = $sevicecallModel->customer->mobile;
+			
+			$engineer_email_address = $sevicecallModel->engineer->contactDetails->email;
+			$engineer_mobileNumber = $sevicecallModel->engineer->contactDetails->mobile;
+			//echo "receiver address = ".$reciever_email_address;
+			$customer_name = $sevicecallModel->customer->fullname;
+			//echo "<br>Cust name = ".$customer_name;
+			$engineer_name = $sevicecallModel->engineer->fullname;
+			//echo "<br>Engg name = ".$engineer_name;
+			$reference_number = $sevicecallModel->service_reference_number;
+			$company_name = $setupModel->company;
+			//echo "<br>Reff no = ".$reference_number;
+			$status = $sevicecallModel->jobStatus->name;
+			//echo "<br>status = ".$status;
+			$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
+			$subject = 'Service call '.$reference_number.' Status changed to '.$status;
+			$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+			
+			NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+			NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+			
+			//NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+			NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
 		}
 		else 
 		{
 			echo "<br>Problem in saving diary";
 		}
-    	
-    	
-    	/*** ADDING MINUTES TO STRAT DATE IS NOT NEEDED AS WE WILL ADD IN BEFORE SAVE***
-    	$str_time = strtotime($start_date);
-    	echo "<br>NORMAL TIME START DATE = ".date('d-m-Y H:i',$str_time);
-    	$strat_time_to_pass = date('d-m-Y H:i',$str_time);
-    	echo "<br>START DATE to pass  = ".$start_date;
-    	
-    	$updated_start_time = date("d-m-Y H:i", strtotime('+540 minutes', $str_time));
-    	
-    	echo "<br>START DATE AFTER ADDING MIN = ".$updated_start_time;
-    	$str_updated_start_time = strtotime($updated_start_time);
-    	echo "<br>STR UPDATED STRAT TIME = ".$str_updated_start_time;
-    	
-    	$updated_end_date = date("d-m-Y H:i", strtotime('+1 hour', $str_updated_start_time));
-    	echo "<br>END DATE AFTER ADDING MIN = ".$updated_end_date;
-    	$str_updated_end_time = strtotime($updated_end_date);
-    	echo "<br>STR UPDATED END TIME = ".$str_updated_end_time;
-    	*/
     	
     }//end of actionCreateNewDiaryEntry().
     

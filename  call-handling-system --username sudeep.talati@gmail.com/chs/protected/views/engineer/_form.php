@@ -119,6 +119,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($ContactDetailsModel,'mobile'); ?>
 		<?php echo $form->textField($ContactDetailsModel,'mobile',array('rows'=>6, 'cols'=>50)); ?>
+		<small><br>(Please enter number preceding with 44)</small>
 		<?php echo $form->error($ContactDetailsModel,'mobile'); ?>
 	</div>
 

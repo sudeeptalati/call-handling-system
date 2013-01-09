@@ -148,7 +148,7 @@ class ServicecallController extends Controller
 										{
 										$engg_id=$serviceCallModel->engineer_id;
 										$baseUrl=Yii::app()->request->baseUrl;
-										$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
+										//$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
 										}
 								}/////end of 
 								
@@ -769,10 +769,14 @@ class ServicecallController extends Controller
 // 		echo "<br>Value of service_id = ".$service_id;
 
 		$serviceModel = Servicecall::model()->findByPk($service_id);
+		$setupModel = Setup::model()->findByPk(1);
 
 		$cust_id = $serviceModel->customer_id;
 		$engineer_id = $serviceModel->engineer_id;
 		$contract_id = $serviceModel->product->contract_id;
+		$company_name = $setupModel->company;
+		$company_email = $setupModel->email;
+		
 		
 		
 // 		echo "<br>cust id = ".$cust_id;
@@ -801,7 +805,8 @@ class ServicecallController extends Controller
 			$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 			//echo "<br>Subject = ".$subject;
 			
-			$body = "<br>".'The status of servicecall with reference number '.$reference_number.' is changed to <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name;
+			$body = '<br>'.'The status of servicecall with reference number '.$reference_number.' is changed to <strong>'.$status.'</strong>.<br>'.'Customer Name : '.$customer_name.'<br>'.'Engineer Name : '.$engineer_name.'<br><br>For any queries related to this call, please contact '.$company_email.'. <br><br>Regards,<br>'.$company_name;
+			$smsMessage = 'The status of servicecall with reff no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
 			
 			foreach($notificationModel as $data)
 			{
@@ -827,7 +832,7 @@ class ServicecallController extends Controller
 					$name = $customerModel->fullname;
 					$customer_body = 'Dear '.$name.','."<br>".$body;
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject);
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject, $smsMessage);
 						
 				}//end of if of CUSTOMER.
 				
@@ -844,7 +849,7 @@ class ServicecallController extends Controller
 					$engineer_body = 'Dear '.$name.','."\n".$body;
 				
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject);
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject, $smsMessage);
 						
 				}//end of if of ENGINEER.
 					
@@ -859,7 +864,7 @@ class ServicecallController extends Controller
 					$telephone = $contractModel->mainContactDetails->mobile;
 					$warranty_body = 'Dear Recepient,'."\n".$body;
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject);
+					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject, $smsMessage);
 						
 				}//end of if of WARRANTY PROVIDER.
 					
@@ -882,7 +887,7 @@ class ServicecallController extends Controller
 						$name = $contact->person_name;
 						$others_body = 'Dear '.$name.','."\n".$body;
 							
-						NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode, $others_body, $subject);
+						NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode, $others_body, $subject, $smsMessage);
 					}//end of inner foreach($contact).
 				
 				}//end of if of OTHERS.

@@ -176,7 +176,6 @@ class JobStatus extends CActiveRecord
 		$models=self::model()->findAll(array(
 			'condition'=>'published=1',
 			'order'=>'view_order ASC',
-			
 		));
 		foreach($models as $model)
 			self::$_items[$type][$model->id]=$model->name;

@@ -19,13 +19,7 @@ $('.search-form form').submit(function(){
 });
 ");
 
-
-
-
 ?>
-
-
-
 
 <h1>Manage Servicecalls</h1>
 
@@ -41,15 +35,10 @@ $('.search-form form').submit(function(){
 				'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
 		 		'type'=>'raw',
         ),
-		
-/*
-		array('name'=>'job_status',
-			  'value'=>'$data->jobStatus->name'
-		),
-*/
 		//'customer_id',
 		array('header' => 'Customer',
-            	'name'=>'customer_name','value'=>'$data->customer->fullname'),
+            	'name'=>'customer_name',
+				'value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
 		array('name'=>'customer_postcode','value'=>'$data->customer->postcode'),
 		//'product_id',
@@ -60,33 +49,23 @@ $('.search-form form').submit(function(){
 		array('name'=>'model_number','value'=>'$data->product->model_number'),
 		array('name'=>'serial_number','value'=>'$data->product->serial_number'),
 		
-		
-		//'job_status_id',
-		
-//		array('name'=>'job_status',
-//			  'filter'=> CHtml::listData(JobStatus::model()->findAll(), 'id', 'name'),
-//			  'value'=>'$data->jobStatus->name',
-//			 ),
 		//'contract_id',
-	//	array('name'=>'contract_name','value'=>'$data->contract->name'),
-//		'engineer_id',
+		//array('name'=>'contract_name','value'=>'$data->contract->name'),
+		//'engineer_id',
 		//array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
 		array(
-			'name'=>'engineer_id',
-			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
-			'filter'=>Engineer::items('Engineer'),
-		),
+			'name'=>'engineer_name',
+			'value'=>'$data->engineer->company'),
+			
+// 		array(
+// 			'name'=>'engineer_id',
+// 			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
+// 			'filter'=>Engineer::items('Engineer'),
+// 		),
+	
 		//'created_by_user_id',
 		array('header' => 'RaisedBy',
             	'name'=>'user_name','value'=>'$data->createdByUser->name','filter'=>false),
-		
-//		array(
-//			'name'=>'created_by_user_id',
-//			'value'=>'User::item("User",$data->created_by_user_id)',
-//			'filter'=>User::items('User'),
-//		),
-//		
-		
 		
 		array(
 			'name'=>'job_status_id',

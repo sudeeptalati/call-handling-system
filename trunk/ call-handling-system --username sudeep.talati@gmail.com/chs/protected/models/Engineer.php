@@ -179,6 +179,7 @@ class Engineer extends CActiveRecord
 	{
 		self::$_items[$type]=array();
 		$models=self::model()->findAll(array('order'=>"`company` ASC"));
+		//$models=self::model()->findAll(array('order'=>'company ASC'));
 		foreach($models as $model)
 			self::$_items[$type][$model->id]=$model->company;
 	}//end of loaditems.

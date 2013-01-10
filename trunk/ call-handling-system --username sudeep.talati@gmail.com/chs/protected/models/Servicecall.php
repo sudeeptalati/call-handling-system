@@ -87,10 +87,10 @@ class Servicecall extends CActiveRecord
 			array('job_status_id, fault_description, recalled_job', 'required'),
 			array('created_by_user_id,	service_reference_number, customer_id, product_id, contract_id, engineer_id, job_status_id, spares_used_status_id', 'numerical', 'integerOnly'=>true),
 			array('total_cost, vat_on_total, net_cost', 'numerical'),
-			array('product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, comments, model_number, serial_number, notify_flag, pervious_job_status', 'safe'),
+			array('engineer_name, product_serial_number,number_of_visits, customer_town,customer_postcode , recalled_job, activity_log , insurer_reference_number, fault_date, fault_code, engg_diary_id, work_carried_out, job_payment_date, job_finished_date, notes, modified, cancelled, closed, comments, model_number, serial_number, notify_flag, pervious_job_status', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('product_serial_number,created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed, model_number, serial_number', 'safe', 'on'=>'search'),
+			array('engineer_id, product_serial_number,created_by_user_id,id, customer_town , customer_postcode, customer_name, customer_id, job_status, engineer_name, product_name, service_reference_number, insurer_reference_number, job_status_id, fault_date, fault_code, fault_description, engg_visit_date, work_carried_out, spares_used_status_id, total_cost, vat_on_total, net_cost, job_payment_date, job_finished_date, notes,  created, modified, cancelled, closed, model_number, serial_number', 'safe', 'on'=>'search'),
 			
 		);
 	}
@@ -173,7 +173,7 @@ class Servicecall extends CActiveRecord
 		$criteria->compare( 'customer.postcode', $this->customer_postcode, true );
 		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
-		$criteria->compare( 'engineer.fullname', $this->engineer_name, true );
+		$criteria->compare( 'engineer.company', $this->engineer_name, true );
 		
 		$criteria->compare( 'product.model_number', $this->model_number, true );
 		$criteria->compare( 'product.serial_number', $this->serial_number, true );
@@ -450,12 +450,12 @@ class Servicecall extends CActiveRecord
 			  ':from_date' => $from_date,
 			  ':to_date' => $to_date,
 			);
-//			return new CActiveDataProvider(Servicecall::model(),
-//							 array(
-//    							'criteria' => $criteria
-//					));
+			return new CActiveDataProvider(Servicecall::model(),
+							 array(
+   							'criteria' => $criteria
+					));
 			
-		}//Seraches with status_id.
+		}//Seraches with status_id and dates.
 		
 		elseif ($status_id == '0')
 		{
@@ -468,11 +468,11 @@ class Servicecall extends CActiveRecord
 			  ':from_date' => $from_date,
 			  ':to_date' => $to_date,
 			);
-//			return new CActiveDataProvider(Servicecall::model(),
-//							 array(
-//    							'criteria' => $criteria
-//					));
-		}//Seraches with engg_id
+			return new CActiveDataProvider(Servicecall::model(),
+							 array(
+   							'criteria' => $criteria
+					));
+		}//Seraches with engg_id and dates.
 		
 		elseif ($from_date == '' && $to_date == '')
 		{
@@ -484,36 +484,25 @@ class Servicecall extends CActiveRecord
 //			  ':from_date' => $from_date,
 //			  ':to_date' => $to_date,
 //			);
-//			return new CActiveDataProvider(Servicecall::model(),
-//							 array(
-//    							'criteria' => $criteria
-//					));
-		}//searches with both engg_id and status_id.
+			return new CActiveDataProvider(Servicecall::model(),
+							 array(
+   							'criteria' => $criteria
+					));
+		}//searches with engg_id and status_id.
 		
 		else 
 		{
-		
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			$criteria->addCondition('job_status_id='.$status_id);
-			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
-			$criteria->params = array(
-			  ':from_date' => $from_date,
-			  ':to_date' => $to_date,
-			);
-//			return new CActiveDataProvider(Servicecall::model(),
-//							 array(
-//    							'criteria' => $criteria
-//					));
-		}
-		//$criteria->condition = 't.date BETWEEN :from_date AND :to_date';
-		
-		//$criteria->condition = 'job_status_id='.$status_id;
-		
-		return new CActiveDataProvider(Servicecall::model(),
+			$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
+						
+			return new CActiveDataProvider(Servicecall::model(),
 							 array(
-    							'criteria' => $criteria
+   							'criteria' => $criteria
 					));
+
+		}//end of else(), searches with engg_id, status_id and dates.
 		
 	}//end of enggJobReport().
 	

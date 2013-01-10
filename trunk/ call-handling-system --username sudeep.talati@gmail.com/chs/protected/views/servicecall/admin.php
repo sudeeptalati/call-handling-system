@@ -52,16 +52,11 @@ $('.search-form form').submit(function(){
 		//'contract_id',
 		//array('name'=>'contract_name','value'=>'$data->contract->name'),
 		//'engineer_id',
-		//array('name'=>'engineer_name','value'=>'$data->engineer->fullname'),
 		array(
-			'name'=>'engineer_name',
-			'value'=>'$data->engineer->company'),
-			
-// 		array(
-// 			'name'=>'engineer_id',
-// 			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
-// 			'filter'=>Engineer::items('Engineer'),
-// 		),
+			'name'=>'engineer_id',
+			'value'=>'Engineer::item("Engineer",$data->engineer_id)',
+			'filter'=>Engineer::items('Engineer'),
+		),
 	
 		//'created_by_user_id',
 		array('header' => 'RaisedBy',
@@ -75,9 +70,6 @@ $('.search-form form').submit(function(){
 		array(
 			'name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)'
 		),
-		
-		
-		
 		/*
 		'insurer_reference_number',
 		'job_status_id',

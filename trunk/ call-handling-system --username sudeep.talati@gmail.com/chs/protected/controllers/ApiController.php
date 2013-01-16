@@ -37,6 +37,7 @@ class ApiController extends Controller
 		
 			$diaryModel = Enggdiary::model()->findAll();
 	    	$i=1;
+			$end_date = '';
 	    	foreach ($diaryModel as $data)
 	    	{
 	    		if($data->status!= '102')

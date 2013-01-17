@@ -19,8 +19,8 @@ if ($showDialogue==1)
 		'options'=>array(
 		'title'=>'Person Details',
 		//'title'=>Yii::t('notificationContact','Create Job'),
-		//'autoOpen'=>$showDialogue,
-		'autoOpen'=>false,
+		'autoOpen'=>$showDialogue,
+		//'autoOpen'=>false,
 		'modal'=>'true',
 		'show' => 'blind',
 		'hide' => 'explode',

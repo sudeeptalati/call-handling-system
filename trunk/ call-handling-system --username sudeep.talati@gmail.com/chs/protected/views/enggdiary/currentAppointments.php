@@ -139,7 +139,7 @@ function isTouchDevice()
 			weekends:false,
 			
 			
-			eventResize: function(event,dayDelta,minuteDelta,revertFunc) 
+			eventResize: function(event,dayDelta,minuteDelta,revertFunc) /*EVENT FOR CHANGING ONLY END_DATE*/
 		    {
 //				alert(
 //		            "The end date of " + event.title + "has been moved " +
@@ -161,7 +161,7 @@ function isTouchDevice()
 		    },//end of eventResize.
 			
 
-			eventDrop: function (event,delta, minuteDelta) 
+			eventDrop: function (event,delta, minuteDelta) /**EVENT FOR CHANGING APPOINTMENT.**/
 			{
 				
 //				alert(event.title + ' was moved ' + delta + ' days\n' +
@@ -316,7 +316,8 @@ function isTouchDevice()
 	      },
           error: function()
           {
-	       	alert("Error in updating"); 
+	       	//alert("Error in updating");
+  	       	alert('Cannot update previous Appointments'); 
           }
           });
 

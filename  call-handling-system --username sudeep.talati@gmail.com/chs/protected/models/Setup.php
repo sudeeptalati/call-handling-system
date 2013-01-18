@@ -139,31 +139,37 @@ class Setup extends CActiveRecord
 	public function updateVersion($id)
 	{
 
+
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+
+
 		$last_successful_step='';
  		
 		
 		$last_successful_step_message='';
 		$step_info=array();
 
-		$setupModel = Setup::model()->findAllByPk('1');
-		echo $setupModel->version_update_url;
+		$setupModel = Setup::model()->findByPk('1');
+		//echo $setupModel->version_update_url;
+		$update_url_from_db = $setupModel->version_update_url;
 		
-
-		$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
+		//$request='http://www.rapportsoftware.co.uk/versions_test/latest_callhandling_version.txt';
+		$request=$update_url_from_db.'/latest_callhandling_version.txt';
 			
 		$installed_version=Yii::app()->params['software_version'];
 		$available_version = $this->curl_file_get_contents($request);
 
 		$server_update_filename = $installed_version."_to_".$available_version."_update.zip";
-		$server_update_filepath = "http://www.rapportsoftware.co.uk/versions/";
-		$server_update_full_filepath=$server_update_filepath.$server_update_filename;
+		//$server_update_filepath = "http://www.rapportsoftware.co.uk/versions_test/";
+		$server_update_filepath = $update_url_from_db;
+		$server_update_full_filepath=$server_update_filepath.'/'.$server_update_filename;
 
 		$update_directory='updates';
-		$local_desination_server_update_file=$update_directory.'/'.$server_update_filename;
+		$local_desination_server_update_file=$update_directory.DS.$server_update_filename;
 
 		/*THESE VARIABLEUES USED IN STEP 5 & 6*/
-		$unzip_folder = $update_directory.'/'.$installed_version."_to_".$available_version."_update";
-		$setup_file=getcwd().'/'.$unzip_folder.'/setup.json';/*THE SETUP FILES IS LIKE CONTENTS OF NEW FILES TO BE COPIED*/
+		$unzip_folder = $update_directory.DS.$installed_version."_to_".$available_version."_update";
+		$setup_file=getcwd().DS.$unzip_folder.DS.'setup.json';/*THE SETUP FILES IS LIKE CONTENTS OF NEW FILES TO BE COPIED*/
 
 		switch ($id)
 		{
@@ -193,15 +199,15 @@ class Setup extends CActiveRecord
 /*STEP 2*//*Creating a backup of database*/
 			CASE 2:
 
-				$db_current_location=getcwd().'\protected\data\chs.db';
-				$db_backup_location = $update_directory.'\backup\version_'.$installed_version.'_database';
-				$db_backup_filename=$db_backup_location.'\ver_'.$installed_version.'.data.db';
+				$db_current_location=getcwd().DS.'protected'.DS.'data'.DS.'chs.db';
+				$db_backup_location = $update_directory.DS.'backup'.DS.'version_'.$installed_version.'_database';
+				$db_backup_filename=$db_backup_location.DS.'ver_'.$installed_version.'.data.db';
 				
 				if( !file_exists($db_backup_filename) )
 				{
 					if(!is_dir($db_backup_location))
 					{
-						if (!mkdir($db_backup_location, 0, true)) {
+						if (!mkdir($db_backup_location, 0777, true)) {
 							$last_successful_step=0;
 							$last_successful_step_message="Cannot create Directory for Database backup, please check permissions";
 							die('Failed to create folders...');
@@ -240,14 +246,14 @@ class Setup extends CActiveRecord
 			CASE 3:
 				/*STEP 3*//*Creating Backup of Files*/
 				/*Creating Backup of Files*/
-				$source=getcwd().'\protected';
-				$dest=$update_directory.'\backup\version_'.$installed_version.'_files\protected';
+				$source=getcwd().DS.'protected';
+				$dest=$update_directory.DS.'backup'.DS.'version_'.$installed_version.'_files'.DS.'protected';
 
 				if( !is_dir($dest) )
 				{
 					if(!is_dir($dest))
 					{
-						if (!mkdir($dest, 0, true)) {
+						if (!mkdir($dest, 0777, true)) {
 							$last_successful_step=0;
 							$last_successful_step_message="Cannot create Directory for Files backup, please check permissions";
 							die('Failed to create folders...');
@@ -327,7 +333,7 @@ class Setup extends CActiveRecord
 							/////*Since within the database Key is the location of update file
 							if ($key=='database')
 							{
-								$db_update_file=getcwd().'/'.$unzip_folder.$val;
+								$db_update_file=getcwd().DS.$unzip_folder.$val;
 							}
 						}///end of foreach iterator
 					
@@ -335,7 +341,7 @@ class Setup extends CActiveRecord
 						////////*NOW By reading the update file we will be changing the main database
 						try
 						{
-							$db = new PDO('sqlite:protected\data\chs.db');
+							$db = new PDO('sqlite:protected'.DS.'data'.DS.'chs.db');
 							//	echo '<hr>'.$db_update_file;
 							$file_handle=fopen($db_update_file,'r');
 							echo "<br />";
@@ -494,11 +500,11 @@ class Setup extends CActiveRecord
 		@mkdir($dst);
 		while(false !== ( $file = readdir($dir)) ) {
 			if (( $file != '.' ) && ( $file != '..' )) {
-				if ( is_dir($src . '/' . $file) ) {
-					$this->recurse_copy($src . '/' . $file,$dst . '/' . $file);
+				if ( is_dir($src . DS . $file) ) {
+					$this->recurse_copy($src .DS. $file,$dst.DS. $file);
 				}
 				else {
-					if (!copy($src . '/' . $file,$dst . '/' . $file))
+					if (!copy($src .DS. $file,$dst.DS.$file))
 					{
 						echo 'Error in copying files';
 						return false;

@@ -1,4 +1,6 @@
-
+<?php 
+//session_start();
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -80,26 +82,30 @@ $baseUrl= Yii::app()->request->baseUrl;
 <div style="margin:20px;">
 	<?php 
 	
-	$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
-	$available_version = Setup::model()->curl_file_get_contents($request);
+	if(isset($_SESSION['available_variable']))
+		$available_version = $_SESSION['available_variable'];
+	else 
+		$available_version = 'NOT SET';
 	
 	?>
 	
+		
 	<?php echo "Updating Software to ".$available_version."<br><br><br>";
-		$message=$step_info[1];
-		$currentStep = $step_info[0];
-		$progressBarValue=$currentStep*100;
+// 		$message=$step_info[1];
+// 		$currentStep = $step_info[0];
+// 		$progressBarValue=$currentStep*100;
 		
 	?>
 	
-<div style="background-color: green; width:<?php echo $progressBarValue; ?>px; height:20px;">
+<div style="background-color: green; width:<?php //echo $progressBarValue; ?>px; height:20px;">
 
 
-</div><?php $percentage_complete= $currentStep*15;
-				if ($percentage_complete>100)
-				$percentage_complete=100;
+</div><?php
+//  $percentage_complete= $currentStep*15;
+// 				if ($percentage_complete>100)
+// 				$percentage_complete=100;
 				
-				echo $percentage_complete;
+// 				echo $percentage_complete;
 				?>%
 
  
@@ -109,29 +115,29 @@ $baseUrl= Yii::app()->request->baseUrl;
 
 
 <?php 
-if(empty($_SESSION['message']))
-{
-	$_SESSION['message'] = '';
-}
+// if(empty($_SESSION['message']))
+// {
+// 	$_SESSION['message'] = '';
+// }
 
-$_SESSION['message']=$_SESSION['message'].$message;
-echo $_SESSION['message'];
+// $_SESSION['message']=$_SESSION['message'].$message;
+// echo $_SESSION['message'];
 
 
-if($currentStep != 0 && $currentStep < 7 )
-{
-	$next_step = $currentStep+1;
-	$url=Yii::app()->baseUrl.'/Setup/showUpdateProgress/?curr_step='.$next_step;
-	//echo $url;
-	echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
-}
-else
-{
-	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
-	$_SESSION['message']='';
-	echo "<br>";
-	echo CHTml::link('Restart Browser',array('../chs/'));
-}
+// if($currentStep != 0 && $currentStep < 7 )
+// {
+// 	$next_step = $currentStep+1;
+// 	$url=Yii::app()->baseUrl.'/Setup/showUpdateProgress/?curr_step='.$next_step;
+// 	//echo $url;
+// 	echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
+// }
+// else
+// {
+// 	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
+// 	$_SESSION['message']='';
+// 	echo "<br>";
+// 	echo CHTml::link('Restart Browser',array('../chs/'));
+// }
 
 ?>
 
@@ -153,3 +159,8 @@ else
 
 </body>
 </html>
+
+<?php 
+session_write_close();
+
+?>

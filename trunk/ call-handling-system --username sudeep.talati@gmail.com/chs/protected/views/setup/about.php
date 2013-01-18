@@ -7,7 +7,10 @@
 
 <?php 
 	
-$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+$setupModel = Setup::model()->findByPk(1);
+$update_url_from_db = $setupModel->version_update_url;
+$request = $update_url_from_db.'/latest_callhandling_version.txt';
+//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
 $available_version = curl_file_get_contents($request, true);
 $current_version=Yii::app()->params['software_version'];
 ?>

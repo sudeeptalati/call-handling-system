@@ -334,7 +334,10 @@ $allStatus = JobStatus::model()->findAll( array(
 		<span><b>&nbsp;&nbsp;Notifications</b></span><br><br>
 			<?php 
 	
-		$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
+		$setupModel = Setup::model()->findByPk(1);
+		$update_url_from_db = $setupModel->version_update_url;
+		//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
+		$request = $update_url_from_db.'/latest_callhandling_version.txt';	
 		$available_version = curl_file_get_contents($request, true);
 		$installed_version=Yii::app()->params['software_version'];
 		 

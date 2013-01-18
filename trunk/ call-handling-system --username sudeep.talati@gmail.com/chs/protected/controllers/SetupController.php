@@ -1,7 +1,8 @@
 <?php
-
+session_start();
 class SetupController extends Controller
 {
+	
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -178,8 +179,37 @@ class SetupController extends Controller
 	
 	public function actionAbout()
 	{
+		
+		
+		$setupModel = Setup::model()->findByPk('1');
+		//echo $setupModel->version_update_url;
+		$update_url_from_db = $setupModel->version_update_url;
+		$request=$update_url_from_db.'/latest_callhandling_version.txt';
+		//$request='http://www.rapportsoftware.co.uk/versions_test/latest_callhandling_version.txt';
+		
+		$available_variable = $this->curl_file_get_contents($request);
+		//echo "<br>available version = ".$available_variable;
+		// store session data
+		$_SESSION['available_variable']=$available_variable;
+				
 		$this->render('about');
 	}//End of actionAbout().
+	
+	public function curl_file_get_contents($request)
+	{
+		$curl_req = curl_init($request);
+	
+	
+		curl_setopt($curl_req, CURLOPT_URL, $request);
+		curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($curl_req, CURLOPT_HEADER, FALSE);
+	
+		$contents = curl_exec($curl_req);
+	
+		curl_close($curl_req);
+	
+		return $contents;
+	}///end of functn curl File get contents
 	
 	public function actionChangeLogo()
 	{
@@ -374,6 +404,7 @@ class SetupController extends Controller
 		$model=new Setup();
 		 
 		//echo "step value in controller ".$curr_step;
+		
 		$step=$curr_step;
 		 
 		if($step!=0)

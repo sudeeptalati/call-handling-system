@@ -1,6 +1,6 @@
 <?php
 
-/******** DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
+
 
 	//echo "HELLO WELCOME TO MAIN<br>";
 	
@@ -14,8 +14,10 @@
 	$gateway_username = '';
 	$gateway_password = '';
 	$gateway_apikey = '';
-	
 	$url = dirname(__FILE__);
+	
+	/******** DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
+	
 	$filename = $url."/mail_server.json";
 	if(file_exists($filename))
 	{
@@ -46,7 +48,6 @@
 	
 	/*********** DECODING SMS SETTING DETAILS FROM JSON FILE ***************/
 	
-	$url = dirname(__FILE__);
 	$smsjsonfilename = $url.'/smsgateway_settings.json';
 	
 	if(file_exists($smsjsonfilename))

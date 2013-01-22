@@ -32,7 +32,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -442,6 +442,31 @@ class SetupController extends Controller
 	{
 		$this->render('smsSettingsView');
 	}
+	
+	public function actionClickatellsmsAccount()
+	{
+		$model=new Setup('view');
+	
+		// uncomment the following code to enable ajax-based validation
+		/*
+		 if(isset($_POST['ajax']) && $_POST['ajax']==='setup-clickatellsmsAccount-form')
+		 {
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+		}
+		*/
+	
+		if(isset($_POST['Setup']))
+		{
+			$model->attributes=$_POST['Setup'];
+			if($model->validate())
+			{
+				// form inputs are valid, do something here
+				return;
+			}
+		}
+		$this->render('clickatellsmsAccount',array('model'=>$model));
+	}//end of actionClickatellsmsAccount().
 	
 	
 	

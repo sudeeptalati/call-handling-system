@@ -239,20 +239,24 @@ class NotificationRules extends CActiveRecord
 	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode, $body, $subject, $smsMessage)
 	{
 		
+		
 		switch ($notificaionCode)
 		{
 			case 1:
-				//echo "<br>Send email";
+				echo "<br>Send email";
 				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
+				return true;
 				break;
 			case 2:
-				//echo "<br>Send SMS";
-				NotificationRules::sendSMS($telephone, $smsMessage);
+				echo "<br>Send SMS";
+				$resonse = NotificationRules::sendSMS($telephone, $smsMessage);
+				return $resonse;
 				break;
 			case 3:
-				//echo "<br>Send email and SMS also";
-				NotificationRules::sendSMS($telephone, $smsMessage);
+				echo "<br>Send email and SMS also";
+				$resonse = NotificationRules::sendSMS($telephone, $smsMessage);
 				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
+				return $resonse;
 				break;
 				
 			
@@ -308,14 +312,24 @@ class NotificationRules extends CActiveRecord
 	
 	public function sendSMS($mobileNumber, $smsMessage)
 	{
+		//echo "sendSMS func called";
 		//Yii::app()->sms->send(array('to'=>'447550508559', 'message'=>$smsMessage));
-		Yii::app()->sms->send(array('to'=>$mobileNumber, 'message'=>$smsMessage));
+		$response = Yii::app()->sms->send(array('to'=>$mobileNumber, 'message'=>$smsMessage));
+		//print_r($response);
+		if(isset($response[1]))
+		{
+			echo "<br>error mesg = ".$response[1];
+			return $response[1];
+		}
+		
+		else 
+			return true;
+		
 	}//end of sendSMS().
 	
 	public function displayMessageInGrid($data,$row)
 	{
 		//echo "hello, value of row = ".$data->jobStatus->published;
-		
 		if($data->jobStatus->published != 1)
 		{
 			echo "This status is not published";

@@ -27,6 +27,7 @@ class ClickatellSms extends CApplicationComponent {
      * @var cliMsgId (Optional). Assign an unique ID to your SMS.
      * See CliMsgId in Clickatell docs for more. It helps with callbacks.
      */
+    //public $smsId = false;
     public $smsId = false;
 
     // api level settings
@@ -48,7 +49,8 @@ class ClickatellSms extends CApplicationComponent {
     public $callbackLevel = 2;
     // component level
     /** @var boolean Whether to print debug information on screen. Useful when debugging from shell */
-    public $debug = false;
+    //public $debug = false;
+    public $debug = true;
     protected $_session = null;
     protected $_error = null;
     const CACHE_ID = 'clickatell-session';

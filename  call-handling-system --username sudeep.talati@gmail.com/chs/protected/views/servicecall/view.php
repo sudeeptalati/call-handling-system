@@ -3,6 +3,38 @@
 $baseUrl = Yii::app()->baseUrl; 
 ?>
 
+<?php 
+
+if($_GET['notify_response']!= '')
+{
+	$message = 'There was following problem in sending SMS<br><br>'.$_GET['notify_response'];
+		
+	$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+			'id'=>'juiDialog',
+			'options'=>array(
+					'title'=>'Problem in notifying',
+					'autoOpen'=>true,
+					'modal'=>'true',
+					'show' => 'blind',
+					'hide' => 'explode',
+					//'color' => 'blue',
+					//'width'=>'40px',
+					//'height'=>'40px',
+			),
+			'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
+	
+			 
+	));
+	 
+	echo $message;
+	$this->endWidget();
+}
+
+
+?>
+
+
+
 <link type="text/css" href="<?php echo $baseUrl;?>/css/dialoguebox/smoothness/jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
 <script type="text/javascript" src="<?php echo $baseUrl;?>/js/dialoguebox/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="<?php echo $baseUrl;?>/js/dialoguebox/jquery-ui-1.8.23.custom.min.js"></script>

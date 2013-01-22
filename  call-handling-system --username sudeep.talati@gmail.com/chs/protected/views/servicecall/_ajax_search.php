@@ -177,8 +177,8 @@ vertical-align:top;
 			?>
 			
 			<td>
-				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id));?>
-				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id));?>
+				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id.'?notify_response='));?>
+				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id.'?notify_response='));?>
 			
 				<?php 
 				

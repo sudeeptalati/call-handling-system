@@ -175,7 +175,7 @@ vertical-align:top;
 	'columns'=>array(
 		array(	'name'=>'service_reference_number',
 				'value'=>'$data->service_reference_number',
-			    'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
+			    'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id."?notify_response="))',
 		 		'type'=>'raw',
 				'header' => 'Ref No#'
 		),
@@ -285,7 +285,7 @@ $allStatus = JobStatus::model()->findAll( array(
 						{?>
 							  
 							<tr><td>							
-								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/".$row->id)); ?>
+								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/".$row->id."?notify_response=")); ?>
 							</td><td>
 								<?php echo $row->customer->fullname; ?>							
 							</td><td style="width:25px;">

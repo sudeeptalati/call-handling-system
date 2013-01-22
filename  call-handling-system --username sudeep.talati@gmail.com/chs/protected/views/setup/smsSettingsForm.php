@@ -39,7 +39,11 @@ if(file_exists($filename))
 
 ?>
 
-<h2>SMS Gateway Settings</h2>
+
+<h2>SMS Gateway Settings here</h2>
+
+<!-- <a href="https://www.clickatell.com/register/" target="_blank">Create account with Clikatell here</a><br><br><br> -->
+<a href="clickatellsmsAccount" target="_blank">Create account with Clikatell here with iframe</a><br><br><br>
 
 <form action="<?php echo Yii::app()->createUrl('setup/smsSettingsView')?>" method="post">
 	
@@ -53,5 +57,4 @@ if(file_exists($filename))
 	
 </form>	
 	
-
 

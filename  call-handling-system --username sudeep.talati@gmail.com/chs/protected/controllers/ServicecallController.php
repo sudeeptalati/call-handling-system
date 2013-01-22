@@ -205,7 +205,7 @@ class ServicecallController extends Controller
 	{
 		$model=$this->loadModel($id);
 		
-		
+		$response = 'true';
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -229,12 +229,12 @@ class ServicecallController extends Controller
 				if($previous_status_id != $current_status_id)
 				{
 					echo "<br>Status Changed....";
-					$this->performNotification($current_status_id, $service_id);
+					$response = $this->performNotification($current_status_id, $service_id);
 				}
 				
 				if($model->save())
 				{
-					$this->redirect(array('view','id'=>$model->id));
+					$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
 					//echo "saved";
 				}
 				else
@@ -242,14 +242,12 @@ class ServicecallController extends Controller
 					echo "<br>Not Save";
 				}
 
-				
-				
 			}//end of if(isset()).
 		
 		}/////end of if( $model->job_status_id < 100 )
 		else 
 		{
-			$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
 		}
 	
 		$this->render('updateServicecall',array(
@@ -832,7 +830,8 @@ class ServicecallController extends Controller
 					$name = $customerModel->fullname;
 					$customer_body = 'Dear '.$name.','."<br>".$body;
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject, $smsMessage);
+					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject, $smsMessage);
+					return $response;
 						
 				}//end of if of CUSTOMER.
 				
@@ -849,7 +848,8 @@ class ServicecallController extends Controller
 					$engineer_body = 'Dear '.$name.','."\n".$body;
 				
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject, $smsMessage);
+					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject, $smsMessage);
+					return $response;
 						
 				}//end of if of ENGINEER.
 					
@@ -864,7 +864,8 @@ class ServicecallController extends Controller
 					$telephone = $contractModel->mainContactDetails->mobile;
 					$warranty_body = 'Dear Recepient,'."\n".$body;
 						
-					NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject, $smsMessage);
+					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject, $smsMessage);
+					return $response;
 						
 				}//end of if of WARRANTY PROVIDER.
 					
@@ -887,7 +888,8 @@ class ServicecallController extends Controller
 						$name = $contact->person_name;
 						$others_body = 'Dear '.$name.','."\n".$body;
 							
-						NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode, $others_body, $subject, $smsMessage);
+						$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode, $others_body, $subject, $smsMessage);
+						return $response;
 					}//end of inner foreach($contact).
 				
 				}//end of if of OTHERS.

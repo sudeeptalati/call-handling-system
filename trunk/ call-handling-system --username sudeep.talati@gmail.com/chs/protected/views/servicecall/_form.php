@@ -550,7 +550,7 @@ background-color: #FFFF9D;
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 			<?php //echo $form->textField($model,'engineer_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllCompanyNames());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
 			<?php //CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');?>
 			<?php echo $form->error($productModel,'engineer_id'); ?>
 		</td>

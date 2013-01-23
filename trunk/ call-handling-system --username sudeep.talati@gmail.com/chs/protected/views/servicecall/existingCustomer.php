@@ -283,7 +283,7 @@
 	<tr><td colspan="2">
 	<?php 
 		echo $form->labelEx($model,'engineer_id');
-		echo $form->DropDownList($model, 'engineer_id', $productModel->getAllCompanyNames());
+		echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
 		echo $form->error($model,'engineer_id');
 	?>
 	</td></tr>

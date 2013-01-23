@@ -215,7 +215,7 @@ vertical-align:top;
 			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
 			 
-			<?php echo $form->textField($engineerModel, 'company', array('disabled'=>'disabled'));?>
+			<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
 			<?php echo $form->error($model,'engineer_id'); ?>
 			<?php echo CHtml::link('Change Engineer', array('servicecall/changeEngineerOnly/', 'service_id'=>$model->id));
 					?>

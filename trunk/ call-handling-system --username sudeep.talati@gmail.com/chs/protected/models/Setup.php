@@ -138,14 +138,10 @@ class Setup extends CActiveRecord
 	
 	public function updateVersion($id)
 	{
-
-
 		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
-
 
 		$last_successful_step='';
  		
-		
 		$last_successful_step_message='';
 		$step_info=array();
 
@@ -484,10 +480,6 @@ class Setup extends CActiveRecord
 					break;
 
 				}
-
-
-
-
 
 
 		}//end of switch($id) opened at the very beginning.

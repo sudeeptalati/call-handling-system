@@ -326,7 +326,7 @@ if($_GET['notify_response']!= '')
 	
 		<table><tr><td>
 		Engineer Visit Date	<br>
-			<b><i><?php 	echo $model->engineer->company;?></i></b>
+			<b><i><?php 	echo $model->engineer->fullname;?></i></b>
 		<?php 	 
 				//echo $form->labelEx($enggDiaryModel,'visit_start_date').'<br>';	
 				$viewVisitStartDate='';

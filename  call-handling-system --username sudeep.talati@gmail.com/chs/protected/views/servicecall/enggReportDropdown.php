@@ -58,10 +58,9 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	<?php 
 	
 	
-	$engg_data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+	$engg_data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
 	echo CHtml::dropDownList('engglist','engineer_id', $engg_data,
 									array('empty'=>array(0=>'All Engineers'))
-									 
 									);
 									
 	?>
@@ -76,8 +75,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	$job_status_data=CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');	
 	echo CHtml::dropDownList('statuslist','job_status_id', $job_status_data,
 									array('empty'=>array(0=>'All Status')) 
-									
-								  );
+									);
 	?>
 </td>
 </tr>

@@ -67,19 +67,6 @@
 		For example :#F0B28C
 		<br>
 		
-		 <?php echo CHtml::textField('extraNight', array(
-				'onKeyUp' => CHtml::ajax(array(
-				'type'=>'POST',
-				'dataType'=>'json',
-				'data'=>array('extraNight'=>'js:extraNight.value',
-				'success'=>'function(data){
-				$(“#totalPrice”).html(data.totalPrice);
-				$(“#totalPricex”).html(data.totalPricex);
-				$(“#hTotal”).val(data.totalPrice);
-				
-				}'))
-			)));
-?>
 		<br>
 		
 		 <?php echo CHtml::link('Click here to choose the color', 'http://www.december.com/html/spec/colorshades.html', array('target'=>'_blank'));?>

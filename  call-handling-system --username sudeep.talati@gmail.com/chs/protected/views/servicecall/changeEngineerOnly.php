@@ -15,7 +15,7 @@ $servicecallModel = Servicecall::model()->findByPk($service_id);
 <center>
  	<b>
  		Changing Engineer for service call no :<?php echo $servicecallModel->service_reference_number;?>
- 		<br>Current Engineer : <?php echo $servicecallModel->engineer->company;?>
+ 		<br>Current Engineer : <?php echo $servicecallModel->engineer->fullname;?>
  	</b>
  </center>
  
@@ -36,7 +36,7 @@ $updateServicecallChangeEngineerForm=$this->beginWidget('CActiveForm', array(
 
 $model = Servicecall::model();
 //$engg_id = 0;
-$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
 
 echo $updateServicecallChangeEngineerForm->dropDownList($model, 'engineer_id', $data,
 		array('empty'=>'All Engineers')

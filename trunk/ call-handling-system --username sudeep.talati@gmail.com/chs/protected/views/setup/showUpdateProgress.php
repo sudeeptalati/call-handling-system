@@ -97,7 +97,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 		
 	?>
 	
-<div style="background-color: green; width:<?php //echo $progressBarValue; ?>px; height:20px;">
+<div style="background-color: green; width:<?php echo $progressBarValue; ?>px; height:20px;">
 
 
 </div><?php

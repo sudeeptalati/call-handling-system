@@ -91,9 +91,9 @@ $baseUrl= Yii::app()->request->baseUrl;
 	
 		
 	<?php echo "Updating Software to ".$available_version."<br><br><br>";
-// 		$message=$step_info[1];
-// 		$currentStep = $step_info[0];
-// 		$progressBarValue=$currentStep*100;
+ 		$message=$step_info[1];
+ 		$currentStep = $step_info[0];
+ 		$progressBarValue=$currentStep*100;
 		
 	?>
 	
@@ -101,11 +101,11 @@ $baseUrl= Yii::app()->request->baseUrl;
 
 
 </div><?php
-//  $percentage_complete= $currentStep*15;
-// 				if ($percentage_complete>100)
-// 				$percentage_complete=100;
+  $percentage_complete= $currentStep*15;
+ 				if ($percentage_complete>100)
+ 				$percentage_complete=100;
 				
-// 				echo $percentage_complete;
+ 				echo $percentage_complete;
 				?>%
 
  
@@ -115,29 +115,29 @@ $baseUrl= Yii::app()->request->baseUrl;
 
 
 <?php 
-// if(empty($_SESSION['message']))
-// {
-// 	$_SESSION['message'] = '';
-// }
+ if(empty($_SESSION['message']))
+ {
+ 	$_SESSION['message'] = '';
+ }
 
-// $_SESSION['message']=$_SESSION['message'].$message;
-// echo $_SESSION['message'];
+ $_SESSION['message']=$_SESSION['message'].$message;
+ echo $_SESSION['message'];
 
 
-// if($currentStep != 0 && $currentStep < 7 )
-// {
-// 	$next_step = $currentStep+1;
-// 	$url=Yii::app()->baseUrl.'/Setup/showUpdateProgress/?curr_step='.$next_step;
-// 	//echo $url;
-// 	echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
-// }
-// else
-// {
-// 	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
-// 	$_SESSION['message']='';
-// 	echo "<br>";
-// 	echo CHTml::link('Restart Browser',array('../chs/'));
-// }
+ if($currentStep != 0 && $currentStep < 7 )
+ {
+	$next_step = $currentStep+1;
+ 	$url=Yii::app()->baseUrl.'/Setup/showUpdateProgress/?curr_step='.$next_step;
+ 	//echo $url;
+   echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
+ }
+ else
+{
+ 	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
+ 	$_SESSION['message']='';
+ 	echo "<br>";
+ 	echo CHTml::link('Restart Browser',array('../chs/'));
+ }
 
 ?>
 

@@ -268,7 +268,7 @@ return array(
 		'company_address'=>'Demo',
 		'company_contact_details'=>'Telephone:00000000 Fax:00000000 E-mail:demo.co.uk',
 		'vat_in_percentage'=>'',	
-		'software_version'=>'0.5.2beta',	
+		'software_version'=>'0.5.3beta',	
 
 	),
 

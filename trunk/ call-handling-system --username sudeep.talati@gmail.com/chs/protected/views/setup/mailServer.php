@@ -60,7 +60,7 @@ alert(val);
 	
 	<b>User Name</b><br><input type="text" name="username" required="required" value=<?php echo $smtp_username;?>><br><br>
 	
-	<b>Password</b><br><input type="text" name="password" value=<?php echo $smtp_password;?>><br><br>
+	<b>Password</b><br><input type="password" name="password" value=<?php echo $smtp_password;?>><br><br>
 	
 	<b>Encryption Type</b><br>
 	<select name="server_encryption" id="server_encryption" onchange="getSelectedValue();">

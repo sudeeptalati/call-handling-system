@@ -133,7 +133,7 @@
 )); ?>
 <?php 
 	$engg_id=$model->engineer_id;
- 	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname');
+ 	$data=CHtml::listData(Engineer::model()->findAll(), 'id', 'fullname', 'company');
  	echo "<b>Select Engineer&nbsp;&nbsp;&nbsp;</b>";
 	echo $enggdiaryform->DropDownList($model, 'engineer_id', $data );
 	echo $enggdiaryform->hiddenField($model,'servicecall_id');

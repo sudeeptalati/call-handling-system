@@ -81,7 +81,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Demo',
+	'name'=>'Call Handling - Rapport',
 	'defaultController'=>'servicecall/freeSearch',
 	
 		

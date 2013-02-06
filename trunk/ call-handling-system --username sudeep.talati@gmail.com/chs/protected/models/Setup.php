@@ -344,8 +344,9 @@ class Setup extends CActiveRecord
 							while(!feof($file_handle))
 							{
 								$line=fgets($file_handle);
-
-								$db->exec($line);
+								if(!empty($line){
+									$db->exec($line);
+								}
 								 
 								}
 								fclose($file_handle);

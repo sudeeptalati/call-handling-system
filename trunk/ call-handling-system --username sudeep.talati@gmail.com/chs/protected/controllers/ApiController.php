@@ -45,7 +45,7 @@ class ApiController extends Controller
 		    		//echo $data->servicecall_id;
 		    		$customer_name=$data->servicecall->customer->fullname;
 		    		$customer_postcode=$data->servicecall->customer->postcode;
-		    		$engineer_name = $data->engineer->company;
+		    		$engineer_name = $data->engineer->fullname;
 		    		//$engineer_name = $data->engineer_id;
 		    		
 		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
@@ -93,7 +93,7 @@ class ApiController extends Controller
 		    		//echo $data->servicecall_id;
 		    		$customer_name=$data->servicecall->customer->fullname;
 		    		$customer_postcode=$data->servicecall->customer->postcode;
-		    		$engineer_name = $data->engineer->company;
+		    		$engineer_name = $data->engineer->fullname;
 		    		
 		    		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 		    		
@@ -267,35 +267,49 @@ class ApiController extends Controller
 		
 		if($newEnggDiaryModel->save())
 		{
-			//echo "<br>DIARY SAVED.......!!!!!!!!!!";
-			$sevicecallModel = Servicecall::model()->findByPk($service_id);
-			$setupModel = Setup::model()->findByPk(1);
+			try 
+			{
+				if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+				{
+					//echo "<br>DIARY SAVED.......!!!!!!!!!!";
+					$sevicecallModel = Servicecall::model()->findByPk($service_id);
+					$setupModel = Setup::model()->findByPk(1);
+					
+					$customer_email_address = $sevicecallModel->customer->email;
+					$customer_mobileNumber = $sevicecallModel->customer->mobile;
+					
+					$engineer_email_address = $sevicecallModel->engineer->contactDetails->email;
+					$engineer_mobileNumber = $sevicecallModel->engineer->contactDetails->mobile;
+					//echo "receiver address = ".$reciever_email_address;
+					$customer_name = $sevicecallModel->customer->fullname;
+					//echo "<br>Cust name = ".$customer_name;
+					$engineer_name = $sevicecallModel->engineer->fullname;
+					//echo "<br>Engg name = ".$engineer_name;
+					$reference_number = $sevicecallModel->service_reference_number;
+					$company_name = $setupModel->company;
+					//echo "<br>Reff no = ".$reference_number;
+					$status = $sevicecallModel->jobStatus->name;
+					//echo "<br>status = ".$status;
+					$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
+					$subject = 'Service call '.$reference_number.' Status changed to '.$status;
+					$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+					
+					$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+					$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+									
+					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+				}//end of if(check for internet connection). 
+				else 
+					echo "PLEASE CHECK YOUR INTERNET CONNECTION";
+				
+			}//end of try inside if(), to catch email ans sms sent errors.
+			catch (exception $e)
+			{
+				//echo "<br>error message = ".$e.message;
+			}
 			
-			$customer_email_address = $sevicecallModel->customer->email;
-			$customer_mobileNumber = $sevicecallModel->customer->mobile;
-			
-			$engineer_email_address = $sevicecallModel->engineer->contactDetails->email;
-			$engineer_mobileNumber = $sevicecallModel->engineer->contactDetails->mobile;
-			//echo "receiver address = ".$reciever_email_address;
-			$customer_name = $sevicecallModel->customer->fullname;
-			//echo "<br>Cust name = ".$customer_name;
-			$engineer_name = $sevicecallModel->engineer->fullname;
-			//echo "<br>Engg name = ".$engineer_name;
-			$reference_number = $sevicecallModel->service_reference_number;
-			$company_name = $setupModel->company;
-			//echo "<br>Reff no = ".$reference_number;
-			$status = $sevicecallModel->jobStatus->name;
-			//echo "<br>status = ".$status;
-			$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
-			$subject = 'Service call '.$reference_number.' Status changed to '.$status;
-			$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
-			
-			NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
-			$sms_send = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
-						
-			NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
-			NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
-		}
+		}//end of if($newEnggDiaryModel->save()).
 		else 
 		{
 			echo "<br>Problem in saving diary";
@@ -574,7 +588,7 @@ class ApiController extends Controller
 			    		
 			   		$customer_name=$data->servicecall->customer->fullname;
 				    $customer_postcode=$data->servicecall->customer->postcode;
-				    $engineer_name = $data->engineer->company;
+				    $engineer_name = $data->engineer->fullname;
 					    
 			   		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 				    		
@@ -630,7 +644,7 @@ class ApiController extends Controller
 			   		
 			   		$customer_name=$data->servicecall->customer->fullname;
 				    $customer_postcode=$data->servicecall->customer->postcode;
-				    $engineer_name = $data->engineer->company;
+				    $engineer_name = $data->engineer->fullname;
 					    
 			   		$start_date= date("Y-m-d H:i",$data->visit_start_date);
 					    		

@@ -305,7 +305,7 @@ class NotificationRules extends CActiveRecord
 			{
 				echo "<br>TEST EMAIL IS SENT, CONNECTION IS OK";
 			}
-		
+			
 		}//end of else.
 		
 	}//end of sendEmail().

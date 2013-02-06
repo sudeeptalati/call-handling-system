@@ -34,7 +34,7 @@ $enggModel = Engineer::model()->findByPk($engg_id);
 <?php 
 	
 	//$engg_id=$model->engineer_id;
- 	$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+ 	$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'fullname', 'company');
  	
 	
 	echo "<b>Change Engineer&nbsp;&nbsp;&nbsp;</b>";

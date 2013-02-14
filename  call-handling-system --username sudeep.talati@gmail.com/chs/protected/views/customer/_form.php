@@ -112,7 +112,6 @@ border: 1px solid #900;
 background-color: #FFFF9D; 
 }
 
-
 </STYLE>
 
 
@@ -120,18 +119,13 @@ background-color: #FFFF9D;
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'customer-form',
-	'enableAjaxValidation'=>false,
+	//'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array(
+			'validateOnSubmit'=>true,
+	),
 )); ?>
 
-	
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-	
-	<?php echo $form->errorSummary($model);
-			
-	?>
-	
- 
-	
 	<?php 
 		if(!empty($model->product->id))
 		{
@@ -142,6 +136,14 @@ background-color: #FFFF9D;
 			$productModel=Product::model();
 		}
 		
+	?>
+
+	
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	
+	<?php 
+		echo $form->errorSummary($model);
+		echo $form->errorSummary($productModel);
 	?>
 	
 <!-- ***** MASTER TABLE FOR LAYOUT AND CURVES ******* -->
@@ -190,24 +192,19 @@ background-color: #FFFF9D;
 	</tr>
 	<tr>
 			<td>
-				<?php echo $form->labelEx($model,'postcode'); ?> <small>First Part &nbsp; Second Part</small><br>
+				<?php echo $form->labelEx($model,'postcode_s'); ?> <small>First Part &nbsp; Second Part</small><br>
 				<?php echo $form->textField($model,'postcode_s',array('size'=>3,'maxlength'=>4)); ?>
 				<?php echo $form->error($model,'postcode_s'); ?>
 			
-				<?php //echo $form->labelEx($customerModel,'postcode_e'); ?>
+				<?php //echo $form->labelEx($model,'postcode_e'); ?>
 				<?php echo $form->textField($model,'postcode_e',array('size'=>3, 'maxlength'=>4)); ?>
 				<?php echo $form->error($model,'postcode_e'); ?>
  			</td>
  			<td>
 				<?php
-//					$config=Config::model()->findByPk(1);
-//				 	$postcodeanwhere_account_code=$config->postcodeanywhere_account_code;
-//					$postcodeanwhere_license_key=$config->postcodeanywhere_license_key;
-					
 					$setupModel = Setup::model()->findByPk(1);
 				 	$postcodeanwhere_account_code=$setupModel->postcodeanywhere_account_code;
 					$postcodeanwhere_license_key=$setupModel->postcodeanywhere_license_key;
- 
 				?>
 					 <input type=button value="Find" 
    onclick="Javascript: PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin
@@ -303,16 +300,7 @@ background-color: #FFFF9D;
 	
 	<!-- FIELDS FROM PRODUCT TABLE -->
 	
-	<?php 
-	if(!empty($model->product_id))
-	{
-		$productModel=Product::model()->findByPk($model->product_id);
-	}
-	else 
-	{
-		$productModel=Product::model();
-	}
-	?>
+	
 	
 	<table style="width:400px; margin:10px;">
 	<tr><td colspan="3"><h2 style="margin-bottom:0.01px;color:#555;"><label>Product Details</label></h2>
@@ -492,11 +480,16 @@ background-color: #FFFF9D;
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 			<?php //echo $form->textField($model,'engineer_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
+			<?php //echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany()); ?>
 			<?php echo $form->error($productModel,'engineer_id'); ?>
 		</td>
 		<td> 
-			<?php echo CHtml::submitButton($model->isNewRecord ? 'Register This New Customer' : 'Modify this Customer'); ?>
+			<?php
+			 	echo CHtml::submitButton($model->isNewRecord ? 'Register This New Customer' : 'Modify this Customer');
+			 	//echo CHtml::ajaxSubmitButton('Register',array('customer/create','ajax'=>'create_form'));
+			 	
+			?>
 		</td>
 		</tr>
 	</table>

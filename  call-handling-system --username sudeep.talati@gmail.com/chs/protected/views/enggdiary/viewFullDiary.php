@@ -6,7 +6,7 @@ $enggModel = Engineer::model()->findByPk($engg_id);
 ?>
 
 <div style="text-align:left;">
-<?php echo $enggModel->company; ?>
+<b><?php echo "Diary of ".$enggModel->fullname; ?></b>
 </div>
 
 <?php

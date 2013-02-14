@@ -106,10 +106,8 @@ class ServicecallController extends Controller
 		$customerModel=new Customer;
 		$productModel=new Product;
 
-		
-
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($serviceCallModel, $customerModel, $productModel);
 
 		if(isset($_POST['Servicecall'],$_POST['Customer'],$_POST['Product'] ))
 		{
@@ -117,9 +115,14 @@ class ServicecallController extends Controller
 			$customerModel->attributes=$_POST['Customer'];
 			$productModel->attributes=$_POST['Product'];
 			
+			$serviceModelValid=$serviceCallModel->validate();
+			$productModelValid=$productModel->validate();
+			$customerModelValid=$customerModel->validate();
+			
 			
 			//////FIRST SAVING PRODUCT
-			$productModelValid=$productModel->validate();
+			
+			
 			 if($productModelValid)
 			 {
 				//echo "Product Model OK";
@@ -127,7 +130,8 @@ class ServicecallController extends Controller
 				{
 					//echo "<hr>Product Model SAVED----product id is ".$productModel->id;
 					$customerModel->product_id=$productModel->id;
-					$customerModelValid=$customerModel->validate();
+					
+					
 					///////SECOND SAVING CUSTOMER
 					if($customerModelValid)
 					{
@@ -140,7 +144,8 @@ class ServicecallController extends Controller
 								$serviceCallModel->product_id=$productModel->id;
 								$serviceCallModel->engineer_id=$productModel->engineer_id;
 								$serviceCallModel->contract_id=$productModel->contract_id;
-								$serviceModelValid=$serviceCallModel->validate();
+								
+								//$serviceModelValid=$serviceCallModel->validate();
 								
 								if($serviceModelValid)
 								{
@@ -157,10 +162,6 @@ class ServicecallController extends Controller
 					
 						
 					}///end of customer model valid
-					
-					
-					
-					
 					
 				}//end of $productModel->save()
 				
@@ -324,11 +325,11 @@ class ServicecallController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
+	protected function performAjaxValidation($model, $customerModel, $productModel)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-form')
 		{
-			echo CActiveForm::validate($model);
+			echo CActiveForm::validate(array($model, $customerModel, $productModel));
 			Yii::app()->end();
 		}
 	}
@@ -347,7 +348,6 @@ class ServicecallController extends Controller
 			$model->customer_id=$_GET['customer_id'];
 			$model->product_id=$_GET['product_id'];
 			
-
 			if($model->save())
 			{
 				$engg_id=$model->engineer_id;
@@ -355,8 +355,6 @@ class ServicecallController extends Controller
 				$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
 			}
 							
-		
-		
 		}//end of if(isset()).
 		
 		

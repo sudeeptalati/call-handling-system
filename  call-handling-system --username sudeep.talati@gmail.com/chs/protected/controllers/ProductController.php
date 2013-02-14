@@ -67,8 +67,9 @@ class ProductController extends Controller
 //			$model->customer_id=$_GET['id'];
 //		else 
 //			$model->customer_id=0;
+
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['Product']))
 		{
@@ -80,7 +81,7 @@ class ProductController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	}//end of create.
 
 	/**
 	 * Updates a particular model.

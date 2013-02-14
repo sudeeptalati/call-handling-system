@@ -51,6 +51,8 @@
 	$productTypeModel=ProductType::model()->findByPk($productModel->product_type_id);
 								
 	$model->engineer_id=$productModel->engineer_id;
+	
+	
 	//echo $productModel->engineer->fullname;
 								
 	//echo "PRODUCT ID :".$productModel->id; 
@@ -283,7 +285,8 @@
 	<tr><td colspan="2">
 	<?php 
 		echo $form->labelEx($model,'engineer_id');
-		echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
+		//echo $form->DropDownList($model, 'engineer_id', $productModel->getAllEngineers());
+		echo $form->DropDownList($model, 'engineer_id', Engineer::model()->getAllEnggAndCompany());
 		echo $form->error($model,'engineer_id');
 	?>
 	</td></tr>

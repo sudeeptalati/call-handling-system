@@ -126,16 +126,42 @@ background-color: #FFFF9D;
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'servicecall-form',
-	'enableAjaxValidation'=>false,
+	//'enableAjaxValidation'=>false,
+		'enableAjaxValidation'=>true,
+		'clientOptions'=>array(
+				'validateOnSubmit'=>true,
+		),
 )); ?>
 
+<?php 
+	if(!empty($model->customer->id))
+	{
+		$customerModel=Customer::model()->findByPk($model->customer_id);
+	}
+	else 
+	{
+		$customerModel=Customer::model();
+	}
+?>
 
-
-
+<?php 
+	if(!empty($model->product_id))
+	{
+		$productModel=Product::model()->findByPk($model->product_id);
+	}
+	else 
+	{
+		$productModel=Product::model();
+	}
+	?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php 
+		echo $form->errorSummary($model);
+		echo $form->errorSummary($customerModel);
+		echo $form->errorSummary($productModel);
+	?>
 
 <!-- ***** MASTER TABLE FOR LAYOUT AND CURVES ******* -->
 <table><tr><td style="background-color: #FFD8B3; border-radius: 15px; vertical-align: top;">
@@ -168,7 +194,6 @@ background-color: #FFFF9D;
 		?>
 		<?php //echo $form->textField($model,'fault_date'); ?>
 		<?php echo $form->error($model,'fault_date'); ?>
-		
 		
 		
 		<?php echo $form->labelEx($model,'fault_description'); ?>
@@ -206,28 +231,13 @@ background-color: #FFFF9D;
 <tr><td style="background-color: #C7E8FD; border-radius: 15px; vertical-align: top;">
 <!-- CODE FOR MASTER TABLE TO CHANGE COLOR END -->
 
-
-
-	 
 	<!-- FIELDS FOR  CUSTOMER  -->
 	 
-	 
-	
- 	
 	<?php //SETTING CUSTOMER ID TO ZERO TO CHECK WEATHER NEW CUSTOMER OR NOT.?>
 	<?php echo $form->hiddenField($model,'customer_id',array('value'=>'0')); ?>
 	<?php echo $form->error($model,'customer_id'); ?>
-	<?php 
-	if(!empty($model->customer->id))
-	{
-		$customerModel=Customer::model()->findByPk($model->customer_id);
-	}
-	else 
-	{
-		$customerModel=Customer::model();
-	}
-	?>
-	<?php echo $form->errorSummary($customerModel); ?>	
+	
+	<?php //echo $form->errorSummary($customerModel); ?>	
 	<table style="width:400px; margin:10px;">
 	<tr><td colspan="2"><h2 style="margin-bottom:0.01px;color:#555;"><label>Customer Details</label></h2>
 	
@@ -362,16 +372,7 @@ background-color: #FFFF9D;
 	
 	<!-- FIELDS FROM PRODUCT TABLE -->
 	
-	<?php 
-	if(!empty($model->product_id))
-	{
-		$productModel=Product::model()->findByPk($model->product_id);
-	}
-	else 
-	{
-		$productModel=Product::model();
-	}
-	?>
+	
 	
 	<table style="width:400px; margin:10px;">
 	<tr><td colspan="3"><h2 style="margin-bottom:0.01px;color:#555;"><label>Product Details</label></h2></td></tr>
@@ -550,7 +551,7 @@ background-color: #FFFF9D;
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 			<?php //echo $form->textField($model,'engineer_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', $productModel->getAllEngineers());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany());?>
 			<?php //CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');?>
 			<?php echo $form->error($productModel,'engineer_id'); ?>
 		</td>

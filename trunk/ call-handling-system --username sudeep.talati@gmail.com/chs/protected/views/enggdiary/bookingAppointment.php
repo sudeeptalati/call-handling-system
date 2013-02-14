@@ -65,7 +65,7 @@ foreach ($diaryModel as $data)
 </tr>
 
 <tr><td>
-		<?php echo $companyName;?><br>
+		<?php echo $enggName;?><br>
 		<?php echo $enggAddress;?>
 	</td>
 	<td>
@@ -125,7 +125,7 @@ foreach ($diaryModel as $data)
 <?php 
 	
 	//$engg_id=$model->engineer_id;
- 	$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');
+ 	$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'fullname', 'company');
  	echo "<b>Select to Change Engineer&nbsp;&nbsp;&nbsp;</b>";
 	echo $enggdiaryform->dropDownList($model, 'engineer_id', $data,
 								array('empty'=>array(0=>'All Engineers')) 

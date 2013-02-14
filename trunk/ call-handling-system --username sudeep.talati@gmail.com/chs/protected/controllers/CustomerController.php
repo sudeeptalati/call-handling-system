@@ -62,27 +62,28 @@ class CustomerController extends Controller
 	public function actionCreate()
 	{
 		$model=new Customer;
+		$productModel=new Product;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		 $this->performAjaxValidation($model, $productModel);
+		 
 		if(isset($_POST['Customer'],$_POST['Product']))
 		{
 			$model->attributes=$_POST['Customer'];
-			$productModel=new Product;
 			$productModel->attributes=$_POST['Product'];
 			
-			$valid=$model->validate();
-			$valid=$productModel->validate() && $valid;
-			
+			$valid=$productModel->validate();
+			$valid=$model->validate() && $valid;
+			 
 			if($valid)
 			{
 				if($model->save())
 					$this->redirect(array('view','id'=>$model->id));
 			}
-			else 
-			{
-				echo "Enter all mandatory fields of Products";
-			}
+// 			else 
+// 			{
+// 				echo "Enter all mandatory fields of Products";
+// 			}
 		}//enf of if(isset())
 
 		$this->render('create',array(
@@ -215,11 +216,11 @@ class CustomerController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
+	protected function performAjaxValidation($model, $productModel)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='customer-form')
 		{
-			echo CActiveForm::validate($model);
+			echo CActiveForm::validate(array($model, $productModel));
 			Yii::app()->end();
 		}
 	}

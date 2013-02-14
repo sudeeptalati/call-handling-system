@@ -85,7 +85,7 @@ include 'setup_sidemenu.php';
 	
 	<div class="row">
 		<?php echo "<b>Password</b><br>";?>
-		<?php echo CHtml::textField('',$smtp_password, array('disabled'=>'disabled'));?>
+		<?php echo CHtml::passwordField('',$smtp_password, array('disabled'=>'disabled'));?>
 	</div>
 	
 	<div class="row">

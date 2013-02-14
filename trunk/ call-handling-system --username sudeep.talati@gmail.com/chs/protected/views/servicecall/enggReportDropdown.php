@@ -58,7 +58,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	<?php 
 	
 	
-	$engg_data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
+	$engg_data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
 	echo CHtml::dropDownList('engglist','engineer_id', $engg_data,
 									array('empty'=>array(0=>'All Engineers'))
 									);

@@ -9,7 +9,7 @@
 </tr></table>
 
 
-<h1>View Engineer #<?php echo $model->first_name."  ".$model->last_name; ?></h1>
+<h1><?php echo $model->fullname; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -18,15 +18,19 @@
 		'first_name',
 		'last_name',
 		//'active',
-			array(
-					'label'=>'active',
-					'value'=>$model->active ? "Yes" : "No",
-			),
+		array(
+			'label'=>'active',
+			'value'=>$model->active ? "Yes" : "No",
+		),
 		'company',
 		'vat_reg_number',
 		'notes',
-		'inactivated_by_user_id',
-		'inactivated_on',
+		'contactDetails.telephone',
+		'contactDetails.mobile',
+		'contactDetails.email',
+		'contactDetails.postcode',
+// 		'inactivated_by_user_id',
+// 		'inactivated_on',
 // 		'contact_details_id',
 // 		'delivery_contact_details_id',
 // 		//'created_by_user_id',
@@ -37,9 +41,9 @@
 				'value'=>date('d-M-y',$model->created),
 		),
 		//'modified',
-		array(
-				'name'=>'Modified',
-				'value'=>date('d-M-y',$model->modified),
-		),
+// 		array(
+// 				'name'=>'Modified',
+// 				'value'=>date('d-M-y',$model->modified),
+// 		),
 	),
 )); ?>

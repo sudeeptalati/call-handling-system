@@ -10,7 +10,7 @@ $company_logo=Yii::app()->request->baseUrl."/images/company_logo.png";
 $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 ?>
  
-<?php echo CHtml::image($company_logo,"ballpop",array("width"=>"200", "height"=>"75")); ?>
+<?php echo CHtml::image($company_logo,"ballpop",array()); ?>
 
  
 

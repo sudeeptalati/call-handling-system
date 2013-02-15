@@ -223,25 +223,99 @@ class SetupController extends Controller
 	        Yii::app()->end();
 	    }
 	    */
-	
-	    if(isset($_POST['Setup']))
+	    
+	    if(isset($_POST['finish']))
 	    {
-	        $model->attributes=$_POST['Setup'];
-	        if($model->validate())
-	        {
-	            // form inputs are valid, do something here
-	            return;
-	        }
-	    }
+ 	    	
+// 	    	list($width, $height) = getimagesize($_FILES["logo_url"]["tmp_name"]);
+// 	    	$new_dimensions = $this->resize_dimensions(500,500,$width,$height);
+// 	    	//print_r($new_dimensions);
+
+	    	$allowedExts = array("jpg", "jpeg", "gif", "png");
+	    	$info = pathinfo($_FILES['logo_url']['name']);
+	    	$extension = $info['extension'];
+	    	//echo "extention = ".$extension;
+	    	
+	    	if ((($_FILES["logo_url"]["type"] == "image/gif")
+	    			|| ($_FILES["logo_url"]["type"] == "image/jpeg")
+	    			|| ($_FILES["logo_url"]["type"] == "image/png")
+	    			|| ($_FILES["logo_url"]["type"] == "image/pjpeg")) && in_array($extension, $allowedExts))
+
+	    	//if (( ($_FILES["logo_url"]["type"] == "image/png")) && ($_FILES["logo_url"]["size"] < 1000000))
+	    	{
+	    		//echo "YEPPY";
+	    		if ($_FILES["logo_url"]["error"] > 0)
+	    		{
+	    			echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
+	    		}
+	    		else
+	    		{
+	    			//echo "Upload: " . $_FILES["logo_url"]["name"] . "<br />";
+	    			//echo "Type: " . $_FILES["logo_url"]["type"] . "<br />";
+	    			//echo "Size: " . ($_FILES["logo_url"]["size"] / 1024) . " Kb<br />";
+	    			//echo "Temp uploaded: " . $_FILES["logo_url"]["tmp_name"] . "<br />";
+	    			$uploadedname="company_logo.png";
+	    			$uploaded_file= $_FILES["logo_url"]["tmp_name"];
+	    
+	    			$location="images/company_logo.png";
+	    			//echo '<br>'.$location;
+	    			if (move_uploaded_file($uploaded_file,$location))
+	    			{
+	    				echo "<br>Stored";
+	    			}
+	    			else
+	    			{
+	    				echo "Problem in storing";
+	    			}
+	    
+	    
+	    		}//end of else
+	    
+	    	}///end of file upload if
+	    	else
+	    	{
+// 	    		list($w, $h, $s) = getimagesize($_FILES["logo_url"]["tmp_name"]);
+// 	    		echo "<br>Width of image = ".$w;
+// 	    		echo "<br>Height of image = ".$h;
+// 	    		$size = ($_FILES["logo_url"]["size"])/1024;
+// 	    		echo "<br>Size in kb = ".$size;
+
+	    		
+	    		echo "<br>Invalid FILE";
+	    		
+	    	}//end of else
+	    
+	    
+	    }//end of isset post finish
+	
 	    $this->render('changeLogo',array('model'=>$model));
 	}//end of changeLogo().
+	
+	// Calculates restricted dimensions with a maximum of $goal_width by $goal_height
+	function resize_dimensions($goal_width,$goal_height,$width,$height)
+	{
+		$return = array('width' => $width, 'height' => $height);
+	
+		// If the ratio > goal ratio and the width > goal width resize down to goal width
+		if ($width/$height > $goal_width/$goal_height && $width > $goal_width) {
+			$return['width'] = $goal_width;
+			$return['height'] = $goal_width/$width * $height;
+		}
+		// Otherwise, if the height > goal, resize down to goal height
+		else if ($height > $goal_height) {
+			$return['width'] = $goal_height/$height * $width;
+			$return['height'] = $goal_height;
+		}
+	
+		return $return;
+	}//end of function resize().
 	
 	
 	public function actionRestoreDatabase()
 	{
 	    if(isset($_POST['finish']))
 		{
-			//			echo 'DATA BASEFILE :  '. $_FILES["database"]["error"];
+			//echo 'DATA BASEFILE :  '. $_FILES["database"]["error"];
 
 			if ($_FILES["database"]["type"] == "application/octet-stream" && $_FILES["database"]["name"] == "chs.db")
 			{
@@ -251,7 +325,7 @@ class SetupController extends Controller
 				}//end of if for error
 				else
 				{
-					echo 'YEPPY';
+					//echo '<br>YEPPY<br>';
 
 					$uploaded_file= $_FILES["database"]["tmp_name"];
 					$location="protected/data/chs.db";
@@ -467,6 +541,8 @@ class SetupController extends Controller
 		}
 		$this->render('clickatellsmsAccount',array('model'=>$model));
 	}//end of actionClickatellsmsAccount().
+	
+	
 	
 	
 	

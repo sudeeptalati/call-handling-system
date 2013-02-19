@@ -105,6 +105,21 @@ class SiteController extends Controller
 	public function actionBackup()
 	{
 		
+		$zip = Yii::app()->zip;
+		$setupModel = Setup::model()->findByPk(1);
+		$dest_location = $setupModel->backup_location;
+		
+		$date=date('d-F-y-h-i');
+		$zipFileName = $date.'_call_handling_backup.zip';
+		$destination = $dest_location.'/'.$zipFileName;
+		
+		//echo "Destination = ".$destination;
+		
+		$zip->makeZip('protected/data', $destination); // make an ZIP archive
+		$zip->forceDownload($destination);
+		
+		
+		/****** WORKING CODE, COMMENTED FOR TESTING.
 		Yii::import('application.extensions.yii-zip.CreateZipFile');
 	
 		
@@ -123,6 +138,7 @@ class SiteController extends Controller
 		$createZip->forceDownload($zipFileName);
 		 
 		@unlink($zipFileName);
+		*/
 
 	}//end of function backup
 }

@@ -115,6 +115,11 @@ return array(
 	'components'=>array(
 				
 				'cache' => array( 'class' => 'system.caching.CFileCache', ),
+			
+				'zip'=>array(
+						'class'=>'application.extensions.zip.EZip',
+				),
+			
 	
 				'sms' => array(
 						'class'=>'ext.ClickatellSms.ClickatellSms',

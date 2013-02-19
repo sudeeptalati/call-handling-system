@@ -10,11 +10,12 @@ $this->menu=array(
 //	array('label'=>'Email Settings', 'url'=>array('emailSetup')),
 	array('label'=>'About & Help', 'url'=>array('about')),
 	array('label'=>'Restore Database', 'url'=>array('restoreDatabase')),
+	array('label'=>'Manage Setup', 'url'=>array('setup/1')),
 	
 );
 
 ?>
 
-<h1>Update Setup <?php echo $model->id; ?></h1>
+<h1>Update Setup</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

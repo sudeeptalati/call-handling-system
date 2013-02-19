@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Setup', 'url'=>array('create')),
-	array('label'=>'Manage Setup', 'url'=>array('admin')),
+	//array('label'=>'Create Setup', 'url'=>array('create')),
+	array('label'=>'Manage Setup', 'url'=>array('setup/1')),
 );
 ?>
 

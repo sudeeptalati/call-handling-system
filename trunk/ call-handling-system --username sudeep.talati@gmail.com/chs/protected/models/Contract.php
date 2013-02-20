@@ -25,6 +25,8 @@
  * @property string $accounts_contact_details
  * @property string $technical_contact_details
  * @property integer $short_name
+ * @property integer $labour_warranty_duration
+ * @property integer $parts_warranty_duration
  *
  * The followings are the available model relations:
  * @property User $inactivatedByUser
@@ -65,7 +67,7 @@ class Contract extends CActiveRecord
 		return array(
 			array('name, active, short_name', 'required'),
 			array('contract_type_id, main_contact_details_id, active, inactivated_by_user_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('vat_reg_number, notes, inactivated_on, management_contact_details, spares_contact_details, accounts_contact_details, accounts_contact_details, technical_contact_details, modified', 'safe'),
+			array('vat_reg_number, notes, inactivated_on, management_contact_details, spares_contact_details, accounts_contact_details, accounts_contact_details, technical_contact_details, modified, labour_warranty_months_duration, parts_warranty_months_duration', 'safe'),
 			//CUSTOMISED RULES.
 			//array('management_contact_details_id','boolean'),
 			

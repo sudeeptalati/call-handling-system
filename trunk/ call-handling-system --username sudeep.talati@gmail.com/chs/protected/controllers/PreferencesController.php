@@ -87,6 +87,7 @@ class PreferencesController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		//echo "IN update action of preference contr";
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

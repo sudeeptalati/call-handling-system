@@ -99,19 +99,23 @@ class CustomerController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-//		$productModel=Product::model()->findByAttributes(
-//										array('customer_id'=>$id));
-//		$productId=$productModel->id;										
-//		$productModelLoad=$productModel->loadModel($productId);										
+		$productModel=new Product;
+// 		$productModel=Product::model()->findByAttributes(
+// 										array('customer_id'=>$id));
+// 		$productId=$productModel->id;										
+// 		$productModelLoad=$productModel->loadModel($productId);										
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		//$this->performAjaxValidation($model);
+		$this->performAjaxValidation($model, $productModel);
+		
+		//echo "in update action of customer contr";
 
 		if(isset($_POST['Customer'],$_POST['Product']))
 		{
 			$model->attributes=$_POST['Customer'];
-//			$productModel=new Product;
-//			$productModel->attributes=$_POST['Product'];
+			
+			$productModel->attributes=$_POST['Product'];
 			
 			//$valid=$model->validate();
 			//$valid=$productModel->validate() && $valid;
@@ -120,6 +124,7 @@ class CustomerController extends Controller
 			if($model->validate())
 			{
 				if($model->save())
+					//echo "SAVED ALL DETAILS";
 					$this->redirect(array('viewProduct','customer_id'=>$model->id, 'product_id'=>$model->product_id));
 			}
 			else 
@@ -139,9 +144,7 @@ class CustomerController extends Controller
 	    						//'height'=>'40px',
 	    						),
 	    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-       					
-	    				
-	    		));
+       			));
 	    		
 	    		echo $message;
 	    		$this->endWidget();

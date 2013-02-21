@@ -38,11 +38,11 @@
 	$php_warranty_date=$productModel->warranty_date;
 	$php_waranty_months=$productModel->warranty_for_months;
 
-	$res='';
+	$warranty_until='';
 	if (!empty($php_warranty_date))
 	{
-	$warranty_until= strtotime(date("Y-M-d", $php_warranty_date) . " +".$php_waranty_months." month");
-	$res=date('d-M-Y', $warranty_until);
+	$res= strtotime(date("Y-M-d", $php_warranty_date) . " +".$php_waranty_months." month");
+	$warranty_until=date('d-M-Y', $res);
 	//echo $res;							
 	}							
 	
@@ -146,7 +146,7 @@
 		
 		<?php echo $form->labelEx($productModel,'warranty_until'); ?>
 		<?php 
-			echo CHtml::textField('Warranty Date',$res,  array('disabled'=>'disabled'));
+			echo CHtml::textField('Warranty Date',$warranty_until,  array('disabled'=>'disabled'));
 		?>
 		</td>
 	</tr>
@@ -213,12 +213,72 @@
 	<!-- ******************* END OF PREVIOUS SERVICECALLS RECORD *************** -->
 	
 	
-	<!-- ****** THIRD PART OF FORM TO ENTER SERVICECALL DETAILS ****** -->
+	<!-- ****** THIRD PART OF FORM TO ENTER SERVICECALL DETAILS ******* -->
 	
 	<tr><td colspan="2" style="text-align:center">
 		<h2>Service Call Details</h2>
 		</td>
 	</tr>
+	
+	<?php 
+	/**** CODE FOR GETTING LABOUR AND PARTS WARRANTY DURATION *********/
+	if(!empty($productModel->warranty_date))
+	{
+		//echo "<hr>Contract type of registerd product = ".$productModel->contract->name;
+		//echo "<br>Labour warranty = ".$productModel->contract->labour_warranty_months_duration;
+		$labour_warranty_duration = $productModel->contract->labour_warranty_months_duration;
+		//echo "<br>Parts warranty = ".$productModel->contract->parts_warranty_months_duration;
+		$parts_warranty_duration = $productModel->contract->parts_warranty_months_duration;
+		//echo "<br>warranty start date = ".$productModel->warranty_date;
+		$strWarrantyDate = strtotime($productModel->warranty_date);
+		
+		$labour_warranty= strtotime($productModel->warranty_date." +".$labour_warranty_duration." month");
+		//echo "<br><br>Labour warranty date = ".date('d-M-y', $labour_warranty);
+		$labour_expiry = date('d-M-y', $labour_warranty);
+		
+		$parts_warranty= strtotime($productModel->warranty_date." +".$parts_warranty_duration." month");
+		//echo "<br><br>Parts warranty date = ".date('d-M-y', $parts_warranty);
+		$parts_expiry = date('d-M-y', $parts_warranty);
+		
+		//$compareDate = '08-Mar-18';
+		$compareDate = date('d-M-y', time());
+		//echo "<br><br>compare date = ".$compareDate;
+		$exptDate = strtotime($compareDate);
+		
+		$message = '';
+		
+		if($exptDate<$labour_warranty && $exptDate<$parts_warranty) 
+			$message = 'Labour warranty expires on '.$labour_expiry.'<br>Parts warranty expires on '.$parts_expiry;
+		elseif ($exptDate<$labour_warranty && $exptDate>$parts_warranty)		
+			$message = 'Labour warranty expires on '.$labour_expiry.'<br>Parts warranty is EXPIRED';
+		elseif ($exptDate>$labour_warranty && $exptDate<$parts_warranty) 
+			$message = 'Labour warranty is EXPIRED'.'<br>Parts warranty expires on '.$parts_expiry;
+		elseif ($exptDate>$labour_warranty && $exptDate>$parts_warranty) 
+				$message = 'Both labour and parts warranty is EXPIERED';
+		else $message = '';	
+		
+		if($message != '')
+		{
+			$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+					'id'=>'mydialog',
+					// additional javascript options for the dialog plugin
+					'options'=>array(
+							'title'=>'Dialog box 1',
+							'autoOpen'=>true,
+					),
+			));
+			
+			echo $message;
+			
+			$this->endWidget('zii.widgets.jui.CJuiDialog');
+		}
+		
+		//echo "<hr>";
+	}//end of if(!empty($productModel->warranty_date)).
+	
+	/**** CODE FOR GETTING LABOUR AND PARTS WARRANTY DURATION *********/
+	
+	?>
 	
 	<tr><td>
 	<?php echo $form->labelEx($model,'fault_date'); ?>

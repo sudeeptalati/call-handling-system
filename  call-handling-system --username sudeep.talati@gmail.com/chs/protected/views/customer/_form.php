@@ -462,9 +462,6 @@ background-color: #FFFF9D;
 			<?php echo $form->hiddenField($model,'lockcode',array('value'=>0)); ?>
 			<?php echo $form->error($model,'lockcode'); ?>
  
-	
- 
-	
 
 <!-- CODE FOR MASTER TABLE TO CHANGE COLOR -->
 </td></tr>
@@ -488,19 +485,13 @@ background-color: #FFFF9D;
 			<?php
 			 	echo CHtml::submitButton($model->isNewRecord ? 'Register This New Customer' : 'Modify this Customer');
 			 	//echo CHtml::ajaxSubmitButton('Register',array('customer/create','ajax'=>'create_form'));
-			 	
 			?>
 		</td>
 		</tr>
 	</table>
 	
-	
-	
-
 </tr>
 </table><!-- END OF MASTER TABLE WITH CURVES -->
-	
-
 	
 	<?php // }//end of else of count($result).?>
 <?php $this->endWidget(); ?>

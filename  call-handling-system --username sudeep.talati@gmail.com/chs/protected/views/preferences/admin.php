@@ -1,13 +1,17 @@
-<?php
-$this->breadcrumbs=array(
-	'Preferences'=>array('index'),
-	'Manage',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List Preferences', 'url'=>array('index')),
-	array('label'=>'Create Preferences', 'url'=>array('create')),
-);
+<?php
+// $this->breadcrumbs=array(
+// 	'Preferences'=>array('index'),
+// 	'Manage',
+// );
+
+// $this->menu=array(
+// 	array('label'=>'List Preferences', 'url'=>array('index')),
+// 	array('label'=>'Create Preferences', 'url'=>array('create')),
+// );
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -44,10 +48,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		'feature',
-		'state',
-		'created',
+		//'state',
+		array('name'=>'state', 'value'=>'$data->state ? "Enabled" : "Disabled"'),
+		//'created',
+		array('name'=>'created', 'value'=>'date("d-M-y", $data->created)'),
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}',
 		),
 	),
 )); ?>

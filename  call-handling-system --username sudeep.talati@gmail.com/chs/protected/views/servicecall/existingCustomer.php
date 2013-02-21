@@ -222,7 +222,18 @@
 	
 	<?php 
 	/**** CODE FOR GETTING LABOUR AND PARTS WARRANTY DURATION *********/
-	if(!empty($productModel->warranty_date))
+	$warranty_notify_state = '';
+	
+	$preferenceModel = Preferences::model()->findAllByAttributes(array('feature'=>'Warranty Notification'));
+	foreach ($preferenceModel as $data)
+	{
+		//echo "<br>Preference id = ".$data->id;
+		//echo "<br>Preference state = ".$data->state;
+		$warranty_notify_state = $data->state;
+	}
+
+	
+	if(!empty($productModel->warranty_date) && ($warranty_notify_state == 1))
 	{
 		//echo "<hr>Contract type of registerd product = ".$productModel->contract->name;
 		//echo "<br>Labour warranty = ".$productModel->contract->labour_warranty_months_duration;
@@ -246,7 +257,7 @@
 		$exptDate = strtotime($compareDate);
 		
 		$message = '';
-		
+				
 		if($exptDate<$labour_warranty && $exptDate<$parts_warranty) 
 			$message = 'Labour warranty expires on '.$labour_expiry.'<br>Parts warranty expires on '.$parts_expiry;
 		elseif ($exptDate<$labour_warranty && $exptDate>$parts_warranty)		
@@ -267,14 +278,19 @@
 							'autoOpen'=>true,
 					),
 			));
-			
+				
 			echo $message;
-			
+				
 			$this->endWidget('zii.widgets.jui.CJuiDialog');
 		}
 		
 		//echo "<hr>";
 	}//end of if(!empty($productModel->warranty_date)).
+	
+	else
+	{
+		//echo "<br>Notify is disabled";
+	}
 	
 	/**** CODE FOR GETTING LABOUR AND PARTS WARRANTY DURATION *********/
 	

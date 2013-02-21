@@ -11,7 +11,8 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'feature'); ?>
-		<?php echo $form->textArea($model,'feature',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'feature', array('disabled'=>'disabled')); ?>
+		<br><small>(System set name, cannot be changed)</small>
 		<?php echo $form->error($model,'feature'); ?>
 	</div>
 

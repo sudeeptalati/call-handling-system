@@ -98,6 +98,8 @@ class Preferences extends CActiveRecord
 				$this->created=time();
 				return true;
 			}
+			else 
+				return true;
 			
 		}//end of if(parent())
 	}//end of beforeSave().

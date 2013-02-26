@@ -68,16 +68,36 @@ class ContractController extends Controller
 
 		if(isset($_POST['Contract'],$_POST['ContactDetails']))
 		{
-			 $model->attributes = $_POST['Contract'];
+			 
 			 $contactDetailsModel=new ContactDetails;
 			 $contactDetailsModel->attributes=$_POST['ContactDetails'];
 			 
+			 $model->attributes = $_POST['Contract'];
+			 
 			 $valid=$model->validate();
-        	 $valid=$contactDetailsModel->validate() && $valid;
-        	 
-        	 if($valid)
+			 $valid=$contactDetailsModel->validate() && $valid;
+			 
+			 $labWarrMonths = $_POST['labour_months'];
+			 //echo "<br>Labour Warranty in months, value got from form = ".$labWarrMonths;
+			 
+			 $labWarrYear = $_POST['labour_year'];
+			 //echo "<br>Labour Warranty in Years, value got from form = ".$labWarrYear;
+			 
+			 $partsWarrMonths = $_POST['parts_months'];
+			 //echo "<hr>Parts Warranty in months, value got from form = ".$partsWarrMonths;
+			 
+			 $partsWarrYear = $_POST['parts_year'];
+			 //echo "<br>Parts Warranty in Years, value got from form = ".$partsWarrYear;
+			 
+			 $finalLabourWarranty = $this->convertToSaveTodb($labWarrMonths, $labWarrYear);  
+			 $finalPartsWarranty = $this->convertToSaveTodb($partsWarrMonths, $partsWarrYear);
+			 
+			 $model->labour_warranty_months_duration = $finalLabourWarranty;
+			 $model->parts_warranty_months_duration = $finalPartsWarranty;
+			 
+			 if($valid)
         	 {
-        		if($model->save())
+        	 	if($model->save())
 					$this->redirect(array('view','id'=>$model->id));
         	 }
         	 else 
@@ -203,5 +223,18 @@ class ContractController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}//end of performAjaxValidation.
+	
+	public function convertToSaveTodb($monthValue, $yearValue)
+	{
+		//echo "<hr>Month Values in FUNC = ".$monthValue;
+		//echo "<br>Year Values in FUNC = ".$yearValue;
+		$year_to_months = $yearValue * 12;
+		//echo "<br>Years converted to months = ".$year_to_months;
+		$total_months = $year_to_months + $monthValue;
+		//echo "<br>Final value to be saved = ".$total_months;
+		return $total_months;
 	}
-}
+	
+	
+}//end of class.

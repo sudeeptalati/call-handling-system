@@ -1,18 +1,23 @@
-<?php
-$this->breadcrumbs=array(
-	'Setups'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'Change Logo', 'url'=>array('changeLogo')),
-//	array('label'=>'Email Settings', 'url'=>array('emailSetup')),
-	array('label'=>'About & Help', 'url'=>array('about')),
-	array('label'=>'Restore Database', 'url'=>array('restoreDatabase')),
-	array('label'=>'Manage Setup', 'url'=>array('setup/1')),
+
+<?php
+// $this->breadcrumbs=array(
+// 	'Setups'=>array('index'),
+// 	$model->id=>array('view','id'=>$model->id),
+// 	'Update',
+// );
+
+// $this->menu=array(
+// 	array('label'=>'Change Logo', 'url'=>array('changeLogo')),
+// //	array('label'=>'Email Settings', 'url'=>array('emailSetup')),
+// 	array('label'=>'About & Help', 'url'=>array('about')),
+// 	array('label'=>'Restore Database', 'url'=>array('restoreDatabase')),
+// 	array('label'=>'Manage Setup', 'url'=>array('setup/1')),
 	
-);
+// );
 
 ?>
 

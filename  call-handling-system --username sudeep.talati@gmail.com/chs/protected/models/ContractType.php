@@ -72,7 +72,7 @@ class ContractType extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Contract Type',
 			'information' => 'Information',
 			'created_by_user_id' => 'Created By User',
 			'created' => 'Created',

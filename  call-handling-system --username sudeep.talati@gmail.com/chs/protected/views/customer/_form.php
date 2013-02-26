@@ -326,8 +326,7 @@ background-color: #FFFF9D;
 	</tr>
 	
 	<tr>
-
-		<td >
+		<td>
 			<?php echo $form->labelEx($productModel,'serial_number'); ?>
 			<?php echo $form->textField($productModel,'serial_number',array('size'=>30	)); ?>
 			<?php echo $form->error($productModel,'serial_number'); ?>

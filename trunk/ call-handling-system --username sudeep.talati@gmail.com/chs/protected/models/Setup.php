@@ -82,7 +82,7 @@ class Setup extends CActiveRecord
 			'company' => 'Company',
 			'address' => 'Address',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode S',
+			'postcode_s' => 'Postcode',
 			'postcode_e' => 'Postcode E',
 			'county' => 'County',
 			'country' => 'Country',

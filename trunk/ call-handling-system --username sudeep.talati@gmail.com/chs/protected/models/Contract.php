@@ -25,8 +25,8 @@
  * @property string $accounts_contact_details
  * @property string $technical_contact_details
  * @property integer $short_name
- * @property integer $labour_warranty_duration
- * @property integer $parts_warranty_duration
+ * @property integer $labour_warranty_months_duration
+ * @property integer $parts_warranty_months_duration
  *
  * The followings are the available model relations:
  * @property User $inactivatedByUser
@@ -121,6 +121,8 @@ class Contract extends CActiveRecord
 			'modified' => 'Modified',
 			'management_contact_details' => 'Management Details',
 			'short_name' => 'Short Name',
+			'labour_warranty_months_duration'=> 'Labour Warranty',
+			'parts_warranty_months_duration'=> 'Parts Warranty',
 		);
 	}
 

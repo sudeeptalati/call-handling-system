@@ -93,11 +93,11 @@ class ContactDetails extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'address_line_1' => 'Address Line 1',
+			'address_line_1' => 'Address',
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode_s',
+			'postcode_s' => 'Postcode',
 			'country' => 'Country',
 			'latitudes' => 'Latitudes',
 			'longitudes' => 'Longitudes',

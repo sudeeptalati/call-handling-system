@@ -14,7 +14,7 @@
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
+		//'id',
 		//'contract_type_id',
 		'contractType.name',
 		'name',
@@ -26,8 +26,8 @@
 		'vat_reg_number',
 		'notes',
 //		'active',
-		'inactivated_by_user_id',
-		'inactivated_on',
+		//'inactivated_by_user_id',
+		//'inactivated_on',
 		//'created_by_user_id',
 		'createdByUser.username',
 		//'created',
@@ -35,7 +35,7 @@
 				'name'=>'Created',
 				'value'=>date('d-M-y',$model->created),
 		),
-		'modified',
+		//'modified',
 //		array(
 //				'name'=>'Modified',
 //				'value'=>date('d-M-y',$model->modified),

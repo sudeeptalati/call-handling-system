@@ -627,7 +627,7 @@ class ServicecallController extends Controller
 		if($newEnggDiaryModel->save())
 		{
 			echo "<br>SAVED.......!!!!!!!!!!";
-			$this->redirect(array('view','id'=>$service_id));
+			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
 		}
 		else 
 		{
@@ -658,7 +658,7 @@ class ServicecallController extends Controller
 									); 
 		
 			echo "<br>SAVED.......!!!!!!!!!!";
-			$this->redirect(array('view','id'=>$service_id));
+			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
 			
 		}///end of else
 		

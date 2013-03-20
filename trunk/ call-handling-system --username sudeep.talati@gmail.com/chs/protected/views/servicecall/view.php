@@ -110,6 +110,21 @@ if($_GET['notify_response']!= '')
 				
 			</b>
 		</td>
+		<td><b>
+			<?php 
+					$htmlImgUrl = Yii::app()->request->baseUrl.'/images/html_file.png';
+					$htmlImg = CHtml::image($htmlImgUrl, 'htmlPreview', array('width'=>35, 'height'=>35, 'title'=>'Preview in HTML'));
+			?>
+			<?php 
+				echo CHtml::link('HTML',array('htmlPreview',
+						'id'=>$model->id), array('target'=>'_blank')
+				);
+				echo CHtml::link($htmlImg, array('htmlPreview',
+						'id'=>$model->id), array('target'=>'_blank'))
+			?>
+			 
+			</b>
+		</td>
 	</tr>
 	<tr>
 		<th><b>Job Status : </b> 
@@ -144,6 +159,8 @@ if($_GET['notify_response']!= '')
 		  	
 		  	<?php 
 		  	
+		  	if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+			{
 		  		$trimmed_postcode_s = trim($customerModel->postcode_s);
 		  		$trimmed_postcode_e = trim($customerModel->postcode_e);
 		  	
@@ -215,6 +232,10 @@ if($_GET['notify_response']!= '')
 			<div id="dialog" title="Map ">
 				<div id="map_canvas" style="width: 475px; height: 450px"> </div> 
 			</div>
+			<?php
+			 	}//end of if(Internet connection).
+			 	
+		  	 ?>
 
 			<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
 		  	<br>

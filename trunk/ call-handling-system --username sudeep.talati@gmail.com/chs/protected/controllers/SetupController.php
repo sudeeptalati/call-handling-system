@@ -226,23 +226,17 @@ class SetupController extends Controller
 	    
 	    if(isset($_POST['finish']))
 	    {
- 	    	
-// 	    	list($width, $height) = getimagesize($_FILES["logo_url"]["tmp_name"]);
-// 	    	$new_dimensions = $this->resize_dimensions(500,500,$width,$height);
-// 	    	//print_r($new_dimensions);
-
 	    	$allowedExts = array("jpg", "jpeg", "gif", "png");
 	    	$info = pathinfo($_FILES['logo_url']['name']);
 	    	$extension = $info['extension'];
 	    	//echo "extention = ".$extension;
+	    	//if (( ($_FILES["logo_url"]["type"] == "image/png")) && ($_FILES["logo_url"]["size"] < 1000000))
 	    	
 	    	if ((($_FILES["logo_url"]["type"] == "image/gif")
 	    			|| ($_FILES["logo_url"]["type"] == "image/jpeg")
 	    			|| ($_FILES["logo_url"]["type"] == "image/png")
 	    			|| ($_FILES["logo_url"]["type"] == "image/pjpeg")) && in_array($extension, $allowedExts))
-
-	    	//if (( ($_FILES["logo_url"]["type"] == "image/png")) && ($_FILES["logo_url"]["size"] < 1000000))
-	    	{
+			{
 	    		//echo "YEPPY";
 	    		if ($_FILES["logo_url"]["error"] > 0)
 	    		{
@@ -279,36 +273,14 @@ class SetupController extends Controller
 // 	    		echo "<br>Height of image = ".$h;
 // 	    		$size = ($_FILES["logo_url"]["size"])/1024;
 // 	    		echo "<br>Size in kb = ".$size;
-
-	    		
-	    		echo "<br>Invalid FILE";
+				echo "<br>Invalid FILE";
 	    		
 	    	}//end of else
 	    
-	    
-	    }//end of isset post finish
-	
+	    }//end of isset POST finish
+		
 	    $this->render('changeLogo',array('model'=>$model));
 	}//end of changeLogo().
-	
-	// Calculates restricted dimensions with a maximum of $goal_width by $goal_height
-	function resize_dimensions($goal_width,$goal_height,$width,$height)
-	{
-		$return = array('width' => $width, 'height' => $height);
-	
-		// If the ratio > goal ratio and the width > goal width resize down to goal width
-		if ($width/$height > $goal_width/$goal_height && $width > $goal_width) {
-			$return['width'] = $goal_width;
-			$return['height'] = $goal_width/$width * $height;
-		}
-		// Otherwise, if the height > goal, resize down to goal height
-		else if ($height > $goal_height) {
-			$return['width'] = $goal_height/$height * $width;
-			$return['height'] = $goal_height;
-		}
-	
-		return $return;
-	}//end of function resize().
 	
 	
 	public function actionRestoreDatabase()

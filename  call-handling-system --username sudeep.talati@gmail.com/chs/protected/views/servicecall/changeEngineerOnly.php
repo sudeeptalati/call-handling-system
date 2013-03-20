@@ -36,7 +36,7 @@ $updateServicecallChangeEngineerForm=$this->beginWidget('CActiveForm', array(
 
 $model = Servicecall::model();
 //$engg_id = 0;
-$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
+$data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
 
 echo $updateServicecallChangeEngineerForm->dropDownList($model, 'engineer_id', $data,
 		array('empty'=>'All Engineers')
@@ -48,4 +48,45 @@ $this->endWidget();
 
 ?>
 
- 
+<!-- ******************* GETTING DISTANCE BETWEEN  PLACES FROM GOOGLE API ******************** -->
+
+<?php 
+/* CODE TO GET DISTANCE FROM GOOGLE DELETE FROM HERE WHEN YOU COPY THIS CODE IN RIGHT PLACE. 
+echo "<hr>";
+//echo "Here";
+//$url = "http://maps.googleapis.com/maps/api/directions/json?origin=KA3 1PZ&destination=KA1 2NP&sensor=false&units=imperial";
+$url = "http://maps.googleapis.com/maps/api/directions/json?origin=KA1%202NP&destination=KA8%208JE&waypoints=ka3%201pz&sensor=false&units=imperial";
+
+$jsonfile = curl_file_get_contents($url);
+
+$jsondata = json_decode($jsonfile);
+
+//echo "<br>DATA from google server = ".$jsonfile;
+
+echo "<br>Distance between src and dest = ".$jsondata->routes[0]->legs[0]->distance->text;
+
+echo "<hr>";
+
+
+function curl_file_get_contents($request)
+{
+	$curl_req = curl_init($request);
+
+
+	curl_setopt($curl_req, CURLOPT_URL, $request);
+	curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($curl_req, CURLOPT_HEADER, FALSE);
+
+	$contents = curl_exec($curl_req);
+
+	curl_close($curl_req);
+
+	return $contents;
+}///end of functn curl File get contents
+
+
+*/
+
+?>
+
+<!-- ******************* GETTING DISTANCE BETWEEN  PLACES FROM GOOGLE API ******************** -->

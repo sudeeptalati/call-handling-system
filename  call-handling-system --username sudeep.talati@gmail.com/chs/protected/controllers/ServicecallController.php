@@ -34,7 +34,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('exportTest','DisplayDropdown','export','EnggJobReport','SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin'),
+				'actions'=>array('exportTest','DisplayDropdown','export','EnggJobReport','SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin','htmlPreview','DownloadReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -91,9 +91,37 @@ class ServicecallController extends Controller
 		# Outputs ready PDF
 		$mPDF1->Output($filename,'I');
 		
-
-	}
+	}//end of public function actionPreview($id)
 	
+	public function actionHtmlPreview($id)
+	{
+		
+		//echo "<br>Id in HTML Preview = ".$id;
+		$model=$this->loadModel($id);
+		$setupModel = Setup::model()->findByPk(1);
+		//$config= Config::model()->findByPk(1);
+		$this->renderPartial('preview',array('model'=>$model,'company_details'=>$setupModel));
+	
+	}//end of HTML Preview.
+	
+	
+	public function actionDownloadReport($id)
+	{
+		$model=$this->loadModel($id);
+		$setupModel = Setup::model()->findByPk(1);
+		$name = "KRUTHIKA_TESTING";
+		
+		$msgHTML = $this->renderPartial('preview',array('model'=>$model,'company_details'=>$setupModel), TRUE);
+		
+		
+		//$filecontent=file_get_contents($msgHTML ,$name);
+		//header("Content-Type: text/plain");
+		header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
+		header("Content-disposition: attachment; filename=$name");
+		header("Pragma: no-cache");
+		echo $msgHTML;
+		exit;
+	}//end of actionDownloadReport().
 	
 	
 	/**
@@ -130,8 +158,6 @@ class ServicecallController extends Controller
 				{
 					//echo "<hr>Product Model SAVED----product id is ".$productModel->id;
 					$customerModel->product_id=$productModel->id;
-					
-					
 					///////SECOND SAVING CUSTOMER
 					if($customerModelValid)
 					{
@@ -150,17 +176,15 @@ class ServicecallController extends Controller
 								if($serviceModelValid)
 								{
 									if($serviceCallModel->save())
-										{
+									{
 										$engg_id=$serviceCallModel->engineer_id;
 										$baseUrl=Yii::app()->request->baseUrl;
 										$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
-										}
-								}/////end of 
+									}
+								}/////end of outer if(). 
 								
-						
 						}///enf of customer model saved
 					
-						
 					}///end of customer model valid
 					
 				}//end of $productModel->save()
@@ -230,7 +254,10 @@ class ServicecallController extends Controller
 				if($previous_status_id != $current_status_id)
 				{
 					echo "<br>Status Changed....";
-					$response = $this->performNotification($current_status_id, $service_id);
+					if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+					{
+						$response = $this->performNotification($current_status_id, $service_id);
+					}
 				}
 				
 				if($model->save())

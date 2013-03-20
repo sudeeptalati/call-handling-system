@@ -1,10 +1,6 @@
-
- 
- 
 <?php
 
   //echo "<hr>engr id from contr = ".$future_engg_id."<hr>";
-
 
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 
@@ -16,13 +12,7 @@
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery.ui.touch-punch.js');
   
-  
-  
-
-  
 ?>
-
-
 
 <!-- ************* CODE OF BUTTON TO DISPLAY ALL APPOINTMENTS ************* -->
 <form method ="Post">

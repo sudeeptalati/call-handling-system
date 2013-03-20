@@ -63,7 +63,7 @@
 	<td>
 		<?php echo $form->labelEx($model,'engineer_id'); ?>
 		<?php //echo $form->textField($model,'engineer_id'); ?>
-		<?php echo CHtml::activeDropDownList($model, 'engineer_id', $model->getAllEngineers());?>
+		<?php echo CHtml::activeDropDownList($model, 'engineer_id', Engineer::model()->getAllEnggAndCompany());?>
 		<?php echo $form->error($model,'engineer_id'); ?>
 	</td>
 		<?php //echo $form->labelEx($model,'customer_id'); ?>

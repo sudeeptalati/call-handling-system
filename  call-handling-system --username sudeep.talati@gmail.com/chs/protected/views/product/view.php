@@ -5,10 +5,6 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Product', 'url'=>array('index')),
-	//array('label'=>'Create Product', 'url'=>array('create')),
-	array('label'=>'Update Product', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Product', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Product', 'url'=>array('admin')),
 );
 ?>
@@ -18,7 +14,7 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
+		//'id',
 		//'contract_id',
 		'contract.name',
 		//'brand_id',
@@ -47,10 +43,10 @@ $this->menu=array(
 		'production_code',
 		'enr_number',
 		'fnr_number',
-		'discontinued',
+		//'discontinued',
 		'warranty_for_months',
 		'purchase_price',
-		'notes',
+		//'notes',
 		//'created_by_user_id',
 		'createdByUser.username',
 		//'created',
@@ -58,7 +54,7 @@ $this->menu=array(
 				'name'=>'Created',
 				'value'=>date('d-M-y',$model->created),
 		),
-		'modified',
-		'cancelled',
+// 		'modified',
+// 		'cancelled',
 	),
 )); ?>

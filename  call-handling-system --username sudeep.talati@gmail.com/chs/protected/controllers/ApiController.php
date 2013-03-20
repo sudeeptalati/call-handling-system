@@ -553,31 +553,36 @@ class ApiController extends Controller
     public function actioncurrentAppointments($id)
     {
     	//echo "Hello";
+     	//echo "Current time = ".time()."<br>";
+     	$today = time();
+     	$month = date('n', $today);
+     	$day = '1';
+     	$n = $month-1;
+     	$year = date('Y', $today);
+     	//echo "<br>Month = ".$month;
+     	$newdate = strtotime("$day-$n-$year");
+     	//echo "<br>New Date = ".$newDate;
+     	//echo "<br>new date in normal format = ".date('d-M-Y', $newdate);
+     	//echo "<hr>";
     	
     	$diary_events_array = array();
     	$display_data = array();
-    	
-    	
-    	//echo "<br>Current time = ".strtotime('17-oct-2012');
-    	
-    	//echo "<hr>engg in surrent app api contr = ".$id."<hr>";
+    	   	    	
+    	//echo "<hr>engg in current app api contr = ".$id."<hr>";
     	
     	/*** STARTING OF IF  ELSE ******/
     	if($id == '0')
     	{
-    		
-	    	$date = time();
+    		$date = time(); 
 	    		
 	    	$diaryDetails=Enggdiary::model()->findAll(array(
-		    	'condition'=>'visit_start_date > :date',
+		    	'condition'=>'visit_start_date >= :date',
 		    	'params'=>
-		    		array(':date'=>$date
+		    		array(':date'=>$newdate
 		    		),
 			));
 				
-				
-		    								
-		    foreach ($diaryDetails as $data)
+			foreach ($diaryDetails as $data)
 		    {
 		    	if($data->status!= '102')
 	    		{
@@ -618,10 +623,7 @@ class ApiController extends Controller
     	}//end of if, displays all enggs appointments.
     	else 
     	{
-    		
-		    //$diaryDetails = Enggdiary::model()->findAll('visit_start_date > time()');
-		    	
-		    $date = time();
+    		$date = time();
 		
 		    $diaryDetails=Enggdiary::model()->findAll(array(
 		    	'condition'=>'engineer_id = :id AND visit_start_date > :date',
@@ -630,9 +632,7 @@ class ApiController extends Controller
 		    			  ':date'=>$date
 		    		),
 			));
-				
-			
-		    								
+											
 		    foreach ($diaryDetails as $data)
 		    {
 		    	if($data->status!= '102')

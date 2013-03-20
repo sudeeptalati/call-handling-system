@@ -371,6 +371,7 @@ class EnggdiaryController extends Controller
 	public function actionICalLink($id)
 	{
 		$serviceModel = Servicecall::model()->findByPk($id);
+		$custName = $serviceModel->customer->fullname;
 		$str = $serviceModel->customer->address_line_1." ".$serviceModel->customer->address_line_2." ".$serviceModel->customer->address_line_3;
 		$str1 = $serviceModel->customer->town;
 		$str2 = $serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e;
@@ -380,9 +381,9 @@ class EnggdiaryController extends Controller
 		$date      = $visit_date;
 $startTime = $visit_date;
 $endTime   = $visit_date;
-$subject   = 'Appointment Details';
+$subject   = $custName;
 $desc      = 'Customer Details'.
-			 '\n Name - '.$serviceModel->customer->fullname.
+			 '\n Name - '.$custName.
 			 '\n Address - '.$address.
 			 '\n Telephone - '.$serviceModel->customer->telephone."\t".'Mobile :'.$serviceModel->customer->mobile.
 			 '\n Email - '.$serviceModel->customer->email.
@@ -403,6 +404,7 @@ DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
 DTSTART:".$date."T".$startTime."00Z
 DTEND:".$date."T".$endTime."00Z
 SUMMARY:".$subject."
+LOCATION: ". $str." ".$str1." ".$str2."  
 DESCRIPTION:".$desc."
 END:VEVENT
 END:VCALENDAR";

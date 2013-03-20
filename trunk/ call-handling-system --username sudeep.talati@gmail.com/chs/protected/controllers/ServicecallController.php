@@ -604,6 +604,8 @@ class ServicecallController extends Controller
 		echo "<br>Diary id in contr = ".$diary_id;
 		$service_id = $_GET['service_id'];
 		echo "<br>Service id in contr = ".$service_id;
+		$engg_id = '';
+		$newDiaryId = '';
 		
 		if(isset($_GET['Servicecall']))
 		{
@@ -612,82 +614,72 @@ class ServicecallController extends Controller
 			//echo "Value in  is = ".$model->engineer_id;
 			$engg_id = $model->engineer_id;
 			echo "<br>id got from view = ".$engg_id;
-			$serviceModel = Servicecall::model()->findByPk($service_id);
-				
-			$updateServiceModel = Servicecall::model()->updateByPk($serviceModel->id,
-					array(
-							'engineer_id'=>$engg_id
-					));
-		}
+ 
+		}//getting engg id from dropdown.
+		//echo "<br>Engg id outside = ".$engg_id;
 		
-// 		$engg_id = $_GET['engg_id'];
-// 		echo "<br>Engineer id in contr = ".$engg_id;
-		
-		
-		if ($diary_id!=0){
-		/******** CHANGING THE STATUS OF PREVIOUS APPOINTMENT ***********/
-		
-		Enggdiary::model()->changePreviousAppointment($diary_id);
-		
-		/***** END OF CHANGING THE STATUS OF PREVIOUS APPOINTMENT *******/
-		
-		
-		/******** CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
-		$diaryModel = Enggdiary::model()->findByPk($diary_id);
-		
-		echo "<br>Visit start date = ".$diaryModel->visit_start_date;
-		echo "<br>Visit end date = ".date('d-m-Y',$diaryModel->visit_end_date);
-		$start_date = date('d-m-Y',$diaryModel->visit_end_date);
-		echo "<br>No of slots = ".$diaryModel->slots;
-		
-		$newEnggDiaryModel = new Enggdiary;
-    	$newEnggDiaryModel->servicecall_id=$service_id;
-		$newEnggDiaryModel->engineer_id=$engg_id;
-		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
-		$newEnggDiaryModel->visit_start_date=$start_date;
-		//$newEnggDiaryModel->visit_end_date=$diaryModel->visit_end_date;
-		$newEnggDiaryModel->slots = '2';
-		
-		echo "<hr>START DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_start_date;
-		//echo "<br>END DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_end_date;
-		
-		if($newEnggDiaryModel->save())
+		if ($diary_id!=0)
 		{
-			echo "<br>SAVED.......!!!!!!!!!!";
+			/******** CHANGING THE STATUS OF PREVIOUS APPOINTMENT ***********/
+			Enggdiary::model()->changePreviousAppointment($diary_id);
+			/***** END OF CHANGING THE STATUS OF PREVIOUS APPOINTMENT *******/
+			
+			/******** CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
+		
+			$diaryModel = Enggdiary::model()->findByPk($diary_id);
+			
+			echo "<br>Visit start date = ".$diaryModel->visit_start_date;
+			echo "<br>Visit end date = ".date('d-m-Y',$diaryModel->visit_end_date);
+			$start_date = date('d-m-Y',$diaryModel->visit_end_date);
+			echo "<br>No of slots = ".$diaryModel->slots;
+			
+			$newEnggDiaryModel = new Enggdiary;
+	    	$newEnggDiaryModel->servicecall_id=$service_id;
+			$newEnggDiaryModel->engineer_id=$engg_id;
+			$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
+			$newEnggDiaryModel->visit_start_date=$start_date;
+			//$newEnggDiaryModel->visit_end_date=$diaryModel->visit_end_date;
+			$newEnggDiaryModel->slots = '2';
+			
+			echo "<hr>START DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_start_date;
+			//echo "<br>END DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_end_date;
+			
+			if($newEnggDiaryModel->save())
+			{
+				echo "<br>SAVED.......!!!!!!!!!!";
+				echo "<br>New diary id to save to servicecall = ".$newEnggDiaryModel->id;
+				$newDiaryId = $newEnggDiaryModel->id;
+			}
+			else 
+			{
+				echo "<br>Problem in saving";
+			}
+			/******** END OF CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
+			
+			/************* CHANGING DIARY AND ENGINEER ID IN SERVICECALL ***********/
+			Servicecall::model()->updateByPk($service_id,array(
+													'engg_diary_id'=>$newDiaryId,
+													'engineer_id'=>$engg_id
+											));
+			/******** CHANGING DIARY AND ENGINEER ID IN SERVICECALL ******************/
 			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
-		}
-		else 
-		{
-			echo "<br>Problem in saving";
-		}
-		/******** END OF CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
+			
 		}///end of  if ($diary_id!=0){
+		
 		else
 		{
-		///COntrol will come here if diary id is 0 or call is in the logged state
-		
-		
-		Servicecall::model()->updateByPk($service_id,
-        											array(
-        													'engineer_id'=>$engg_id,
-        												)
-        					);
-		
-		
-		$serviceModel=Servicecall::model()->findByPk($service_id);
-		
-		$product_id=$serviceModel->product_id;
-		echo "PRODUCT ID IS".$product_id;
-		Product::model()->updateByPk($product_id,
-													array(
-															'engineer_id'=>$engg_id,
-															)
-									); 
-		
+			///COntrol will come here if diary id is 0 or call is in the logged state
+			Servicecall::model()->updateByPk($service_id,array('engineer_id'=>$engg_id));
+			
+			$serviceModel=Servicecall::model()->findByPk($service_id);
+			$product_id=$serviceModel->product_id;
+			echo "PRODUCT ID IS".$product_id;
+			Product::model()->updateByPk($product_id,array('engineer_id'=>$engg_id)); 
+			
 			echo "<br>SAVED.......!!!!!!!!!!";
 			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
 			
-		}///end of else
+		}///end of else i.e, Servicecall is in LOGGED state. 
 		
 		
 		

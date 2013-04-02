@@ -64,8 +64,6 @@ class EnggdiaryController extends Controller
 		
 		$service_id=$_GET['id'];
 		$engg_id=$_GET['engineer_id'];
-		
-		
 		//echo "THIS IS SELECTED :".$engg_id;
 		//echo "<hr>SEVRICE CALL ID :".$service_id;
 		$model=new Enggdiary;
@@ -74,16 +72,12 @@ class EnggdiaryController extends Controller
 		$model->status='3';//STATUS OF APPOINTMENT(VISIT START DATE).
 		//echo "THIS IS SELECTED :".$model->engineer_id;
 		
-		
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Enggdiary']))
 		{
 			$model->attributes=$_POST['Enggdiary'];
-			
-			
 			
 			if($model->save())
 			{

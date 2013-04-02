@@ -334,6 +334,33 @@ class Enggdiary extends CActiveRecord
 												);
     }//end of statusPreviousAppointment.
     
+  
+    public function getData($engg_id, $start_date, $end_date)
+    {
+    	$postcode_array = array();
+    	$criteria=new CDbCriteria();
+    	$criteria->condition = 'engineer_id='.$engg_id;
+    	$criteria->addCondition('visit_start_date BETWEEN :from_date AND :to_date');
+    	$criteria->params = array(
+    			':from_date' => $start_date,
+    			':to_date' => $end_date,
+    	);
+    	$enggData = new CActiveDataProvider(Enggdiary::model(),array(
+    			'criteria' => $criteria
+    	));
+    	$diaryData = $enggData->getData();
+    	/*
+    	foreach ($diaryData as $data)
+    	{
+    		//echo "<br>Service id for 1st day = ".$data->servicecall_id;
+    		$postcode = $data->servicecall->customer->postcode;
+    		//echo "<br>Customer postcode = ".$postcode;
+     		array_push($postcode_array, $postcode);
+    	}
+    	*/
+    	
+    	return $diaryData;
+    }//end of getData().
     
     
     

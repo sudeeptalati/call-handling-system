@@ -146,8 +146,6 @@ class ServicecallController extends Controller
 			$serviceModelValid=$serviceCallModel->validate();
 			$productModelValid=$productModel->validate();
 			$customerModelValid=$customerModel->validate();
-			
-			
 			//////FIRST SAVING PRODUCT
 			
 			

@@ -14,6 +14,7 @@ $this->menu=array(
 	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
 	array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),
 	array('label'=>'Preferences', 'url'=>array('/preferences/admin')),
+	array('label'=>'Advance Settings', 'url'=>array('/advanceSettings/admin')),
 	array('label'=>'Change Logo', 'url'=>array('setup/changeLogo')),
 	array('label'=>'Restore Database', 'url'=>array('setup/restoreDatabase')),
 	array('label'=>'About & Help', 'url'=>array('setup/about'))

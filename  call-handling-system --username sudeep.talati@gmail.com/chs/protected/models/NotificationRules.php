@@ -316,6 +316,7 @@ class NotificationRules extends CActiveRecord
 		//Yii::app()->sms->send(array('to'=>'447550508559', 'message'=>$smsMessage));
 		$response = Yii::app()->sms->send(array('to'=>$mobileNumber, 'message'=>$smsMessage));
 		//print_r($response);
+		
 		if(isset($response[1]))
 		{
 			echo "<br>error mesg = ".$response[1];

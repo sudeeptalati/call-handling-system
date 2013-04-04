@@ -14,6 +14,11 @@
 		<?php echo $form->label($model,'parameter'); ?>
 		<?php echo $form->textArea($model,'parameter',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'name'); ?>
+		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'value'); ?>

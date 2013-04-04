@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $parameter
  * @property string $value
+ * @property string $name
  */
 class AdvanceSettings extends CActiveRecord
 {
@@ -35,10 +36,10 @@ class AdvanceSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('parameter, value', 'safe'),
+			array('parameter, value, name', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, parameter, value', 'safe', 'on'=>'search'),
+			array('id, parameter, value, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +63,7 @@ class AdvanceSettings extends CActiveRecord
 			'id' => 'ID',
 			'parameter' => 'Parameter',
 			'value' => 'Value',
+			'name' => 'Name'
 		);
 	}
 
@@ -75,13 +77,33 @@ class AdvanceSettings extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
+	
 		$criteria->compare('parameter',$this->parameter,true);
 		$criteria->compare('value',$this->value,true);
-
+		$criteria->compare('name',$this->name,true);
+	
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-}
+		
+	}//end of search().
+	
+	public function dataForAdmin()
+	{
+		$criteria=new CDbCriteria;
+			
+		$criteria->condition = " parameter<>'ftp_password'";
+		$criteria->compare('parameter',$this->parameter,true);
+		$criteria->compare('value',$this->value,true);
+		$criteria->compare('name',$this->name,true);
+			
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
+		
+	
+	}//end of dataForAdmin().
+	
+	
+	
+}//end of class.

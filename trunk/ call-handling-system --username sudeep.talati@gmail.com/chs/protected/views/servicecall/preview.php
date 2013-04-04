@@ -2,6 +2,7 @@
 $this->layout=false;
 ?>
 
+ 
 	
 <style type="text/css">
 
@@ -298,13 +299,15 @@ td { 	vertical-align:top;
 			<small><b>Work Carried out or Inspection</b></small>
 			<br><?php echo $model->work_carried_out; ?>
 			<br><br><br><br><br>
-			
 			<b><small>Please detail any test or results carried out</small></b>
 			<br><br>
 			<br><br>
 			</td>
 		 	</tr>
-<tr><td colspan="4"><small><b>Spares</b></small>
+<tr><td colspan="4"><small><b>Spares</b>
+		 	
+
+</small>
 <table style="width:650px;border-collapse:collapse;">
 <tr>
 	<td width=10% style="border:1px solid black;">Qty.</td>
@@ -316,17 +319,39 @@ td { 	vertical-align:top;
 	<td width=15% style="border:1px solid black;">Total</td>
 </tr>
 
-<?php for ($i=1;$i<7;$i++){?>
-<tr>
-	<td style="border-right:1px solid black; border-left:1px solid black;"><br></td>
-	<td style="border-right:1px solid black;"><br></td>
-	<td style="border-right:1px solid black;"><br></td>
-	<td style="border-right:1px solid black;"><br></td>
-	<td style="border-right:1px solid black;"><br></td>
-	<td style="border-right:1px solid black;"><br></td>
-	<td style="border-right:1px solid black;"><br></td>
-</tr>
-<?php }?>
+<?php //for ($i=1;$i<7;$i++){?>
+
+<?php 
+if($model->spares_used_status_id == 1)
+{
+	echo "<br>Spares are used";
+	$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
+	foreach ($sparesModel as $data)
+	{
+		//echo "<br>".$data->id."&nbsp;&nbsp;&nbsp;";
+// 		echo "Quantity = ".$data->quantity;
+// 		echo "Paert Number = ".$part_num = $data->part_number;
+// 		echo "Item Name = ".$desc = $data->item_name;
+// 		echo "Uniy price = ".$price = $data->unit_price;
+// 		echo "Total = ".$total = $data->total_price;
+		?>
+		<tr>
+		<td style="border-right:1px solid black; border-left:1px solid black;"><?php echo $data->quantity; ?></td>
+		<td style="border-right:1px solid black;"><?php echo $data->part_number; ?></td>
+		<td style="border-right:1px solid black;"><?php echo $data->item_name; ?></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><?php echo $data->unit_price; ?></td>
+		<td style="border-right:1px solid black;"><?php echo $data->total_price; ?></td>
+		</tr>
+		<?php 
+	}//end of foreach().
+	
+}//end of if().
+?>
+
+<?php //}//end if outer for().?>
+
 <tr> 
 	<td colspan="6" style="border-left:1px solid black;border-right:1px solid black;border-top:1px solid black; text-align:right;">Labour</td>
 	<td style="border:1px solid black;"><br></td>

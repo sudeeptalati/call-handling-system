@@ -357,7 +357,7 @@ function isTouchDevice()
 	      },
           error: function()
           {
-	       	alert("EWRROR"); 
+	       	alert("ERROR"); 
           }
           });
 

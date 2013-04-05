@@ -5,7 +5,7 @@ class RoutePlannerController extends Controller
 	public function actionGetEngineerDiary()
 	{
 		$engg_id = '90000114';
-		$current_date = strtotime('16-04-2013');
+		$current_date = strtotime('17-04-2013');
 		
 		
 		
@@ -262,71 +262,192 @@ class RoutePlannerController extends Controller
 		}
 		
 		
-		echo "<hr>";
+		//echo "<hr>";
 		if(count($diff_array)!=0)
 		{
-			echo "<br>Diff array = ";
-			print_r($diff_array);
+			//echo "<br>Diff array = ";
+			//print_r($diff_array);
 			asort($diff_array);
 			
 			//echo "<hr>Sorted arr = ";
 			//print_r($diff_array);
-			//$newArray = array_slice($diff_array, 0, 2, true);// array_slice($diff_array, $start_index, $till_index, true), gives the data for no of days we want.
-			$newArray = $diff_array;
+			$newArray = array_slice($diff_array, 0, 3, true);// array_slice($diff_array, $start_index, $till_index, true), gives the data for no of days we want.
+			$display_data = array();
 			
 			foreach ($newArray as $key=>$value)
 			{
 				if($key == 'first')
 				{
-					echo "<hr>First day is prefered";
+					$diary_events_array = array();
+					//echo "<hr>First day is prefered";
 					foreach ($first_diary_data as $data)
 					{
 // 						echo "<br>Customer name = ".$data->servicecall->customer->fullname;
 // 						echo "<br>Customer postcode = ".$data->servicecall->customer->postcode."<br>";
-					}
+
+						$customer_name=$data->servicecall->customer->fullname;
+						$customer_postcode=$data->servicecall->customer->postcode;
+						$engineer_name = $data->engineer->fullname;
+							
+						$start_date= date("Y-m-d H:i",$data->visit_start_date);
+						
+						if (!empty($data->visit_end_date))
+						{
+							$end_date = date("Y-m-d H:i",$data->visit_end_date);
+						}
+						 
+						$diary_events_array['id'] = $data->id;///id of the engg diary
+						$diary_events_array['service_id'] = $data->servicecall_id;
+						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+						$diary_events_array['start'] = $start_date;
+						$diary_events_array['end'] = $end_date;
+						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['allDay'] = false ;
+						$diary_events_array['textColor'] = "white" ;
+							
+						array_push($display_data,$diary_events_array);
+					}//end of diary foreach().
 				}//end of first.
 				if($key == 'second')
 				{
-					echo "<hr>Second day is prefered";
+					$diary_events_array = array();
+					//echo "<hr>Second day is prefered";
 					foreach ($second_diary_data as $data)
 					{
 // 						echo "<br>Customer name = ".$data->servicecall->customer->fullname;
-// 						echo "<br>Customer postcode = ".$data->servicecall->customer->postcode."<br>";
-					}
+//  					echo "<br>Customer postcode = ".$data->servicecall->customer->postcode."<br>";
+
+						$customer_name=$data->servicecall->customer->fullname;
+						$customer_postcode=$data->servicecall->customer->postcode;
+						$engineer_name = $data->engineer->fullname;
+							
+						$start_date= date("Y-m-d H:i",$data->visit_start_date);
+						
+						if (!empty($data->visit_end_date))
+						{
+							$end_date = date("Y-m-d H:i",$data->visit_end_date);
+						}
+							
+						$diary_events_array['id'] = $data->id;///id of the engg diary
+						$diary_events_array['service_id'] = $data->servicecall_id;
+						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+						$diary_events_array['start'] = $start_date;
+						$diary_events_array['end'] = $end_date;
+						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['allDay'] = false ;
+						$diary_events_array['textColor'] = "white" ;
+							
+						array_push($display_data,$diary_events_array);
+						
+					}//end of diary foreach().
 				}//end of second.
 				if($key == 'third')
 				{
-					echo "<hr>Third day is prefered";
+					$diary_events_array = array();
+					//echo "<hr>Third day is prefered";
 					foreach ($third_diary_data as $data)
 					{
 // 						echo "<br>Customer name = ".$data->servicecall->customer->fullname;
 // 						echo "<br>Customer postcode = ".$data->servicecall->customer->postcode."<br>";
+
+						$customer_name=$data->servicecall->customer->fullname;
+						$customer_postcode=$data->servicecall->customer->postcode;
+						$engineer_name = $data->engineer->fullname;
+							
+						$start_date= date("Y-m-d H:i",$data->visit_start_date);
+						
+						if (!empty($data->visit_end_date))
+						{
+							$end_date = date("Y-m-d H:i",$data->visit_end_date);
+						}
+							
+						$diary_events_array['id'] = $data->id;///id of the engg diary
+						$diary_events_array['service_id'] = $data->servicecall_id;
+						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+						$diary_events_array['start'] = $start_date;
+						$diary_events_array['end'] = $end_date;
+						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['allDay'] = false ;
+						$diary_events_array['textColor'] = "white" ;
+							
+						array_push($display_data,$diary_events_array);
+						
 				
-					}//end of foreach().
+					}//end of diary foreach().
 				}//end of third.
 				if($key == 'forth')
 				{
-					echo "<hr>Forth day is prefered";
-					foreach ($third_diary_data as $data)
+					$diary_events_array = array();
+					//echo "<hr>Forth day is prefered";
+					foreach ($forth_diary_data as $data)
 					{
 // 						echo "<br>Customer name = ".$data->servicecall->customer->fullname;
 // 						echo "<br>Customer postcode = ".$data->servicecall->customer->postcode."<br>";
+
+						$customer_name=$data->servicecall->customer->fullname;
+						$customer_postcode=$data->servicecall->customer->postcode;
+						$engineer_name = $data->engineer->fullname;
+							
+						$start_date= date("Y-m-d H:i",$data->visit_start_date);
+						
+						if (!empty($data->visit_end_date))
+						{
+							$end_date = date("Y-m-d H:i",$data->visit_end_date);
+						}
+							
+						$diary_events_array['id'] = $data->id;///id of the engg diary
+						$diary_events_array['service_id'] = $data->servicecall_id;
+						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+						$diary_events_array['start'] = $start_date;
+						$diary_events_array['end'] = $end_date;
+						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['allDay'] = false ;
+						$diary_events_array['textColor'] = "white" ;
+							
+						array_push($display_data,$diary_events_array);
 				
-					}//end of foreach().
+					}//end of diary foreach().
 				}//end of forth.
 				if($key == 'fifth')
 				{
-					echo "<hr>Fifht day is prefered";
-					foreach ($third_diary_data as $data)
+					$diary_events_array = array();
+					//echo "<hr>Fifht day is prefered";
+					foreach ($fifth_diary_data as $data)
 					{
 // 						echo "<br>Customer name = ".$data->servicecall->customer->fullname;
 // 						echo "<br>Customer postcode = ".$data->servicecall->customer->postcode."<br>";
+
+						$customer_name=$data->servicecall->customer->fullname;
+						$customer_postcode=$data->servicecall->customer->postcode;
+						$engineer_name = $data->engineer->fullname;
+							
+						$start_date= date("Y-m-d H:i",$data->visit_start_date);
+						
+						if (!empty($data->visit_end_date))
+						{
+							$end_date = date("Y-m-d H:i",$data->visit_end_date);
+						}
+							
+						$diary_events_array['id'] = $data->id;///id of the engg diary
+						$diary_events_array['service_id'] = $data->servicecall_id;
+						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
+						$diary_events_array['start'] = $start_date;
+						$diary_events_array['end'] = $end_date;
+						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['allDay'] = false ;
+						$diary_events_array['textColor'] = "white" ;
+							
+						array_push($display_data,$diary_events_array);
+						
 				
-					}//end of foreach().
+					}//end of diary foreach().
 				}//end of fifth.
-			}
+			}//end of foreach().
+			
+			echo json_encode($display_data);
 			
 		}//end of if i.e, array is NOT empty, display 1 to 3 days
+		/*
 		else 
 		{
 			//echo "Array is empty";
@@ -350,20 +471,9 @@ class RoutePlannerController extends Controller
 			$forth_day_diff = $forth_with_custPost - $forth_day_distance;
 			
 			
-			
-			
-			
-			
-			
-			
 		}//end of else, i.e, array is empty. Check for 4 and 5 days.
 		
-		
-		
-		
-		
-		
-		
+		*/
 				
 		
 	}//end of actionGetEngineerDiary().

@@ -32,7 +32,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('RemoteConnection','ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -513,6 +513,12 @@ class SetupController extends Controller
 		}
 		$this->render('clickatellsmsAccount',array('model'=>$model));
 	}//end of actionClickatellsmsAccount().
+	
+	public function actionRemoteConnection()
+	{
+		$model=new Setup('view');
+		$this->render('remoteConnection');
+	}//end of remoteConnection().
 	
 	
 	

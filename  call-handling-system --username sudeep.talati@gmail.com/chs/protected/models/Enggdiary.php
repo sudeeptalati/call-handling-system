@@ -340,6 +340,7 @@ class Enggdiary extends CActiveRecord
     	$postcode_array = array();
     	$criteria=new CDbCriteria();
     	$criteria->condition = 'engineer_id='.$engg_id;
+    	$criteria->addCondition('status!= 102');
     	$criteria->addCondition('visit_start_date BETWEEN :from_date AND :to_date');
     	$criteria->params = array(
     			':from_date' => $start_date,

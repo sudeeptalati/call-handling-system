@@ -1,3 +1,15 @@
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Advance settings',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add Advance settings',array('create')); ?></td>
+</tr></table>
+
+
+
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -11,7 +23,12 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'parameter'); ?>
-		<?php echo $form->textField($model,'parameter',array('rows'=>6, 'cols'=>50, 'disabled'=>'disabled')); ?>
+		<?php
+			if($model->parameter == '') 
+				echo $form->textField($model,'parameter',array('rows'=>6, 'cols'=>50));
+			else  
+				echo $form->textField($model,'parameter',array('rows'=>6, 'cols'=>50, 'disabled'=>'disabled'));
+		?>
 		<?php echo $form->error($model,'parameter'); ?>
 	</div>
 	

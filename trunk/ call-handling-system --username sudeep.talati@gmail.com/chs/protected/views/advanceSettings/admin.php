@@ -1,13 +1,15 @@
-<?php
-$this->breadcrumbs=array(
-	'Advance Settings'=>array('index'),
-	'Manage',
-);
 
-$this->menu=array(
-	array('label'=>'List AdvanceSettings', 'url'=>array('index')),
-	array('label'=>'Create AdvanceSettings', 'url'=>array('create')),
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Advance settings',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Add Advance settings',array('create')); ?></td>
+</tr></table>
+
+
+<?php
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

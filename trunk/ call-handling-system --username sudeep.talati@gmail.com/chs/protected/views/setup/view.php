@@ -5,6 +5,7 @@
 </div>
 
 <h1>Set Up</h1>
+ 
 <div style="text-align:right;" >
 <?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?>
 </div>

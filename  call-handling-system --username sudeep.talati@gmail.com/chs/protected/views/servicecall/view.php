@@ -22,18 +22,12 @@ if($_GET['notify_response']!= '')
 					//'height'=>'40px',
 			),
 			'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-	
-			 
 	));
 	 
 	echo $message;
 	$this->endWidget();
-}
-
-
+}//end of if($_GET['notify]).
 ?>
-
-
 
 <link type="text/css" href="<?php echo $baseUrl;?>/css/dialoguebox/smoothness/jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
 <script type="text/javascript" src="<?php echo $baseUrl;?>/js/dialoguebox/jquery-1.7.2.min.js"></script>
@@ -396,10 +390,7 @@ if($_GET['notify_response']!= '')
 	</td>
 	</tr>
 		
-		<tr><td colspan="2" style="text-align:center">
-		<h2>Technician Report</h2>
-		</td>
-	</tr>
+		<tr><td colspan="2" style="text-align:center"><h2>Technician Report</h2></td></tr>
 	<tr>
 		<td>
 			<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
@@ -411,7 +402,7 @@ if($_GET['notify_response']!= '')
 					$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
 					foreach ($sparesModel as $data)
 					{
-						echo $data->id."&nbsp;&nbsp;&nbsp;";
+						//echo $data->id."&nbsp;&nbsp;&nbsp;";
 						echo $data->item_name."<br>";
 					}
 				}	

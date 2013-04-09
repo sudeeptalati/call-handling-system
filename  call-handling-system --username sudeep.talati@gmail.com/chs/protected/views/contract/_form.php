@@ -112,9 +112,13 @@ $('.technical-form').toggle();
 			<?php echo $form->dropDownList($model,'active', array('1'=>'Yes', '0'=>'No')); ?>
 			<?php echo $form->error($model,'active'); ?>
 		</td>
-		<td>
+		
+	</tr>
+	
+	<tr>
+		<td colspan="2">
 			<?php echo $form->labelEx($model,'notes'); ?>
-			<?php echo $form->textField($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'notes'); ?>
 		</td>
 	</tr>

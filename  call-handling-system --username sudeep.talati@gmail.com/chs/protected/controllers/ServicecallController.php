@@ -227,6 +227,7 @@ class ServicecallController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		 
 		
 		$response = '';
 		
@@ -239,19 +240,26 @@ class ServicecallController extends Controller
 			if(isset($_POST['Servicecall']))
 			{
 				//echo "I M HERE<br>";
-
+				
 				$previous_status_id = $model->job_status_id;
-				echo "<br>Id before getting form values = ".$previous_status_id;
+				//echo "<br>Id before getting form values = ".$previous_status_id;
 				
 				$model->attributes=$_POST['Servicecall'];
+// 				echo "Contract id in update cntl = ".$model->contract_id;
+// 				echo "<br>Contract id of product, Imust chamge this = ".$model->product->contract_id;
+				$product_id = $model->product_id;
+				
+				$productModel = Product::model()->updateByPk($product_id, 
+																array('contract_id'=>$model->contract_id)
+															);
 				
 				$current_status_id = $model->job_status_id;
-				echo "<br>id after getting values = ".$current_status_id;
+				//echo "<br>id after getting values = ".$current_status_id;
 				$service_id = $model->id;
 				
 				if($previous_status_id != $current_status_id)
 				{
-					echo "<br>Status Changed....";
+					//echo "<br>Status Changed....";
 					if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
 					{
 						$response = $this->performNotification($current_status_id, $service_id);

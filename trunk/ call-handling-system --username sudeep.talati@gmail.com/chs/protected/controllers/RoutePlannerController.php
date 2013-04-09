@@ -7,6 +7,11 @@ class RoutePlannerController extends Controller
 		$engg_id = '90000114';
 		$current_date = strtotime('17-04-2013');
 		
+		$enggModel = Engineer::model()->findByPk($engg_id);
+		
+		$engg_postcode = $enggModel->contactDetails->postcode;
+		$engg_postcode = str_replace (" ", "", $engg_postcode);
+		
 		
 		
 		$date = date('d-m-Y',time());
@@ -155,11 +160,11 @@ class RoutePlannerController extends Controller
 		$fifthDay_calls = $k;
 		 
 		//######## GETTING OPTIMISED DISTANCE FOR 3 DAYS WITHOUT CUSTOMER POSTCODE ########		
-		$first_day_optimised = $this->getOptimisedDistance($first_day_data_array);
-		$second_day_optimised = $this->getOptimisedDistance($second_day_data_array);
-		$third_day_optimised = $this->getOptimisedDistance($third_day_data_array);
-		$forth_day_optimised = $this->getOptimisedDistance($forth_day_data_array);
-		$fifth_day_optimised = $this->getOptimisedDistance($fifth_day_data_array);
+		$first_day_optimised = $this->getOptimisedDistance($engg_postcode,$first_day_data_array);
+		$second_day_optimised = $this->getOptimisedDistance($engg_postcode, $second_day_data_array);
+		$third_day_optimised = $this->getOptimisedDistance($engg_postcode, $third_day_data_array);
+		$forth_day_optimised = $this->getOptimisedDistance($engg_postcode, $forth_day_data_array);
+		$fifth_day_optimised = $this->getOptimisedDistance($engg_postcode, $fifth_day_data_array);
 		
 // 		echo "<hr>First day distance = ".$first_day_optimised['distance'];
 // 		echo "<br>First day duration = ".$first_day_optimised['duration'];
@@ -188,7 +193,7 @@ class RoutePlannerController extends Controller
 		{
 			//echo "<hr>In loop of 1st day";
 			array_push($first_day_data_array, $customer_postcode);
-			$first_with_custPost_arr = $this->getOptimisedDistance($first_day_data_array);
+			$first_with_custPost_arr = $this->getOptimisedDistance($engg_postcode, $first_day_data_array);
 			//echo "<hr>First day distance after adding customer postcode = ".$first_with_custPost_arr['distance'];
 			$first_dist_with_custPost = $first_with_custPost_arr['distance'];
 			$first_day_diff = $first_dist_with_custPost - $first_day_distance;
@@ -203,7 +208,7 @@ class RoutePlannerController extends Controller
 		{
 			//echo "<hr>In loop of 2nd day";
 			array_push($second_day_data_array, $customer_postcode);
-			$second_with_custPost_arr = $this->getOptimisedDistance($second_day_data_array);
+			$second_with_custPost_arr = $this->getOptimisedDistance($engg_postcode, $second_day_data_array);
 			//echo "<hr>Second day distance = ".$second_with_custPost_arr['distance'];
 			$second_dist_with_custPost = $second_with_custPost_arr['distance'];
 			$second_day_diff = $second_dist_with_custPost - $second_day_distance;
@@ -219,7 +224,7 @@ class RoutePlannerController extends Controller
 		{
 			//echo "<hr>In loop of 3rd day";
 			array_push($third_day_data_array, $customer_postcode);
-			$third_with_custPost_arr = $this->getOptimisedDistance($third_day_data_array);
+			$third_with_custPost_arr = $this->getOptimisedDistance($engg_postcode, $third_day_data_array);
 			//echo "<hr>Third day distance = ".$third_with_custPost_arr['distance'];
 			$third_dist_with_custPost = $third_with_custPost_arr['distance'];
 			$third_day_diff = $third_dist_with_custPost - $third_day_distance;
@@ -234,7 +239,7 @@ class RoutePlannerController extends Controller
 		{
 			//echo "<hr>In loop of 3rd day";
 			array_push($forth_day_data_array, $customer_postcode);
-			$forth_with_custPost_arr = $this->getOptimisedDistance($forth_day_data_array);
+			$forth_with_custPost_arr = $this->getOptimisedDistance($engg_postcode, $forth_day_data_array);
 			//echo "<hr>Third day distance = ".$third_with_custPost_arr['distance'];
 			$forth_dist_with_custPost = $forth_with_custPost_arr['distance'];
 			$forth_day_diff = $forth_dist_with_custPost - $forth_day_distance;
@@ -249,7 +254,7 @@ class RoutePlannerController extends Controller
 		{
 			//echo "<hr>In loop of 3rd day";
 			array_push($fifth_day_data_array, $customer_postcode);
-			$fifth_with_custPost_arr = $this->getOptimisedDistance($fifth_day_data_array);
+			$fifth_with_custPost_arr = $this->getOptimisedDistance($engg_postcode, $fifth_day_data_array);
 			//echo "<hr>Third day distance = ".$third_with_custPost_arr['distance'];
 			$fifth_dist_with_cust = $fifth_with_custPost_arr['distance'];
 			$fifth_day_diff = $fifth_dist_with_cust - $fifth_day_distance;
@@ -478,7 +483,7 @@ class RoutePlannerController extends Controller
 		
 	}//end of actionGetEngineerDiary().
 	
-	public function getOptimisedDistance($postcode_array)
+	public function getOptimisedDistance($engg_postcode, $postcode_array)
 	{
 		//echo "<hr>POSTCODE ARRAY IN FUNC:";
 		$way_points = '|';
@@ -495,7 +500,7 @@ class RoutePlannerController extends Controller
 		
 		//echo "<br>Waypoints = ".$way_points;
 		
-		$url = 'http://maps.googleapis.com/maps/api/directions/json?origin=G64%203HA&destination=G64%203HA&waypoints=optimize:true'.$way_points.'&sensor=false&units=imperial';
+		$url = 'http://maps.googleapis.com/maps/api/directions/json?origin='.$engg_postcode.'&destination='.$engg_postcode.'&waypoints=optimize:true'.$way_points.'&sensor=false&units=imperial';
 		//echo "<br>URL = ".$url;
 		
 		$server_data = $this->curl_file_get_contents($url);

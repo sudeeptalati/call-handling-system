@@ -348,6 +348,26 @@ if($model->spares_used_status_id == 1)
 	}//end of foreach().
 	
 }//end of if().
+
+else 
+{
+
+	for ($i=1;$i<7;$i++)
+	{
+		?>
+		<tr>
+		<td style="border-right:1px solid black; border-left:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		<td style="border-right:1px solid black;"><br></td>
+		</tr>
+		<?php 
+	}//end of for.
+	
+}//end of else().
 ?>
 
 <?php //}//end if outer for().?>

@@ -43,12 +43,9 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			<tr>
 			<th>Part Number</th>
 			<th>Name</th>
-			 
 			</tr>
 			
 			<?php
-			
-		
 			
 			//echo count($result);
 			if($rows)
@@ -56,13 +53,11 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				foreach($rows as $data)
 				{
 				?>
-					
-					<tr>
+						<tr>
 					<td><?php echo $data['part_number'];?></td>
 					<td><?php echo $data['name'];?></td>
-					 
 					<td>
-				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>'>
+				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>#spares_details'>
 					<img src="../../images/plus.jpg" alt="HTML tutorial" width="35" height="35" />
 					</a> <br> 
 					</td>

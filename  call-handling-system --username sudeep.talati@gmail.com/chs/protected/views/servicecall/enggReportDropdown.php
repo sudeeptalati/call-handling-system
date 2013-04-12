@@ -132,18 +132,10 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 <tr><td style="text-align:right;"><?php echo CHtml::submitButton('View Report'); ?></td></tr>
 
 
-<?php 
- 
- 
-$this->endWidget();
- 
-
- ?>
+<?php $this->endWidget(); ?>
  
  </table>
  </div><!-- End of second Content -->
  </div><!-- END OF DIV Container -->
- 
- 
  
  

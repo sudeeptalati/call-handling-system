@@ -27,9 +27,6 @@ td { 	vertical-align:top;
  		*/
  		}
 
-
-
-
 </style>
 
 <table style="width:100%;    ">
@@ -98,30 +95,23 @@ td { 	vertical-align:top;
 	<td style="width:70%; ">
 		<table style="width:450px;">
 		<tr>
-					<td><small><b>Name</b></small>
-			<br>
-			<?php echo $model->customer->title?>&nbsp;
-			<?php echo $model->customer->fullname?>
+			<td><small><b>Name</b></small><br>
+				<?php echo $model->customer->title?>&nbsp;
+				<?php echo $model->customer->fullname?>
 			</td>
-			<td>
-			
-			</td >
-
+			<td></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td colspan="3"><small><b>Address</b></small>
-			<br>
+			<td colspan="3"><small><b>Address</b></small><br>
 			<?php echo $model->customer->address_line_1." ".$model->customer->address_line_2." ".$model->customer->address_line_3.", ".$model->customer->town; ?>
 			</td>
 		</tr>
 		<tr>
-<td><small><b>Postcode</b></small>
-			<br>
-			<?php echo $model->customer->postcode_s." ".$model->customer->postcode_e?>
+		<td><small><b>Postcode</b></small><br>
+			<?php echo $model->customer->postcode; ?>
 		</td>		
 		
-
 		<td><!-- 
 			<small><b>County (District)</b></small>
 			<br>

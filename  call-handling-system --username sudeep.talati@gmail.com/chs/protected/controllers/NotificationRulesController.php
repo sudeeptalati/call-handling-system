@@ -367,7 +367,7 @@ class NotificationRulesController extends Controller
 			{
 				if($model->notify_others == 1)
 				{
-					$this->redirect(array('update','id'=>$model->id));
+					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'0'));
 				}
 				else 
 				{
@@ -376,9 +376,7 @@ class NotificationRulesController extends Controller
 			}//end of if (save())
 		}//end of if(isset()).
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		$this->render('update',array('model'=>$model, 'showDialogue'=>'1'));
 	}
 
 	/**

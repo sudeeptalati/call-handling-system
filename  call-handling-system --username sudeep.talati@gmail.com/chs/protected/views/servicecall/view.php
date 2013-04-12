@@ -1,32 +1,48 @@
 
 <?php 
 $baseUrl = Yii::app()->baseUrl; 
+$notification_message='';	
+
 ?>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+	 
+    $(".notification").show();
+    $(".show_hide").show();
+
+$('.show_hide').click(function(){
+$(".notification").slideToggle();
+});
+
+});
+
+
+
+</script>
+
+	
 <?php 
 
-if($_GET['notify_response']!= '')
-{
-	$message = 'There was following problem in sending SMS<br><br>'.$_GET['notify_response'];
+//#6fbf4d
+
+//$tetete=  "<br><span style='background-color:#C9E0ED; color:#555555; padding-left:10px;padding-right:10px; margin:5px;  border-radius:10px 10px 10px 10px; '><b>Customer Notified</b> by SMS on mobile : 07501662739 </span><br><div style='background-color: #CD0000; color:white; padding-left:10px;padding-right:10px;  border-radius:10px 10px 10px 10px; margin:5px;'><b>Customer Notified</b>by email Please check your sms settings and make sure the mobile number is valid. &nbsp;&nbsp;&nbsp;Server Response:<i> Unable to connect the numeg ys sgdjhs uysdjhgs gsjhgsaj djgs	 <i></div>";
 		
-	$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
-			'id'=>'juiDialog',
-			'options'=>array(
-					'title'=>'Problem in notifying',
-					'autoOpen'=>true,
-					'modal'=>'true',
-					'show' => 'blind',
-					'hide' => 'explode',
-					//'color' => 'blue',
-					//'width'=>'40px',
-					//'height'=>'40px',
-			),
-			'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-	));
-	 
-	echo $message;
-	$this->endWidget();
-}//end of if($_GET['notify]).
+
+if(isset($_GET['notify_response']))
+{
+	if($_GET['notify_response'] != '')
+	{
+		$notification_message = $_GET['notify_response'];
+		?>
+		<a href="#" class="show_hide"><input type="button" size="1" value="x"/></a>
+		<div class=notification><?php echo $notification_message; ?></div>
+		<?php 
+	}//end if if($_GET['notify_response'] != '').
+
+}//end of if(isset['notify_response']);	
+
 ?>
 
 <link type="text/css" href="<?php echo $baseUrl;?>/css/dialoguebox/smoothness/jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
@@ -94,25 +110,24 @@ if($_GET['notify_response']!= '')
 					$previewImgUrl = Yii::app()->request->baseUrl.'/images/pdf.gif';
 					$previewImg = CHtml::image($previewImgUrl, 'Preview', array('width'=>35, 'height'=>35, 'title'=>'Preview in Pdf'));
 				?>
-				<?php 	echo CHtml::link('Preview',array('Preview',
-											'id'=>$model->id), array('target'=>'_blank')
-										);
+				<?php 	
+// 						echo CHtml::link('Preview',array('Preview',
+// 											'id'=>$model->id), array('target'=>'_blank')
+// 										);
 						echo CHtml::link($previewImg, array('Preview',
 											'id'=>$model->id), array('target'=>'_blank'))				
-						
 				?>
 				
 			</b>
-		</td>
-		<td><b>
+		 <b>
 			<?php 
 					$htmlImgUrl = Yii::app()->request->baseUrl.'/images/html_file.png';
 					$htmlImg = CHtml::image($htmlImgUrl, 'htmlPreview', array('width'=>35, 'height'=>35, 'title'=>'Preview in HTML'));
 			?>
 			<?php 
-				echo CHtml::link('HTML',array('htmlPreview',
-						'id'=>$model->id), array('target'=>'_blank')
-				);
+// 				echo CHtml::link('HTML',array('htmlPreview',
+// 						'id'=>$model->id), array('target'=>'_blank')
+// 				);
 				echo CHtml::link($htmlImg, array('htmlPreview',
 						'id'=>$model->id), array('target'=>'_blank'))
 			?>
@@ -120,6 +135,15 @@ if($_GET['notify_response']!= '')
 			</b>
 		</td>
 	</tr>
+	
+	<!-- NOTIFICATION DIV COMMENTED FOR TESTING 
+	<tr>
+	<td  colspan="2">
+	<div class=notification><?php //echo $notification_message; ?></div>
+	</td>
+	</tr>  
+	-->
+	
 	<tr>
 		<th><b>Job Status : </b> 
 		<h6 style="color:maroon"><?php echo $model->jobStatus->name; ?></h6></th>
@@ -171,9 +195,6 @@ if($_GET['notify_response']!= '')
 				$latitude = $result[2];
 				//echo $result[3]; // longitude
 				$longitude = $result[3];
-		  	
-		  	
-		  	
 		  	?>
 		  	
 			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -228,8 +249,7 @@ if($_GET['notify_response']!= '')
 			</div>
 			<?php
 			 	}//end of if(Internet connection).
-			 	
-		  	 ?>
+			 ?>
 
 			<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
 		  	<br>
@@ -393,6 +413,18 @@ if($_GET['notify_response']!= '')
 		<tr><td colspan="2" style="text-align:center"><h2>Technician Report</h2></td></tr>
 	<tr>
 		<td>
+			<?php echo $form->labelEx($model,'work_carried_out'); ?>
+			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>
+			</td>
+			<td>
+			<?php echo $form->labelEx($model,'notes'); ?><br>
+			<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>	
+				</td>
+			</tr>
+			<tr>
+			<td>
+			
+			
 			<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
 			<?php echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'No', '1'=>'Yes'),array('disabled'=>'disabled')); ?><br>
 			<?php 
@@ -400,61 +432,32 @@ if($_GET['notify_response']!= '')
 				{
 					//echo "Spares used";
 					$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
+					?>
+					<table style="width:75%;">
+						<tr><th>Item</th>
+							<th>Quantity</th>
+							<th>Price</th>
+						</tr>
+					<?php 					
 					foreach ($sparesModel as $data)
 					{
-						//echo $data->id."&nbsp;&nbsp;&nbsp;";
-						echo $data->item_name."<br>";
-					}
-				}	
+						?>
+						<tr>
+						<td><?php echo $data->item_name; ?></td>
+						<td><?php echo $data->quantity; ?></td>
+						<td><?php echo $data->total_price; ?></td>
+						</tr>
+						<?php 
+						
+					
+					}//end of foreach of spares().
+				
+					?> </table><?php 
+				
+				}//end of if($spares_used == 1).	
 			
 			?>
-			<br>			
-			<?php echo $form->labelEx($model,'work_carried_out'); ?>
-			<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30',  'disabled'=>'disabled')); ?>
-			<br>
-			
-			<?php 
-//			$job_payment_date=$model->job_payment_date;
-//					if ($job_payment_date!='')
-//					{
-//						$job_payment_date=date('d-M-y',$model->job_payment_date);
-//						 echo $form->labelEx($model,'job_payment_date'); 
-//						 echo CHtml::textField('',$job_payment_date,  array('disabled'=>'disabled')); 
-//					}			
-//			
-			?>
-			<?php 
-				if(!empty($model->job_payment_date))
-				{
-					$model->job_payment_date=date('d-M-y',$model->job_payment_date);
-				}
-				echo $form->labelEx($model,'job_payment_date');
-				echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled')); 
-			?>
-			<br>
-			<br>
-			<?php  
-//			$job_finished_date=$model->job_finished_date;
-//					if ($job_payment_date!='')
-//					{
-//						$job_finished_date=date('d-M-y',$model->job_finished_date);
-//						 echo $form->labelEx($model,'job_finished_date'); 
-//						 echo CHtml::textField('',$job_finished_date,  array('disabled'=>'disabled')); 
-//					}			
-//			
-			?>
-			<?php 
-				if(!empty($model->job_finished_date))
-				{
-					$model->job_finished_date=date('d-M-y',$model->job_finished_date);
-				}
-				echo $form->labelEx($model,'job_finished_date');
-				echo $form->textField($model,'job_finished_date', array('disabled'=>'disabled')); 
-			?>
-									
-		</td>
-		<td>
-			<table>
+		<table>
 				<tr><td>
 					<?php echo $form->labelEx($model,'total_cost'); ?>
 					</td>
@@ -477,13 +480,43 @@ if($_GET['notify_response']!= '')
 					</td>
 				</tr>
 			</table>
-			<?php echo $form->labelEx($model,'notes'); ?><br>
-			<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>
+			
+ 
+		
+									
+		</td>
+		<td style="vertical-align: top;">
+			<br>
+			
+			
+			<?php echo $form->labelEx($model,'comments'); ?><small>&nbsp;&nbsp;&nbsp;(not visible on call sheet)</small><br>
+			<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>	
+			<br><br>
+			
+			
+			<?php 
+				if(!empty($model->job_payment_date))
+				{
+					$model->job_payment_date=date('d-M-y',$model->job_payment_date);
+				}
+				echo $form->labelEx($model,'job_payment_date');
+				echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled')); 
+			?>
+			<br>
+			<br>
+			<?php  
+ 
+				if(!empty($model->job_finished_date))
+				{
+					$model->job_finished_date=date('d-M-y',$model->job_finished_date);
+				}
+				echo $form->labelEx($model,'job_finished_date');
+				echo $form->textField($model,'job_finished_date', array('disabled'=>'disabled')); 
+			?>
+			
 		</td>
 		
 	</tr>
-	
-	
 	
 	
 </table>

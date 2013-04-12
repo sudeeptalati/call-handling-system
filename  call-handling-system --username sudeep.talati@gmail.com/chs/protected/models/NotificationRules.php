@@ -238,36 +238,45 @@ class NotificationRules extends CActiveRecord
 	
 	public function notifyByEmailAndSms($receiver_email_address, $telephone, $notificaionCode, $body, $subject, $smsMessage)
 	{
-		
-		
+		//echo "<br>Receiver email addresss = ".$receiver_email_address;
+		//echo "<br>Telephone no = ".$telephone;
+		//echo "<br>Notification code in model = ".$notificaionCode;
+		$response_array = array();
 		switch ($notificaionCode)
 		{
 			case 1:
-				echo "<br>Send email";
-				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
-				return true;
+				//echo "<br>Send email";
+				$email_response = NotificationRules::sendEmail($receiver_email_address, $body, $subject);
+				$response_array['sms_response']= 'none';
+				$response_array['email_response']= $email_response;
+				return $response_array;
 				break;
 			case 2:
-				echo "<br>Send SMS";
-				$resonse = NotificationRules::sendSMS($telephone, $smsMessage);
-				return $resonse;
+				//echo "<br>Send SMS";
+				$sms_response = NotificationRules::sendSMS($telephone, $smsMessage);
+				echo "<br> sms notification message in model = ".$sms_response;
+				$response_array['sms_response']= $sms_response;
+				$response_array['email_response']= 'none';
+				return $response_array;
 				break;
 			case 3:
-				echo "<br>Send email and SMS also";
-				$resonse = NotificationRules::sendSMS($telephone, $smsMessage);
-				NotificationRules::sendEmail($receiver_email_address, $body, $subject);
-				return $resonse;
+				//echo "<br>Send email and SMS also";
+				$sms_response = NotificationRules::sendSMS($telephone, $smsMessage);
+				$email_response = NotificationRules::sendEmail($receiver_email_address, $body, $subject);
+				//echo "<br> sms notification message in model = ".$sms_response;
+				$response_array['sms_response']= $sms_response;
+				echo "<br>TYPE OF RESPONSE IN MODEL FUNC = ".gettype($sms_response);
+				$response_array['email_response']= $email_response;
+				return $response_array;
 				break;
-				
-			
 		}//end of switch().
-		
 		
 	}//end of sendCustomerEmailAndSms().
 	
 	
 	public function sendEmail($reciever_email_address, $body, $subject)
 	{
+		$email_response = '';
 		$root = dirname(dirname(__FILE__));
 		$email_body = $body;
 		//echo $root."<br>";
@@ -291,22 +300,30 @@ class NotificationRules extends CActiveRecord
 		}//end of inner if().
 		else
 		{
-			//echo "<br>Inernet Connection present";
-// 			echo "<br>Sender email = ".$sender_email;
-// 			echo "<br>Receiver email = ".$reciever_email;
-
- 			$message = new YiiMailMessage();
-			$message->setTo(array($reciever_email));
-			$message->setFrom(array($sender_email));
-			$message->setSubject($subject);
-			$message->setBody($email_body, 'text/html');
-		
-			if(Yii::app()->mail->send($message))
+			try 
 			{
-				echo "<br>TEST EMAIL IS SENT, CONNECTION IS OK";
-			}
+				//echo "<br>Inernet Connection present";
+				//echo "<br>Sender email = ".$sender_email;
+				//echo "<br>Receiver email = ".$reciever_email;
+	
+	 			$message = new YiiMailMessage();
+				$message->setTo(array($reciever_email));
+				$message->setFrom(array($sender_email));
+				$message->setSubject($subject);
+				$message->setBody($email_body, 'text/html');
 			
+				if(Yii::app()->mail->send($message))
+				{
+					//echo "<br>TEST EMAIL IS SENT, CONNECTION IS OK";
+					$email_response = 1;
+				}
+			}//end of try.
+			catch (Exception $e)
+			{
+				$email_response = 0;
+			}
 		}//end of else.
+		return $email_response;
 		
 	}//end of sendEmail().
 	

@@ -266,43 +266,70 @@ vertical-align:top;
 			<td>
 			
 			
+							<?php echo $form->labelEx($model,'work_carried_out'); ?>
+				<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30')); ?>
+				<?php echo $form->error($model,'work_carried_out'); ?>
 			
-				<?php echo $form->labelEx($model,'spares_used_status_id'); ?>
-				<?php //$model->spares_used_status_id='';?>
+
+				
+				
+				<hr>
+				<table style="margin:-5px;"><tr>
+				<td ><?php echo $form->labelEx($model,'spares_used_status_id'); ?>
+				</td>
+				<td style="text-align:left; "><?php //$model->spares_used_status_id='';?>
 				<?php 
 					echo $form->dropDownList($model, 'spares_used_status_id', array('0'=>'No','1'=>'Yes'), 
 																		array('id'=> 'spares-dropdown-id')																			
 				);
 				?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?><br>
+				</td>
+				<td width="55%" style="text-align:right;  "><?php echo CHtml::link('Print Spares Order',array('sparesUsed/GenerateSparesOrderFormPdf', 'service_id'=>$model->id), array('target'=>'_blank'));
+						?>
+				</td>
+				</tr></table>
+				
+				
+				
+				
 				
 				<!-- ****** CODE TO DISPLAY SPARES ALREADY USED *********** -->
 				<?php 
 					if($model->spares_used_status_id == 1)
 					{
-						echo "Spares used :<br>";
+						//echo "Spares used :<br>";
 						$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
 						?>
 						
-						<?php echo CHtml::link('Print Spares Order',array('sparesUsed/GenerateSparesOrderFormPdf', 'service_id'=>$model->id), array('target'=>'_blank'));
-						?>
 						
-						<table>
+						
+						<table id="spares_details">
 						<tr>
 						<th style="color:maroon">Part Number</th>
 						<th style="color:maroon">Item Name</th>
+						<th style="color:maroon">Unit Price</th>
 						<th style="color:maroon">Qty</th>
-						<th style="color:maroon">Action</th>
+						<th style="color:maroon; text-align:right; ">Total </th>
+						<th style="color:maroon; ">Action</th>
+						
 						</tr>
-						<?php 
+						<?php
+
+						$calculated_price=0;
 						foreach ($sparesModel as $data)
 						{
+							
 						$spares_id=$data->id;
 							?>
 							<tr>
 							<td width="35%"><?php echo $data->part_number;?></td>
 							<td width="35%"><?php echo $data->item_name;?></td>
+							<td><?php echo $data->unit_price."<br>";?></td>
 							<td><?php echo $data->quantity."<br>";?></td>
+							<td style="text-align:right;" ><?php echo $data->total_price."<br>";?></td>
+							
+							
 							<td>
 								
 								<?php echo CHtml::link('Delete', array('sparesUsed/delete', 'id'=>$spares_id, 'servicecall_id'=>$model->id));?>
@@ -311,15 +338,62 @@ vertical-align:top;
 							
 							
 							</tr>
-							<?php 
+							<?php
+
+							$calculated_price=$calculated_price+$data->total_price;
 						}//end of foreach.
 						?>
+						
+						<!-- <tr><td colspan="6"><hr></td></tr> -->
+						<?php 
+						
+						$model->total_cost=$calculated_price;
+						
+						?>
+						<tr>
+						<td colspan="3"><?php echo $form->labelEx($model,'total_cost'); ?> </td>
+						<td  colspan="2" style="text-align:right;"   >
+						<?php 
+								echo CHtml::textField('',$model->total_cost, array('disabled'=>'disabled','size'=>'10' , 'style'=>'text-align:right'));
+								echo $form->textField($model,'total_cost', array('hidden'=>'hidden','size'=>'10' , 'style'=>'text-align:right'));
+						?></td>
+						
+						<td><?php echo $form->error($model,'total_cost'); ?></td>	
+						</tr>
+						
+						<tr>
+						<td colspan="3"><?php echo $form->labelEx($model,'vat_on_total'); ?> </td>
+						<td  colspan="2" style="text-align:right;"   ><?php echo $form->textField($model,'vat_on_total', array('size'=>'10' , 'style'=>'text-align:right')); ?></td>
+						<td><?php echo $form->error($model,'vat_on_total'); ?></td>	
+						</tr>
+						
+						
+						<?php 
+						
+						$model->net_cost=$model->total_cost+$model->vat_on_total;
+						?>
+						<tr>
+						<td colspan="3"><?php echo $form->labelEx($model,'net_cost'); ?> </td>
+						<td  colspan="2" style="text-align:right;"   >
+						<?php 
+							echo CHtml::textField('',$model->net_cost, array('disabled'=>'disabled','size'=>'10' , 'style'=>'text-align:right'));
+							echo $form->textField($model,'net_cost', array('hidden'=>'hidden','size'=>'10' , 'style'=>'text-align:right'));
+						?></td>
+						<td><?php echo $form->error($model,'net_cost'); ?></td>	
+						</tr>
+						
 						</table>
 						<?php 
 					}//end of if spares_used_status_id == 1.
 					
 				?>
 				
+				
+				
+				
+				
+					
+	 
 				<!-- ****** END OF CODE TO DISPLAY SPARES ALREADY USED ******* -->
 				
 				
@@ -334,7 +408,7 @@ vertical-align:top;
 				 
 				  $baseUrl = Yii::app()->baseUrl; 
 				  $cs = Yii::app()->getClientScript();
-				  $cs->registerScriptFile($baseUrl.'/js/jquery.js');
+				 // $cs->registerScriptFile($baseUrl.'/js/jquery.js');
 				  //include ('jquery.js'); 
 			    ?>
 				
@@ -417,15 +491,11 @@ vertical-align:top;
 
 					<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>
 					<input type="hidden" id="local_db_url" value="<?php echo $local_db_url;?>"/>
-					<!--<input type="hidden" id="search_url" value="<?php //echo $search_url;?>"/> -->
-					<!--<input type="hidden" id="current_url" value="<?php //echo $current_url;?>"/>-->
-					<!-- <input type="hidden" id="ref_id" value="<?php //echo $reference_id ;?>"/> --> 
-					<!-- <input type="hidden" id="cust_id" value="<?php //echo $customer_id ;?>"/> -->  
-					
+				 	
 							  Enter Item Name, Part Number or barcode<br>
 				            <!-- The Searchbox Starts Here  -->
 				              <form  name="search_form">
-				              <input  name="query" type="text" id="faq_search_input" style="background-color: #F8D0C1" size='40' />
+				              <input  name="query" type="text" id="faq_search_input" style="background-color: #B2DFEE" size='55' />
 				              </form>
 				            <!-- The Searchbox Ends  Here  -->
 				       <div id="searchresultdata" class="faq-articles"> </div>
@@ -494,20 +564,29 @@ $cloud_id = $_GET['cloud_id'];
 
 
 	<form action="<?php echo Yii::app()->createUrl("SparesUsed/saveData");?>" method="POST">
-	<input type="hidden" name="master_id" value=<?php echo $master_id;?>>
-	<input type="hidden" name="service_id" value=<?php echo $model->id;?>>
-	<input type="hidden" value=<?php echo $opn;?>>
-	<input type="hidden" name="part_number" value=<?php echo $part_number;?>>
-	<input type="hidden" name="name" value="<?php echo $name;?>" >
-	<b>Part number</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $part_number;?> <br>
-	<b>Part Name</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $name;?> <br>
 	
-	<br><br>
+	<table style="border-radius:15px;" bgcolor="#B2DFEE" >
+	<tr><td>
+		<input type="hidden" name="master_id" value=<?php echo $master_id;?>>
+		<input type="hidden" name="service_id" value=<?php echo $model->id;?>>
+		<input type="hidden" value=<?php echo $opn;?>>
+		<input type="hidden" name="part_number" value=<?php echo $part_number;?>>
+		<input type="hidden" name="name" value="<?php echo $name;?>" >
+	</td>
+	</tr>
 	
-	<b>Price </b> <input type="text" name="unit_price" size="3">&nbsp;&nbsp;&nbsp;
-	<b>Quantity</b>  <input type="text" name="quantity" size="3"><small><b>(Required)</b></small>
-	<br>
-	<input type="submit" style="width:100px">
+	<tr>
+		<td colspan="3"><b> <?php echo $part_number;?>&nbsp;&nbsp; 
+		   <?php echo $name;?></b></td> 
+	</tr>
+	<tr>
+		<td>Price  <input type="text" name="unit_price" size="3">
+		<br> <small><b>* Required</b></small>
+		</td>
+		<td>Quantity*  <input type="text" name="quantity" size="3"></td>
+		<td style="text-align:right;"> <input type="submit" value="Add To Spares" style="width:auto" > </td></tr>
+	
+	</table>
 	</form>
 
 	<hr>
@@ -517,15 +596,22 @@ $cloud_id = $_GET['cloud_id'];
 <!-- ********* END OF CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->
 				
 				<BR><BR><BR>	
-				
 
 			
 				<!-- ***** END OF CODE TO GET THE FREES SEARCH OF MASTER DATABASE ENDS **** -->
 				
-				<?php echo $form->labelEx($model,'work_carried_out'); ?>
-				<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30')); ?>
-				<?php echo $form->error($model,'work_carried_out'); ?>
+
+			</td>
+			<td>
 			
+				<?php echo $form->labelEx($model,'notes'); ?>
+				<?php echo $form->textArea($model,'notes',array('rows'=>3, 'cols'=>40)); ?>
+				<?php echo $form->error($model,'notes'); ?>
+				
+				<?php echo $form->labelEx($model,'comments'); ?><small>(not visible on call sheet)</small>
+				<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>40)); ?>
+				<?php echo $form->error($model,'comments'); ?>
+				
 				<?php echo $form->labelEx($model,'job_payment_date'); ?>
 
 				<?php 
@@ -578,27 +664,12 @@ $cloud_id = $_GET['cloud_id'];
 				?>
 				<?php //echo $form->textField($model,'job_finished_date'); ?>
 				<?php echo $form->error($model,'job_finished_date'); ?>
-			</td>
-			<td>
-				<?php echo $form->labelEx($model,'total_cost'); ?>
-				<?php echo $form->textField($model,'total_cost'); ?>
-				<?php echo $form->error($model,'total_cost'); ?>
-					
-				<?php echo $form->labelEx($model,'vat_on_total'); ?>
-				<?php echo $form->textField($model,'vat_on_total'); ?>
-				<?php echo $form->error($model,'vat_on_total'); ?>
 				
-				<?php echo $form->labelEx($model,'net_cost'); ?>
-				<?php echo $form->textField($model,'net_cost', array('disabled'=>'disabled')); ?>
-				<?php echo $form->error($model,'net_cost'); ?>
 				
-				<?php echo $form->labelEx($model,'notes'); ?>
-				<?php echo $form->textArea($model,'notes',array('rows'=>3, 'cols'=>40)); ?>
-				<?php echo $form->error($model,'notes'); ?>
 				
-				<?php echo $form->labelEx($model,'comments'); ?><small>(not visible on call sheet)</small>
-				<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>40)); ?>
-				<?php echo $form->error($model,'comments'); ?>
+				
+	
+				
 				
 			</td>
 			

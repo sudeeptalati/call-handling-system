@@ -208,14 +208,9 @@ class ServicecallController extends Controller
 				echo "Fill all madatory fields";
 			}
 			*/
-			
-			
-			
 		}//end of if(isset()).
 
-		$this->render('create',array(
-			'model'=>$serviceCallModel,
-		));
+		$this->render('create',array('model'=>$serviceCallModel));
 	}//end of create.
 
 	
@@ -227,7 +222,6 @@ class ServicecallController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		 
 		
 		$response = '';
 		
@@ -260,7 +254,7 @@ class ServicecallController extends Controller
 				if($previous_status_id != $current_status_id)
 				{
 					//echo "<br>Status Changed....";
-					if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+					if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))//To check internet connection.
 					{
 						$response = $this->performNotification($current_status_id, $service_id);
 					}
@@ -281,13 +275,12 @@ class ServicecallController extends Controller
 		}/////end of if( $model->job_status_id < 100 )
 		else 
 		{
+			//$this->redirect(array('view', array('id'=>$model->id, 'notify_response'=>$response)));
 			$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
 		}
 	
-		$this->render('updateServicecall',array(
-			'model'=>$model,
-		));
-	}
+		$this->render('updateServicecall',array('model'=>$model));
+	}//end of update().
 
 	/**
 	 * Deletes a particular model.
@@ -402,15 +395,11 @@ class ServicecallController extends Controller
 	{
 		$engg_id=$_GET['engg_id'];
 		$visit_date=$_GET['date'];
-//		$visit_date='14-3-2012';
-		
+		//$visit_date='14-3-2012';
 		$mysql_visit_date=strtotime($visit_date);
-		
 		$service_id_list=Enggdiary::model()->fetchDiaryDetails($engg_id, $mysql_visit_date);
-		
 		//$config= Config::model()->findByPk(1);
 		$setupModel = Setup::model()->findByPk(1);
-		
 		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A4');
 		
 		$content='';
@@ -438,29 +427,17 @@ class ServicecallController extends Controller
 			$productModel->attributes=$_POST['Product'];
 			if($productModel->save())
 				echo "saved";
-				//$this->redirect(array('view','id'=>$model->id));
 		}
 		
-		// uncomment the following code to enable ajax-based validation
-	    /*
-	    if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-addProduct-form')
+		if(isset($_POST['Servicecall']))
 	    {
-	        echo CActiveForm::validate($model);
-	        Yii::app()->end();
-	    }
-	    */
-	
-	    if(isset($_POST['Servicecall']))
-	    {
-	    	
-	     	$model->customer_id=$cust_id;
+	    	$model->customer_id=$cust_id;
 	     	$model->product_id=$productModel->id;
 	     	$model->engineer_id=$productModel->engineer_id;
 	     	$model->contract_id=$productModel->contract_id;
 	        $model->attributes=$_POST['Servicecall'];
 	        if($model->validate())
 	        {
-	        
 	        	if($model->save())
 				{
 					//echo $model->product_id;
@@ -476,8 +453,9 @@ class ServicecallController extends Controller
 	        	{
 	        		echo "not saved";
 	        	}
-	    	}
-	    }
+	    	}//END OF IF(model (validate)).
+	    }//end of if(isset()).
+	    
 	    $this->render('addProduct',array('model'=>$model));
 	}//end of addProduct().
 	
@@ -492,76 +470,22 @@ class ServicecallController extends Controller
     {
       //echo "THIS IS IAJAXX  ".$keyword;
  
-        $model=new Servicecall();
-        $model->unsetAttributes();  // clear any default values
-        $results=$model->freeSearch($keyword);
-        //echo 'Results '.$results;
-        //echo count($results->getData());
-        //echo getItemCount
+      $model=new Servicecall();
+      $model->unsetAttributes();  // clear any default values
+      $results=$model->freeSearch($keyword);
+      //echo 'Results '.$results;
+      //echo count($results->getData());
+      //echo getItemCount
 
-         $customer_search_data = Customer::model()->freeSearch($keyword);
+       $customer_search_data = Customer::model()->freeSearch($keyword);
    
-        $this->renderPartial('_ajax_search',array(
-	                'results'=>$results, 'customer_results'=>$customer_search_data,
-	        ));
+       $this->renderPartial('_ajax_search',array(
+	               'results'=>$results, 'customer_results'=>$customer_search_data,
+	   ));
 	        
-       // echo "<hr>NEW:   ".$GLOBALS['my_gbp'];
+       $cust_id_from_service_results= array();
         
-//        foreach ($GLOBALS['service_cust_id_list'] as $id)
-//        {
-//        	echo "<hr> Id:  ".$id;       
-//        }
-        
-       
- 
- //       $GLOBALS['service_cust_id_list']=array();
-//        $this->renderPartial('/customer/_ajax_search',array(
-//	                'results'=>$customer_search_data, 
-//	        ));
-        
-        
-        
-        
-        $cust_id_from_service_results= array();
-        
-        
-   /*     
-        if(count($results->getData()) == 0)
-        {
-        	//echo "no data";
-        	//$this->render('Customer/searchEngine', array('keyword'=>$keyword));
- //       	$this->redirect(array('Customer/searchEngine', 'keyword'=>$keyword));
-        	
-        }
-        else 
-        {
-//        	$service_search_results=$results->getData();
-//        	foreach ($service_search_results as $data)
-//        	{
-//        		array_push($cust_id_from_service_results, $data->customer->id );
-//        	}
-        	//echo count($cust_id_from_service_results);
-        	
-        	$this->renderPartial('_ajax_search',array(
-	                'results'=>$results,
-	        ));
-        }
-        
- */       
-        
-//        $customerModel=Customer::model();
-//        $customer_search_data = Customer::model()->freeSearch($keyword);
-//        if(count($customer_search_data->getData())==0)
-//        {
-//        	echo "No Data";
-//        }
-//        else 
-//        {
-//        	//echo "Data is thr";
-//        	
-//        }
-//        
- }//end of searchEngine().
+ 	}//end of searchEngine().
     
 	public function actionGetitems()
 	{
@@ -686,10 +610,6 @@ class ServicecallController extends Controller
 			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
 			
 		}///end of else i.e, Servicecall is in LOGGED state. 
-		
-		
-		
-		
 	}//end of actionSelectEngineer.
 	
 	public function actionEnggJobReport($engg_id, $status_id, $startDate, $endDate)
@@ -785,6 +705,7 @@ class ServicecallController extends Controller
 	
 	public function performNotification($status_id, $service_id)
 	{
+		$info = '';
 // 		echo "<hr>in perform validation function, follwoing data is from this func";
 // 		echo "<br>Value of status_id = ".$status_id;
 // 		echo "<br>Value of service_id = ".$service_id;
@@ -798,8 +719,6 @@ class ServicecallController extends Controller
 		$company_name = $setupModel->company;
 		$company_email = $setupModel->email;
 		
-		
-		
 // 		echo "<br>cust id = ".$cust_id;
 // 		echo "<br>engg id = ".$engineer_id;
 // 		echo "<br>contract id = ".$contract_id;
@@ -808,6 +727,7 @@ class ServicecallController extends Controller
 		
 		if(count($notificationModel)!=0)
 		{
+			
 			$serviceDetailsModel = Servicecall::model()->findByPk($service_id);
 			
 			//echo "<br>Service reference no = ".$serviceDetailsModel->service_reference_number;
@@ -854,7 +774,9 @@ class ServicecallController extends Controller
 					$customer_body = 'Dear '.$name.','."<br>".$body;
 						
 					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject, $smsMessage);
-					return $response;
+					$info.= $this->createMessage($response, 'customer');
+					//echo "<br>INFO returned from func = ".$info;
+					//return $response;
 						
 				}//end of if of CUSTOMER.
 				
@@ -869,10 +791,11 @@ class ServicecallController extends Controller
 					$telephone = $engineerModel->contactDetails->mobile;
 					$name = $engineerModel->fullname;
 					$engineer_body = 'Dear '.$name.','."\n".$body;
-				
 						
 					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject, $smsMessage);
-					return $response;
+					$info.= $this->createMessage($response, 'engineer');
+					//echo "<br>INFO returned from func = ".$info;
+					//return $response;
 						
 				}//end of if of ENGINEER.
 					
@@ -888,40 +811,78 @@ class ServicecallController extends Controller
 					$warranty_body = 'Dear Recepient,'."\n".$body;
 						
 					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject, $smsMessage);
-					return $response;
+					$info.= $this->createMessage($response, 'warranty provider');
+					//echo "<br>INFO returned from func = ".$info;
+					//return $response;
 						
 				}//end of if of WARRANTY PROVIDER.
 					
 				if($othersNotificationCode != 0)
 				{
-// 					echo "<hr>Others Notification code = ".$othersNotificationCode;
-// 					echo "<br>Notification rule id = ".$data->id;
+					//echo "<hr>INSIDE Others Notification code IF ELSE BLOCK = ".$othersNotificationCode;
+					//echo "<br>Notification rule id = ".$data->id."<hr>";
 				
-					$notificationContactModel = NotificationContact::model()->findAllByAttributes(
-							array(
-									'notification_rule_id'=>$data->id
-							));
+					$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_rule_id'=>$data->id));
 					foreach ($notificationContactModel as $contact)
 					{
-						//echo "<br>Others email addresss = ".$contact->email;
+						//echo "<br>Others email address = ".$contact->email;
 						$receiver_email_address = $contact->email;
 						//echo "<br>Others telephone = ".$contact->mobile;
 						$telephone = $contact->mobile;
 						//echo "<br>Other name = ".$contact->person_name;
 						$name = $contact->person_name;
 						$others_body = 'Dear '.$name.','."\n".$body;
-							
-						$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $othersNotificationCode, $others_body, $subject, $smsMessage);
-						return $response;
+						$other_notification_code = $contact->notification_code_id;
+
+						$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $other_notification_code, $others_body, $subject, $smsMessage);
+						$info.= $this->createMessage($response, 'others');
+						//echo "<br>INFO returned from func = ".$info;
+						//return $response;
+						
 					}//end of inner foreach($contact).
-				
+					
 				}//end of if of OTHERS.
 				
 			}//end of foreach($notificationModel).
 			
 		}//end of count().
+		return $info;
 		
 	}//end of performNotification().
+	
+	public function createMessage($notifyStatusArray, $notifiedTo)
+	{
+		/* SMS API RETURNS 1 ON SUCCESFUL SMS SENT, OR RESTURNS EMPTY STRING.
+		 * EMAIL SUCESSFUL SENT RETURNS 1 ELSE RETURNS 0.
+		 * */
+		echo "<hr>";
+		$msg = '';
+		echo "<br>SMS response in createMesg func = ".$notifyStatusArray['sms_response'];
+		
+		if($notifyStatusArray['sms_response'] == '1')
+		{
+			//echo "<br>!!!!!!!!!!!!!!!!!!!!!!!!!!.............. sms sent sucessfully ......!!!!!!!!!";
+			$msg .= "<br><span style='background-color:#C9E0ED; color:#555555;   border-radius:10px 10px 10px 10px; '>SMS has been sent to ".$notifiedTo.". </span>";
+		}
+		elseif($notifyStatusArray['sms_response'] != 'none')
+		{
+			//echo "<br> SMS NOT SENT PROPERLY................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+			$msg = $msg."<br><div style='background-color:#CD0000; color:white;   border-radius:10px 10px 10px 10px; '>Please check your sms settings or make sure the mobile number ".$notifiedTo." is valid. &nbsp;&nbsp;&nbsp;Server Response:<i> ".$notifyStatusArray['sms_response'].".</i></div>";
+		}//end of if(sms_response)
+		
+		if($notifyStatusArray['email_response'] == 1)
+		{
+			//echo "<br>Email sent sucessfully ......!!!!!!!!!";
+			$msg = $msg."<br><span style='background-color:#C9E0ED; color:#555555;   border-radius:10px 10px 10px 10px; '>Email has been sent to ".$notifiedTo.". </span>";
+		}
+		elseif($notifyStatusArray['sms_response'] != 'none')
+		{
+			//echo "<br>Error in sending email, check EMAIL settings.";
+			$msg = $msg."<br><span style='background-color:red; color:#CD0000;   border-radius:10px 10px 10px 10px; '>Error in sending email to ".$notifiedTo.", check EMAIL settings.</span>";
+		}
+		echo "<br> Message returned for ".$notifiedTo." = ".$msg;
+		return $msg;
+	}//end of createMessage().
 	
 	
 }//end of class.

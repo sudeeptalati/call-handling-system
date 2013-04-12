@@ -345,7 +345,7 @@ class SparesUsedController extends Controller
 			/************ END OF CODE TO ADD DATA TO JSON FILE **********/
 																																					
 		
-			$this->redirect(array('servicecall/update/'.$service_id));
+			$this->redirect(array('servicecall/update/'.$service_id.'#spares_details'));
 			
 		}
 		else 

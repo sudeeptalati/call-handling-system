@@ -1,14 +1,13 @@
-<?php
-$this->breadcrumbs=array(
-	'Notification Rules'=>array('index'),
-	'Manage',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	//array('label'=>'List NotificationRules', 'url'=>array('index')),
-	array('label'=>'SetUp', 'url'=>array('/setup/1')),
-	array('label'=>'Create NotificationRules', 'url'=>array('create')),
-);
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Notification Rules',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Notification Rules',array('create')); ?></td>
+</tr></table>
+
+<?php
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -43,7 +42,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+		//'id',
 		//'job_status_id',
 		array('name'=>'status_changed','value'=>'$data->jobStatus->name'),
 		//'active',

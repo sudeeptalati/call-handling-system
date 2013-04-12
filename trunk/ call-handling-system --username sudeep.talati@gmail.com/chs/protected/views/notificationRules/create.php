@@ -1,15 +1,12 @@
-<?php
-$this->breadcrumbs=array(
-	'Notification Rules'=>array('index'),
-	'Create',
-);
 
-$this->menu=array(
-	//array('label'=>'List NotificationRules', 'url'=>array('index')),
-	array('label'=>'SetUp', 'url'=>array('/setup/1')),
-	array('label'=>'Manage NotificationRules', 'url'=>array('admin')),
-);
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Notification Rules',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Notification Rules',array('create')); ?></td>
+</tr></table>
 
 <h1>Create NotificationRules</h1>
 

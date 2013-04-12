@@ -1,3 +1,4 @@
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -8,7 +9,7 @@
 if (isset($_GET['showDialogue']))
 {
 $showDialogue = $_GET['showDialogue'];
-echo "Show valoue = ".$showDialogue;
+//echo "!!!!!!!!!!!!!!!!!!!!!! Show valoue = ".$showDialogue;
 
 if ($showDialogue==1)
 {
@@ -169,7 +170,7 @@ $(function()
 					$customer_checked=true;
 				else 
 					$customer_checked=false;
-			?>
+		?>
 		
 		<?php echo $form->checkbox($model, 'customer_notification_code', array('checked'=>$customer_checked,'id'=>'customer-checkbox-id')); ?>		
 		
@@ -189,7 +190,7 @@ $(function()
 			");
 		?>
 		
-		Engineer&nbsp;&nbsp;
+		Engineer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<?php 
 			$engineer_checked;
 				
@@ -237,7 +238,7 @@ $(function()
 		<?php echo $form->checkbox($model, 'warranty_provider_notification_code', array('checked'=>$warranty_provider_checked,'id'=>'warranty-provider-checkbox-id')); ?>
 		<div class="warranty-provider-form" style="display:none">
 		<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_email_notification', $warranty_provider_email_checked, array('uncheckValue' => 0)); ?>
-		&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_sms_notification', $warranty_provider_sms_checked, array('uncheckValue' => 0)); ?>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_sms_notification', $warranty_provider_sms_checked, array('uncheckValue' => 0)); ?>
 		</div>
 	
 	</td>
@@ -249,7 +250,7 @@ $(function()
 		<?php
 			if($model->notify_others == 0)
 			{
-				echo CHtml::submitButton ('Give Details', array('name'=>'others_person_details'));
+				echo CHtml::submitButton ('Add Details', array('name'=>'others_person_details'));
 			}
 			
 		?>
@@ -350,16 +351,11 @@ $(function()
 				</td>
 				<!-- END OF SECOND COLUMN -->
 				</tr>
-				
-				
 				<?php 
 			}//end of foreach().
 			?>
-			</table>
-			<hr>
+			</table><hr>
 			
-			
-
 			<?php
 			//the link for open the dialog
 			echo CHtml::link('Add More', "",
@@ -370,9 +366,6 @@ $(function()
     		?>
 			
 			<?php 
-	
-			
-			
 			/***** CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
 				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 					'id'=>'formdialog',
@@ -380,7 +373,7 @@ $(function()
 					'options'=>array(
 					'title'=>'Person Details',
 					//'title'=>Yii::t('notificationContact','Create Job'),
-					//'autoOpen'=>$showDialogue,
+					'autoOpen'=>$showDialogue,
 					'autoOpen'=>false,
 					'modal'=>'true',
 					'show' => 'blind',
@@ -396,11 +389,8 @@ $(function()
 			<script type="text/javascript">
 				function addContact()
 			   {
-				//alert('IN ADD CONTACT FUNC'+<?php echo $model->id;?> );
-				
+				//alert('IN ADD CONTACT FUNC'+<?php //echo $model->id;?> );
 				<?php 
-				
-				
 				echo CHtml::ajax(array(
 				   'url'=>array('notificationContact/create', 'id'=>$model->id),
 				   'data'=> "js:$(this).serialize()",
@@ -426,8 +416,6 @@ $(function()
 				   return false;
 			   }//end of function addContact().
 			</script>
-			
-    					
 			<?php
 
 			/***** END OF CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
@@ -440,9 +428,7 @@ $(function()
 		<?php $this->endWidget(); ?>
 		
 		<!-- *** END OF FORM OF OTHERS CHECKBOX, TO DISPLAY FORM AND DIALOGUE BOX TO ENTER DETAILS *** -->
-		
-		</div>
-		
+		</div><!-- end of others form div -->
 	</td>
 </tr>
  

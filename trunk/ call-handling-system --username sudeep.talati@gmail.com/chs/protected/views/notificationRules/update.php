@@ -1,19 +1,14 @@
-<?php
-$this->breadcrumbs=array(
-	'Notification Rules'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
 
-$this->menu=array(
-// 	array('label'=>'List NotificationRules', 'url'=>array('index')),
-// 	array('label'=>'Create NotificationRules', 'url'=>array('create')),
-// 	array('label'=>'View NotificationRules', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'SetUp', 'url'=>array('/setup/1')),
-	array('label'=>'Manage NotificationRules', 'url'=>array('admin')),
-);
-?>
+
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Notification Rules',array('admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Notification Rules',array('create')); ?></td>
+</tr></table>
 
 <h1>Update NotificationRules <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'showDialogue'=>'0')); ?>

@@ -145,6 +145,7 @@ class Enggdiary extends CActiveRecord
 				$added_end_date = date("d-m-Y H:i:s", strtotime($prod.'minutes', $this->visit_start_date));            	
             	//echo "<br>end time after adding slot = ".$added_end_date;
             	$this->visit_end_date = strtotime($added_end_date);
+            	//echo "<hr>End date calculated in beforeSave of enggDiary = ".$this->visit_end_date;
             	/****** END OF ADDING SLOT DURATION TO END TIME *******/
 
 			//	$this->user_id=Yii::app()->user->id;

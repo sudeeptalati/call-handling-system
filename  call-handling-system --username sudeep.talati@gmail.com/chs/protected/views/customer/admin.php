@@ -35,10 +35,11 @@ $('.search-form form').submit(function(){
 		'town',
 		'postcode',
 		//'product_id',
-		array('name'=>'product_brand', 'value'=>'$data->product->brand->name'),
-		array('name'=>'product_type', 'value'=>'$data->product->productType->name'),
-		array('name'=>'model_number', 'value'=>'$data->product->model_number'),
-		array('name'=>'serial_number', 'value'=>'$data->product->serial_number'),
+		array('name'=>'product_brand','value'=>'$data->product->brand->name'),
+ 		array('name'=>'product_type','value'=>'$data->product->productType->name'),
+		array('name'=>'model_number','value'=>'$data->product->model_number'),
+		array('name'=>'serial_number','value'=>'$data->product->serial_number'),
+		
 		//'telephone',
 		//'address_line_1',
 		//array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
@@ -70,16 +71,9 @@ $('.search-form form').submit(function(){
 			'value' => 'CHtml::link("Add another product",array("product/addProduct", "id"=>$data->id))',
 		),
 	),
-)); ?>
-
-<?php 
-
-// echo "here<br>";
-// $base = Yii::app()->baseUrl;
-
-// echo Chtml::button('Check SMS', array('submit'=>$base.'/Customer/testSMS'));
-
-
+)); 
 ?>
+
+
 
 

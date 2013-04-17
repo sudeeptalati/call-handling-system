@@ -31,7 +31,8 @@ $this->menu=array(
 		//'created',
 		array('name'=>'created', 'value'=>date('d-M-y',$model->created)),
 		//'modified',
-		array('name'=>'Modified', 'value'=>date('d-M-y',$model->modified)),
-		'delete',
+		//array('name'=>'Modified', 'value'=>date('d-M-y',$model->modified)),
+		//'delete',
 	),
 )); ?>
+

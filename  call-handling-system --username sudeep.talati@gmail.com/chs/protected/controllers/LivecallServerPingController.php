@@ -4,7 +4,7 @@ class LivecallServerPingController extends Controller
 {
 
 
-	public function actionPingToServer()
+	public function actionPingToServer($engg_id, $cust_postcode)
 	{
 		?>
 		<br>
@@ -85,10 +85,12 @@ class LivecallServerPingController extends Controller
 				console.log("get Diary Data called");
 				//var recieved_data;
 				//url = "diary_data.php";
+				var engg_id = '<?php echo $engg_id;?>';
+				var cust_postcode = '<?php echo $cust_postcode;?>';
 				var result = null;
 				//var scriptUrl = "../../diary_data.php";
 				//var scriptUrl = "http://192.168.1.200/livecall/diary_data.php";
-				var scriptUrl = baseurl+'/routePlanner/getEngineerDiary';
+				var scriptUrl = baseurl+'/routePlanner/getEngineerDiary?engg_id='+engg_id+'&cust_postcode='+cust_postcode;
 				 
 				$.ajax({
 					url: scriptUrl,
@@ -133,8 +135,6 @@ class LivecallServerPingController extends Controller
 				return result;
 		
 			} ///end of sendDiaryDataToUKWServer Variable
-			
-
 			
 		}); //////end of  $(document).ready(function () 
 

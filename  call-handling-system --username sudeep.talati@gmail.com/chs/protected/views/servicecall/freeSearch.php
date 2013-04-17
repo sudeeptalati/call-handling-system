@@ -181,7 +181,7 @@ vertical-align:top;
 		),
  		array('name'=>'customer_name','value'=>'$data->customer->fullname','header' => 'Customer',),
  		//array('name'=>'customer_town','value'=>'$data->customer->town'),
- 		array('name'=>'customer_postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
+ 		array('name'=>'postcode','value'=>'$data->customer->postcode_s." ".$data->customer->postcode_e'),
  		array('header' => 'Product',
              	'name'=>'product_name',
  				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
@@ -226,9 +226,7 @@ $allStatus = JobStatus::model()->findAll( array(
 					$div_var=$data->id.'div';
 					
 					?>
-					
-					
-					 <script type="text/javascript">
+					<script type="text/javascript">
  						$(document).ready(function(){
 						        $(".<?php echo $div_var; ?>").hide();
 						        $(".<?php echo $anchor_var; ?>").show();
@@ -238,9 +236,6 @@ $allStatus = JobStatus::model()->findAll( array(
 						 
 						});
 					</script>
-					
-					 
-					
 					
 					<?php
 					//echo $data->name."<br>";
@@ -265,9 +260,6 @@ $allStatus = JobStatus::model()->findAll( array(
 						echo CHtml::image($down_arrow_img,'Raise Service Call',array('width'=>16,'height'=>16, 'title'=>'Show Service Calls')); 
 						?>
 						</a>
-					
-					
-					
 						<div class="<?php echo $div_var; ?>">
  						
  						<table><tr><td></td></tr>
@@ -278,8 +270,6 @@ $allStatus = JobStatus::model()->findAll( array(
 							<th>Product</th>
 							</tr>
 							
-						
-						
 						<?php 
 						foreach ($result as $row)
 						{?>
@@ -294,10 +284,6 @@ $allStatus = JobStatus::model()->findAll( array(
 								<?php echo $row->product->productType->name; ?>							
 							
 							</td></tr>
-							
-						
-						
-						
 						<?php }//end of foreach(). 
 						
 						?> 
@@ -314,14 +300,8 @@ $allStatus = JobStatus::model()->findAll( array(
 					<?php 
 				
 				}///end of foreeach													   	
-			
-			
 			?>			
-			
 			</td></tr>
-		
-		
-		
 		
 		</table>
 		
@@ -332,42 +312,45 @@ $allStatus = JobStatus::model()->findAll( array(
 		<tr><td id="second_column_bottom">
 		<br>
 		<span><b>&nbsp;&nbsp;Notifications</b></span><br><br>
-			<?php 
+		<?php 
 	
 		$setupModel = Setup::model()->findByPk(1);
-		$update_url_from_db = $setupModel->version_update_url;
-		//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
-		$request = $update_url_from_db.'/latest_callhandling_version.txt';	
-		$available_version = curl_file_get_contents($request, true);
-		$installed_version=Yii::app()->params['software_version'];
-		 
-		if ($available_version!=$installed_version)
-		{	
+		if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+		{
+			$update_url_from_db = $setupModel->version_update_url;
+			//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
+			$request = $update_url_from_db.'/latest_callhandling_version.txt';	
+			$available_version = curl_file_get_contents($request, true);
+			$installed_version=Yii::app()->params['software_version'];
+			 
+			if ($available_version!=$installed_version)
+			{	
+				?>
+				<ul>
+				<li style="text-align:justify; margin-left:10px;">
+				<span style="color:red;">
+				Your current version is <?php echo $installed_version; ?>
+				There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
+				</span>
+				</li>
+				<li style="text-align:justify; margin-left:10px;">	
+				<?php
+					$server_msg_url='http://www.rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
+						$server_msg = curl_file_get_contents($server_msg_url, true);
+		
+						echo $server_msg; 
+				?>
+				</li>
+				</ul>
+				<?php 
+			}//end if inner if(version compare).
+		}//end of if(internet).
+		else
+			echo "<br><b>Internet connection not available</b>";
 			
-			
-			?>
-			<ul>
-			<li style="text-align:justify; margin-left:10px;">
-			<span style="color:red;">
-			Your current version is <?php echo $installed_version; ?>
-			There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
-			</span>
-
-
-			</li>
-			<?php 
-		}
 	?>
 	
-		<li style="text-align:justify; margin-left:10px;">	
-		<?php
-			$server_msg_url='http://www.rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
-				$server_msg = curl_file_get_contents($server_msg_url, true);
-
-				echo $server_msg; 
-		?>
-		</li>
-		</ul>
+		
 		</td>
 		
 		</tr>

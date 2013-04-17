@@ -47,7 +47,7 @@ class Servicecall extends CActiveRecord
 	public $user_name;
 	public $customer_name;
 	public $customer_town;
-	public $customer_postcode;
+	public $postcode;
 	public $product_name;
 	public $model_number;
 	public $serial_number;

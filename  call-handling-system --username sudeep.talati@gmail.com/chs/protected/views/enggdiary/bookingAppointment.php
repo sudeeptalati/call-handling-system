@@ -12,6 +12,8 @@
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-ui-1.8.17.custom.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery.ui.touch-punch.js');
+  $cs->registerScriptFile($baseUrl.'/js/jquery.blockUI.js');
+ 
   
 //  echo "ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
 //  
@@ -113,14 +115,7 @@ foreach ($diaryModel as $data)
 )); 
 ?>
 
-<?php 
-
-//echo "BEFORE DROP ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>";
-
-?>
-
-
-
+<?php //echo "BEFORE DROP ENGG ID IN VIEWFULLDIARY FORM = ".$engg_id."<br>"; ?>
 
 <?php 
 	
@@ -240,46 +235,25 @@ function isTouchDevice()
 
 				dayClick: function(date, allDay, jsEvent, view) 
 				{
-					var clicked_date=date;
+					//$.blockUI();
+					//var clicked_date=date;
+					//
 					var today = new Date();
 
-					/*		
-					if(clicked_date>today)
-					  {
-					  alert("Today is before "+clicked_date);
-					  }
-					else
-					  {
-					  alert("Today is after"+clicked_date);
-					  }
-					*/
-					
-					var curr_date = date.getDate();
-					
-					var curr_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
+					today = today.getDate()+'-'+today.getMonth()+'-'+today.getFullYear();
 
+					var curr_date = date.getDate();
+					var curr_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
 					var curr_year = date.getFullYear();
 
 					//window.alert(curr_date + "-" + curr_month + "-" + curr_year);
 
-					var normal_format = curr_date + "-" + curr_month + "-" + curr_year;
+					var clicked_date = curr_date + "-" + curr_month + "-" + curr_year;
 					//alert("normal date = "+normal_format);
 					
-					/*
-					var today = new Date();
-					var dd = today.getDate();
-					var mm = today.getMonth()+1; //January is 0!
-
-					var yyyy = today.getFullYear();
-
-					today = dd+'-'+mm+'-'+yyyy;
-					 */
-
-					
-					
-					if(clicked_date>today)
+					if(clicked_date>=today)
 					{
-						var retVal = confirm("Do you want to book appointment for "+date+" ?");
+						var retVal = confirm("Do you want to book appointment for "+clicked_date+" ?");
 						if( retVal == true )
 						{
 							engg_id = '<?php echo $engg_id;?>';
@@ -288,7 +262,7 @@ function isTouchDevice()
 							service_id = '<?php echo $service_id;?>';
 							//alert('service id = '+service_id);
 							
-							createNewDiaryEntry(normal_format, engg_id, service_id);
+							createNewDiaryEntry(clicked_date, engg_id, service_id);
 							return true;
 						}
 						else
@@ -296,7 +270,7 @@ function isTouchDevice()
 							//alert("User does not want to continue!");
 							return false;
 						}
-					}//end of if.
+					}//end of outer if.
 					else
 					{
 						alert("Cannot book appointment for previous days");
@@ -392,18 +366,21 @@ function isTouchDevice()
 
 	function createNewDiaryEntry(event_date, engg_id, service_id)
 	{
-//		alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
-//		alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
-//		alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
+		//$.blockUI();
+		//alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
+		//alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
+		//alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
 
-		var urlToCreate = baseUrl+'/api/createNewDiaryEntry/?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
+		var urlToCreate = baseUrl+'/api/createNewDiaryEntry?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
 		//alert(urlToCreate);
 	
-			
+		
 		 $.ajax
 		 ({
 	     	type: 'POST',
 	        url: urlToCreate ,
+	        cache: false,
+	        modal: true,
 	        success: function(data) 
 	        { 
 		    	alert('Appointment Created');
@@ -412,8 +389,15 @@ function isTouchDevice()
 	        error: function()
 	        {
 		        alert("ERROR"); 
-	        }
+	        },
+	        /*
+	        complete: function() { 
+                // unblock when remote call returns 
+                $.unblockUI(); 
+            } 
+            */
 	     });//end of AJAX.
+	     
 
 	}//end of createNewDiaryEntry().
     

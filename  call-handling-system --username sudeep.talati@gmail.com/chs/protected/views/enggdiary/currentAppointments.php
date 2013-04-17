@@ -66,6 +66,7 @@ if(isset($_POST['show_all']))
 									array('empty'=>array(0=>'All Engineers')) 
 								);
 	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
+	echo "<br><small>(List is arranged by engineers name)</small>";
 	
 ?>
 <?php $this->endWidget(); ?>

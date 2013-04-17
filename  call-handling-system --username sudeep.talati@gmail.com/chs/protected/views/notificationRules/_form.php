@@ -140,10 +140,21 @@ $(function()
 											array('empty'=>'Please Select job status (required)',
 												));
 							?>
+							
+	</td>
+	<td>
+	
+		<?php echo $form->labelEx($model,'active'); ?>
+		<?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?>
 
-		<br><big><b>Notify</b></big>
+		
 	</td>
 	
+	
+</tr>
+
+<tr>
+	<td><big><b>Notify</b></big></td>
 </tr>
 
 <tr>

@@ -723,7 +723,7 @@ class ServicecallController extends Controller
 // 		echo "<br>engg id = ".$engineer_id;
 // 		echo "<br>contract id = ".$contract_id;
 		
-		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id));
+		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
 		
 		if(count($notificationModel)!=0)
 		{

@@ -7,7 +7,7 @@ $this->menu=array(
 	array('label'=>'Contract Setup', 'url'=>array('Contract/admin')),
 	array('label'=>'Change Logo', 'url'=>array('setup/changeLogo')),
 	array('label'=>'Engineer Setup', 'url'=>array('Engineer/admin')),
-	array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),
+	//array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),
 	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
 	array('label'=>'Mail Settings', 'url'=>array('setup/mailServer')),
 	array('label'=>'Notification Setup', 'url'=>array('/notificationRules/admin')),		

@@ -2,14 +2,17 @@
 
 class RoutePlannerController extends Controller
 {
-	public function actionGetEngineerDiary()
+	public function actionGetEngineerDiary($engg_id, $cust_postcode)
 	{
-		$engg_id = '90000114';
+		//$engg_id = '90000114';
+		$engineer_id = $engg_id;
+		echo "<br>Engineer id from url = ".$engineer_id;
 		$current_date = strtotime('17-04-2013');
 		
-		$enggModel = Engineer::model()->findByPk($engg_id);
+		$enggModel = Engineer::model()->findByPk($engineer_id);
 		
 		$engg_postcode = $enggModel->contactDetails->postcode;
+		echo "<br>Engineer postcode = ".$engg_postcode;
 		$engg_postcode = str_replace (" ", "", $engg_postcode);
 		
 		
@@ -17,7 +20,8 @@ class RoutePlannerController extends Controller
 		$date = date('d-m-Y',time());
 		//echo "<br>Today - ".$date;
 		//$current_date = strtotime($date);
-		$customer_postcode = 'G41 1BH';
+		//$customer_postcode = 'G41 1BH';
+		$customer_postcode = $cust_postcode;
 		
 		//######## FIRST DAY DATES ###########
 		$next_date_from_func = $this->getNextDate($current_date);
@@ -95,6 +99,7 @@ class RoutePlannerController extends Controller
 		//############### GETTING MAX CALLS, DISTANCE AND TRAVEL TIME ##############################
 		
 		//##### GETTING DIARY MODEL ARRAY FOR 3 DAYS ##################
+		
 		$first_diary_data = Enggdiary::model()->getData($engg_id, $firstDayStartTime, $firstDayEndTime);
 		$i= 0;
 		foreach ($first_diary_data as $data)
@@ -160,6 +165,7 @@ class RoutePlannerController extends Controller
 		$fifthDay_calls = $k;
 		 
 		//######## GETTING OPTIMISED DISTANCE FOR 3 DAYS WITHOUT CUSTOMER POSTCODE ########		
+		
 		$first_day_optimised = $this->getOptimisedDistance($engg_postcode,$first_day_data_array);
 		$second_day_optimised = $this->getOptimisedDistance($engg_postcode, $second_day_data_array);
 		$third_day_optimised = $this->getOptimisedDistance($engg_postcode, $third_day_data_array);
@@ -486,6 +492,7 @@ class RoutePlannerController extends Controller
 	public function getOptimisedDistance($engg_postcode, $postcode_array)
 	{
 		//echo "<hr>POSTCODE ARRAY IN FUNC:";
+		//echo "<br>Engineer postcode in func = ".$engg_postcode;
 		$way_points = '|';
 		$totalDistance = 0;
 		$totalDuration = 0;

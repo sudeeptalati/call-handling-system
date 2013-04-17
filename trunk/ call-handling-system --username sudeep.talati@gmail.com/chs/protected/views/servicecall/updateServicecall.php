@@ -274,7 +274,7 @@ vertical-align:top;
 				
 				
 				<hr>
-				<table style="margin:-5px;"><tr>
+				<table style="margin:-5px;" id="spares_details"><tr>
 				<td ><?php echo $form->labelEx($model,'spares_used_status_id'); ?>
 				</td>
 				<td style="text-align:left; "><?php //$model->spares_used_status_id='';?>
@@ -285,8 +285,11 @@ vertical-align:top;
 				?>
 				<?php echo $form->error($model,'spares_used_status_id'); ?><br>
 				</td>
-				<td width="55%" style="text-align:right;  "><?php echo CHtml::link('Print Spares Order',array('sparesUsed/GenerateSparesOrderFormPdf', 'service_id'=>$model->id), array('target'=>'_blank'));
-						?>
+				<td width="55%" style="text-align:right;  ">
+				<?php
+					if($model->spares_used_status_id == 1) 
+						echo CHtml::link('Print Spares Order',array('sparesUsed/GenerateSparesOrderFormPdf', 'service_id'=>$model->id), array('target'=>'_blank'));
+				?>
 				</td>
 				</tr></table>
 				
@@ -304,7 +307,7 @@ vertical-align:top;
 						
 						
 						
-						<table id="spares_details">
+						<table>
 						<tr>
 						<th style="color:maroon">Part Number</th>
 						<th style="color:maroon">Item Name</th>

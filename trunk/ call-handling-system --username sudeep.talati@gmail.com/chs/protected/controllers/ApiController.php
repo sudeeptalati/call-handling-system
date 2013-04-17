@@ -223,10 +223,9 @@ class ApiController extends Controller
     public function actionCreateNewDiaryEntry()
     {
     	echo "IN CreateNewDiaryEntry action";
-    	echo "<hr>START DATE = ".date('d-m-Y H:i','1346313600')."<hr>";
     	
     	$start_date = $_GET['start_date'];
-    	echo "<br>START DATE = ".$start_date;
+    	echo "<hr>START DATE = ".$start_date;
     	echo "<br>STRTOTIME START DATE = ".strtotime($start_date);
     	
     	$engg_id = $_GET['engg_id'];
@@ -234,39 +233,22 @@ class ApiController extends Controller
     	$service_id = $_GET['service_id'];
     	echo "<br>SERVICE_ID in api contr = ".$service_id;
     	
-
-/*    	
-    	$diaryModel = Enggdiary::model()->findAllByAttributes(
-                                array('servicecall_id'=>$service_id), 
-                                "status = 3" 
-                            );				
-		foreach ($diaryModel as $data)
-		{
-			echo "<hr>Serviecall id from controller = ".$data->servicecall_id;
-			echo "<br>engineer name = ".$data->engineer->fullname;
-				
-			$findDiaryModel = Enggdiary::model()->findByPk($data->id);
-				
-			$updateDiaryModel = Enggdiary::model()->updateByPk($findDiaryModel->id,
-												array(
-													'status'=>'102',
-													'modified'=>time()
-												)
-											);
-		}//end of foreach().                            
-  
-*/    	
-   	
-    	
     	$newEnggDiaryModel = new Enggdiary;
+    	//$newEnggDiaryModel->id = 1;
+    	echo "<hr>Service id to be saved = ".$service_id;
     	$newEnggDiaryModel->servicecall_id=$service_id;
+    	echo "<br>Engineer id to be saved = ".$engg_id;
 		$newEnggDiaryModel->engineer_id=$engg_id;
 		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
+		echo "<br>Visit satrt date to be saved = ".$start_date;
 		$newEnggDiaryModel->visit_start_date=$start_date;
 		$newEnggDiaryModel->slots = '2';
 		
-		if($newEnggDiaryModel->save())
+		$saved = $newEnggDiaryModel->save();
+		if($saved == true)
 		{
+			//echo "Diary model saved";
+			
 			try 
 			{
 				if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
@@ -294,11 +276,11 @@ class ApiController extends Controller
 					$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 					$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
 					
-					$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
-					$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+// 					$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+// 					$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
 									
-					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
-					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+// 					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+// 					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
 				}//end of if(check for internet connection). 
 				else 
 					echo "PLEASE CHECK YOUR INTERNET CONNECTION";
@@ -308,6 +290,7 @@ class ApiController extends Controller
 			{
 				//echo "<br>error message = ".$e.message;
 			}
+			
 			
 		}//end of if($newEnggDiaryModel->save()).
 		else 

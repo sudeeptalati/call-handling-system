@@ -67,7 +67,7 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, first_name, last_name, address_line_1, town, postcode_s, postcode_e, telephone', 'required'),
+			array('title, last_name, address_line_1, town, postcode_s, postcode_e', 'required'),
 			array('product_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('first_name, address_line_2, address_line_3, country, mobile, email, fax, notes, modified, fullname, lockcode, model_number, serial_number', 'safe'),
 			// The following rule is used by search().
@@ -133,10 +133,7 @@ class Customer extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		
-		
-		
-		
-    	$criteria->with = array( 'product' );
+		$criteria->with = array( 'product' );
     	
     	$criteria->compare( 'product.model_number', $this->model_number, true );
     	$criteria->compare( 'product.serial_number', $this->serial_number, true );

@@ -3,6 +3,12 @@
 <?php 
 include 'setup_sidemenu.php';
 ?>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
+	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsForm')); ?></td>
+	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
+</tr></table>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'setup-mailSettings-form',
@@ -98,9 +104,7 @@ include 'setup_sidemenu.php';
 		<?php echo CHtml::textField('',$smtp_port, array('disabled'=>'disabled'));?>
 	</div>
 	
-	<div class="row">
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo CHtml::button('Update', array('submit' => array('setup/mailServer'))); ?>
-	</div>
+
 
 	
 	

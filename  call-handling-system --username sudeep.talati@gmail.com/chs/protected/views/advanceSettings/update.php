@@ -1,9 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Advance Settings'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
 
 $this->menu=array(
 	array('label'=>'List AdvanceSettings', 'url'=>array('index')),
@@ -13,6 +8,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update AdvanceSettings <?php echo $model->id; ?></h1>
+<h1>Update AdvanceSettings <?php echo $model->name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

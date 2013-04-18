@@ -20,7 +20,7 @@
 			else 
 			{
 				echo $form->textField($model,'name',array('disabled'=>'disabled'));
-				echo "<br><small>This is syatem data, canot be editted</small>";
+				echo "<br><small>This is system data, cannot be edited</small>";
 			} 
 		?>
 		<?php echo $form->error($model,'name'); ?>

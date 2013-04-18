@@ -104,9 +104,11 @@ class Brand extends CActiveRecord
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('inactivated',$this->inactivated,true);
-
+		$criteria->order = 'created ASC';
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			
 		));
 	}//end of search.
 	

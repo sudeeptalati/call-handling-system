@@ -4,6 +4,7 @@
 include 'setup_sidemenu.php';
 ?>
 
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'setup-smsSettingsView-form',
 	'enableAjaxValidation'=>false,

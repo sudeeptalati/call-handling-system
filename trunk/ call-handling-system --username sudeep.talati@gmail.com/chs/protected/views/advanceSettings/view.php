@@ -4,7 +4,7 @@
 
 <table><tr>
 	<td> <?php echo CHtml::link('Manage Advance settings',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Add Advance settings',array('create')); ?></td>
+	<td></td>
 </tr></table>
 
 <h1>View AdvanceSettings #<?php echo $model->id; ?></h1>

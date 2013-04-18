@@ -1,21 +1,17 @@
-<?php
-$this->breadcrumbs=array(
-	'Notification Rules'=>array('index'),
-	$model->id,
-);
 
-$this->menu=array(
-	array('label'=>'SetUp', 'url'=>array('/setup/1')),
-	array('label'=>'Manage NotificationRules', 'url'=>array('admin')),
-);
-?>
 
-<h1>View Notification Rules #<?php echo $model->id; ?></h1>
+<table><tr>
+	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
+	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
+	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsForm')); ?></td>
+	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
+</tr></table>
+<h1>View Notification Rules :  <?php echo $model->jobStatus->name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
+		//'id',
 		//'job_status_id',
 		array('name'=>'status_changed','value'=>$model->jobStatus->name),
 		//'active',

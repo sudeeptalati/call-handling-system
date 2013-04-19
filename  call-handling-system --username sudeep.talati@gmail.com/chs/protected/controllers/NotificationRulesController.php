@@ -205,7 +205,6 @@ class NotificationRulesController extends Controller
 			
 			else 
 			{
-				
 				/**** DIALOGUE BOX TO DISPLAY ERROR CODE ***/
 				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 						'id'=>'formdialog',

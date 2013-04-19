@@ -170,7 +170,7 @@ class Servicecall extends CActiveRecord
 		
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
 		$criteria->compare( 'customer.town', $this->customer_town, true );
-		$criteria->compare( 'customer.postcode', $this->customer_postcode, true );
+		$criteria->compare( 'customer.postcode', $this->postcode, true );
 		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
 		$criteria->compare( 'engineer.company', $this->engineer_name, true );

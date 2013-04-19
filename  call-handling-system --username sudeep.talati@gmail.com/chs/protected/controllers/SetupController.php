@@ -32,7 +32,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('RemoteConnection','ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('PostcodeAnywhereView','PostcodeAnywhereSetup','RemoteConnection','ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -516,11 +516,41 @@ class SetupController extends Controller
 	
 	public function actionRemoteConnection()
 	{
-		$model=new Setup('view');
 		$this->render('remoteConnection');
 	}//end of remoteConnection().
 	
+	public function actionPostcodeAnywhereSetup()
+	{
+		$model=$this->loadModel(1);
+		
+		if(isset($_POST['Setup']))
+		{
+			$model->attributes=$_POST['Setup'];
+			
+			echo "<br>postcode code = ".$model->postcodeanywhere_account_code;
+			$postcode_acc_code = $model->postcodeanywhere_account_code;
+			echo "<br>postcode Key = ".$model->postcodeanywhere_license_key;
+			$postcode_lic_key = $model->postcodeanywhere_license_key;
+			
+			$setupModel = Setup::model()->updateByPk(1,
+						array('postcodeanywhere_account_code'=>$postcode_acc_code,
+								'postcodeanywhere_license_key'=>$postcode_lic_key
+								)
+					);
+			
+			$this->redirect('postcodeAnywhereView',array('model'=>$model));
+			
+		}//end of if(isset()).
+		
+		
+		$this->render('postcodeAnywhereSetup',array('model'=>$model));
+	}//end of actionPostcodeAnywhereSetup().
 	
+	public function actionPostcodeAnywhereView()
+	{
+		$model=$this->loadModel(1);
+		$this->render('postcodeAnywhereView',array('model'=>$model));
+	}//end of actionPostcodeAnywhereView().
 	
 	
 	

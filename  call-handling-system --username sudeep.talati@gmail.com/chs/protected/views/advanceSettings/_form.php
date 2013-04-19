@@ -38,12 +38,31 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
+	<?php
+	if ($model->id==8) ///since Id 8 is for internet connections
+	{
+	?>
+		Yes
+		<?php echo $form->radioButton($model,'value',array('value'=>1,'uncheckValue'=>null)); ?>
+		&nbsp;&nbsp;&nbsp;&nbsp; No
+		<?php echo $form->radioButton($model,'value',array('value'=>0,'uncheckValue'=>null));
+	
+	}
+	else
+	{
+	
+	?>
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'value'); ?>
 		<?php echo $form->textField($model,'value',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'value'); ?>
 	</div>
-
+	<?php
+	}///end of else
+	
+	?>
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

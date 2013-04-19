@@ -113,7 +113,8 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 
 	<?php echo $form->errorSummary($model); ?>
 	
-	<table style="width:600px; margin:10px;background-color: #C7E8FD;  border-radius: 15px;">
+	<table style="padding:25px;margin:10px;background-color: #C7E8FD;  border-radius: 15px;">
+	
 	
 	<tr>
 		<td>
@@ -216,7 +217,8 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 		</td>
 	</tr>
 	
-	<tr>
+	
+	<!--<tr>
 		<td>
 			<?php echo $form->labelEx($model,'postcodeanywhere_account_code'); ?>
 			<?php echo $form->textField($model,'postcodeanywhere_account_code',array('rows'=>6, 'cols'=>50)); ?>
@@ -229,6 +231,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 			<?php echo $form->error($model,'postcodeanywhere_license_key'); ?>
 		</td>
 	</tr>
+	-->
 	
 	<tr>
 		<td>

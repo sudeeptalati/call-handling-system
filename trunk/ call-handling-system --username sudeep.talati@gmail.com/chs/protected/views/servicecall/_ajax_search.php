@@ -181,7 +181,7 @@ vertical-align:top;
 				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id.'?notify_response='));?>
 			
 				<?php 
-				
+					echo "-----";
 					if($service->job_status_id >100)
 					{
 						//echo "new call";
@@ -213,7 +213,7 @@ vertical-align:top;
 
 	<?php $i++; }//end of product foreach.?>
 	
-<td style="width:150px;background-color:#DCDCF2;">
+			<td style="width:150px;background-color:#DCDCF2;">
 			<?php
 			
 			echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));

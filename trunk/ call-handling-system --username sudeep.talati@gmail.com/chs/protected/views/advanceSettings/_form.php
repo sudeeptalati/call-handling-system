@@ -3,7 +3,7 @@
 </div>
 
 <table><tr>
-	<td> <?php echo CHtml::link('Manage Advance settings',array('admin')); ?></td>
+	<td> <?php //echo CHtml::link('Manage Advance settings',array('admin')); ?></td>
 	<td></td>
 </tr></table>
 

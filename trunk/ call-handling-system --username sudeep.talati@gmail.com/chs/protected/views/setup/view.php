@@ -30,13 +30,14 @@
 		'vat_reg_no',
 		'company_number',
 		//'postcodeanywhere_account_code',
-		array(
+/*		array(
 			'name'=>'postcodeanywhere_account_code',
 			'type'=>'raw',
 			'value'=>'<a href="admin" target="_blank">'.$model->postcodeanywhere_account_code.'</a>'
 		),
 		'postcodeanywhere_license_key',
-		//'postcode',
+*/	
+	//'postcode',
 		//'version_update_url',
 	),
 )); 

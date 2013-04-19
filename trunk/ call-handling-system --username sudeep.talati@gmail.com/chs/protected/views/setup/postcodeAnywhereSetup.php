@@ -18,7 +18,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p><b>Postcode Anywhere Account</b></p>
+	<h1>Postcode Anywhere Account</h1>
 	
 	<?php echo $form->errorSummary($model); ?>
 	

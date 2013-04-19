@@ -254,11 +254,21 @@ class ServicecallController extends Controller
 				if($previous_status_id != $current_status_id)
 				{
 					//echo "<br>Status Changed....";
-					if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))//To check internet connection.
+					$internet_connection = '';
+					/**** CHECKING IF CONNECT TO INTERNET IS ENABLED OR NOT ****/
+					$advancedModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
+					foreach ($advancedModel as $data)
+					{
+						//echo "<br>Value of internet connection = ".$data->value;
+						$internet_connection = $data->value;
+					}
+					
+ 					//if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))//To check internet connection.
+ 					if($internet_connection == 1)
 					{
 						$response = $this->performNotification($current_status_id, $service_id);
 					}
-				}
+				}//END of IF(status change).
 				
 				if($model->save())
 				{

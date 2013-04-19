@@ -13,18 +13,18 @@ $this->menu=array(
 );
 ?>
 
-<h1>View ProductType #<?php echo $model->id; ?></h1>
+<h1>View ProductType #<?php echo $model->name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
+		//'id',
 		'name',
 		'information',
 		//'created_by_user_id',
 		'createdByUser.username',
 		'created',
 		'modified',
-		'server_product_type_id',
+		//'server_product_type_id',
 	),
 )); ?>

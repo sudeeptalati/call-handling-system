@@ -11,7 +11,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 )); 	
 	
 ?>
-<div id="container" style="width:900px;height:200px;">
+<div id="container" style="width:900px;height:200px;text-align: center ;">
 
 <div id="menu" style="padding:1em;background-color:#D0F2FF;height:200px;float:left;border-top-left-radius: 25px;border-bottom-left-radius: 25px;">
 
@@ -96,7 +96,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 
 
 
-<div id="content-2" style="padding:1em;background-color:#FFE1BB;height:200px;float:left;border-top-right-radius: 25px;border-bottom-right-radius: 25px;">
+<div id="content-2" style="padding:1em;background-color:#FFE1BB;height:200px; width:300px;float:left;border-top-right-radius: 25px;border-bottom-right-radius: 25px;">
 
  
 	<?php 

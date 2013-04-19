@@ -16,10 +16,12 @@
 		//'created_by_user_id',
 		'createdByUser.username',
 		'created',
+		/*
 		array(
 			'name'=>'modified',
 			'value'=>date('d-M-Y', $model->modified),
 		),
+		*/
 		'modified',
 		'inactivated',
 	),

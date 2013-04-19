@@ -5,6 +5,8 @@ $this->menu=array(
 	array('label'=>'Contracts', 'url'=>array('Contract/admin')),
 	array('label'=>'Company Logo', 'url'=>array('setup/changeLogo')),
 	array('label'=>'Engineers', 'url'=>array('Engineer/admin')),
+
+	array('label'=>'Internet', 'url'=>array('/advanceSettings/update/8')),
 	//array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),
 	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
 	//array('label'=>'Mail Notifications', 'url'=>array('setup/mailServer')),
@@ -16,7 +18,7 @@ $this->menu=array(
 	//array('label'=>'SMS Notifications', 'url'=>array('setup/smsSettingsForm')),
 	array('label'=>'Spares Cloud URL Setup', 'url'=>array('setup/cloudSetup')),
 	array('label'=>'Users', 'url'=>array('User/admin')),
-	array('label'=>'Advance Settings', 'url'=>array('/advanceSettings/admin')),
+	//array('label'=>'Advance Settings', 'url'=>array('/advanceSettings/admin')),
 	array('label'=>'About & Help', 'url'=>array('setup/about')),
 	
 	

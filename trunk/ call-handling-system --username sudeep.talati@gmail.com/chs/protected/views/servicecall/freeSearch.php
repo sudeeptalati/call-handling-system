@@ -312,45 +312,71 @@ $allStatus = JobStatus::model()->findAll( array(
 		<tr><td id="second_column_bottom">
 		<br>
 		<span><b>&nbsp;&nbsp;Notifications</b></span><br><br>
+		
+		<div style="margin-left:20px;">
 		<?php 
 	
 		$setupModel = Setup::model()->findByPk(1);
-		if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+		
+		$internet_connected =  AdvanceSettings::model()->findByAttributes(array('parameter'=>'internet_connected'));
+		if ($internet_connected->value==1)
 		{
-			$update_url_from_db = $setupModel->version_update_url;
-			//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
-			$request = $update_url_from_db.'/latest_callhandling_version.txt';	
-			$available_version = curl_file_get_contents($request, true);
-			$installed_version=Yii::app()->params['software_version'];
+		
+			if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+			{
+				$update_url_from_db = $setupModel->version_update_url;
+				//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
+				$request = $update_url_from_db.'/latest_callhandling_version.txt';	
+				$available_version = curl_file_get_contents($request, true);
+				$installed_version=Yii::app()->params['software_version'];
 			 
-			if ($available_version!=$installed_version)
-			{	
-				?>
-				<ul>
-				<li style="text-align:justify; margin-left:10px;">
-				<span style="color:red;">
-				Your current version is <?php echo $installed_version; ?>
-				There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
-				</span>
-				</li>
-				<li style="text-align:justify; margin-left:10px;">	
-				<?php
-					$server_msg_url='http://www.rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
-						$server_msg = curl_file_get_contents($server_msg_url, true);
-		
-						echo $server_msg; 
-				?>
-				</li>
-				</ul>
-				<?php 
-			}//end if inner if(version compare).
-		}//end of if(internet).
-		else
-			echo "<br><b>Internet connection not available</b>";
+				if ($available_version!=$installed_version)
+				{	
+					?>
+					<ul>
+					<li style="text-align:justify; margin-left:10px;">
+					<span style="color:red;">
+					Your current version is <?php echo $installed_version; ?>
+					There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
+					</span>
+					</li>
+					<li style="text-align:justify; margin-left:10px;">	
+					<?php
+						$server_msg_url='http://www.rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
+							$server_msg = curl_file_get_contents($server_msg_url, true);
 			
-	?>
-	
+							echo $server_msg; 
+					?>
+					</li>
+					</ul>
+				<?php 
+				}//end if inner if(version compare).
+			}//end of if(internet from Google).
+			else
+			{
+				echo "<span style='color:red'><b>No Internet. All internet features like notifications, email, sms have been disabled.</b></span>";
+				//We will set the settings in the database back to offline so that the performance is not affected
+				disableInternetConnection();
+				
+			
+			}
 		
+		}// end of if internet from database
+		else
+			{
+			echo "<span style='color:red'><b>Internet connection not available.You will not be able to use any internet serivce like emails, sms or notifications<br>Please Connect to Internet and enable connection from here.</b></span><br><br>";
+			echo '<a href="?enable_internet=yes">Enable Internet</a>'; 
+			
+			if(isset($_GET['enable_internet']))
+			{
+			enableInternetConnection();
+			};
+			
+			}
+		
+			?>
+	
+		</span>
 		</td>
 		
 		</tr>
@@ -364,7 +390,8 @@ $allStatus = JobStatus::model()->findAll( array(
 
 	</div>
 
-         <?php
+    
+     <?php
 
 function curl_file_get_contents($request)
 {
@@ -379,6 +406,29 @@ curl_close($curl_req);
 
 return $contents;
 }///end of functn curl File get contents
-?>      
+
+function enableInternetConnection()
+{
+	////since at id 8 in table advance settings have the parameter for the internet connectios
+	AdvanceSettings::model()->updateByPk(8, array('value'=>'1'));
+	$url= Yii::app()->getBaseUrl(true);
+	Yii::app()->controller->redirect($url);
+	
+	}	
+
+function disableInternetConnection()
+{
+	////since at id 8 in table advance settings have the parameter for the internet connectios
+	AdvanceSettings::model()->updateByPk(8, array('value'=>'0'));
+	
+	$url= Yii::app()->getBaseUrl(true);
+	Yii::app()->controller->redirect($url);
+	
+	
+	}	
+
+
+?>
+      
      
       

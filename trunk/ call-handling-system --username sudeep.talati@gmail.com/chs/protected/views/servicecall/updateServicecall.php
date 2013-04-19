@@ -584,10 +584,12 @@ $cloud_id = $_GET['cloud_id'];
 	</tr>
 	<tr>
 		<td>Price  <input type="text" name="unit_price" size="3">
-		<br> <small><b>* Required</b></small>
 		</td>
 		<td>Quantity*  <input type="text" name="quantity" size="3"></td>
-		<td style="text-align:right;"> <input type="submit" value="Add To Spares" style="width:auto" > </td></tr>
+		<td style="text-align:right;"> <input type="submit" value="Add To Spares" style="width:auto" > </td>
+	</tr>
+
+		<tr><td colspan="3"><br> <small><b>* Required</b></small></td></tr>
 	
 	</table>
 	</form>

@@ -143,11 +143,8 @@ $(function()
 							
 	</td>
 	<td>
-	
 		<?php echo $form->labelEx($model,'active'); ?>
 		<?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?>
-
-		
 	</td>
 	
 	

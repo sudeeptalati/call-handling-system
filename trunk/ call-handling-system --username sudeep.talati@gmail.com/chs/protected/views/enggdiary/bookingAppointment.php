@@ -1,4 +1,13 @@
 
+<!-- <input id="test" type="submit" value="Show Dialog" /> -->
+
+
+<div id="confirmation_box" style="display:none; cursor: default">
+<div id='confirmation_box_msg' style="color:black;"></div>
+<input type="button" id="yes" value="Yes" />
+<input type="button" id="no" value="No" />
+</div>
+
  
  
 <?php
@@ -6,8 +15,7 @@
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 
   $cs = Yii::app()->getClientScript();
-  
-  
+    
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-1.7.1.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-ui-1.8.17.custom.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
@@ -94,12 +102,8 @@ foreach ($diaryModel as $data)
 
 </table>
 
-
-  
 <br><br><br>
 <div class="form">
-
-
 
 <?php 
 	//echo $model->engineer_id;
@@ -127,6 +131,7 @@ foreach ($diaryModel as $data)
 								
 							  );
 	echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
+	echo "<br><small>(List is arranges by Engineers names)</small>"
 	
 ?>
 <?php $this->endWidget(); ?>
@@ -235,51 +240,106 @@ function isTouchDevice()
 
 				dayClick: function(date, allDay, jsEvent, view) 
 				{
-					//$.blockUI();
-					//var clicked_date=date;
-					//
+					//$.blockUI({ message: "Please wait....."});
 					var today = new Date();
 
-					today = today.getDate()+'-'+today.getMonth()+'-'+today.getFullYear();
+					//var curr_date = today.getDate();
+					//var curr_month = today.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
+					//var curr_year = today.getFullYear();
 
-					var curr_date = date.getDate();
-					var curr_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
-					var curr_year = date.getFullYear();
+					//var today = curr_date + "-" + curr_month + "-" + curr_year;
+					//var today = '18-4-2013';
+					
+					today.setHours(0,0,0,0);
+					today = today.getTime();
+					
+					//alert("Today is = "+today);
 
-					//window.alert(curr_date + "-" + curr_month + "-" + curr_year);
+					var clicked_cal_date = date.getDate();
+					var clicked_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
+					var clicked_year = date.getFullYear();
+					
+					
+					var clicked_date_to_display = clicked_cal_date + "-" + clicked_month + "-" + clicked_year;
+					var clicked_date = date.getTime();
+					//var clicked_date = '3-4-2013';
+					//alert("Date clicked = "+clicked_date.getTime());
+					//alert("Date clicked = "+clicked_date);
 
-					var clicked_date = curr_date + "-" + curr_month + "-" + curr_year;
-					//alert("normal date = "+normal_format);
 					
 					if(clicked_date>=today)
 					{
-						var retVal = confirm("Do you want to book appointment for "+clicked_date+" ?");
-						if( retVal == true )
-						{
+						//alert("CAN BOOK NOW....!!!!!!");
+						var x=clicked_date;
+						
+						var conf_box_msg="Do you want to book appointment on "+date.get +"?";
+						
+						document.getElementById("confirmation_box_msg").innerHTML =conf_box_msg ;
+						$.blockUI({ message: $('#confirmation_box'),
+							css: { 
+					            border: 'none', 
+					            padding: '15px', 
+					            backgroundColor: '#c3D9FF', 
+					            '-webkit-border-radius': '10px', 
+					            '-moz-border-radius': '10px', 
+					            opacity: 1, 
+					            color: '#c3D9FF' 
+					        } 
+						});
+						$('#yes').click(function() {
+							// update the block message
+							$.blockUI({ message: ("Please wait........"),
+								css: { 
+						            border: 'none', 
+						            padding: '15px', 
+						            backgroundColor: '#c3D9FF', 
+						            '-webkit-border-radius': '10px', 
+						            '-moz-border-radius': '10px', 
+						            opacity: 1, 
+						            color: 'black'//text color 
+						        } 
+							});
 							engg_id = '<?php echo $engg_id;?>';
 							//alert("engg_id = "+ engg_id);
 	
 							service_id = '<?php echo $service_id;?>';
 							//alert('service id = '+service_id);
 							
-							createNewDiaryEntry(clicked_date, engg_id, service_id);
+							createNewDiaryEntry(clicked_date_to_display, engg_id, service_id);
+							setTimeout($.unblockUI, 1000);
 							return true;
-						}
-						else
-						{
-							//alert("User does not want to continue!");
+						});//end of yes.
+				
+						$('#no').click(function() {
+							$.unblockUI();
 							return false;
-						}
-					}//end of outer if.
+						});
+						
+					}//end of Booking appointment.
 					else
 					{
-						alert("Cannot book appointment for previous days");
-					}	
-					
-			        // change the day's background color just for fun
+						//alert("Cant book...........");
+						
+						$.blockUI({ message: ("Cannot book calls for previous days"),
+							css: { 
+					            border: 'none', 
+					            padding: '15px', 
+					            backgroundColor: '#c3D9FF', 
+					            '-webkit-border-radius': '10px', 
+					            '-moz-border-radius': '10px', 
+					            opacity: 1, 
+					            color: 'black' //text color
+					        } 
+						});
+						setTimeout($.unblockUI, 1000);
+						
+						
+					}
+				
+					// change the day's background color just for fun
 			        //$(this).css('background-color', 'pink');
-
-			    },//end of dayClick function().
+			        
+				},//end of dayClick function().
 				
 			
 				loading: function(isLoading)
@@ -305,10 +365,7 @@ function isTouchDevice()
 				else $('#loading').hide();
 			}
 			*/
-			
 		});
-	
-		
 	});
 	
 	function updateAppointmentDay()
@@ -366,7 +423,7 @@ function isTouchDevice()
 
 	function createNewDiaryEntry(event_date, engg_id, service_id)
 	{
-		//$.blockUI();
+		
 		//alert("DATE IN createNewDiaryEntry FUNC = "+event_date);
 		//alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
 		//alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
@@ -374,8 +431,7 @@ function isTouchDevice()
 		var urlToCreate = baseUrl+'/api/createNewDiaryEntry?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
 		//alert(urlToCreate);
 	
-		
-		 $.ajax
+		$.ajax
 		 ({
 	     	type: 'POST',
 	        url: urlToCreate ,
@@ -383,19 +439,16 @@ function isTouchDevice()
 	        modal: true,
 	        success: function(data) 
 	        { 
-		    	alert('Appointment Created');
+		    	//alert('Appointment Created');
+		    	$.blockUI({ message: "Appointmant is created"});
+		    	setTimeout($.unblockUI, 2000);
 		    	location.href="../viewFullDiary?engg_id="+engg_id;
 		    },
 	        error: function()
 	        {
 		        alert("ERROR"); 
 	        },
-	        /*
-	        complete: function() { 
-                // unblock when remote call returns 
-                $.unblockUI(); 
-            } 
-            */
+	        
 	     });//end of AJAX.
 	     
 

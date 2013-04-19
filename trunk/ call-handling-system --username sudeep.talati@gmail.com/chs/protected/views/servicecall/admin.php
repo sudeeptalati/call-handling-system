@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
             	'name'=>'customer_name',
 				'value'=>'$data->customer->fullname'),
 		array('name'=>'customer_town','value'=>'$data->customer->town'),
-		array('name'=>'customer_postcode','value'=>'$data->customer->postcode'),
+		array('name'=>'postcode','value'=>'$data->customer->postcode'),
 		//'product_id',
 		array(	'header' => 'Product',
             	'name'=>'product_name',

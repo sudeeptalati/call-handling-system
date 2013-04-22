@@ -39,7 +39,7 @@
 	</div>
 
 	<?php
-	if ($model->id==8) ///since Id 8 is for internet connections
+	if ($model->id>1000) ///since Id 8 is for internet connections
 	{
 	?>
 		Yes

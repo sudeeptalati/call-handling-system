@@ -160,13 +160,13 @@ vertical-align:top;
 																		
 			if(count($serviceModel)==0)
 			{
-				//echo "new";
+				//echo "NEW";
 			?>
 			
-			<td>
-				<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
-				<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
-			</td>
+<!-- 			<td> -->
+				<?php //echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
+				<?php //echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
+<!-- 			</td> -->
 			
 			<?php 
 			}//end of if no active servicecalls with this cust and prod. 
@@ -179,19 +179,22 @@ vertical-align:top;
 			<td>
 				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id.'?notify_response='));?>
 				<?php echo CHtml::link($service->service_reference_number, array('Servicecall/'.$service->id.'?notify_response='));?>
-			
 				<?php 
-					echo "-----";
+				
 					if($service->job_status_id >100)
 					{
 						//echo "new call";
+						?><br> 	<small>(locked)</small>
+						
+						<td style="width:150px;background-color:#DCDCF2;">
+							<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
+							<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
+						</td>
+						
+						<?php 
 						
 						
-						?><br> 	<small>(locked)</small><?php
 					}
-				
-					
-					
 				?>
 			</td>
 			
@@ -204,8 +207,8 @@ vertical-align:top;
 		<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">
 			<input type="hidden"   name="q" size="10"
-		 	maxlength="255" value= "<?php echo $product->brand->name."-- ".$product->productType->name." ".$product->model_number;?>" />
-			<input type ="image" src="<?php echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
+		 	maxlength="255" value= "<?php //echo $product->brand->name."-- ".$product->productType->name." ".$product->model_number;?>" />
+			<input type ="image" src="<?php //echo Yii::app()->baseUrl.'/images/search.gif';?>" title="Search Web" width='25' 'height'='25' />
 		</form>	
 		</td>
 		-->
@@ -213,14 +216,14 @@ vertical-align:top;
 
 	<?php $i++; }//end of product foreach.?>
 	
-			<td style="width:150px;background-color:#DCDCF2;">
+<!-- 		<td style="width:150px;background-color:#DCDCF2;">
 			<?php
 			
-			echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
-			echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
-			?>
+// 			//echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+// 			//echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));
+// 			?>
 			
-			</td>
+		</td> -->
 				
 	
 <!--	<tr style="<?php //echo $background; ?>" >-->

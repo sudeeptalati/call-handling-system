@@ -221,15 +221,16 @@
 	</tr>
 	
 	<?php 
-	/**** CODE FOR GETTING LABOUR AND PARTS WARRANTY DURATION *********/
+	/**** CODE FOR GETTING DIALOGUE BOX  FOR  LABOUR AND PARTS WARRANTY DURATION *********/
 	$warranty_notify_state = '';
 	
-	$preferenceModel = Preferences::model()->findAllByAttributes(array('feature'=>'Warranty Notification'));
-	foreach ($preferenceModel as $data)
+	//$preferenceModel = Preferences::model()->findAllByAttributes(array('feature'=>'Warranty Notification'));
+	$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'warranty_notification'));
+	foreach ($advanceModel as $data)
 	{
 		//echo "<br>Preference id = ".$data->id;
 		//echo "<br>Preference state = ".$data->state;
-		$warranty_notify_state = $data->state;
+		$warranty_notify_state = $data->value;
 	}
 
 	
@@ -282,7 +283,7 @@
 			echo $message;
 				
 			$this->endWidget('zii.widgets.jui.CJuiDialog');
-		}
+		}//end of dialogue box.
 		
 		//echo "<hr>";
 	}//end of if(!empty($productModel->warranty_date)).
@@ -292,7 +293,7 @@
 		//echo "<br>Notify is disabled";
 	}
 	
-	/**** CODE FOR GETTING LABOUR AND PARTS WARRANTY DURATION *********/
+	/**** CODE FOR GETTING DIALOGUE BOX  FOR LABOUR AND PARTS WARRANTY DURATION *********/
 	
 	?>
 	

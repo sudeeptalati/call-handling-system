@@ -236,7 +236,7 @@ class Product extends CActiveRecord
     
     public function getProductTypes()
     {
-    	return CHtml::listData(ProductType::model()->findAll(), 'id', 'name');
+    	return CHtml::listData(ProductType::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name');
     }//end of getproductTypes().
     
     public function getAllContract()

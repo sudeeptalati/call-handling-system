@@ -409,8 +409,8 @@ return $contents;
 
 function enableInternetConnection()
 {
-	////since at id 8 in table advance settings have the parameter for the internet connectios
-	AdvanceSettings::model()->updateByPk(8, array('value'=>'1'));
+	////since at id 10001 in table advance settings have the parameter for the internet connectios
+	AdvanceSettings::model()->updateByPk(10001, array('value'=>'1'));
 	$url= Yii::app()->getBaseUrl(true);
 	Yii::app()->controller->redirect($url);
 	
@@ -418,8 +418,8 @@ function enableInternetConnection()
 
 function disableInternetConnection()
 {
-	////since at id 8 in table advance settings have the parameter for the internet connectios
-	AdvanceSettings::model()->updateByPk(8, array('value'=>'0'));
+	////since at id 10001 in table advance settings have the parameter for the internet connectios
+	AdvanceSettings::model()->updateByPk(10001, array('value'=>'0'));
 	
 	$url= Yii::app()->getBaseUrl(true);
 	Yii::app()->controller->redirect($url);

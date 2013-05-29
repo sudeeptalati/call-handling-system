@@ -256,7 +256,8 @@ function isTouchDevice()
 					//alert("Today is = "+today);
 
 					var clicked_cal_date = date.getDate();
-					var clicked_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
+					//var clicked_month = date.getMonth()+1;//getMonth() method starts from 0 to 11 so +1 to get correct month value.
+					var clicked_month = getMonthName(date.getMonth());
 					var clicked_year = date.getFullYear();
 					
 					
@@ -272,7 +273,7 @@ function isTouchDevice()
 						//alert("CAN BOOK NOW....!!!!!!");
 						var x=clicked_date;
 						
-						var conf_box_msg="Do you want to book appointment on "+date.get +"?";
+						var conf_box_msg="Do you want to book appointment on "+clicked_date_to_display+"?";
 						
 						document.getElementById("confirmation_box_msg").innerHTML =conf_box_msg ;
 						$.blockUI({ message: $('#confirmation_box'),
@@ -367,6 +368,28 @@ function isTouchDevice()
 			*/
 		});
 	});
+
+	function getMonthName(date)
+	{
+		var month=new Array();
+		month[0]="January";
+		month[1]="February";
+		month[2]="March";
+		month[3]="April";
+		month[4]="May";
+		month[5]="June";
+		month[6]="July";
+		month[7]="August";
+		month[8]="September";
+		month[9]="October";
+		month[10]="November";
+		month[11]="December";
+
+		//var d = new Date();
+		//var x = document.getElementById("demo");
+		//x.innerHTML=month[d.getMonth()];
+		return month[date];
+	}
 	
 	function updateAppointmentDay()
     {

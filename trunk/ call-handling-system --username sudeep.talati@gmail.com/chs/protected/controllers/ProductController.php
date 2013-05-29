@@ -31,7 +31,7 @@ class ProductController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'admin','addProduct'),
+				'actions'=>array('create','update', 'admin','addProduct','updateProduct'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -205,6 +205,32 @@ class ProductController extends Controller
 		));
 			
 	}//end of addProduct.
+	
+	public function actionUpdateProduct($id)
+	{
+		//$model=new Product('view');
+		$model=$this->loadModel($id);
+	
+		// uncomment the following code to enable ajax-based validation
+		/*
+		 if(isset($_POST['ajax']) && $_POST['ajax']==='product-changeProduct-form')
+		 {
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+		}
+		*/
+	
+		if(isset($_POST['Product']))
+		{
+			$model->attributes=$_POST['Product'];
+			if($model->validate())
+			{
+				// form inputs are valid, do something here
+				return;
+			}
+		}
+		$this->render('updateProduct',array('model'=>$model));
+	}//end of updateProduct().
 	
 	
 }//end of class.

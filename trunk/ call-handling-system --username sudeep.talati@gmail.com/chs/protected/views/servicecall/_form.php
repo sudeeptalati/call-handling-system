@@ -385,7 +385,7 @@ background-color: #FFFF9D;
 		</td>
 		<td>
 			<?php echo $form->labelEx($productModel,'product_type_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('prompt'=>'Select Product'));?>
 			<?php echo $form->error($productModel,'product_type_id'); ?>
 		</td>	
 		<td>

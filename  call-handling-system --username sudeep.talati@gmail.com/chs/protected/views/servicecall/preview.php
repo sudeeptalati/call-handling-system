@@ -54,7 +54,8 @@ td { 	vertical-align:top;
 			<?php 
 			$company_logo=Yii::app()->request->baseUrl.'/images/company_logo.png';
 			 
-			  echo CHtml::image($company_logo,"ballpop",array("width"=>"65", "height"=>"65")); 
+			  //echo CHtml::image($company_logo,"ballpop",array("width"=>"65", "height"=>"65"));
+			echo CHtml::image($company_logo,"ballpop");
 			?>
 			<br>
 			<?php 

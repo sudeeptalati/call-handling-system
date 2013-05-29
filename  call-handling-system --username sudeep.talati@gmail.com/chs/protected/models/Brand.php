@@ -130,4 +130,8 @@ class Brand extends CActiveRecord
             }
         }//end of if(parent())
     }//end of beforeSave().
+    
+    
+    
+    
 }//END OF CLASS

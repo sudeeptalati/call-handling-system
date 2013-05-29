@@ -432,16 +432,21 @@ class Servicecall extends CActiveRecord
 	
 	public function enggJobReport($engg_id, $status_id, $startDate, $endDate)
 	{
+		echo "<br> In enggJobReport func ";
+		
 		//$engg_id = '90000001';
 		//$status_id = '1';
 		$from_date = strtotime($startDate);
 		$to_date = strtotime($endDate);
 //		echo "<br>strtotime of aug = ".strtotime('1-8-12');
 //		echo "<br>strtotime of aug = ".strtotime('1-aug-12');
+
+		$exportData = new CDbCriteria();
 		
 		
-		if($engg_id == '0')
+		if($engg_id == 0 && $status_id != 0 && $from_date != '' && $endDate != '')
 		{
+			echo "<br> You hv not entered engg id";
 			$criteria=new CDbCriteria();
 			//$criteria->condition = 'engineer_id='.$engg_id;
 			$criteria->condition = 'job_status_id='.$status_id;
@@ -450,16 +455,16 @@ class Servicecall extends CActiveRecord
 			  ':from_date' => $from_date,
 			  ':to_date' => $to_date,
 			);
-			return new CActiveDataProvider(Servicecall::model(),
+			$exportData = new CActiveDataProvider(Servicecall::model(),
 							 array(
    							'criteria' => $criteria
 					));
 			
 		}//Seraches with status_id and dates.
 		
-		elseif ($status_id == '0')
+		elseif ($status_id == 0 && $engg_id != 0 && $from_date != '' && $endDate != '')
 		{
-			//echo "IN ELASE OF FINC";
+			echo "You have not entered status";
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			//$criteria->addCondition('job_status_id='.$status_id);
@@ -468,14 +473,15 @@ class Servicecall extends CActiveRecord
 			  ':from_date' => $from_date,
 			  ':to_date' => $to_date,
 			);
-			return new CActiveDataProvider(Servicecall::model(),
+			$exportData = new CActiveDataProvider(Servicecall::model(),
 							 array(
    							'criteria' => $criteria
 					));
 		}//Seraches with engg_id and dates.
 		
-		elseif ($from_date == '' && $to_date == '')
+		elseif ($from_date == '' && $to_date == '' && $engg_id != 0 && $status_id != 0)
 		{
+			echo "You have not entered any dates";
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			$criteria->addCondition('job_status_id='.$status_id);
@@ -484,27 +490,75 @@ class Servicecall extends CActiveRecord
 //			  ':from_date' => $from_date,
 //			  ':to_date' => $to_date,
 //			);
-			return new CActiveDataProvider(Servicecall::model(),
+			$exportData = new CActiveDataProvider(Servicecall::model(),
 							 array(
    							'criteria' => $criteria
 					));
 		}//searches with engg_id and status_id.
 		
+		
+		elseif($engg_id == 0 && $status_id == 0)
+		{
+			echo "<br>You have entered only dates";
+			
+			$criteria=new CDbCriteria();
+			//$criteria->condition = 'engineer_id='.$engg_id;
+			//$criteria->condition = 'engineer_id=0';
+			//$criteria->addCondition('job_status_id='.$status_id);
+			//$criteria->addCondition('job_status_id=0');
+			//$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
+			//$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
+			$criteria->condition = "fault_date BETWEEN '$from_date' AND '$to_date'";
+				
+			
+			$exportData = new CActiveDataProvider(Servicecall::model(),
+					array(
+							'criteria' => $criteria
+					));
+			
+		}//end of else(), gives all calls within specified dates.
+		
+		elseif($engg_id == 0 && $from_date == '' && $endDate == '')
+		{
+			echo "<br>You have entered only job status";
+			
+			$criteria=new CDbCriteria();
+			$criteria->condition = 'job_status_id='.$status_id;
+			//$criteria->condition = 'engineer_id=0';
+			//$criteria->addCondition('job_status_id='.$status_id);
+			//$criteria->addCondition('job_status_id=0');
+			//$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
+			//$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
+			//$criteria->condition = "fault_date BETWEEN '$from_date' AND '$to_date'";
+			
+			$exportData = new CActiveDataProvider(Servicecall::model(),array('criteria' => $criteria));
+			
+		}//end of else(), Gives all calls with specific status.
+		
 		else 
 		{
+			echo "<br>All fields are entered";
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
+			//$criteria->condition = 'engineer_id=0';
 			$criteria->addCondition('job_status_id='.$status_id);
+			//$criteria->addCondition('job_status_id=0');
 			$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
-						
-			return new CActiveDataProvider(Servicecall::model(),
-							 array(
-   							'criteria' => $criteria
+			//$criteria->addBetweenCondition('fault_date', $from_date, $to_date, 'AND');
+			//$criteria->condition = "fault_date BETWEEN '$from_date' AND '$to_date'";
+			
+				
+			$exportData = new CActiveDataProvider(Servicecall::model(),
+					array(
+							'criteria' => $criteria
 					));
-
-		}//end of else(), searches with engg_id, status_id and dates.
+			
+		}//end of else, searches with engg_id, status_id and dates.
+		
+		return $exportData;
 		
 	}//end of enggJobReport().
+	
 	
 	
     

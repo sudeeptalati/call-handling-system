@@ -24,24 +24,20 @@
 	//	'id',
 		'name',
 		'information',
-		'active',
+		//'active',
+		array(  'name'=>'active',
+				'header'=>'Active',
+				'value'=>'($data->active == 0)?"No":"Yes"',
+		),
 		//'created_by_user_id',
 		//'createdByUser.name'
 		//array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
-		'created',
-		//'value'=>date('d-M-Y', $data->created),
-		//	array('name'=>'created','value'=>'date("d-M-Y",$data->created)'),
+		//'created',
+		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)'),
+		//'modified',
+		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)'),
 		
-		
-	/*	
-		array(
-                        'name'=>'created',
-                        'header'=>'Created',
-                        'value'=>'Yii::app()->dateFormatter->format("d MMM y",$data->created)'
-                    ),
- 		*/
 		/*
-		'modified',
 		'inactivated',
 		*/
 		array(

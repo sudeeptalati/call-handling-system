@@ -95,7 +95,7 @@ vertical-align:top;
 			
 		?>
 		
-		<!-- ************ CUSTOMER DEATILS******** -->
+		<!-- ************ Servicecall DEATILS******** -->
 		
 		<div class="row">
 		<table>
@@ -683,9 +683,11 @@ $cloud_id = $_GET['cloud_id'];
 		<tr>
 			<td>
 				<h2>Customer Details</h2>
+				<small><?php echo CHtml::link('Edit Details',array('Customer/openDialog','customer_id'=>$customerModel->id, 'product_id'=>$productModel->id));?></small>
 			</td>
 			<td>
 				<h2>Product Details</h2>
+				<small><?php echo CHtml::link('Edit Details',array('Product/updateProduct','id'=>$productModel->id));?></small>
 			</td>
 		</tr>
 		

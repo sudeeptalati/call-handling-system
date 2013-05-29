@@ -258,38 +258,6 @@ class CustomerController extends Controller
 		//$model=new Customer('update');
 	    $model=$this->loadModel($customer_id);
 	    
-	    
-//	    $message = " ";
-//		
-//	    $result=Product::model()->findAllByAttributes(array('customer_id'=>$customer_id));
-//		foreach ($result as $data)
-//		{
-//			$message.= CHtml::link($data->productType->name."\t<br> ", array('Customer/updateCustomer', 'customer_id'=>$customer_id,'product_id'=>$data->id));
-//		}
-	    
-	   //$message="Fill all the mandatory fields of Product also.";
-//				
-//				$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
-//	    				'id'=>'juiDialog',
-//	    				'options'=>array(
-//	    						'title'=>'Select the Product',
-//	    						'autoOpen'=>true,
-//	    						'modal'=>'true',
-//	    						'show' => 'blind',
-//                            	'hide' => 'explode',
-//                            	//'color' => 'blue',
-//	    						//'width'=>'40px',
-//	    						//'height'=>'40px',
-//	    						),
-//	    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-//       					
-//	    				
-//	    		));
-//	    		
-//	    		echo $message;
-//	    		$this->endWidget();
-//	    
-	    
 	   // uncomment the following code to enable ajax-based validation
 	    /*
 	    if(isset($_POST['ajax']) && $_POST['ajax']==='customer-updateCustomer-form')

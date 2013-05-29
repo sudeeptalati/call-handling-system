@@ -135,6 +135,10 @@ class RGridViewWidget extends CGridView
 				if(ansver.msg=="Ok")
 					{
 					alert("'.$this->successOrderMessage.'");
+					$(document).ajaxStop(function(){
+						window.location.reload();
+						});
+					
 					
 					/* If you want to refresh page after save alert uncomment me	
 					$(document).ajaxStop(function(){

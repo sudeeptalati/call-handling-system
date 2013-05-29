@@ -57,12 +57,13 @@ $('.technical-form').toggle();
 		$contactDetailsModel=ContactDetails::model();
 	}
 	?>
+	<br><br>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 	
-	<table style="width:700px; margin:10px; background-color: #C7E8FD;  border-radius: 15px;">
+	<table style="width:700px; margin:10px; background-color: #C7E8FD;  border-radius: 15px; padding:15px;">
 	<tr>
 		<td>
 			<?php echo $form->labelEx($model,'contract_type_id'); ?>
@@ -79,6 +80,7 @@ $('.technical-form').toggle();
 			<?php echo $form->labelEx($model,'short_name'); ?>
 			<?php echo $form->textField($model,'short_name',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'short_name'); ?>
+				<br><small>Short name is like nick name with which you can quickly remember which contract it is.</small>
 		</td>
 	</tr>
 	
@@ -128,7 +130,7 @@ $('.technical-form').toggle();
 	<!-- *************** START OF FIELDS OF CONTACT DETAILS FORM *********************** -->
 	
 
-	<table style="width:700px; margin:10px; background-color: #ADEBAD;  border-radius: 15px;">
+	<table style="width:700px; margin:10px; background-color: #ADEBAD;  border-radius: 15px;padding:15px;">
 	
 	<tr>
 		<td colspan="3"><h3 style="margin-bottom:0.01px;color:#555;"><label>Address Details</label></h3></td>
@@ -201,7 +203,7 @@ $('.technical-form').toggle();
 	</tr>
 	</table>
 	
-	<table style="width:700px; margin:10px; background-color: #F3B6B7;  border-radius: 15px;">
+	<table style="width:700px; margin:10px; background-color: #F3B6B7;  border-radius: 15px;padding:15px;">
 		<tr>
 		
 			<!-- ***********  MANAGEMENT TEXTFIELD ********** -->

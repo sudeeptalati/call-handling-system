@@ -3,28 +3,14 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Engineers',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Add New Engineer',array('create')); ?></td>
-</tr></table>
-
-<?php
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('engineer-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+ 
 
 <h1>Manage Engineers</h1>
 
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Engineers',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Engineers',array('create')); ?></li>
+</div>
 
 
 

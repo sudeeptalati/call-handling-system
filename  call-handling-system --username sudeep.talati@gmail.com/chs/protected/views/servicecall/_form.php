@@ -35,7 +35,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin(K
       scriptTag.type = "text/javascript";
       scriptTag.id = "PCA38d38252878f434581f85b249661cd94";
       headTag.appendChild(scriptTag);
-   }
+   }//end of func PostcodeAnywhere().
 
 function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(response)
    {

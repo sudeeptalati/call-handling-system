@@ -71,7 +71,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
             //Show the error message
             if (response[0].Error==2)
            	 {	
-            	msg+='!  Please Set A valid Key from setup page';
+            	msg+='!  This is Postcode Search Service. You need to setup the account with postcode anywhere. Please go to setup page and then go to Postcode Anywhere account. Create the Account there and You will obtain Postcodeanywhere Account Code and Postcodeanywhere License Key. You need to this accont code and license key in the textbox of setup page. ';
           	  }
             if (response[0].Error==1002)
           	 {	

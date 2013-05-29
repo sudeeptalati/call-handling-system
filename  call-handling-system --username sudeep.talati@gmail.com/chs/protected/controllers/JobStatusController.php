@@ -238,6 +238,8 @@ class JobStatusController extends Controller
                         $model->view_order = $i;
                         //echo $models[$i][0]."....";
 						$model->save();
+						///$this->redirect(array('enggdiary/currentAppointments'));
+						
                     }
                 }///end of for loop
               $ansver = array('msg'=>'Ok');

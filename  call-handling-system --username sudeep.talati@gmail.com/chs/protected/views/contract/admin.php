@@ -3,31 +3,14 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Contracts',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Create Contracts',array('create')); ?></td>
-</tr></table>
+<h1>Contracts</h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Contracts',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Contracts',array('create')); ?></li>
+</div>
 
-<?php
 
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('contract-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
-
-<h1>Manage Contracts</h1>
-
-<!-- search-form -->
+ 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'contract-grid',
@@ -36,8 +19,9 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 	//	'id',
 		//'contract_type_id',
-		array('name'=>'contract_name','value'=>'$data->contractType->name'),
 		'name',
+		array('header'=>'Contract Type','name'=>'contract_name','value'=>'$data->contractType->name'),
+
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
 // 		'main_contact_details_id',
 // 		'management_contact_details',

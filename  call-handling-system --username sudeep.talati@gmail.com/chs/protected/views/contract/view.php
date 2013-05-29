@@ -3,21 +3,30 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Contracts',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Create Contracts',array('create')); ?></td>
-</tr></table>
+ 
 
 
-<h1>View Contract #<?php echo $model->name; ?></h1>
+<h1>View Contract :<?php echo $model->name; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Contracts',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Contracts',array('create')); ?></li>
+ </div>
+
+
+<br>
+<div style="text-align:right;" >
+<b><?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?></b>
+</div>
+	
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		//'id',
 		//'contract_type_id',
-		'contractType.name',
 		'name',
+		'contractType.name',
+
 //		'main_contact_details_id',
 		'management_contact_details',
 		'spares_contact_details',
@@ -33,7 +42,11 @@
 		//'created',
 		array(
 				'name'=>'Created',
-				'value'=>date('d-M-y',$model->created),
+				'value'=>date('d-M-y H:m',$model->created),
+		),
+		array(
+				'name'=>'modified',
+				'value'=>date('d-M-y H:m',$model->created),
 		),
 		//'modified',
 //		array(

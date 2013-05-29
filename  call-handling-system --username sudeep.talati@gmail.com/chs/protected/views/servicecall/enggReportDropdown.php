@@ -17,9 +17,9 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 
 <table>
 
-<tr><td colspan="2" style="text-align:left;"><b>	By Job Statues <br><br></b></td></tr>
+<tr><td colspan="2" style="text-align:left;"><b>By Job Statues <br><br></b></td></tr>
 <tr>
-<td>Start Date
+<td>Start Date*
 	<?php 						  
 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 	    'name'=>'startDate',
@@ -35,7 +35,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	
 	?>
  
-	End Date
+	End Date*
 	<?php 
 	
 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -52,6 +52,12 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	?>
 </td>
 </tr>
+
+<tr>
+
+<td colspan="2" style="padding-top:1px; padding-bottom:10	px;"> <small>* The Start date and End Date are the dates of Fault Reported  </small></td> 
+</tr>
+
 <tr>
 
 <td> Engineers 

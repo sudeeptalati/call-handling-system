@@ -5,7 +5,7 @@
 
 
 
-<h4>Change Company Logo</h4><?php
+<h1>Change Company Logo</h1><?php
 $company_logo=Yii::app()->request->baseUrl."/images/company_logo.png";
 $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 ?>

@@ -3,11 +3,12 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Engineers',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Add New Engineer',array('create')); ?></td>
-</tr></table>
+<h1>New Engineer</h1> 
 
-<h1>Add New Engineer</h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Engineers',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Engineers',array('create')); ?></li>
+</div>
+
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

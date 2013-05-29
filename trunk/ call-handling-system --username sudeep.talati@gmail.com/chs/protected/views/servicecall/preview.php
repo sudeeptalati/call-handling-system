@@ -361,11 +361,15 @@ else
 ?>
 
 <?php //}//end if outer for().?>
-
 <tr> 
-	<td colspan="6" style="border-left:1px solid black;border-right:1px solid black;border-top:1px solid black; text-align:right;">Labour</td>
+	<td colspan="6" style="border-left:1px solid black;border-right:1px solid black;border-top:1px solid black; text-align:right;">Spares Total</td>
+	<td style="border:1px solid black;"><?php echo $model->total_cost; ?></td>
+</tr>
+<tr>
+	<td colspan="6" style="border-left:1px solid black;border-right:1px solid black;  text-align:right;">Labour</td>
 	<td style="border:1px solid black;"><br></td>
 </tr>
+
 <tr>
 	<td colspan="6" style="border-left:1px solid black;border-right:1px solid black;  text-align:right;">Subtotal</td>
 	<td style="border:1px solid black;"><br></td>
@@ -408,10 +412,6 @@ else
 	</tr>
 </table>
 			
-			
-			
-			
-					
 		 <!-- 
 			<br>
 			<small><b>Payment: </b></small>&nbsp;

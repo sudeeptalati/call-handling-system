@@ -37,7 +37,7 @@ class NotificationRulesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete'),
+				'actions'=>array('create','update','admin','delete','ViewRules'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -56,7 +56,7 @@ class NotificationRulesController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+		$this->render('viewRules',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -352,10 +352,15 @@ class NotificationRulesController extends Controller
 				if(isset($_POST['others_person_details']))
 				{
 					$model->notify_others = 1;
-				}
+					if($model->save())
+					{
+						$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'1'));
+					}
+				}//end of if(isset()).
 				else 
 				{
 					$model->notify_others = 0;
+					
 				}
 			}//end of if.
 			
@@ -364,14 +369,8 @@ class NotificationRulesController extends Controller
 			
 			if($model->save())
 			{
-				if($model->notify_others == 1)
-				{
-					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'1'));
-				}
-				else 
-				{
-					$this->redirect(array('view','id'=>$model->id));
-				}
+				$this->redirect(array('viewRules','id'=>$model->id));
+				
 			}//end of if (save())
 		}//end of if(isset()).
 
@@ -449,5 +448,32 @@ class NotificationRulesController extends Controller
 			Yii::app()->end();
 		}
 	}//end of AJAX.
+	
+	
+	public function actionViewRules($id)
+	{
+		//$model=new NotificationRules('view');
+		$model=$this->loadModel($id);
+	
+		// uncomment the following code to enable ajax-based validation
+		/*
+		 if(isset($_POST['ajax']) && $_POST['ajax']==='notification-rules-viewRules-form')
+		 {
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+		}
+		*/
+	
+		if(isset($_POST['NotificationRules']))
+		{
+			$model->attributes=$_POST['NotificationRules'];
+			if($model->validate())
+			{
+				// form inputs are valid, do something here
+				return;
+			}
+		}
+		$this->render('viewRules',array('model'=>$model));
+	}//end of viewRules().
 	
 }//end of class.

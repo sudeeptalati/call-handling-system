@@ -3,13 +3,18 @@
 <?php 
 include 'setup_sidemenu.php';
 ?>
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
-	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
-	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsView')); ?></td>
-	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
-</tr></table>
+<h2>Mail Settings</h2>
+ 
+ 
+  
+<div id="submenu">   
+	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
+	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsView')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailSettings')); ?></li>
+</div>
 
+<br>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'setup-mailSettings-form',
 	'enableAjaxValidation'=>false,
@@ -142,7 +147,20 @@ $data = file_get_contents($filename);
 	
 	<div class="row">
 		<?php echo "<b>Encryption</b><br>";?>
-		<?php echo CHtml::textField('',$smtp_encryption, array('disabled'=>'disabled'));?>
+		<?php 
+			if (empty($smtp_encryption))
+			{
+			?>
+				<input name="smsgateway_setting_values" value="none" disabled="disabled" type="input" >
+			<?php
+			}
+			else
+			{
+				echo CHtml::textField('',$smtp_encryption, array('disabled'=>'disabled'));
+			}
+			
+				
+				?>
 	</div>
 
 	<div class="row">

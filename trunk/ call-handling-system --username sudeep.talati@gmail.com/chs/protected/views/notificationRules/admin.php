@@ -8,8 +8,8 @@
 <div id="submenu">   
 	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
 	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
-	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsForm')); ?></li>
-	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailServer')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsView')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailSettings')); ?></li>
 </div>
  
 

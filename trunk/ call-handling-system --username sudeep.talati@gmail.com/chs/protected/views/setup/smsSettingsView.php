@@ -23,30 +23,71 @@
 
 <?php 
 
-/***** GETTING DATA FROM smsSettingsForm *************/
+$root = dirname(dirname(dirname(__FILE__)));
+//echo $root."<br>";
+$filename = $root.'/config/smsgateway_settings.json';
+//$data = file_get_contents($filename);
+
 	if(isset($_POST['smsgateway_setting_values']))
 	{
+		/***** GETTING DATA FROM smsSettingsForm *************/
 		$gateway_username = $_POST['gateway_username'];
 		//echo $gateway_username;
 		$gateway_password =  $_POST['gateway_password'];
 		//echo "<br>".$gateway_password;
 		$gateway_apikey = $_POST['gateway_apikey'];
 		//echo "<br>Api key = ".$gateway_apikey;
+		/***** END OF GETTING DATA FROM smsSettingsForm *************/
+		
+		if(file_exists($filename))
+		{
+			//echo "<br>File is present";
+			$smsdata = file_get_contents($filename);
+			$smsDecodedData = json_decode($smsdata, true);
+		
+			$smsDecodedData['gateway_username'] = $gateway_username;
+			$smsDecodedData['gateway_password'] = $gateway_password;
+			$smsDecodedData['gateway_apikey'] = $gateway_apikey;
+		
+			$fh = fopen($filename, 'w');
+			fwrite($fh, json_encode($smsDecodedData));
+			fclose($fh);
+		}//end of if(file_exists()).
+		else 
+			echo "SMS Settings file is not found";
 		 
-	}//end of if(isset).
+	}//end of if(isset($_POST)).***** END OF TAKING VALUES FROM FORM *******
+	else
+	{
+		if(file_exists($filename))
+		{
+			//echo "File exixts";
+			$smsdata = file_get_contents($filename);
+			$smsDecodedData = json_decode($smsdata, true);
+			//echo "<br>";
+			//print_r($smsDecodedData);
+			
+			$gateway_username = $smsDecodedData['gateway_username'];
+			//echo "<br>user name = ".$gateway_username;
+			$gateway_password = $smsDecodedData['gateway_password'];
+			//echo "<br>password = ".$gateway_password;
+			$gateway_apikey = $smsDecodedData['gateway_apikey'];
+			//echo "<br>Api key = ".$gateway_apikey;
+			
+		}//end of if(file_exists()).
+		else
+			echo "SMS Settings file is not found";
+	}//end of else.
 	
-	/***** END OF GETTING DATA FROM smsSettingsForm *************/
+	
 	
 ?>
 
 <!-- ****** CODE TO REPLACE JSON FILE WITH CHANGED DATA ********* -->
 
 <?php 
+/*
 
-$root = dirname(dirname(dirname(__FILE__)));
-//echo $root."<br>";
-$filename = $root.'/config/smsgateway_settings.json';
-$data = file_get_contents($filename);
 
 if(file_exists($filename))
 {
@@ -62,6 +103,7 @@ if(file_exists($filename))
 	fwrite($fh, json_encode($smsDecodedData));
 	fclose($fh);
 }
+*/
 
 ?>
 	
@@ -85,7 +127,7 @@ if(file_exists($filename))
 		<?php echo CHtml::textField('',$gateway_apikey, array('disabled'=>'disabled'));?>
 	</div>
 	
-	<div class="row">
+	<div class="row" >
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo CHtml::button('Edit', array('submit' => array('setup/smsSettingsForm'))); ?>
 	</div>
 	

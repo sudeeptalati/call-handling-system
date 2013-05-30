@@ -129,9 +129,9 @@ $(function()
  ?>
 
 
-<table style="width:75%;">
+<table style="width:100%;  background-color: #D0E9F1; border-radius: 15px; padding:10px; vertical-align: top;">
 <tr>
-	<td colspan='4'>
+	<td colspan='3'>
 		When job status is changed to <?php 
 // 								echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
 // 													 array('empty'=>'Please Select job status (required)'));
@@ -142,16 +142,13 @@ $(function()
 							?>
 							
 	</td>
-	<td>
-		<?php echo $form->labelEx($model,'active'); ?>
-		<?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?>
-	</td>
+ 
 	
 	
 </tr>
 
 <tr>
-	<td><big><b>Notify</b></big></td>
+	<td><b>Send Notification to</b></td>
 </tr>
 
 <tr>
@@ -183,6 +180,7 @@ $(function()
 		<?php echo $form->checkbox($model, 'customer_notification_code', array('checked'=>$customer_checked,'id'=>'customer-checkbox-id')); ?>		
 		
 		<div class="customer-form" style="display:none">
+		by 
 		<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('customer_email_notification', $customer_email_checked, array('uncheckValue' => 0)); ?>
 		&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('customer_sms_notification', $customer_sms_checked, array('uncheckValue' => 0)); ?>
 		</div>
@@ -213,7 +211,7 @@ $(function()
 		<?php echo $form->checkbox($model, 'engineer_notification_code', array('checked'=>$engineer_checked,'id'=>'engineer-checkbox-id')); ?>
 		
 		<div class="engineer-form" style="display:none">
-		<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_email_notification', $engineer_email_checked, array('uncheckValue' => 0)); ?>
+		by <small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_email_notification', $engineer_email_checked, array('uncheckValue' => 0)); ?>
 		&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_sms_notification', $engineer_sms_checked, array('uncheckValue' => 0)); ?>
 		</div>
 	
@@ -245,7 +243,7 @@ $(function()
 		?>
 		<?php echo $form->checkbox($model, 'warranty_provider_notification_code', array('checked'=>$warranty_provider_checked,'id'=>'warranty-provider-checkbox-id')); ?>
 		<div class="warranty-provider-form" style="display:none">
-		<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_email_notification', $warranty_provider_email_checked, array('uncheckValue' => 0)); ?>
+		by <small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_email_notification', $warranty_provider_email_checked, array('uncheckValue' => 0)); ?>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_sms_notification', $warranty_provider_sms_checked, array('uncheckValue' => 0)); ?>
 		</div>
 	
@@ -253,8 +251,8 @@ $(function()
 </tr>
 <tr>
 	<td colspan="3">
-	
-		<big><b>Also Notify</b></big>&nbsp;&nbsp;
+		
+		<b>Also send notification to </b>&nbsp;&nbsp;
 		<?php
 			if($model->notify_others == 0)
 			{
@@ -318,7 +316,7 @@ $(function()
 		else
 		{
 			?>
-			<table>
+			<table style="margin-bottom:0px;"> 
 			 	<tr>
 			 		<th style="color:maroon">Person Name</th>
 			 		<th style="color:maroon">Person Info</th>
@@ -362,16 +360,21 @@ $(function()
 				<?php 
 			}//end of foreach().
 			?>
-			</table><hr>
 			
-			<?php
-			//the link for open the dialog
-			echo CHtml::link('Add More', "",
-    		array(
-        		'style'=>'cursor: pointer; text-decoration: underline;',
-        		'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
-    		));
-    		?>
+			<tr>
+				 <td colspan="5"><?php
+				//the link for open the dialog
+				echo CHtml::link('Add More', "",
+				array(
+					'style'=>'cursor: pointer; text-decoration: underline;',
+					'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
+				));
+				?>
+				</td>
+			 </tr>
+			</table>
+			
+			
 			
 			<?php 
 			/***** CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
@@ -439,14 +442,23 @@ $(function()
 		</div><!-- end of others form div -->
 	</td>
 </tr>
- 
-</table>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Set up new rule' : 'Save'); ?>
-	</div>
+
 	
+<tr>
+	<td  colspan="3">
+	<table style="width:30%; margin-bottom:0px;"><tr><td><b>Enable This Rule</b></td>
+	<td><?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?></td></tr></table>
+	</td>
+		
+</tr>
+
+ <tr>
+	<td colspan="3"><?php echo CHtml::submitButton($model->isNewRecord ? 'Set up this New rule' : 'Save the Rule'); ?></td>
+ </tr>
+
+ </table>	
 
 <?php $this->endWidget(); ?>
-
+	
 </div><!-- form -->

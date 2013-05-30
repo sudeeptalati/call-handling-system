@@ -105,7 +105,7 @@ include 'setup_sidemenu.php';
 	</div>
 	
 
-
+<?php echo CHtml::button('Edit', array('submit' => array('setup/mailSettings'))); ?>
 	
 	
 <?php $this->endWidget(); ?>

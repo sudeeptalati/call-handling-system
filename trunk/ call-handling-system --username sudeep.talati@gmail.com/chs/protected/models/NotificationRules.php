@@ -88,13 +88,13 @@ class NotificationRules extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'job_status_id' => 'Job Status',
-			'active' => 'Active',
-			'customer_notification_code' => 'Customer Notification Code',
-			'engineer_notification_code' => 'Engineer Notification Code',
-			'warranty_provider_notification_code' => 'Warranty Provider Notification Code',
-			'notify_others' => 'Notify Others',
-			'created' => 'Created',
-			'modified' => 'Modified',
+			'active' => 'Enabled',
+			'customer_notification_code' => 'Customer ',
+			'engineer_notification_code' => 'Engineer ',
+			'warranty_provider_notification_code' => 'Warranty Provider ',
+			'notify_others' => 'Also send notification to',
+			'created' => 'Created on',
+			'modified' => 'Last Modified on',
 			'delete' => 'Delete',
 		);
 	}

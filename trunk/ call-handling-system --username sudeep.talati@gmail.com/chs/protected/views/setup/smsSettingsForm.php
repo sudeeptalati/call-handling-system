@@ -1,17 +1,17 @@
-<?php 
 
-include('setup_sidemenu.php');
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+<h1>Notifications: SMS Settings</h1>
+ 
+<div id="submenu">   
+	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
+	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsForm')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailServer')); ?></li>
+</div>
 
-?>
-
-
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
-	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
-	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsForm')); ?></td>
-	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
-</tr></table>
-
+<br>
 <?php 
 
 $gateway_username = ''; 
@@ -46,8 +46,8 @@ if(file_exists($filename))
 ?>
 
 
-<h2>SMS Gateway Settings here</h2>
-
+ <br><br>
+Before using this service, you need to have account with Third Party Service Clikatell <br>
 <a href="https://www.clickatell.com/register/" target="_blank">Create account with Clikatell here</a><br><br><br>
 
 <form action="<?php echo Yii::app()->createUrl('setup/smsSettingsView')?>" method="post">

@@ -31,7 +31,7 @@ class JobStatusController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('orderdropdown','dropdownorder','create','update','ChangeOrder','order','admin'),
+				'actions'=>array('dashboardorder','orderdropdown','dropdownorder','create','update','ChangeOrder','order','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -250,6 +250,18 @@ class JobStatusController extends Controller
     }///end of public function action order    
 
     
-    
+    public function actionDashboardorder()
+    {
+    	
+    	$model=new JobStatus('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['JobStatus']))
+			$model->attributes=$_GET['JobStatus'];
+
+		$this->render('dashboardorder',array(
+			'model'=>$model,
+		));
+    }//end of actionDropdownorder().
+
  
 }//end of class.

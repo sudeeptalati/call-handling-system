@@ -1,20 +1,21 @@
-<?php
-//$this->breadcrumbs=array(
-//	'Product Types'=>array('index'),
-//	$model->name,
-//);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-//	array('label'=>'List ProductType', 'url'=>array('index')),
-//	array('label'=>'Create ProductType', 'url'=>array('create')),
-//	array('label'=>'Update ProductType', 'url'=>array('update', 'id'=>$model->id)),
-//	array('label'=>'Delete ProductType', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Product', 'url'=>array('admin')),
-);
-?>
+ 
 
-<h1>View ProductType #<?php echo $model->name; ?></h1>
+<h1>View Product Type :<?php echo $model->name; ?></h1>
 
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Product Types',array('admin')); ?></li>
+<li><?php echo CHtml::link(' New Product Types',array('create')); ?></li>
+</div>
+<br>
+
+
+<div style="text-align:right;" >
+<?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?>
+</div>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(

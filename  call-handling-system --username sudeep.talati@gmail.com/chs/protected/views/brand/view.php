@@ -6,6 +6,10 @@
 
 <h1>View Brand #<?php echo $model->name; ?></h1>
 
+
+<div style="text-align:right;" >
+<?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?>
+</div>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(

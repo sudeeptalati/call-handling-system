@@ -2,29 +2,15 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Users',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Add New User',array('create')); ?></td>
-</tr></table>
+<h1>Manage Users</h1>
 
-<?php
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Users',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Users',array('create')); ?></li>
+</div>
+ 
  
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('user-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
-
-<h1>Manage Users</h1>
 
  
 
@@ -33,7 +19,7 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+		//'id',
 		'username',
 		'email',
 		'profile',
@@ -41,6 +27,9 @@ $('.search-form form').submit(function(){
 		'name'=>'created',
 		'type'=>'datetime',
 		),
+		
+		
+		
 		/*
 		'password',
 		'modified',

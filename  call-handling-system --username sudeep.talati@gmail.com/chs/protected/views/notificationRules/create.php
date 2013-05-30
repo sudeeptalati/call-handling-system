@@ -3,14 +3,16 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
-	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
-	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsForm')); ?></td>
-	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
-</tr></table>
+ 
 
+<h1>Create Notification Rule</h1>
+ 
+<div id="submenu">   
+	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
+	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsForm')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailServer')); ?></li>
+</div>
 
-<h1>Create NotificationRules</h1>
-
+<br>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

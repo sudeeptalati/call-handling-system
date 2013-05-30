@@ -1,9 +1,19 @@
 <div class="form">
 
-<?php 
-include 'setup_sidemenu.php';
-?>
 
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+<h1>Notifications: SMS Settings</h1>
+ 
+<div id="submenu">   
+	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
+	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsView')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailSettings')); ?></li>
+</div>
+
+<br>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'setup-smsSettingsView-form',
@@ -57,7 +67,6 @@ if(file_exists($filename))
 	
 <!-- ****** END OF CODE TO REPLACE JSON FILE WITH CHANGED DATA ********* -->	
 	
-	<h2>SMS Gateway Settings</h2>
 	
 <!-- ********** DISPLAYING CHANGED DATA ************ -->
 	
@@ -77,7 +86,7 @@ if(file_exists($filename))
 	</div>
 	
 	<div class="row">
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo CHtml::button('Update', array('submit' => array('setup/smsSettingsForm'))); ?>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo CHtml::button('Edit', array('submit' => array('setup/smsSettingsForm'))); ?>
 	</div>
 	
 <!-- ********** DISPLAYING CHANGED DATA ************ -->	

@@ -1,13 +1,15 @@
 <div id="sidemenu">             
 <?php include('setup_sidemenu.php'); ?>   
 </div>
+<h1>View Notification Rule:  <?php echo $model->jobStatus->name; ?></h1>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
-	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
-	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsForm')); ?></td>
-	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
-</tr></table>
+<div id="submenu">   
+	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
+	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsForm')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailServer')); ?></li>
+</div>
+<br>
 
 
 <div class="form">
@@ -17,26 +19,40 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<h1>View Notification Rules :  <?php echo $model->jobStatus->name; ?></h1>
-
+	
 	<?php echo $form->errorSummary($model); ?>
 
-	<table><tr>
-		<td>
-			<?php echo $form->labelEx($model,'job_status_id'); ?>
-			<?php //echo $form->textField($model,'job_status_id'); ?>
-			<?php echo CHtml::textField('', $model->jobStatus->name, array('disabled'=>'disabled'));?>
-			<?php echo $form->error($model,'job_status_id'); ?>
-		</td>
-		
-		<td>
-			<?php echo $form->labelEx($model,'active'); ?>
-			<?php //echo $form->textField($model,'active'); ?>
-			<?php echo ($model->active == 0)?"No":"Yes";?>
-			<?php echo $form->error($model,'active'); ?>
-		</td>
-		</tr>
-		<tr>
+	
+	
+	
+	
+	
+	
+	
+	
+<table style="width:100%;  background-color: #D0E9F1; border-radius: 15px; padding:10px; vertical-align: top;">
+<tr>
+	<td colspan="3"><div style="text-align:right;" ><b>
+<?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?></b>
+</div>
+</td>
+</tr>
+
+
+<tr>
+	<td colspan='3'>
+		When job status is changed to <?php echo CHtml::textField('', $model->jobStatus->name, array('disabled'=>'disabled'));?>			
+	</td>
+ </tr>
+
+ 
+ 
+ 
+ <tr>
+	<td><b>Send Notification to</b></td>
+</tr>
+
+<tr>
 			<td>
 				<?php echo $form->labelEx($model,'customer_notification_code'); ?>
 				<?php 
@@ -44,7 +60,7 @@
 					$customer_sms_checked = NotificationRules::model()->getSMSCheckBoxStatus($model->customer_notification_code);
 				?>
 				
-				<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('customer_email_notification', $customer_email_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
+				by <small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('customer_email_notification', $customer_email_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
 				&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('customer_sms_notification', $customer_sms_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
 				
 				<?php echo $form->error($model,'customer_notification_code'); ?>
@@ -56,7 +72,7 @@
 					$engineer_sms_checked = NotificationRules::model()->getSMSCheckBoxStatus($model->engineer_notification_code);
 				?>
 						
-				<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_email_notification', $engineer_email_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
+				by <small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_email_notification', $engineer_email_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
 				&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_email_notification', $engineer_sms_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
 				
 				<?php echo $form->error($model,'engineer_notification_code'); ?>
@@ -69,15 +85,17 @@
 					$warranty_provider_sms_checked = NotificationRules::model()->getSMSCheckBoxStatus($model->warranty_provider_notification_code);
 				?>
 								
-				<small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_email_notification', $warranty_provider_email_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
+				by <small><b>Email</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_email_notification', $warranty_provider_email_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
 				&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('warranty_provider_email_notification', $warranty_provider_sms_checked, array('uncheckValue' => 0, 'disabled'=>'disabled'));?> 
 						
 				<?php echo $form->error($model,'warranty_provider_notification_code'); ?>
 			</td>
 		</tr>
+		 
 		<tr>
 			<td colspan="3">
-				<?php 
+			
+							<?php 
 		
 				$contactModel = NotificationContact::model()->findAllByAttributes(array(
 						'notification_rule_id'=>$model->id
@@ -137,36 +155,31 @@
 						<?php 
 				}//end of else.
 				?>
-				
-				<?php echo $form->error($model,'notify_others'); ?>
+			
+			
+			
 			</td>
 		</tr>
-		<tr>
+	<tr>
+		<td><?php echo $form->labelEx($model,'active'); ?>
+		<?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?></td>
 			<td>
 				<?php echo $form->labelEx($model,'created'); ?>
-				<?php echo CHtml::textField('', date('d-M-Y', $model->created), array('disabled'=>'disabled')); ?>
+				<?php echo CHtml::textField('', date('d-M-Y H:m', $model->created), array('disabled'=>'disabled')); ?>
 				<?php echo $form->error($model,'created'); ?>
 			</td>
 			<td>
 				<?php echo $form->labelEx($model,'modified'); ?>
-				<?php echo CHtml::textField('', date('d-M-Y', $model->modified), array('disabled'=>'disabled')); ?>
+				<?php echo CHtml::textField('', date('d-M-Y H:m', $model->modified), array('disabled'=>'disabled')); ?>
 				<?php echo $form->error($model,'modified'); ?>
 			</td>
-			<td>
-				<?php echo $form->labelEx($model,'delete'); ?>
-				<?php
-					if($model->delete != '')
-					{
-						$deleted_date = date('d-M-Y', $model->delete);
-						echo CHtml::textField('', $deleted_date, array('disabled'=>'disabled'));
-					} 
-					else 
-						echo CHtml::textField('', '', array('disabled'=>'disabled'));
-				?>
-				<?php echo $form->error($model,'delete'); ?>
-			</td>
-		</tr>
-	</table>
+		
+</tr>
+
+</table>
+	
+	
+	 
 	
 
 <?php $this->endWidget(); ?>

@@ -1,13 +1,18 @@
 <?php 
 include 'setup_sidemenu.php';
 ?>
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></td>
-	<td> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></td>
-	<td> <?php echo CHtml::link('SMS Setup',array('/setup/smsSettingsView')); ?></td>
-	<td> <?php echo CHtml::link('Email Setup',array('/setup/mailServer')); ?></td>
-</tr></table>
+ <h2>Mail Settings</h2>
+ 
+ 
+  
+<div id="submenu">   
+	<li> <?php echo CHtml::link('Manage Notification Rules',array('/notificationRules/admin')); ?></li>
+	<li> <?php echo CHtml::link('Create Notification Rules',array('/notificationRules/create')); ?></li>
+	<li> <?php echo CHtml::link('SMS Settings',array('/setup/smsSettingsView')); ?></li>
+	<li> <?php echo CHtml::link('Email Settings',array('/setup/mailSettings')); ?></li>
+</div>
 
+<br>
 <?php 
 	
 	$smtp_host = '';
@@ -58,7 +63,7 @@ function getSelectedValue()
 alert(val);
 </script>  
 
-<h2>Mail Settings</h2>
+
 
 <form action="<?php echo Yii::app()->createUrl('setup/mailSettings')?>" method="post">
 	
@@ -79,7 +84,7 @@ alert(val);
 	
 	<b>Port</b><br><input type="text" name="port" value=<?php echo $smtp_port;?>><br><br>
 	
-	<input name="mail_server_values"  value="Update" type="submit" style="width:100px">
+	<input name="mail_server_values"  value="Save" type="submit"   style="width:100px">
 	
 </form>	
 

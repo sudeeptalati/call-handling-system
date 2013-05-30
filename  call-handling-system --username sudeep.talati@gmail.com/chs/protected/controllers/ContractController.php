@@ -68,7 +68,7 @@ class ContractController extends Controller
 
 		if(isset($_POST['Contract'],$_POST['ContactDetails']))
 		{
-			 
+			 echo "<br>In controller, create action ";
 			 $contactDetailsModel=new ContactDetails;
 			 $contactDetailsModel->attributes=$_POST['ContactDetails'];
 			 
@@ -78,16 +78,16 @@ class ContractController extends Controller
 			 $valid=$contactDetailsModel->validate() && $valid;
 			 
 			 $labWarrMonths = $_POST['labour_months'];
-			 //echo "<br>Labour Warranty in months, value got from form = ".$labWarrMonths;
+			 echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
 			 
-			 $labWarrYear = $_POST['labour_year'];
-			 //echo "<br>Labour Warranty in Years, value got from form = ".$labWarrYear;
+			 $labWarrYear = $_POST['labour_years'];
+			 echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
 			 
 			 $partsWarrMonths = $_POST['parts_months'];
-			 //echo "<hr>Parts Warranty in months, value got from form = ".$partsWarrMonths;
+			 //echo "<hr>IN Controller Parts Warranty in months, value got from form = ".$partsWarrMonths;
 			 
-			 $partsWarrYear = $_POST['parts_year'];
-			 //echo "<br>Parts Warranty in Years, value got from form = ".$partsWarrYear;
+			 $partsWarrYear = $_POST['parts_years'];
+			 //echo "<br>IN Controller Parts Warranty in Years, value got from form = ".$partsWarrYear;
 			 
 			 $finalLabourWarranty = $this->convertToSaveTodb($labWarrMonths, $labWarrYear);  
 			 $finalPartsWarranty = $this->convertToSaveTodb($partsWarrMonths, $partsWarrYear);
@@ -95,6 +95,7 @@ class ContractController extends Controller
 			 $model->labour_warranty_months_duration = $finalLabourWarranty;
 			 $model->parts_warranty_months_duration = $finalPartsWarranty;
 			 
+			 /*
 			 if($valid)
         	 {
         	 	if($model->save())
@@ -104,6 +105,7 @@ class ContractController extends Controller
         	 {
         	 	echo "Enter all the mandatory fields";
         	 }
+        	 */
 		}//END OF IF(ISSET()).
 			 
 		$this->render('create',array(

@@ -85,20 +85,48 @@ $('.technical-form').toggle();
 	</tr>
 	
 	<tr>
+		<?php 
+				$years_range=array();
+				$years_range=range(0, 5);
+				
+				$months_range=array();
+				$months_range=range(0, 120);
+		?>
 		<td>
-			<?php echo $form->labelEx($model,'labour_warranty_months_duration'); ?> <small>Months &nbsp;&nbsp; Years</small><br>
+			<?php $labour_year = ($model->labour_warranty_months_duration)/12; ?>
+			<?php echo $form->labelEx($model,'labour_warranty_months_duration'); ?> <small>Years &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Months</small><br>
 			<?php //echo $form->textField($model,'labour_warranty_months_duration',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo CHtml::textField('labour_months','',array('size'=>3,'maxlength'=>4)); ?>
-			<?php echo CHtml::textField('labour_year','',array('size'=>3,'maxlength'=>4)); ?>
+			
+			<?php 	
+				if($model->labour_warranty_months_duration == '')
+					echo CHtml::dropDownList('labour_years', '', array($years_range));
+			?>
+			
+			<?php 	
+				if($model->labour_warranty_months_duration == '')
+					echo CHtml::dropDownList('labour_months', '', array($months_range));
+			?>
+			
 			<?php echo $form->error($model,'labour_warranty_months_duration'); ?>
 		</td>
+		
 		<td>
-			<?php echo $form->labelEx($model,'parts_warranty_months_duration'); ?><small>Months &nbsp;&nbsp; Years</small><br>
+			<?php echo $form->labelEx($model,'parts_warranty_months_duration'); ?><small>Years &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Months</small><br>
 			<?php //echo $form->textField($model,'labour_warranty_months_duration',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo CHtml::textField('parts_months','',array('size'=>3,'maxlength'=>4)); ?>
-			<?php echo CHtml::textField('parts_year','',array('size'=>3,'maxlength'=>4)); ?>
+			
+			<?php 	
+				if($model->labour_warranty_months_duration == '')
+					echo CHtml::dropDownList('parts_months', '', array($years_range));
+			?>
+			
+			<?php 	
+				if($model->labour_warranty_months_duration == '')
+					echo CHtml::dropDownList('parts_years', '', array($months_range));
+			?>
+			
 			<?php echo $form->error($model,'parts_warranty_months_duration'); ?>
 		</td>
+		
 		<td>
 			<?php echo $form->labelEx($model,'vat_reg_number'); ?>
 			<?php echo $form->textField($model,'vat_reg_number',array('rows'=>6, 'cols'=>50)); ?>

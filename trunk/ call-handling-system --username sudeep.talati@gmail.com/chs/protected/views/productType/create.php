@@ -2,11 +2,14 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Products',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Add New Product',array('create')); ?></td>
-</tr></table>
+ 
 
-<h1>Create ProductType</h1>
+<h1>New ProductType</h1>
+
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Product Types',array('admin')); ?></li>
+<li><?php echo CHtml::link(' New Product Types',array('create')); ?></li>
+</div>
+<br><br>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

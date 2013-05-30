@@ -1,18 +1,14 @@
-<?php
-$this->breadcrumbs=array(
-	'Product Types'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List ProductType', 'url'=>array('index')),
-	array('label'=>'Create ProductType', 'url'=>array('create')),
-	array('label'=>'View ProductType', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage ProductType', 'url'=>array('admin')),
-);
-?>
+<h1>Update ProductType :<?php echo $model->name; ?></h1>
 
-<h1>Update ProductType <?php echo $model->id; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Product Types',array('admin')); ?></li>
+<li><?php echo CHtml::link(' New Product Types',array('create')); ?></li>
+</div>
+<br><br>
+
 
 <?php echo $this->renderPartial('updateProductType', array('model'=>$model)); ?>

@@ -12,7 +12,7 @@ $this->menu=array(
 	//array('label'=>'Mail Notifications', 'url'=>array('setup/mailServer')),
 	array('label'=>'Notifications', 'url'=>array('/notificationRules/admin')),
 	array('label'=>'Other Devices', 'url'=>array('setup/remoteConnection')),
-	array('label'=>'Postcode Anywhere Account', 'url'=>array('setup/postcodeAnywhereSetup')),
+	array('label'=>'Postcode Anywhere Account', 'url'=>array('setup/postcodeAnywhereView')),
 	array('label'=>'Products / Product Type', 'url'=>array('ProductType/admin')),
 	//array('label'=>'Preferences', 'url'=>array('/preferences/admin')),
 	array('label'=>'Restore Database', 'url'=>array('setup/restoreDatabase')),

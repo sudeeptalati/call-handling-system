@@ -2,114 +2,19 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<h1>Job Status</h1>
+<h1>Job Status : Manage</h1>
 <div id="submenu">   
-<li><?php echo CHtml::link('Change Dashboard View Order','#', array('class'=>'sort-view-order-link'));?></li>
-<li><?php echo CHtml::link('Manage JobStaus','#', array('class'=>'admin-table-link'));?></li>
+<li><?php echo CHtml::link('Change Dashboard Priority Order', array('JobStatus/dashboardorder'));?></li>
+<li><?php echo CHtml::link('Manage JobStatus', array('JobStatus/admin'));?></li>
 <li><?php echo CHtml::link('Change Drop Down View Order', array('JobStatus/dropdownorder'));?></li>
 </div><!-- END OF DIV SUBMENU -->
 
-
-
-
-
-
-
-
-<?php 
-Yii::app()->clientScript->registerScript('view-order-listener', "
-$('.sort-view-order-link').click(function(){
-	$('.sort_view_order').toggle();
-	return false;
-});
-");
-
-
-
- Yii::app()->clientScript->registerScript('admin-table-listener', "
-$('.admin-table-link').click(function(){
-	$('.admin-table').toggle();
-	return false;
-});
-");
- 
-?>
-
-
-
-
-<!-- ************* CODE FOR SORTING VIEW ORDER ****************** -->
-<?php 
-$dataProvider=new CActiveDataProvider('JobStatus', array(
-    'criteria'=>array(
-        'condition'=>'dashboard_display=1',
-        'order'=>'dashboard_prority_order ASC',
-       
-    ),
-    'pagination'=>array(
-        'pageSize'=>50,
-    ),
-));
-
-?>
-
-<?php //echo CHtml::link('Change Dashboard View Order','#', array('class'=>'sort-view-order-link'));?>
- 
-<div class="sort_view_order" style="display:none">
-
-
-	<br>
-	<br><b><i><u>How To Use</u></i></b>	
-	<br> <b>Step 1: </b>Click on any status 
-  	<br> <b>Step 2: </b>Drag or Move Staus to desired order
-	<br> <b>Step 3: </b>Click on Re-Order Button at bottom
-	<br> <b>Step 4: </b>Success will be refected by alert box</b>
-  
  
 
 
-<?php 
-	$this->widget('ext.yii-RGridView.RGridViewWidget', array(
-    'dataProvider'=>$dataProvider,
-    'rowCssId'=>'$data->id',
-    'orderUrl'=>array('order'),
-    'successOrderMessage'=>'New Order Set',
-    'buttonLabel'=>'Re-Order',
-    'template' => '{summary} {items} {order} {pager}',
-    'options'=>array(
-        'cursor' => 'crosshair',
-    ),
-    'columns'=>array(
-      		
-    // 'dashboard_prority_order',
-    'name',
-	'information',
-
-	array(
-      		'name'=>'dashboard_display',
-      		'value'=>'$data->dashboard_display ? "Yes" : "No"',
-    		'type'=>'text',
-			'filter'=>array('1'=>'Yes','0'=>'No'),
-	
-    	),
- 		  
-    ),
-));
-
-?>
-</div>
-
-<!-- **************** END OF CODE OF SORTING OF VIEW ORDER ***************** -->
-
-
-
-<!--<div align="right"><small>See Next Page for custom status</small></div>-->
-<?php //echo CHtml::link('Manage JobStaus','#', array('class'=>'admin-table-link'));?>
  
-<div class="admin-table" style="display:none">
 
-
-
+ 
 <?php 
 
 
@@ -155,11 +60,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 )); 
 
 ?>
-</div>
  
-<?php //echo CHtml::link('Change Drop Down View Order', array('JobStatus/dropdownorder'));?>
- 
-
 
 
 

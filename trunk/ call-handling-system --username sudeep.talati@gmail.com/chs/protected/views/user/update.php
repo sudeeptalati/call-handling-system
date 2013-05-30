@@ -3,11 +3,13 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
-<table><tr>
-	<td> <?php echo CHtml::link('Manage Users',array('admin')); ?></td>
-	<td> <?php echo CHtml::link('Create New User',array('create')); ?></td>
-</tr></table>
+<h1>Update User: <?php echo $model->name; ?></h1>
+ 
 
-<h1>Update User <?php echo $model->name; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Users',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Users',array('create')); ?></li>
+</div>
+<br><br>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -3,13 +3,17 @@
 <?php include('setup_sidemenu.php'); ?>   
 </div>
 
+<h1>Postcode Anywhere Account</h1>
 
-<table><tr>
-	<td> <?php echo CHtml::link('View',array('/setup/postcodeAnywhereView')); ?></td>
-	<td> <?php echo CHtml::link('Update',array('/setup/postcodeAnywhereSetup')); ?></td>
-	<td> <?php echo CHtml::link('Manage',array('/setup/admin')); ?></td>
-</tr></table>
+<div id="submenu">   
+<li> <?php echo CHtml::link('Manage',array('/setup/admin')); ?></li>
+	<li> <?php echo CHtml::link('View',array('/setup/postcodeAnywhereView')); ?></li>
+	<li> <?php echo CHtml::link('Update',array('/setup/postcodeAnywhereSetup')); ?></li>
 
+</div>
+ 
+<br><br>
+ 
 
 <div class="form">
 
@@ -18,7 +22,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<h1>Postcode Anywhere Account</h1>
+
 	
 	<?php echo $form->errorSummary($model); ?>
 	

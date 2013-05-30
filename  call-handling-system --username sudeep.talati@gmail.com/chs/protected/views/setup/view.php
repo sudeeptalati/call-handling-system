@@ -53,7 +53,7 @@
 </tr>
 <tr>
 	<td style="vertical-align:top;"><b>Pop Ups</b></td>
-	<td style="vertical-align :top;">No Pop up Blocker should be installed on browser. The app have several instances when user is notified through alert box. The pop up blocker also blocks the alert box/</td>
+	<td style="vertical-align :top;">No Pop up Blocker should be installed on browser. The app have several instances when user is notified through alert box. The pop up blocker also blocks the alert box.</td>
 </tr>
 <tr>
 	<td style="vertical-align:top;"><b>Java Script</b></td>

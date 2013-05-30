@@ -12,7 +12,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-<h1 align="center">Mobile and other devices</h1>
+<h1>Mobile and Other Devices</h1>
 
 	<p class="note">
 	If you want to access this rapport system from other devices like mobile phone, tablet or other PC, 

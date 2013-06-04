@@ -44,24 +44,42 @@ $('.technical-form').toggle();
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'contract-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array('validateOnSubmit'=>true),
 )); ?>
 
 	<?php 
+	
+	$display_na = '';
+	
 	if (!empty($model->main_contact_details_id))
 	{
 		$contactDetailsModel=ContactDetails::model()->findByPk($model->main_contact_details_id);
 	}
 	else 
 	{
+		//echo "<br> main contact id = 0";
+		//********* DISPLAY N/A FOR MAIN CONTACT ID 0 **********
+		if($model->name != '' && $model->main_contact_details_id == 0)
+		{
+			//echo "<br>Address is not applicable here";
+			$display_na = 1;
+		}//end of inner if.
+		//********* END OF DISPLAY N/A FOR MAIN CONTACT ID 0 **********
+		
 		$contactDetailsModel=ContactDetails::model();
-	}
+	}//end of else.
+	?>
+	
+	<?php 
+		echo $form->errorSummary($model);
+		echo $form->errorSummary($contactDetailsModel);
 	?>
 	<br><br>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php //echo $form->errorSummary($model); ?>
 	
 	<table style="width:700px; margin:10px; background-color: #C7E8FD;  border-radius: 15px; padding:15px;">
 	<tr>
@@ -97,16 +115,18 @@ $('.technical-form').toggle();
 			<?php echo $form->labelEx($model,'labour_warranty_months_duration'); ?> <small>Years &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Months</small><br>
 			<?php //echo $form->textField($model,'labour_warranty_months_duration',array('rows'=>6, 'cols'=>50)); ?>
 			
-			<?php 	
-				if($model->labour_warranty_months_duration == '')
-					echo CHtml::dropDownList('labour_years', '', array($years_range));
-			?>
+			<?php echo CHtml::dropDownList('labour_years', '', array($years_range)); //Dropdown of years. ?>
 			
 			<?php 	
+				//Dropdown of months.
 				if($model->labour_warranty_months_duration == '')
 					echo CHtml::dropDownList('labour_months', '', array($months_range));
+				else
+				{
+					//echo CHtml::dropDownList('labour_years', '', array($years_range));
+					echo $form->dropDownList($model, 'labour_warranty_months_duration', array($months_range));
+				}
 			?>
-			
 			<?php echo $form->error($model,'labour_warranty_months_duration'); ?>
 		</td>
 		
@@ -115,15 +135,18 @@ $('.technical-form').toggle();
 			<?php //echo $form->textField($model,'labour_warranty_months_duration',array('rows'=>6, 'cols'=>50)); ?>
 			
 			<?php 	
-				if($model->labour_warranty_months_duration == '')
-					echo CHtml::dropDownList('parts_months', '', array($years_range));
+				echo CHtml::dropDownList('parts_years', '', array($years_range));
 			?>
 			
 			<?php 	
-				if($model->labour_warranty_months_duration == '')
-					echo CHtml::dropDownList('parts_years', '', array($months_range));
+				if($model->parts_warranty_months_duration == '')
+					echo CHtml::dropDownList('parts_months', '', array($months_range));
+				else
+				{
+					//echo CHtml::dropDownList('labour_years', '', array($years_range));
+					echo $form->dropDownList($model, 'parts_warranty_months_duration', array($months_range));
+				}
 			?>
-			
 			<?php echo $form->error($model,'parts_warranty_months_duration'); ?>
 		</td>
 		
@@ -166,6 +189,14 @@ $('.technical-form').toggle();
 	
 	<tr>
 		<td>
+			<?php 
+			
+			if($display_na == 1)
+			{
+				$contactDetailsModel->address_line_1 = 'N/A';
+			}
+			
+			?>
 			<?php echo $form->labelEx($contactDetailsModel,'address_line_1'); ?>
 			<?php echo $form->textField($contactDetailsModel,'address_line_1',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'address_line_1'); ?>
@@ -183,11 +214,24 @@ $('.technical-form').toggle();
 	</tr>
 	<tr>
 		<td>
+			<?php 
+			if($display_na == 1)
+			{
+				$contactDetailsModel->town = 'N/A';
+			}
+			?>
 			<?php echo $form->labelEx($contactDetailsModel,'town'); ?>
 			<?php echo $form->textField($contactDetailsModel,'town',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'town'); ?>
 		</td>
 		<td>
+		<?php 
+			if($display_na == 1)
+			{
+				$contactDetailsModel->postcode_s = 'N/A';
+				$contactDetailsModel->postcode_e = 'N/A';
+			}
+			?>
 			<?php echo $form->labelEx($contactDetailsModel,'postcode_s'); ?>
 			<?php echo $form->textField($contactDetailsModel,'postcode_s',array('size'=>6)); ?>
 			<?php echo $form->textField($contactDetailsModel,'postcode_e',array('size'=>6)); ?>
@@ -201,6 +245,12 @@ $('.technical-form').toggle();
 	</tr>
 	<tr>
 		<td>
+			<?php 
+			if($display_na == 1)
+			{
+				$contactDetailsModel->telephone = 'N/A';
+			}
+			?>
 			<?php echo $form->labelEx($contactDetailsModel,'telephone'); ?>
 			<?php echo $form->textField($contactDetailsModel,'telephone',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'telephone'); ?>
@@ -219,6 +269,12 @@ $('.technical-form').toggle();
 	
 	<tr>
 		<td>
+			<?php 
+			if($display_na == 1)
+			{
+				$contactDetailsModel->email = 'N/A';
+			}
+			?>
 			<?php echo $form->labelEx($contactDetailsModel,'email'); ?>
 			<?php echo $form->textField($contactDetailsModel,'email',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'email'); ?>

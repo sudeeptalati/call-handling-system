@@ -61,44 +61,69 @@ class EngineerController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Engineer;
+		$model=new Engineer();
+		$contactDetailsModel=new ContactDetails();
+		
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
+		$this->performAjaxValidation($model, $contactDetailsModel);
+		
+		
 		if(isset($_POST['Engineer'],$_POST['ContactDetails']))
 		{
 			$model->attributes=$_POST['Engineer'];
-			$contactDetailsModel=new ContactDetails;
-			$contactDetailsModel->attributes=$_POST['ContactDetails'];
 			
-			$valid=$model->validate();
-        	$valid=$contactDetailsModel->validate() && $valid;
-        	
-        	if($valid)
+			
+			$contactDetailsModel->attributes=$_POST['ContactDetails'][1];
+			
+// 		********COMMENTED FOR TESTING	$deliveryDetailsModel = new ContactDetails;
+// 			$deliveryDetailsModel->attributes=$_POST['ContactDetails'][2];
+			
+			$engg_valid=$model->validate();
+			$contact_details_valid=$contactDetailsModel->validate();
+			//$valid=$deliveryDetailsModel->validate() && $valid;
+			
+			if($engg_valid && $contact_details_valid)
         	{
-			
+        		
+        		//******* ContactDetails MODEL TO SAVE CONTACT DETAILS.
+        		 	
+        		echo"<br>Address 1 of engg contact details = ".$contactDetailsModel->address_line_1;
+        		$contactDetailsModel->save();
+        		echo "<br>id if contact details = ".$contactDetailsModel->id;
+        		$model->contact_details_id = $contactDetailsModel->id;
+        			
+        		echo "<br>Delivery contact details checkbox status = ".$model->delivery_contact_details_id;
+        			
+//    COMMENTED FOR TESTING     		//****** MEANS DELIVERY ADDRESS IS DIFFERENT THAN CONTACT ADDRESS *********
+//         		if($model->delivery_contact_details_id == 0)
+//         		{
+// 	        		echo "<br>Address 1 of delivery contact details = ".$deliveryDetailsModel->address_line_1;
+// 	        		$deliveryDetailsModel->save();
+// 	        		echo "<br>Delivery contact details id = ".$deliveryDetailsModel->id;
+// 	        		$model->delivery_contact_details_id = $deliveryDetailsModel->id;
+//         		}
+//         		else//******* MAENS DELIVERY ADDRESS IS SAME AS CONTACT ADDRESS *********
+        			$model->delivery_contact_details_id = $contactDetailsModel->id;
+        		
+        		
 				if($model->save())
 				{
-//					$contactDetailsModel=new ContactDetails;
-//					$contactDetailsModel->attributes=$_POST['ContactDetails'];
-//					if($contactDetailsModel->save())
-//					{
-//						$this->redirect(array('view','id'=>$contactDetailsModel->id));
-//					}
 					$this->redirect(array('view','id'=>$model->id));
 				}
+				
         	}//end if if(valid).
         	else 
         	{
-        		echo "Enter all the mandatory fields";
-        	}
-		}
+        		echo "<hr>Enter all the mandatory fields of address also";
+        		
+        	}//end of else.
+		}//end of if(issset()).
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	}//end of create().
 
 	/**
 	 * Updates a particular model.
@@ -108,7 +133,14 @@ class EngineerController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		
 		$contactDetailsModel=ContactDetails::model()->findByPk($model->contact_details_id);
+		if($model->delivery_contact_details_id != $model->contact_details_id)
+			$deliveryContactDetailsModel=ContactDetails::model()->findByPk($model->delivery_contact_details_id);
+		
+		$earlier_active = $model->active;
+		//echo "<br>Actuve value before = ".$earlier_active;
+		
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -116,26 +148,57 @@ class EngineerController extends Controller
 		if(isset($_POST['Engineer'],$_POST['ContactDetails']))
 		{
 			$model->attributes=$_POST['Engineer'];
-			$contactDetailsModel->attributes=$_POST['ContactDetails'];
+			$contactDetailsModel->attributes=$_POST['ContactDetails'][1];
+			if($model->delivery_contact_details_id != $model->contact_details_id)
+				$deliveryContactDetailsModel->attributes=$_POST['ContactDetails'][2];
 			
 			$valid=$model->validate();
 			$valid=$contactDetailsModel->validate() && $valid;
 			
+			if($model->delivery_contact_details_id != $model->contact_details_id)
+				$valid=$deliveryContactDetailsModel->validate() && $valid;
+			
 			if($valid)
 			{
+				$contactDetailsModel->save();
+				$model->contact_details_id = $contactDetailsModel->id;
+				if($model->delivery_contact_details_id != $model->contact_details_id)
+				{
+					$deliveryContactDetailsModel->save();
+					$model->delivery_contact_details_id = $deliveryContactDetailsModel->id;
+				}
+				else 
+					$model->delivery_contact_details_id = $contactDetailsModel->id;
+				
+				
+				//******* CHECK IF ACTIVE IS CHANGED. I.E, IF ENGINEER IS DEACTIVATED.
+				echo "<br>Active value now = ".$model->active;
+				
+				if($earlier_active == 1)
+				{
+					if($model->active == 0)
+					{
+						$model->inactivated_on = time();
+						$model->inactivated_by_user_id = Yii::app()->user->id;
+					}//end of inner if().
+					
+				}//end of if($$earlier_active)
+				
+				
 				if($model->save())
 					$this->redirect(array('view','id'=>$model->id));
-			}
+				
+			}//end of if(valid).
 			else 
 			{
 				echo "Fill all mandatory fields";
 			}
-		}
+		}//end of if(isset()).
 
 		$this->render('update',array(
 			'model'=>$model,
 		));
-	}
+	}//end of update().
 
 	/**
 	 * Deletes a particular model.
@@ -159,7 +222,7 @@ class EngineerController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
+	}//end of delete().
 
 	/**
 	 * Lists all models.
@@ -204,12 +267,13 @@ class EngineerController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
+	protected function performAjaxValidation($model, $contactDetailsModel)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='engineer-form')
 		{
-			echo CActiveForm::validate($model);
+			echo CActiveForm::validate(array($model, $contactDetailsModel));
 			Yii::app()->end();
 		}
-	}
-}
+	}//end of performAjaxValidation().
+	
+}//end of class.

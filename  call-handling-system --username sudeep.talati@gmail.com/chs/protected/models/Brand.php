@@ -127,10 +127,7 @@ class Brand extends CActiveRecord
             	$this->created_by_user_id=Yii::app()->user->id;
             	$this->modified=time();
             	
-            	if($this->active == 0)
-            		$this->inactivated = time();
-            	
-                return true;
+            	return true;
             }
         }//end of if(parent())
     }//end of beforeSave().

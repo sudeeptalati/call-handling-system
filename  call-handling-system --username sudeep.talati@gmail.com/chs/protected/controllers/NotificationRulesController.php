@@ -70,13 +70,28 @@ class NotificationRulesController extends Controller
 		$model=new NotificationRules;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		 $this->performAjaxValidation($model);
 
 		if(isset($_POST['NotificationRules']))
 		{
 			$model->attributes=$_POST['NotificationRules'];
 			$model->active = '1';
-			//echo "job status id from create form = ".$model->job_status_id."<br>";
+			echo "job status id from create form = ".$model->job_status_id."<br>";
+			
+			/************** MANIPULATION OF NOTIFY OTHERS CODE ****************/
+				
+			if(isset($_POST['others_person_details']))
+			{
+				$model->notify_others = 1;
+			}
+			else
+			{
+				$model->notify_others = 0;
+			}
+				
+			/************** END OF MANIPULATION OF NOTIFY OTHERS CODE ****************/
+			
+			
 			
 			/***** MANIPULATION OF CUSTOMER NOTIFICATION CODE ***********/
 			
@@ -175,32 +190,21 @@ class NotificationRulesController extends Controller
 			
 			/******** END OF MANIPULATION OF WARRANTY PROVIDER NOTIFICATION CODE ************/
 			
-			/************** MANIPULATION OF NOTIFY OTHERS CODE ****************/
 			
-			if(isset($_POST['others_person_details']))
-			{
-				$model->notify_others = 1;
-			}
-			else 
-			{
-				$model->notify_others = 0;
-			}
-			
-			/************** END OF MANIPULATION OF NOTIFY OTHERS CODE ****************/
 			
 			if($model->save())
 			{
 				//if($model->notify_others == '1')
-				if(isset($_POST['others_person_details']))
-				{
-					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'1'));
-					return ;
-				}//end of redirecting to update
-				else 
-				{
-					$this->redirect(array('view','id'=>$model->id));	
-					return ;
-				}//end of redirect to view.
+// 				if(isset($_POST['others_person_details']))
+// 				{
+// 					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'1'));
+// 					return ;
+// 				}//end of redirecting to update
+// 				else 
+// 				{
+// 					$this->redirect(array('view','id'=>$model->id));	
+// 					return ;
+// 				}//end of redirect to view.
 			}//end of outer if(save()).
 			
 			else 

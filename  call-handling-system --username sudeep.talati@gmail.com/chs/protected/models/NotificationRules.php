@@ -355,6 +355,11 @@ class NotificationRules extends CActiveRecord
 			
 	}//end of displayMessageInGrid().
 	
+	public function validate_job($job_id)
+	{
+		echo "Id received in model function = ".$job_id;
+	}
+	
 	
 	
 }//end of class.

@@ -86,6 +86,9 @@ class BrandController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		
+		$earlier_active = $model->active;
+		echo "<br>Actuve value before = ".$earlier_active;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -93,6 +96,17 @@ class BrandController extends Controller
 		if(isset($_POST['Brand']))
 		{
 			$model->attributes=$_POST['Brand'];
+			
+			if($earlier_active == 1)
+			{
+				if($model->active == 0)
+				{
+					$model->inactivated = time();
+				}//end of inner if().
+					
+			}//end of if($$earlier_active)
+			
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

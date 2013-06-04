@@ -61,27 +61,28 @@ class ContractController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Contract;
+		$model=new Contract();
+		$contactDetailsModel=new ContactDetails();
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model, $contactDetailsModel);
 
 		if(isset($_POST['Contract'],$_POST['ContactDetails']))
 		{
-			 echo "<br>In controller, create action ";
-			 $contactDetailsModel=new ContactDetails;
+			 //echo "<br>In controller, create action ";
+			 
 			 $contactDetailsModel->attributes=$_POST['ContactDetails'];
 			 
 			 $model->attributes = $_POST['Contract'];
 			 
-			 $valid=$model->validate();
-			 $valid=$contactDetailsModel->validate() && $valid;
+			 $contract_valid=$model->validate();
+			 $contact_details_valid=$contactDetailsModel->validate();
 			 
 			 $labWarrMonths = $_POST['labour_months'];
-			 echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
+			 //echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
 			 
 			 $labWarrYear = $_POST['labour_years'];
-			 echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
+			 //echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
 			 
 			 $partsWarrMonths = $_POST['parts_months'];
 			 //echo "<hr>IN Controller Parts Warranty in months, value got from form = ".$partsWarrMonths;
@@ -95,17 +96,26 @@ class ContractController extends Controller
 			 $model->labour_warranty_months_duration = $finalLabourWarranty;
 			 $model->parts_warranty_months_duration = $finalPartsWarranty;
 			 
-			 /*
-			 if($valid)
+			 
+			 if($contract_valid && $contact_details_valid)
         	 {
+        	 	echo "Address line 1 = ".$contactDetailsModel->address_line_1;
+        	 	$contactDetailsModel->save();
+        	 	echo "<br>Saved model id = ".$contactDetailsModel->id;
+        	 	echo "<br>Lockcode of contact model = ".$contactDetailsModel->lockcode;
+        	 	
+        	 	$model->main_contact_details_id=$contactDetailsModel->id;
+        	 	
         	 	if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
-        	 }
+        	 		$this->redirect(array('view','id'=>$model->id));
+        	 	
+
+        	 }//end of if valid().
         	 else 
         	 {
-        	 	echo "Enter all the mandatory fields";
+        	 	echo "<br>Enter all the mandatory fields";
         	 }
-        	 */
+        	 
 		}//END OF IF(ISSET()).
 			 
 		$this->render('create',array(
@@ -123,6 +133,7 @@ class ContractController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$contactDetailsModel=ContactDetails::model()->findByPk($model->main_contact_details_id);
+		//$contactDetailsModel = new ContactDetails();
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -135,16 +146,67 @@ class ContractController extends Controller
 			$valid=$model->validate();
         	$valid=$contactDetailsModel->validate() && $valid;
         	
+        	//************ TAKING LABOUR WARRANTY DETAILS **********
+        	
+        	if(isset($_POST['labour_months']))
+        	{
+        		$labWarrMonths = $_POST['labour_months'];
+        	}
+        	elseif(isset($model->labour_warranty_months_duration))
+        	{
+        		$labWarrMonths = $model->labour_warranty_months_duration;
+        	}
+        	echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
+        	
+        	$labWarrYear = $_POST['labour_years'];
+        	echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
+        	
+        	
+        	//************ TAKING PARTS WARRANTY DETAILS **********
+        	
+        	if(isset($_POST['parts_months']))
+        	{
+	        	$partsWarrMonths = $_POST['parts_months'];
+	        }
+        	elseif(isset($model->parts_warranty_months_duration))
+        	{
+        		$partsWarrMonths = $model->parts_warranty_months_duration;
+        	}
+        	echo "<hr>IN Controller Parts Warranty in months, value got from form = ".$partsWarrMonths;
+        	
+        	
+        	$partsWarrYear = $_POST['parts_years'];
+        	//echo "<br>IN Controller Parts Warranty in Years, value got from form = ".$partsWarrYear;
+        	
+        	//*********** ADDING YEARS TO MONTHS ****************
+        	
+        	$finalLabourWarranty = $this->convertToSaveTodb($labWarrMonths, $labWarrYear);
+        	$finalPartsWarranty = $this->convertToSaveTodb($partsWarrMonths, $partsWarrYear);
+        	
+        	$model->labour_warranty_months_duration = $finalLabourWarranty;
+        	$model->parts_warranty_months_duration = $finalPartsWarranty;
+        	
+        	
+        	echo "<br>Address line 1 = ".$contactDetailsModel->address_line_1;
+        	
         	if($valid)
         	{
+        		echo "<br>Address line 1 = ".$contactDetailsModel->address_line_1;
+        		$contactDetailsModel->save();
+        		echo "<br>Saved model id = ".$contactDetailsModel->id;
+        		
+        		$model->main_contact_details_id=$contactDetailsModel->id;
+        		
 				if($model->save())
 					$this->redirect(array('view','id'=>$model->id));
+				
         	}
         	else 
         	{
-        		echo "Fill all mandatory fields";
+        		echo "<hr>Fill all mandatory fields";
         	}
-		}
+        	
+		}//end of if(iseet()).
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -218,11 +280,11 @@ class ContractController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
+	protected function performAjaxValidation($model, $contactDetailsModel)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='contract-form')
 		{
-			echo CActiveForm::validate($model);
+			echo CActiveForm::validate(array($model, $contactDetailsModel));
 			Yii::app()->end();
 		}
 	}//end of performAjaxValidation.

@@ -42,11 +42,11 @@
 		//'created',
 		array(
 				'name'=>'Created',
-				'value'=>date('d-M-y H:m',$model->created),
+				'value'=>date('d-M-Y',$model->created),
 		),
 		array(
 				'name'=>'modified',
-				'value'=>date('d-M-y H:m',$model->created),
+				'value'=>date('d-M-Y',$model->modified),
 		),
 		//'modified',
 //		array(

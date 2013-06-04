@@ -168,60 +168,13 @@ class Contract extends CActiveRecord
             {
         		$this->created_by_user_id=Yii::app()->user->id;
         		$this->created=time();
-        		
-        		//SAVING MANAGEMENT CONTACT DETAILS.
-        		
-//        		if($this->management_contact_details_id==)
-//        		{
-//        			echo "IN IF OF CHECKBOX CHECK, SAME ADDRESS AS MAIN";
-//        			//$this->main_contact_details_id="Same as main contact details";
-//        		}
-//        		else 
-//        		{
-//        			echo "IN ELSE OF CHECKBOX CHECK ADDRESS IS DIFFERENT";
-//        			//$this->management_contact_details_id=$this->management_contact_details_id;
-//        		}
-        		
-        		
-        		//SAVING CONTACT DETAILS TABLE.
-        		
-        		$contactDetailsModel = new ContactDetails;
-                $contactDetailsModel->attributes = $_POST['ContactDetails'];
-        		if($contactDetailsModel->save())
-        		{
-        			//echo "lockcode is :".$contactDetailsModel->lockcode."<br>";
-        		}
-        		
-        		//GETTING THE VALUE OF LOCKCODE FROM CONTACT DETAILS TABLE.
-        		
-        		$lockcode=$contactDetailsModel->lockcode;
-        		
-        		$contactDetailsQueryModel = ContactDetails::model()->findByAttributes(
-        											array('lockcode'=>$lockcode)
-													);
-				//echo "ID GOT FROM LOCKCODE : ".$contactDetailsQueryModel->id;		
-
-				$this->main_contact_details_id=$contactDetailsQueryModel->id;
-														
-    			return true;
-            }
+	   			return true;
+	   			
+            }//end of if new record.
             else
             {
-            	//UPDATING CONTACT DETAILS.
-            	
-            	$contractId=$_GET['id'];
-            	
-            	$contractModel=Contract::model()->findByPk($contractId);
-            	//echo "MAIN CONTACT DETAILS ID IN BEFORE SAVE :".$contractId;
-            	$contactDetailsModel=ContactDetails::model()->findByPk($contractModel->main_contact_details_id);
-            	
-            	$contactDetailsModel->attributes=$_POST['ContactDetails'];
-            	if($contactDetailsModel->save())
-            	{
-            		
-            	}									
             	$this->modified=time();
-                return true;
+            	return true;
             }
         }//end of if(parent())
     }//end of beforeSave().

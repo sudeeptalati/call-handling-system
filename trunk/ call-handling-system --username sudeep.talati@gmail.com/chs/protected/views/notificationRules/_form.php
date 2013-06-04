@@ -107,6 +107,19 @@ $(function() {//code inside this function will run when the document is ready
 /**** END OF CODE TO DISPLAY EMAIL AND SMS ON CHECK OF CHECKBOX, FOR ALL CHECKBOXES ******/
  
 </script>
+
+
+<script type="text/javascript">
+		function validate_dropdown(id)
+		{
+			alert("First Selected id = "+id);
+
+			
+			var msg = <?php echo NotificationRules::model()->validate_job('2');?>
+			alert("Message from model func = "+msg);
+		}
+
+</script>
 	
 <?php 
 if($model->notify_others == 1)
@@ -132,19 +145,24 @@ $(function()
 <table style="width:100%;  background-color: #D0E9F1; border-radius: 15px; padding:10px; vertical-align: top;">
 <tr>
 	<td colspan='3'>
-		When job status is changed to <?php 
-// 								echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
-// 													 array('empty'=>'Please Select job status (required)'));
+		When job status is changed to 
+		<?php 
+			//echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
+			//array('empty'=>'Please Select job status (required)'));
 
-								echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
-											array('empty'=>'Please Select job status (required)',
-												));
-							?>
-							
+// ***** CURRENT WORKING DROPDOWN
+			echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
+				array('empty'=>'Please Select job status (required)')
+			);
+
+//echo CHtml::dropDownList('username', 'job_status_id', $jobstatuslist, array('empty' => '---Select User---','onchange'=>'alert(this.value)'));
+
+// echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
+// 		array('empty'=>'Please Select job status (required)', 'onchange'=>'js:validate_dropdown(this.value)')
+// );
+		?>
 	</td>
  
-	
-	
 </tr>
 
 <tr>
@@ -286,34 +304,7 @@ $(function()
 													
 		//echo "<hr>count of result = ".count($contactModel)."<hr>";
 		/*********** CODE TO DISPLAY FORM TO ENTER OTHER PERSONS DETAILS **********/
-		if(count($contactModel) == '0')
-		{/*
-			$notificationContactModel = NotificationContact::model();
-			$notificationContactModel->notification_rule_id = $model->id;
-			
-			echo $form->labelEx($notificationContactModel,'person_name'); 
-			echo $form->textField($notificationContactModel,'person_name',array('size'=>30));
-			echo $form->labelEx($notificationContactModel,'person_info'); 
-			echo $form->textField($notificationContactModel,'person_info',array('size'=>30));
-			echo $form->labelEx($notificationContactModel,'email'); 
-			echo $form->textField($notificationContactModel,'email',array('size'=>30));
-			echo $form->labelEx($notificationContactModel,'mobile'); 
-			echo $form->textField($notificationContactModel,'mobile',array('size'=>30));
-			//echo CHtml::activeTextField($notificationContactModel,'mobile');
-			echo $form->hiddenField($notificationContactModel,'notification_rule_id');
-			echo "<br>Email&nbsp;&nbsp;";
-			echo CHtml::checkBox('others_email_notification', false, array('uncheckValue' => 0));
-			echo "&nbsp;&nbsp;&nbsp;SMS&nbsp;&nbsp;"; 
-			echo CHtml::checkBox('others_sms_notification', false, array('uncheckValue' => 0));
-			echo "<br>";
-			echo CHtml::button('Save Details', array('submit' => array('notificationContact/addNotificationContact')));
-			*/
-    		
-		}//end of if(data not present).
-		/*********** END OF CODE TO DISPLAY FORM TO ENTER OTHER PERSONS DETAILS **********/
-		
-		/********* CODE TO DISPLAY PERSON DETAILS FROM DATABASE *************/
-		else
+		if(count($contactModel) != '0')
 		{
 			?>
 			<table style="margin-bottom:0px;"> 
@@ -431,7 +422,7 @@ $(function()
 
 			/***** END OF CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
 	
-		}//end of else(Printing data from db).
+		}//end of if(Printing data from db).
 		
 		/********* END OF CODE TO DISPLAY PERSON DETAILS FROM DATABASE *************/
 		

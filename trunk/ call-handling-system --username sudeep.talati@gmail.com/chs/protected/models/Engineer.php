@@ -196,46 +196,16 @@ class Engineer extends CActiveRecord
         		//$this->created=date("F j, Y, g:i a");
         		$this->created=time();
         		
-        		//SAVING CONTACT DETAILS TABLE.
-        		
-	            $contactDetailsModel=new ContactDetails;
-				$contactDetailsModel->attributes=$_POST['ContactDetails'];
-				if($contactDetailsModel->save())
-				{
-					//echo "lockcode is :".$contactDetailsModel->lockcode."<br>";
-				}
-				
-				//GETTING THE VALUE OF LOCKCODE FROM CONTACT DETAILS TABLE.
-        		
-        		$lockcode=$contactDetailsModel->lockcode;
-        		
-        		$contactDetailsQueryModel = ContactDetails::model()->findByAttributes(
-        											array('lockcode'=>$lockcode)
-													);
-				//echo "ID GOT FROM LOCKCODE : ".$contactDetailsQueryModel->id;		
-				
-				$this->contact_details_id=$contactDetailsQueryModel->id;
-        		
-    			return true;
-            }
+        		return true;
+            }//end of new record.
             else
             {
-            	
-            	//UPDATING CONTACT DETAILS.
-            	
-            	$engineerId=$_GET['id'];
-            	$engineerModel=Engineer::model()->findByPk($engineerId);
-            	$contactDetailsModel=ContactDetails::model()->findByPk($engineerModel->contact_details_id);
-            	$contactDetailsModel->attributes=$_POST['ContactDetails'];
-            	if($contactDetailsModel->save())
-            	{
-            		
-            	}					
-            	
-            	//UPDATING FULLNAME.
-            	$this->fullname=$this->first_name." ".$this->last_name;
             	$this->modified=time();
-                return true;
+            	$this->fullname=$this->first_name." ".$this->last_name;
+            	
+            	//if()
+            	
+            	return true;
             }
         }//end of if(parent())
     }//end of beforeSave().

@@ -31,23 +31,22 @@
 		'contactDetails.mobile',
 		'contactDetails.email',
 		'contactDetails.postcode',
+			'inactivatedByUser.username',
+		//'created',
+		array( 'name'=>'created', 'value'=>$model->created==null ? "":date("d-M-Y",$model->created)),
+		//'modified',
+		array( 'name'=>'modified', 'value'=>$model->modified==null ? "":date("d-M-Y",$model->modified)),
+		//'inactivated_by_user_id',
+		array( 'name'=>'inactivated_by_user_id', 'value'=>$model->inactivated_by_user_id==null ? '':'inactivatedByUser.username'),
+		//'inactivated_on',
+		array( 'name'=>'inactivated_on', 'value'=>$model->inactivated_on==null ? "":date("d-M-Y",$model->inactivated_on)),
 
-// 		'inactivated_by_user_id',
-// 		'inactivated_on',
+
 // 		'contact_details_id',
 // 		'delivery_contact_details_id',
 // 		//'created_by_user_id',
 //			'createdByUser.username',
 
-		//'created',
-		array(
-				'name'=>'Created',
-				'value'=>date('d-M-y H:m',$model->created),
-		),
-		//'modified',
- 		array(
- 				'name'=>'Modified',
- 				'value'=>date('d-M-y H:m',$model->modified),
-		),
+		
 	),
 )); ?>

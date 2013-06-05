@@ -13,4 +13,4 @@
 <li><?php echo CHtml::link('Add New Engineers',array('create')); ?></li>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'contactDetailsModel'=>$contactDetailsModel, 'deliveryDetailsModel'=>$deliveryDetailsModel)); ?>

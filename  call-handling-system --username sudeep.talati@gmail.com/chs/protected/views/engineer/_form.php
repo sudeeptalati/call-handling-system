@@ -24,20 +24,20 @@ $(document).ready(function(){
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'engineer-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
 	'clientOptions'=>array('validateOnSubmit'=>true),
 )); ?>
 
 
 	<?php 
-	if(!empty($model->contact_details_id))
-	{
-		$contactDetailsModel=ContactDetails::model()->findByPk($model->contact_details_id);
-	}
-	else 
-	{
-		$contactDetailsModel=ContactDetails::model();
-	}
+// 	if(!empty($model->contact_details_id))
+// 	{
+// 		$contactDetailsModel=ContactDetails::model()->findByPk($model->contact_details_id);
+// 	}
+// 	else 
+// 	{
+// 		$contactDetailsModel=ContactDetails::model();
+// 	}
 	?>
 	
 	
@@ -46,8 +46,10 @@ $(document).ready(function(){
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 	
 	<?php 
-		echo $form->errorSummary(array($model, $contactDetailsModel)); 
-		//echo $form->errorSummary($contactDetailsModel);
+		echo $form->errorSummary($model); 
+		echo $form->errorSummary($contactDetailsModel);
+		echo $form->errorSummary($deliveryDetailsModel);
+		
 	?>
 
 	
@@ -190,94 +192,97 @@ $(document).ready(function(){
 			if((!empty($model->delivery_contact_details_id)) && ($model->delivery_contact_details_id != $model->contact_details_id))
 			{
 				$deliveryDetailsModel=ContactDetails::model()->findByPk($model->delivery_contact_details_id);
-				$delivery_checkbox_status = false;
+				//$delivery_checkbox_status = false;
 			}
+			
 			else//***** CALLED WHILE CREATE, CREATES NEW ContactDetails MODEL. 
 			{
  				$deliveryDetailsModel=ContactDetails::model();
- 				$delivery_checkbox_status = true;
+ 				//$delivery_checkbox_status = true;
 			}
 			*/
+			
 			
 			?>
 		
 			 
-			<?php //echo $form->labelEx($model,'delivery_contact_details_id'); ?>
+			<?php echo $form->labelEx($model,'delivery_contact_details_id'); ?>
 			
-			<?php //echo $form->checkBox($model,'delivery_contact_details_id',array('checked'=>'checked','id'=>'delivery-checkbox-id')); ?>
+			<?php echo $form->checkBox($model,'delivery_contact_details_id',array('checked'=>'checked','id'=>'delivery-checkbox-id')); ?>
 			<?php //echo CHtml::checkBox('same_delivery_details', $delivery_checkbox_status, array('id'=>'delivery-checkbox-id')); ?>
-			<?php //echo "Same as above"; ?>
-			<?php //echo $form->error($model,'delivery_contact_details_id'); ?>
+			<?php echo "Same as above"; ?>
+			<?php echo $form->error($model,'delivery_contact_details_id'); ?>
 			
 			
-			<!-- 
+		 
 			<div class="delivery-details-form" style="display:none">
 				<table>
 				<tr>
 					<td>
-						<?php //echo $form->labelEx($deliveryDetailsModel,'[2]address_line_1'); ?>
-						<?php //echo $form->textField($deliveryDetailsModel,'[2]address_line_1'); ?>
-						<?php //echo $form->error($deliveryDetailsModel,'[2]address_line_1'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]address_line_1'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]address_line_1'); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]address_line_1'); ?>
 					</td>
 					<td>
-						<?php //echo $form->labelEx($deliveryDetailsModel,'[2]address_line_2'); ?>
-						<?php //echo $form->textField($deliveryDetailsModel,'[2]address_line_2'); ?>
-						<?php //echo $form->error($deliveryDetailsModel,'[2]address_line_2'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]address_line_2'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]address_line_2'); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]address_line_2'); ?>
 					</td>
 					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]address_line_3'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]address_line_3',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]address_line_3'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]town'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]town',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]town'); ?>
-					</td>
-					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]postcode_s'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]postcode_s',array('size'=>6)); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]postcode_e',array('size'=>6)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]postcode_s'); ?>
-					</td>
-					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]country'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]country',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]country'); ?>
+					<?php echo $form->labelEx($deliveryDetailsModel,'[2]address_line_3'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]address_line_3',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]address_line_3'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]telephone'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]telephone',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]telephone'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]town'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]town',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]town'); ?>
 					</td>
 					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]mobile'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]mobile',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]mobile'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]postcode_s'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]postcode_s',array('size'=>6)); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]postcode_e',array('size'=>6)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]postcode_s'); ?>
 					</td>
 					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]fax'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]fax',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]fax'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]country'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]country',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]country'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]email'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]email',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]email'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]telephone'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]telephone',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]telephone'); ?>
 					</td>
 					<td>
-						<?php //echo $form->labelEx($contactDetailsModel,'[2]website'); ?>
-						<?php //echo $form->textField($contactDetailsModel,'[2]website',array('rows'=>6, 'cols'=>50)); ?>
-						<?php //echo $form->error($contactDetailsModel,'[2]website'); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]mobile'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]mobile',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]mobile'); ?>
+					</td>
+					<td>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]fax'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]fax',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]fax'); ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]email'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]email',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]email'); ?>
+					</td>
+					<td>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]website'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]website',array('rows'=>6, 'cols'=>50)); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]website'); ?>
 					</td>
 				</tr>
 				</table>
+			
 			</div><!-- **** END OF DELIVERY CONTACT DETAILS ******* -->
 			
 			

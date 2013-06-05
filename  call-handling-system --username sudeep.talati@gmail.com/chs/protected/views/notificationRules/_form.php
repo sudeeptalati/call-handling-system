@@ -114,9 +114,6 @@ $(function() {//code inside this function will run when the document is ready
 		{
 			alert("First Selected id = "+id);
 
-			
-			var msg = <?php echo NotificationRules::model()->validate_job('2');?>
-			alert("Message from model func = "+msg);
 		}
 
 </script>
@@ -152,10 +149,22 @@ $(function()
 
 // ***** CURRENT WORKING DROPDOWN
 			echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
-				array('empty'=>'Please Select job status (required)')
-			);
-
-//echo CHtml::dropDownList('username', 'job_status_id', $jobstatuslist, array('empty' => '---Select User---','onchange'=>'alert(this.value)'));
+				 array(
+						'prompt' => 'Please Select job status (required)',
+						'value' => '0',
+						'ajax'  => array(
+								'type'  => 'POST',
+								'url' => CController::createUrl('NotificationRules/notificationPresent/'),
+								'data' => array("job_id" => "js:this.value"),
+								'success'=> 'function(data) {
+										if(data == 1)
+										{
+											alert("Rule is already present for this status, Please update existing rule.");
+										}
+									}',
+								'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
+						)//end of ajax array().
+			));
 
 // echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
 // 		array('empty'=>'Please Select job status (required)', 'onchange'=>'js:validate_dropdown(this.value)')

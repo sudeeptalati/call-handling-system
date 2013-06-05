@@ -37,7 +37,7 @@ class NotificationRulesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','ViewRules'),
+				'actions'=>array('create','update','admin','delete','ViewRules','NotificationPresent'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -479,5 +479,42 @@ class NotificationRulesController extends Controller
 		}
 		$this->render('viewRules',array('model'=>$model));
 	}//end of viewRules().
+	
+	public function actionNotificationPresent()
+	{
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			//pick off the parameter value
+			$job_id = Yii::app()->request->getParam( 'job_id' );
+			if($job_id != '')
+			{
+				//echo "Id is received is ".$job_id;
+				
+				$rulesModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$job_id));
+// 				foreach ($rulesModel as $data)
+// 				{
+// 					echo $data->id;
+// 				}
+				
+				
+				if(count($rulesModel))
+					echo 1;
+				else 
+					echo 0;
+				
+			}//end of if(job_id)
+			else
+			{
+				//echo "Id id not received";
+				echo 0;
+				
+			}
+		
+		}//end of if(AjaxRequest).
+		
+		
+		
+		
+	}//end of NotificationPresent().
 	
 }//end of class.

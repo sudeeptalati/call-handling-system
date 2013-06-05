@@ -491,11 +491,6 @@ class NotificationRulesController extends Controller
 				//echo "Id is received is ".$job_id;
 				
 				$rulesModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$job_id));
-// 				foreach ($rulesModel as $data)
-// 				{
-// 					echo $data->id;
-// 				}
-				
 				
 				if(count($rulesModel))
 					echo 1;
@@ -511,9 +506,6 @@ class NotificationRulesController extends Controller
 			}
 		
 		}//end of if(AjaxRequest).
-		
-		
-		
 		
 	}//end of NotificationPresent().
 	

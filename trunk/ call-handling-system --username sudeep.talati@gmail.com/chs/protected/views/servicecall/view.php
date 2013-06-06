@@ -167,91 +167,46 @@ if(isset($_GET['notify_response']))
 			<?php echo $form->error($customerModel,'fullname'); ?>
 			
 			<?php echo "<br>Address";?>
-			<span id="opener"><img src="<?php echo $baseUrl;?>/images/maps.png" width="30px" height="30px"/></span><br>
-			 <?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+			<span id="opener"><img src="<?php echo $baseUrl;?>/images/maps.png" width="30px" height="30px"/></span><br> 
+			<?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+			 
+			<!-- *********** GOOGLE MAP DISPLAY ***************** -->
+			<br>
 			
-		  	
-		  	<br>
-		  	
-		  	<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
-		  	
-		  	<?php 
-		  	
-		  	if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
-			{
-		  		$trimmed_postcode_s = trim($customerModel->postcode_s);
-		  		$trimmed_postcode_e = trim($customerModel->postcode_e);
-		  	
-			  	//$url = 'http://maps.google.com/maps/geo?q=ka88je,+UK&output=csv&sensor=false';
-			  	$url = "http://maps.google.com/maps/geo?q=$trimmed_postcode_s+$trimmed_postcode_e,+UK&output=csv&sensor=false";
+			<div id="dialog" title="Google Map">
+			  <div id='map_div'></div>
+			</div>
 	
-				$data = @file_get_contents($url);
-				
-				$result = explode(",", $data);
-				
-				//echo $result[0]; // status code
-				//echo $result[1]; // accuracy
-				//echo $result[2]."<br>"; // latitude
-				$latitude = $result[2];
-				//echo $result[3]; // longitude
-				$longitude = $result[3];
-		  	?>
-		  	
-			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	  	 	<script>
 
-			<script>
-				// increase the default animation speed to exaggerate the effect
 				$.fx.speeds._default = 500;
 				$(function() {
 					$( "#dialog" ).dialog({
 						autoOpen: false,
 						show: "blind",
 						hide: "explode",
-						width: 500,
-						width: 500
+						width: 470,
+						
 					});
 			
-					$( "#opener" ).click(function() {
+					$( "#opener" ).click(function() 
+					{
 						$( "#dialog" ).dialog( "open" );
 						drawmap();
-						
+						$("#map_div").load('DisplayMap', {'postcode':'<?php echo $customerModel->postcode; ?>'});
 						return false;
 					});
 				});
-			
-			
 				function drawmap()
 				{
-					///alert (" I M called");
-					var lat= "<?php echo $latitude; ?>";
-					var lon= "<?php echo $longitude ;?>";
-					var mapOptions = {
-					          center: new google.maps.LatLng(lat, lon),
-					          zoom: 12,
-					          mapTypeId: google.maps.MapTypeId.ROADMAP
-					        };
-					var map = new google.maps.Map(document.getElementById("map_canvas"),
-					            mapOptions);
-			
-					   // Add a marker at the address.
-				    var marker = new google.maps.Marker({
-				      map: map,
-				      //position: results[0].geometry.location
-				      position: map.getCenter()
-				    });
-				}//end od function drawmap().
-			
+					console.info('I AM CA:LED');
+				}
+
+				
 			</script>
-	
+			
+			<!-- *********** END OF GOOGLE MAP DISPLAY ***************** -->
 
-			<div id="dialog" title="Map ">
-				<div id="map_canvas" style="width: 475px; height: 450px"> </div> 
-			</div>
-			<?php
-			 	}//end of if(Internet connection).
-			 ?>
-
-			<!-- *****EXPT CODE TO GET GOOGLE MAP ON DIALOGUE BOX ******* -->
 		  	<br>
 		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
 			<br>

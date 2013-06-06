@@ -110,6 +110,9 @@ class NotificationRules extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		$criteria->with = array('jobStatus');
+		$criteria->compare( 'jobStatus.name', $this->status_changed, true );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('job_status_id',$this->job_status_id);

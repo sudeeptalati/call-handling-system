@@ -19,7 +19,7 @@
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+		array('name'=>'id','filter'=>false),
 		'first_name',
 		'last_name',
 		//'active',
@@ -28,10 +28,20 @@
 					'value'=>$model->active ? "Active" : "Inactive",
 			),
 	*/		
-		'company',
-		'vat_reg_number',
+		//'company',
+		array(
+				'name'=>'company',
+				//'filter'=>Engineer::model()->getAllCompanyNames(),
+				'filter'=>false
+		),
+			
+		array('name'=>'vat_reg_number', 'filter'=>false),
 		//'created_by_user_id',
-		array('name'=>'user','value'=>'$data->createdByUser->name'),
+		array(
+			  'name'=>'user',
+			  'value'=>'$data->createdByUser->name',
+				'filter'=>false
+				),
 		/*
 		'notes',
 		'inactivated_by_user_id',

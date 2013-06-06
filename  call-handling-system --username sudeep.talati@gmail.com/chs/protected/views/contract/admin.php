@@ -19,10 +19,15 @@
 	'columns'=>array(
 	//	'id',
 		//'contract_type_id',
-		'name',
-		array('header'=>'Contract Type','name'=>'contract_name','value'=>'$data->contractType->name'),
+		array('name'=>'name', 'filter'=>false),
+		//array('header'=>'Contract Type','name'=>'contract_name','value'=>'$data->contractType->name'),
+		array(
+				'name'=>'contract_type_id',
+				'value'=>'ContractType::item("ContractType",$data->contract_type_id)',
+				'filter'=>ContractType::items('ContractType'),
+		),
 
-		array('name'=>'created_by_user','value'=>'$data->createdByUser->username'),
+		array('name'=>'created_by_user','value'=>'$data->createdByUser->username', 'filter'=>false),
 // 		'main_contact_details_id',
 // 		'management_contact_details',
 // 		'spares_contact_details',

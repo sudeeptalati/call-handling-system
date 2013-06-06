@@ -28,14 +28,15 @@
 		array(  'name'=>'active',
 				'header'=>'Active',
 				'value'=>'($data->active == 0)?"No":"Yes"',
+				'filter'=>array('1'=>'Yes', '0'=>'No'),
 		),
 		//'created_by_user_id',
 		//'createdByUser.name'
 		//array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
 		//'created',
-		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)'),
+		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
 		//'modified',
-		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)'),
+		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)', 'filter'=>false),
 		
 		/*
 		'inactivated',

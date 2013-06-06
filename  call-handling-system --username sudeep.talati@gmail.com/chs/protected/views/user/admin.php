@@ -23,17 +23,12 @@
 		'username',
 		'email',
 		'profile',
-		array(
-		'name'=>'created',
-		'type'=>'datetime',
-		),
+		//'created',
+		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
+		//'modified',
+		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)', 'filter'=>false),
 		
-		
-		
-		/*
-		'password',
-		'modified',
-		*/
+		//'password',
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}{update}',

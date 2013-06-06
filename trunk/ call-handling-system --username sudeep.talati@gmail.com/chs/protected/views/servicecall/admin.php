@@ -45,12 +45,15 @@ $('.search-form form').submit(function(){
 		array(	'header' => 'Product',
             	'name'=>'product_name',
 				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
-				'filter'=>false),
+				'filter'=>false
+				),
+			
 		array('name'=>'model_number','value'=>'$data->product->model_number'),
 		array('name'=>'serial_number','value'=>'$data->product->serial_number'),
 		
 		//'contract_id',
 		//array('name'=>'contract_name','value'=>'$data->contract->name'),
+		
 		//'engineer_id',
 		array(
 			'name'=>'engineer_id',

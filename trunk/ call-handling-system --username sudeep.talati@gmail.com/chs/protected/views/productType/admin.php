@@ -19,9 +19,13 @@
 		//'id',
 		'name',
 		'information',
-		'created_by_user_id',
-		'created',
-		'modified',
+		//'created_by_user_id',
+		'createdByUser.name',
+		//'created',
+		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
+		//'modified',
+		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)', 'filter'=>false),
+		
 		//'server_product_type_id',
 		array(
 			'class'=>'CButtonColumn',

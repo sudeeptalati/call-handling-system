@@ -20,22 +20,29 @@
 	'columns'=>array(
 		//'id',
 		//'job_status_id',
-		array('name'=>'status_changed','value'=>'$data->jobStatus->name'),
+		//array('name'=>'status_changed','value'=>'$data->jobStatus->name'),
+			array(
+					'name'=>'job_status_id',
+					'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
+					'filter'=>JobStatus::items('JobStatus'),
+			),
 		//'active',
 		array(
 			'name'=>'active',
-			'value'=>'($data->active == 0) ? "No" : "Yes"'
+			'value'=>'($data->active == 0) ? "No" : "Yes"',
+				'filter'=>array('1'=>'Yes', '0'=>'No'),
 		),
 		//'customer_notification_code',
-		array('name'=>'customer_notification','value'=>'$data->customerNotificationCode->notify_by'),
+		array('name'=>'customer_notification','value'=>'$data->customerNotificationCode->notify_by', 'filter'=>false),
 		//'engineer_notification_code',
-		array('name'=>'engineer_notification','value'=>'$data->engineerNotificationCode->notify_by'),
+		array('name'=>'engineer_notification','value'=>'$data->engineerNotificationCode->notify_by', 'filter'=>false),
 		//'warranty_provider_notification_code',
-		array('name'=>'warranty_provider_notification','value'=>'$data->warrantyProviderNotificationCode->notify_by'),
+		array('name'=>'warranty_provider_notification','value'=>'$data->warrantyProviderNotificationCode->notify_by', 'filter'=>false),
 		//'notify_others',
 		array(
 			'name'=>'notify_others',
-			'value'=>'($data->notify_others == 0) ? "No" : "Yes"'
+			'value'=>'($data->notify_others == 0) ? "No" : "Yes"',
+			'filter'=>array('1'=>'Yes', '0'=>'No'),
 		),
 		array(            
             //'name'=>'custom_column',

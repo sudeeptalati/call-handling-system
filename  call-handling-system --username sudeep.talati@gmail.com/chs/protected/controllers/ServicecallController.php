@@ -34,7 +34,7 @@ class ServicecallController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('exportTest','DisplayDropdown','export','EnggJobReport','SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin','htmlPreview','DownloadReport'),
+				'actions'=>array('DisplayMap','exportTest','DisplayDropdown','export','EnggJobReport','SelectEngineer','engineerDiary','ChangeEngineerOnly','addProduct','freeSearch','SearchEngine','PrintAllJobsForDay','UpdateServicecall','ExistingCustomer','Report','preview','create','update','admin','htmlPreview','DownloadReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -893,6 +893,18 @@ class ServicecallController extends Controller
 		echo "<br> Message returned for ".$notifiedTo." = ".$msg;
 		return $msg;
 	}//end of createMessage().
+	
+	
+	public function actionDisplayMap()
+	{
+		//echo 'dialog content here';
+		$postcode = $_POST['postcode'];
+		//echo "<br>Value of postcode in controller = ".$postcode;
+		$this->renderPartial('displayMap', array('postcode'=>$postcode));
+		
+	}//end of actionDisplayMap
+
+
 	
 	
 }//end of class.

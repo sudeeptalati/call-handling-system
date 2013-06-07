@@ -28,13 +28,8 @@
 					'value'=>$model->active ? "Active" : "Inactive",
 			),
 	*/		
-		//'company',
-		array(
-				'name'=>'company',
-				//'filter'=>Engineer::model()->getAllCompanyNames(),
-				'filter'=>false
-		),
-			
+		'company',
+		
 		array('name'=>'vat_reg_number', 'filter'=>false),
 		//'created_by_user_id',
 		array(

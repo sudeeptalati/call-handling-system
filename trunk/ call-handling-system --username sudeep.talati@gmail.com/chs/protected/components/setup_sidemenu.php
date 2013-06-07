@@ -17,7 +17,7 @@ $this->menu=array(
 	//array('label'=>'Preferences', 'url'=>array('/preferences/admin')),
 	array('label'=>'Restore Database', 'url'=>array('setup/restoreDatabase')),
 	//array('label'=>'SMS Notifications', 'url'=>array('setup/smsSettingsForm')),
-	array('label'=>'Spares Cloud URL Setup', 'url'=>array('setup/cloudSetup')),
+	array('label'=>'Spares Cloud URL Setup', 'url'=>array('setup/cloudUrlUpdated')),
 	array('label'=>'Users', 'url'=>array('User/admin')),
 	//array('label'=>'Advance Settings', 'url'=>array('/advanceSettings/admin')),
 	array('label'=>'About & Help', 'url'=>array('setup/about')),

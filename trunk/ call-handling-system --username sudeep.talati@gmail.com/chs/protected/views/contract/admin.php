@@ -19,7 +19,7 @@
 	'columns'=>array(
 	//	'id',
 		//'contract_type_id',
-		array('name'=>'name', 'filter'=>false),
+		array('name'=>'name'),
 		//array('header'=>'Contract Type','name'=>'contract_name','value'=>'$data->contractType->name'),
 		array(
 				'name'=>'contract_type_id',

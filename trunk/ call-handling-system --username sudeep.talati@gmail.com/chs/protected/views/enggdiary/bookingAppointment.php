@@ -465,7 +465,8 @@ function isTouchDevice()
 		    	//alert('Appointment Created');
 		    	$.blockUI({ message: "Appointmant is created"});
 		    	setTimeout($.unblockUI, 2000);
-		    	location.href="../viewFullDiary?engg_id="+engg_id;
+		    	//location.href="../viewFullDiary?engg_id="+engg_id;
+		    	location.href="../../servicecall/"+service_id;
 		    },
 	        error: function()
 	        {

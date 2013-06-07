@@ -432,7 +432,7 @@ class Servicecall extends CActiveRecord
 	
 	public function enggJobReport($engg_id, $status_id, $startDate, $endDate)
 	{
-		echo "<br> In enggJobReport func ";
+		//echo "<br> In enggJobReport func ";
 		
 		//$engg_id = '90000001';
 		//$status_id = '1';
@@ -446,7 +446,7 @@ class Servicecall extends CActiveRecord
 		
 		if($engg_id == 0 && $status_id != 0 && $from_date != '' && $endDate != '')
 		{
-			echo "<br> You hv not entered engg id";
+			//echo "<br> You hv not entered engg id";
 			$criteria=new CDbCriteria();
 			//$criteria->condition = 'engineer_id='.$engg_id;
 			$criteria->condition = 'job_status_id='.$status_id;
@@ -464,7 +464,7 @@ class Servicecall extends CActiveRecord
 		
 		elseif ($status_id == 0 && $engg_id != 0 && $from_date != '' && $endDate != '')
 		{
-			echo "You have not entered status";
+			//echo "You have not entered status";
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			//$criteria->addCondition('job_status_id='.$status_id);
@@ -481,7 +481,7 @@ class Servicecall extends CActiveRecord
 		
 		elseif ($from_date == '' && $to_date == '' && $engg_id != 0 && $status_id != 0)
 		{
-			echo "You have not entered any dates";
+			//echo "You have not entered any dates";
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			$criteria->addCondition('job_status_id='.$status_id);
@@ -499,7 +499,7 @@ class Servicecall extends CActiveRecord
 		
 		elseif($engg_id == 0 && $status_id == 0)
 		{
-			echo "<br>You have entered only dates";
+			//echo "<br>You have entered only dates";
 			
 			$criteria=new CDbCriteria();
 			//$criteria->condition = 'engineer_id='.$engg_id;
@@ -520,7 +520,7 @@ class Servicecall extends CActiveRecord
 		
 		elseif($engg_id == 0 && $from_date == '' && $endDate == '')
 		{
-			echo "<br>You have entered only job status";
+			//echo "<br>You have entered only job status";
 			
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'job_status_id='.$status_id;
@@ -537,7 +537,7 @@ class Servicecall extends CActiveRecord
 		
 		else 
 		{
-			echo "<br>All fields are entered";
+			//echo "<br>All fields are entered";
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			//$criteria->condition = 'engineer_id=0';

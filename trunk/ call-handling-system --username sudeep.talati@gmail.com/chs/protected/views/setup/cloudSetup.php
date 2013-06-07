@@ -44,9 +44,9 @@ foreach($rows as $data)
 <?php echo $cloud_url;?>
 </textarea>
 
-<br>
+<br><br>
 
-<input name="cloud_url_update"  type="submit" style="width:100px" value="Save Changes">
+<input name="cloud_url_update"  type="submit" style="width:100px" value="Save">
 
 </form>
 

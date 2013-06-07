@@ -56,17 +56,17 @@ $baseUrl= Yii::app()->request->baseUrl;
 	<table style="width:100%;">
 	<tr>
 		
-		<td style="margin:50px; text-align:left;" >
+		<td style="margin:50px; text-align:left;">
+			<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:none;' >
 			<?php echo CHtml::image($company_logo,"ballpop",array()); ?>
-			<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:  none;' >
-			<?php //echo CHtml::image($company_logo); ?>
 			</a>
 		</td>
 		
 		<td style="margin:20px; text-align:right;" ><div id="logo" >
-		<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:  none;' >
+		<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:none;' >
 			<?php echo $header_name; ?><br><small>Call Handling</small></div>
 		</a>
+		
 		</td>
 		
 	</tr>

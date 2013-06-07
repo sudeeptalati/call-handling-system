@@ -101,10 +101,17 @@ if(isset($_GET['notify_response']))
 	<tr>
 		<td><b><a href="javascript: history.go(-1)">Back</a></b></td>
 		<td style="text-align:right"><b>
-				<?php 	echo CHtml::link('Edit',array('update',
-											'id'=>$model->id)
-										);
+				<?php
+				if($model->job_status_id > 100)
+				{
+					echo CHtml::link('Edit',array('update','id'=>$model->id), array('onclick'=>'return false;','style'=>'color:gray;'))."<small>(Call is locked)</small>";
+					//echo "<br>here";
+				} 	
+				else
+					echo CHtml::link('Edit',array('update','id'=>$model->id)); 
+				
 				?>
+				
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<?php 
 					$previewImgUrl = Yii::app()->request->baseUrl.'/images/pdf.gif';
@@ -114,8 +121,8 @@ if(isset($_GET['notify_response']))
 // 						echo CHtml::link('Preview',array('Preview',
 // 											'id'=>$model->id), array('target'=>'_blank')
 // 										);
-						echo CHtml::link($previewImg, array('Preview',
-											'id'=>$model->id), array('target'=>'_blank'))				
+						echo CHtml::link($previewImg, array('Preview','id'=>$model->id), array('target'=>'_blank'));
+										
 				?>
 				
 			</b>
@@ -128,8 +135,8 @@ if(isset($_GET['notify_response']))
 // 				echo CHtml::link('HTML',array('htmlPreview',
 // 						'id'=>$model->id), array('target'=>'_blank')
 // 				);
-				echo CHtml::link($htmlImg, array('htmlPreview',
-						'id'=>$model->id), array('target'=>'_blank'))
+				echo CHtml::link($htmlImg, array('htmlPreview','id'=>$model->id), array('target'=>'_blank'));
+				
 			?>
 			 
 			</b>
@@ -148,6 +155,7 @@ if(isset($_GET['notify_response']))
 		<th><b>Job Status : </b> 
 		<h6 style="color:maroon"><?php echo $model->jobStatus->name; ?></h6></th>
 		<th >Service Ref. No.# <h1 style="color:green"><?php echo $model->service_reference_number;?></h1></th>
+		
 	</tr>
 	
 	<tr>

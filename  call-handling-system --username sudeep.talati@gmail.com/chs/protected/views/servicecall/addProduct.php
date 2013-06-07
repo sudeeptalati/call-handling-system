@@ -7,7 +7,7 @@
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+
 	
 	
 	
@@ -22,6 +22,11 @@
 		
 		$productModel = Product::model();
 		
+	?>
+	
+	<?php 
+		echo $form->errorSummary($model);
+		echo $form->errorSummary($productModel);
 	?>
 	
 	<table>
@@ -150,7 +155,7 @@
 				
 				<?php echo $form->labelEx($productModel,'product_type_id'); ?>
 				<?php //echo $form->textField($model,'product_type_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes());?>
+				<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('prompt'=>'N/A'));?>
 				<?php echo $form->error($productModel,'product_type_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'purchased_from'); ?>

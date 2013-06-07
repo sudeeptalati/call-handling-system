@@ -430,25 +430,42 @@ class ServicecallController extends Controller
 		$model->job_status_id=1;
 		
 		$productModel = new Product;
-	
-		if(isset($_POST['Product']))
-		{
-			$productModel->customer_id=$cust_id;
-			$productModel->attributes=$_POST['Product'];
-			if($productModel->save())
-				echo "saved";
-		}
 		
-		if(isset($_POST['Servicecall']))
-	    {
-	    	$model->customer_id=$cust_id;
-	     	$model->product_id=$productModel->id;
-	     	$model->engineer_id=$productModel->engineer_id;
-	     	$model->contract_id=$productModel->contract_id;
-	        $model->attributes=$_POST['Servicecall'];
-	        if($model->validate())
-	        {
-	        	if($model->save())
+		// uncomment the following code to enable ajax-based validation
+		/*
+		 if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-addProduct-form')
+		 {
+			echo CActiveForm::validate($model, $productModel);
+			Yii::app()->end();
+		 }
+		*/
+		
+		
+		if(isset($_POST['Product']) && isset($_POST['Servicecall']))
+		{
+			
+			$product_valid = $productModel->validate();
+			$service_valid = $model->validate();
+
+			if($product_valid && $service_valid)
+			{
+				$productModel->customer_id=$cust_id;
+				$productModel->attributes=$_POST['Product'];
+				if($productModel->validate())
+				{
+					if($productModel->save())
+						echo "saved";
+				}
+				else 
+					echo "<br>Enter all product fields";
+			
+				//******* SAVING SERVICECALL DETAILS ************
+				$model->customer_id=$cust_id;
+		     	$model->product_id=$productModel->id;
+		     	$model->engineer_id=$productModel->engineer_id;
+		     	$model->contract_id=$productModel->contract_id;
+		        $model->attributes=$_POST['Servicecall'];
+		        if($model->save())
 				{
 					//echo $model->product_id;
 					$engg_id=$model->engineer_id;
@@ -456,15 +473,18 @@ class ServicecallController extends Controller
 					//$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
 					$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
 					//echo "saved";
-	            	// form inputs are valid, do something here
-	            	//return;
-	        	}
-	        	else 
-	        	{
-	        		echo "not saved";
-	        	}
-	    	}//END OF IF(model (validate)).
-	    }//end of if(isset()).
+		           	// form inputs are valid, do something here
+		           	//return;
+		        }//end of SERVICECALL save
+		        else 
+		        {
+		        	echo "not saved";
+		        }
+		    
+			}//end of PRODUCT and SERVICE validate.
+			else 
+				echo "<br><b>Enter all mandatory fields of servicecall and product</b>";
+		}//END OF IF ISSET().
 	    
 	    $this->render('addProduct',array('model'=>$model));
 	}//end of addProduct().
@@ -676,6 +696,7 @@ class ServicecallController extends Controller
 	
 	public function actionExport()
 	{
+		$model=new Servicecall();
 		//echo "in action test";
 		//echo "<br>Value of engg id from engineer_id  = ".$_GET['engglist'];
 		$engg_id = $_GET['engglist'];
@@ -685,8 +706,26 @@ class ServicecallController extends Controller
 		$startDate = $_GET['startDate'];
 		//echo "<br>Start date = ".$_GET['endDate'];
 		$endDate = $_GET['endDate'];
+		$exportData = '';
+		
+		if($startDate != '')
+		{
+			$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
+			$this->render('engg_job_report',
+					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)
+			);
+		}
+		
+		else 
+		{
+			//echo "<br>Enter Start date";
+			$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>1));
+		}
 			
-		$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
+		
+		
+			
+		
 		
 //		$serviceData = $exportData->getData();
 //	
@@ -698,9 +737,7 @@ class ServicecallController extends Controller
 
 		
 	
-		$this->render('engg_job_report',
-					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)		 
-				);
+		
 		
 	}//end of export.
 	

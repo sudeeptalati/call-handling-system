@@ -3,6 +3,31 @@
 $baseUrl=Yii::app()->request->baseUrl;
 $exportUrl = $baseUrl.'/Servicecall/export/';
 
+if(isset($date_error) == 1)
+{
+	//echo "<br>Start date not filled";
+	
+	$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
+			'id'=>'date_error',
+			// additional javascript options for the dialog plugin
+			'options'=>array(
+					'title'=>'Enter start date',
+					'autoOpen'=>true,
+			),
+	));
+	
+	echo 'Please enter start date';
+	
+	$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+}
+// else
+// 	echo "<br>ALL OK";
+
+
+
+
+
 $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	'id'=>'engg-status-dropdown-form',
 	'enableAjaxValidation'=>false,
@@ -11,6 +36,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 )); 	
 	
 ?>
+
 <div id="container" style="width:900px;height:200px;text-align: center ;">
 
 <div id="menu" style="padding:1em;background-color:#D0F2FF;height:200px;float:left;border-top-left-radius: 25px;border-bottom-left-radius: 25px;">
@@ -36,14 +62,17 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	?>
  
 	End Date*
-	<?php 
+	<?php
+	$today = date('d-M-y', time()); 
 	
 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 	    'name'=>'endDate',
-	    // additional javascript options for the date picker plugin
+		'value'=>$today,
+		// additional javascript options for the date picker plugin
 	    'options'=>array(
 	        'showAnim'=>'fold',
 			'dateFormat' => 'd-M-y',
+			
 	    ),
 	    'htmlOptions'=>array(
 	        'style'=>'height:20px;'

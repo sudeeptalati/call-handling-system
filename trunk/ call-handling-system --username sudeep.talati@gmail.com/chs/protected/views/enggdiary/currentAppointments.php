@@ -25,6 +25,7 @@
 
 if(isset($_POST['show_all']))
 {
+	//echo "<br>Show all clicked";
 	$dataUrl = $baseUrl.'/api/ViewFullDiaryJsonData/?engg_id='.$future_engg_id;
 }
 ?>

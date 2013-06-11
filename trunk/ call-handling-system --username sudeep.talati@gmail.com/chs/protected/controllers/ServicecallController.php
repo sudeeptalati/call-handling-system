@@ -104,7 +104,7 @@ class ServicecallController extends Controller
 	
 	}//end of HTML Preview.
 	
-	
+	/*
 	public function actionDownloadReport($id)
 	{
 		$model=$this->loadModel($id);
@@ -122,6 +122,7 @@ class ServicecallController extends Controller
 		echo $msgHTML;
 		exit;
 	}//end of actionDownloadReport().
+	*/
 	
 	
 	/**

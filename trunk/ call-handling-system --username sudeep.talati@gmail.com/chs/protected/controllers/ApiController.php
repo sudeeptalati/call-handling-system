@@ -42,9 +42,10 @@ class ApiController extends Controller
 	    	{
 	    		if($data->status!= '102')
 	    		{
-		    		//echo $data->servicecall_id;
+		    		//echo "<br>Servicecall id in API contr = ".$data->servicecall_id;
 		    		$customer_name=$data->servicecall->customer->fullname;
-		    		$customer_postcode=$data->servicecall->customer->postcode;
+		    		//echo "<br>Customer name from id = ".$customer_name;
+	    			$customer_postcode=$data->servicecall->customer->postcode;
 		    		$engineer_name = $data->engineer->fullname;
 		    		//$engineer_name = $data->engineer_id;
 		    		

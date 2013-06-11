@@ -70,9 +70,7 @@ $('.search-form form').submit(function(){
 			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
 			'filter'=>JobStatus::items('JobStatus'),
 		),
-		array(
-			'name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)'
-		),
+		array('name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)', 'filter'=>false),
 		/*
 		'insurer_reference_number',
 		'job_status_id',

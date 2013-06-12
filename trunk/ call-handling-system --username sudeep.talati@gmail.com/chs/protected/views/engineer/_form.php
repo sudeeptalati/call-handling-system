@@ -202,13 +202,19 @@ $(document).ready(function(){
 			}
 			*/
 			
+			if(($model->delivery_contact_details_id == '') || ($model->delivery_contact_details_id == $model->contact_details_id))
+				$delivery_checkbox_status = true;
+			else 
+				$delivery_checkbox_status = false;
+			
 			
 			?>
 		
 			 
 			<?php echo $form->labelEx($model,'delivery_contact_details_id'); ?>
 			
-			<?php echo $form->checkBox($model,'delivery_contact_details_id',array('checked'=>'checked','id'=>'delivery-checkbox-id')); ?>
+			<?php //echo $form->checkBox($model,'delivery_contact_details_id',array('checked'=>'checked','id'=>'delivery-checkbox-id')); ?>
+			 <?php echo CHtml::CheckBox('delivery_checkbox', $delivery_checkbox_status, array ('value'=>'', 'id'=>'delivery-checkbox-id')); ?>
 			<?php //echo CHtml::checkBox('same_delivery_details', $delivery_checkbox_status, array('id'=>'delivery-checkbox-id')); ?>
 			<?php echo "Same as above"; ?>
 			<?php echo $form->error($model,'delivery_contact_details_id'); ?>

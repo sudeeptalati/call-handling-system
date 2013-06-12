@@ -82,32 +82,39 @@ class EngineerController extends Controller
 			
 			$engg_valid=$model->validate();
 			$contact_details_valid=$contactDetailsModel->validate();
-			$valid=$deliveryDetailsModel->validate() && $valid;
+			//$valid=$deliveryDetailsModel->validate() && $valid;
 			
 			if($engg_valid && $contact_details_valid)
         	{
         		
         		//******* ContactDetails MODEL TO SAVE CONTACT DETAILS.
         		 	
-        		echo"<br>Address 1 of engg contact details = ".$contactDetailsModel->address_line_1;
+        		//echo"<br>Address 1 of engg contact details = ".$contactDetailsModel->address_line_1;
         		$contactDetailsModel->save();
-        		echo "<br>id if contact details = ".$contactDetailsModel->id;
+        		//echo "<br>id if contact details = ".$contactDetailsModel->id;
         		$model->contact_details_id = $contactDetailsModel->id;
         			
-        		echo "<br>Delivery contact details checkbox status = ".$model->delivery_contact_details_id;
-        			
-		  		//****** MEANS DELIVERY ADDRESS IS DIFFERENT THAN CONTACT ADDRESS *********
-        		if($model->delivery_contact_details_id == 0)
+        		//******  MAENS DELIVERY ADDRESS IS SAME AS CONTACT ADDRESS *********
+        		if(isset($_POST['delivery_checkbox']))
         		{
-        			
-	        		echo "<br>Address 1 of delivery contact details = ".$deliveryDetailsModel->address_line_1;
-	        		$deliveryDetailsModel->save();
-	        		echo "<br>Delivery contact details id = ".$deliveryDetailsModel->id;
-	        		$model->delivery_contact_details_id = $deliveryDetailsModel->id;
-        		}
-        		else//******* MAENS DELIVERY ADDRESS IS SAME AS CONTACT ADDRESS *********
+        			echo "<br>Delivery contact details checkbox status = ".$_POST['delivery_checkbox'];
         			$model->delivery_contact_details_id = $contactDetailsModel->id;
-        		
+        			
+        		}//end if if()isset(checkbox) i.e, checkbox is checked.
+        		else //******* MEANS DELIVERY ADDRESS IS DIFFERENT THAN CONTACT ADDRESS  *********
+        		{
+        			echo "<br>Checbox is checked";
+        			
+        			echo "<br>Address 1 of delivery contact details = ".$deliveryDetailsModel->address_line_1;
+        			$deliveryDetailsModel->lockcode = 0;
+        			if($deliveryDetailsModel->save())
+        			{
+        				echo "<br>Delivery contact details id = ".$deliveryDetailsModel->id;
+        				$model->delivery_contact_details_id = $deliveryDetailsModel->id;
+        			}
+        			else
+        				echo "<br>NOT SAVED DELIVRY MODEL";
+        		}//end of else i.e, checkbox is not checked.
         		
 				if($model->save())
 				{
@@ -140,6 +147,8 @@ class EngineerController extends Controller
 		
 		$deliveryDetailsModel=ContactDetails::model()->findByPk($model->delivery_contact_details_id);
 		
+		$create_new_contact = '';
+		$delivery_checkbox = '';
 		
 		$earlier_active = $model->active;
 		//echo "<br>Actuve value before = ".$earlier_active;
@@ -152,11 +161,9 @@ class EngineerController extends Controller
 		{
 			$model->attributes=$_POST['Engineer'];
 			
-			$contactDetailsModel->attributes=$_POST['ContactDetails'][1];
+			$contactDetailsModel->attributes=$_POST['ContactDetails'][1];// GETTING CONTACT DETAILS
 			
-			if($model->delivery_contact_details_id != $model->contact_details_id)
-				$deliveryDetailsModel->attributes=$_POST['ContactDetails'][2];
-			 
+			$deliveryDetailsModel->attributes=$_POST['ContactDetails'][2];// GETTING CONTACT DETAILS FROM BELOW FORM.
 			
 			$valid=$model->validate();
 			$valid=$contactDetailsModel->validate() && $valid;
@@ -169,15 +176,53 @@ class EngineerController extends Controller
 				$contactDetailsModel->save();
 				$model->contact_details_id = $contactDetailsModel->id;
 				
-				//********** SAVING DELIVERY CONTACT MODEL ************
-				if($model->delivery_contact_details_id != $model->contact_details_id)
+				//******** CHECKING same as above CHECKBOX STATUS ***********
+				if(isset($_POST['delivery_checkbox']))
 				{
-					$deliveryDetailsModel->save();
-					$model->delivery_contact_details_id = $deliveryDetailsModel->id;
+					//echo "<br>checkbox is checked, i.e, SAME contact id";
+					$delivery_checkbox = 1;
 				}
-				else 
-					$model->delivery_contact_details_id = $contactDetailsModel->id;
+				else
+				{
+					//echo "<br>Ccheckbox is not checked, DIFFERENT contact id";
+					$delivery_checkbox = 0;
+				}
+				//******** END OF CHECKING same as above CHECKBOX STATUS ***********
 				
+				//********** COMPARING IF ALL FIELDS ARE SAME OR NOT OF BOTH contact_details MODELS *******
+				$model_arr1 = $contactDetailsModel->attributes;
+				$model_arr2 = $deliveryDetailsModel->attributes;
+				
+				foreach($model_arr1 as $key => $value)
+				{
+					if($model_arr1[$key] != $model_arr2[$key])
+					{
+						//do something
+						//echo "<br>".$model_arr2[$key]." this field is differnt, create new contact_details";
+						$create_new_contact = 1;
+					}
+				}//end of foreach.
+				//********** END OF COMPARING IF ALL FIELDS ARE SAME OR NOT OF BOTH contact_details MODELS *******
+				
+				//CREAT NEW contact_details MODEL IF CHECKBOX IS NOT CHECKED AND IF THERE IS ANY CHANGE IN BOTH contact_details MODELS 
+				if($create_new_contact == 1 && $delivery_checkbox == 0)
+				{
+					//echo "<br>Create new contact details model";
+					$newDeliveryContactModel = new ContactDetails();
+					$newDeliveryContactModel->attributes=$_POST['ContactDetails'][2];
+					$newDeliveryContactModel->save();
+					//echo "<br>New delivery model id = ".$newDeliveryContactModel->id;
+					$model->delivery_contact_details_id = $newDeliveryContactModel->id;
+					
+				}//end of if create_new_contact.
+				else 
+				{
+					//echo "<br>Everything same";
+					$model->delivery_contact_details_id = $model->contact_details_id;
+				}
+				//CREAT NEW contact_details MODEL IF CHECKBOX IS NOT CHECKED AND IF THERE IS ANY CHANGE IN BOTH contact_details MODELS
+				
+				echo "<br>Delivery contact details id = ".$model->delivery_contact_details_id;
 				
 				//******* CHECK IF ACTIVE IS CHANGED. I.E, IF ENGINEER IS DEACTIVATED.
 				echo "<br>Active value now = ".$model->active;

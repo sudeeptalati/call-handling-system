@@ -67,8 +67,8 @@ $('.search-form form').submit(function(){
 		
 		array(
 			'name'=>'job_status_id',
-			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
-			'filter'=>JobStatus::items('JobStatus'),
+			'value'=>'JobStatus::published_item("JobStatus",$data->job_status_id)',
+			'filter'=>JobStatus::published_items('JobStatus'),
 		),
 		array('name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)', 'filter'=>false),
 		/*

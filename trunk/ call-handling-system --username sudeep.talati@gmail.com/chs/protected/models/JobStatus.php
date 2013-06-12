@@ -128,15 +128,60 @@ class JobStatus extends CActiveRecord
 	
 	public function publishedStatus()
 	{
-		return JobStatus::model()->findAllByAttributes(
-    								array('published'=>1 )
-    								);/*WE will only display the published Status*/
+		return JobStatus::model()->findAllByAttributes(array('published'=>1 ));/*WE will only display the published Status*/
 	}
 	
 	
 	
-	/*MY CUSTOM STATUS*/
+	//************ FUNCTION TO CREATE DROPDOWN FILTER WITH ONLY PUBLISHED STATUS IN ADMIN VIEW ****************
 	
+	
+	private static $_published_items=array();
+	
+	/**
+	 * Returns the items for the specified type.
+	 * @param string item type (e.g. 'PostStatus').
+	 * @return array item names indexed by item code. The items are order by their position values.
+	 * An empty array is returned if the item type does not exist.
+	 */
+	public static function published_items($type)
+	{
+		if(!isset(self::$_published_items[$type]))
+			self::published_loadItems($type);
+		return self::$_published_items[$type];
+	}
+
+	/**
+	 * Returns the item name for the specified type and code.
+	 * @param string the item type (e.g. 'PostStatus').
+	 * @param integer the item code (corresponding to the 'code' column value)
+	 * @return string the item name for the specified the code. False is returned if the item type or code does not exist.
+	 */
+	public static function published_item($type,$code)
+	{
+		if(!isset(self::$_published_items[$type]))
+			self::published_loadItems($type);
+		return isset(self::$_published_items[$type][$code]) ? self::$_published_items[$type][$code] : false;
+	}
+
+	/**
+	 * Loads the lookup items for the specified type from the database.
+	 * @param string the item type
+	 */
+	private static function published_loadItems($type)
+	{
+		self::$_published_items[$type]=array();
+		$models=self::model()->findAll(array(
+			'condition'=>'published=1',
+			'order'=>'view_order ASC',
+		));
+		foreach($models as $model)
+			self::$_published_items[$type][$model->id]=$model->name;
+	}
+	
+	//************ END OF FUNCTION TO CREATE DROPDOWN FILTER IN ADMIN VIEW ****************
+	
+	//************ FUNCTION TO CREATE DROPDOWN FILTER WITH  IN ADMIN VIEW, WITH ALL STATTUS FOR NOTIFICATION ADMIN ****************
 	
 	private static $_items=array();
 	
@@ -145,14 +190,15 @@ class JobStatus extends CActiveRecord
 	 * @param string item type (e.g. 'PostStatus').
 	 * @return array item names indexed by item code. The items are order by their position values.
 	 * An empty array is returned if the item type does not exist.
-	 */
+	*/
+	
 	public static function items($type)
 	{
 		if(!isset(self::$_items[$type]))
 			self::loadItems($type);
 		return self::$_items[$type];
 	}
-
+	
 	/**
 	 * Returns the item name for the specified type and code.
 	 * @param string the item type (e.g. 'PostStatus').
@@ -165,7 +211,7 @@ class JobStatus extends CActiveRecord
 			self::loadItems($type);
 		return isset(self::$_items[$type][$code]) ? self::$_items[$type][$code] : false;
 	}
-
+	
 	/**
 	 * Loads the lookup items for the specified type from the database.
 	 * @param string the item type
@@ -174,12 +220,14 @@ class JobStatus extends CActiveRecord
 	{
 		self::$_items[$type]=array();
 		$models=self::model()->findAll(array(
-			//'condition'=>'published=1',
-			'order'=>'view_order ASC',
+				//'condition'=>'published=1',
+				'order'=>'view_order ASC',
 		));
 		foreach($models as $model)
 			self::$_items[$type][$model->id]=$model->name;
 	}
+	
+	//************ FUNCTION TO CREATE DROPDOWN FILTER WITH IN ADMIN VIEW ****************
 	
 	
 	protected function beforeSave()
@@ -209,5 +257,20 @@ class JobStatus extends CActiveRecord
 		return CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');
     	  
     }//end of getAllStatuses.
+    
+    public function getAllPublishedListdata()
+    {
+    	
+    	$publishedStatus=JobStatus::model()->findAll(array(
+    					'condition'=>'published=1',
+    					'order'=>'view_order ASC',
+    				)
+    	);
+    	
+    	//$publishedStatus = JobStatus::model()->findAllByAttributes(array('published'=>1 ));
+    	return CHtml::listData($publishedStatus, 'id', 'name');
+    	
+    	
+    }//end of getAllPublishedListdata. 
 	
 }//end of class.

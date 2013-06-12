@@ -307,7 +307,7 @@ function isTouchDevice()
 							//alert('service id = '+service_id);
 							
 							createNewDiaryEntry(clicked_date_to_display, engg_id, service_id);
-							setTimeout($.unblockUI, 1000);
+							setTimeout($.unblockUI, 7000);
 							return true;
 						});//end of yes.
 				
@@ -464,7 +464,7 @@ function isTouchDevice()
 	        { 
 		    	//alert('Appointment Created');
 		    	$.blockUI({ message: "Appointmant is created"});
-		    	setTimeout($.unblockUI, 2000);
+		    	setTimeout($.unblockUI, 7000);
 		    	//location.href="../viewFullDiary?engg_id="+engg_id;
 		    	location.href="../../servicecall/"+service_id;
 		    },

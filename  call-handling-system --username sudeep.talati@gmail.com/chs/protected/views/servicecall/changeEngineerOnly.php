@@ -20,6 +20,26 @@ $servicecallModel = Servicecall::model()->findByPk($service_id);
  </center>
  
  <br>
+ 
+ <script type="text/javascript">
+
+function engg_change(id)
+{
+	
+	//alert("Selected id = "+id);
+	if(id == '')
+	{
+		alert("All engineers cannot be selected..!!!!!!! Select any one engineer.");
+		//document.getElementById('change_engineer_submit').disabled = true;
+		$('#change_engineer_submit').attr("disabled", true); 
+	}
+	else
+		$('#change_engineer_submit').attr("disabled", false);
+}//end if engg_change().
+ 
+
+
+ </script> 
 
 <?php
 
@@ -39,10 +59,10 @@ $model = Servicecall::model();
 $data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
 
 echo $updateServicecallChangeEngineerForm->dropDownList($model, 'engineer_id', $data,
-		array('empty'=>'All Engineers')
-	);
+									array('empty'=>'All Engineers', 'onchange'=>'js:engg_change(this.value)')
+								);
 
-echo "&nbsp;&nbsp;".CHtml::submitButton('Change');
+echo "&nbsp;&nbsp;".CHtml::submitButton('Change', array('id'=>'change_engineer_submit'));
 
 $this->endWidget();
 

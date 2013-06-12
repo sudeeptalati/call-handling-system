@@ -212,19 +212,20 @@ class Engineer extends CActiveRecord
     
 	protected function afterSave()
     {
-    	$contactDetailsQueryModel = ContactDetails::model()->findByPK(
-        											$this->contact_details_id
-													);
+    	$contactDetailsQueryModel = ContactDetails::model()->findByPK($this->contact_details_id);
     	//echo "ID IN AFTER SAVE() :".$contactDetailsQueryModel->id;
     	
-    	$contactDetailsUpdateModel = ContactDetails::model()->updateByPk(
-													$contactDetailsQueryModel->id,
-													
-													array
-													(
-														'lockcode'=>0
-													)
-													);
+    	$contactDetailsUpdateModel = ContactDetails::model()->updateByPk($contactDetailsQueryModel->id,
+													array('lockcode'=>0)
+										);
+    	
+    	$deliveryDetailsQueryModel = ContactDetails::model()->findByPK($this->delivery_contact_details_id);
+    	//echo "ID IN AFTER SAVE() :".$contactDetailsQueryModel->id;
+    	 
+    	$deliveryDetailsUpdateModel = ContactDetails::model()->updateByPk($deliveryDetailsQueryModel->id,
+    													array('lockcode'=>0)
+    									);
+    	
     	
     }//END OF afterSave().
 	

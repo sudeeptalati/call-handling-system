@@ -25,9 +25,6 @@ if(isset($date_error) == 1)
 // 	echo "<br>ALL OK";
 
 
-
-
-
 $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	'id'=>'engg-status-dropdown-form',
 	'enableAjaxValidation'=>false,
@@ -90,14 +87,13 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 <tr>
 
 <td> Engineers 
+	
 	<?php 
+	$engg_data = Engineer::model()->getAllEnggAndCompany();
 	
-	
-	$engg_data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
 	echo CHtml::dropDownList('engglist','engineer_id', $engg_data,
 									array('empty'=>array(0=>'All Engineers'))
 									);
-									
 	?>
 </td>
 
@@ -106,8 +102,9 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 <td>
 	<?php 								
 	
-	echo "Job Status:&nbsp;&nbsp;&nbsp;";							  
-	$job_status_data=CHtml::listData(JobStatus::model()->findAll(), 'id', 'name');	
+	echo "Job Status:&nbsp;&nbsp;&nbsp;";				
+
+	$job_status_data = JobStatus::model()->getAllPublishedListdata();	
 	echo CHtml::dropDownList('statuslist','job_status_id', $job_status_data,
 									array('empty'=>array(0=>'All Status')) 
 									);

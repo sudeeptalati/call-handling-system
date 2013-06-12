@@ -40,18 +40,9 @@
 		//'created_by_user_id',
 		'createdByUser.username',
 		//'created',
-		array(
-				'name'=>'Created',
-				'value'=>date('d-M-Y',$model->created),
-		),
-		array(
-				'name'=>'modified',
-				'value'=>date('d-M-Y',$model->modified),
-		),
+		array( 'name'=>'created', 'value'=>$model->created==null ? "":date("d-M-Y",$model->created)),
 		//'modified',
-//		array(
-//				'name'=>'Modified',
-//				'value'=>date('d-M-y',$model->modified),
-//		),
+		array( 'name'=>'modified', 'value'=>$model->modified==null ? "":date("d-M-Y",$model->modified)),
+		
 	),
 )); ?>

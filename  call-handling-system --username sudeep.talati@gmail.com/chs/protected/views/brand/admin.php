@@ -3,17 +3,12 @@
 </div>
 
  <h1>Brands</h1>
-
  
 
 <div id="submenu">   
 <li><?php echo CHtml::link('Manage Brands',array('admin')); ?></li>
 <li><?php echo CHtml::link('Add New Brand',array('create')); ?></li>
 </div>
-
-
-  
-
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -37,10 +32,9 @@
 		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
 		//'modified',
 		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)', 'filter'=>false),
+		//'inactivated',
+		array( 'name'=>'inactivated', 'value'=>'$data->inactivated==null ? "":date("d-M-Y",$data->inactivated)', 'filter'=>false),
 		
-		/*
-		'inactivated',
-		*/
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}{update}',

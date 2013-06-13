@@ -50,9 +50,7 @@ class ContractController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$this->render('view',array('model'=>$this->loadModel($id)));
 	}
 
 	/**
@@ -118,9 +116,7 @@ class ContractController extends Controller
         	 
 		}//END OF IF(ISSET()).
 			 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+		$this->render('create',array('model'=>$model));
 	}
 	
 
@@ -198,9 +194,14 @@ class ContractController extends Controller
         		$model->main_contact_details_id=$contactDetailsModel->id;
         		
 				if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
-				
-        	}
+				{
+					$this->redirect(array('view','id'=>$model->id), false);
+					//$this->redirect( array('/contract/view/'.$model->id));
+					//$this->redirect($this->createUrl('view', array('id'=>$model->id)));
+					
+				}
+					
+			}//end of if(valid).
         	else 
         	{
         		echo "<hr>Fill all mandatory fields";
@@ -208,10 +209,8 @@ class ContractController extends Controller
         	
 		}//end of if(iseet()).
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+		$this->render('update',array('model'=>$model,));
+	}//end of update.
 
 	/**
 	 * Deletes a particular model.

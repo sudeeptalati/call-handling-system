@@ -662,14 +662,22 @@ class ServicecallController extends Controller
         <table border="1"> 
         <tr>
 			<th>Service reff no</th>
-			<th>Customer </th>
-			<th>Town </th>
-			<th>Postcode </th>
-			<th>Product </th>
-			<th>Engineer </th>
-			<th>Raised By</th>
 			<th>Job Status </th>
 			<th>Reported Date</th>
+			<th>Net Cost</th>
+			<th>Customer </th>
+			<th>Address </th>
+			<th>Brand </th>
+			<th>Product Type </th>
+			<th>Model Number </th>
+			<th>Serial Number </th>
+			<th>Contract Type </th>
+			<th>Contract Ref. No </th>
+			<th>Issue </th>
+			<th>Work carried out </th>
+			<th>Engineer </th>
+			
+			
 		</tr>
 		<?php 
 		foreach( $dataProvider->data as $data )
@@ -677,14 +685,21 @@ class ServicecallController extends Controller
 		?>
 			<tr> 
 				<td><?php echo $data->service_reference_number;?></td>
-				<td><?php echo $data->customer->fullname;?></td>
-				<td><?php echo $data->customer->town;?></td>
-				<td><?php echo $data->customer->postcode;?></td>
-				<td><?php echo $data->product->productType->name;?></td>
-				<td><?php echo $data->engineer->fullname;?></td>
-				<td><?php echo $data->createdByUser->name;?></td>
 				<td><?php echo $data->jobStatus->name;?></td>
 				<td><?php echo date('d-M-Y',$data->fault_date);?></td>
+				<td><?php echo $data->net_cost;?></td>
+				<td><?php echo $data->customer->fullname;?></td>
+				<td><?php echo $data->customer->postcode;?></td>
+				<td><?php echo $data->product->brand->name;?></td>
+				<td><?php echo $data->product->productType->name;?></td>
+				<td><?php echo $data->product->model_number;?></td>
+				<td><?php echo $data->product->serial_number;?></td>
+				<td><?php echo $data->contract->contractType->name;?></td>
+				<td><?php echo $data->insurer_reference_number;?></td>
+				<td><?php echo $data->fault_description;?></td>
+				<td><?php echo $data->work_carried_out;?></td>
+				<td><?php echo $data->engineer->fullname;?></td>
+				
 			</tr>
         
         <?php }//end of foreach($dataProvider); ?> 

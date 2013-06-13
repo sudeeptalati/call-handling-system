@@ -226,9 +226,11 @@ class ProductController extends Controller
 			if($model->validate())
 			{
 				// form inputs are valid, do something here
-				return;
+				$model->save();
+				$this->redirect(array('view','id'=>$model->id));
+				//return;
 			}
-		}
+		}//end of if(isset)
 		$this->render('updateProduct',array('model'=>$model));
 	}//end of updateProduct().
 	

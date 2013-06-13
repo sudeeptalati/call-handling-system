@@ -88,7 +88,7 @@ class BrandController extends Controller
 		$model=$this->loadModel($id);
 		
 		$earlier_active = $model->active;
-		echo "<br>Actuve value before = ".$earlier_active;
+		//echo "<br>Actuve value before = ".$earlier_active;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

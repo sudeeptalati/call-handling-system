@@ -161,9 +161,11 @@ if(isset($_GET['notify_response']))
 	<tr>
 		<td>
 			<h4>Customer Details</h4>
+			<small><?php echo CHtml::link('Edit Details',array('Customer/openDialog','customer_id'=>$customerModel->id, 'product_id'=>$productModel->id));?></small>
 		</td>
 		<td>
 			<h4>Product Details</h4>
+			<small><?php echo CHtml::link('Edit Details',array('Product/updateProduct','id'=>$productModel->id));?></small>
 		</td>
 	</tr>
 	
@@ -345,11 +347,6 @@ if(isset($_GET['notify_response']))
 				
 				
 		</td><td>
-		<?php  	//echo $form->labelEx($model,'engineer_id'); 
-				 
-		
-		?>
-		 
 		
 		<?php //echo $form->DropDownList($model, 'engineer_id', $productModel->getAllCompanyNames	(), array('disabled'=>'disabled')); ?>
 		

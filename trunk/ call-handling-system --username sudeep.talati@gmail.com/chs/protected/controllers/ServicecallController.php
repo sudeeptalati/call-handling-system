@@ -444,6 +444,9 @@ class ServicecallController extends Controller
 		
 		if(isset($_POST['Product']) && isset($_POST['Servicecall']))
 		{
+			$productModel->attributes=$_POST['Product'];
+			$model->attributes=$_POST['Servicecall'];
+			
 			
 			$product_valid = $productModel->validate();
 			$service_valid = $model->validate();

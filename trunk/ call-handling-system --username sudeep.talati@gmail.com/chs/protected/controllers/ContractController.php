@@ -76,20 +76,23 @@ class ContractController extends Controller
 			 $contract_valid=$model->validate();
 			 $contact_details_valid=$contactDetailsModel->validate();
 			 
-			 $labWarrMonths = $_POST['labour_months'];
+			 //****** LABOUR WARRANTY ***********
+			 $labWarrMonths = $model->labour_warranty_months_duration;
 			 //echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
 			 
 			 $labWarrYear = $_POST['labour_years'];
 			 //echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
 			 
-			 $partsWarrMonths = $_POST['parts_months'];
+			 //********** PARTS WARRANTY ****************
+			 $partsWarrMonths = $model->parts_warranty_months_duration;
 			 //echo "<hr>IN Controller Parts Warranty in months, value got from form = ".$partsWarrMonths;
 			 
 			 $partsWarrYear = $_POST['parts_years'];
 			 //echo "<br>IN Controller Parts Warranty in Years, value got from form = ".$partsWarrYear;
 			 
-			 $finalLabourWarranty = $this->convertToSaveTodb($labWarrMonths, $labWarrYear);  
-			 $finalPartsWarranty = $this->convertToSaveTodb($partsWarrMonths, $partsWarrYear);
+			 //*************** ADDING YEARS TO MONTHS ******************
+			 $finalLabourWarranty = $this->convertToMonths($labWarrMonths, $labWarrYear);  
+			 $finalPartsWarranty = $this->convertToMonths($partsWarrMonths, $partsWarrYear);
 			 
 			 $model->labour_warranty_months_duration = $finalLabourWarranty;
 			 $model->parts_warranty_months_duration = $finalPartsWarranty;
@@ -97,10 +100,10 @@ class ContractController extends Controller
 			 
 			 if($contract_valid && $contact_details_valid)
         	 {
-        	 	echo "Address line 1 = ".$contactDetailsModel->address_line_1;
-        	 	$contactDetailsModel->save();
-        	 	echo "<br>Saved model id = ".$contactDetailsModel->id;
-        	 	echo "<br>Lockcode of contact model = ".$contactDetailsModel->lockcode;
+        	 	//echo "Address line 1 = ".$contactDetailsModel->address_line_1;
+         	 	$contactDetailsModel->save();
+//         	 	echo "<br>Saved model id = ".$contactDetailsModel->id;
+//         	 	echo "<br>Lockcode of contact model = ".$contactDetailsModel->lockcode;
         	 	
         	 	$model->main_contact_details_id=$contactDetailsModel->id;
         	 	
@@ -144,31 +147,16 @@ class ContractController extends Controller
         	
         	//************ TAKING LABOUR WARRANTY DETAILS **********
         	
-        	if(isset($_POST['labour_months']))
-        	{
-        		$labWarrMonths = $_POST['labour_months'];
-        	}
-        	elseif(isset($model->labour_warranty_months_duration))
-        	{
-        		$labWarrMonths = $model->labour_warranty_months_duration;
-        	}
-        	echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
+        	$labWarrMonths = $model->labour_warranty_months_duration;
+        	//echo "<br>IN Controller Labour Warranty in months, value got from form = ".$labWarrMonths;
         	
         	$labWarrYear = $_POST['labour_years'];
-        	echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
+        	//echo "<br>IN Controller Labour Warranty in Years, value got from form = ".$labWarrYear;
         	
         	
         	//************ TAKING PARTS WARRANTY DETAILS **********
-        	
-        	if(isset($_POST['parts_months']))
-        	{
-	        	$partsWarrMonths = $_POST['parts_months'];
-	        }
-        	elseif(isset($model->parts_warranty_months_duration))
-        	{
-        		$partsWarrMonths = $model->parts_warranty_months_duration;
-        	}
-        	echo "<hr>IN Controller Parts Warranty in months, value got from form = ".$partsWarrMonths;
+        	$partsWarrMonths = $model->parts_warranty_months_duration;
+        	//echo "<hr>IN Controller Parts Warranty in months, value got from form = ".$partsWarrMonths;
         	
         	
         	$partsWarrYear = $_POST['parts_years'];
@@ -176,20 +164,20 @@ class ContractController extends Controller
         	
         	//*********** ADDING YEARS TO MONTHS ****************
         	
-        	$finalLabourWarranty = $this->convertToSaveTodb($labWarrMonths, $labWarrYear);
-        	$finalPartsWarranty = $this->convertToSaveTodb($partsWarrMonths, $partsWarrYear);
+        	$finalLabourWarranty = $this->convertToMonths($labWarrMonths, $labWarrYear);
+        	$finalPartsWarranty = $this->convertToMonths($partsWarrMonths, $partsWarrYear);
         	
         	$model->labour_warranty_months_duration = $finalLabourWarranty;
         	$model->parts_warranty_months_duration = $finalPartsWarranty;
         	
         	
-        	echo "<br>Address line 1 = ".$contactDetailsModel->address_line_1;
+        	//echo "<br>Address line 1 = ".$contactDetailsModel->address_line_1;
         	
         	if($valid)
         	{
-        		echo "<br>Address line 1 = ".$contactDetailsModel->address_line_1;
+        		//echo "<br>Address line 1 = ".$contactDetailsModel->address_line_1;
         		$contactDetailsModel->save();
-        		echo "<br>Saved model id = ".$contactDetailsModel->id;
+        		//echo "<br>Saved model id = ".$contactDetailsModel->id;
         		
         		$model->main_contact_details_id=$contactDetailsModel->id;
         		
@@ -199,7 +187,7 @@ class ContractController extends Controller
 					//$this->redirect( array('/contract/view/'.$model->id));
 					//$this->redirect($this->createUrl('view', array('id'=>$model->id)));
 					
-				}
+ 				}
 					
 			}//end of if(valid).
         	else 
@@ -288,7 +276,7 @@ class ContractController extends Controller
 		}
 	}//end of performAjaxValidation.
 	
-	public function convertToSaveTodb($monthValue, $yearValue)
+	public function convertToMonths($monthValue, $yearValue)
 	{
 		//echo "<hr>Month Values in FUNC = ".$monthValue;
 		//echo "<br>Year Values in FUNC = ".$yearValue;

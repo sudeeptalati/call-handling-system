@@ -264,15 +264,10 @@ vertical-align:top;
 		<tr>
 		
 			<td>
-			
-			
-							<?php echo $form->labelEx($model,'work_carried_out'); ?>
+				<?php echo $form->labelEx($model,'work_carried_out'); ?>
 				<?php echo $form->textArea($model,'work_carried_out', array('rows'=>4, 'cols'=>'30')); ?>
 				<?php echo $form->error($model,'work_carried_out'); ?>
 			
-
-				
-				
 				<hr>
 				<table style="margin:-5px;" id="spares_details"><tr>
 				<td ><?php echo $form->labelEx($model,'spares_used_status_id'); ?>
@@ -292,9 +287,6 @@ vertical-align:top;
 				?>
 				</td>
 				</tr></table>
-				
-				
-				
 				
 				
 				<!-- ****** CODE TO DISPLAY SPARES ALREADY USED *********** -->
@@ -670,12 +662,6 @@ $cloud_id = $_GET['cloud_id'];
 				<?php //echo $form->textField($model,'job_finished_date'); ?>
 				<?php echo $form->error($model,'job_finished_date'); ?>
 				
-				
-				
-				
-	
-				
-				
 			</td>
 			
 		</tr>
@@ -744,7 +730,7 @@ $cloud_id = $_GET['cloud_id'];
 							{
 							$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);
 							}
-							?>
+					?>
 					<?php echo $form->labelEx($productModel,'purchase_date'); ?>
 					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
 					<?php //echo $form->textField($productModel,'purchase_date', array('disabled'=>'disabled')); ?>
@@ -754,7 +740,7 @@ $cloud_id = $_GET['cloud_id'];
 							{
 								$viewWarrantyDate=date('d-M-y', $productModel->warranty_date);
 							}
-							?>
+					?>
 					<?php echo $form->labelEx($productModel,'warranty_date'); ?>
 					<?php echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
 					<?php //echo $form->textField($productModel,'warranty_date',array('disabled'=>'disabled')); ?>
@@ -770,9 +756,14 @@ $cloud_id = $_GET['cloud_id'];
 				</td>
 				</tr>
 				<tr>
+					<td>
+					 	<?php echo $form->labelEx($productModel,'discontinued'); ?>
+						<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+						<?php echo $form->error($productModel,'discontinued'); ?>
+					</td>
 					<td colspan="2">
 						<?php echo $form->labelEx($productModel,'notes'); ?>
-						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
+						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>20)); ?>
 					</td>
 				</tr>
 				</table><!-- end of product table -->

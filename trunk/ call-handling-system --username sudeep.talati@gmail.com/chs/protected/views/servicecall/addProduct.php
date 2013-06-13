@@ -7,10 +7,6 @@
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-
-	
-	
-	
 	<?php 
 		$cust_id=$_GET['cust_id'];
 		//echo $cust_id;
@@ -21,7 +17,6 @@
 		$address = $str." ".$str1." ".$str2;
 		
 		$productModel = Product::model();
-		
 	?>
 	
 	<?php 
@@ -73,7 +68,7 @@
 				    ),
 				));
 			?>
-			<?php //echo $form->textField($model,'fault_date'); ?>
+			
 			<?php echo $form->error($model,'fault_date'); ?>
 				
 			<?php echo $form->labelEx($model,'fault_code'); ?>
@@ -115,7 +110,7 @@
 				
 				<?php echo $form->labelEx($productModel,'brand_id'); ?>
 				<?php //echo $form->textField($model,'brand_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands());?>
+				<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(), array('prompt'=>'Select a brand'));?>
 				<?php echo $form->error($productModel,'brand_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'model_number'); ?>
@@ -143,7 +138,8 @@
 				<?php echo $form->error($productModel,'purchase_price'); ?>
 				
 				<?php echo $form->labelEx($productModel,'discontinued'); ?>
-				<?php echo $form->textField($productModel,'discontinued',array('rows'=>6, 'cols'=>50)); ?>
+				<?php //echo $form->textField($productModel,'discontinued',array('rows'=>6, 'cols'=>50)); ?>
+				<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
 				<?php echo $form->error($productModel,'discontinued'); ?>
 				
 			</td>

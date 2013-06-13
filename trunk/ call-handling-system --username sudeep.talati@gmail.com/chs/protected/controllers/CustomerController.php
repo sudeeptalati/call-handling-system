@@ -151,9 +151,7 @@ class CustomerController extends Controller
 			}//end of else.
 		}//end of if(isset()).
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		$this->render('update',array('model'=>$model));
 	}
 
 	/**

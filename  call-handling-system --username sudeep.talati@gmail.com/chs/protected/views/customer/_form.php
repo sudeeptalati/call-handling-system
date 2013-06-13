@@ -433,18 +433,22 @@ background-color: #FFFF9D;
 				<?php echo $form->error($productModel,'purchase_date'); ?>
 		</td>
 		
-
-		
 		<td>
-				<?php echo $form->labelEx($productModel,'purchase_price'); ?>
-				<?php echo $form->textField($productModel,'purchase_price',array('size'=>5)); ?>
-				<?php echo $form->error($productModel,'purchase_price'); ?>
+			<?php echo $form->labelEx($productModel,'purchase_price'); ?>
+			<?php echo $form->textField($productModel,'purchase_price',array('size'=>5)); ?>
+			<?php echo $form->error($productModel,'purchase_price'); ?>
 		</td>
 	</tr>
 	 <tr>
-	 	<td colspan="3">
+	 	<td>
+	 	<?php echo $form->labelEx($productModel,'discontinued'); ?>
+		<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->error($productModel,'discontinued'); ?>
+		</td>
+				
+	 	<td colspan="2">
 		<?php echo $form->labelEx($productModel,'notes'); ?>
-		<?php echo $form->textArea($productModel,'notes',array('rows'=>4, 'cols'=>60)); ?>
+		<?php echo $form->textArea($productModel,'notes',array('rows'=>4, 'cols'=>40)); ?>
 		<?php echo $form->error($productModel,'notes'); ?>
 		</td>
 	 </tr>

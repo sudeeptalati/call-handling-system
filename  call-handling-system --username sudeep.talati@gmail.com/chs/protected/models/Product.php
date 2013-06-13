@@ -128,7 +128,7 @@ class Product extends CActiveRecord
 			'production_code' => 'Production Code',
 			'enr_number' => 'Enr Number',
 			'fnr_number' => 'Fnr Number',
-			'discontinued' => 'Discontinued',
+			'discontinued' => 'Product Discontinued',
 			'warranty_for_months' => 'Warranty For Months',
 			'purchase_price' => 'Purchase Price',
 			'notes' => 'Product Notes',
@@ -231,7 +231,7 @@ class Product extends CActiveRecord
 	
 	public function getAllBrands()
     {
-    	return CHtml::listData(Brand::model()->findAll(), 'id', 'name');
+    	return CHtml::listData(Brand::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name');
     }//end of getAllBrands().
     
     public function getProductTypes()

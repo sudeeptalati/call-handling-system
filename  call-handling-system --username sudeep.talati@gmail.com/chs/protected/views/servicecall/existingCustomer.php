@@ -275,7 +275,7 @@
 					'id'=>'mydialog',
 					// additional javascript options for the dialog plugin
 					'options'=>array(
-							'title'=>'Dialog box 1',
+							'title'=>'Warranty notification',
 							'autoOpen'=>true,
 					),
 			));

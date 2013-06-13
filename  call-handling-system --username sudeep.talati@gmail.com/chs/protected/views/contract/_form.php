@@ -111,41 +111,24 @@ $('.technical-form').toggle();
 				$months_range=range(0, 120);
 		?>
 		<td>
-			<?php $labour_year = ($model->labour_warranty_months_duration)/12; ?>
+			<?php //$labour_year = ($model->labour_warranty_months_duration)/12; ?>
 			<?php echo $form->labelEx($model,'labour_warranty_months_duration'); ?> <small>Years &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Months</small><br>
-			<?php //echo $form->textField($model,'labour_warranty_months_duration',array('rows'=>6, 'cols'=>50)); ?>
 			
 			<?php echo CHtml::dropDownList('labour_years', '', array($years_range)); //Dropdown of years. ?>
 			
 			<?php 	
-				//Dropdown of months.
-				if($model->labour_warranty_months_duration == '')
-					echo CHtml::dropDownList('labour_months', '', array($months_range));
-				else
-				{
-					//echo CHtml::dropDownList('labour_years', '', array($years_range));
-					echo $form->dropDownList($model, 'labour_warranty_months_duration', array($months_range));
-				}
+				echo $form->dropDownList($model, 'labour_warranty_months_duration', array($months_range));//Dropdown of months.
 			?>
 			<?php echo $form->error($model,'labour_warranty_months_duration'); ?>
 		</td>
 		
 		<td>
 			<?php echo $form->labelEx($model,'parts_warranty_months_duration'); ?><small>Years &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Months</small><br>
-			<?php //echo $form->textField($model,'labour_warranty_months_duration',array('rows'=>6, 'cols'=>50)); ?>
+			
+			<?php echo CHtml::dropDownList('parts_years', '', array($years_range));//Dropdown of years.?>
 			
 			<?php 	
-				echo CHtml::dropDownList('parts_years', '', array($years_range));
-			?>
-			
-			<?php 	
-				if($model->parts_warranty_months_duration == '')
-					echo CHtml::dropDownList('parts_months', '', array($months_range));
-				else
-				{
-					//echo CHtml::dropDownList('labour_years', '', array($years_range));
-					echo $form->dropDownList($model, 'parts_warranty_months_duration', array($months_range));
-				}
+				echo $form->dropDownList($model, 'parts_warranty_months_duration', array($months_range));//Dropdown of months.
 			?>
 			<?php echo $form->error($model,'parts_warranty_months_duration'); ?>
 		</td>

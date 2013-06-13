@@ -48,13 +48,8 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
                {
                   alert("Sorry, no matching items found");
                }
-            else
-               {
-         
- 		 
-		 
-               }
-         }
+            
+         }//end of outer else.
    }///end of call function
    
    
@@ -284,10 +279,15 @@ background-color: #FFFF9D;
 	</tr>
 	
 	<tr>
+		<td>
+		 	<?php echo $form->labelEx($productModel,'discontinued'); ?>
+			<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+			<?php echo $form->error($productModel,'discontinued'); ?>
+		</td>
 		<td colspan="2">
-				<?php echo $form->labelEx($model,'notes'); ?>
-				<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>55)); ?>
-				<?php echo $form->error($model,'notes'); ?>
+			<?php echo $form->labelEx($model,'notes'); ?>
+			<?php echo $form->textArea($model,'notes',array('rows'=>4, 'cols'=>40)); ?>
+			<?php echo $form->error($model,'notes'); ?>
 		</td>		
 	</tr>
 	

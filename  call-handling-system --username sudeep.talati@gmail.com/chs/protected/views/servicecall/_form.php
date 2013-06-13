@@ -393,7 +393,7 @@ background-color: #FFFF9D;
 			<?php echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
 			<?php echo $form->error($productModel,'model_number'); ?>
 			<?php 
-			/*
+			/****** AUTO COMPLETE WIDGET, TO BE IMPLEMENTED IN LATER STAGE ************
 				$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				    'model'=>$productModel,
 				    'attribute'=>'model_number',
@@ -475,6 +475,7 @@ background-color: #FFFF9D;
 
 				<?php echo $form->error($productModel,'warranty_for_months'); ?>
 		</td>
+		
 
 	</tr>
 
@@ -516,9 +517,16 @@ background-color: #FFFF9D;
 		</td>
 	</tr>
 	 <tr>
-	 	<td colspan="3">
+	 	<td>
+			<?php echo $form->labelEx($productModel,'discontinued'); ?>
+			<?php //echo $form->textField($productModel,'discontinued',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+			<?php echo $form->error($productModel,'discontinued'); ?>
+		</td>
+		
+	 	<td colspan="2">
 		<?php echo $form->labelEx($productModel,'notes'); ?>
-		<?php echo $form->textArea($productModel,'notes',array('rows'=>4, 'cols'=>60)); ?>
+		<?php echo $form->textArea($productModel,'notes',array('rows'=>4, 'cols'=>40)); ?>
 		<?php echo $form->error($productModel,'notes'); ?>
 		</td>
 	 </tr>

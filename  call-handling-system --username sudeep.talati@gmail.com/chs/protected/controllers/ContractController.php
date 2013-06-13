@@ -135,7 +135,7 @@ class ContractController extends Controller
 		//$contactDetailsModel = new ContactDetails();
 		
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model, $contactDetailsModel);
 
 		if(isset($_POST['Contract'],$_POST['ContactDetails']))
 		{

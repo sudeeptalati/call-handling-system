@@ -274,26 +274,14 @@ class Servicecall extends CActiveRecord
     
     protected function afterSave()
     {
-	
 		//echo "<br>AFTER SAVE OF SERVICECALL CALLED";
-		
-		$productUpdateModel = Customer::model()->updateByPk(
-													$this->product_id,
-													array
-													(
-														'lockcode'=>0,
-													)
+		$productUpdateModel = Customer::model()->updateByPk($this->product_id,
+													array('lockcode'=>0)
 													);
 													
-													
-		$customerUpdateModel = Customer::model()->updateByPk(
-													$this->customer_id,
-													array
-													(
-														'lockcode'=>0,
-													)
+		$customerUpdateModel = Customer::model()->updateByPk($this->customer_id,
+													array('lockcode'=>0)
 													);
-		
 	}//END OF afterSave().
     
     public function getAllContract()

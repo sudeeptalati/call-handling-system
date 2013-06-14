@@ -139,7 +139,7 @@
 				
 				<?php echo $form->labelEx($productModel,'discontinued'); ?>
 				<?php //echo $form->textField($productModel,'discontinued',array('rows'=>6, 'cols'=>50)); ?>
-				<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+				<?php echo $form->dropDownList($productModel,'discontinued', array('0'=>'No', '1'=>'Yes')); ?>
 				<?php echo $form->error($productModel,'discontinued'); ?>
 				
 			</td>

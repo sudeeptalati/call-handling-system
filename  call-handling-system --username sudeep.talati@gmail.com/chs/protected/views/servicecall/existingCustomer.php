@@ -68,6 +68,7 @@
 		</td>
 		<td>	
 			<h2>Product Details</h2>
+			<?php echo CHtml::link('Edit Details',array('Product/updateProduct','id'=>$productModel->id));?>
 		</td>		
 	</tr>
 	<tr>
@@ -163,9 +164,26 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2">
+		<td>
+			<?php 
+	 		
+	 		$product_discontinued = '';
+	 		if($productModel->discontinued == 1)
+	 			$product_discontinued = 'Yes';
+	 		else
+	 			$product_discontinued = 'No';
+	 		
+	 		
+	 		?>
+			<?php echo $form->labelEx($productModel,'discontinued'); ?>
+			<?php //echo $form->dropDownList($productModel,'discontinued', array('0'=>'No', '1'=>'Yes')); ?>
+			<?php echo CHtml::textField('', $product_discontinued, array('disabled'=>'disabled'));?>
+			<?php echo $form->error($productModel,'discontinued'); ?>
+		</td>
+		
+		<td>
 		<?php echo $form->labelEx($productModel,'notes'); ?>
-		<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
+		<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>20)); ?>
 		
 		</td>
 	</tr>

@@ -148,10 +148,17 @@ class Enggdiary extends CActiveRecord
             	//echo "<hr>End date calculated in beforeSave of enggDiary = ".$this->visit_end_date;
             	/****** END OF ADDING SLOT DURATION TO END TIME *******/
 
-			//	$this->user_id=Yii::app()->user->id;
-        		$this->user_id="1";
+				
+				//****** SETTING USER ID TO REMOTE USER, IF CALL IS REMOTELY BOOKED OTHERWISE CURRENT LOGGEDIN USER *****
+            	if(Yii::app()->user->getId() === null)
+            		$this->user_id = 1000000;
+            	else
+            		$this->user_id=Yii::app()->user->id;
+            	//****** SETTING USER ID TO REMOTE USER, IF CALL IS REMOTELY BOOKED OTHERWISE CURRENT LOGGEDIN USER *****
+            	
+        		
         		$this->created=time();
-            	$this->notes = "An appointment is created on ".date('d-m-Y H:i', $this->visit_start_date)." by ".$this->userid->name.".";
+            	$this->notes = "An appointment is created on ".date('d-m-Y', time())." by ".$this->userid->name.".";
         		
         		//SAVING CHANGED ENGG_ID TO SERVICE TABLE.
         		$serviceQueryModel = Servicecall::model()->findByPk($this->servicecall_id);
@@ -193,14 +200,22 @@ class Enggdiary extends CActiveRecord
     												'engg_diary_id'=>$this->id,
     												'job_status_id'=>'3'
     												));
-    	}//end of if, changing status of servicecall to booked.
+    	}//end of if, changing status of servicecall to booked and saving engg_diary_id.
+    	/*
     	elseif($serviceModel->job_status_id == '2')
     	{
     		$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
     												array(
     												'engg_diary_id'=>$this->id,
     												));
-    	}//end of else, changing status of servicecall to remotely booked.   												
+    	}//end of else, this was not changing engg_diary_id when app was booked for another visit.
+    	*/   			
+    	else
+    	{
+    		$serviceUpdateModel=Servicecall::model()->updateByPk($serviceModel->id,
+    				array('engg_diary_id'=>$this->id)
+    				);
+    	}//end of else, saving engg_diary_id in servicecall table.							
     }//end of afterSave().
     
     public function fetchDiaryDetails($engg_id,$date )

@@ -1,13 +1,3 @@
-<?php
-
-
-$this->menu=array(
-	//array('label'=>'List Servicecall', 'url'=>array('index')),
-	//array('label'=>'Create Service Call', 'url'=>array('servicecall/freeSearch')),
-);
-
-?>
-
 
 <?php 
 
@@ -41,17 +31,18 @@ $model = new Servicecall('search');
 	'dataProvider'=>$enggjobdata,
 	//'filter'=>$model,
 	'columns'=>array(
-		array(	'name'=>'service_reference_number',
-				'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
-		 		'type'=>'raw',
+		array(
+			'name'=>'service_reference_number',
+			'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id))',
+		 	'type'=>'raw',
         ),
 		array(
-				'name'=>'job_status_id',
-				'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
-				'filter'=>JobStatus::items('JobStatus'),
+			'name'=>'job_status_id',
+			'value'=>'JobStatus::item("JobStatus",$data->job_status_id)',
+			'filter'=>JobStatus::items('JobStatus'),
 		),
 		array(
-				'name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)'
+			'name'=>'fault_date', 'value'=>'date("d-M-Y",$data->fault_date)'
 		),
 		'net_cost',
 		
@@ -71,9 +62,8 @@ $model = new Servicecall('search');
 			'filter'=>Engineer::items('Engineer'),
 		),
 	),
-)); ?>
-
-
+)); 
+?>
 
 <?php 
 

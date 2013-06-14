@@ -286,9 +286,20 @@ if(isset($_GET['notify_response']))
 				</td>
 				</tr>
 				<tr>
+					<td>
+						<?php 
+							if($productModel->discontinued == 0)
+								$discontinued_value = 'No';
+							else 
+								$discontinued_value = 'Yes';
+						?>
+						<?php echo $form->labelEx($productModel,'discontinued'); ?><br>
+						<?php //echo $form->textField($productModel,'discontinued',array('disabled'=>'disabled')); ?>
+						<?php echo CHtml::textField('', $discontinued_value, array('disabled'=>'disabled'));?>
+					</td>
 					<td colspan="2">
 						<?php echo $form->labelEx($productModel,'notes'); ?><br>
-						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
+						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>20)); ?>
 					</td>
 				</tr>
 				</table><!-- end of product table -->
@@ -441,10 +452,7 @@ if(isset($_GET['notify_response']))
 				</tr>
 			</table>
 			
- 
-		
-									
-		</td>
+ 		</td>
 		<td style="vertical-align: top;">
 			<br>
 			
@@ -452,7 +460,6 @@ if(isset($_GET['notify_response']))
 			<?php echo $form->labelEx($model,'comments'); ?><small>&nbsp;&nbsp;&nbsp;(not visible on call sheet)</small><br>
 			<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>	
 			<br><br>
-			
 			
 			<?php 
 				if(!empty($model->job_payment_date))
@@ -477,7 +484,6 @@ if(isset($_GET['notify_response']))
 		</td>
 		
 	</tr>
-	
 	
 </table>
 <?php $this->endWidget(); ?>

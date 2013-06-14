@@ -226,7 +226,7 @@ class SetupController extends Controller
 	    
 	    if(isset($_POST['finish']))
 	    {
-	    	$allowedExts = array("jpg", "jpeg", "gif", "png");
+	    	$allowedExts = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 	    	$info = pathinfo($_FILES['logo_url']['name']);
 	    	$extension = $info['extension'];
 	    	//echo "extention = ".$extension;
@@ -288,6 +288,8 @@ class SetupController extends Controller
 	    if(isset($_POST['finish']))
 		{
 			//echo 'DATA BASEFILE :  '. $_FILES["database"]["error"];
+			echo 'DATA BASEFILE :  '. $_FILES["database"]["name"];
+			echo 'DATA BASEFILE :  '. $_FILES["database"]["type"];
 
 			if ($_FILES["database"]["type"] == "application/octet-stream" && $_FILES["database"]["name"] == "chs.db")
 			{

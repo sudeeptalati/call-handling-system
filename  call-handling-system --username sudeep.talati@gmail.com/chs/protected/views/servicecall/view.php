@@ -104,7 +104,7 @@ if(isset($_GET['notify_response']))
 				<?php
 				if($model->job_status_id > 100)
 				{
-					echo CHtml::link('Edit',array('update','id'=>$model->id), array('onclick'=>'return false;','style'=>'color:gray;'))."<small>(Call is locked)</small>";
+					echo CHtml::link('Edit',array('update','id'=>$model->id), array('onclick'=>'return false;','style'=>'color:gray;'))."&nbsp;&nbsp;	<small>(Call is Closed)</small>";
 					//echo "<br>here";
 				} 	
 				else

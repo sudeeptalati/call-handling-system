@@ -380,7 +380,7 @@ background-color: #FFFF9D;
 	<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'brand_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(), array('prompt'=>'N/A'));?>
 			<?php echo $form->error($productModel,'brand_id'); ?>
 		</td>
 		<td>
@@ -518,13 +518,12 @@ background-color: #FFFF9D;
 	</tr>
 	 <tr>
 	 	<td>
-			<?php echo $form->labelEx($productModel,'discontinued'); ?>
-			<?php //echo $form->textField($productModel,'discontinued',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+	 		<?php echo $form->labelEx($productModel,'discontinued'); ?>
+			<?php echo $form->dropDownList($productModel,'discontinued', array('0'=>'No', '1'=>'Yes')); ?>
 			<?php echo $form->error($productModel,'discontinued'); ?>
 		</td>
 		
-	 	<td colspan="2">
+	 	<td>
 		<?php echo $form->labelEx($productModel,'notes'); ?>
 		<?php echo $form->textArea($productModel,'notes',array('rows'=>4, 'cols'=>40)); ?>
 		<?php echo $form->error($productModel,'notes'); ?>

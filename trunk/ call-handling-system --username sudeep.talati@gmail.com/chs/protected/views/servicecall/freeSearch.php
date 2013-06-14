@@ -13,7 +13,8 @@ $this->menu=array(
   $baseUrl = Yii::app()->baseUrl; 
   $cs = Yii::app()->getClientScript();
   $cs->registerScriptFile($baseUrl.'/js/jquery.js');
-  ?>
+  
+?>
   
    <div class="admin">
  
@@ -171,7 +172,7 @@ vertical-align:top;
 	'id'=>'servicecall-grid',
 	//'dataProvider'=>Servicecall::model()->search(),
 	'dataProvider'=>Servicecall::model()->latestTenResults(),
-	'filter'=>Servicecall::model(),
+	//'filter'=>Servicecall::model(),
 	'columns'=>array(
 		array(	'name'=>'service_reference_number',
 				'value'=>'$data->service_reference_number',

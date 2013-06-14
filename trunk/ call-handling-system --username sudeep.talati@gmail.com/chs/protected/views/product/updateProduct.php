@@ -128,7 +128,7 @@
 		<tr>
 			<?php echo $form->labelEx($model,'discontinued'); ?>
 			<?php //echo $form->textField($model,'discontinued'); ?>
-			<?php echo $form->dropDownList($model,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+			<?php echo $form->dropDownList($model,'discontinued', array('0'=>'No', '1'=>'Yes')); ?>
 			<?php echo $form->error($model,'discontinued'); ?>
 		</tr>
 		</table>

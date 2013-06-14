@@ -757,8 +757,15 @@ $cloud_id = $_GET['cloud_id'];
 				</tr>
 				<tr>
 					<td>
+						<?php 
+							$product_discontinued = '';
+							if($productModel->discontinued == 1)
+								$product_discontinued = 'Yes';
+							else 
+								$product_discontinued = 'No';
+						?>
 					 	<?php echo $form->labelEx($productModel,'discontinued'); ?>
-						<?php echo $form->dropDownList($productModel,'discontinued', array('1'=>'Yes', '0'=>'No')); ?>
+						<?php echo CHtml::textField('', $product_discontinued, array('disabled'=>'disabled'));?>
 						<?php echo $form->error($productModel,'discontinued'); ?>
 					</td>
 					<td colspan="2">

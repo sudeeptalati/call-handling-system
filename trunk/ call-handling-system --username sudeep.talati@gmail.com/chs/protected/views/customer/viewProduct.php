@@ -42,7 +42,7 @@ $this->menu=array(
 	</tr>
 	
 	<tr>
-		<td colspan="3" style="text-align:center"><h2>Customer Details here</h2></td>
+		<td colspan="3" style="text-align:center"><h2>Customer Details</h2></td>
 	</tr>
 	<tr>
 		<td>
@@ -61,10 +61,8 @@ $this->menu=array(
 			<?php echo $form->error($customerModel,'last_name'); ?>
 			
 		</td>
-	
 	</tr>
-
-		<tr>	
+	<tr>	
 		<td>
 			<?php echo $form->labelEx($customerModel,'address_line_1'); ?>
 			<?php echo $form->textField($customerModel,'address_line_1',array('disabled'=>'disabled')); ?>
@@ -138,21 +136,21 @@ $this->menu=array(
 	</tr>
 	<tr>
 		<td>
-			<?php echo "Contract Type<br>";?>
+			<?php echo "<b>Contract Type</b><br>";?>
 			<?php echo CHtml::textField('',$contract,array('disabled'=>'disabled')); ?>
 		</td>
 		<td>
-			<?php echo "Engineer Name<br>";?>
+			<?php echo "<b>Engineer Name</b><br>";?>
 			<?php echo CHtml::textField('',$engineer,array('disabled'=>'disabled')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<?php echo "Brand Name<br>";?>
+			<?php echo "<b>Brand Name</b><br>";?>
 			<?php echo CHtml::textField('',$brand,array('disabled'=>'disabled')); ?>
 		</td>
 		<td>
-			<?php echo "Product Type<br>";?>
+			<?php echo "<b>Product Type</b><br>";?>
 			<?php echo CHtml::textField('',$type,array('disabled'=>'disabled')); ?>
 		</td>
 		<td>
@@ -211,8 +209,15 @@ $this->menu=array(
 	</tr>
 	<tr>
 		<td>
+			<?php 
+				if($productModel->discontinued == 0)
+					$discontinued_value = 'No';
+				else 
+					$discontinued_value = 'Yes';
+			?>
 			<?php echo $form->labelEx($productModel,'discontinued'); ?>
-			<?php echo $form->textField($productModel,'discontinued',array('disabled'=>'disabled')); ?>
+			<?php //echo $form->textField($productModel,'discontinued',array('disabled'=>'disabled')); ?>
+			<?php echo CHtml::textField('', $discontinued_value, array('disabled'=>'disabled'));?>
 		</td>
 		<td>
 			<?php echo $form->labelEx($productModel,'created_by_user_id'); ?>

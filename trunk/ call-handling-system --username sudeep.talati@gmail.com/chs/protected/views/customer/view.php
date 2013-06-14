@@ -1,5 +1,13 @@
 <div class="form">
 
+<?php 
+
+$this->menu=array(
+	array('label'=>'Manage Customers', 'url'=>array('admin'))
+);
+
+?>
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'customer-form',
 	'enableAjaxValidation'=>false,
@@ -11,11 +19,7 @@
 		if(count($result)>1)
 		{
 			?>
-			
-			
 			<?php 
-			
-			
 			echo "<h3>Select product for customer ".$model->fullname." to view details</h3>";
 	    	foreach ($result as $data)
 	    	{
@@ -48,12 +52,16 @@ $productUser=$productModel->createdByUser->username;
 //$address=$str."\n".$customerModel->town."\n".$customerModel->postcode;
 
 
-
-
-
 ?>
 
 <table>
+	<tr>
+		<td colspan="3" style="text-align:right"><b>
+		<?php echo CHtml::link('Edit Details', array('Customer/openDialog', 'customer_id'=>$customerModel->id,'product_id'=>$productModel->id));?>
+			
+		</b></td>
+	</tr>
+	
 	<tr>
 		<td colspan="3" style="text-align:center"><h2>Customer Details</h2></td>
 	</tr>
@@ -106,9 +114,9 @@ $productUser=$productModel->createdByUser->username;
 			<?php echo $form->error($customerModel,'country'); ?>
 		</td>
 		<td>
-			<?php echo $form->labelEx($customerModel,'postcode_s'); ?>
-			<?php echo $form->textField($customerModel,'postcode_s',array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($customerModel,'postcode_s'); ?>
+			<?php echo $form->labelEx($customerModel,'postcode'); ?>
+			<?php echo $form->textField($customerModel,'postcode',array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($customerModel,'postcode'); ?>
 		</td>
 	</tr>
 	<tr>

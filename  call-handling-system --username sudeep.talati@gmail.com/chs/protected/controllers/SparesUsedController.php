@@ -66,6 +66,7 @@ class SparesUsedController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		/*
 		if(isset($_POST['SparesUsed']))
 		{
 			$model->attributes=$_POST['SparesUsed'];
@@ -99,6 +100,7 @@ class SparesUsedController extends Controller
 				'model'=>$model,
 			));
         }
+        */
 	}//end of create.
 	
 	/* ORIGINAL ACTION CREATE....... WORKING FINE........
@@ -350,7 +352,7 @@ class SparesUsedController extends Controller
 		}
 		else 
 		{
-			echo "NOT SAVED";
+			//echo "NOT SAVED";
 			//print_r($model->getErrors());	
 		}
 		
@@ -454,7 +456,7 @@ class SparesUsedController extends Controller
 		}
 		else 
 		{
-			echo "NOT SAVED";
+			//echo "NOT SAVED";
 			//print_r($model->getErrors());	
 		}
 		

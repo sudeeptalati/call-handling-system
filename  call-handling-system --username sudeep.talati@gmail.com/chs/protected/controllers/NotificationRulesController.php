@@ -76,7 +76,7 @@ class NotificationRulesController extends Controller
 		{
 			$model->attributes=$_POST['NotificationRules'];
 			$model->active = '1';
-			echo "job status id from create form = ".$model->job_status_id."<br>";
+			//echo "job status id from create form = ".$model->job_status_id."<br>";
 			
 			/************** MANIPULATION OF NOTIFY OTHERS CODE ****************/
 				
@@ -210,21 +210,21 @@ class NotificationRulesController extends Controller
 			else 
 			{
 				/**** DIALOGUE BOX TO DISPLAY ERROR CODE ***/
-				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-						'id'=>'formdialog',
-						// additional javascript options for the dialog plugin
-						'options'=>array(
-								'title'=>'Error',
-								'autoOpen'=>true,
-								'modal'=>'true',
-								'show' => 'blind',
-								'hide' => 'explode',
-						),
-				));
+// 				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+// 						'id'=>'formdialog',
+// 						// additional javascript options for the dialog plugin
+// 						'options'=>array(
+// 								'title'=>'Error',
+// 								'autoOpen'=>true,
+// 								'modal'=>'true',
+// 								'show' => 'blind',
+// 								'hide' => 'explode',
+// 						),
+// 				));
 				
-				echo "Problem in saving, there may already be a rule for this status";
+// 				echo "Problem in saving, there may already be a rule for this status";
 										
-				$this->endWidget('zii.widgets.jui.CJuiDialog'); 
+// 				$this->endWidget('zii.widgets.jui.CJuiDialog'); 
 				
 				/**** END OF DIALOGUE BOX TO DISPLAY ERROR CODE ***/
 			}//END OF ELSE OF SAVE().
@@ -476,7 +476,7 @@ class NotificationRulesController extends Controller
 				// form inputs are valid, do something here
 				return;
 			}
-		}
+		}//endof if(isset()).
 		$this->render('viewRules',array('model'=>$model));
 	}//end of viewRules().
 	
@@ -489,24 +489,32 @@ class NotificationRulesController extends Controller
 			if($job_id != '')
 			{
 				//echo "Id is received is ".$job_id;
-				
 				$rulesModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$job_id));
 				
 				if(count($rulesModel))
-					echo 1;
+					$msg_code = 1;
 				else 
-					echo 0;
-				
+					$msg_code = 0;
+
+				$this->renderPartial('displayJsonMesg',array('msg_code'=>$msg_code));
 			}//end of if(job_id)
 			else
 			{
 				//echo "Id id not received";
-				echo 0;
-				
+				return  0;
 			}
 		
 		}//end of if(AjaxRequest).
 		
 	}//end of NotificationPresent().
+	
+	public function publishedMessageInGrid($data,$row)
+	{
+		$published_msg = '';
+		if($data->jobStatus->published != 1)
+			$published_msg = "This status is not published";
+		
+		$this->renderPartial('displayPublishedStatus', array('published_msg'=>$published_msg));
+	}//end of publishedMessageInGrid().
 	
 }//end of class.

@@ -24,7 +24,7 @@ class LivecallServerPingController extends Controller
 		<script type="text/javascript">
 		var live_call_id= $("#live_call_id").val();
 		
-		console.log("Live Call Id "+live_call_id);
+		//console.log("Live Call Id "+live_call_id);
 	
 		$(document).ready(function () 
 		{
@@ -37,8 +37,8 @@ class LivecallServerPingController extends Controller
 			
 			function connectToUKWServer() 
 			{
-				console.log(" Rapport trying to connect to UKW serevr");
-				console.log("  request url IS :ukwserver.php"+dataString);
+				//console.log(" Rapport trying to connect to UKW serevr");
+				//console.log("  request url IS :ukwserver.php"+dataString);
 		
 				$.ajax({
 					type: "POST",
@@ -50,13 +50,13 @@ class LivecallServerPingController extends Controller
 					async: false,
 					success: function (server_response) 
 					{
-						console.log('****************SERVER RESPONDED***********************');
-						console.log(server_response);
+						//console.log('****************SERVER RESPONDED***********************');
+						//console.log(server_response);
 						var parsedJSON = eval('('+server_response+')');
 						var status=parsedJSON.status;
 						var status_text=parsedJSON.status_text;
 						var query_postcode=parsedJSON.query_postcode;
-						console.log('********status_text:'+status_text+'********query_postcode:'+query_postcode);
+						//console.log('********status_text:'+status_text+'********query_postcode:'+query_postcode);
 		
 						var displayText='';
 						if (query_postcode!="none")
@@ -66,7 +66,7 @@ class LivecallServerPingController extends Controller
 							$('#rapportclientdata').html("Sure let me search my diary - I will call another diary API which will give me data. Once I recieved Data I will return back").show();
 							var available_slots =getDiaryData(query_postcode);
 							//$('#myjsondata').html();
-							console.log("RECIEVD DIATRY SAT AS IS : ********* "+available_slots);
+							//console.log("RECIEVD DIATRY SAT AS IS : ********* "+available_slots);
 							sendDiaryDataToUKWServer(live_call_id,available_slots);
 						}
 						else
@@ -82,7 +82,7 @@ class LivecallServerPingController extends Controller
 			
 			function getDiaryData(query_postcode) 
 			{
-				console.log("get Diary Data called");
+				//console.log("get Diary Data called");
 				//var recieved_data;
 				//url = "diary_data.php";
 				var engg_id = '<?php echo $engg_id;?>';
@@ -110,7 +110,7 @@ class LivecallServerPingController extends Controller
 		
 			function sendDiaryDataToUKWServer(live_call_id,available_slots) 
 			{
-				console.log("sendDiaryDataToUKWServer called");
+				//console.log("sendDiaryDataToUKWServer called");
 		
 				//var recieved_data;
 				var dataString = "status=5&live_call_id="+live_call_id+"&available_slots="+ available_slots;

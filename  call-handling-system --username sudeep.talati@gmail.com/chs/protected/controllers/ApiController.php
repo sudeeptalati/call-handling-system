@@ -252,7 +252,14 @@ class ApiController extends Controller
 			
 			try 
 			{
-				if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
+				$internet_status = '';
+				$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
+				foreach ($advanceModel as $data)
+				{
+					$internet_status = $data->value;
+				}
+				
+				if($internet_status == 1)
 				{
 					//echo "<br>DIARY SAVED.......!!!!!!!!!!";
 					$sevicecallModel = Servicecall::model()->findByPk($service_id);
@@ -277,11 +284,11 @@ class ApiController extends Controller
 					$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 					$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
 					
-// 					$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
-// 					$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+ 					$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+ 					$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
 									
-// 					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
-// 					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+ 					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+ 					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
 				}//end of if(check for internet connection). 
 				else 
 					echo "PLEASE CHECK YOUR INTERNET CONNECTION";

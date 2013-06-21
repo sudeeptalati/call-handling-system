@@ -334,7 +334,7 @@ background-color: #FFFF9D;
 			<td>
 				<?php echo $form->labelEx($customerModel,'mobile'); ?>
 				<?php echo $form->textField($customerModel,'mobile',array('size'=>30)); ?>
-				<small><br>(Please enter number preceding with 44)</small>
+				<small><br>(Please enter number preceding with your country code<br> Like if you are based in UK your number will 447501662739 or if you are based in India write 919893139091)</small>
 				<?php echo $form->error($customerModel,'mobile'); ?>
 		</td>		
 	</tr>

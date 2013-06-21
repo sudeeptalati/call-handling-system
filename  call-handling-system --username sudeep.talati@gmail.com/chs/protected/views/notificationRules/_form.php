@@ -157,10 +157,8 @@ $(function()
 								'url' => CController::createUrl('NotificationRules/notificationPresent/'),
 								'data' => array("job_id" => "js:this.value"),
 								'success'=> 'function(data) {
-										if(data == 1)
-										{
-											alert("Rule is already present for this status, Please update existing rule.");
-										}
+										if(data != "NULL")
+											alert(data);
 									}',
 								'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
 						)//end of ajax array().

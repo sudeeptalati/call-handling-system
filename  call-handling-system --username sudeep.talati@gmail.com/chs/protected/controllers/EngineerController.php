@@ -97,23 +97,23 @@ class EngineerController extends Controller
         		//******  MAENS DELIVERY ADDRESS IS SAME AS CONTACT ADDRESS *********
         		if(isset($_POST['delivery_checkbox']))
         		{
-        			echo "<br>Delivery contact details checkbox status = ".$_POST['delivery_checkbox'];
+        			//echo "<br>Delivery contact details checkbox status = ".$_POST['delivery_checkbox'];
         			$model->delivery_contact_details_id = $contactDetailsModel->id;
         			
         		}//end if if()isset(checkbox) i.e, checkbox is checked.
         		else //******* MEANS DELIVERY ADDRESS IS DIFFERENT THAN CONTACT ADDRESS  *********
         		{
-        			echo "<br>Checbox is checked";
+        			//echo "<br>Checbox is checked";
         			
-        			echo "<br>Address 1 of delivery contact details = ".$deliveryDetailsModel->address_line_1;
+        			//echo "<br>Address 1 of delivery contact details = ".$deliveryDetailsModel->address_line_1;
         			$deliveryDetailsModel->lockcode = 0;
         			if($deliveryDetailsModel->save())
         			{
-        				echo "<br>Delivery contact details id = ".$deliveryDetailsModel->id;
+        				//echo "<br>Delivery contact details id = ".$deliveryDetailsModel->id;
         				$model->delivery_contact_details_id = $deliveryDetailsModel->id;
         			}
-        			else
-        				echo "<br>NOT SAVED DELIVRY MODEL";
+        			//else
+        				//echo "<br>NOT SAVED DELIVRY MODEL";
         		}//end of else i.e, checkbox is not checked.
         		
 				if($model->save())
@@ -124,7 +124,7 @@ class EngineerController extends Controller
         	}//end if if(valid).
         	else 
         	{
-        		echo "<hr>Enter all the mandatory fields of address also";
+        		//echo "<hr>Enter all the mandatory fields of address also";
         		
         	}//end of else.
 		}//end of if(issset()).
@@ -222,10 +222,10 @@ class EngineerController extends Controller
 				}
 				//CREAT NEW contact_details MODEL IF CHECKBOX IS NOT CHECKED AND IF THERE IS ANY CHANGE IN BOTH contact_details MODELS
 				
-				echo "<br>Delivery contact details id = ".$model->delivery_contact_details_id;
+				//echo "<br>Delivery contact details id = ".$model->delivery_contact_details_id;
 				
 				//******* CHECK IF ACTIVE IS CHANGED. I.E, IF ENGINEER IS DEACTIVATED.
-				echo "<br>Active value now = ".$model->active;
+				//echo "<br>Active value now = ".$model->active;
 				
 				if($earlier_active == 1)
 				{
@@ -244,7 +244,7 @@ class EngineerController extends Controller
 			}//end of if(valid).
 			else 
 			{
-				echo "Fill all mandatory fields";
+				//echo "Fill all mandatory fields";
 			}
 		}//end of if(isset()).
 

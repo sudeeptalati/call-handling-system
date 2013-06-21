@@ -46,8 +46,8 @@
 		),
 		array(            
             //'name'=>'custom_column',
-            //call the method 'gridDataColumn' from the controller
-            'value'=>array($model,'displayMessageInGrid'), 
+            //call the method 'publishedMessageInGrid' from the controller
+            'value'=>array($this,'publishedMessageInGrid'), 
         ),
 		/*
 		'created',

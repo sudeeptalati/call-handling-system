@@ -257,7 +257,7 @@ class NotificationRules extends CActiveRecord
 			case 2:
 				//echo "<br>Send SMS";
 				$sms_response = NotificationRules::sendSMS($telephone, $smsMessage);
-				echo "<br> sms notification message in model = ".$sms_response;
+				//echo "<br> sms notification message in model = ".$sms_response;
 				$response_array['sms_response']= $sms_response;
 				$response_array['email_response']= 'none';
 				return $response_array;
@@ -268,7 +268,7 @@ class NotificationRules extends CActiveRecord
 				$email_response = NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				//echo "<br> sms notification message in model = ".$sms_response;
 				$response_array['sms_response']= $sms_response;
-				echo "<br>TYPE OF RESPONSE IN MODEL FUNC = ".gettype($sms_response);
+				//echo "<br>TYPE OF RESPONSE IN MODEL FUNC = ".gettype($sms_response);
 				$response_array['email_response']= $email_response;
 				return $response_array;
 				break;
@@ -299,7 +299,7 @@ class NotificationRules extends CActiveRecord
 		
 		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
 		{
-			echo "PLEASE CHECK YOUR INTERNET CONNECTION";
+			//echo "PLEASE CHECK YOUR INTERNET CONNECTION";
 		}//end of inner if().
 		else
 		{
@@ -339,7 +339,7 @@ class NotificationRules extends CActiveRecord
 		
 		if(isset($response[1]))
 		{
-			echo "<br>error mesg = ".$response[1];
+			//echo "<br>error mesg = ".$response[1];
 			return $response[1];
 		}
 		
@@ -347,22 +347,6 @@ class NotificationRules extends CActiveRecord
 			return true;
 		
 	}//end of sendSMS().
-	
-	public function displayMessageInGrid($data,$row)
-	{
-		//echo "hello, value of row = ".$data->jobStatus->published;
-		if($data->jobStatus->published != 1)
-		{
-			echo "This status is not published";
-		}
-			
-	}//end of displayMessageInGrid().
-	
-	public function validate_job($job_id)
-	{
-		echo "Id received in model function = ".$job_id;
-	}
-	
 	
 	
 }//end of class.

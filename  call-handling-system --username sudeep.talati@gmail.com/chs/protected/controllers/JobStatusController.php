@@ -175,8 +175,6 @@ class JobStatusController extends Controller
 		}
 	}
 	
- 
-
 	public function actionOrder()
     {
              //ajax draggable sorter cggridview
@@ -197,8 +195,12 @@ class JobStatusController extends Controller
                         $model->save();
                     }
                 }///end of for loop
-              $ansver = array('msg'=>'Ok');
-              echo CJSON::encode($ansver);
+              $ansver = array('msg'=>'Dashboard Priority order Set successfully.');
+              //echo CJSON::encode($ansver);
+              $this->renderPartial('jsonoutput',array(
+              		'ansver'=>$ansver,
+              ));
+              
                 
 			}///end of isset if POST
         
@@ -242,9 +244,13 @@ class JobStatusController extends Controller
 						
                     }
                 }///end of for loop
-              $ansver = array('msg'=>'Ok');
-              echo CJSON::encode($ansver);
-                
+              $ansver = array('msg'=>'Dropdown Ordered Successfully');
+              
+              $this->renderPartial('jsonoutput',array(
+              		'ansver'=>$ansver,
+              ));
+              
+              
 			}///end of isset if POST
         
     }///end of public function action order    

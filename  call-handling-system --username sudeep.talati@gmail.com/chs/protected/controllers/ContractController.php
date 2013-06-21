@@ -192,7 +192,7 @@ class ContractController extends Controller
 			}//end of if(valid).
         	else 
         	{
-        		echo "<hr>Fill all mandatory fields";
+        		//echo "<hr>Fill all mandatory fields";
         	}
         	
 		}//end of if(iseet()).

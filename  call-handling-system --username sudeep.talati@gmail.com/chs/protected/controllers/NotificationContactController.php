@@ -111,7 +111,7 @@ class NotificationContactController extends Controller
                 'status'=>'failure', 
                 'div'=>$this->renderPartial('_form', array('model'=>$model), true)));
             exit;               
-        }//
+        }//if AJAX REQUEST.
 		else 	
 			$this->render('create',array('model'=>$model));
 	}//end of actionCreate().
@@ -247,11 +247,11 @@ class NotificationContactController extends Controller
 		
 		$newModel = new NotificationContact();
 		$newModel->attributes = $_POST["NotificationContact"];
-		echo "<br>Contact person = ".$newModel->person_name;
-		echo "<br>Notification rule id = ".$newModel->notification_rule_id;
-		echo "<br>Email checked = ".$_POST['others_email_notification'];
-		echo "<br>SMS checked = ".$_POST['others_sms_notification'];
-		echo "<br>mobile = ".$newModel->mobile;
+		//echo "<br>Contact person = ".$newModel->person_name;
+		//echo "<br>Notification rule id = ".$newModel->notification_rule_id;
+		//echo "<br>Email checked = ".$_POST['others_email_notification'];
+		//echo "<br>SMS checked = ".$_POST['others_sms_notification'];
+		//echo "<br>mobile = ".$newModel->mobile;
 		
 		$others_email_checked=$_POST['others_email_notification'];
 		$others_sms_checked=$_POST['others_sms_notification'];
@@ -286,7 +286,7 @@ class NotificationContactController extends Controller
 		}
 		else
 		{
-			echo "<br>Problem in saving";
+			//echo "<br>Problem in saving";
 		}
 		
 	}//end of addNotificationContact().

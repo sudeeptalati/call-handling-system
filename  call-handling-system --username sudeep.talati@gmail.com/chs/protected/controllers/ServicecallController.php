@@ -170,12 +170,51 @@ class ServicecallController extends Controller
 								$serviceCallModel->engineer_id=$productModel->engineer_id;
 								$serviceCallModel->contract_id=$productModel->contract_id;
 								
-								//$serviceModelValid=$serviceCallModel->validate();
+								$serviceModelValid=$serviceCallModel->validate();
 								
 								if($serviceModelValid)
 								{
 									if($serviceCallModel->save())
 									{
+										$internet_status = '';
+										$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
+										foreach ($advanceModel as $data)
+										{
+											$internet_status = $data->value;
+										}
+										
+										if($internet_status == 1)
+										{
+											try
+											{
+											//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
+											$reference_number = $serviceCallModel->service_reference_number;
+											$status = 'Logged';
+											$customer_name = $serviceCallModel->customer->fullname;
+											$engineer_name = $serviceCallModel->engineer->fullname;
+											$setupModel = Setup::model()->findByPk(1);
+											$company_name = $setupModel->company;
+											$customer_mobileNumber = $serviceCallModel->customer->mobile;
+											$engineer_mobileNumber = $serviceCallModel->engineer->contactDetails->mobile;
+											
+											$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
+											$subject = 'Service call '.$reference_number.' Status changed to '.$status;
+											$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+												
+											$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+											$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+												
+											$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+											$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+											
+											//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
+											}//end of try.
+											catch (Exception $e)
+											{
+												
+											}
+										}//end of if(internet Connection).
+										
 										$engg_id=$serviceCallModel->engineer_id;
 										$baseUrl=Yii::app()->request->baseUrl;
 										$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
@@ -278,7 +317,7 @@ class ServicecallController extends Controller
 				}
 				else
 				{
-					echo "<br>Not Save";
+					//echo "<br>Not Save";
 				}
 
 			}//end of if(isset()).
@@ -458,10 +497,12 @@ class ServicecallController extends Controller
 				if($productModel->validate())
 				{
 					if($productModel->save())
-						echo "saved";
-				}
-				else 
-					echo "<br>Enter all product fields";
+					{
+						//echo "saved";
+					}
+				}//end of product validate().
+				//else 
+					//echo "<br>Enter all product fields";
 			
 				//******* SAVING SERVICECALL DETAILS ************
 				$model->customer_id=$cust_id;
@@ -482,12 +523,12 @@ class ServicecallController extends Controller
 		        }//end of SERVICECALL save
 		        else 
 		        {
-		        	echo "not saved";
+		        	//echo "not saved";
 		        }
 		    
 			}//end of PRODUCT and SERVICE validate.
-			else 
-				echo "<br><b>Enter all mandatory fields of servicecall and product</b>";
+			//else 
+				//echo "<br><b>Enter all mandatory fields of servicecall and product</b>";
 		}//END OF IF ISSET().
 	    
 	    $this->render('addProduct',array('model'=>$model));
@@ -507,11 +548,8 @@ class ServicecallController extends Controller
       $model=new Servicecall();
       $model->unsetAttributes();  // clear any default values
       $results=$model->freeSearch($keyword);
-      //echo 'Results '.$results;
-      //echo count($results->getData());
-      //echo getItemCount
-
-       $customer_search_data = Customer::model()->freeSearch($keyword);
+  
+      $customer_search_data = Customer::model()->freeSearch($keyword);
    
        $this->renderPartial('_ajax_search',array(
 	               'results'=>$results, 'customer_results'=>$customer_search_data,
@@ -523,27 +561,7 @@ class ServicecallController extends Controller
     
 	public function actionGetitems()
 	{
-//		$model=new Servicecall('search');
-//			$id = $_GET['master_id'];
-//			$service_id = $_GET['service_id'];
-//			echo "master id from get items action = ".$id."<br>";
-//			echo "service id in get items action = ".$service_id."<br>";
-			
-			//$server_items_url='http://localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?keyword='.$id;
-			
-//			$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$id;
-//			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
-//			echo $server_msg."<hr>";
-//			
-//			$decodedata = json_decode($server_msg, true);
-//			echo $decodedata['master_id']."<br>";
-//			echo $decodedata['part_num']."<br>";
-//			echo $decodedata['opn']."<br>";
-//			echo $decodedata['part_name']."<br>";
-			
-			$this->render('addToSpares');
-			
-			
+		$this->render('addToSpares');
 	}//end of getItems().
 	
 	
@@ -562,22 +580,22 @@ class ServicecallController extends Controller
 	
 	public function actionSelectEngineer()
 	{
-		echo "in action selectEngineer, change status and create new appt here";
+		//echo "in action selectEngineer, change status and create new appt here";
 		$model=new Servicecall('search');
 		$diary_id = $_GET['diary_id'];
-		echo "<br>Diary id in contr = ".$diary_id;
+		//echo "<br>Diary id in contr = ".$diary_id;
 		$service_id = $_GET['service_id'];
-		echo "<br>Service id in contr = ".$service_id;
+		//echo "<br>Service id in contr = ".$service_id;
 		$engg_id = '';
 		$newDiaryId = '';
 		
 		if(isset($_GET['Servicecall']))
 		{
-			echo "<br>in if loop";
+			//echo "<br>in if loop";
 			$model->attributes=$_GET['Servicecall'];
 			//echo "Value in  is = ".$model->engineer_id;
 			$engg_id = $model->engineer_id;
-			echo "<br>id got from view = ".$engg_id;
+			//echo "<br>id got from view = ".$engg_id;
  
 		}//getting engg id from dropdown.
 		//echo "<br>Engg id outside = ".$engg_id;
@@ -592,31 +610,27 @@ class ServicecallController extends Controller
 		
 			$diaryModel = Enggdiary::model()->findByPk($diary_id);
 			
-			echo "<br>Visit start date = ".$diaryModel->visit_start_date;
-			echo "<br>Visit end date = ".date('d-m-Y',$diaryModel->visit_end_date);
 			$start_date = date('d-m-Y',$diaryModel->visit_end_date);
-			echo "<br>No of slots = ".$diaryModel->slots;
 			
 			$newEnggDiaryModel = new Enggdiary;
 	    	$newEnggDiaryModel->servicecall_id=$service_id;
 			$newEnggDiaryModel->engineer_id=$engg_id;
 			$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
 			$newEnggDiaryModel->visit_start_date=$start_date;
-			//$newEnggDiaryModel->visit_end_date=$diaryModel->visit_end_date;
 			$newEnggDiaryModel->slots = '2';
 			
-			echo "<hr>START DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_start_date;
+			//echo "<hr>START DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_start_date;
 			//echo "<br>END DATE OF NEW DIARY MODEL = ".$newEnggDiaryModel->visit_end_date;
 			
 			if($newEnggDiaryModel->save())
 			{
-				echo "<br>SAVED.......!!!!!!!!!!";
-				echo "<br>New diary id to save to servicecall = ".$newEnggDiaryModel->id;
+				//echo "<br>SAVED.......!!!!!!!!!!";
+				//echo "<br>New diary id to save to servicecall = ".$newEnggDiaryModel->id;
 				$newDiaryId = $newEnggDiaryModel->id;
 			}
 			else 
 			{
-				echo "<br>Problem in saving";
+				//echo "<br>Problem in saving";
 			}
 			/******** END OF CREATING NEW APPOINTMENT WITH CHANGED ENGINEER *********/
 			
@@ -637,10 +651,8 @@ class ServicecallController extends Controller
 			
 			$serviceModel=Servicecall::model()->findByPk($service_id);
 			$product_id=$serviceModel->product_id;
-			echo "PRODUCT ID IS".$product_id;
 			Product::model()->updateByPk($product_id,array('engineer_id'=>$engg_id)); 
 			
-			echo "<br>SAVED.......!!!!!!!!!!";
 			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
 			
 		}///end of else i.e, Servicecall is in LOGGED state. 
@@ -648,68 +660,9 @@ class ServicecallController extends Controller
 	
 	public function actionEnggJobReport($engg_id, $status_id, $startDate, $endDate)
 	{
-		header("Cache-Control: public");
-  		header("Content-Description: File Transfer");
-    	//header("Content-Disposition: attachment; filename=$file");
- 		header("Content-Transfer-Encoding: binary");
-    	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past	
-		header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
-		header( "Content-Disposition: inline; filename=\"Engineer Report  ".date("F j, Y").".xls\"" );
+		$criteriaData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
 		
-		
-        $dataProvider = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
-        $dataProvider->pagination = False;
-        
-        ?>
-        <table border="1"> 
-        <tr>
-			<th>Service reff no</th>
-			<th>Job Status </th>
-			<th>Reported Date</th>
-			<th>Net Cost</th>
-			<th>Customer </th>
-			<th>Address </th>
-			<th>Brand </th>
-			<th>Product Type </th>
-			<th>Model Number </th>
-			<th>Serial Number </th>
-			<th>Contract Type </th>
-			<th>Contract Ref. No </th>
-			<th>Issue </th>
-			<th>Work carried out </th>
-			<th>Engineer </th>
-			
-			
-		</tr>
-		<?php 
-		foreach( $dataProvider->data as $data )
-		{
-		?>
-			<tr> 
-				<td><?php echo $data->service_reference_number;?></td>
-				<td><?php echo $data->jobStatus->name;?></td>
-				<td><?php echo date('d-M-Y',$data->fault_date);?></td>
-				<td><?php echo $data->net_cost;?></td>
-				<td><?php echo $data->customer->fullname;?></td>
-				<td><?php echo $data->customer->postcode;?></td>
-				<td><?php echo $data->product->brand->name;?></td>
-				<td><?php echo $data->product->productType->name;?></td>
-				<td><?php echo $data->product->model_number;?></td>
-				<td><?php echo $data->product->serial_number;?></td>
-				<td><?php echo $data->contract->contractType->name;?></td>
-				<td><?php echo $data->insurer_reference_number;?></td>
-				<td><?php echo $data->fault_description;?></td>
-				<td><?php echo $data->work_carried_out;?></td>
-				<td><?php echo $data->engineer->fullname;?></td>
-				
-			</tr>
-        
-        <?php }//end of foreach($dataProvider); ?> 
-		
-		</table>
-		
-        <?php 
+		$this->renderPartial('downloadEnggCallReport',array('criteriaData'=>$criteriaData));
 		
 	}//end of actionEnggJobReport().
 	
@@ -733,30 +686,11 @@ class ServicecallController extends Controller
 			$this->render('engg_job_report',
 					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)
 			);
-		}
-		
+		}//end of if(start_date not empty).
 		else 
 		{
-			//echo "<br>Enter Start date";
 			$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>1));
 		}
-			
-		
-		
-			
-		
-		
-//		$serviceData = $exportData->getData();
-//	
-//		foreach($serviceData as $test)
-//		{
-//			echo "<hr>Service call id = ".$test->id;
-//			echo "<br>Reference id = ".$test->service_reference_number."<hr>";
-//		}
-
-		
-	
-		
 		
 	}//end of export.
 	
@@ -822,19 +756,10 @@ class ServicecallController extends Controller
 				$warrantyProviderNotificationCode =$data->warranty_provider_notification_code;
 				$othersNotificationCode =$data->notify_others;
 				
-// 				echo "<br>Customer notification code inside forloop = ".$customerNotificationCode;
-// 				echo "<br>Engineer notification code inside forloop = ".$engineerNotificationCode;
-// 				echo "<br>Warranty Provider notification code inside forloop = ".$warrantyProviderNotificationCode;
-// 				echo "<br>Others notification code inside forloop = ".$othersNotificationCode;
-				
 				if($customerNotificationCode != 0)
 				{
 					$customerModel = Customer::model()->findByPk($cust_id);
-// 					echo "<hr>Customer Notification code = ".$customerNotificationCode;
-// 					echo "<br>Customer id = ".$cust_id;
-// 					echo "<br>customer email = ".$customerModel->email;
 					$receiver_email_address = $customerModel->email;
-					//echo "<br>customer telephone = ".$customerModel->mobile;
 					$telephone = $customerModel->mobile;
 					$name = $customerModel->fullname;
 					$customer_body = 'Dear '.$name.','."<br>".$body;
@@ -849,9 +774,6 @@ class ServicecallController extends Controller
 				if($engineerNotificationCode != 0)
 				{
 					$engineerModel = Engineer::model()->findByPk($engineer_id);
-// 					echo "<hr>Engineer Notification code = ".$engineerNotificationCode;
-// 					echo "<br>engg_id  = ".$engineer_id;
-// 					echo "<br>Engineer email = ".$engineerModel->contactDetails->email;
 					$receiver_email_address = $engineerModel->contactDetails->email;
 					//echo "<br>Engineer telephone = ".$engineerModel->contactDetails->mobile;
 					$telephone = $engineerModel->contactDetails->mobile;
@@ -868,9 +790,6 @@ class ServicecallController extends Controller
 				if($warrantyProviderNotificationCode != 0)
 				{
 					$contractModel = Contract::model()->findByPk($contract_id);
-// 					echo "<hr>Warranty Provider Notification code = ".$warrantyProviderNotificationCode;
-// 					echo "<br>contract id = ".$contract_id;
-// 					echo "<br>Warranty Provider email = ".$contractModel->mainContactDetails->email;
 					$receiver_email_address = $contractModel->mainContactDetails->email;
 					//echo "<br>Warranty Provider telephone = ".$contractModel->mainContactDetails->mobile;
 					$telephone = $contractModel->mainContactDetails->mobile;
@@ -921,9 +840,8 @@ class ServicecallController extends Controller
 		/* SMS API RETURNS 1 ON SUCCESFUL SMS SENT, OR RESTURNS EMPTY STRING.
 		 * EMAIL SUCESSFUL SENT RETURNS 1 ELSE RETURNS 0.
 		 * */
-		echo "<hr>";
 		$msg = '';
-		echo "<br>SMS response in createMesg func = ".$notifyStatusArray['sms_response'];
+		//echo "<br>SMS response in createMesg func = ".$notifyStatusArray['sms_response'];
 		
 		if($notifyStatusArray['sms_response'] == '1')
 		{
@@ -946,7 +864,7 @@ class ServicecallController extends Controller
 			//echo "<br>Error in sending email, check EMAIL settings.";
 			$msg = $msg."<br><span style='background-color:red; color:#CD0000;   border-radius:10px 10px 10px 10px; '>Error in sending email to ".$notifiedTo.", check EMAIL settings.</span>";
 		}
-		echo "<br> Message returned for ".$notifiedTo." = ".$msg;
+		//echo "<br> Message returned for ".$notifiedTo." = ".$msg;
 		return $msg;
 	}//end of createMessage().
 	

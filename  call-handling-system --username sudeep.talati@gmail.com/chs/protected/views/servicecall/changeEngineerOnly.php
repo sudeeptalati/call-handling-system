@@ -59,7 +59,7 @@ $model = Servicecall::model();
 $data=CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
 
 echo $updateServicecallChangeEngineerForm->dropDownList($model, 'engineer_id', $data,
-									array('empty'=>'All Engineers', 'onchange'=>'js:engg_change(this.value)')
+									array('onchange'=>'js:engg_change(this.value)')
 								);
 
 echo "&nbsp;&nbsp;".CHtml::submitButton('Change', array('id'=>'change_engineer_submit'));

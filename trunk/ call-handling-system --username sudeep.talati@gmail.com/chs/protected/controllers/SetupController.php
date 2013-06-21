@@ -237,7 +237,6 @@ class SetupController extends Controller
 	    			|| ($_FILES["logo_url"]["type"] == "image/png")
 	    			|| ($_FILES["logo_url"]["type"] == "image/pjpeg")) && in_array($extension, $allowedExts))
 			{
-	    		//echo "YEPPY";
 	    		if ($_FILES["logo_url"]["error"] > 0)
 	    		{
 	    			echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
@@ -255,26 +254,20 @@ class SetupController extends Controller
 	    			//echo '<br>'.$location;
 	    			if (move_uploaded_file($uploaded_file,$location))
 	    			{
-	    				echo "<br>Stored";
+	    				//echo "<br>Stored";
 	    			}
 	    			else
 	    			{
-	    				echo "Problem in storing";
+	    				//echo "Problem in storing";
 	    			}
 	    
 	    
 	    		}//end of else
 	    
-	    	}///end of file upload if
+	    	}///end of if(checking extention).
 	    	else
 	    	{
-// 	    		list($w, $h, $s) = getimagesize($_FILES["logo_url"]["tmp_name"]);
-// 	    		echo "<br>Width of image = ".$w;
-// 	    		echo "<br>Height of image = ".$h;
-// 	    		$size = ($_FILES["logo_url"]["size"])/1024;
-// 	    		echo "<br>Size in kb = ".$size;
-				echo "<br>Invalid FILE";
-	    		
+ 	    		//echo "<br>Invalid FILE";
 	    	}//end of else
 	    
 	    }//end of isset POST finish
@@ -287,103 +280,50 @@ class SetupController extends Controller
 	{
 	    if(isset($_POST['finish']))
 		{
-			//echo 'DATA BASEFILE :  '. $_FILES["database"]["error"];
-			echo 'DATA BASEFILE :  '. $_FILES["database"]["name"];
-			echo 'DATA BASEFILE :  '. $_FILES["database"]["type"];
-
+			$dbRestoreMesg = '';
 			if ($_FILES["database"]["type"] == "application/octet-stream" && $_FILES["database"]["name"] == "chs.db")
 			{
 				if ($_FILES["database"]["error"] > 0)
 				{
-					echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
+					//echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
 				}//end of if for error
 				else
 				{
-					//echo '<br>YEPPY<br>';
-
 					$uploaded_file= $_FILES["database"]["tmp_name"];
 					$location="protected/data/chs.db";
 					//echo '<br>'.$location;
 					if (move_uploaded_file($uploaded_file,$location))
 					{
-						echo "<span style='background-color:green; color:black;' > Database Restored </span><br>";
+						$dbRestoreMesg = "<span style='background-color:green; color:black;' > Database Restored </span><br>";
 					}
 					else
 					{
-						echo '<span style="background-color:red; color:black;">Not Stored , Please try again</span><br> ';
+						$dbRestoreMesg = '<span style="background-color:red; color:black;">Not Stored , Please try again</span><br> ';
 					}
 
-				}//end of else
+				}//end of inside else
 			}///end of if for check for database file check
-			else {
-				echo '<span style="background-color:red; color:black;">Please upload chs.db file only</span><br> ';
+			else 
+			{
+				$dbRestoreMesg = '<span style="background-color:red; color:black;">Please upload chs.db file only</span><br>';
 			}
+			
+			$this->renderPartial('displayRestoreDbMesg', array('dbRestoreMesg'=>$dbRestoreMesg));
 
 		}//ennd of if of post finish
 
 		$this->render('restoreDatabase');
-
-		//	        if (( ($_FILES["database"]["type"] == "application/octet-stream")) && ($_FILES["logo_url"]["size"] < 1000000))
-		//				{
-		////					echo "YEPPTY";
-		//					if ($_FILES["logo_url"]["error"] > 0)
-		//						{
-		//							echo "Return Code: " . $_FILES["logo_url"]["error"] . "<br />";
-		//							}
-		//					else
-		//					{
-		////						echo "Upload: " . $_FILES["logo_url"]["name"] . "<br />";
-		////						echo "Type: " . $_FILES["logo_url"]["type"] . "<br />";
-		////						echo "Size: " . ($_FILES["logo_url"]["size"] / 1024) . " Kb<br />";
-		////						echo "Temp uploaded: " . $_FILES["logo_url"]["tmp_name"] . "<br />";
-		////						$uploadedname="company_logo.png";
-		//
-		//						$uploaded_file= $_FILES["logo_url"]["tmp_name"];
-		//						$location="images/company_logo.png";
-		//						//echo '<br>'.$location;
-		//							if (move_uploaded_file($uploaded_file,$location))
-		//							{
-		//								echo "Stored";
-		//							}
-		//							else
-		//								{
-		//									echo "Not Stored: ";
-		//								}
-		//
-		//
-		//					}//end of else
-		//
-		//				}///end of file upload if
-		//				else
-		//				{
-		//				echo "Invalid FILE";
-		//				}//end of else
-		//
-		//
-		//	    	}//end of isset post finish
-		 
-	
-		
 	}//end of RestoreDatabase().
 	
 
 	public function actionTestConnection()
 	{
-		//$model=$this->loadModel($id);
-		//echo "IN ACTION TEST CONNECTION <br>";
-		
 		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
 		{
-			echo "PLEASE CHECK YOUR INTERNET CONNECTION";
-			//echo $model->id;
+			//echo "PLEASE CHECK YOUR INTERNET CONNECTION";
 		}
 		else 
 		{
-			
-			//echo "INTERNET IS CONNECTED<br>";
-			
-			///$model=new PurchaseOrder;
-			
 			$root = dirname(dirname(__FILE__));
 			//echo $root."<br>";
 			$filename = $root.'/config/mail_server.json';
@@ -396,16 +336,12 @@ class SetupController extends Controller
 				//echo "File is present<br>";
 				$data = file_get_contents($filename);
 				$decodedata = json_decode($data, true);
-				//echo $decodedata;
 				//echo "Username = ".$decodedata['smtp_username']."<br>";
-				//echo "new user name = ".$decodedata['smtp_username']."<br>";
 				$sender_email = $decodedata['smtp_username'];
 				$smtp_password = $decodedata['smtp_password'];
 				$smtp_encryption = $decodedata['smtp_encryption'];
 				$smtp_port = $decodedata['smtp_port'];
 			}
-			
-			//echo "<br> sender address outsode if loop = ".$sender_email;
 			
 			$reciever_email=$sender_email;
 			
@@ -416,20 +352,10 @@ class SetupController extends Controller
 			$message->setBody("This is a test mail from call handling");
 		    
 		    
-		    # You can easily override default constructor's params
-//			$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
-//			# render (full page)
-//			$mPDF1->WriteHTML($this->render('orderPreview',array('model'=>$model,), true));
-//		    # Load a stylesheet
-//		    $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
-//		    $message->setBody($mPDF1->WriteHTML($stylesheet, 1));
-		   	//$message->setBody('THIS IS TEST MAIL');
-		    //$numsent = Yii::app()->mail->send($message);
-		    if(Yii::app()->mail->send($message))
+		 	if(Yii::app()->mail->send($message))
 		   	{
-		   		echo "TEST EMAIL IS SENT, CONNECTION IS OK<br>"; 
+		   		//echo "TEST EMAIL IS SENT, CONNECTION IS OK<br>"; 
 		   	}
-		   	
 		   	
 		}//end of else.
 		
@@ -450,9 +376,7 @@ class SetupController extends Controller
 	public function actionShowUpdateProgress($curr_step)
 	{
 		$model=new Setup();
-		 
 		//echo "step value in controller ".$curr_step;
-		
 		$step=$curr_step;
 		 
 		if($step!=0)
@@ -529,9 +453,9 @@ class SetupController extends Controller
 		{
 			$model->attributes=$_POST['Setup'];
 			
-			echo "<br>postcode code = ".$model->postcodeanywhere_account_code;
+			//echo "<br>postcode code = ".$model->postcodeanywhere_account_code;
 			$postcode_acc_code = $model->postcodeanywhere_account_code;
-			echo "<br>postcode Key = ".$model->postcodeanywhere_license_key;
+			//echo "<br>postcode Key = ".$model->postcodeanywhere_license_key;
 			$postcode_lic_key = $model->postcodeanywhere_license_key;
 			
 			$setupModel = Setup::model()->updateByPk(1,

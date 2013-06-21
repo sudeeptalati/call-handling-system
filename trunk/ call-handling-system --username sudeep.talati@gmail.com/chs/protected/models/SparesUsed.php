@@ -139,7 +139,7 @@ class SparesUsed extends CActiveRecord
     
     public function initialize()
     {
-    	echo "<hr>Initialize is called";
+    	//echo "<hr>Initialize is called";
     	
     	//$filename = '../jsonTest.json';
     	$filename = '../jsondata.json';
@@ -152,7 +152,7 @@ class SparesUsed extends CActiveRecord
     
     public function addData($param)
     {
-    	echo "<hr>AddData is called, Adding data to file";
+    	//echo "<hr>AddData is called, Adding data to file";
     	
     	$filename = '../jsondata.json';
 //    	$filename = '../test.php';
@@ -177,7 +177,7 @@ class SparesUsed extends CActiveRecord
     	$today = date("FjYhisA");
     	//echo $today;
     	
-    	echo "<hr> Finalize is called";
+    	//echo "<hr> Finalize is called";
     	//$finalStr = ']}';
     	$closingStr = '],';
     	$status = '"status":0}';
@@ -216,7 +216,7 @@ class SparesUsed extends CActiveRecord
     	}
     	else
     	{
-    		echo "<hr>file not present";
+    		//echo "<hr>file not present";
     	}	
     		
     	
@@ -232,11 +232,11 @@ class SparesUsed extends CActiveRecord
     	$ftpsettingModel = FtpSettings::model()->findByPk(1);
     	
     	$server = $ftpsettingModel->url;
-    	echo "server = ".$server."<br>";
+    	//echo "server = ".$server."<br>";
     	$ftp_user_name = $ftpsettingModel->ftp_username;
-    	echo "user name = ".$ftp_user_name."<br>";
+    	//echo "user name = ".$ftp_user_name."<br>";
     	$ftp_user_pass = $ftpsettingModel->ftp_password;
-    	echo "password = ".$ftp_user_pass."<br>";
+    	//echo "password = ".$ftp_user_pass."<br>";
     	
     	
     	$local_file = '../'.$newname;
@@ -248,11 +248,11 @@ class SparesUsed extends CActiveRecord
 		
 		if(!$conn_id)
 		{
-			echo "Connection attemp failed<hr>";
+			//echo "Connection attemp failed<hr>";
 		}
 		else 
 		{
-			echo "Connection established<hr>";
+			//echo "Connection established<hr>";
 		}
 		
 		// login with username and password
@@ -260,26 +260,26 @@ class SparesUsed extends CActiveRecord
 		
 		if(!$login_result)
 		{
-			echo "Login failure<hr>";
+			//echo "Login failure<hr>";
 		}
 		else 
 		{
-			echo "Login is success<hr>";
+			//echo "Login is success<hr>";
 		}
 		
 		// upload a file
 		if (ftp_put($conn_id, $ftp_path, $local_file, FTP_ASCII)) 
 		{
-		 echo "successfully uploaded $local_file\n";
+		 	//echo "successfully uploaded $local_file\n";
 		}
 		else 
 		{
-		 echo "There was a problem while uploading $local_file\n";
+		 	//echo "There was a problem while uploading $local_file\n";
 		}
 		
 		
 		
-		echo ftp_chmod($conn_id, 0777, $ftp_path) ? "CHMOD successful!" : 'Error';
+		//echo ftp_chmod($conn_id, 0777, $ftp_path) ? "CHMOD successful!" : 'Error';
 		
 		// close the connection
 		ftp_close($conn_id);

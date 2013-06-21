@@ -6,13 +6,13 @@ class RoutePlannerController extends Controller
 	{
 		//$engg_id = '90000114';
 		$engineer_id = $engg_id;
-		echo "<br>Engineer id from url = ".$engineer_id;
+		//echo "<br>Engineer id from url = ".$engineer_id;
 		$current_date = strtotime('17-04-2013');
 		
 		$enggModel = Engineer::model()->findByPk($engineer_id);
 		
 		$engg_postcode = $enggModel->contactDetails->postcode;
-		echo "<br>Engineer postcode = ".$engg_postcode;
+		//echo "<br>Engineer postcode = ".$engg_postcode;
 		$engg_postcode = str_replace (" ", "", $engg_postcode);
 		
 		
@@ -112,7 +112,7 @@ class RoutePlannerController extends Controller
 		//echo "<br>No of calls on first day = ".$i;
 		$firstDay_calls = $i;
 		
-		echo "<hr>";
+		//echo "<hr>";
 		//print_r($first_day_data_array);
 		
 		$second_diary_data = Enggdiary::model()->getData($engg_id, $secondDayStartTime, $secondDayEndTime);

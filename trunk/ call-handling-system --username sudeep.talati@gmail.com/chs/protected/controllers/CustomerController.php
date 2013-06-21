@@ -265,8 +265,6 @@ class CustomerController extends Controller
 	    }
 	    */
 	    
-	    
-	    
 	    if(isset($_POST['Customer']))
 	    {
 	        $model->attributes=$_POST['Customer'];
@@ -279,7 +277,7 @@ class CustomerController extends Controller
 	        		
 	        	}
 	        		
-					$this->redirect(array('viewProduct','customer_id'=>$model->id,'product_id'=>$product_id));
+				$this->redirect(array('viewProduct','customer_id'=>$model->id,'product_id'=>$product_id));
 	            // form inputs are valid, do something here
 	            //return;
 	        }
@@ -389,7 +387,7 @@ class CustomerController extends Controller
 	
 	public function actionTestSMS()
 	{
-		echo "In sms action<hr>";
+		//echo "In sms action<hr>";
 		
 		//Yii::app()->sms->send(array('to'=>'447550508559', 'message'=>'Happy New Year 2013!!!'));
 		

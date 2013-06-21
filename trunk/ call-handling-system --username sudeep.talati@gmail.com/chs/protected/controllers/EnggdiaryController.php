@@ -31,7 +31,7 @@ class EnggdiaryController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('currentAppointments','viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('AppointIcalender','currentAppointments','viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -299,10 +299,10 @@ class EnggdiaryController extends Controller
 				$this->redirect($baseUrl.'/servicecall/'.$new_diary_model->servicecall_id);
 			
 			
-			}
+			}//end of diary model save.
 			else 
 			{
-				echo "AWW";
+				//echo "Engg Diary nor saved";
 			}
 			
 	    }//end of if(isset());
@@ -361,7 +361,7 @@ class EnggdiaryController extends Controller
 		 $this->render('weeklyReport',array('model'=>$model));
 	}//end of function weeklyReport().
 	
-	
+	/********* CODE MOVED TO VIEW '/EnggDiary/appontIcalender.php' ************
 	public function actionICalLink($id)
 	{
 		$serviceModel = Servicecall::model()->findByPk($id);
@@ -412,7 +412,7 @@ exit;
 
 		
 	}///end of function ICalLink
-	
+	*/
 	
 	
 	public function actionViewFullDiary()
@@ -536,7 +536,36 @@ exit;
 	    					array(
 	    					'model'=>$model,'future_engg_id'=>$engg_id
 	    			));
-	}//end of futureAppointments().
+	}//end of CurrentAppointments().
+	
+	
+	public function actionAppointIcalender($service_id)
+	{
+		$model=new Enggdiary('view');
+		
+	
+		// uncomment the following code to enable ajax-based validation
+		/*
+		 if(isset($_POST['ajax']) && $_POST['ajax']==='enggdiary-appointIcalender-form')
+		 {
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+		}
+		*/
+	
+		/*
+		if(isset($_POST['Enggdiary']))
+		{
+			$model->attributes=$_POST['Enggdiary'];
+			if($model->validate())
+			{
+				// form inputs are valid, do something here
+				return;
+			}
+		}
+		*/
+		$this->render('appointIcalender',array('model'=>$model));
+	}//end of AppointIcalender.
 	
 	
 	

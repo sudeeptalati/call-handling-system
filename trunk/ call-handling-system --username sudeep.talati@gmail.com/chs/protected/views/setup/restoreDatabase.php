@@ -4,8 +4,6 @@
 </div>
 
 
-
-
 <h1>Restore Database</h1>
 Note:- This will delete the exisiting database and restore it with the database which you will upload. Advised to use this feature only in upadates 
 

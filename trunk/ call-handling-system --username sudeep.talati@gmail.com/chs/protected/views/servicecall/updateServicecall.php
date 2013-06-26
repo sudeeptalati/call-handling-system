@@ -226,8 +226,6 @@ vertical-align:top;
 					echo CHtml::link('Create Appointment', array('enggdiary/bookingAppointment/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 					echo "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 					
-					
-					
 				  }
 				  else 
 				  {
@@ -296,8 +294,6 @@ vertical-align:top;
 						//echo "Spares used :<br>";
 						$sparesModel = SparesUsed::model()->findAllByAttributes(array('servicecall_id'=> $model->id));
 						?>
-						
-						
 						
 						<table>
 						<tr>
@@ -383,19 +379,10 @@ vertical-align:top;
 					
 				?>
 				
-				
-				
-				
-				
-					
-	 
 				<!-- ****** END OF CODE TO DISPLAY SPARES ALREADY USED ******* -->
 				
 				
 				<!-- ***** CODE TO GET THE FREES SEARCH OF MASTER DATABASE **** -->
-			
-				<?php //echo  CHtml::link('Select Item', array('sparesUsed/masterFreeSearch/?service_id='.$model->id));?>
-				
 				
 				<br><div id="freesearch-Form" style="display:none"><!-- ITEM SEARCH DIV -->
 				<?php 
@@ -463,101 +450,67 @@ vertical-align:top;
 				</script>
 
 				<?php
-				
-				$baseUrl = Yii::app()->baseUrl; 
-				$model_name=Yii::app()->controller->id;
-				$current_url=$baseUrl."/".$model_name;
-				//$current_url=$baseUrl."/Servicecall";
-				 
-				$search_url=$current_url."/MasterSearchData?service_id=".$service_id."&";
-				//echo "base url = ".$baseUrl."<br>";
-				$checkUrl = '../'.$baseUrl;
-				$fileUrl = '../../fitlist';
-				//$temp_url = "/KRUTHIKA/fitlist/spares_diary/masterItems/SearchEngine?service_id=".$service_id."&";
-				//$temp_url = 'http://192.168.1.200/itemsfreesearch/searchapi.php?';
-				//$temp_url='../../../master_database/api/searchData.php?';
-				$local_db_url='../../../local_items_database/api/searchData.php?';
-				
-				//$temp_url='http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?';
-				
-				
+					$baseUrl = Yii::app()->baseUrl; 
+					$model_name=Yii::app()->controller->id;
+					$current_url=$baseUrl."/".$model_name;
+					
+					$local_db_url='../../../local_items_database/api/searchData.php?';
 				?>
 				
-
-					<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>
-					<input type="hidden" id="local_db_url" value="<?php echo $local_db_url;?>"/>
-				 	
-							  Enter Item Name, Part Number or barcode<br>
-				            <!-- The Searchbox Starts Here  -->
-				              <form  name="search_form">
-				              <input  name="query" type="text" id="faq_search_input" style="background-color: #B2DFEE" size='55' />
-				              </form>
-				            <!-- The Searchbox Ends  Here  -->
-				       <div id="searchresultdata" class="faq-articles"> </div>
-				     </div>
+				<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>
+				<input type="hidden" id="local_db_url" value="<?php echo $local_db_url;?>"/>
+				Enter Item Name, Part Number or barcode<br>
+				<!-- The Searchbox Starts Here  -->
+				<form  name="search_form">
+					<input  name="query" type="text" id="faq_search_input" style="background-color: #B2DFEE" size='55' />
+				</form>
+				<!-- The Searchbox Ends  Here  -->
+				<div id="searchresultdata" class="faq-articles"> </div>
+			
+			</div>
 				
-				
-				</div><!-- END OF ITEM SEARCH DIV -->
+		</div><!-- END OF ITEM SEARCH DIV -->
 				
 <!-- ********* CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->				
 <?php 
-//echo $master_id."<br>";
+
 if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 {
 	echo "<hr>";
-$master_id = $_GET['master_id'];
-//echo "master id = ".$master_id;
-$cloud_id = $_GET['cloud_id'];
-//echo "cloud id = ".$cloud_id;
+	$master_id = $_GET['master_id'];
+	//echo "master id = ".$master_id;
+	$cloud_id = $_GET['cloud_id'];
+	//echo "cloud id = ".$cloud_id;
 
 
-
-		if($cloud_id != 0)
-		{
-			$itemDetails="localhost/KRUTHIKA/fitlist/spares_diary/masterItems/SendJsonData?id=".$cloud_id;
-			$server_msg = Servicecall::model()->curl_file_get_contents($itemDetails, true);
-			//$array= explode("\n", $server_msg);
-			//echo "Total No. of lines are ".count($array);
-			//echo $server_msg."<hr>";
-			$decodedata = json_decode($server_msg, true);
-			//echo $decodedata['master_id']."<br>";
-			//echo $decodedata['part_num']."<br>";
-			$part_number = $decodedata['part_num'];
-			//echo $decodedata['opn']."<br>";
-			$opn = $decodedata['opn'];
-			//echo $decodedata['part_name']."<br>";
-			$name = $decodedata['part_name'];
-			//echo "item name = ".$name."<br>";
-		
-		}// end of if getting cloud server data.
-		else
-		{
-			//echo "no data";
-			$db = new PDO('sqlite:../local_items_database/api/master_database.db');
+	if($cloud_id == 0)
+	{
+		//echo "no data";
+		$db = new PDO('sqlite:../local_items_database/api/master_database.db');
 			
-			$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
-			$rows = $result->fetchAll(); // assuming $result == true
-			$n = count($rows);
-			//echo "no of rows = ".$n."<br>";
-				
-			foreach($rows as $d)
-			{
-				//echo $d['id']."<br>";
-				//echo $d['name']."<br>";
-				$name = $d['name'];
-				//echo $d['part_number']."<br>";
-				$part_number = $d['part_number'];
-				$var = preg_replace("/[^A-Za-z0-9]/", "", $part_number);
-				$trimmed = trim($var);
-				$opn = strtoupper($trimmed);
-			
-			}
-				
-		}//end of if part_number empty.
+		$result = $db->query("SELECT * FROM master_items WHERE id = '$master_id'");
+		$rows = $result->fetchAll(); // assuming $result == true
+		$n = count($rows);
+		//echo "no of rows = ".$n."<br>";
 		
-?>
+		foreach($rows as $d)
+		{
+			//echo $d['id']."<br>";
+			//echo $d['name']."<br>";
+			$name = $d['name'];
+			//echo $d['part_number']."<br>";
+			$part_number = $d['part_number'];
+			$var = preg_replace("/[^A-Za-z0-9]/", "", $part_number);
+			$trimmed = trim($var);
+			$opn = strtoupper($trimmed);
+		}//end of foreach().
+		
+	}//end of if(cloud_id == 0). Data is present in local_items_database.
+	
+	
+	?>
 
-
+	<!-- ************** FORM TO ADD SPARES THAT ARE IN LIST ***************** -->
 	<form action="<?php echo Yii::app()->createUrl("SparesUsed/saveData");?>" method="POST">
 	
 	<table style="border-radius:15px;" bgcolor="#B2DFEE" >
@@ -569,33 +522,36 @@ $cloud_id = $_GET['cloud_id'];
 		<input type="hidden" name="name" value="<?php echo $name;?>" >
 	</td>
 	</tr>
-	
 	<tr>
 		<td colspan="3"><b> <?php echo $part_number;?>&nbsp;&nbsp; 
 		   <?php echo $name;?></b></td> 
 	</tr>
 	<tr>
-		<td>Price  <input type="text" name="unit_price" size="3">
+		<td>Price<input type="text" name="unit_price" size="3">
 		</td>
 		<td>Quantity*  <input type="text" name="quantity" size="3"></td>
 		<td style="text-align:right;"> <input type="submit" value="Add To Spares" style="width:auto" > </td>
 	</tr>
 
-		<tr><td colspan="3"><br> <small><b>* Required</b></small></td></tr>
+	<tr><td colspan="3"><br> <small><b>* Required</b></small></td></tr>
 	
 	</table>
 	</form>
+	
+	<!-- *************** FORM TO ADD SPARES THAT ARE IN LIST ********************** -->
 
 	<hr>
 	
-<?php }//end of items form?>
+<?php 
+}//end of if(!empty(cloud_id || master_id)). i.e, item is present in list.
+	
+
+
+?>
 	
 <!-- ********* END OF CODE TO DISPLAY SEARCH RESULTS FROM SERVER MASTER ITEMS ********** -->
-				
 				<BR><BR><BR>	
-
-			
-				<!-- ***** END OF CODE TO GET THE FREES SEARCH OF MASTER DATABASE ENDS **** -->
+<!-- ***** END OF CODE TO GET THE FREES SEARCH OF MASTER DATABASE ENDS **** -->
 				
 
 			</td>
@@ -613,8 +569,7 @@ $cloud_id = $_GET['cloud_id'];
 
 				<?php 
 				
-				
-					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'job_payment_date'),
 					'model'=>$model,
 	        		'value' => $model->attributes['job_payment_date'],
@@ -628,13 +583,9 @@ $cloud_id = $_GET['cloud_id'];
 				    ),
 				));
 				
-				
 				?>
 				<?php //echo $form->textField($model,'job_payment_date'); ?>
 				<?php echo $form->error($model,'job_payment_date'); ?>
-				
-				
-				
 				
 				<?php echo $form->labelEx($model,'job_finished_date'); ?>
 				<?php 
@@ -642,8 +593,7 @@ $cloud_id = $_GET['cloud_id'];
 					{
 						$model->job_finished_date=date('j-M-y', $model->job_finished_date);
 					}
-					?>
-				
+				?>
 				<?php 
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'job_finished_date'),

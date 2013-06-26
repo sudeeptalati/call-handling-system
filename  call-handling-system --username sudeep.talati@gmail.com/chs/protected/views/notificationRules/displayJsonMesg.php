@@ -1,7 +1,7 @@
 <?php
 
 if($msg_code == 1)
-	echo "Rule for this status is already present. You can update it.";
+	echo "Notification Rule for this status is already present, Please select some other Status.";
 else 
 	echo "NULL";
 

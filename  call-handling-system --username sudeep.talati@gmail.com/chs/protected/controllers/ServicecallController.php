@@ -195,7 +195,10 @@ class ServicecallController extends Controller
 											$setupModel = Setup::model()->findByPk(1);
 											$company_name = $setupModel->company;
 											$customer_mobileNumber = $serviceCallModel->customer->mobile;
+											$customer_email_address = $serviceCallModel->customer->email;
 											$engineer_mobileNumber = $serviceCallModel->engineer->contactDetails->mobile;
+											$engineer_email_address = $serviceCallModel->engineer->contactDetails->email;
+											
 											
 											$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
 											$subject = 'Service call '.$reference_number.' Status changed to '.$status;

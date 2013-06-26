@@ -86,6 +86,7 @@ class SetupController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		//echo "<br>In update controller";
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -94,8 +95,24 @@ class SetupController extends Controller
 		if(isset($_POST['Setup']))
 		{
 			$model->attributes=$_POST['Setup'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			
+			if(isset($_POST['calling_codes']))
+			{
+				//echo "<br>Dropdown values = ".$_POST['calling_codes'];
+				$country_code_id = $_POST['calling_codes'];
+				$countryCodeModel = CountryCodes::model()->findByPk($country_code_id);
+				
+				$code = $countryCodeModel->calling_code;
+				//echo "<br>Calling code from database = ".$code;
+			}
+			
+			
+			
+			
+			
+			
+// 			if($model->save())
+// 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(

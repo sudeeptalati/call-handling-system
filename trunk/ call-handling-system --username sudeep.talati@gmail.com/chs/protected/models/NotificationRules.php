@@ -92,7 +92,7 @@ class NotificationRules extends CActiveRecord
 			'customer_notification_code' => 'Customer ',
 			'engineer_notification_code' => 'Engineer ',
 			'warranty_provider_notification_code' => 'Warranty Provider ',
-			'notify_others' => 'Also send notification to',
+			'notify_others' => 'Notify Others',
 			'created' => 'Created on',
 			'modified' => 'Last Modified on',
 			'delete' => 'Delete',
@@ -137,7 +137,15 @@ class NotificationRules extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->created=time();
-    			return true;
+        		if($this->notify_others == 1)
+        		{
+        			$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_code_id'=>$this->id));
+        			if(count($notificationContactModel) == 0)
+        			{
+        				$this->notify_others = 0;
+        			}//end of if count().
+        		}//end of if
+        		return true;
             }
             else
             {
@@ -146,6 +154,7 @@ class NotificationRules extends CActiveRecord
             }
         }//end of if(parent())
     }//end of beforeSave().
+    
 	
     public function getNotificationCode($email_status,$sms_status)
 	{

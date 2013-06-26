@@ -67,7 +67,10 @@ class NotificationRulesController extends Controller
 	 */
 	public function actionCreate()
 	{
+		//echo "<br>In action create";
 		$model=new NotificationRules;
+		$first_notify_others_value = $model->notify_others;
+		$showDialogue = '';
 
 		// Uncomment the following line if AJAX validation is needed
 		 $this->performAjaxValidation($model);
@@ -88,9 +91,22 @@ class NotificationRulesController extends Controller
 			{
 				$model->notify_others = 0;
 			}
+			
+			$changed_notify_others_value = $model->notify_others;
 				
 			/************** END OF MANIPULATION OF NOTIFY OTHERS CODE ****************/
 			
+			//*** COMPARIING ID NOTIFY_OTHERS VALUES IS CAHNGED OR NOT, TO SET $showDialogue ****
+			if($first_notify_others_value != $changed_notify_others_value )
+			{
+				//echo "<br> Notify others value is changed to ".$changed_notify_others_value;
+				if($changed_notify_others_value == 1)
+					$showDialogue = 1;
+				else 
+					$showDialogue = 0;
+				
+			}//end of if(comparing notify_others value).
+			//*** END OF COMPARIING ID NOTIFY_OTHERS VALUES IS CAHNGED OR NOT, TO SET $showDialogue ****
 			
 			
 			/***** MANIPULATION OF CUSTOMER NOTIFICATION CODE ***********/
@@ -191,24 +207,24 @@ class NotificationRulesController extends Controller
 			/******** END OF MANIPULATION OF WARRANTY PROVIDER NOTIFICATION CODE ************/
 			
 			
-			
 			if($model->save())
 			{
 				//if($model->notify_others == '1')
-// 				if(isset($_POST['others_person_details']))
-// 				{
-// 					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>'1'));
-// 					return ;
-// 				}//end of redirecting to update
-// 				else 
-// 				{
-// 					$this->redirect(array('view','id'=>$model->id));	
-// 					return ;
-// 				}//end of redirect to view.
+				if(isset($_POST['others_person_details']))
+				{
+					$this->redirect(array('update','id'=>$model->id, 'showDialogue'=>$showDialogue));
+					return ;
+				}//end of redirecting to update
+				else 
+				{
+					$this->redirect(array('view','id'=>$model->id));	
+					return ;
+				}//end of redirect to view.
 			}//end of outer if(save()).
 			
-			else 
-			{
+			
+// 			else 
+// 			{
 				/**** DIALOGUE BOX TO DISPLAY ERROR CODE ***/
 // 				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 // 						'id'=>'formdialog',
@@ -227,13 +243,11 @@ class NotificationRulesController extends Controller
 // 				$this->endWidget('zii.widgets.jui.CJuiDialog'); 
 				
 				/**** END OF DIALOGUE BOX TO DISPLAY ERROR CODE ***/
-			}//END OF ELSE OF SAVE().
+			//}//END OF ELSE OF SAVE().
 				
 		}//end of if(issset()).
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+		$this->render('create',array('model'=>$model));
 	}//end of create().
 
 	/**
@@ -244,7 +258,7 @@ class NotificationRulesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -334,7 +348,6 @@ class NotificationRulesController extends Controller
 			else 
 				$warranty_provider_email_status=false;
 			
-				
 			if ($warranty_provider_sms_checked==1)
 				$warranty_provider_sms_status=true;
 			else 
@@ -364,21 +377,19 @@ class NotificationRulesController extends Controller
 				else 
 				{
 					$model->notify_others = 0;
-					
 				}
-			}//end of if.
+			}//end of if(notify_others == 0).
 			
 			/************** END OF MANIPULATION OF NOTIFY OTHERS CODE ****************/
-			
 			
 			if($model->save())
 			{
 				$this->redirect(array('viewRules','id'=>$model->id));
-				
 			}//end of if (save())
+	
 		}//end of if(isset()).
 
-		$this->render('update',array('model'=>$model, 'showDialogue'=>'1'));
+		$this->render('update',array('model'=>$model, 'showDialogue'=>'0'));
 	}
 
 	/**

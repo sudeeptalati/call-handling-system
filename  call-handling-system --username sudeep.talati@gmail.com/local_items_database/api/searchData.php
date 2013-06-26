@@ -53,12 +53,12 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 				foreach($rows as $data)
 				{
 				?>
-						<tr>
+					<tr>
 					<td><?php echo $data['part_number'];?></td>
 					<td><?php echo $data['name'];?></td>
 					<td>
 				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>#spares_details'>
-					<img src="../../images/plus.jpg" alt="HTML tutorial" width="35" height="35" />
+					<img src="../../images/plus.jpg" width="35" height="35" />
 					</a> <br> 
 					</td>
 					</tr>
@@ -113,11 +113,17 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 			?>
 			<tr>
 				<td colspan="4">
-				<form action="<?php echo '../../SparesUsed/newItemDetails';?>" method="POST">
+				
+ 
+				</form><!-- **** THIS IS ADDED TO FIX ERROR WHILE ADDING NEW SPARES TO DATABASE, 
+				ITS WAS CONFLITING WITH SERVICECALL UPDATE FORM. 
+				SOMEWEHRE FORM TAG IS NOT CLOSED CHECK FOR THAT FIX IT AND REMOVE THIS FROM HERE ****  -->
+				
+				<form action="<?php echo '../../sparesUsed/newItemDetails';?>" method="POST">
 				<table>
 					<tr>
 						<td colspan="4" style="text-align:center;">
-						<span style="color:green;" ><b>Add item</b><br><small>(If Item not in above list)</small></span>
+						<span style="color:green;" ><b>Add item from searchData.php</b><br><small>(If Item not in above list)</small></span>
 						</td>
 					</tr>
 							

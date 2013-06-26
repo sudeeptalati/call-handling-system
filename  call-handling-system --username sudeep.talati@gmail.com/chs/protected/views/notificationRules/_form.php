@@ -19,14 +19,12 @@ if ($showDialogue==1)
 		// additional javascript options for the dialog plugin
 		'options'=>array(
 		'title'=>'Person Details',
-		//'title'=>Yii::t('notificationContact','Create Job'),
 		'autoOpen'=>$showDialogue,
-		//'autoOpen'=>false,
 		'modal'=>'true',
 		'show' => 'blind',
 		'hide' => 'explode',
 		),
-		));
+	));
 			
 ?>
 
@@ -82,6 +80,8 @@ if ($showDialogue==1)
 <?php
 }/////end of if showDialogue
 }////end of iff isset
+else 
+	$showDialogue = 0;
 ?>
 
 
@@ -108,35 +108,24 @@ $(function() {//code inside this function will run when the document is ready
  
 </script>
 
-
-<script type="text/javascript">
-		function validate_dropdown(id)
-		{
-			alert("First Selected id = "+id);
-
-		}
-
-</script>
 	
 <?php 
 if($model->notify_others == 1)
 {
-?>
-<script type="text/javascript">
-$(function()
-{//code inside this function will run when the document is ready
-   $('.others-form').show();
-});
-</script>
+	?>
+	<script type="text/javascript">
+	$(function()
+	{//code inside this function will run when the document is ready
+	   $('.others-form').show();
+	});
+	</script>
 <?php }//end of of($model->notify_others == 1).?>
 
 
 
 <?php
  $jobstatuslist = JobStatus::model()->getAllStatuses();//listdata for dropdown
-//JobStatus::model()->getAllStatuses();
- 
- ?>
+?>
 
 
 <table style="width:100%;  background-color: #D0E9F1; border-radius: 15px; padding:10px; vertical-align: top;">
@@ -158,11 +147,19 @@ $(function()
 								'data' => array("job_id" => "js:this.value"),
 								'success'=> 'function(data) {
 										if(data != "NULL")
+										{
 											alert(data);
+											$("#form_save_button").attr("disabled", true);
+										}
+										else
+										{
+											$("#form_save_button").attr("disabled", false);
+										}
 									}',
 								'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
 						)//end of ajax array().
-			));
+			)//end of array
+		);//end of dropDownList.
 
 // echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
 // 		array('empty'=>'Please Select job status (required)', 'onchange'=>'js:validate_dropdown(this.value)')
@@ -286,8 +283,7 @@ $(function()
 			
 		?>
         
-        
-		<div class="others-form" style="display:none">
+        <div class="others-form" style="display:none">
 		
 		<!-- *** FORM OF OTHERS CHECKBOX, TO DISPLAY FORM AND DIALOGUE BOX TO ENTER DETAILS *** -->
 		
@@ -372,8 +368,6 @@ $(function()
 			 </tr>
 			</table>
 			
-			
-			
 			<?php 
 			/***** CODE TO GET DIALOGUE BOX OF FORM TO ENTER PERSON DETAILS ****/
 				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
@@ -383,7 +377,6 @@ $(function()
 					'title'=>'Person Details',
 					//'title'=>Yii::t('notificationContact','Create Job'),
 					'autoOpen'=>$showDialogue,
-					'autoOpen'=>false,
 					'modal'=>'true',
 					'show' => 'blind',
 					'hide' => 'explode',
@@ -452,7 +445,9 @@ $(function()
 </tr>
 
  <tr>
-	<td colspan="3"><?php echo CHtml::submitButton($model->isNewRecord ? 'Set up this New rule' : 'Save the Rule'); ?></td>
+	<td colspan="3"><?php echo CHtml::submitButton($model->isNewRecord ? 'Set up this New rule' : 'Save the Rule', 
+															array('id'=>'form_save_button')); ?>
+	</td>
  </tr>
 
  </table>	

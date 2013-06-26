@@ -66,7 +66,7 @@ class SparesUsedController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		/*
+		
 		if(isset($_POST['SparesUsed']))
 		{
 			$model->attributes=$_POST['SparesUsed'];
@@ -74,10 +74,7 @@ class SparesUsedController extends Controller
 			{
 			     if (Yii::app()->request->isAjaxRequest)
                 {
-                    echo CJSON::encode(array(
-                        'status'=>'success', 
-                        'div'=>"Classroom successfully added"
-                        ));
+                    $this->renderPartial('sparesSuccessOutput');
                     exit;               
                 }//end of if ajax request.
                 else
@@ -89,18 +86,14 @@ class SparesUsedController extends Controller
 		
 	    if (Yii::app()->request->isAjaxRequest)
         {
-            echo CJSON::encode(array(
-                'status'=>'failure', 
-                'div'=>$this->renderPartial('_form', array('model'=>$model), true)));
+            $this->renderPartial('sparesFaliureOutput', array('model'=>$model));
             exit;               
         }
         else
         {
-			$this->render('create',array(
-				'model'=>$model,
-			));
+			$this->render('create',array('model'=>$model));
         }
-        */
+        
 	}//end of create.
 	
 	/* ORIGINAL ACTION CREATE....... WORKING FINE........
@@ -272,6 +265,7 @@ class SparesUsedController extends Controller
 		$master_id = $_POST['master_id'];
 		$service_id = $_POST['service_id'];
 		$unit_price=$_POST['unit_price'];
+		
 //		echo $name."<hr>";
 //		echo $part_number."<hr>";
 //		echo $master_id."<hr>";
@@ -289,67 +283,13 @@ class SparesUsedController extends Controller
 		if($model->save())
 		{
 			//echo "SAVED";
-			$serviceModel = Servicecall::model()->findByPk($service_id);
-			$serviceUpdateModel = Servicecall::model()->updateByPk(
-																	$serviceModel->id,
-																	array
-																	(
-																		'spares_used_status_id'=>1
-																	)
+			$serviceUpdateModel = Servicecall::model()->updateByPk($service_id,
+																	array('spares_used_status_id'=>1)
 																	);
-																	
-			/************ CODE TO ADD DATA TO JSON FILE **********/
-																	
-				//echo $model->item_name."<hr>".$model->servicecall_id."<hr>";
-				//echo $model->servicecall->product->productType->name."<hr>";
-				$productType_id = $model->servicecall->product->productType->id;
-				$productType = $model->servicecall->product->productType->name;
-				//echo $model->servicecall->product->brand->name;
-				$brandId = $model->servicecall->product->brand->id;
-				$brandName = $model->servicecall->product->brand->name;
-				$model_number = $model->servicecall->product->model_number; 
-				$serial_number = $model->servicecall->product->serial_number;
-				//$barcode = $model->servicecall->product->barcode;
-				$enr_number = $model->servicecall->product->enr_number;
-				$fnr_number = $model->servicecall->product->fnr_number;
-				$productionCode = $model->servicecall->product->production_code;
-				//$original_modelNumber = strtoupper($model_number);
-				$modelVar = preg_replace("/[^A-Za-z0-9]/", "", $model_number);
-				$modelTrimmed = trim($modelVar);
-				$original_modelNumber = strtoupper($modelTrimmed);
-				//$original_partNumber = strtoupper($model->part_number);
-				$partVar = preg_replace("/[^A-Za-z0-9]/", "", $model->part_number);
-				$partTrimmed = trim($partVar);
-				$original_partNumber = strtoupper($partTrimmed);
-				//echo strtoupper($serial_number);
-				//$var = preg_replace("/[^A-Za-z0-9]/", "", $var);
-				
-				$paramArray = array();
-				$paramArray['brand_id'] = $brandId;
-				$paramArray['brand_name'] = $brandName;
-				$paramArray['productType_id'] = $productType_id;
-				$paramArray['productType'] = $productType;
-				$paramArray['model_number'] = $model_number;
-				$paramArray['original_model_number'] = $original_modelNumber;
-				$paramArray['serial_number'] = $serial_number;
-				//$paramArray['barcode'] = $barcode;
-				$paramArray['enr_number'] = $enr_number;
-				$paramArray['fnr_number'] = $fnr_number;
-				$paramArray['production_code']= $productionCode;
-				$paramArray['item_name'] = $model->item_name;
-				$paramArray['part_number'] = $model->part_number;
-				$paramArray['original_partNumber'] = $original_partNumber;
-				$paramArray['master_item_id'] = (int)$model->master_item_id;
-				
-				$sparesModel = SparesUsed::model()->addData($paramArray);
-				
-				
-			/************ END OF CODE TO ADD DATA TO JSON FILE **********/
-																																					
-		
+			
 			$this->redirect(array('servicecall/update/'.$service_id.'#spares_details'));
 			
-		}
+		}//end of if save.
 		else 
 		{
 			//echo "NOT SAVED";
@@ -367,12 +307,14 @@ class SparesUsedController extends Controller
 		$quantity = $_POST['quantity'];
 		$master_id = $_POST['master_id'];
 		$service_id = $_POST['service_id'];
-//		echo $item_name."<hr>";
-//		echo $part_number."<hr>";
-//		echo $unit_price."<hr>";
-//		echo $quantity."<hr>";
-//		echo $master_id."<hr>";
-//		echo $service_id."<hr>";
+		
+// 		echo $item_name."<hr>";
+// 		echo $part_number."<hr>";
+// 		echo $unit_price."<hr>";
+// 		echo $quantity."<hr>";
+// 		echo $master_id."<hr>";
+// 		echo $service_id."<hr>";
+		
 		
 		$model= new SparesUsed();
 		$model->master_item_id=$master_id;
@@ -382,83 +324,30 @@ class SparesUsedController extends Controller
 		$model->quantity=$quantity;
 		$model->unit_price=$unit_price;
 		
-		
 		if($model->save())
 		{
-			//echo "SAVED";
-			$serviceModel = Servicecall::model()->findByPk($service_id);
-			$serviceUpdateModel = Servicecall::model()->updateByPk(
-																	$serviceModel->id,
-																	array
-																	(
-																		'spares_used_status_id'=>1
-																	)
-																	);
+			//echo "Spares used SAVED";
+			$serviceUpdateModel = Servicecall::model()->updateByPk($service_id,
+																array('spares_used_status_id'=>1)
+															);
+			
 
-		/****************** CODE TO ADD DATA TO JSON FILE ***************/
-																	
-				//echo $model->item_name."<hr>".$model->servicecall_id."<hr>";
-				//echo $model->servicecall->product->productType->name."<hr>";
-				$productType_id = $model->servicecall->product->productType->id;
-				$productType = $model->servicecall->product->productType->name;
-				//echo $model->servicecall->product->brand->name;
-				$brandId = $model->servicecall->product->brand->id;
-				$brandName = $model->servicecall->product->brand->name;
-				$model_number = $model->servicecall->product->model_number; 
-				$serial_number = $model->servicecall->product->serial_number;
-				//$barcode = $model->servicecall->product->barcode;
-				$enr_number = $model->servicecall->product->enr_number;
-				$fnr_number = $model->servicecall->product->fnr_number;
-				$productionCode = $model->servicecall->product->production_code;
-//				$original_modelNumber = strtoupper($model_number);
-//				$original_partNumber = strtoupper($model->part_number);
-				$modelVar = preg_replace("/[^A-Za-z0-9]/", "", $model_number);
-				$modelTrimmed = trim($modelVar);
-				$original_modelNumber = strtoupper($modelTrimmed);
-				//$original_partNumber = strtoupper($model->part_number);
-				$partVar = preg_replace("/[^A-Za-z0-9]/", "", $model->part_number);
-				$partTrimmed = trim($partVar);
-				$original_partNumber = strtoupper($partTrimmed);
-				//echo strtoupper($serial_number);
-				
-				$paramArray = array();
-				$paramArray['brand_id'] = $brandId;
-				$paramArray['brand_name'] = $brandName;
-				$paramArray['productType_id'] = $productType_id;
-				$paramArray['productType'] = $productType;
-				$paramArray['model_number'] = $model_number;
-				$paramArray['original_model_number'] = $original_modelNumber;
-				$paramArray['serial_number'] = $serial_number;
-				//$paramArray['barcode'] = $barcode;
-				$paramArray['enr_number'] = $enr_number;
-				$paramArray['fnr_number'] = $fnr_number;
-				$paramArray['production_code']= $productionCode;
-				$paramArray['item_name'] = $model->item_name;
-				$paramArray['part_number'] = $model->part_number;
-				$paramArray['original_partNumber'] = $original_partNumber;
-				$paramArray['master_item_id'] = (int)$model->master_item_id;
-				
-				$sparesModel = SparesUsed::model()->addData($paramArray);
-				
-				
-		/******************** END OF CODE TO ADD DATA TO JSON FILE ****************/																
-																	
-				
-		/********* CODE TO ADD ITEM TO MASTER DATABASE **********/																	
-			$created = time();																	
+			/********* CODE TO ADD ITEM TO MASTER DATABASE **********/
+			$created = time();
 			$db = new PDO('sqlite:../local_items_database/api/master_database.db');
-			
+				
 			$result = $db->query("INSERT INTO master_items (part_number,name,created) values('$part_number','$item_name','$created')");
-		/********* END OF CODE TO ADD ITEM TO MASTER DATABASE **********/
+			/********* END OF CODE TO ADD ITEM TO MASTER DATABASE **********/
 			
-			//$this->redirect(array('view','id'=>$model->id));
-			$this->redirect(array('servicecall/update/'.$service_id));
+			$this->redirect(array('servicecall/update/'.$service_id.'#spares_details'));
+			
 		}
 		else 
 		{
-			//echo "NOT SAVED";
-			//print_r($model->getErrors());	
+// 			echo "NOT SAVED";
+// 			print_r($model->getErrors());	
 		}
+		
 		
 	}//end id newItemSave.
 	

@@ -21,13 +21,6 @@
 
 	
 	<?php echo $form->errorSummary($model); ?>
-
-	
-	
-	
-	
-	
-	
 	
 	
 <table style="width:100%;  background-color: #D0E9F1; border-radius: 15px; padding:10px; vertical-align: top;">
@@ -108,7 +101,10 @@
 				<?php 
 				if($model->notify_others == 0)
 				{
-					echo "NONE";
+					//echo "NONE";
+					?>
+					<span style="color:maroon"><b>None</b></span>
+					<?php 
 				}
 				else 
 				{
@@ -162,15 +158,21 @@
 		</tr>
 	<tr>
 		<td><?php echo $form->labelEx($model,'active'); ?>
-		<?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?></td>
+		<?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No'), array('disabled'=>'disabled')); ?></td>
 			<td>
 				<?php echo $form->labelEx($model,'created'); ?>
-				<?php echo CHtml::textField('', date('d-M-Y H:m', $model->created), array('disabled'=>'disabled')); ?>
+				<?php echo CHtml::textField('', date('d-M-Y', $model->created), array('disabled'=>'disabled')); ?>
 				<?php echo $form->error($model,'created'); ?>
 			</td>
 			<td>
 				<?php echo $form->labelEx($model,'modified'); ?>
-				<?php echo CHtml::textField('', date('d-M-Y H:m', $model->modified), array('disabled'=>'disabled')); ?>
+				<?php 
+					if($model->modified != '')
+						$modified_time = date('d-M-Y', $model->modified);
+					else 
+						$modified_time = '';
+					echo CHtml::textField('', $modified_time, array('disabled'=>'disabled')); 
+				?>
 				<?php echo $form->error($model,'modified'); ?>
 			</td>
 		

@@ -181,7 +181,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 		<td>
 			<?php 
 			
-				$country_code_val = '44';
+				$country_code_val = '';
 				$codes_list = CountryCodes::model()->getAllCodes();
 			
 			
@@ -201,16 +201,18 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 												'type'  => 'POST',
 												'url' => CController::createUrl('CountryCodes/getCallingCode/'),
 												'data' => array("country_code_id" => "js:this.value"),
-												'success'=> 'function(data) {
-																		if(data != " ")
-																		{
-																			alert(data);
-																		}
-																		else
-																		{
-																			alert("data is NULL !!!!!!!!");
-																		}
-																	}',
+												'success'=> 'function(data) 
+															{
+																if(data != " ")
+																{
+																	//alert(data);
+																	$("#code_disp_textField").val(data);
+																}
+																else
+																{
+																	alert("data is NULL !!!!!!!!");
+																}
+															}',
 												'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
 										)//end of ajax array().
 								)//end of array
@@ -218,7 +220,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 			?>
 			
 			
-			<?php echo CHtml::textField('', $country_code_val, array('size'=>3));?>
+			<?php echo CHtml::textField('', $country_code_val, array('size'=>3, 'id'=>'code_disp_textField', 'disabled'=>'disabled'));?>
 			<?php echo $form->textField($model,'telephone',array('rows'=>6, 'cols'=>50)); ?>
 			
 			

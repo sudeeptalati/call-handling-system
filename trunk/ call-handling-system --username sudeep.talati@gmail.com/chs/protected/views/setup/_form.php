@@ -179,8 +179,52 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 	
 	<tr>
 		<td>
+			<?php 
+			
+				$country_code_val = '44';
+				$codes_list = CountryCodes::model()->getAllCodes();
+			
+			
+			
+			?>
 			<?php echo $form->labelEx($model,'telephone'); ?>
+			
+			
+			
+			<?php 
+				//echo CHtml::dropDownList('calling_codes', '', $codes_list, array('empty' => '(Select a category'));
+			echo CHtml::dropDownList('calling_codes', '', $codes_list, 
+								array(
+										'prompt' => 'Please Select job status (required)',
+										'value' => '0',
+										'ajax'  => array(
+												'type'  => 'POST',
+												'url' => CController::createUrl('CountryCodes/getCallingCode/'),
+												'data' => array("country_code_id" => "js:this.value"),
+												'success'=> 'function(data) {
+																		if(data != " ")
+																		{
+																			alert(data);
+																		}
+																		else
+																		{
+																			alert("data is NULL !!!!!!!!");
+																		}
+																	}',
+												'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
+										)//end of ajax array().
+								)//end of array
+					);//end of dropdown.
+			?>
+			
+			
+			<?php echo CHtml::textField('', $country_code_val, array('size'=>3));?>
 			<?php echo $form->textField($model,'telephone',array('rows'=>6, 'cols'=>50)); ?>
+			
+			
+			
+			
+			
 			<?php echo $form->error($model,'telephone'); ?>
 		</td>
 		

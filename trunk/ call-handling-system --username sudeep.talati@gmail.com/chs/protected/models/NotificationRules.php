@@ -144,14 +144,26 @@ class NotificationRules extends CActiveRecord
         			{
         				$this->notify_others = 0;
         			}//end of if count().
-        		}//end of if
+        		}//end of if notify_others == 1.
+        		
         		return true;
-            }
+            }//END OF IF NEW RECORD.
             else
             {
             	$this->modified=time();
+            	
+            	if($this->notify_others == 1)
+            	{
+            		$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_code_id'=>$this->id));
+            		if(count($notificationContactModel) == 0)
+            		{
+            			$this->notify_others = 0;
+            		}//end of if count().
+            	}//end of if notify_others == 1.
+            	
                 return true;
-            }
+            }//END OF ELSE, THIS BIT IS CALLED IN UPDATE.
+            
         }//end of if(parent())
     }//end of beforeSave().
     

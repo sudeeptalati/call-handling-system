@@ -40,7 +40,6 @@ if ($showDialogue==1)
 		
 		<?php 
 				
-				
 		echo CHtml::ajax(array(
 	   'url'=>array('notificationContact/create', 'id'=>$model->id),
 	   'data'=> "js:$(this).serialize()",
@@ -133,10 +132,6 @@ if($model->notify_others == 1)
 	<td colspan='3'>
 		When job status is changed to 
 		<?php 
-			//echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
-			//array('empty'=>'Please Select job status (required)'));
-
-// ***** CURRENT WORKING DROPDOWN
 			echo $form->dropDownList($model, 'job_status_id', $jobstatuslist ,
 				 array(
 						'prompt' => 'Please Select job status (required)',
@@ -237,8 +232,6 @@ if($model->notify_others == 1)
 		&nbsp;&nbsp;<small><b>SMS</b></small>&nbsp;<?php echo CHtml::checkBox('engineer_sms_notification', $engineer_sms_checked, array('uncheckValue' => 0)); ?>
 		</div>
 	
-	
-	
 	</td>
 	<td>
 		
@@ -278,7 +271,8 @@ if($model->notify_others == 1)
 		<?php
 			if($model->notify_others == 0)
 			{
-				echo CHtml::submitButton ('Add Details', array('name'=>'others_person_details'));
+				//echo CHtml::submitButton ('Add Details', array('name'=>'others_person_details'));
+				echo CHtml::submitButton('Add Details', array('name'=>'others_person_details'));
 			}
 			
 		?>
@@ -357,12 +351,12 @@ if($model->notify_others == 1)
 			
 			<tr>
 				 <td colspan="5"><?php
-				//the link for open the dialog
-				echo CHtml::link('Add More', "",
-				array(
-					'style'=>'cursor: pointer; text-decoration: underline;',
-					'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
-				));
+					//the link for open the contact dialog, to enter more other details
+					echo CHtml::link('Add More', "",
+					array(
+						'style'=>'cursor: pointer; text-decoration: underline;',
+						'onclick'=>"{addContact(); $('#formdialog').dialog('open');}"
+					));
 				?>
 				</td>
 			 </tr>
@@ -380,7 +374,7 @@ if($model->notify_others == 1)
 					'modal'=>'true',
 					'show' => 'blind',
 					'hide' => 'explode',
-				),
+					),
 				));
 			?>
 						
@@ -434,14 +428,12 @@ if($model->notify_others == 1)
 	</td>
 </tr>
 
-
 	
 <tr>
 	<td  colspan="3">
 	<table style="width:30%; margin-bottom:0px;"><tr><td><b>Enable This Rule</b></td>
 	<td><?php echo $form->dropDownList($model, 'active', array('1'=>'Yes','0'=>'No')); ?></td></tr></table>
 	</td>
-		
 </tr>
 
  <tr>

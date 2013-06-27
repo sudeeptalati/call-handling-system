@@ -134,20 +134,8 @@ class NotificationRules extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
-        	if($this->notify_others == 1)
-        	{
-        		$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_code_id'=>$this->id));
-        		if(is_null($notificationContactModel))
-        		{
-        			$this->notify_others = 0;
-        			//echo "<br>Contact model is empty";
-        		}//end of if count().
-        		
-        		
-        	}//end of if notify_others == 1.
-        	
-        	
-        	if($this->isNewRecord)  // Creating new record 
+        	//********** Creating new record
+        	if($this->isNewRecord)  
             {
         		$this->created=time();
         		return true;
@@ -160,6 +148,12 @@ class NotificationRules extends CActiveRecord
             
         }//end of if(parent())
     }//end of beforeSave().
+    
+    
+    protected function afterSave()
+    {
+    	
+    }//end of afterSave().
     
 	
     public function getNotificationCode($email_status,$sms_status)

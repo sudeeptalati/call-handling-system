@@ -271,7 +271,6 @@ if($model->notify_others == 1)
 		<?php
 			if($model->notify_others == 0)
 			{
-				//echo CHtml::submitButton ('Add Details', array('name'=>'others_person_details'));
 				echo CHtml::submitButton('Add Details', array('name'=>'others_person_details'));
 			}
 			
@@ -443,6 +442,10 @@ if($model->notify_others == 1)
  </tr>
 
  </table>	
+ 
+ 
+ <?php echo "<br>Notify others value now = ".$model->notify_others; ?>
+ 
 
 <?php $this->endWidget(); ?>
 	

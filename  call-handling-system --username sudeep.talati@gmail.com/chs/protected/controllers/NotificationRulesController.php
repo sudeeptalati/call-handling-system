@@ -359,17 +359,21 @@ class NotificationRulesController extends Controller
 				else 
 					$model->notify_others == 0;
 			}//end of if(notify_others == 0).
-			elseif($model->notify_others == 1)
+			
+			if($model->notify_others == 1)
 			{
 				$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_code_id'=>$model->id));
-				if($notificationContactModel !== null)
+				if(empty($notificationContactModel))
 				{
-					echo "<br>Contact model is NOT empty, set notify_other == 1";
+					//echo "<br>Contact model IS empty, set notify_other == 0";
+					$model->notify_others = 0;
 				}//end of if count().
 				else
 				{
-					echo "<br>Contact model IS empty, notify_other == 0";
+					//echo "<br>Contact model is NOT empty, notify_other == 1";
+					$model->notify_others = 1;
 				}
+				
 			}//end of else(notify_others == 1).
 			/************** END OF MANIPULATION OF NOTIFY OTHERS CODE ****************/
 			

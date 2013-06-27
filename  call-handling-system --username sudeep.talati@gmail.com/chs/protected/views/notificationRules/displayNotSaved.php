@@ -14,7 +14,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog',
 			),//end of options array.
 ));
 
-echo "Problem in saving, Please select any status OR there may already be a notification rule for this status, so select another status.";
+echo "Not saved, Please select any status OR notification rule may be present for this status, select another status.";
 
 $this->endWidget('zii.widgets.jui.CJuiDialog');
 

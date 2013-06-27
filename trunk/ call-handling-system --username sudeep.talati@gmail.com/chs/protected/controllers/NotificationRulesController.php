@@ -222,28 +222,10 @@ class NotificationRulesController extends Controller
 				}//end of redirect to view.
 			}//end of outer if(save()).
 			
-			
-// 			else 
-// 			{
-				/**** DIALOGUE BOX TO DISPLAY ERROR CODE ***/
-// 				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-// 						'id'=>'formdialog',
-// 						// additional javascript options for the dialog plugin
-// 						'options'=>array(
-// 								'title'=>'Error',
-// 								'autoOpen'=>true,
-// 								'modal'=>'true',
-// 								'show' => 'blind',
-// 								'hide' => 'explode',
-// 						),
-// 				));
-				
-// 				echo "Problem in saving, there may already be a rule for this status";
-										
-// 				$this->endWidget('zii.widgets.jui.CJuiDialog'); 
-				
-				/**** END OF DIALOGUE BOX TO DISPLAY ERROR CODE ***/
-			//}//END OF ELSE OF SAVE().
+			else 
+			{
+				$this->renderPartial('displayNotSaved');
+			}//END OF ELSE OF SAVE().
 				
 		}//end of if(issset()).
 
@@ -375,11 +357,20 @@ class NotificationRulesController extends Controller
 					}
 				}//end of if(isset()).
 				else 
-				{
-					$model->notify_others = 0;
-				}
+					$model->notify_others == 0;
 			}//end of if(notify_others == 0).
-			
+			elseif($model->notify_others == 1)
+			{
+				$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_code_id'=>$model->id));
+				if($notificationContactModel !== null)
+				{
+					echo "<br>Contact model is NOT empty, set notify_other == 1";
+				}//end of if count().
+				else
+				{
+					echo "<br>Contact model IS empty, notify_other == 0";
+				}
+			}//end of else(notify_others == 1).
 			/************** END OF MANIPULATION OF NOTIFY OTHERS CODE ****************/
 			
 			if($model->save())

@@ -114,14 +114,14 @@ class NotificationContact extends CActiveRecord
 		));
 	}//end of search().
 	
-	protected function afterSave()
-	{
-		$notification_rules_id = $this->notification_rule_id;
+// 	protected function afterSave()
+// 	{
+// 		$notification_rules_id = $this->notification_rule_id;
 		
-		$notificationUpdateModel = NotificationRules::model()->updateByPk($notification_rules_id,
-											array('notify_others'=> 1) 
-										);
-	}//end of afterSave
+// 		$notificationUpdateModel = NotificationRules::model()->updateByPk($notification_rules_id,
+// 											array('notify_others'=> 1) 
+// 										);
+// 	}//end of afterSave
 	
 	
 }//end of class.

@@ -363,5 +363,175 @@ class NotificationRules extends CActiveRecord
 		
 	}//end of sendSMS().
 	
+	public function performNotification($status_id, $service_id)
+	{
+		$info = '';
+		// 		echo "<hr>in perform validation function, follwoing data is from this func";
+		// 		echo "<br>Value of status_id = ".$status_id;
+		// 		echo "<br>Value of service_id = ".$service_id;
+	
+		$serviceModel = Servicecall::model()->findByPk($service_id);
+		$setupModel = Setup::model()->findByPk(1);
+	
+		$cust_id = $serviceModel->customer_id;
+		$engineer_id = $serviceModel->engineer_id;
+		$contract_id = $serviceModel->product->contract_id;
+		$company_name = $setupModel->company;
+		$company_email = $setupModel->email;
+	
+		// 		echo "<br>cust id = ".$cust_id;
+		// 		echo "<br>engg id = ".$engineer_id;
+		// 		echo "<br>contract id = ".$contract_id;
+	
+		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
+	
+		if(count($notificationModel)!=0)
+		{
+				
+			$serviceDetailsModel = Servicecall::model()->findByPk($service_id);
+				
+			//echo "<br>Service reference no = ".$serviceDetailsModel->service_reference_number;
+			$reference_number = $serviceDetailsModel->service_reference_number;
+			//echo "<br>Fault Desc = ".$serviceDetailsModel->fault_description;
+			$fault_desc = $serviceDetailsModel->fault_description;
+			//echo "<br>Customer Name = ".$serviceDetailsModel->customer->fullname;
+			$customer_name = $serviceDetailsModel->customer->fullname;
+			//echo "<br>Engineer Name = ".$serviceDetailsModel->engineer->fullname;
+			$engineer_name = $serviceDetailsModel->engineer->fullname;
+				
+			$jobStatusModel = JobStatus::model()->findByPk($status_id);
+			//echo "<br>Status id from job model = ".$jobStatusModel->name;
+			$status = $jobStatusModel->name;
+				
+			$subject = 'Service call '.$reference_number.' Status changed to '.$status;
+			//echo "<br>Subject = ".$subject;
+				
+			$body = '<br>'.'The status of servicecall with reference number '.$reference_number.' is changed to <strong>'.$status.'</strong>.<br>'.'Customer Name : '.$customer_name.'<br>'.'Engineer Name : '.$engineer_name.'<br><br>For any queries related to this call, please contact '.$company_email.'. <br><br>Regards,<br>'.$company_name;
+			$smsMessage = 'The status of servicecall with reff no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+				
+			foreach($notificationModel as $data)
+			{
+				$customerNotificationCode =$data->customer_notification_code;
+				$engineerNotificationCode =$data->engineer_notification_code;
+				$warrantyProviderNotificationCode =$data->warranty_provider_notification_code;
+				$othersNotificationCode =$data->notify_others;
+	
+				if($customerNotificationCode != 0)
+				{
+					$customerModel = Customer::model()->findByPk($cust_id);
+					$receiver_email_address = $customerModel->email;
+					$telephone = $customerModel->mobile;
+					$name = $customerModel->fullname;
+					$customer_body = 'Dear '.$name.','."<br>".$body;
+	
+					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $customerNotificationCode, $customer_body, $subject, $smsMessage);
+					//$info.= $this->createMessage($response, 'customer');
+					$info .= NotificationRules::model()->createMessage($response, 'customer'); 
+					//echo "<br>INFO returned from func = ".$info;
+					//return $response;
+	
+				}//end of if of CUSTOMER.
+	
+				if($engineerNotificationCode != 0)
+				{
+					$engineerModel = Engineer::model()->findByPk($engineer_id);
+					$receiver_email_address = $engineerModel->contactDetails->email;
+					//echo "<br>Engineer telephone = ".$engineerModel->contactDetails->mobile;
+					$telephone = $engineerModel->contactDetails->mobile;
+					$name = $engineerModel->fullname;
+					$engineer_body = 'Dear '.$name.','."\n".$body;
+	
+					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject, $smsMessage);
+					//$info.= $this->createMessage($response, 'engineer');
+					$info .= NotificationRules::model()->createMessage($response, 'engineer');
+					//echo "<br>INFO returned from func = ".$info;
+					//return $response;
+	
+				}//end of if of ENGINEER.
+					
+				if($warrantyProviderNotificationCode != 0)
+				{
+					$contractModel = Contract::model()->findByPk($contract_id);
+					$receiver_email_address = $contractModel->mainContactDetails->email;
+					//echo "<br>Warranty Provider telephone = ".$contractModel->mainContactDetails->mobile;
+					$telephone = $contractModel->mainContactDetails->mobile;
+					$warranty_body = 'Dear Recepient,'."\n".$body;
+	
+					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject, $smsMessage);
+					//$info.= $this->createMessage($response, 'warranty provider');
+					$info .= NotificationRules::model()->createMessage($response, 'warranty provider');
+					//echo "<br>INFO returned from func = ".$info;
+					//return $response;
+	
+				}//end of if of WARRANTY PROVIDER.
+					
+				if($othersNotificationCode != 0)
+				{
+					//echo "<hr>INSIDE Others Notification code IF ELSE BLOCK = ".$othersNotificationCode;
+					//echo "<br>Notification rule id = ".$data->id."<hr>";
+	
+					$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_rule_id'=>$data->id));
+					foreach ($notificationContactModel as $contact)
+					{
+						//echo "<br>Others email address = ".$contact->email;
+						$receiver_email_address = $contact->email;
+						//echo "<br>Others telephone = ".$contact->mobile;
+						$telephone = $contact->mobile;
+						//echo "<br>Other name = ".$contact->person_name;
+						$name = $contact->person_name;
+						$others_body = 'Dear '.$name.','."\n".$body;
+						$other_notification_code = $contact->notification_code_id;
+	
+						$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $other_notification_code, $others_body, $subject, $smsMessage);
+						//$info.= $this->createMessage($response, 'others');
+						$info .= NotificationRules::model()->createMessage($response, 'others');
+						//echo "<br>INFO returned from func = ".$info;
+						//return $response;
+	
+					}//end of inner foreach($contact).
+						
+				}//end of if of OTHERS.
+	
+			}//end of foreach($notificationModel).
+				
+		}//end of count().
+		return $info;
+	
+	}//end of performNotification().
+	
+	public function createMessage($notifyStatusArray, $notifiedTo)
+	{
+		/* SMS API RETURNS 1 ON SUCCESFUL SMS SENT, OR RESTURNS EMPTY STRING.
+		 * EMAIL SUCESSFUL SENT RETURNS 1 ELSE RETURNS 0.
+		* */
+		$msg = '';
+		//echo "<br>SMS response in createMesg func = ".$notifyStatusArray['sms_response'];
+	
+		if($notifyStatusArray['sms_response'] == '1')
+		{
+			//echo "<br>!!!!!!!!!!!!!!!!!!!!!!!!!!.............. sms sent sucessfully ......!!!!!!!!!";
+			$msg .= "<br><span style='background-color:#C9E0ED; color:#555555;   border-radius:10px 10px 10px 10px; '>SMS has been sent to ".$notifiedTo.". </span>";
+		}
+		elseif($notifyStatusArray['sms_response'] != 'none')
+		{
+			//echo "<br> SMS NOT SENT PROPERLY................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+			$msg = $msg."<br><div style='background-color:#CD0000; color:white;   border-radius:10px 10px 10px 10px; '>Please check your sms settings or make sure the mobile number ".$notifiedTo." is valid. &nbsp;&nbsp;&nbsp;Server Response:<i> ".$notifyStatusArray['sms_response'].".</i></div>";
+		}//end of if(sms_response)
+	
+		if($notifyStatusArray['email_response'] == 1)
+		{
+			//echo "<br>Email sent sucessfully ......!!!!!!!!!";
+			$msg = $msg."<br><span style='background-color:#C9E0ED; color:#555555;   border-radius:10px 10px 10px 10px; '>Email has been sent to ".$notifiedTo.". </span>";
+		}
+		elseif($notifyStatusArray['sms_response'] != 'none')
+		{
+			//echo "<br>Error in sending email, check EMAIL settings.";
+			$msg = $msg."<br><span style='background-color:red; color:#CD0000;   border-radius:10px 10px 10px 10px; '>Error in sending email to ".$notifiedTo.", check EMAIL settings.</span>";
+		}
+		//echo "<br> Message returned for ".$notifiedTo." = ".$msg;
+		return $msg;
+	}//end of createMessage().
+	
+	
 	
 }//end of class.

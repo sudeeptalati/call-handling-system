@@ -15,16 +15,16 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10Begin(K
 
       //Make the request
       if (scriptTag) 
-         {
-            try
-              {
-                  headTag.removeChild(scriptTag);
-              }
-            catch (e)
-              {
-                  //Ignore
-              }
-         }
+      {
+	      try
+	      {
+	      	headTag.removeChild(scriptTag);
+	      }
+	      catch (e)
+	      {
+	      	//Ignore
+	      }
+      }
       scriptTag = document.createElement("script");
       scriptTag.src = strUrl
       scriptTag.type = "text/javascript";
@@ -160,7 +160,10 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 	<tr>
 		<td>
 			<?php echo $form->labelEx($model,'country'); ?>
-			<?php echo $form->textField($model,'country',array('rows'=>6, 'cols'=>50)); ?>
+			<?php
+				$codes_list = CountryCodes::model()->getAllCountryNames();
+				echo $form->dropDownList($model, 'country', $codes_list); 
+			?>
 			<?php echo $form->error($model,'country'); ?>
 		</td>
 		
@@ -182,46 +185,65 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 			<?php 
 			
 				$country_code_val = '';
-				$codes_list = CountryCodes::model()->getAllCodes();
-			
-			
+				$codes_list = CountryCodes::model()->getAllCountryNames();
+				
+				if($model->telephone != '')
+				{
+					if(strlen($model->telephone) > 12)
+					{
+						//echo "<br>Code is added";
+						$phone_no = $model->telephone;
+						$code_pos = 4;
+						$actual_phone_no = substr($phone_no, $code_pos);
+						//echo "<br>Phone no = ".$actual_phone_no;
+						$model->telephone = $actual_phone_no;
+						
+						$country_code_val = $model->countryCodes->calling_code;
+						//echo "<br>Code = ".$country_code_val;
+						
+						$selected = $model->country;
+						
+					}//end if inner if(strlen()).
+					
+				}//end of if !null of telephone. 
 			
 			?>
 			<?php echo $form->labelEx($model,'telephone'); ?>
 			
-			
-			
 			<?php 
-				//echo CHtml::dropDownList('calling_codes', '', $codes_list, array('empty' => '(Select a category'));
-			echo CHtml::dropDownList('calling_codes', '', $codes_list, 
-								array(
-										'prompt' => 'Please Select job status (required)',
-										'value' => '0',
-										'ajax'  => array(
-												'type'  => 'POST',
-												'url' => CController::createUrl('CountryCodes/getCallingCode/'),
-												'data' => array("country_code_id" => "js:this.value"),
-												'success'=> 'function(data) 
-															{
-																if(data != " ")
-																{
-																	//alert(data);
-																	$("#code_disp_textField").val(data);
-																}
-																else
-																{
-																	alert("data is NULL !!!!!!!!");
-																}
-															}',
+			echo CHtml::dropDownList('calling_codes', $selected, $codes_list, 
+					array(
+						'prompt' => 'Please Select job status (required)',
+						'value' => '0',
+						'ajax'  => array(
+									'type'  => 'POST',
+									'url' => CController::createUrl('CountryCodes/getCallingCode/'),
+									'data' => array("country_code_id" => "js:this.value"),
+									'success'=> 'function(data) 
+												{
+													if(data != " ")
+													{
+														$("#code_disp_textField").val(data);
+														$("#hidden_code_textField").val(data);
+													}
+													else
+													{
+														alert("data is NULL !!!!!!!!");
+													}
+												}',
 												'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
-										)//end of ajax array().
-								)//end of array
-					);//end of dropdown.
+									)//end of ajax array().
+						)//end of array
+				);//end of dropdown.
 			?>
 			
 			
-			<?php echo CHtml::textField('', $country_code_val, array('size'=>3, 'id'=>'code_disp_textField', 'disabled'=>'disabled'));?>
-			<?php echo $form->textField($model,'telephone',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo CHtml::textField('code_val', $country_code_val, array('size'=>3, 'id'=>'code_disp_textField', 'disabled'=>'disabled'));?>
+			<?php
+				//********** THIS HIDDEN FIELD IS TO PASS CODE VALUE TO CONTROLLER ************  
+				echo CHtml::hiddenField('hidden_code_val', $country_code_val, array('id'=>'hidden_code_textField'));
+			?>
+			<?php echo $form->textField($model,'telephone',array('maxlength'=>12, 'rows'=>6, 'cols'=>50)); ?>
 			
 			
 			

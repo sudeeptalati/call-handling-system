@@ -261,6 +261,7 @@ class ApiController extends Controller
 				
 				if($internet_status == 1)
 				{
+					//******* SENDING EMAIL TO CUSTOMER, ENGINEER AND FOLLW NOTIFICATION RULE ******
 					//echo "<br>DIARY SAVED.......!!!!!!!!!!";
 					$sevicecallModel = Servicecall::model()->findByPk($service_id);
 					$setupModel = Setup::model()->findByPk(1);
@@ -280,6 +281,8 @@ class ApiController extends Controller
 					//echo "<br>Reff no = ".$reference_number;
 					$status = $sevicecallModel->jobStatus->name;
 					//echo "<br>status = ".$status;
+					$status_id = $sevicecallModel->job_status_id;
+					//echo "<br>status id = ".$status_id;
 					$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
 					$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 					$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
@@ -289,6 +292,10 @@ class ApiController extends Controller
 									
  					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
  					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+ 					
+ 					$response = NotificationRules::model()->performNotification($status_id, $service_id);
+ 					
+ 					//******* SENDING EMAIL TO CUSTOMER, ENGINEER AND FOLLW NOTIFICATION RULE ******
 				}//end of if(check for internet connection). 
 				else 
 					echo "PLEASE CHECK YOUR INTERNET CONNECTION";

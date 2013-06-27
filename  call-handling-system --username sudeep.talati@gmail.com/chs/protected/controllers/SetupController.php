@@ -88,6 +88,7 @@ class SetupController extends Controller
 	{
 		//echo "<br>In update controller";
 		$model=$this->loadModel($id);
+		$code_to_append = '';
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -96,29 +97,21 @@ class SetupController extends Controller
 		{
 			$model->attributes=$_POST['Setup'];
 			
-			if(isset($_POST['calling_codes']))
+			if(isset($_POST['hidden_code_val']))
 			{
-				//echo "<br>Dropdown values = ".$_POST['calling_codes'];
-				$country_code_id = $_POST['calling_codes'];
-				$countryCodeModel = CountryCodes::model()->findByPk($country_code_id);
+				//echo "<br>Code value in update action = ".$_POST['hidden_code_val'];
+				$code_to_append = $_POST['hidden_code_val'];
+				if($code_to_append != '')
+					$model->telephone = '00'.$code_to_append.$model->telephone;
 				
-				$code = $countryCodeModel->calling_code;
-				//echo "<br>Calling code from database = ".$code;
-			}
+			}//end of if(isset[hodden_code_val]).
 			
-			
-			
-			
-			
-			
-// 			if($model->save())
-// 				$this->redirect(array('view','id'=>$model->id));
-		}
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}//end of if(isset())
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+		$this->render('update',array('model'=>$model));
+	}//end of update.
 
 	/**
 	 * Deletes a particular model.

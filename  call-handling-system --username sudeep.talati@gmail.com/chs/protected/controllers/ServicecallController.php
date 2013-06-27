@@ -187,30 +187,36 @@ class ServicecallController extends Controller
 										{
 											try
 											{
-											//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
-											$reference_number = $serviceCallModel->service_reference_number;
-											$status = 'Logged';
-											$customer_name = $serviceCallModel->customer->fullname;
-											$engineer_name = $serviceCallModel->engineer->fullname;
-											$setupModel = Setup::model()->findByPk(1);
-											$company_name = $setupModel->company;
-											$customer_mobileNumber = $serviceCallModel->customer->mobile;
-											$customer_email_address = $serviceCallModel->customer->email;
-											$engineer_mobileNumber = $serviceCallModel->engineer->contactDetails->mobile;
-											$engineer_email_address = $serviceCallModel->engineer->contactDetails->email;
-											
-											
-											$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
-											$subject = 'Service call '.$reference_number.' Status changed to '.$status;
-											$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+												//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
+												$reference_number = $serviceCallModel->service_reference_number;
+												$status = 'Logged';
+												$customer_name = $serviceCallModel->customer->fullname;
+												$engineer_name = $serviceCallModel->engineer->fullname;
+												$setupModel = Setup::model()->findByPk(1);
+												$company_name = $setupModel->company;
+												$customer_mobileNumber = $serviceCallModel->customer->mobile;
+												$customer_email_address = $serviceCallModel->customer->email;
+												$engineer_mobileNumber = $serviceCallModel->engineer->contactDetails->mobile;
+												$engineer_email_address = $serviceCallModel->engineer->contactDetails->email;
 												
-											$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
-											$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+												$status_id = 1;
+												$service_id = $serviceCallModel->id;
 												
-											$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
-											$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
-											
-											//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
+												
+												$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
+												$subject = 'Service call '.$reference_number.' Status changed to '.$status;
+												$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+													
+												$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+												$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+													
+												$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+												$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+												
+												//$this->performNotification($status_id, $service_id);
+												$response = NotificationRules::model()->performNotification($status_id, $service_id);
+												
+												//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
 											}//end of try.
 											catch (Exception $e)
 											{
@@ -221,7 +227,9 @@ class ServicecallController extends Controller
 										$engg_id=$serviceCallModel->engineer_id;
 										$baseUrl=Yii::app()->request->baseUrl;
 										$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
-									}
+										
+									}//end of if(save).
+									
 								}/////end of outer if(). 
 								
 						}///enf of customer model saved
@@ -309,7 +317,8 @@ class ServicecallController extends Controller
  					//if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))//To check internet connection.
  					if($internet_connection == 1)
 					{
-						$response = $this->performNotification($current_status_id, $service_id);
+						//$response = $this->performNotification($current_status_id, $service_id);
+						$response = NotificationRules::model()->performNotification($current_status_id, $service_id);
 					}
 				}//END of IF(status change).
 				
@@ -706,6 +715,7 @@ class ServicecallController extends Controller
 		$this->render('enggReportDropdown',array('model'=>$model));	
 	}//end of actionDisplayDropdown();
 	
+	/*
 	public function performNotification($status_id, $service_id)
 	{
 		$info = '';
@@ -842,7 +852,7 @@ class ServicecallController extends Controller
 	{
 		/* SMS API RETURNS 1 ON SUCCESFUL SMS SENT, OR RESTURNS EMPTY STRING.
 		 * EMAIL SUCESSFUL SENT RETURNS 1 ELSE RETURNS 0.
-		 * */
+		 *
 		$msg = '';
 		//echo "<br>SMS response in createMesg func = ".$notifyStatusArray['sms_response'];
 		
@@ -870,7 +880,7 @@ class ServicecallController extends Controller
 		//echo "<br> Message returned for ".$notifiedTo." = ".$msg;
 		return $msg;
 	}//end of createMessage().
-	
+	*/
 	
 	public function actionDisplayMap()
 	{

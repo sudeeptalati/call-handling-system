@@ -444,7 +444,7 @@ if($model->notify_others == 1)
  </table>	
  
  
- <?php echo "<br>Notify others value now = ".$model->notify_others; ?>
+ <?php //echo "<br>Notify others value now = ".$model->notify_others; ?>
  
 
 <?php $this->endWidget(); ?>

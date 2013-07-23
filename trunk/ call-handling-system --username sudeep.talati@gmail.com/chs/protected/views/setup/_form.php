@@ -230,7 +230,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 													}
 													else
 													{
-														alert("data is NULL !!!!!!!!");
+														alert("Code is not present for this region !!!!!!!!");
 													}
 												}',
 												'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',

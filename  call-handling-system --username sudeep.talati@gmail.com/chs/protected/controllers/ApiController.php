@@ -128,7 +128,7 @@ class ApiController extends Controller
 
 		}//end of else of engg id value == 0.
     	
-    }//end of displayDiary().
+    }//end of ViewFullDiaryJsonData().
     
     public function actionUpdateDiary()
     {
@@ -223,25 +223,24 @@ class ApiController extends Controller
     
     public function actionCreateNewDiaryEntry()
     {
-    	echo "IN CreateNewDiaryEntry action";
+    	//echo "IN CreateNewDiaryEntry action";
     	
     	$start_date = $_GET['start_date'];
-    	echo "<hr>START DATE = ".$start_date;
-    	echo "<br>STRTOTIME START DATE = ".strtotime($start_date);
+    	//echo "<hr>START DATE = ".$start_date;
+    	//echo "<br>STRTOTIME START DATE = ".strtotime($start_date);
     	
     	$engg_id = $_GET['engg_id'];
-    	echo "<br>ENGG_ID in api contr = ".$engg_id;
+    	//echo "<br>ENGG_ID in api contr = ".$engg_id;
     	$service_id = $_GET['service_id'];
-    	echo "<br>SERVICE_ID in api contr = ".$service_id;
+    	//echo "<br>SERVICE_ID in api contr = ".$service_id;
     	
     	$newEnggDiaryModel = new Enggdiary;
-    	//$newEnggDiaryModel->id = 1;
-    	echo "<hr>Service id to be saved = ".$service_id;
+    	//echo "<hr>Service id to be saved = ".$service_id;
     	$newEnggDiaryModel->servicecall_id=$service_id;
-    	echo "<br>Engineer id to be saved = ".$engg_id;
+    	//echo "<br>Engineer id to be saved = ".$engg_id;
 		$newEnggDiaryModel->engineer_id=$engg_id;
-		$newEnggDiaryModel->status='3';//STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
-		echo "<br>Visit satrt date to be saved = ".$start_date;
+		$newEnggDiaryModel->status='3';//CHANGE STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
+		//echo "<br>Visit satrt date to be saved = ".$start_date;
 		$newEnggDiaryModel->visit_start_date=$start_date;
 		$newEnggDiaryModel->slots = '2';
 		
@@ -306,12 +305,12 @@ class ApiController extends Controller
 				//echo "<br>error message = ".$e.message;
 			}
 			
-			
 		}//end of if($newEnggDiaryModel->save()).
 		else 
 		{
 			echo "<br>Problem in saving diary";
 		}
+		
     	
     }//end of actionCreateNewDiaryEntry().
     

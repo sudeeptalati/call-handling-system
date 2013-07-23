@@ -193,7 +193,9 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 					{
 						//echo "<br>Code is added";
 						$phone_no = $model->telephone;
-						$code_pos = 4;
+						// TO DISPLAY CODE AND PHONE NUMBER SEPERATLY WE ARE DIVIDING THE STRING IN 12TH POSITION FROM END OF STRING. 
+						// ****** THIS WILL GIVE THE PHONE NUMBER. CODE IS TAKEN FROM THE COUNTRY'S CODE ******** 
+						$code_pos = -12;
 						$actual_phone_no = substr($phone_no, $code_pos);
 						//echo "<br>Phone no = ".$actual_phone_no;
 						$model->telephone = $actual_phone_no;

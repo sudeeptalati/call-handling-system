@@ -307,7 +307,7 @@ function isTouchDevice()
 							//alert('service id = '+service_id);
 							
 							createNewDiaryEntry(clicked_date_to_display, engg_id, service_id);
-							setTimeout($.unblockUI, 7000);
+							setTimeout($.unblockUI, 5000);
 							return true;
 						});//end of yes.
 				
@@ -471,6 +471,7 @@ function isTouchDevice()
 	        error: function()
 	        {
 		        alert("ERROR"); 
+				//$.blockUI({ message: "Error in creating"});
 	        },
 	        
 	     });//end of AJAX.

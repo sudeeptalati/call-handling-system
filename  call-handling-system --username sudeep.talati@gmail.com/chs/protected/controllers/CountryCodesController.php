@@ -188,7 +188,7 @@ class CountryCodesController extends Controller
 				
 				$code = $countryCodeModel->calling_code;
 				if($code == '')
-					$code = 'No Code';
+					$code = ' ';
 				
 				$this->renderPartial('displayCallingCode',array('code'=>$code));
 			}

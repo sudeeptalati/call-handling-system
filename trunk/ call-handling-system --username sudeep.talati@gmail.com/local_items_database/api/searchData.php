@@ -1,8 +1,8 @@
 
 
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: X-Requested-With");
+//header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Headers: X-Requested-With");
 //$list = array();
 //include_once ('database_connection.php');
 

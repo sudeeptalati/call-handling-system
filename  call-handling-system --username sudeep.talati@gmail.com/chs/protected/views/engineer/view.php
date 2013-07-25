@@ -31,9 +31,10 @@
 		'contactDetails.mobile',
 		'contactDetails.email',
 		'contactDetails.postcode',
-			'inactivatedByUser.username',
 		//'created',
 		array( 'name'=>'created', 'value'=>$model->created==null ? "":date("d-M-Y",$model->created)),
+		//'created_by_user_id',
+		array( 'name'=>'created_by_user_id', 'value'=>$model->createdByUser->username),
 		//'modified',
 		array( 'name'=>'modified', 'value'=>$model->modified==null ? "":date("d-M-Y",$model->modified)),
 		//'inactivated_by_user_id',
@@ -45,7 +46,7 @@
 // 		'contact_details_id',
 // 		'delivery_contact_details_id',
 // 		//'created_by_user_id',
-//			'createdByUser.username',
+//		'createdByUser.username',
 
 		
 	),

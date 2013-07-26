@@ -13,13 +13,14 @@ $desc=array (
 );
 $up=-63;
 $ut=44;
-$ttffile='C:/xampp/htdocs/eclipse-php/workspace/ims_working/IMS_LocalWorking/ims/protected/vendors/mpdf/ttfonts/DejaVuSansCondensed.ttf';
+$ttffile='C:/xampp/htdocs/call_handling/chs/protected/vendors/mpdf/ttfonts/DejaVuSansCondensed.ttf';
 $TTCfontID='0';
 $originalsize=555944;
 $sip=false;
 $smp=false;
 $BMPselected=true;
 $fontkey='dejavusanscondensed';
-$panose='0 0 2 11 6 6 3 8 4 2 2 4';
+$panose=' 0 0 2 b 6 6 3 8 4 2 2 4';
 $haskerninfo=false;
+$unAGlyphs=false;
 ?>

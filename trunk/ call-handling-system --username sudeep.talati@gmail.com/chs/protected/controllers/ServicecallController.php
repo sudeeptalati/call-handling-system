@@ -70,8 +70,24 @@ class ServicecallController extends Controller
 		$model_number=$model->product->model_number;
 		$warranty=$model->contract->name;
 		$filename=$service_ref_no.' '.$customer_name.' '.$model_number.' '.$warranty.'.pdf';
+		
+		# mPDF
+		Yii::import('application.vendors.*');
+		require_once('mpdf/mpdf.php');
 	
+	///Create an instance of the class:
+		$mpdf=new mPDF();
 
+////Write some HTML code:
+//$mpdf->WriteHTML('<p>Hallo World</p>');
+
+$mpdf->WriteHTML($this->renderPartial('preview',array('model'=>$model,'company_details'=>$setupModel), true));
+
+///Output a PDF file:
+$mpdf->Output();
+	
+	/*
+	
 		//echo 'I M HERE';		
 // 		$this->renderPartial('Preview',array(
 // 			'model'=>$this->loadModel($id),'config'=>$config,
@@ -90,7 +106,7 @@ class ServicecallController extends Controller
 		//$mPDF1->WriteHTML($stylesheet, 1);
 		# Outputs ready PDF
 		$mPDF1->Output($filename,'I');
-		
+	*/	
 	}//end of public function actionPreview($id)
 	
 	public function actionHtmlPreview($id)

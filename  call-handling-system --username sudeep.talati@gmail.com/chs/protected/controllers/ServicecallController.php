@@ -71,7 +71,7 @@ class ServicecallController extends Controller
 		$warranty=$model->contract->name;
 		$filename=$service_ref_no.' '.$customer_name.' '.$model_number.' '.$warranty.'.pdf';
 		
-		# mPDF
+		//mPDF, **** accessing mpdf directly from vendors *******
 		Yii::import('application.vendors.*');
 		require_once('mpdf/mpdf.php');
 	
@@ -710,10 +710,20 @@ $mpdf->Output();
 		
 		if($startDate != '')
 		{
-			$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
-			$this->render('engg_job_report',
+			$str_startdate = strtotime($startDate);
+			$str_enddate = strtotime($endDate );
+			
+			if($str_enddate < $str_startdate )
+			{
+				$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>2));
+			}//end of if comparing dates.
+			else
+			{
+				$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
+				$this->render('engg_job_report',
 					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)
-			);
+				);
+			}//end of else(comparing dates.)
 		}//end of if(start_date not empty).
 		else 
 		{

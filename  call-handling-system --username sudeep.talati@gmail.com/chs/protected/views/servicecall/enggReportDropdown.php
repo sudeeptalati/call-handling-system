@@ -3,9 +3,13 @@
 $baseUrl=Yii::app()->request->baseUrl;
 $exportUrl = $baseUrl.'/Servicecall/export/';
 
-if(isset($date_error) == 1)
+if(isset($date_error))
 {
-	//echo "<br>Start date not filled";
+	if($date_error == 1)
+		$msg = "Please enter start date";
+	elseif($date_error == 2)
+		$msg = "End date is earlier to start date..!!! Please change end date";
+	
 	
 	$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
 			'id'=>'date_error',
@@ -16,13 +20,12 @@ if(isset($date_error) == 1)
 			),
 	));
 	
-	echo 'Please enter start date';
+	echo $msg;
 	
 	$this->endWidget('zii.widgets.jui.CJuiDialog');
 
 }
-// else
-// 	echo "<br>ALL OK";
+
 
 
 $enggStatusForm=$this->beginWidget('CActiveForm', array(

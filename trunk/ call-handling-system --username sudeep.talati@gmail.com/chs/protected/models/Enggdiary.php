@@ -316,11 +316,11 @@ class Enggdiary extends CActiveRecord
     	
     	foreach ($enggModel as $data)
     	{
-    		echo "id from func in model = ".$data->id."<br>";
-    		echo "VISIT START DATE = ".date('d-m-Y H:i', $data->visit_start_date)."<br>";	
-    		echo "VISIT END DATE = ".date('d-m-Y H:i', $data->visit_end_date)."<br>";
+    		//echo "id from func in model = ".$data->id."<br>";
+    		//echo "VISIT START DATE = ".date('d-m-Y H:i', $data->visit_start_date)."<br>";	
+    		//echo "VISIT END DATE = ".date('d-m-Y H:i', $data->visit_end_date)."<br>";
     		$date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $minutes."minutes");
-    		echo "time after adding min = ".date('d-m-Y H:i', $date);
+    		//echo "time after adding min = ".date('d-m-Y H:i', $date);
     		$notesStr = $data->notes."\n Appointment end time was changed to ".date('d-m-Y H:i', $date)." by ".Yii::app()->user->name.".";
     		
     		$enggUpdateModel = Enggdiary::model()->updateByPk($id,
@@ -336,10 +336,10 @@ class Enggdiary extends CActiveRecord
     public function changePreviousAppointment($diary_id)
     {
     	$previousDiaryModel = Enggdiary::model()->findByPk($diary_id);
-		echo "<hr>Visit start date = ".$previousDiaryModel->visit_start_date;
-		echo "<br>Visit end date = ".$previousDiaryModel->visit_end_date;
-		echo "<br>No of slots = ".$previousDiaryModel->slots;
-		echo "<br>status = ".$previousDiaryModel->status;
+		//echo "<hr>Visit start date = ".$previousDiaryModel->visit_start_date;
+		//echo "<br>Visit end date = ".$previousDiaryModel->visit_end_date;
+		//echo "<br>No of slots = ".$previousDiaryModel->slots;
+		//echo "<br>status = ".$previousDiaryModel->status;
 		$notesStr = $previousDiaryModel->notes."\n This appointment has been cancelled by ".Yii::app()->user->name.".";
 		
 		$updateDiaryModel = Enggdiary::model()->updateByPk($previousDiaryModel->id,

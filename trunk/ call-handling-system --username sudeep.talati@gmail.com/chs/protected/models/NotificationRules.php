@@ -311,13 +311,15 @@ class NotificationRules extends CActiveRecord
 			//echo "<br>Host value from main = ".$password;
 			$encry = Yii::app()->params['smtp_encry'];
 			//echo "<br>Host value from main = ".$encry;
+			$smtp_auth = Yii::app()->params['smtp_auth'];
+			//echo "<br>SMTP authentication = ".$smtp_auth;
 			$sender_email = $username;
 				
 				
 			$mail = new PHPMailer;
 
 			$mail->IsSMTP();
-			$mail->SMTPAuth = true;
+			$mail->SMTPAuth = $smtp_auth;
 			$mail->Host = $host;  // Specify main and backup server
 			$mail->Username = $username;                            // SMTP username
 			$mail->Password = $password;                           // SMTP password

@@ -11,6 +11,7 @@
 	$smtp_password = '';
 	$smtp_encryption = '';
 	$smtp_port = '';
+	$smtp_auth = '';
 	$gateway_username = '';
 	$gateway_password = '';
 	$gateway_apikey = '';
@@ -36,6 +37,8 @@
 		//echo "<br>encryption = ".$smtp_encryption;
 		$smtp_port = $decodedata['smtp_port'];
 		//echo "<br>post = ".$smtp_port;
+		$smtp_auth = $decodedata['smtp_auth'];
+		//echo "<br>Authentication = ".$smtp_auth;
 		
 	}//end of if file present.
 	else 
@@ -280,7 +283,8 @@ return array(
 		'smtp_username'=>$smtp_username,
 		'smtp_password'=>$smtp_password,
 		'smtp_encry'=>$smtp_encryption,
-		'smtp_port'=>$smtp_port
+		'smtp_port'=>$smtp_port,
+		'smtp_auth'=>$smtp_auth
 	),
 
 );

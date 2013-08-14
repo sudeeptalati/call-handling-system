@@ -42,6 +42,8 @@ $data = file_get_contents($filename);
 		//echo $smtp_encryption."<br>";
 		$smtp_port = $_POST['port'];
 		//echo $smtp_port."<br>";
+		$smtp_auth = $_POST['auth'];
+		//echo "<br>Auth value = ".$smtp_auth;
 		
 		if(file_exists($filename))
 		{
@@ -54,6 +56,7 @@ $data = file_get_contents($filename);
 			$decodedata['smtp_password'] = $smtp_password;
 			$decodedata['smtp_encryption'] = $smtp_encryption;
 			$decodedata['smtp_port'] = $smtp_port;
+			$decodedata['smtp_auth'] = $smtp_auth;
 		
 			$fh = fopen($filename, 'w');
 			fwrite($fh, json_encode($decodedata));
@@ -63,8 +66,8 @@ $data = file_get_contents($filename);
 		else
 			echo "Mail settings file is not found";
 	
-	}//end of if(isset()). ***** END OF TAKING VALUES FROM FORM *******
-	else 
+	}//end of if(isset()). ***** END OF SAVING VALUES TO JSON FILE *******
+	else //********* TAKING VALUES FROM JSON FILE **********
 	{
 		if(file_exists($filename))
 		{
@@ -82,7 +85,9 @@ $data = file_get_contents($filename);
 			$smtp_encryption = $decodedata['smtp_encryption'];
 			//echo "<br>encryption = ".$smtp_encryption;
 			$smtp_port = $decodedata['smtp_port'];
-			//echo "<br>post = ".$smtp_port;
+			//echo "<br>port = ".$smtp_port;
+			$smtp_auth = $decodedata['smtp_auth'];
+			//echo "<br>SMTP authentication = ".$smtp_auth;
 		}//end of if file exists.
 		else 
 			echo "Mail settings file is not found";
@@ -166,6 +171,11 @@ $data = file_get_contents($filename);
 	<div class="row">
 		<?php echo "<b>Port</b><br>";?>
 		<?php echo CHtml::textField('',$smtp_port, array('disabled'=>'disabled'));?>
+	</div>
+	
+	<div class="row">
+		<?php echo "<b>SMTP Authentication</b><br>";?>
+		<?php echo CHtml::textField('',$smtp_auth, array('disabled'=>'disabled'));?>
 	</div>
 	
 	<div class="row" >

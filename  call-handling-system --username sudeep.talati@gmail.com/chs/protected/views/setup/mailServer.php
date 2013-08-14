@@ -20,6 +20,7 @@ include 'setup_sidemenu.php';
 	$smtp_password = '';
 	$smtp_encryption = '';
 	$smtp_port = '';
+	$smtp_auth = '';
 	
 	$root = dirname(dirname(dirname(__FILE__)));
 	//echo $root."<br>";
@@ -43,6 +44,8 @@ include 'setup_sidemenu.php';
 		//echo "<br>encryption = ".$smtp_encryption;
 		$smtp_port = $decodedata['smtp_port'];
 		//echo "<br>post = ".$smtp_port;
+		$smtp_auth = $decodedata['smtp_auth'];
+		//echo "<br>SMTP authentication = ".$smtp_auth;
 	}//end of if file exists.
 	else 
 	{
@@ -60,7 +63,15 @@ function getSelectedValue()
     encryption.value = document.getElementById('server_encryption').value;
 }  
 
-alert(val);
+function getAuthenticateValue()
+{
+	var auth_index = document.getElementById('smtp_authentication').selectedIndex;
+    //alert("value="+document.getElementById('smtp_authentication').value); 
+	//alert("auth_value = "+auth_index);
+    auth.value = document.getElementById('smtp_authentication').value;
+}
+
+
 </script>  
 
 
@@ -83,6 +94,14 @@ alert(val);
 	<input type="hidden" name="encryption" id="encryption"><br><br>
 	
 	<b>Port</b><br><input type="text" name="port" value=<?php echo $smtp_port;?>><br><br>
+	
+	<b>SMTP Authentication</b><br>
+	<select name="smtp_authentication" id="smtp_authentication" onchange="getAuthenticateValue();">
+		<option value="none" selected>none</option>
+		<option value="true">True</option>
+		<option value="false">False</option>
+	</select>
+	<input type="hidden" name="auth" id="auth"><br><br>
 	
 	<input name="mail_server_values"  value="Save" type="submit"   style="width:100px">
 	

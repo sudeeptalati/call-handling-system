@@ -328,7 +328,7 @@ class NotificationRules extends CActiveRecord
 				
 			$mail->From = $sender_email;
 			$mail->FromName = $from_name;
-			$mail->AddAddress($reciever_email, 'Kruthika');  // Add a recipient
+			$mail->AddAddress($reciever_email);  // Add a recipient
 			$mail->AddReplyTo('mailtest.test10@gmail.com', 'Information');
 			 
 				

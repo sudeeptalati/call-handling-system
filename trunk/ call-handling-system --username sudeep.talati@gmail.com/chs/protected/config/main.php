@@ -183,8 +183,8 @@ return array(
 		        'class' => 'application.extensions.yii-mail.YiiMail',
 		        'transportType'=>'smtp', /// case sensitive!
 		        'transportOptions'=>array(
-		            'host'=>$smtp_host,
-		            //'host'=>'smtp.gmail.com',
+					'host'=>$smtp_host,
+		            //'host'=>'smtp.live.com',
 		            'username'=>$smtp_username,
 					//'username'=>'mailtest.test10@gmail.com',
 		            'password'=>$smtp_password,
@@ -276,7 +276,11 @@ return array(
 		'company_contact_details'=>'Telephone:00000000 Fax:00000000 E-mail:demo.co.uk',
 		'vat_in_percentage'=>'',	
 		'software_version'=>'0.5.3beta',	
-
+		'smtp_host'=>$smtp_host,
+		'smtp_username'=>$smtp_username,
+		'smtp_password'=>$smtp_password,
+		'smtp_encry'=>$smtp_encryption,
+		'smtp_port'=>$smtp_port
 	),
 
 );

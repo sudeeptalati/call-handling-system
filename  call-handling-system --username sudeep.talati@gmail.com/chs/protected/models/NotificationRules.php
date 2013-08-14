@@ -331,7 +331,7 @@ class NotificationRules extends CActiveRecord
 			$mail->From = $sender_email;
 			$mail->FromName = $from_name;
 			$mail->AddAddress($reciever_email);  // Add a recipient
-			$mail->AddReplyTo('mailtest.test10@gmail.com', 'Information');
+			$mail->AddReplyTo($sender_email);
 			 
 				
 			$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
@@ -339,7 +339,8 @@ class NotificationRules extends CActiveRecord
 			$mail->AddAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 			$mail->IsHTML(true);                                  // Set email format to HTML
 				
-			$mail->Subject = 'UKW test mail GMAIL';
+			//$mail->Subject = 'UKW test mail GMAIL';
+			$mail->Subject = $subject;
 			//$mail->Body = 'This is the HTML message body <b>in bold!</b>';
 			$mail->Body = $email_body;
 			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';

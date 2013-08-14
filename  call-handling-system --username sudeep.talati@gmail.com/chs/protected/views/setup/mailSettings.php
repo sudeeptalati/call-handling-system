@@ -156,7 +156,7 @@ $data = file_get_contents($filename);
 			if (empty($smtp_encryption))
 			{
 			?>
-				<input name="smsgateway_setting_values" value="none" disabled="disabled" type="input" >
+				<input name="server_encryption" value="none" disabled="disabled" type="input" >
 			<?php
 			}
 			else
@@ -165,7 +165,7 @@ $data = file_get_contents($filename);
 			}
 			
 				
-				?>
+			?>
 	</div>
 
 	<div class="row">
@@ -173,9 +173,23 @@ $data = file_get_contents($filename);
 		<?php echo CHtml::textField('',$smtp_port, array('disabled'=>'disabled'));?>
 	</div>
 	
+	
 	<div class="row">
 		<?php echo "<b>SMTP Authentication</b><br>";?>
-		<?php echo CHtml::textField('',$smtp_auth, array('disabled'=>'disabled'));?>
+		<?php 
+			if (empty($smtp_auth))
+			{
+			?>
+				<input name="smtp_authentication" value="none" disabled="disabled" type="input" >
+			<?php
+			}
+			else
+			{
+				echo CHtml::textField('',$smtp_auth, array('disabled'=>'disabled'));
+			}
+			
+				
+			?>
 	</div>
 	
 	<div class="row" >

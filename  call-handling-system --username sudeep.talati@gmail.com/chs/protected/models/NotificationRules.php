@@ -289,52 +289,78 @@ class NotificationRules extends CActiveRecord
 	public function sendEmail($reciever_email_address, $body, $subject)
 	{
 		$email_response = '';
-		$root = dirname(dirname(__FILE__));
 		$email_body = $body;
-		//echo $root."<br>";
-		$filename = $root.'/config/mail_server.json';
-			
+		
+		$setupModel = Setup::model()->findByPk(1);
+		$company_name = $setupModel->company;
+		
 		$reciever_email=$reciever_email_address;
 		$sender_email='';
-			
-		if(file_exists($filename))
+		
+		try 
 		{
-			//echo "<hr>json File with email details is present";
-			$data = file_get_contents($filename);
-			$decodedata = json_decode($data, true);
-			//echo "<br>Username = ".$decodedata['smtp_username'];
-			$sender_email = $decodedata['smtp_username'];
+			//****** SENDING CODE FROM PHPMAILER ****************
+			Yii::import('application.vendors.*');
+			require_once ('mailer/class.phpmailer.php');
+				
+			$host = Yii::app()->params['smtp_host'];
+			//echo "<br>Host value from main = ".$host;
+			$username = Yii::app()->params['smtp_username'];
+			//echo "<br>Host value from main = ".$username;
+			$password = Yii::app()->params['smtp_password'];
+			//echo "<br>Host value from main = ".$password;
+			$encry = Yii::app()->params['smtp_encry'];
+			//echo "<br>Host value from main = ".$encry;
+			$sender_email = $username;
+				
+				
+			$mail = new PHPMailer;
+
+			$mail->IsSMTP();
+			$mail->SMTPAuth = true;
+			$mail->Host = $host;  // Specify main and backup server
+			$mail->Username = $username;                            // SMTP username
+			$mail->Password = $password;                           // SMTP password
+			$mail->SMTPSecure = $encry;  
+				
+				
+			$from_name = $company_name;
+				
+			$mail->From = $sender_email;
+			$mail->FromName = $from_name;
+			$mail->AddAddress($reciever_email, 'Kruthika');  // Add a recipient
+			$mail->AddReplyTo('mailtest.test10@gmail.com', 'Information');
+			 
+				
+			$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+			$mail->AddAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			$mail->AddAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			$mail->IsHTML(true);                                  // Set email format to HTML
+				
+			$mail->Subject = 'UKW test mail GMAIL';
+			//$mail->Body = 'This is the HTML message body <b>in bold!</b>';
+			$mail->Body = $email_body;
+			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			if(!$mail->Send())
+			{
+				//echo "<br>Email not sent";
+				//echo "<br>Mailer Error: " . $mail->ErrorInfo;
+				//echo "<hr>";
+				$email_response = 0;
+				
+			}
+			else
+			{
+				//echo "<br>Mail sent<hr>";
+				$email_response = 1;
+			}
+				
+		}//end of try.
+		catch (Exception $e)
+		{
+			$email_response = 0;
 		}
 		
-		if(!$conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
-		{
-			//echo "PLEASE CHECK YOUR INTERNET CONNECTION";
-		}//end of inner if().
-		else
-		{
-			try 
-			{
-				//echo "<br>Inernet Connection present";
-				//echo "<br>Sender email = ".$sender_email;
-				//echo "<br>Receiver email = ".$reciever_email;
-	
-	 			$message = new YiiMailMessage();
-				$message->setTo(array($reciever_email));
-				$message->setFrom(array($sender_email));
-				$message->setSubject($subject);
-				$message->setBody($email_body, 'text/html');
-			
-				if(Yii::app()->mail->send($message))
-				{
-					//echo "<br>TEST EMAIL IS SENT, CONNECTION IS OK";
-					$email_response = 1;
-				}
-			}//end of try.
-			catch (Exception $e)
-			{
-				$email_response = 0;
-			}
-		}//end of else.
 		return $email_response;
 		
 	}//end of sendEmail().

@@ -264,6 +264,8 @@ class ApiController extends Controller
 					//echo "<br>DIARY SAVED.......!!!!!!!!!!";
 					$sevicecallModel = Servicecall::model()->findByPk($service_id);
 					$setupModel = Setup::model()->findByPk(1);
+					$company_name = $setupModel->company;
+					$company_email = $setupModel->email;
 					
 					$customer_email_address = $sevicecallModel->customer->email;
 					$customer_mobileNumber = $sevicecallModel->customer->mobile;
@@ -282,7 +284,7 @@ class ApiController extends Controller
 					//echo "<br>status = ".$status;
 					$status_id = $sevicecallModel->job_status_id;
 					//echo "<br>status id = ".$status_id;
-					$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br>Regards,<br>".$company_name;
+					$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br><br>Any queries regarding this call, please contact ".$company_email.".<br><br>Regards,<br>".$company_name;
 					$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 					$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
 					
@@ -292,7 +294,7 @@ class ApiController extends Controller
  					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
  					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
  					
- 					$response = NotificationRules::model()->performNotification($status_id, $service_id);
+ 					//$response = NotificationRules::model()->performNotification($status_id, $service_id);
  					
  					//******* SENDING EMAIL TO CUSTOMER, ENGINEER AND FOLLW NOTIFICATION RULE ******
 				}//end of if(check for internet connection). 

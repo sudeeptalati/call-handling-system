@@ -120,26 +120,6 @@ $mpdf->Output();
 	
 	}//end of HTML Preview.
 	
-	/*
-	public function actionDownloadReport($id)
-	{
-		$model=$this->loadModel($id);
-		$setupModel = Setup::model()->findByPk(1);
-		$name = "KRUTHIKA_TESTING";
-		
-		$msgHTML = $this->renderPartial('preview',array('model'=>$model,'company_details'=>$setupModel), TRUE);
-		
-		
-		//$filecontent=file_get_contents($msgHTML ,$name);
-		//header("Content-Type: text/plain");
-		header( "Content-Type: application/vnd.ms-excel; charset=utf-8" );
-		header("Content-disposition: attachment; filename=$name");
-		header("Pragma: no-cache");
-		echo $msgHTML;
-		exit;
-	}//end of actionDownloadReport().
-	*/
-	
 	
 	/**
 	 * Creates a new model.
@@ -182,6 +162,7 @@ $mpdf->Output();
 							//echo "<hr>CUSTOMER  Model SAVED----CUSTIOMER id is ".$customerModel->id;
 							//Setting the Primary Product of Customer
 								$serviceCallModel->job_status_id=1;///status is logged
+								$status_id = $serviceCallModel->job_status_id;
 								$serviceCallModel->customer_id=$customerModel->id;
 								$serviceCallModel->product_id=$productModel->id;
 								$serviceCallModel->engineer_id=$productModel->engineer_id;
@@ -193,54 +174,64 @@ $mpdf->Output();
 								{
 									if($serviceCallModel->save())
 									{
-										$internet_status = '';
-										$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
-										foreach ($advanceModel as $data)
-										{
-											$internet_status = $data->value;
-										}
+										$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
 										
-										if($internet_status == 1)
+										if(count($notificationModel)!=0)
 										{
-											try
+											//echo "<br>Rule is present";
+											$internet_status = '';
+											$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
+											foreach ($advanceModel as $data)
 											{
-												//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
-												$reference_number = $serviceCallModel->service_reference_number;
-												$status = 'Logged';
-												$customer_name = $serviceCallModel->customer->fullname;
-												$engineer_name = $serviceCallModel->engineer->fullname;
-												$setupModel = Setup::model()->findByPk(1);
-												$company_name = $setupModel->company;
-												$company_email = $setupModel->email;
-												$customer_mobileNumber = $serviceCallModel->customer->mobile;
-												$customer_email_address = $serviceCallModel->customer->email;
-												$engineer_mobileNumber = $serviceCallModel->engineer->contactDetails->mobile;
-												$engineer_email_address = $serviceCallModel->engineer->contactDetails->email;
-												
-												$status_id = 1;
-												$service_id = $serviceCallModel->id;
-												
-												
-												$body = '<br>A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br><br>Any queries related to this call, please contact ".$company_email.".<br><br>Regards,<br>".$company_name;
-												$subject = 'Service call '.$reference_number.' Status changed to '.$status;
-												$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
-													
-												$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
-												$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
-													
-												$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
-												$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
-												
-												//$this->performNotification($status_id, $service_id);
-												//$response = NotificationRules::model()->performNotification($status_id, $service_id);
-												
-												//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
-											}//end of try.
-											catch (Exception $e)
-											{
-												
+												$internet_status = $data->value;
 											}
-										}//end of if(internet Connection).
+											
+											if($internet_status == 1)
+											{
+												try
+												{
+													//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
+													$reference_number = $serviceCallModel->service_reference_number;
+													$status = 'Logged';
+													$customer_name = $serviceCallModel->customer->fullname;
+													$engineer_name = $serviceCallModel->engineer->fullname;
+													$setupModel = Setup::model()->findByPk(1);
+													$company_name = $setupModel->company;
+													$company_email = $setupModel->email;
+													$customer_mobileNumber = $serviceCallModel->customer->mobile;
+													$customer_email_address = $serviceCallModel->customer->email;
+													$engineer_mobileNumber = $serviceCallModel->engineer->contactDetails->mobile;
+													$engineer_email_address = $serviceCallModel->engineer->contactDetails->email;
+													
+													$status_id = 1;
+													$service_id = $serviceCallModel->id;
+													
+													
+													$body = '<br>A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br><br>Any queries related to this call, please contact ".$company_email.".<br><br>Regards,<br>".$company_name;
+													$subject = 'Service call '.$reference_number.' Status changed to '.$status;
+													$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
+														
+													$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
+													$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
+														
+													$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
+													$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
+													
+													//$this->performNotification($status_id, $service_id);
+													//$response = NotificationRules::model()->performNotification($status_id, $service_id);
+													
+													//********** SENDING EMAIL AND SMS WHEN CALL STATUS IS LOGGED ********
+												}//end of try.
+												catch (Exception $e)
+												{
+													
+												}
+											}//end of if(internet Connection).
+										}//end of if(notification rule present).
+										else
+										{
+											//echo "<br>Rule is not present";
+										}
 										
 										$engg_id=$serviceCallModel->engineer_id; 
 										$baseUrl=Yii::app()->request->baseUrl;
@@ -260,23 +251,6 @@ $mpdf->Output();
 			 }//end of "Product Model VALID";
 			
 			
-			
-			/*if($valid)
-			{
-				if($model->save())
-				{
-					$engg_id=$model->engineer_id;
-					$baseUrl=Yii::app()->request->baseUrl;
-					//$this->redirect($baseUrl.'/enggdiary/create/'.$model->id.'?engineer_id='.$engg_id);
-					//$this->redirect($baseUrl.'/enggdiary/ViewFullDiary/'.$model->id.'?engineer_id='.$engg_id);
-					$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
-				}//end of $model->save().
-			}//end of if(valid).
-			else 
-			{
-				echo "Fill all madatory fields";
-			}
-			*/
 		}//end of if(isset()).
 
 		$this->render('create',array('model'=>$serviceCallModel));

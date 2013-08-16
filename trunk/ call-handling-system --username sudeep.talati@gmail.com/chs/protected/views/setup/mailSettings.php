@@ -136,7 +136,7 @@ $data = file_get_contents($filename);
 
 
 	<div class="row">
-		<?php echo "<b>Host</b><br>";?>
+		<?php echo "<b>SMTP Host</b><br>";?>
 		<?php echo CHtml::textField('',$smtp_host, array('disabled'=>'disabled'));?>
 	</div>
 	

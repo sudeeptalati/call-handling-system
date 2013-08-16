@@ -134,11 +134,11 @@ class ApiController extends Controller
     {
     	//echo "IN ACTION UPDATE DIARY<br>";
     	$diary_id = $_GET['diary_id'];
-    	echo "Diary id = ".$diary_id."<br>";
+    	//echo "Diary id = ".$diary_id."<br>";
     	$days_moved = $_GET['days_moved'];
-    	echo "days moved = ".$days_moved;
+    	//echo "days moved = ".$days_moved;
     	$minutes_moved = $_GET['minutes_moved'];
-    	echo "<br> Minutes moved = ".$minutes_moved;
+    	//echo "<br> Minutes moved = ".$minutes_moved;
     	//echo "Days moved in api contr = ".$days_moved."<br>";
 //    	$end_date = $_GET['end_date'];
 //    	echo "end days in api contr = ".$end_date;
@@ -157,12 +157,12 @@ class ApiController extends Controller
     public function actionUpdateEndDateTime()
     {
     	
-    	echo "in action update actionUpdateEndDateTime<br>";
+    	//echo "in action update actionUpdateEndDateTime<br>";
     	
     	$diary_id = $_GET['diary_id'];
-    	echo "Diary id = ".$diary_id."<br>";
+    	//echo "Diary id = ".$diary_id."<br>";
     	$minutes = $_GET['minutes'];
-    	echo "minutes in model func = ".$minutes."<br>";
+    	//echo "minutes in model func = ".$minutes."<br>";
     	
     	Enggdiary::model()->updateEndDateTime($diary_id, $minutes);
     	
@@ -240,6 +240,7 @@ class ApiController extends Controller
     	//echo "<br>Engineer id to be saved = ".$engg_id;
 		$newEnggDiaryModel->engineer_id=$engg_id;
 		$newEnggDiaryModel->status='3';//CHANGE STATUS OF APPOINTMENT TO BOOKED(VISIT START DATE).
+		$status_id = $newEnggDiaryModel->status;
 		//echo "<br>Visit satrt date to be saved = ".$start_date;
 		$newEnggDiaryModel->visit_start_date=$start_date;
 		$newEnggDiaryModel->slots = '2';
@@ -249,68 +250,46 @@ class ApiController extends Controller
 		{
 			//echo "Diary model saved";
 			
-			try 
+			$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
+										
+			if(count($notificationModel)!=0)
 			{
-				$internet_status = '';
-				$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
-				foreach ($advanceModel as $data)
+				echo "<br>Rule is present";
+			
+				try 
 				{
-					$internet_status = $data->value;
+					$internet_status = '';
+					$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
+					foreach ($advanceModel as $data)
+					{
+						$internet_status = $data->value;
+					}
+					
+					if($internet_status == 1)
+					{
+						$response = NotificationRules::model()->performNotification($status_id, $service_id);
+					}//end of if(check for internet connection). 
+					else 
+					{
+						//echo "PLEASE CHECK YOUR INTERNET CONNECTION";
+					}
+					
+					
+				}//end of try inside if(), to catch email ans sms sent errors.
+				catch (exception $e)
+				{
+					//echo "<br>error message = ".$e.message;
 				}
-				
-				if($internet_status == 1)
-				{
-					//******* SENDING EMAIL TO CUSTOMER, ENGINEER AND FOLLW NOTIFICATION RULE ******
-					//echo "<br>DIARY SAVED.......!!!!!!!!!!";
-					$sevicecallModel = Servicecall::model()->findByPk($service_id);
-					$setupModel = Setup::model()->findByPk(1);
-					$company_name = $setupModel->company;
-					$company_email = $setupModel->email;
-					
-					$customer_email_address = $sevicecallModel->customer->email;
-					$customer_mobileNumber = $sevicecallModel->customer->mobile;
-					
-					$engineer_email_address = $sevicecallModel->engineer->contactDetails->email;
-					$engineer_mobileNumber = $sevicecallModel->engineer->contactDetails->mobile;
-					//echo "receiver address = ".$reciever_email_address;
-					$customer_name = $sevicecallModel->customer->fullname;
-					//echo "<br>Cust name = ".$customer_name;
-					$engineer_name = $sevicecallModel->engineer->fullname;
-					//echo "<br>Engg name = ".$engineer_name;
-					$reference_number = $sevicecallModel->service_reference_number;
-					$company_name = $setupModel->company;
-					//echo "<br>Reff no = ".$reference_number;
-					$status = $sevicecallModel->jobStatus->name;
-					//echo "<br>status = ".$status;
-					$status_id = $sevicecallModel->job_status_id;
-					//echo "<br>status id = ".$status_id;
-					$body = "<br>".'A servicecall with reference number '.$reference_number.' is <strong>'.$status."</strong><br>".'Customer Name : '.$customer_name."<br>".'Engineer Name : '.$engineer_name."<br><br>Any queries regarding this call, please contact ".$company_email.".<br><br>Regards,<br>".$company_name;
-					$subject = 'Service call '.$reference_number.' Status changed to '.$status;
-					$smsMessage = 'The status of servicecall with ref no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
-					
- 					$email_sent = NotificationRules::model()->sendEmail($customer_email_address, $body, $subject);
- 					$sms_sent = NotificationRules::model()->sendSMS($customer_mobileNumber, $smsMessage);
-									
- 					$email_sent = NotificationRules::model()->sendEmail($engineer_email_address, $body, $subject);
- 					$sms_sent = NotificationRules::model()->sendSMS($engineer_mobileNumber, $smsMessage);
- 					
- 					//$response = NotificationRules::model()->performNotification($status_id, $service_id);
- 					
- 					//******* SENDING EMAIL TO CUSTOMER, ENGINEER AND FOLLW NOTIFICATION RULE ******
-				}//end of if(check for internet connection). 
-				else 
-					echo "PLEASE CHECK YOUR INTERNET CONNECTION";
-				
-			}//end of try inside if(), to catch email ans sms sent errors.
-			catch (exception $e)
+			}//end of if(rule is present).
+			else
 			{
-				//echo "<br>error message = ".$e.message;
+				//echo "<br>Rule is not present";
 			}
 			
 		}//end of if($newEnggDiaryModel->save()).
 		else 
 		{
-			echo "<br>Problem in saving diary";
+			//echo "<br>Problem in saving diary";
 		}
 		
     	
@@ -462,14 +441,14 @@ class ApiController extends Controller
 		    	
 		    	if($newCustomerModel->save())
 		    	{
-		    		echo "<hr>CUSTOMER SAVED....!!!!!!!!!!!!!";
+		    		//echo "<hr>CUSTOMER SAVED....!!!!!!!!!!!!!";
 	//	    		$finalArray['status'] = 'ok'; 
 	//	    		$finalMessage = json_encode($finalArray);
 	//	    		echo "<br>".$finalMessage;
 		    	}
 		    	else 
 		    	{
-		    		echo "<br>PROBLEM IN SAVING CUSTOMER........";
+		    		//echo "<br>PROBLEM IN SAVING CUSTOMER........";
 		    		$finalArray['status'] = '0';
 		    		$finalArray['message'] = 'Problem in saving Customer';
 	    			$finalMessage = json_encode($finalArray);
@@ -496,8 +475,8 @@ class ApiController extends Controller
 		    	
 		    	if($newServicecall->save())
 		    	{
-		    		echo "<hr>SERVICE CALL SAVED......!!!!!!!";
-		    		echo "<hr>SERVICE ID is".$newServicecall->id;
+		    		//echo "<hr>SERVICE CALL SAVED......!!!!!!!";
+		    		//echo "<hr>SERVICE ID is".$newServicecall->id;
 	//	    		$finalArray['status'] = 'ok'; 
 	//	    		$finalMessage = json_encode($finalArray);
 	//	    		echo "<br>".$finalMessage;
@@ -524,7 +503,7 @@ class ApiController extends Controller
 		    	    	
 		        if($newDiaryModel->save())
 		    	{
-		    		echo "<hr>DIARY  SAVED......!!!!!!!";
+		    		//echo "<hr>DIARY  SAVED......!!!!!!!";
 		    		$finalArray['status'] = '1'; 
 		    		$finalArray['message'] = 'All details saved';
 		    		$finalMessage = json_encode($finalArray);
@@ -532,7 +511,7 @@ class ApiController extends Controller
 				}
 		    	else 
 		    	{
-		    		echo "<br>PROBLEM IN SAVING DIARY";
+		    		//echo "<br>PROBLEM IN SAVING DIARY";
 		    		$finalArray['status'] = '0';
 		    		$finalArray['message'] = 'Problem in saving Diary';
 	    			$finalMessage = json_encode($finalArray);

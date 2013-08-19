@@ -87,9 +87,6 @@ function getAuthenticateValue()
     auth.value = hidden_auth_val;
 }
 
- 
-
-
 </script> 
 
 

@@ -389,9 +389,9 @@ class NotificationRules extends CActiveRecord
 	public function performNotification($status_id, $service_id)
 	{
 		$info = '';
-		// 		echo "<hr>in perform validation function, follwoing data is from this func";
-		// 		echo "<br>Value of status_id = ".$status_id;
-		// 		echo "<br>Value of service_id = ".$service_id;
+		//echo "<hr>in perform validation function, follwoing data is from this func";
+		//echo "<br>Value of status_id = ".$status_id;
+		//echo "<br>Value of service_id = ".$service_id;
 	
 		$serviceModel = Servicecall::model()->findByPk($service_id);
 		$setupModel = Setup::model()->findByPk(1);
@@ -402,14 +402,17 @@ class NotificationRules extends CActiveRecord
 		$company_name = $setupModel->company;
 		$company_email = $setupModel->email;
 	
-		// 		echo "<br>cust id = ".$cust_id;
-		// 		echo "<br>engg id = ".$engineer_id;
-		// 		echo "<br>contract id = ".$contract_id;
+		//echo "<br>cust id = ".$cust_id;
+		//echo "<br>engg id = ".$engineer_id;
+		//echo "<br>contract id = ".$contract_id;
+	
 	
 		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
 	
 		if(count($notificationModel)!=0)
 		{
+			//echo "<br>Rule is present";
+			
 				
 			$serviceDetailsModel = Servicecall::model()->findByPk($service_id);
 				
@@ -516,9 +519,11 @@ class NotificationRules extends CActiveRecord
 				}//end of if of OTHERS.
 	
 			}//end of foreach($notificationModel).
+			
 				
-		}//end of count().
+		}//end of count($notificationModel).
 		return $info;
+	
 	
 	}//end of performNotification().
 	

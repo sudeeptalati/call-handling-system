@@ -86,7 +86,7 @@
 			<?php //$model->contract_id=$productModel->contract->id; ?>
 			<?php echo $form->labelEx($model,'contract_id'); ?>
 			<?php //echo $form->hiddenField($model,'contract_id'); ?>
-			<?php echo CHtml::activeDropDownList($model,'contract_id', $model->getAllContract()); ?>
+			<?php echo CHtml::activeDropDownList($model,'contract_id', $model->getAllContract(), array('empty'=>array('1000000'=>'Not Known'))); ?>
 			<?php echo $form->error($model,'contract_id'); ?>
 				
 			<?php echo $form->labelEx($model,'recalled_job'); ?>
@@ -105,12 +105,12 @@
 			<td>
 				<?php echo $form->labelEx($productModel,'contract_id'); ?>
 				<?php //echo $form->textField($model,'contract_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'contract_id', $productModel->getAllContract());?>
+				<?php echo CHtml::activeDropDownList($productModel, 'contract_id', $productModel->getAllContract(), array('empty'=>array('1000000'=>'Not Known')));?>
 				<?php echo $form->error($productModel,'contract_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'brand_id'); ?>
 				<?php //echo $form->textField($model,'brand_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(), array('prompt'=>'Select a brand'));?>
+				<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(),  array('empty'=>array('1000000'=>'Not Known')));?>
 				<?php echo $form->error($productModel,'brand_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'model_number'); ?>
@@ -146,12 +146,12 @@
 			<td>
 				<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 				<?php //echo $form->textField($model,'engineer_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany());?>
+				<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany(), array('empty'=>array('90000000'=>'Not Assigned')));?>
 				<?php echo $form->error($productModel,'engineer_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'product_type_id'); ?>
 				<?php //echo $form->textField($model,'product_type_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('prompt'=>'N/A'));?>
+				<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('empty'=>array('1000000'=>'Not Known')));?>
 				<?php echo $form->error($productModel,'product_type_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'purchased_from'); ?>

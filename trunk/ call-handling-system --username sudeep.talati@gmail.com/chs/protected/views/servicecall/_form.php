@@ -427,12 +427,12 @@ background-color: #FFFF9D;
 	<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'brand_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(), array('prompt'=>'N/A'));?>
+			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(), array('empty'=>array('1000000'=>'Not Known')));?>
 			<?php echo $form->error($productModel,'brand_id'); ?>
 		</td>
 		<td>
 			<?php echo $form->labelEx($productModel,'product_type_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('prompt'=>'N/A'));?>
+			<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('empty'=>array('1000000'=>'Not Known')));?>
 			<?php echo $form->error($productModel,'product_type_id'); ?>
 		</td>	
 		<td>
@@ -490,7 +490,7 @@ background-color: #FFFF9D;
 	<tr>
 			<td>
 				<?php echo $form->labelEx($productModel,'contract_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'contract_id', $productModel->getAllContract());?>
+				<?php echo CHtml::activeDropDownList($productModel, 'contract_id', $productModel->getAllContract(), array('empty'=>array('1000000'=>'Not Known')));?>
 				<?php echo $form->error($productModel,'contract_id'); ?>
 		</td>
 		<td>			
@@ -585,11 +585,7 @@ background-color: #FFFF9D;
 			<?php //CUSTOMER ID SET TO ZERO TO CHECK WHETHER NEW CUSTOMER.?>
 			<?php echo $form->hiddenField($productModel,'customer_id',array('value'=>0)); ?>
 			<?php echo $form->error($productModel,'customer_id'); ?>
- 
-	
- 
-	
- 
+
 	
 
 <!-- CODE FOR MASTER TABLE TO CHANGE COLOR -->
@@ -605,7 +601,7 @@ background-color: #FFFF9D;
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
 			<?php //echo $form->textField($model,'engineer_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany());?>
+			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany(), array('empty'=>array('90000000'=>'Not Assigned')));?>
 			<?php //CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');?>
 			<?php echo $form->error($productModel,'engineer_id'); ?>
 		</td>

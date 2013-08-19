@@ -150,7 +150,24 @@ background-color: #FFFF9D;
 	{
 		$productModel=Product::model();
 	}
-	?>
+?>
+
+<?php
+
+/*
+	echo "<hr>In servicecall form";
+	
+	$setupModel = Setup::model()->findByPk(1);
+	echo "<br>County  = ".$setupModel->countryCodes->calling_code;
+	$calling_code = $setupModel->countryCodes->calling_code;
+	$county = $setupModel->country;
+	echo "<hr>";
+*/
+
+?>
+
+
+
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
@@ -330,6 +347,39 @@ background-color: #FFFF9D;
 			</td>			
 			<td>
 				<?php echo $form->labelEx($customerModel,'mobile'); ?>
+				<?php 
+					/*
+					$codes_list = CountryCodes::model()->getAllCountryNames();
+					echo CHtml::dropDownList('calling_codes', $county, $codes_list,
+						array(
+						'prompt' => 'Please Select job status (required)',
+						'value' => '0',
+						'ajax'  => array(
+									'type'  => 'POST',
+									'url' => CController::createUrl('CountryCodes/getCallingCode/'),
+									'data' => array("country_code_id" => "js:this.value"),
+									'success'=> 'function(data) 
+												{
+													if(data != " ")
+													{
+														$("#code_disp_textField").val(data);
+														$("#hidden_code_textField").val(data);
+													}
+													else
+													{
+														alert("Code is not present for this region !!!!!!!!");
+													}
+												}',
+												'error'=> 'function(){alert("AJAX call error..!!!!!!!!!!");}',
+									)//end of ajax array().
+						)//end of array
+					);//end of chtml dropdown.
+					*/
+				?>
+				
+				
+				
+				<?php //echo CHtml::textField('', $calling_code, array('size'=>3, 'disabled'=>'disabled', 'id'=>'code_disp_textField')); ?>
 				<?php echo $form->textField($customerModel,'mobile',array('size'=>30)); ?>
 				<small><br>(Please enter number preceding with your country code<br> Like if you are based in UK your number will 447501662739 or if you are based in India write 919893139091)</small>
 				<?php echo $form->error($customerModel,'mobile'); ?>

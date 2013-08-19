@@ -102,7 +102,7 @@ class SetupController extends Controller
 				//echo "<br>Code value in update action = ".$_POST['hidden_code_val'];
 				$code_to_append = $_POST['hidden_code_val'];
 				if($code_to_append != '')
-					$model->telephone = '00'.$code_to_append.$model->telephone;
+					$model->telephone = $code_to_append.$model->telephone;
 				
 			}//end of if(isset[hodden_code_val]).
 			

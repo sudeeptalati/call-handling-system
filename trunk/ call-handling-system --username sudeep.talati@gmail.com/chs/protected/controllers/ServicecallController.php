@@ -179,6 +179,7 @@ $mpdf->Output();
 										if(count($notificationModel)!=0)
 										{
 											//echo "<br>Rule is present";
+											$service_id = $serviceCallModel->id;
 											$internet_status = '';
 											$advanceModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
 											foreach ($advanceModel as $data)
@@ -190,6 +191,7 @@ $mpdf->Output();
 											{
 												try
 												{
+													//echo "<br>Inside try, calling performNotification";
 													//$this->performNotification($status_id, $service_id);
 													$response = NotificationRules::model()->performNotification($status_id, $service_id);
 													
@@ -280,8 +282,8 @@ $mpdf->Output();
 					
  					if($internet_connection == 1)
 					{
-						$response = $this->performNotification($current_status_id, $service_id);
-						//$response = NotificationRules::model()->performNotification($current_status_id, $service_id);
+						//$response = $this->performNotification($current_status_id, $service_id);
+						$response = NotificationRules::model()->performNotification($current_status_id, $service_id);
 					}
 				}//END of IF(status change).
 				
@@ -410,8 +412,10 @@ $mpdf->Output();
 				{
 					try
 					{
-						//$this->performNotification($status_id, $service_id);
-						$response = NotificationRules::model()->performNotification($notify_status, $service_id);
+						$service_id = $model->id;
+						$status_id = $model->job_status_id;
+						//$response = $this->performNotification($status_id, $service_id);
+						$response = NotificationRules::model()->performNotification($status_id, $service_id);
 													
 					}//end of try.
 					catch (Exception $e)
@@ -507,8 +511,10 @@ $mpdf->Output();
 					{
 						try
 						{
-							//$this->performNotification($status_id, $service_id);
-							$response = NotificationRules::model()->performNotification($notify_status, $service_id);
+							$service_id = $model->id;
+							$status_id = $model->job_status_id;
+							//$response = $this->performNotification($status_id, $service_id);
+							$response = NotificationRules::model()->performNotification($status_id, $service_id);
 														
 						}//end of try.
 						catch (Exception $e)
@@ -718,9 +724,9 @@ $mpdf->Output();
 	public function performNotification($status_id, $service_id)
 	{
 		$info = '';
-// 		echo "<hr>in perform validation function, follwoing data is from this func";
-// 		echo "<br>Value of status_id = ".$status_id;
-// 		echo "<br>Value of service_id = ".$service_id;
+ 		//echo "<hr>in perform validation function, follwoing data is from this func";
+ 		//echo "<br>Value of status_id = ".$status_id;
+ 		//echo "<br>Value of service_id = ".$service_id;
 
 		$serviceModel = Servicecall::model()->findByPk($service_id);
 		$setupModel = Setup::model()->findByPk(1);

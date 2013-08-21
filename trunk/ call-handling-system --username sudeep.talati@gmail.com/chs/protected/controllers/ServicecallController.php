@@ -155,8 +155,6 @@ $mpdf->Output();
 					//echo "<hr>Product Model SAVED----product id is ".$productModel->id;
 					$customerModel->product_id=$productModel->id;
 					
-					
-					
 					///////SECOND SAVING CUSTOMER
 					if($customerModelValid)
 					{
@@ -166,19 +164,25 @@ $mpdf->Output();
 						{
 							$calling_code = $_POST['hidden_code_val'];
 							//echo "<br>Code in serviceceall contrl = ".$calling_code;
-						}
+							
+							$mobile_number = $customerModel->mobile;
+							//echo "<br>No entered by user = ".$mobile_number;
+							
+							if($mobile_number != '')
+							{
+								if($mobile_number{0} == '0' && strlen($mobile_number)>10)
+								{
+									//echo "<br>Mobile number is starting with 0";
+									$mobile_number = substr($mobile_number, 1);
+								}
+								
+								$customerModel->mobile = $calling_code.$mobile_number;
+								//echo "<br>Mobile no after adding code = ".$customerModel->mobile;
+							}//end of if($mobile_number != '').
+							
+						}//end if (isset[hidden_code_val]), to get mobile number with calling_code.
 						
-						$mobile_number = $customerModel->mobile;
-						//echo "<br>No entered by user = ".$mobile_number;
 						
-						if($mobile_number{0} == '0' && strlen($mobile_number)>10)
-						{
-							//echo "<br>Mobile number is starting with 0";
-							$mobile_number = substr($mobile_number, 1);
-						}
-						
-						$customerModel->mobile = $calling_code.$mobile_number;
-						//echo "<br>Mobile no after adding code = ".$customerModel->mobile;
 						
 					
 					

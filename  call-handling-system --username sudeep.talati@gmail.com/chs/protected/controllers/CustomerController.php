@@ -84,20 +84,23 @@ class CustomerController extends Controller
 				{
 					$calling_code = $_POST['hidden_code_val'];
 					//echo "<br>Calling code in cust controller = ".$calling_code;
-				}
-				
-				$mobile_number = $model->mobile;
-				//echo "<br>Mobile number user entered = ".$mobile_number;
-				
-				if( $mobile_number{0} == "0" && strlen($mobile_number)>10 ) 
-				{
-					//echo "<br>Mobile number is starting with 0";
-					$mobile_number = substr($mobile_number, 1);
-				}
-				
-				$model->mobile = $calling_code.$mobile_number;
-				//echo "<br>Mobile no after adding code = ".$model->mobile;
-				
+					
+					$mobile_number = $model->mobile;
+					//echo "<br>Mobile number user entered = ".$mobile_number;
+					
+					if($mobile_number != '')
+					{
+						if( $mobile_number{0} == "0" && strlen($mobile_number)>10 ) 
+						{
+							//echo "<br>Mobile number is starting with 0";
+							$mobile_number = substr($mobile_number, 1);
+						}
+						
+						$model->mobile = $calling_code.$mobile_number;
+						//echo "<br>Mobile no after adding code = ".$model->mobile;
+						
+					}//end of if($mobile_number != '').
+				}//end of if isset(['hidden_code_val']), for getting mobile number with calling_code.
 				
 				//**** END OF GETTING PHONE NUMBER FROM FORM *****
 				
@@ -145,27 +148,33 @@ class CustomerController extends Controller
 			//if($valid)
 			if($model->validate())
 			{
-				//*** GETTING PHONE NUMBER FROM FORM *****
+				//******** GETTING PHONE NUMBER FROM FORM ************
 				if(isset($_POST['hidden_code_val']))
 				{
 					$calling_code = $_POST['hidden_code_val'];
 					//echo "<br>Calling code in cust controller = ".$calling_code;
-				}
+					
+					$mobile_number = $model->mobile;
+					//echo "<br>Mobile number user entered = ".$mobile_number;
+					
+					
+					if($mobile_number != '')
+					{
+					
+						if( $mobile_number{0} == "0" && strlen($mobile_number)>10 ) 
+						{
+							//echo "<br>Mobile number is starting with 0";
+							$mobile_number = substr($mobile_number, 1);
+						}
+						
+						$model->mobile = $calling_code.$mobile_number;
+						//echo "<br>Mobile no after adding code = ".$model->mobile;
+						
+					}//end of if ($mobile_number != '')
+				}//end of if(isset(['hidden_code_val'])), getting mobile no with calling code.
 				
-				$mobile_number = $model->mobile;
-				//echo "<br>Mobile number user entered = ".$mobile_number;
 				
-				if( $mobile_number{0} == "0" && strlen($mobile_number)>10 ) 
-				{
-					//echo "<br>Mobile number is starting with 0";
-					$mobile_number = substr($mobile_number, 1);
-				}
-				
-				$model->mobile = $calling_code.$mobile_number;
-				//echo "<br>Mobile no after adding code = ".$model->mobile;
-				
-				
-				//**** END OF GETTING PHONE NUMBER FROM FORM *****
+				//******* END OF GETTING PHONE NUMBER FROM FORM ********
 				
 				if($model->save())
 					$this->redirect(array('viewProduct','customer_id'=>$model->id, 'product_id'=>$model->product_id));

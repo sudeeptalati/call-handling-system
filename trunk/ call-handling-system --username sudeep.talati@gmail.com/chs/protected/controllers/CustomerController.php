@@ -61,6 +61,7 @@ class CustomerController extends Controller
 	 */
 	public function actionCreate()
 	{
+		//echo "<br>echo in cust create contr";
 		$model=new Customer;
 		$productModel=new Product;
 
@@ -77,8 +78,34 @@ class CustomerController extends Controller
 			 
 			if($valid)
 			{
+				$calling_code = '';
+				//*** GETTING PHONE NUMBER FROM FORM *****
+				if(isset($_POST['hidden_code_val']))
+				{
+					$calling_code = $_POST['hidden_code_val'];
+					//echo "<br>Calling code in cust controller = ".$calling_code;
+				}
+				
+				$mobile_number = $model->mobile;
+				//echo "<br>Mobile number user entered = ".$mobile_number;
+				
+				if( $mobile_number{0} == "0" && strlen($mobile_number)>10 ) 
+				{
+					//echo "<br>Mobile number is starting with 0";
+					$mobile_number = substr($mobile_number, 1);
+				}
+				
+				$model->mobile = $calling_code.$mobile_number;
+				//echo "<br>Mobile no after adding code = ".$model->mobile;
+				
+				
+				//**** END OF GETTING PHONE NUMBER FROM FORM *****
+				
 				if($model->save())
+				{
 					$this->redirect(array('view','id'=>$model->id));
+				}
+				
 			}
 // 			else 
 // 			{
@@ -86,10 +113,8 @@ class CustomerController extends Controller
 // 			}
 		}//enf of if(isset())
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+		$this->render('create',array('model'=>$model));
+	}//end of create.
 
 	/**
 	 * Updates a particular model.
@@ -98,21 +123,18 @@ class CustomerController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		//echo "<br>In Update contr";
 		$model=$this->loadModel($id);
 		$productModel=new Product;
-// 		$productModel=Product::model()->findByAttributes(
-// 										array('customer_id'=>$id));
-// 		$productId=$productModel->id;										
-// 		$productModelLoad=$productModel->loadModel($productId);										
+									
 
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 		$this->performAjaxValidation($model, $productModel);
 		
-		//echo "in update action of customer contr";
-
 		if(isset($_POST['Customer'],$_POST['Product']))
 		{
+			//echo "<br>In Update contr, in isset _POST";
 			$model->attributes=$_POST['Customer'];
 			
 			$productModel->attributes=$_POST['Product'];
@@ -123,36 +145,36 @@ class CustomerController extends Controller
 			//if($valid)
 			if($model->validate())
 			{
+				//*** GETTING PHONE NUMBER FROM FORM *****
+				if(isset($_POST['hidden_code_val']))
+				{
+					$calling_code = $_POST['hidden_code_val'];
+					//echo "<br>Calling code in cust controller = ".$calling_code;
+				}
+				
+				$mobile_number = $model->mobile;
+				//echo "<br>Mobile number user entered = ".$mobile_number;
+				
+				if( $mobile_number{0} == "0" && strlen($mobile_number)>10 ) 
+				{
+					//echo "<br>Mobile number is starting with 0";
+					$mobile_number = substr($mobile_number, 1);
+				}
+				
+				$model->mobile = $calling_code.$mobile_number;
+				//echo "<br>Mobile no after adding code = ".$model->mobile;
+				
+				
+				//**** END OF GETTING PHONE NUMBER FROM FORM *****
+				
 				if($model->save())
-					//echo "SAVED ALL DETAILS";
 					$this->redirect(array('viewProduct','customer_id'=>$model->id, 'product_id'=>$model->product_id));
 			}
-			else 
-			{
-				$message="Fill all the mandatory fields of Product also.";
-				
-				$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
-	    				'id'=>'juiDialog',
-	    				'options'=>array(
-	    						'title'=>'Enter all fields',
-	    						'autoOpen'=>true,
-	    						'modal'=>'true',
-	    						'show' => 'blind',
-                            	'hide' => 'explode',
-                            	//'color' => 'blue',
-	    						//'width'=>'40px',
-	    						//'height'=>'40px',
-	    						),
-	    				'cssFile'=>Yii::app()->request->baseUrl.'/css/jquery-ui.css',
-       			));
-	    		
-	    		echo $message;
-	    		$this->endWidget();
-			}//end of else.
+			
 		}//end of if(isset()).
 
 		$this->render('update',array('model'=>$model));
-	}
+	}//end of update.
 
 	/**
 	 * Deletes a particular model.

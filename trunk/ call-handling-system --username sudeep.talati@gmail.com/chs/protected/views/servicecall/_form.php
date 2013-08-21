@@ -153,21 +153,19 @@ background-color: #FFFF9D;
 ?>
 
 <?php
-
-/*
-	echo "<hr>In servicecall form";
+	//echo "<hr>In servicecall form";
+	
+	$calling_code = '';
+	$country_id = '';
 	
 	$setupModel = Setup::model()->findByPk(1);
-	echo "<br>County  = ".$setupModel->countryCodes->calling_code;
+	//echo "<br>Country  = ".$setupModel->countryCodes->calling_code;
 	$calling_code = $setupModel->countryCodes->calling_code;
-	$county = $setupModel->country;
-	echo "<hr>";
-*/
+	$country_id = $setupModel->country;
+	//echo "<hr>";
+
 
 ?>
-
-
-
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
@@ -348,9 +346,9 @@ background-color: #FFFF9D;
 			<td>
 				<?php echo $form->labelEx($customerModel,'mobile'); ?>
 				<?php 
-					/*
+					
 					$codes_list = CountryCodes::model()->getAllCountryNames();
-					echo CHtml::dropDownList('calling_codes', $county, $codes_list,
+					echo CHtml::dropDownList('calling_codes', $country_id, $codes_list,
 						array(
 						'prompt' => 'Please Select job status (required)',
 						'value' => '0',
@@ -374,14 +372,15 @@ background-color: #FFFF9D;
 									)//end of ajax array().
 						)//end of array
 					);//end of chtml dropdown.
-					*/
+					
 				?>
 				
-				
-				
-				<?php //echo CHtml::textField('', $calling_code, array('size'=>3, 'disabled'=>'disabled', 'id'=>'code_disp_textField')); ?>
+				<?php echo CHtml::textField('', $calling_code, array('size'=>3, 'disabled'=>'disabled', 'id'=>'code_disp_textField')); ?>
+				<?php
+					//********** THIS HIDDEN FIELD IS TO PASS CODE VALUE TO CONTROLLER ************  
+					echo CHtml::hiddenField('hidden_code_val', $calling_code, array('id'=>'hidden_code_textField'));
+				?>
 				<?php echo $form->textField($customerModel,'mobile',array('size'=>30)); ?>
-				<small><br>(Please enter number preceding with your country code<br> Like if you are based in UK your number will 447501662739 or if you are based in India write 919893139091)</small>
 				<?php echo $form->error($customerModel,'mobile'); ?>
 		</td>		
 	</tr>

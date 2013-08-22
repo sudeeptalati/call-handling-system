@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Country Codes'=>array('index'),
+	'Tasks To Dos'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List CountryCodes', 'url'=>array('index')),
-	array('label'=>'Create CountryCodes', 'url'=>array('create')),
+	array('label'=>'List TasksToDo', 'url'=>array('index')),
+	array('label'=>'Create TasksToDo', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('country-codes-grid', {
+	$.fn.yiiGridView.update('tasks-to-do-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Country Codes</h1>
+<h1>Manage Tasks To Dos</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -38,20 +38,22 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'country-codes-grid',
+	'id'=>'tasks-to-do-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'iso2',
-		'short_name',
-		'long_name',
-		'iso3',
-		'numcode',
+		//'id',
+		'task',
+		'status',
+		'msgbody',
+		'subject',
+		'send_to',
+		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)'),
 		/*
-		'un_member',
-		'calling_code',
-		'cctld',
+		'created',
+		'scheduled',
+		'executed',
+		'finished',
 		*/
 		array(
 			'class'=>'CButtonColumn',

@@ -2,10 +2,10 @@
 
 
 
-	//echo "HELLO WELCOME TO MAIN<br>";
-	
+	//echo "HELLO WELCOME TO MAIN";
+	//echo "<br>".dirname(dirname(__FILE__));
 	//$filename = "mail_server.json";
-	//echo dirname(__FILE__)."<br>";
+	
 	$smtp_host = '';
 	$smtp_username = '';
 	$smtp_password = '';

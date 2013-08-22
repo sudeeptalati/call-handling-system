@@ -1,6 +1,8 @@
 <?php
 
 $this->menu=array(
+	array('label'=>'Tasks To Do', 'url'=>array('TasksToDo/admin')),
+	array('label'=>'Company Details', 'url'=>array('/setup/1')),
 	array('label'=>'Brands / Make', 'url'=>array('Brand/admin')),
 	array('label'=>'Contracts', 'url'=>array('Contract/admin')),
 	array('label'=>'Company Logo', 'url'=>array('setup/changeLogo')),
@@ -19,6 +21,7 @@ $this->menu=array(
 	//array('label'=>'SMS Notifications', 'url'=>array('setup/smsSettingsForm')),
 	array('label'=>'Spares Cloud URL Setup', 'url'=>array('setup/cloudUrlUpdated')),
 	array('label'=>'Users', 'url'=>array('User/admin')),
+	array('label'=>'Countries', 'url'=>array('countryCodes/admin')),
 	//array('label'=>'Advance Settings', 'url'=>array('/advanceSettings/admin')),
 	array('label'=>'About & Help', 'url'=>array('setup/about')),
 	

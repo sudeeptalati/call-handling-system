@@ -523,4 +523,8 @@ class NotificationRulesController extends Controller
 		$this->renderPartial('displayPublishedStatus', array('published_msg'=>$published_msg));
 	}//end of publishedMessageInGrid().
 	
+	// **************** CORN JOBS ***************** 
+	
+	
+	
 }//end of class.

@@ -257,22 +257,80 @@ class NotificationRules extends CActiveRecord
 		switch ($notificaionCode)
 		{
 			case 1:
-				//echo "<br>Send email";
+				echo "<br>Send email";
+				
+				//************ ADDING TASK TO TASKS TO DO TABLE *******
+				$tasksModel = new TasksToDo();
+				$tasksModel->task = 'Email';
+				$tasksModel->status = 'pending';
+				$tasksModel->msgbody =  $body;
+				$tasksModel->subject =  $subject;
+				$tasksModel->send_to = $receiver_email_address;
+				$tasksModel->created = time();
+				
+				$tasksModel->save();
+				//******** END OF ADDING TASK TO TASKS TO DO TABLE *******
+				
+				/*
 				$email_response = NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				$response_array['sms_response']= 'none';
 				$response_array['email_response']= $email_response;
 				return $response_array;
+				*/
 				break;
+				
 			case 2:
-				//echo "<br>Send SMS";
+				echo "<br>Send SMS";
+				
+				//************ ADDING TASK TO TASKS TO DO TABLE *******
+				$tasksModel = new TasksToDo();
+				$tasksModel->task = 'SMS';
+				$tasksModel->status = 'pending';
+				$tasksModel->msgbody =  $smsMessage;
+				$tasksModel->send_to = $telephone;
+				$tasksModel->created = time();
+				
+				$tasksModel->save();
+				//******** END OF ADDING TASK TO TASKS TO DO TABLE *******
+				
+				/*
 				$sms_response = NotificationRules::sendSMS($telephone, $smsMessage);
 				//echo "<br> sms notification message in model = ".$sms_response;
 				$response_array['sms_response']= $sms_response;
 				$response_array['email_response']= 'none';
 				return $response_array;
+				*/
 				break;
+				
+				
 			case 3:
-				//echo "<br>Send email and SMS also";
+				echo "<br>Send email and SMS also";
+				
+				//************ ADDING EMAIL TASK TO TASKS TO DO TABLE *******
+				$tasksModel = new TasksToDo();
+				$tasksModel->task = 'Email';
+				$tasksModel->status = 'pending';
+				$tasksModel->msgbody =  $body;
+				$tasksModel->subject =  $subject;
+				$tasksModel->send_to = $receiver_email_address;
+				$tasksModel->created = time();
+				
+				$tasksModel->save();
+				//******** END OF ADDING EMAIL TASK TO TASKS TO DO TABLE *******
+				
+				//************ ADDING SMS TASK TO TASKS TO DO TABLE *******
+				$tasksModel = new TasksToDo();
+				$tasksModel->task = 'SMS';
+				$tasksModel->status = 'pending';
+				$tasksModel->msgbody =  $smsMessage;
+				$tasksModel->send_to = $telephone;
+				$tasksModel->created = time();
+				
+				$tasksModel->save();
+				//******** END OF ADDING SMS TASK TO TASKS TO DO TABLE *******
+				
+				
+				/*
 				$sms_response = NotificationRules::sendSMS($telephone, $smsMessage);
 				$email_response = NotificationRules::sendEmail($receiver_email_address, $body, $subject);
 				//echo "<br> sms notification message in model = ".$sms_response;
@@ -280,7 +338,9 @@ class NotificationRules extends CActiveRecord
 				//echo "<br>TYPE OF RESPONSE IN MODEL FUNC = ".gettype($sms_response);
 				$response_array['email_response']= $email_response;
 				return $response_array;
+				*/
 				break;
+				
 		}//end of switch().
 		
 	}//end of sendCustomerEmailAndSms().
@@ -559,6 +619,9 @@ class NotificationRules extends CActiveRecord
 		//echo "<br> Message returned for ".$notifiedTo." = ".$msg;
 		return $msg;
 	}//end of createMessage().
+	
+	
+ 
 	
 	
 	

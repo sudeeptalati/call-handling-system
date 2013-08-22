@@ -42,6 +42,7 @@ class CountryCodes extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('iso2, short_name, long_name, iso3, numcode, un_member, calling_code, cctld', 'safe'),
+			array('iso2,calling_code','unique','message'=>'{attribute}:{value} already exists!'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, iso2, short_name, long_name, iso3, numcode, un_member, calling_code, cctld', 'safe', 'on'=>'search'),

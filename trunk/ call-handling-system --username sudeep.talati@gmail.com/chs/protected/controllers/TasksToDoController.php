@@ -1,6 +1,6 @@
 <?php
 
-class CountryCodesController extends Controller
+class TasksToDoController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -31,7 +31,7 @@ class CountryCodesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','GetCallingCode'),
+				'actions'=>array('create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -61,14 +61,14 @@ class CountryCodesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new CountryCodes;
+		$model=new TasksToDo;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CountryCodes']))
+		if(isset($_POST['TasksToDo']))
 		{
-			$model->attributes=$_POST['CountryCodes'];
+			$model->attributes=$_POST['TasksToDo'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,9 +90,9 @@ class CountryCodesController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CountryCodes']))
+		if(isset($_POST['TasksToDo']))
 		{
-			$model->attributes=$_POST['CountryCodes'];
+			$model->attributes=$_POST['TasksToDo'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -127,7 +127,7 @@ class CountryCodesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('CountryCodes');
+		$dataProvider=new CActiveDataProvider('TasksToDo');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -138,10 +138,10 @@ class CountryCodesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new CountryCodes('search');
+		$model=new TasksToDo('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CountryCodes']))
-			$model->attributes=$_GET['CountryCodes'];
+		if(isset($_GET['TasksToDo']))
+			$model->attributes=$_GET['TasksToDo'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -155,7 +155,7 @@ class CountryCodesController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=CountryCodes::model()->findByPk($id);
+		$model=TasksToDo::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -167,50 +167,10 @@ class CountryCodesController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='country-codes-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='tasks-to-do-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}//end of ajaxValidation.
-	
-	public function actionGetCallingCode()
-	{
-		if (Yii::app()->request->isAjaxRequest)
-		{
-			//pick off the parameter value
-			$country_code_id = Yii::app()->request->getParam( 'country_code_id' );
-			if($country_code_id != '')
-			{
-				//echo "Id is received is ".$country_code_id;
-				$countryCodeModel = CountryCodes::model()->findByPk($country_code_id);
-				//echo "<br>Calling code = ".$countryCodeModel->calling_code;
-				
-				$code = $countryCodeModel->calling_code;
-				if($code == '')
-					$code = ' ';
-				
-				$this->renderPartial('displayCallingCode',array('code'=>$code));
-			}
-			else 
-			{
-				//echo "id not passed";
-				$code = "No Code";
-				$this->renderPartial('displayCallingCode',array('code'=>$code));
-			}
-		}//end of is AjaxRequest.
-		
-	}//end of actionGetCallingCode().
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}//end of class.
+	}
+}

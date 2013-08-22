@@ -174,6 +174,30 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
  </div><!-- END OF DIV Container -->
  
  
+ <?php
+ 
+//echo "<hr>Here";
+$email = "kruthika.bethur@gmail.com";
+$ph_no = '447550508559';
+$n_code = 3;
+$body = "This is test mail.<br><br>Thanks,<br>UKW";
+$sub = 'TEST EMAIL';
+$sms_body = 'Testing msg.';
+ 
+//NotificationRules::model()->notifyByEmailAndSms($email, $ph_no, $n_code, $body, $sub, $sms_body);
+ 
+ 
+//echo "<hr>";
+ 
+ 
+ 
+ ?>
+ 
+
+ 
+ 
+ 
+ 
  
  
  

@@ -261,7 +261,7 @@ class NotificationRules extends CActiveRecord
 				
 				//************ ADDING TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
-				$tasksModel->task = 'Email';
+				$tasksModel->task = 'email';
 				$tasksModel->status = 'pending';
 				$tasksModel->msgbody =  $body;
 				$tasksModel->subject =  $subject;
@@ -284,7 +284,7 @@ class NotificationRules extends CActiveRecord
 				
 				//************ ADDING TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
-				$tasksModel->task = 'SMS';
+				$tasksModel->task = 'sms';
 				$tasksModel->status = 'pending';
 				$tasksModel->msgbody =  $smsMessage;
 				$tasksModel->send_to = $telephone;
@@ -375,16 +375,14 @@ class NotificationRules extends CActiveRecord
 			//echo "<br>SMTP authentication = ".$smtp_auth;
 			$sender_email = $username;
 				
-				
-			$mail = new PHPMailer;
+			$mail = new PHPMailer();
 
 			$mail->IsSMTP();
 			$mail->SMTPAuth = $smtp_auth;
 			$mail->Host = $host;  // Specify main and backup server
-			$mail->Username = $username;                            // SMTP username
-			$mail->Password = $password;                           // SMTP password
+			$mail->Username = $username;// SMTP username
+			$mail->Password = $password;// SMTP password
 			$mail->SMTPSecure = $encry;  
-				
 				
 			$from_name = $company_name;
 				
@@ -395,32 +393,29 @@ class NotificationRules extends CActiveRecord
 			 
 				
 			$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
-			$mail->AddAttachment('/var/tmp/file.tar.gz');         // Add attachments
-			$mail->AddAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			//$mail->AddAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			//$mail->AddAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 			$mail->IsHTML(true);                                  // Set email format to HTML
 				
-			//$mail->Subject = 'UKW test mail GMAIL';
 			$mail->Subject = $subject;
-			//$mail->Body = 'This is the HTML message body <b>in bold!</b>';
 			$mail->Body = $email_body;
-			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			
 			if(!$mail->Send())
 			{
-				//echo "<br>Email not sent";
-				//echo "<br>Mailer Error: " . $mail->ErrorInfo;
-				//echo "<hr>";
+				//echo "<br>Mailer Error: " . $mail->ErrorInfo."<hr>";
 				$email_response = 0;
-				
 			}
 			else
 			{
 				//echo "<br>Mail sent<hr>";
 				$email_response = 1;
 			}
-				
+			
 		}//end of try.
-		catch (Exception $e)
+		catch (Exception $e) 
 		{
+			echo $e->getMessage();
 			$email_response = 0;
 		}
 		
@@ -431,7 +426,6 @@ class NotificationRules extends CActiveRecord
 	public function sendSMS($mobileNumber, $smsMessage)
 	{
 		//echo "sendSMS func called";
-		//Yii::app()->sms->send(array('to'=>'447550508559', 'message'=>$smsMessage));
 		$response = Yii::app()->sms->send(array('to'=>$mobileNumber, 'message'=>$smsMessage));
 		//print_r($response);
 		
@@ -440,7 +434,6 @@ class NotificationRules extends CActiveRecord
 			//echo "<br>error mesg = ".$response[1];
 			return $response[1];
 		}
-		
 		else 
 			return true;
 		
@@ -461,19 +454,15 @@ class NotificationRules extends CActiveRecord
 		$contract_id = $serviceModel->product->contract_id;
 		$company_name = $setupModel->company;
 		$company_email = $setupModel->email;
-	
 		//echo "<br>cust id = ".$cust_id;
 		//echo "<br>engg id = ".$engineer_id;
 		//echo "<br>contract id = ".$contract_id;
-	
 	
 		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
 	
 		if(count($notificationModel)!=0)
 		{
 			//echo "<br>Rule is present";
-			
-				
 			$serviceDetailsModel = Servicecall::model()->findByPk($service_id);
 				
 			//echo "<br>Service reference no = ".$serviceDetailsModel->service_reference_number;
@@ -528,11 +517,7 @@ class NotificationRules extends CActiveRecord
 					$engineer_body = 'Dear '.$name.','."\n".$body;
 	
 					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $engineerNotificationCode, $engineer_body, $subject, $smsMessage);
-					//$info.= $this->createMessage($response, 'engineer');
 					$info .= NotificationRules::model()->createMessage($response, 'engineer');
-					//echo "<br>INFO returned from func = ".$info;
-					//return $response;
-	
 				}//end of if of ENGINEER.
 					
 				if($warrantyProviderNotificationCode != 0)
@@ -544,18 +529,13 @@ class NotificationRules extends CActiveRecord
 					$warranty_body = 'Dear Recepient,'."\n".$body;
 	
 					$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $warrantyProviderNotificationCode, $warranty_body, $subject, $smsMessage);
-					//$info.= $this->createMessage($response, 'warranty provider');
 					$info .= NotificationRules::model()->createMessage($response, 'warranty provider');
-					//echo "<br>INFO returned from func = ".$info;
-					//return $response;
-	
 				}//end of if of WARRANTY PROVIDER.
 					
 				if($othersNotificationCode != 0)
 				{
 					//echo "<hr>INSIDE Others Notification code IF ELSE BLOCK = ".$othersNotificationCode;
 					//echo "<br>Notification rule id = ".$data->id."<hr>";
-	
 					$notificationContactModel = NotificationContact::model()->findAllByAttributes(array('notification_rule_id'=>$data->id));
 					foreach ($notificationContactModel as $contact)
 					{
@@ -569,11 +549,7 @@ class NotificationRules extends CActiveRecord
 						$other_notification_code = $contact->notification_code_id;
 	
 						$response = NotificationRules::model()->notifyByEmailAndSms($receiver_email_address, $telephone, $other_notification_code, $others_body, $subject, $smsMessage);
-						//$info.= $this->createMessage($response, 'others');
 						$info .= NotificationRules::model()->createMessage($response, 'others');
-						//echo "<br>INFO returned from func = ".$info;
-						//return $response;
-	
 					}//end of inner foreach($contact).
 						
 				}//end of if of OTHERS.
@@ -583,12 +559,12 @@ class NotificationRules extends CActiveRecord
 				
 		}//end of count($notificationModel).
 		return $info;
-	
-	
 	}//end of performNotification().
 	
 	public function createMessage($notifyStatusArray, $notifiedTo)
 	{
+	
+	
 		/* SMS API RETURNS 1 ON SUCCESFUL SMS SENT, OR RESTURNS EMPTY STRING.
 		 * EMAIL SUCESSFUL SENT RETURNS 1 ELSE RETURNS 0.
 		* */
@@ -617,7 +593,11 @@ class NotificationRules extends CActiveRecord
 			$msg = $msg."<br><span style='background-color:red; color:#CD0000;   border-radius:10px 10px 10px 10px; '>Error in sending email to ".$notifiedTo.", check EMAIL settings.</span>";
 		}
 		//echo "<br> Message returned for ".$notifiedTo." = ".$msg;
-		return $msg;
+		
+		//return $msg;
+		return "";
+		
+	
 	}//end of createMessage().
 	
 	

@@ -31,7 +31,7 @@ class TasksToDoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+				'actions'=>array('create','update','admin', 'CompleteTasks', 'PerformTasks'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -143,9 +143,7 @@ class TasksToDoController extends Controller
 		if(isset($_GET['TasksToDo']))
 			$model->attributes=$_GET['TasksToDo'];
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+		$this->render('admin',array('model'=>$model));
 	}
 
 	/**
@@ -172,5 +170,53 @@ class TasksToDoController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-}
+	}//end of AJAX func.
+	
+	public function actionCompleteTasks()
+	{
+		//echo "<br>In completeTasks action";
+		$this->render('completeTasks');
+		
+	}//end of completeTasks.
+	
+	public function actionPerformTasks($id)
+	{
+		//echo "<br>In perform tasks action";
+		$task_id = $id;
+		if($task_id != '')
+		{
+			//echo "<hr> Task_id = ".$task_id;
+			$taskModel = TasksToDo::model()->findByPk($task_id);
+			$taskStatus = $taskModel->status;
+			//echo "<br>task status in model = ".$taskStatus;
+			
+			if($taskStatus != 'finished')
+			{
+				$tasksStatusUpdateModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'running'));
+				$response = TasksToDo::model()->listTasksToDo($task_id);
+				echo $response;
+				
+				$filename = '../tasks.log';
+				$fh = fopen($filename, 'a');
+				fwrite($fh, $response);
+				fclose($fh);
+				
+				
+			}//end of if task status != finished.
+			
+		}//end of if(task_id != 0).
+		else
+		{
+			echo "<br>Task_id not passed";
+		}//end of else.
+		
+	}//end of PerformTasks
+	
+	
+    
+
+	
+	
+	
+	
+}//end of class.

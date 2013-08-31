@@ -49,12 +49,13 @@ class ClickatellSms extends CApplicationComponent {
     public $callbackLevel = 2;
     // component level
     /** @var boolean Whether to print debug information on screen. Useful when debugging from shell */
-    //public $debug = false;
+    
     public $debug = true;
     protected $_session = null;
     protected $_error = null;
     const CACHE_ID = 'clickatell-session';
-    const CACHE_TIME = 870;
+    //const CACHE_TIME = 870;
+	const CACHE_TIME = 1;
 
     /**
      * Sends the SMS request to Clickatell gateway. 
@@ -62,6 +63,9 @@ class ClickatellSms extends CApplicationComponent {
      * @return mixed String with the clickatell SMS ID if it succeeds or FALSE if it fails
      */
     public function send($config) {
+	
+	
+ 
         // if there is no session, return the error
         if (!$this->getSession()) {
             return array('001', 'Authentication failed.');
@@ -91,14 +95,21 @@ class ClickatellSms extends CApplicationComponent {
     }
 
     protected function getSession() {
+	
+
+	
+	
+	
+	
         if ($this->_session === null) {
         	$cached = Yii::app()->cache->get(self::CACHE_ID);
             if ($cached !== false) {
                 $this->_session = $cached;
             } else {
                 
+			 
                 if ($this->debug === true)
-                    echo " * No Clickatell API Session cached. Authenticating...\n";
+                    echo " * ||||||||||||||||No Clickatell API Session cached. Authenticating...\n";
                 
                 $request = $this->clickatellRequest('auth', array(
                     'user' => urlencode($this->clickatell_username),
@@ -110,8 +121,9 @@ class ClickatellSms extends CApplicationComponent {
                     $this->_session = $request;
                     
                     if ($this->debug === true)
+					{
                         echo " * Authentication success.\n";
-                    
+                    }
                 } else {
                 
                     if ($this->debug === true)
@@ -131,8 +143,13 @@ class ClickatellSms extends CApplicationComponent {
      * @return mixed The returned information (without "OK: " status) or FALSE if it fails. 
      */
     protected function clickatellRequest($method, $params) {
-        if ($this->debug === true) {
-            echo " ** Initializing ", $method, " (", ($this->https ? 'https' : 'http'), ") request...\n";
+        
+		
+			
+		
+		if ($this->debug === true) {
+				
+			echo " ** Initializing ", $method, " (", ($this->https ? 'https' : 'http'), ") request...\n";
         }
         
         $request = curl_init();
@@ -152,6 +169,7 @@ class ClickatellSms extends CApplicationComponent {
         }
         $response = curl_exec($request);
 
+		
         if ($this->debug === true) {
             echo " ** The Clickatell response (or FALSE if the request failed):\n";
             var_dump($response);

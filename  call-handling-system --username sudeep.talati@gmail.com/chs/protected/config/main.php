@@ -132,7 +132,7 @@ return array(
 						'clickatell_password'=>$gateway_password,
 						//'clickatell_apikey'=>'3406681',
 						'clickatell_apikey'=>$gateway_apikey,
-						'debug' => true,
+						'debug' => false,
 						'https' => false,
 						
 				),

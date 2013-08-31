@@ -104,5 +104,82 @@ class TasksToDo extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-}
+	}//end of search.
+	
+	public function listTasksToDo( $task_id)
+	{
+		//echo "<br>In Tasks model :".$task_id;
+		$taskModel = TasksToDo::model()->findByPk($task_id);
+		
+		$email_sent_status = '';
+		//echo "<hr>Task Id = ".$taskModel->id;
+		//echo "<br>Task = ".$taskModel->task;
+		$task = $taskModel->task;
+		//echo "<br>Status = ".$taskModel->status;
+		$taskStatus = $taskModel->status;
+		//echo "<br>Msg body = ".$taskModel->msgbody;
+		$msgbody = $taskModel->msgbody;
+		//echo "<br>Subject = ".$taskModel->subject;
+		$subject = $taskModel->subject;
+		//echo "<br>Send to = ".$taskModel->send_to;
+		$send_to = $taskModel->send_to;
+		$response_msg = '';
+		
+		switch ($task) 
+		{
+			case 'email':
+				//echo "<br>Send email";
+				
+				$response = NotificationRules::model()->sendEmail($send_to, $msgbody, $subject);
+				//echo "<br>Response in tasks model = ".$response;
+					
+				$response_msg='';
+				if($response == 1)
+				{
+					$response_msg = "<br><span style='color:green'>Email sent succesuflly to ".$send_to." Subject: ".$subject."</span>";
+					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'finished'));
+					
+				}
+				else
+				{
+					$response_msg = "<br><span style='color:red'>Email not sent succesuflly to ".$send_to." Subject: ".$subject."</span>";
+					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'error'));
+				}
+					
+				return $response_msg;
+					
+				break;//end of case Email.
+					
+			case 'sms':
+				//echo "<br>Send sms";
+				$response = NotificationRules::model()->sendSMS($send_to, $msgbody);
+				
+				if($response == '1')
+				{
+					//echo "<br>Sent";
+					$response_msg = "<br><span style='color:green'>SMS sent to ".$send_to."</span>";
+					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'finished'));
+				}
+				else
+				{
+					//echo "<br>Not Sent";
+					$response_msg = "<br><span style='color:red'>SMS not sent to ".$send_to." Error is: ".$response."</span>";
+					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'error'));
+				}
+					
+				
+				return $response_msg;
+				break;//end if case SMS.
+		}//end of switch.
+		
+		
+		
+	}//end of listTasksToDo.
+	
+	
+	
+	
+	
+	
+	
+}//end of class.

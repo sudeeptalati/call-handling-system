@@ -1,7 +1,7 @@
 <?php
 
 $this->menu=array(
-	array('label'=>'Tasks To Do', 'url'=>array('TasksToDo/admin')),
+	array('label'=>'Tasks To Do', 'url'=>array('TasksToDo/completeTasks')),
 	array('label'=>'Company Details', 'url'=>array('/setup/1')),
 	array('label'=>'Brands / Make', 'url'=>array('Brand/admin')),
 	array('label'=>'Contracts', 'url'=>array('Contract/admin')),

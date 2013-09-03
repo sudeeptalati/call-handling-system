@@ -21,7 +21,7 @@ $baseUrl = Yii::app()->getBaseUrl();
 
 function pass_value(id)
 {
-	console.log('In pass_value function');
+	//console.log('In pass_value function');
 	//alert('In pass_value function');
 	var baseUrl = "<?php echo $baseUrl; ?>";
 	//var id = 1;
@@ -38,10 +38,7 @@ function pass_value(id)
 					{
                         //do something - your long process is finished
 						//alert(data);
-						//display_response_msg.innerHTML = "Ny new text!";
-						//$("display_response_msg").append("New text");
 						var div = document.getElementById('display_response_msg');
-						//div.value += data;
 						
 						div.innerHTML += data;
 						div.scrollTop = div.scrollHeight;

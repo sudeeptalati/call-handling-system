@@ -133,12 +133,10 @@ class TasksToDo extends CActiveRecord
 				$response = NotificationRules::model()->sendEmail($send_to, $msgbody, $subject);
 				//echo "<br>Response in tasks model = ".$response;
 					
-				$response_msg='';
 				if($response == 1)
 				{
 					$response_msg = "<br><span style='color:green'>Email sent succesuflly to ".$send_to." Subject: ".$subject."</span>";
 					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'finished'));
-					
 				}
 				else
 				{
@@ -147,7 +145,6 @@ class TasksToDo extends CActiveRecord
 				}
 					
 				return $response_msg;
-					
 				break;//end of case Email.
 					
 			case 'sms':
@@ -167,7 +164,6 @@ class TasksToDo extends CActiveRecord
 					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'error'));
 				}
 					
-				
 				return $response_msg;
 				break;//end if case SMS.
 		}//end of switch.

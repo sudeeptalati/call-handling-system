@@ -15,3 +15,17 @@
 		'value',
 	),
 )); ?>
+
+
+
+<br>
+<table>
+<tr><td></td>
+<td align="centre">
+<?php echo CHtml::button('Edit', array('submit'=>array('/advanceSettings/update/'.$model->id))); ?>
+</td></tr>
+</table>
+
+
+
+

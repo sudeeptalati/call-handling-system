@@ -111,7 +111,7 @@ class SiteController extends Controller
 		
 		$date=date('d-F-y-h-i');
 		$zipFileName = $date.'_call_handling_backup.zip';
-		$destination = $dest_location.'/back_ups/'.$zipFileName;
+		$destination = $dest_location.'/database_backups/'.$zipFileName;
 		
 		//echo "Destination = ".$destination;
 		

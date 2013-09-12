@@ -18,17 +18,16 @@ $baseUrl = Yii::app()->getBaseUrl();
 
 <script type="text/javascript">
 
-
+baseUrl = "<?php echo $baseUrl; ?>";
+	
 function pass_value(id)
 {
 	//console.log('In pass_value function');
 	//alert('In pass_value function');
-	var baseUrl = "<?php echo $baseUrl; ?>";
 	//var id = 1;
 	console.log('\n passed id = '+id);
 	
-	 $.ajax(
-            {
+	 $.ajax({
                 type: 'POST',
                 url: baseUrl+"/TasksToDo/performTasks/?id="+id,
 				data: id,
@@ -42,11 +41,18 @@ function pass_value(id)
 						
 						div.innerHTML += data;
 						div.scrollTop = div.scrollHeight;
-						
-                    }//end of function.
+					},//end of success function.
+                error:
+                    function () 
+					{
+						alert("Error in getting Tasks to Perform List");
+                    }//end of error function.
+										
+               
 					
             });//end of AJAX.
-}
+}//end of func pass_value.
+
 
 </script>
 

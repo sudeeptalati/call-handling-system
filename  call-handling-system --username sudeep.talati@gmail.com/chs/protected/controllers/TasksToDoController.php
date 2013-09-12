@@ -196,9 +196,13 @@ class TasksToDoController extends Controller
 				$response = TasksToDo::model()->listTasksToDo($task_id);
 				echo $response;
 				
-				$filename = '../tasks.log';
+				$time_for_log = date('d-M-Y H:i:s', time());
+				
+				$response_to_log_file = $response." At timestamp: ".$time_for_log;
+				
+				$filename = '../tasks.html';
 				$fh = fopen($filename, 'a');
-				fwrite($fh, $response);
+				fwrite($fh, $response_to_log_file);
 				fclose($fh);
 				
 				
@@ -211,6 +215,8 @@ class TasksToDoController extends Controller
 		}//end of else.
 		
 	}//end of PerformTasks
+	
+	
 	
 	
     

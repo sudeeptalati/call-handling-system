@@ -13,6 +13,12 @@
 echo "<br>Performing tasks.... Please wait.... Update messages will be displayed";
 $baseUrl = Yii::app()->getBaseUrl();
 //echo $baseUrl;
+
+
+$tasksModel = TasksToDo::model()->findAll();
+//echo "<br>Total count of table = ".count($tasksModel);
+$total_tasks = count($tasksModel);
+
 ?>
 
 
@@ -26,6 +32,8 @@ function pass_value(id)
 	//alert('In pass_value function');
 	//var id = 1;
 	console.log('\n passed id = '+id);
+	var total_tasks = "<?php echo $total_tasks; ?>";
+	console.log('\n Total tasks = '+total_tasks);
 	
 	 $.ajax({
                 type: 'POST',
@@ -41,6 +49,11 @@ function pass_value(id)
 						
 						div.innerHTML += data;
 						div.scrollTop = div.scrollHeight;
+						
+						if(id == total_tasks)
+						{
+							alert('All tasks completed');
+						}
 					},//end of success function.
                 error:
                     function () 
@@ -51,6 +64,9 @@ function pass_value(id)
                
 					
             });//end of AJAX.
+	
+			
+	
 }//end of func pass_value.
 
 
@@ -74,11 +90,6 @@ function pass_value(id)
 		
 		if($internet_available == 1)
 		{
-		
-			$tasksModel = TasksToDo::model()->findAll();
-			//echo "<br>Total count of table = ".count($tasksModel);
-			$total_tasks = count($tasksModel);
-			
 			foreach($tasksModel as $data)
 			{
 				$email_sent_status = '';
@@ -101,6 +112,7 @@ function pass_value(id)
 				echo "<script> pass_value(".$id."); </script>";
 				
 			}//end of foreach().
+			
 		}//end of if internet available.
 		else
 		{

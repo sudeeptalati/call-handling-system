@@ -36,6 +36,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'mobile'); ?>
 		<?php echo $form->textField($model,'mobile', array('size'=>30)); ?>
+		<br><small>(Please enter the number with code, like 44 for UK or 91 for India.)</small>
 		<?php echo $form->error($model,'mobile'); ?>
 	</div>
 	

@@ -162,7 +162,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 			<?php echo $form->labelEx($model,'country'); ?>
 			<?php
 				$codes_list = CountryCodes::model()->getAllCountryNames();
-				echo $form->dropDownList($model, 'country', $codes_list); 
+				echo $form->dropDownList($model, 'country_id', $codes_list); 
 			?>
 			<?php echo $form->error($model,'country'); ?>
 		</td>
@@ -182,23 +182,45 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 	
 	<tr>
 		<td>
+			
+			<?php echo $form->labelEx($model,'telephone'); ?>
+			<?php echo $form->textField($model,'telephone',array('maxlength'=>10, 'rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->error($model,'telephone'); ?>
+		</td>
+		
+		<td>
+			<?php echo $form->labelEx($model,'alternate'); ?>
+			<?php echo $form->textField($model,'alternate',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->error($model,'alternate'); ?>
+		</td>
+		
+		<td>
+			<?php echo $form->labelEx($model,'fax'); ?>
+			<?php echo $form->textField($model,'fax',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->error($model,'fax'); ?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
 			<?php 
 			
 				$country_code_val = '';
 				$codes_list = CountryCodes::model()->getAllCountryNames();
+				$selected = '';
 				
-				if($model->telephone != '')
+				if($model->mobile != '')
 				{
-					if(strlen($model->telephone) > 12)
+					if(strlen($model->mobile) > 12)
 					{
 						//echo "<br>Code is added";
-						$phone_no = $model->telephone;
+						$phone_no = $model->mobile;
 						// TO DISPLAY CODE AND PHONE NUMBER SEPERATLY WE ARE DIVIDING THE STRING IN 12TH POSITION FROM END OF STRING. 
 						// ****** THIS WILL GIVE THE PHONE NUMBER. CODE IS TAKEN FROM THE COUNTRY'S CODE ******** 
 						$code_pos = -12;
 						$actual_phone_no = substr($phone_no, $code_pos);
 						//echo "<br>Phone no = ".$actual_phone_no;
-						$model->telephone = $actual_phone_no;
+						$model->mobile = $actual_phone_no;
 						
 						$country_code_val = $model->countryCodes->calling_code;
 						//echo "<br>Code = ".$country_code_val;
@@ -207,10 +229,11 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 						
 					}//end if inner if(strlen()).
 					
-				}//end of if !null of telephone. 
+				}//end of if !null of mobile. 
 			
 			?>
-			<?php echo $form->labelEx($model,'telephone'); ?>
+			
+			<?php echo $form->labelEx($model,'mobile'); ?>
 			
 			<?php 
 			echo CHtml::dropDownList('calling_codes', $selected, $codes_list, 
@@ -245,31 +268,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 				//********** THIS HIDDEN FIELD IS TO PASS CODE VALUE TO CONTROLLER ************  
 				echo CHtml::hiddenField('hidden_code_val', $country_code_val, array('id'=>'hidden_code_textField'));
 			?>
-			<?php echo $form->textField($model,'telephone',array('maxlength'=>12, 'rows'=>6, 'cols'=>50)); ?>
 			
-			
-			
-			
-			
-			<?php echo $form->error($model,'telephone'); ?>
-		</td>
-		
-		<td>
-			<?php echo $form->labelEx($model,'alternate'); ?>
-			<?php echo $form->textField($model,'alternate',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo $form->error($model,'alternate'); ?>
-		</td>
-		
-		<td>
-			<?php echo $form->labelEx($model,'fax'); ?>
-			<?php echo $form->textField($model,'fax',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo $form->error($model,'fax'); ?>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>
-			<?php echo $form->labelEx($model,'mobile'); ?>
 			<?php echo $form->textField($model,'mobile',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'mobile'); ?>
 		</td>

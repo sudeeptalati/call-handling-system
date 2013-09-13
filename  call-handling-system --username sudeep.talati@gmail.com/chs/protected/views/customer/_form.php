@@ -151,7 +151,7 @@ background-color: #FFFF9D;
 		$setupModel = Setup::model()->findByPk(1);
 		$calling_code = $setupModel->countryCodes->calling_code;
 		//echo "<br>Country calling code  = ".$setupModel->countryCodes->calling_code;
-		$country_id = $setupModel->country;
+		$country_id = $setupModel->country_id;
 		//echo "<hr>";
 	}//This bit is called in CREATE
 	

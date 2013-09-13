@@ -102,7 +102,7 @@ class SetupController extends Controller
 				//echo "<br>Code value in update action = ".$_POST['hidden_code_val'];
 				$code_to_append = $_POST['hidden_code_val'];
 				if($code_to_append != '')
-					$model->telephone = $code_to_append.$model->telephone;
+					$model->mobile = $code_to_append.$model->mobile;
 				
 			}//end of if(isset[hodden_code_val]).
 			
@@ -428,15 +428,6 @@ class SetupController extends Controller
 	public function actionClickatellsmsAccount()
 	{
 		$model=new Setup('view');
-	
-		// uncomment the following code to enable ajax-based validation
-		/*
-		 if(isset($_POST['ajax']) && $_POST['ajax']==='setup-clickatellsmsAccount-form')
-		 {
-		echo CActiveForm::validate($model);
-		Yii::app()->end();
-		}
-		*/
 	
 		if(isset($_POST['Setup']))
 		{

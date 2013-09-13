@@ -69,7 +69,7 @@ class Setup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'countryCodes' => array(self::BELONGS_TO, 'CountryCodes', 'country'),
+				'countryCodes' => array(self::BELONGS_TO, 'CountryCodes', 'country_id'),
 		);
 	}
 

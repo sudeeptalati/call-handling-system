@@ -107,11 +107,12 @@ class SiteController extends Controller
 		
 		$zip = Yii::app()->zip;
 		$setupModel = Setup::model()->findByPk(1);
-		$dest_location = $setupModel->backup_location;
+		//$dest_location = $setupModel->backup_location;
 		
 		$date=date('d-F-y-h-i');
 		$zipFileName = $date.'_call_handling_backup.zip';
-		$destination = $dest_location.'/database_backups/'.$zipFileName;
+		//$destination = $dest_location.'/database_backups/'.$zipFileName;
+		$destination = 'database_backups/'.$zipFileName;
 		
 		//echo "Destination = ".$destination;
 		

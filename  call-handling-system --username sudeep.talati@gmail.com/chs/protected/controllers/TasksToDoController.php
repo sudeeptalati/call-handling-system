@@ -197,7 +197,6 @@ class TasksToDoController extends Controller
 				echo $response;
 				
 				$time_for_log = date('d-M-Y H:i:s', time());
-				
 				$response_to_log_file = $response." At timestamp: ".$time_for_log;
 				
 				$filename = '../tasks.html';
@@ -207,6 +206,34 @@ class TasksToDoController extends Controller
 				
 				
 			}//end of if task status != finished.
+			else//*********** DELETING OLD FINISHED TASKS.
+			{
+				//echo "<br>Task is finished";
+				$taskFinishedModel = TasksToDo::model()->FindByPk($task_id);
+				$finished_time = $taskFinishedModel->finished;
+				
+				if(!empty($finished_time))
+				{
+					//echo "<br>Finished date = ".$finished_time;
+					$dEnd = time();
+					$dStart = $finished_time;
+					
+					//******** CALCULATING DIFF IN DAYS **********
+					$date_diff = $dEnd - $dStart;
+					$days = round($date_diff/(60 * 60 * 24));
+					//echo "<br>Diff = ".$days;
+					//**** END OF CALCULATING DIFF IN DAYS *******
+					
+					if($days > 1)
+					{
+						//echo "<br>Difference in more than 1. ID = ".$task_id;
+						$taskDeleteModel=TasksToDo::model()->findByPk($task_id); 
+						$taskDeleteModel->delete(); 
+					}
+					
+				}//end of if (!empty($finished_time)).
+				
+			}//end of else
 			
 		}//end of if(task_id != 0).
 		else

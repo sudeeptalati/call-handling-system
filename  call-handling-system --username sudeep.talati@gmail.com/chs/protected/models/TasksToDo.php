@@ -137,6 +137,9 @@ class TasksToDo extends CActiveRecord
 				{
 					$response_msg = "<br><span style='color:green'>Email sent succesuflly to ".$send_to." Subject: ".$subject."</span>";
 					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'finished'));
+					
+					$finished_time = time();
+					$taskFinishedTimeUpdateModel = TasksToDo::model()->updateByPk($task_id, array('finished'=>$finished_time));
 				}
 				else
 				{
@@ -156,6 +159,9 @@ class TasksToDo extends CActiveRecord
 					//echo "<br>Sent";
 					$response_msg = "<br><span style='color:green'>SMS sent to ".$send_to."</span>";
 					$tasksCompleteModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'finished'));
+					
+					$finished_time = time();
+					$taskFinishedTimeUpdateModel = TasksToDo::model()->updateByPk($task_id, array('finished'=>$finished_time));
 				}
 				else
 				{

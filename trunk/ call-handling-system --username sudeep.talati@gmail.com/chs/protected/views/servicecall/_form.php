@@ -350,7 +350,7 @@ background-color: #FFFF9D;
 					$codes_list = CountryCodes::model()->getAllCountryNames();
 					echo CHtml::dropDownList('calling_codes', $country_id, $codes_list,
 						array(
-						'prompt' => 'Please Select job status (required)',
+						'prompt' => 'Please Select a country',
 						'value' => '0',
 						'ajax'  => array(
 									'type'  => 'POST',

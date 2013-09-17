@@ -312,7 +312,7 @@ background-color: #FFFF9D;
 					
 					echo CHtml::dropDownList('calling_codes', $country_id, $codes_list,
 						array(
-						'prompt' => 'Please Select job status (required)',
+						'prompt' => 'Please Select a county',
 						'value' => '0',
 						'ajax'  => array(
 									'type'  => 'POST',

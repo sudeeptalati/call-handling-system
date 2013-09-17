@@ -14,10 +14,9 @@ echo "<br>Performing tasks.... Please wait.... Update messages will be displayed
 $baseUrl = Yii::app()->getBaseUrl();
 //echo $baseUrl;
 
-
 $tasksModel = TasksToDo::model()->findAll();
-//echo "<br>Total count of table = ".count($tasksModel);
 $total_tasks = count($tasksModel);
+//echo "<br>Total count of table = ".$total_tasks;
 
 ?>
 
@@ -78,6 +77,12 @@ function pass_value(id)
 
 	<?php
 	
+	if($total_tasks == 0)
+	{
+		echo "<span style='color:maroon'><br>No tasks to perform</span>";
+	}
+	else
+	{
 		$internet_available = '';
 		$advanceSettingsModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
 		
@@ -116,7 +121,7 @@ function pass_value(id)
 		}//end of if internet available.
 		else
 		{
-			echo "Internet not available";
+			//echo "Internet not available";
 			
 			$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
 				'id'=>'mydialog',
@@ -131,7 +136,9 @@ function pass_value(id)
 
 			$this->endWidget('zii.widgets.jui.CJuiDialog');
 
-		}//end of else.
+		}//end of else, Internet not available.
+		
+	}//end of outer else.
 		
 	?>
 

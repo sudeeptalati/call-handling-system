@@ -17,6 +17,34 @@
 	$gateway_apikey = '';
 	$url = dirname(__FILE__);
 	
+	
+		
+	/******** CUSTIOM MODULES START***********/
+	
+	
+	$addons=array(
+		'gii'=>array(
+			'class'=>'system.gii.GiiModule',
+			'password'=>'chs',
+		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
+			'ipFilters'=>array('127.0.0.1','::1'),
+		),
+	);
+	
+	$xml=simplexml_load_file($url."/addons.xml");
+	foreach($xml->children() as $child)
+	{
+		$a=(string)$child;
+		array_push($addons,$a);
+	}
+	print_r($addons);
+	
+	
+			
+	/******** CUSTIOM MODULES END***********/
+	
+	
+	
 	/******** DECODING MAIL SETTING DETAILS FROM JSON FILE *************/
 	
 	$filename = $url."/mail_server.json";
@@ -104,15 +132,7 @@ return array(
 		'application.vendors.*',
 		),
 
-	'modules'=>array(
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'chs',
-		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
-		),
-		
-	),
+	'modules'=>$addons,
 
 	// application components
 	'components'=>array(

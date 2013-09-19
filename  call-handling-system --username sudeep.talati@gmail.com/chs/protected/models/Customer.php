@@ -161,10 +161,13 @@ class Customer extends CActiveRecord
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('fullname',$this->fullname,true);
 		//$criteria->compare('servicecalls.service_reference_number',$this->service_number,true);
-		$criteria->order = 'product.created DESC';
+	//	$criteria->order = 'product.created DESC';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+							'defaultOrder'=>'product.created DESC',
+							),
 			 
 		
 		));

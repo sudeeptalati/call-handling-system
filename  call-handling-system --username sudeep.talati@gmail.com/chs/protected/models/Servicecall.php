@@ -47,7 +47,7 @@ class Servicecall extends CActiveRecord
 	public $user_name;
 	public $customer_name;
 	public $customer_town;
-	public $postcode;
+	public $customer_postcode;
 	public $product_name;
 	public $model_number;
 	public $serial_number;
@@ -163,14 +163,14 @@ class Servicecall extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		
-		$criteria->order = 'service_reference_number DESC';
+		//$criteria->order = 'service_reference_number DESC';
 		
 		$criteria->with = array( 'engineer','jobStatus','customer', 'product');
 		//$criteria->together= true;
 		
 		$criteria->compare( 'customer.fullname', $this->customer_name, true );
 		$criteria->compare( 'customer.town', $this->customer_town, true );
-		$criteria->compare( 'customer.postcode', $this->postcode, true );
+		$criteria->compare( 'customer.postcode', $this->customer_postcode, true );
 		
 		$criteria->compare( 'jobStatus.name', $this->job_status, true );
 		$criteria->compare( 'engineer.company', $this->engineer_name, true );
@@ -210,7 +210,17 @@ class Servicecall extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			//'pagination'=>false,
+			'sort'=>array(
+							'defaultOrder'=>'service_reference_number DESC',
+							),
 		));
+		
+		
+		
+ 
+
+
+
 		
 	}//end of search().
 	

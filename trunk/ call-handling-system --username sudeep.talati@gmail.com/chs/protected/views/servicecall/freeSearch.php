@@ -241,10 +241,11 @@ $allStatus = JobStatus::model()->findAll( array(
 					<?php
 					//echo $data->name."<br>";
 					$result = Servicecall::model()->findAll(array(
-															'condition'=>'job_status_id='.$data->id,
-					 										'limit' => 10
+																'condition'=>'job_status_id='.$data->id,
+																'limit' => 10,
+																'order' => 'id DESC'
 															)
-															);
+														);
 					if(count($result)>0)
 					{?>
 						<tr style="background:<?php echo $data->html_name;?>;">

@@ -40,6 +40,8 @@ $('.search-form form').submit(function(){
 		array('name'=>'model_number','value'=>'$data->product->model_number'),
 		array('name'=>'serial_number','value'=>'$data->product->serial_number'),
 		
+		array('name'=>'created', 'value'=>'date("d-M-Y",$data->created)', 'filter'=>false),
+		
 		//'telephone',
 		//'address_line_1',
 		//array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),

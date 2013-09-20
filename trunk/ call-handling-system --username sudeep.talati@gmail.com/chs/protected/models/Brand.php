@@ -95,7 +95,7 @@ class Brand extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
+	
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('information',$this->information,true);
@@ -104,10 +104,13 @@ class Brand extends CActiveRecord
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('inactivated',$this->inactivated,true);
-		$criteria->order = 'created ASC';
+		//$criteria->order = 'created ASC';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+							'defaultOrder'=>'created DESC',
+						),
 			
 		));
 	}//end of search.
@@ -132,7 +135,48 @@ class Brand extends CActiveRecord
         }//end of if(parent())
     }//end of beforeSave().
     
-    
+    private static $_items=array();
+	
+	/**
+	 * Returns the items for the specified type.
+	 * @param string item type (e.g. 'PostStatus').
+	 * @return array item names indexed by item code. The items are order by their position values.
+	 * An empty array is returned if the item type does not exist.
+	 */
+	public static function items($type)
+	{
+		if(!isset(self::$_items[$type]))
+			self::loadItems($type);
+		return self::$_items[$type];
+	}//end of items.
+	
+	/**
+	 * Returns the item name for the specified type and code.
+	 * @param string the item type (e.g. 'PostStatus').
+	 * @param integer the item code (corresponding to the 'code' column value)
+	 * @return string the item name for the specified the code. False is returned if the item type or code does not exist.
+	 */
+	public static function item($type,$code)
+	{
+		if(!isset(self::$_items[$type]))
+			self::loadItems($type);
+		return isset(self::$_items[$type][$code]) ? self::$_items[$type][$code] : false;
+	}//end of item.
+	
+	/**
+	 * Loads the lookup items for the specified type from the database.
+	 * @param string the item type
+	 */
+	private static function loadItems($type)
+	{
+		self::$_items[$type]=array();
+		$models=self::model()->findAll(
+			array(
+					'order'=>"`name` ASC"
+				));
+		foreach($models as $model)
+			self::$_items[$type][$model->id]=$model->name;
+	}//end of loaditems.
     
     
 }//END OF CLASS

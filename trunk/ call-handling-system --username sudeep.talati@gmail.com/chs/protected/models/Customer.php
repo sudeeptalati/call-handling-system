@@ -72,7 +72,7 @@ class Customer extends CActiveRecord
 			array('first_name, address_line_2, address_line_3, country, mobile, email, fax, notes, modified, fullname, lockcode, model_number, serial_number', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode, model_number, serial_number', 'safe', 'on'=>'search'),
+			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode, model_number, serial_number, product_id, product_brand, product_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -132,13 +132,16 @@ class Customer extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->with = array( 'product','product.brand','product.productType' );
+		$criteria->together = true;
 		
-		$criteria->with = array( 'product' );
-    	
-    	$criteria->compare( 'product.model_number', $this->model_number, true );
-    	$criteria->compare( 'product.serial_number', $this->serial_number, true );
-
-		$criteria->compare('id',$this->id);
+    	$criteria->compare('product.id',$this->product_id, true);
+    	$criteria->compare('product.model_number', $this->model_number, true );
+    	$criteria->compare('product.serial_number', $this->serial_number, true );
+		$criteria->compare('product.brand.name', $this->product_brand, true );
+		$criteria->compare('product.productType.name', $this->product_type, true );
+		
+		$criteria->compare('id',$this->id, true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('first_name',$this->first_name,true);
 		$criteria->compare('last_name',$this->last_name,true);
@@ -160,14 +163,14 @@ class Customer extends CActiveRecord
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('fullname',$this->fullname,true);
-		//$criteria->compare('servicecalls.service_reference_number',$this->service_number,true);
+		
 	//	$criteria->order = 'product.created DESC';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array(
 							'defaultOrder'=>'product.created DESC',
-							),
+						),
 			 
 		
 		));

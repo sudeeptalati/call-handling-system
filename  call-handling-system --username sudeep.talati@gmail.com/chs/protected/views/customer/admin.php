@@ -35,7 +35,15 @@ $('.search-form form').submit(function(){
 		'town',
 		'postcode',
 		//'product_id',
-		array('name'=>'product_brand','value'=>'$data->product->brand->name'),
+		//array('name'=>'product_brand','value'=>'$data->product->brand->name'),
+		/*
+		array(
+			'name'=>'product_brand',
+			'value'=>'Brand::item("Brand",$data->product->brand->id)',
+			'filter'=>Brand::items('Brand'),
+		),
+		*/
+		
  		array('name'=>'product_type','value'=>'$data->product->productType->name'),
 		array('name'=>'model_number','value'=>'$data->product->model_number'),
 		array('name'=>'serial_number','value'=>'$data->product->serial_number'),

@@ -178,7 +178,6 @@ class Servicecall extends CActiveRecord
 		$criteria->compare( 'product.model_number', $this->model_number, true );
 		$criteria->compare( 'product.serial_number', $this->serial_number, true );
 		
-		
 		$criteria->compare('id',$this->id);
 		$criteria->compare('service_reference_number',$this->service_reference_number);
 		 

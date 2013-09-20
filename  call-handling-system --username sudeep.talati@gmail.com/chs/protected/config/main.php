@@ -37,7 +37,7 @@
 		$a=(string)$child;
 		array_push($addons,$a);
 	}
-	print_r($addons);
+	//print_r($addons);
 	
 	
 			

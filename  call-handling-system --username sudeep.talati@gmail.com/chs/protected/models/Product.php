@@ -231,25 +231,24 @@ class Product extends CActiveRecord
 	
 	public function getAllBrands()
     {
-    	return CHtml::listData(Brand::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name');
+    	return CHtml::listData(Brand::model()->findAll(array('condition'=>'active=1', 'order'=>"`name` ASC")), 'id', 'name');
     }//end of getAllBrands().
     
     public function getProductTypes()
     {
-    	return CHtml::listData(ProductType::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name');
+    	return CHtml::listData(ProductType::model()->findAll(array('condition'=>'active=1', 'order'=>"`name` ASC")), 'id', 'name');
     }//end of getproductTypes().
     
     public function getAllContract()
     {
-    	return CHtml::listData(Contract::model()->findAll(), 'id', 'name','contractType.name');
+    	return CHtml::listData(Contract::model()->findAll(array('condition'=>'active=1')), 'id', 'name','contractType.name');
     }//end of getAllContract().
     
     public function getAllEngineers()
     {
-    	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname');
+    	return CHtml::listData(Engineer::model()->findAll(array('condition'=>'active=1', 'order'=>"`fullname` ASC")), 'id', 'fullname');
     }//end of getAllEngineers().
     
-	
 	public function getAllCompanyNames()
     {
     	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');

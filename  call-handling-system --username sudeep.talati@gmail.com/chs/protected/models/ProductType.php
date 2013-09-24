@@ -11,6 +11,7 @@
  * @property string $created
  * @property string $modified
  * @property string $server_product_type_id
+ * @property string $active
  *
  * The followings are the available model relations:
  * @property Product[] $products
@@ -44,11 +45,11 @@ class ProductType extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('server_product_type_id,created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('server_product_type_id, information, modified', 'safe'),
+			array('active, server_product_type_id,created_by_user_id', 'numerical', 'integerOnly'=>true),
+			array('server_product_type_id, information, modified, inactivated', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('server_product_type_id, id, name, information, created_by_user_id, created, modified ', 'safe', 'on'=>'search'),
+			array('server_product_type_id, id, name, information, created_by_user_id, created, modified, active, inactivated ', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,6 +96,7 @@ class ProductType extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('information',$this->information,true);
+		$criteria->compare('active',$this->active);
 		$criteria->compare('created_by_user_id',$this->created_by_user_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);

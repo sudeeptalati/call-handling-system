@@ -698,14 +698,7 @@ $mpdf->Output();
 		}///end of else i.e, Servicecall is in LOGGED state. 
 	}//end of actionSelectEngineer.
 	
-	public function actionEnggJobReport($engg_id, $status_id, $startDate, $endDate)
-	{
-		$criteriaData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
-		
-		$this->renderPartial('downloadEnggCallReport',array('criteriaData'=>$criteriaData));
-		
-	}//end of actionEnggJobReport().
-	
+
 
 	
 	public function performNotification($status_id, $service_id)

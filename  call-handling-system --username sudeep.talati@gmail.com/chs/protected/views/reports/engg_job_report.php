@@ -23,7 +23,7 @@ $model = new Servicecall('search');
 ?>
 
 <?php 
-$url=Yii::app()->request->getBaseUrl().'/servicecall/enggJobReport/?engg_id='.$engg_id.'&status_id='.$status_id.'&startDate='.$startDate.'&endDate='.$endDate;
+$url=Yii::app()->request->getBaseUrl().'/index.php?r=reports/ExcelServicecallsReport&engg_id='.$engg_id.'&status_id='.$status_id.'&startDate='.$startDate.'&endDate='.$endDate;
 
 $excel=Yii::app()->request->baseUrl."/images/excel.png";
 

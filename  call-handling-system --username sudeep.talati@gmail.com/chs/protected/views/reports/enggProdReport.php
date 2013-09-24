@@ -1,6 +1,24 @@
 
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+
+$url=Yii::app()->request->getBaseUrl().'/index.php?r=Reports/enggProdExport&engg_id='.$engg_id;
+ 
+
+$excel=Yii::app()->request->baseUrl."/images/excel.png";
+
+?>
+			<a href='<?php echo $url;?>' style='color:#555;text-decoration:none;' >
+			<?php echo CHtml::image($excel,"ballpop",array('width'=>'50px','height'=>'50px')); ?>
+			</a><br>
+<b><?php
+	echo CHtml::link('Export to Excel',$url);
+?></b>
+
+<?php
+
+
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'product-grid',
 	'dataProvider'=>$model->enggProductReport($engg_id),
 	//'filter'=>$model,
@@ -23,7 +41,6 @@
 	),
 ));
 
-$url=Yii::app()->request->getBaseUrl().'/Reports/enggProdExport/?engg_id='.$engg_id;
-echo CHtml::link('Export to excel',$url);
+
 
 ?>

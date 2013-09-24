@@ -1,7 +1,7 @@
 <?php 
 	
 $baseUrl=Yii::app()->request->baseUrl;
-$exportUrl = $baseUrl.'/Servicecall/export/';
+$exportUrl = $baseUrl.'/index.php?r=reports/export/';
 
 if(isset($date_error))
 {
@@ -137,7 +137,7 @@ $enggStatusForm=$this->beginWidget('CActiveForm', array(
 	<?php 
 	 
 	$baseUrl=Yii::app()->request->baseUrl;
-	$prodReportUrl = $baseUrl.'/Reports/enggProductReport/';
+	$prodReportUrl = $baseUrl.'/index.php?r=reports/enggProductReport/';
 	 
 	 $enggProductForm=$this->beginWidget('CActiveForm', array(
 		'id'=>'engg-status-dropdown-form',

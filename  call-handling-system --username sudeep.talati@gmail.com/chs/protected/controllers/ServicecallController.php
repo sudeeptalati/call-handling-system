@@ -706,53 +706,7 @@ $mpdf->Output();
 		
 	}//end of actionEnggJobReport().
 	
-	public function actionExport()
-	{
-		$model=new Servicecall();
-		//echo "in action test";
-		//echo "<br>Value of engg id from engineer_id  = ".$_GET['engglist'];
-		$engg_id = $_GET['engglist'];
-		//echo "<br>Value of Stattus id  = ".$_GET['statuslist'];
-		$status_id = $_GET['statuslist'];
-		//echo "<br>Start date = ".$_GET['startDate'];
-		$startDate = $_GET['startDate'];
-		//echo "<br>Start date = ".$_GET['endDate'];
-		$endDate = $_GET['endDate'];
-		$exportData = '';
-		
-		if($startDate != '')
-		{
-			$str_startdate = strtotime($startDate);
-			$str_enddate = strtotime($endDate );
-			
-			if($str_enddate < $str_startdate )
-			{
-				$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>2));
-			}//end of if comparing dates.
-			else
-			{
-				$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
-				$this->render('engg_job_report',
-					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)
-				);
-			}//end of else(comparing dates.)
-		}//end of if(start_date not empty).
-		else 
-		{
-			$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>1));
-		}
-		
-	}//end of export.
-	
-	public function actionDisplayDropdown()
-	{
-		//$model=new Servicecall('search');
-		$model=new Servicecall();
-		$model->unsetAttributes();
-		 
-		$this->render('enggReportDropdown',array('model'=>$model));	
-	}//end of actionDisplayDropdown();
-	
+
 	
 	public function performNotification($status_id, $service_id)
 	{

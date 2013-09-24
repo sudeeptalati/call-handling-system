@@ -83,7 +83,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				//array('label'=>'Diary', 'url'=>array('/enggdiary/changeEngineer/?month='.date('m').'&year='.date('y'))),
 				array('label'=>'Diary', 'url'=>array('/enggdiary/currentAppointments')),
 				array('label'=>'NewCustomer', 'url'=>array('/customer/create')),
-				array('label'=>'Reports', 'url'=>array('/servicecall/displayDropdown')),
+				array('label'=>'Reports', 'url'=>array('/reports/displayDropdown')),
 				
 				//array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				//array('label'=>'Engineer', 'url'=>array('/engineer/admin')),

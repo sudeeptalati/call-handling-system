@@ -1,0 +1,34 @@
+{
+	"setup_filesystem": {
+		"title": "Updated Files and Script",
+		"folders": {
+			"config":"/0.5.4beta_protected/config/",
+			"controllers":"/0.5.4beta_protected/controllers/",
+			"models": "/0.5.4beta_protected/models/",
+			"views": "/0.5.4beta_protected/views/",
+			"components": "/0.5.4beta_protected/components/",
+			"vendors": "/0.5.4beta_protected/vendors/",
+			"extensions": "/0.5.4beta_protected/extensions/",
+			"js": "/0.5.4beta_js/js/",
+			"css": "/0.5.4beta_css/css/",
+			"images": "/0.5.4beta_images/images/",
+			"database_backups": "/0.5.4beta_database_backups/database_backups/"
+		},
+		"destination_folders": {
+			"config":"/protected/config/",
+			"controllers":"/protected/controllers/",
+			"models": "/protected/models/",
+			"views": "/protected/views/",
+			"components": "/protected/components/",
+			"vendors": "/protected/vendors/",
+			"extensions": "/protected/extensions/",
+			"js": "/js/",
+			"css": "/css/",
+			"images": "/images/",
+			"database_backups": "/database_backups/"
+		},
+		"database_update_files": {
+			"database": "/0.5.4beta_database/update.sql"
+		}
+	}
+}

@@ -243,7 +243,7 @@ class Engineer extends CActiveRecord
     
     public function getAllEnggAndCompany()
     {
-    	return CHtml::listData(Engineer::model()->findAll(array('order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
+    	return CHtml::listData(Engineer::model()->findAll(array('condition'=>'active=1', 'order'=>"`fullname` ASC")), 'id', 'fullname', 'company');
     }//end of getAllEnggAndCompany().
     
     public function getCodeArray() 

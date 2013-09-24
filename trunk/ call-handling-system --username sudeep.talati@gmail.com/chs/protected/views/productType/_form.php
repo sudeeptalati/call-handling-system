@@ -20,7 +20,7 @@
 		<?php echo $form->textField($model,'information',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'information'); ?>
 	</div>
-
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

@@ -21,10 +21,14 @@
 		'information',
 		//'created_by_user_id',
 		'createdByUser.name',
+		//'active',
+		array('name'=>'active', 'value'=>'$data->active ? "Active" : "Inactive"', 'filter'=>array('1'=>'Active', '0'=>'Inactive'),),
 		//'created',
 		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
 		//'modified',
 		array( 'name'=>'modified', 'value'=>'$data->modified==null ? "":date("d-M-Y",$data->modified)', 'filter'=>false),
+		//'inactivated',
+		array( 'name'=>'inactivated', 'value'=>'$data->inactivated==null ? "":date("d-M-Y",$data->inactivated)', 'filter'=>false),
 		
 		//'server_product_type_id',
 		array(

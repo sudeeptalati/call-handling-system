@@ -14,7 +14,7 @@
 		<?php echo $form->labelEx($model,'name'); ?>
 		
 		<?php 
-			if($model->id>10000)
+			if($model->id>1000000)
 			{
 				echo $form->textField($model,'name',array('rows'=>6, 'cols'=>50));
 			}

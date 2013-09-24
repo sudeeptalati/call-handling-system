@@ -418,8 +418,6 @@ background-color: #FFFF9D;
 	
 	<!-- FIELDS FROM PRODUCT TABLE -->
 	
-	
-	
 	<table style="width:400px; margin:10px;">
 	<tr><td colspan="3"><h2 style="margin-bottom:0.01px;color:#555;"><label>Product Details</label></h2></td></tr>
 	

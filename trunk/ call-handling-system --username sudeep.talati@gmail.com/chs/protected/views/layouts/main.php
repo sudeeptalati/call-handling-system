@@ -88,7 +88,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				//array('label'=>'Contract', 'url'=>array('/contract/admin')),
 				//array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
 				//array('label'=>'Config', 'url'=>array('/config/1')),
-				array('label'=>'SetUp', 'url'=>array('/setup/1')),
+				array('label'=>'SetUp', 'url'=>array('/setup/view&id=1')),
 				array('label'=>'BackUp', 'url'=>array('/site/backup'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('confirm'=>'Are you sure you want to Logout?'))
@@ -115,6 +115,11 @@ $baseUrl= Yii::app()->request->baseUrl;
 	</td></tr></table>
 </div><!-- footer -->
 </div><!-- page -->
+
+
+<!--
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/oow/oow.js"></script>
+-->
 
 </body>
 </html>

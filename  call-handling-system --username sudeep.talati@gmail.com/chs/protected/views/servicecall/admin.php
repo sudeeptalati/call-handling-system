@@ -32,7 +32,7 @@ $('.search-form form').submit(function(){
 		//'id',
 		//'service_reference_number',
 		array(	'name'=>'service_reference_number',
-				'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id."?notify_response="))',
+				'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/view&id=".$data->id))',
 		 		'type'=>'raw',
         ),
 		//'customer_id',

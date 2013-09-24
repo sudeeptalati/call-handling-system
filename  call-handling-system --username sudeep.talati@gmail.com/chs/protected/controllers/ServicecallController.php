@@ -322,7 +322,7 @@ $mpdf->Output();
 				
 				if($model->save())
 				{
-					$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
+					$this->redirect(array('view','id'=>$model->id ));
 					//echo "saved";
 				}
 				else
@@ -336,7 +336,7 @@ $mpdf->Output();
 		else 
 		{
 			//$this->redirect(array('view', array('id'=>$model->id, 'notify_response'=>$response)));
-			$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 	
 		$this->render('updateServicecall',array('model'=>$model));
@@ -680,7 +680,7 @@ $mpdf->Output();
 													'engineer_id'=>$engg_id
 											));
 			/******** CHANGING DIARY AND ENGINEER ID IN SERVICECALL ******************/
-			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
+			$this->redirect(array('view','id'=>$service_id ));
 			
 		}///end of  if ($diary_id!=0){
 		
@@ -693,7 +693,7 @@ $mpdf->Output();
 			$product_id=$serviceModel->product_id;
 			Product::model()->updateByPk($product_id,array('engineer_id'=>$engg_id)); 
 			
-			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
+			$this->redirect(array('view','id'=>$service_id ));
 			
 		}///end of else i.e, Servicecall is in LOGGED state. 
 	}//end of actionSelectEngineer.

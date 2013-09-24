@@ -13,7 +13,7 @@
 		<?php echo $form->labelEx($model,'name'); ?>
 		
 		<?php 
-			if($model->id>10000)
+			if($model->id>1000000)
 			{
 				echo $form->textField($model,'name',array('rows'=>6, 'cols'=>50));
 			}
@@ -31,6 +31,12 @@
 		<?php echo $form->labelEx($model,'information'); ?>
 		<?php echo $form->textField($model,'information',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'information'); ?>
+	</div>
+	
+	<div class="row">		
+		<?php echo $form->labelEx($model,'active'); ?>
+		<?php echo $form->dropDownList($model,'active', array('1'=>'Active', '0'=>'Inactive')); ?>
+		<?php echo $form->error($model,'active'); ?>
 	</div>
 
 	<div class="row buttons">

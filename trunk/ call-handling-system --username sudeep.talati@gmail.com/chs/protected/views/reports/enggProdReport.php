@@ -2,7 +2,7 @@
 
 <?php 
 
-$url=Yii::app()->request->getBaseUrl().'/index.php?r=Reports/enggProdExport&engg_id='.$engg_id;
+$url=Yii::app()->request->getBaseUrl().'/index.php?r=reports/enggProdExport&engg_id='.$engg_id;
  
 
 $excel=Yii::app()->request->baseUrl."/images/excel.png";

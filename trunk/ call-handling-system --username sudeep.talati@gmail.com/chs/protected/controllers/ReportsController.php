@@ -68,6 +68,22 @@ class ReportsController extends Controller
 		
 	}//end of EnggProductReport.
 	
+	
+	
+	
+	public function actionExcelServicecallsReport($engg_id, $status_id, $startDate, $endDate)
+	{
+		$criteriaData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
+		
+		$this->renderPartial('excelServicecallsReport',array('criteriaData'=>$criteriaData));
+		
+	}//end of actionEnggJobReport().
+	
+	
+	
+	
+	
+	
 	public function actionEnggProdExport($engg_id)
 	{
 		//echo "<hr>engg id in export contr = ".$engg_id;

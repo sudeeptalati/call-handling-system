@@ -1,31 +1,36 @@
-<?php
-$this->breadcrumbs=array(
-	'Country Codes'=>array('index'),
-	$model->id,
-);
+ <div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List CountryCodes', 'url'=>array('index')),
-	array('label'=>'Create CountryCodes', 'url'=>array('create')),
-	array('label'=>'Update CountryCodes', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete CountryCodes', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage CountryCodes', 'url'=>array('admin')),
-);
-?>
 
-<h1>View CountryCodes #<?php echo $model->id; ?></h1>
+<h1>View CountryCodes #<?php echo $model->long_name; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Country Codes' ,array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Country Codes',array('create')); ?></li>
+</div>
+
+
+<div style="text-align:right;" >
+<?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?>
+</div>
+
+
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		/*
 		'id',
 		'iso2',
+		*/
 		'short_name',
 		'long_name',
+		'calling_code',
+		/*
 		'iso3',
 		'numcode',
 		'un_member',
-		'calling_code',
 		'cctld',
+		*/
 	),
 )); ?>

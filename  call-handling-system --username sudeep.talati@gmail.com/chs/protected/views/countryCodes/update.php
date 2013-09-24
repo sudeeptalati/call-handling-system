@@ -1,18 +1,16 @@
-<?php
-$this->breadcrumbs=array(
-	'Country Codes'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
+ <div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List CountryCodes', 'url'=>array('index')),
-	array('label'=>'Create CountryCodes', 'url'=>array('create')),
-	array('label'=>'View CountryCodes', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage CountryCodes', 'url'=>array('admin')),
-);
-?>
 
-<h1>Update CountryCodes <?php echo $model->id; ?></h1>
+<div style="text-align:right;" >
+<?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?>
+</div>
+
+<h1>Update CountryCodes: <?php echo $model->long_name; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Country Codes' ,array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Country Codes',array('create')); ?></li>
+</div>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

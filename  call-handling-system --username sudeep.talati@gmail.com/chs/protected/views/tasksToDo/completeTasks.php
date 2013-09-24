@@ -36,7 +36,7 @@ function pass_value(id)
 	
 	 $.ajax({
                 type: 'POST',
-                url: baseUrl+"/TasksToDo/performTasks/?id="+id,
+                url: baseUrl+"/index.php?r=TasksToDo/performTasks&id="+id,
 				data: id,
                 async: true,
                 success:

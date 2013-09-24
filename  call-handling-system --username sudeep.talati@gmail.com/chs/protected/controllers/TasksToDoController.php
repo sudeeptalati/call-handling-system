@@ -192,7 +192,10 @@ class TasksToDoController extends Controller
 			
 			if($taskStatus != 'finished')
 			{
+				$tasksStatusUpdateModel = TasksToDo::model()->updateByPk($task_id, array('executed'=>time()));
 				$tasksStatusUpdateModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'running'));
+				
+				
 				$response = TasksToDo::model()->listTasksToDo($task_id);
 				echo $response;
 				

@@ -95,6 +95,34 @@ $baseUrl= Yii::app()->request->baseUrl;
 			),
 		)); ?>
 	</div><!-- mainmenu -->
+	<?php
+					/////////TASK TO PERFORM NOTIFICATION////
+				
+				/////get the count of Task to Perform List
+				$cntCriteria = new CDbCriteria();
+				$cntCriteria->compare('status','pending',true);
+				$tasksCount = TasksToDo::model()->count($cntCriteria);
+				 
+				if ($tasksCount>0)
+				{
+				
+				$notifyUrl= $baseUrl.'/index.php?r=TasksToDo/completeTasks';
+				
+				?>
+				<div style="text-align:justify; margin:10px;background-color:#FAF88D">
+					<span style="margin-left:10px;color:">
+					<b><a href="<?php echo $notifyUrl; ?>">Tasks Pending: Click Here</a> </b> :There are some tasks pending for notifying the Customers, Engineers and Other about the Status Updates of Service Calls.
+					
+					</span>
+				</div>
+				<?php
+				}
+				
+				/////// END OF TASK TO PERFORM NOTIFICATION////
+				?>
+	
+	
+	
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,

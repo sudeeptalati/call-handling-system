@@ -61,8 +61,8 @@ class ReportsController extends Controller
 		$engg_id = $_GET['enggprodlist'];
 		
 		//Product::model()->enggProductReport($engg_id);
-		$model = new Product('search');
-		$model->unsetAttributes(); 
+		$model = new Reports;
+		//$model->unsetAttributes(); 
 		
 		$this->render('enggProdReport', array('model'=>$model, 'engg_id'=>$engg_id));
 		

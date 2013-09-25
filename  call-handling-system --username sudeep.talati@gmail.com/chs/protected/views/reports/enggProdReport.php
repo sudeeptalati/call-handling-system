@@ -37,7 +37,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		//'engineer_id',
 		array( 'header'=>'Engineer Name', 'value'=>'$data->engineer->fullname' ),
 		//'created_by_user',
-		//array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
+		array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
 	),
 ));
 

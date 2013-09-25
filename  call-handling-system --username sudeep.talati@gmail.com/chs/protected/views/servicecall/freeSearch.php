@@ -79,7 +79,7 @@ $("#faq_search_input").keyup(function()
  
 /*You need to change the URL as per your requirements, else this will show error page*/
 $model_name=Yii::app()->controller->id;
-$current_url=$baseUrl."/".$model_name;
+$current_url=$baseUrl."/index.php?r=".$model_name;
 
 /*To Send the additional data if needed*/
 //$reference_id = 88;

@@ -71,9 +71,7 @@ function pass_value(id)
 
 </script>
 
-<br><br>
-<div id="display_response_msg" name="display_response_msg" style="background-color:#F5F6CE;overflow:scroll;width:500px; height:150px;">
-</div>
+
 
 	<?php
 	
@@ -141,7 +139,9 @@ function pass_value(id)
 	}//end of outer else.
 		
 	?>
-
+<br><br>
+<div id="display_response_msg" name="display_response_msg" style="background-color:#F5F6CE;overflow:scroll;width:500px; height:150px;">
+</div>
 	
 <?php $this->endWidget(); ?>
 

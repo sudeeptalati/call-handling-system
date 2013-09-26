@@ -10,7 +10,7 @@ Note:- This will delete the exisiting database and restore it with the database 
  
 <br>
 <br>
-<form id="install" action="restoreDatabase" enctype="multipart/form-data" method="post">		
+<form id="install" action="index.php?r=setup/restoreDatabase" enctype="multipart/form-data" method="post">		
 
 		
 		<small>Unzip the backup folder you want to upload and choose the file chs.db</small><br>

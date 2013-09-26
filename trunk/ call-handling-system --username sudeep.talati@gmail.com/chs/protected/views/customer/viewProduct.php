@@ -3,8 +3,9 @@
 <?php 
 
 $this->menu=array(
+	array('label'=>'Register Customer', 'url'=>array('create')),
 	array('label'=>'Manage Customers', 'url'=>array('admin'))
-	);
+);
 
 ?>
 

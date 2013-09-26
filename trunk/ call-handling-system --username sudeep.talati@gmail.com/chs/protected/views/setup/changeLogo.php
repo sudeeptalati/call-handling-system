@@ -14,7 +14,7 @@ $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 
  
 
-<form id="install" action="changeLogo" enctype="multipart/form-data" method="post">		
+<form id="install" action="index.php?r=setup/changeLogo" enctype="multipart/form-data" method="post">		
 
 		
 		<small>Ideal size is 200 x 75 (in pixels) in PNG </small><br>

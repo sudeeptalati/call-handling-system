@@ -89,7 +89,8 @@ class EnggdiaryController extends Controller
         		$engg_id=$model->engineer_id;
 	        	
 				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/servicecall/'.$service_id);
+				//$this->redirect($baseUrl.'/servicecall/'.$service_id);
+				$this->redirect(array('/servicecall/view','id'=>$service_id ));
 			}
 			
 		}
@@ -223,7 +224,8 @@ class EnggdiaryController extends Controller
 	        	$engg_id=$model->engineer_id;
 	        	
 				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
+				//$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
+				$this->redirect(array('/enggdiary/create/', 'id'=>$service_id, 'engineer_id'=>$engg_id));
         	}	
 
     	}//
@@ -296,7 +298,8 @@ class EnggdiaryController extends Controller
 				
 				
 				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/servicecall/'.$new_diary_model->servicecall_id);
+				//$this->redirect($baseUrl.'/servicecall/'.$new_diary_model->servicecall_id);
+				$this->redirect(array('/servicecall/view', 'id'=>$new_diary_model->servicecall_id));
 			
 			
 			}//end of diary model save.
@@ -316,104 +319,41 @@ class EnggdiaryController extends Controller
 		
 		if(isset($_POST['Enggdiary']))
     	{
-        $model->attributes=$_POST['Enggdiary'];
-        if ($model->servicecall_id)
+			$model->attributes=$_POST['Enggdiary'];
+			if ($model->servicecall_id)
         	{
-        	$service_id=$model->servicecall_id;	
-        	$engg_id=$model->engineer_id;
+				$service_id=$model->servicecall_id;	
+				$engg_id=$model->engineer_id;
 //
 //      	 	 echo "I M INSIDE AND id is ".$model->engineer_id;
 //      	   	 echo "<br> SERVICE ".$model->servicecall_id;
 //      	     echo "Diary ID".$id;
       	           	
-			$baseUrl=Yii::app()->request->baseUrl;
-			$this->redirect($baseUrl.'/enggdiary/ChangeAppointment/?serviceId='.$service_id.'&engineerId='.$engg_id.'&enggdiary_id='.$id);
-			//$this->redirect($baseUrl.'/enggdiary/create/'.$service_id.'?engineer_id='.$engg_id);
-        	}	
+				$baseUrl=Yii::app()->request->baseUrl;
+				//$this->redirect($baseUrl.'/enggdiary/ChangeAppointment/?serviceId='.$service_id.'&engineerId='.$engg_id.'&enggdiary_id='.$id);
+				$this->redirect(array('/enggdiary/ChangeAppointment/', 'serviceId'=>$service_id, 'engineerId'=>$engg_id, 'enggdiary_id'=>$id));
+				
+			}//end of if ($model).	
 
-    	}//
+    	}//end of if isset.
 	
 	}//end of function change engineer Only
 	
 	public function actionWeeklyReport()
 	{
-		
 		$model=new Enggdiary('view');
 		
-		// uncomment the following code to enable ajax-based validation
-		/*
-		if(isset($_POST['ajax']) && $_POST['ajax']==='enggdiary-weeklyReport-form')
+		if(isset($_POST['Enggdiary']))
 		{
-			echo CActiveForm::validate($model);
-		    Yii::app()->end();
-		 }
-		 */
-		
-		 if(isset($_POST['Enggdiary']))
-		 {
 		 	$model->attributes=$_POST['Enggdiary'];
 		    if($model->validate())
 		    {
 		    	// form inputs are valid, do something here
 		        return;
 		     }
-		 }
-		 $this->render('weeklyReport',array('model'=>$model));
+		}
+		$this->render('weeklyReport',array('model'=>$model));
 	}//end of function weeklyReport().
-	
-	/********* CODE MOVED TO VIEW '/EnggDiary/appontIcalender.php' ************
-	public function actionICalLink($id)
-	{
-		$serviceModel = Servicecall::model()->findByPk($id);
-		$custName = $serviceModel->customer->fullname;
-		$str = $serviceModel->customer->address_line_1." ".$serviceModel->customer->address_line_2." ".$serviceModel->customer->address_line_3;
-		$str1 = $serviceModel->customer->town;
-		$str2 = $serviceModel->customer->postcode_s." ".$serviceModel->customer->postcode_e;
-		$address = $str." \t "."Town :".$str1." \t "."Postcode :".$str2;
-		$visit_date = date('Ymd',$serviceModel->enggdiary->visit_start_date);
-		
-		$date      = $visit_date;
-$startTime = $visit_date;
-$endTime   = $visit_date;
-$subject   = $custName;
-$desc      = 'Customer Details'.
-			 '\n Name - '.$custName.
-			 '\n Address - '.$address.
-			 '\n Telephone - '.$serviceModel->customer->telephone."\t".'Mobile :'.$serviceModel->customer->mobile.
-			 '\n Email - '.$serviceModel->customer->email.
-			 '\n\n Product Details'.
-			 '\n Brand - '.$serviceModel->product->brand->name.
-			 '\n Product - '.$serviceModel->product->productType->name.
-			 '\n Model - '.$serviceModel->product->model_number.
-			 '\n\n Fault Details'.
-			 '\n Fault Description - '.$serviceModel->fault_description.
-			 '\n Fault report date - '.date('d-M-y', $serviceModel->fault_date);
-		 
-$ical = "BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:" . md5(uniqid(mt_rand(), true)) . "example.com
-DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
-DTSTART:".$date."T".$startTime."00Z
-DTEND:".$date."T".$endTime."00Z
-SUMMARY:".$subject."
-LOCATION: ". $str." ".$str1." ".$str2."  
-DESCRIPTION:".$desc."
-END:VEVENT
-END:VCALENDAR";
- 
-//set correct content-type-header
-header('Content-type: text/calendar; charset=utf-8');
-header('Content-Disposition: inline; filename=calendar.ics');
-echo $ical;
-exit;
-
-
-		
-	}///end of function ICalLink
-	*/
-	
 	
 	public function actionViewFullDiary()
 	{

@@ -6,9 +6,12 @@
 )); ?>
 
 	<script type="text/javascript">
-	function color_change(color_name)
+	function color_change()
 	{
-		alert('Color name selected = '+color_name);
+		color_name=document.getElementById('color_chooser').value;
+		console.log('Color name selected = '+color_name);
+		document.getElementById('current_layout').style.background ="#"+color_name;
+		document.getElementById('JobStatus_html_name').value='#'+color_name;
 	}
 	</script>
 	
@@ -54,9 +57,16 @@
 
 	
 	<div class="row" >
+		<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/jscolor/jscolor.js', CClientScript::POS_HEAD); ?>
+ 
 		<?php echo $form->labelEx($model,'html_name'); ?>
 		<?php //echo $form->textField($model,'html_name',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->textField($model,'html_name',array('rows'=>6, 'cols'=>50), array('onChange'=>'js:color_change('.$model->html_name.')')); ?>
+		<?php echo $form->hiddenField($model,'html_name',array('rows'=>6, 'cols'=>50)); ?>
+		
+		
+		<input rows="6" cols="50" name="color_chooser" id="color_chooser" type="text"  class="color {onImmediateChange:'color_change(this);', pickerPosition:'left'}" onChange="js:color_change()" value="<?php echo $model->html_name; ?>">
+		
+		 
 		
 		<?php //echo CHtml::textField($model,'html_name');?>
 		<?php 
@@ -64,19 +74,21 @@
 //															array('background-color':'#ffccff')
 //															));?>
 		<?php echo $form->error($model,'html_name'); ?>
-		For example :#F0B28C
+		 
 		<br>
 		
 		<br>
 		
-		 <?php echo CHtml::link('Click here to choose the color', 'http://www.december.com/html/spec/colorshades.html', array('target'=>'_blank'));?>
+		 
 		
 		<table style="width:50%">
-			<tr style="background:<?php echo $model->html_name;?>;">
-				<td style="border-radius:15px;  padding:10px;">
+			<tr>
+				<td >
+				
+				<div id="current_layout" class="color" style="border-radius:15px;  padding:10px; background-color:<?php echo $model->html_name;?>">
 				Current Layout<br>
 				&nbsp;	&nbsp;	&nbsp;	&nbsp;<b><?php echo $model->name ;?></b>
-		
+				</div>
 				</td>
 			</tr>
 		</table>
@@ -90,5 +102,10 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+ 
 
+	
 </div><!-- form -->
+
+
+  

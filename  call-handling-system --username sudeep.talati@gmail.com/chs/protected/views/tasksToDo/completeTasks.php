@@ -141,7 +141,7 @@ function pass_value(id)
 	?>
 <br><br>
 <div id="display_response_msg" name="display_response_msg" style="background-color:#F5F6CE;overflow:scroll;width:500px; height:150px;">
-</div>
+</div>	
 	
 <?php $this->endWidget(); ?>
 

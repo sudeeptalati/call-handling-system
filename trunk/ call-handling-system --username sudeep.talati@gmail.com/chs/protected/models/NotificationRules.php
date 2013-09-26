@@ -257,7 +257,7 @@ class NotificationRules extends CActiveRecord
 		switch ($notificaionCode)
 		{
 			case 1:
-				echo "<br>Send email";
+				//echo "<br>Send email";
 				
 				//************ ADDING TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
@@ -280,7 +280,7 @@ class NotificationRules extends CActiveRecord
 				break;
 				
 			case 2:
-				echo "<br>Send SMS";
+				//echo "<br>Send SMS";
 				
 				//************ ADDING TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();

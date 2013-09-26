@@ -210,22 +210,21 @@ class TasksToDoController extends Controller
 				
 				
 			}//end of if task status != finished.
-			else//*********** DELETING OLD FINISHED TASKS.
-			{
+			//*********** DELETING OLD FINISHED TASKS.
 				//echo "<br>Task is finished";
 				$taskFinishedModel = TasksToDo::model()->FindByPk($task_id);
-				$finished_time = $taskFinishedModel->finished;
+				$created_time = $taskFinishedModel->created;
 				
-				if(!empty($finished_time))
+				if(!empty($created_time))
 				{
-					//echo "<br>Finished date = ".$finished_time;
+					//echo "<br>Finished date = ".$created_time;
 					$dEnd = time();
-					$dStart = $finished_time;
+					$dStart = $created_time;
 					
 					//******** CALCULATING DIFF IN DAYS **********
 					$date_diff = $dEnd - $dStart;
 					$days = round($date_diff/(60 * 60 * 24));
-					//echo "<br>Diff = ".$days;
+					//echo "<br>Diff days = ".$days;
 					//**** END OF CALCULATING DIFF IN DAYS *******
 					
 					if($days > 1)
@@ -235,9 +234,9 @@ class TasksToDoController extends Controller
 						$taskDeleteModel->delete(); 
 					}
 					
-				}//end of if (!empty($finished_time)).
+				}//end of if (!empty($created_time)).
 				
-			}//end of else
+			//}//end of else
 			
 		}//end of if(task_id != 0).
 		else

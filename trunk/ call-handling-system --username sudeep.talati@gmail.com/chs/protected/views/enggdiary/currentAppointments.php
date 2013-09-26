@@ -156,8 +156,8 @@ function isTouchDevice()
 			eventDrop: function (event,delta, minuteDelta) /**EVENT FOR CHANGING APPOINTMENT.**/
 			{
 				
-//				alert(event.title + ' was moved ' + delta + ' days\n' +
-//					'(should probably update your database)');
+				//alert(event.title + ' was moved ' + delta + ' days\n' +
+					//'(should probably update your database)');
 				
 				//alert ('Add Logic here to call and change database');	
 

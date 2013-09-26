@@ -410,7 +410,8 @@ class CustomerController extends Controller
 	    	//echo "<1";
 //	    	$this->render('updateCustomer',array('model'=>$model,
 //	    	));
-	    	$this->redirect('update/'.$customer_id);
+	    	//$this->redirect('update/'.$customer_id);
+			$this->redirect(array('update','id'=>$customer_id));
 	    	//$this->redirect('update',array('model'=>$model));
 	    	
 	    }

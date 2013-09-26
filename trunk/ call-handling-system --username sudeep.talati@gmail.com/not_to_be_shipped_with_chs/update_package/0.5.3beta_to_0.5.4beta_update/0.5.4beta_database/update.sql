@@ -49,3 +49,5 @@ INSERT INTO product_type (id,name,information,created_by_user_id,created,modifie
 INSERT INTO 'user' (id,name,username,password,email,profile,created,modified,usergroup_id) VALUES ('1000000','remote_user','Remote User','9c31965dc0f4c2d4f37853f30b0aeab3bac6ba13a1dbe1baf
 7193c65ad8ae67e','r@gmail.com','This id will be used in remote call booking.System user NOT TO BE DELETED','1371205873','','0');
 INSERT INTO engineer (id,first_name,last_name,active,company,vat_reg_number,notes,inactivated_by_user_id,inactivated_on,contact_details_id,delivery_contact_details_id,created_by_user_id,created,modified,fullname) VALUES ('90000000','Not ','Assigned','0','Not Assigned','N/A','Not Known','','','1000000','1000000','2','1366114663','','Not Assigned');
+ALTER TABLE product_type ADD active INTEGER;
+ALTER TABLE product_type ADD inactivated DATETIME;

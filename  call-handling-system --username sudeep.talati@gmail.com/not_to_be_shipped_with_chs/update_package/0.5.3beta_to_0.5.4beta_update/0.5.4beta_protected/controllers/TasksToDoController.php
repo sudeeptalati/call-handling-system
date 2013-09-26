@@ -181,7 +181,7 @@ class TasksToDoController extends Controller
 	
 	public function actionPerformTasks($id)
 	{
-		//echo "<br>In perform tasks action";
+
 		$task_id = $id;
 		if($task_id != '')
 		{
@@ -192,7 +192,11 @@ class TasksToDoController extends Controller
 			
 			if($taskStatus != 'finished')
 			{
+					//echo "<br>In perform tasks action";
+				$tasksStatusUpdateModel = TasksToDo::model()->updateByPk($task_id, array('executed'=>time()));
 				$tasksStatusUpdateModel = TasksToDo::model()->updateByPk($task_id, array('status'=>'running'));
+				
+				
 				$response = TasksToDo::model()->listTasksToDo($task_id);
 				echo $response;
 				

@@ -108,7 +108,7 @@ foreach ($diaryModel as $data)
 <?php 
 	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/Enggdiary/viewFullDiary/';	
+	$changeEnggUrl=$baseUrl.'/index.php?r=Enggdiary/viewFullDiary/';	
 
 	$enggdiaryform=$this->beginWidget('CActiveForm', array(
 	'id'=>'enggdiary-changeEngineer-form',
@@ -160,7 +160,7 @@ function isTouchDevice()
 	var engg_id = '<?php echo $engg_id;?>';
 	//var dataUrl = baseUrl;
 	//alert(engg_id);
-	var dataUrl  =  baseUrl+'/api/ViewFullDiaryJsonData/?engg_id='+engg_id;
+	var dataUrl  =  baseUrl+'/index.php?r=api/ViewFullDiaryJsonData&engg_id='+engg_id;
 	//alert(dataUrl);
 	
 	
@@ -175,12 +175,8 @@ function isTouchDevice()
 				right: 'month,agendaWeek,agendaDay'
 			},
 
-			
-
 			editable: true,
 			events:dataUrl,
-		
-			//editable: true,
 			selectable: true,
 			minTime:'8',
 			maxTime:'18',
@@ -196,10 +192,10 @@ function isTouchDevice()
 //		        );
 
 		        //alert("Engg diary id = "+event.id);
-		        engg_id = event.id;
+		        diary_id = event.id;
 
 				////CALL UPDATE STATEMNET HERE 
-				updateEndDateTime(engg_id, dayDelta, minuteDelta);
+				updateEndDateTime(diary_id, dayDelta, minuteDelta);
 
 //		        if (!confirm("is this okay?")) 
 //				{
@@ -208,7 +204,7 @@ function isTouchDevice()
 
 		    },//end of eventResize.
 			
-
+/*
 			eventDrop: function (event,delta) 
 			{
 				
@@ -237,6 +233,8 @@ function isTouchDevice()
 				//location.reload();		
 
 				},//end of eventDrop.
+				
+	*/				
 
 				dayClick: function(date, allDay, jsEvent, view) 
 				{
@@ -270,52 +268,21 @@ function isTouchDevice()
 					
 					if(clicked_date>=today)
 					{
-						//alert("CAN BOOK NOW....!!!!!!");
-						var x=clicked_date;
-						
-						var conf_box_msg="Do you want to book appointment on "+clicked_date_to_display+"?";
-						
-						document.getElementById("confirmation_box_msg").innerHTML =conf_box_msg ;
-						$.blockUI({ message: $('#confirmation_box'),
-							css: { 
-					            border: 'none', 
-					            padding: '15px', 
-					            backgroundColor: '#c3D9FF', 
-					            '-webkit-border-radius': '10px', 
-					            '-moz-border-radius': '10px', 
-					            opacity: 1, 
-					            color: '#c3D9FF' 
-					        } 
-						});
-						$('#yes').click(function() {
-							// update the block message
-							$.blockUI({ message: ("Please wait........"),
-								css: { 
-						            border: 'none', 
-						            padding: '15px', 
-						            backgroundColor: '#c3D9FF', 
-						            '-webkit-border-radius': '10px', 
-						            '-moz-border-radius': '10px', 
-						            opacity: 1, 
-						            color: 'black'//text color 
-						        } 
-							});
-							engg_id = '<?php echo $engg_id;?>';
-							//alert("engg_id = "+ engg_id);
-	
+							engg_id = '<?php echo $engg_id;?>';	 
 							service_id = '<?php echo $service_id;?>';
-							//alert('service id = '+service_id);
 							
-							createNewDiaryEntry(clicked_date_to_display, engg_id, service_id);
-							setTimeout($.unblockUI, 5000);
-							return true;
-						});//end of yes.
-				
-						$('#no').click(function() {
-							$.unblockUI();
-							return false;
-						});
-						
+							var conf_box_msg="Do you want to book appointment on "+clicked_date_to_display+"?";
+							var r=confirm("Do you want to book appointment on "+clicked_date_to_display+"?")
+							
+							if (r==true)
+							  {
+							  console.log("You pressed OK!");
+							  createNewDiaryEntry(clicked_date_to_display, engg_id, service_id);	
+							  }
+							else
+							  {
+								console.log("You pressed Cancel!");
+							  }							  
 					}//end of Booking appointment.
 					else
 					{
@@ -398,7 +365,7 @@ function isTouchDevice()
 	   	//alert("EVENT ID IN FUNC = "+engg_id);
 	    //alert("DAYS MOVED IN FUNC = "+days_moved);
 
-	    var updateUrl= baseUrl+'/api/UpdateDiary?engg_id='+engg_id+'&days_moved='+days_moved;
+	    var updateUrl= baseUrl+'/index.php?r=api/UpdateDiary&engg_id='+engg_id+'&days_moved='+days_moved;
 	    //model = 'Enggdiary';
 	    $.ajax({
         	type: 'POST',
@@ -418,7 +385,7 @@ function isTouchDevice()
     }//end of getResponse func().
 
 
-    function updateEndDateTime(engg_id, dayDelta, minuteDelta)
+    function updateEndDateTime(diary_id, dayDelta, minuteDelta)
     {
 		//alert('In updateMinutes func');
 
@@ -426,7 +393,7 @@ function isTouchDevice()
 
 		//alert("ENGG ID IN updateMinutes func = "+engg_id);
 
-		 var updateUrl= baseUrl+'/api/UpdateEndDateTime?engg_id='+engg_id+'&minutes='+minuteDelta;
+		 var updateUrl= baseUrl+'/index.php?r=api/UpdateEndDateTime&diary_id='+diary_id+'&minutes='+minuteDelta;
 		 //model = 'Enggdiary';
 		 $.ajax
 		 ({
@@ -451,7 +418,7 @@ function isTouchDevice()
 		//alert("ENGG_ID IN createNewDiaryEntry FUNC = "+engg_id);
 		//alert("SERVICE_ID IN createNewDiaryEntry FUNC = "+service_id);
 
-		var urlToCreate = baseUrl+'/api/createNewDiaryEntry?start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
+		var urlToCreate = baseUrl+'/index.php?r=api/createNewDiaryEntry&start_date='+event_date+'&engg_id='+engg_id+'&service_id='+service_id;
 		//alert(urlToCreate);
 	
 		$.ajax
@@ -462,11 +429,18 @@ function isTouchDevice()
 	        modal: true,
 	        success: function(data) 
 	        { 
-		    	//alert('Appointment Created');
-		    	$.blockUI({ message: "Appointmant is created"});
-		    	setTimeout($.unblockUI, 7000);
+		    	alert('Appointment Created');
+		    	//$.blockUI({ message: "Appointmant is created"});
+		    	//setTimeout($.unblockUI, 7000);
+				
+	 
+				
+				
+				//setTimeout(function(){$.blockUI({ message: "******Appointmant is created"});},7000);	
+				//setTimeout(location.href="baseUrl+'/index.php?r=servicecall/view&id="+service_id, 7000);
 		    	//location.href="../viewFullDiary?engg_id="+engg_id;
-		    	location.href="../../servicecall/"+service_id;
+				location.href="baseUrl+'/index.php?r=servicecall/view&id="+service_id;
+				//location.href="../../servicecall/"+service_id;
 		    },
 	        error: function()
 	        {

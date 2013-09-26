@@ -1,49 +1,13 @@
 
 <?php 
 $baseUrl = Yii::app()->baseUrl; 
-$notification_message='';	
-
+ 
 ?>
 
-<script type="text/javascript">
-
-$(document).ready(function(){
-	 
-    $(".notification").show();
-    $(".show_hide").show();
-
-$('.show_hide').click(function(){
-$(".notification").slideToggle();
-});
-
-});
-
-
-
-</script>
+ 
 
 	
-<?php 
-
-//#6fbf4d
-
-//$tetete=  "<br><span style='background-color:#C9E0ED; color:#555555; padding-left:10px;padding-right:10px; margin:5px;  border-radius:10px 10px 10px 10px; '><b>Customer Notified</b> by SMS on mobile : 07501662739 </span><br><div style='background-color: #CD0000; color:white; padding-left:10px;padding-right:10px;  border-radius:10px 10px 10px 10px; margin:5px;'><b>Customer Notified</b>by email Please check your sms settings and make sure the mobile number is valid. &nbsp;&nbsp;&nbsp;Server Response:<i> Unable to connect the numeg ys sgdjhs uysdjhgs gsjhgsaj djgs	 <i></div>";
-		
-
-if(isset($_GET['notify_response']))
-{
-	if($_GET['notify_response'] != '')
-	{
-		$notification_message = $_GET['notify_response'];
-		?>
-		<a href="#" class="show_hide"><input type="button" size="1" value="x"/></a>
-		<div class=notification><?php echo $notification_message; ?></div>
-		<?php 
-	}//end if if($_GET['notify_response'] != '').
-
-}//end of if(isset['notify_response']);	
-
-?>
+ 
 
 <link type="text/css" href="<?php echo $baseUrl;?>/css/dialoguebox/smoothness/jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
 <script type="text/javascript" src="<?php echo $baseUrl;?>/js/dialoguebox/jquery-1.7.2.min.js"></script>

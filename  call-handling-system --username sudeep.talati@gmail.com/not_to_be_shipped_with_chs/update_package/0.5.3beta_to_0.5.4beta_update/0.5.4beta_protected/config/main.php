@@ -232,6 +232,7 @@ return array(
 			),
 			
 
+			/*
 		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
@@ -250,8 +251,18 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 				//FOR ACCESSING FREESEARCH.
 				'<controller:\w+>/<action:\w+>/<keyword:\w+>'=>'<controller>/<action>',
+				//FOR ACCESSING MODULES
+				'<controller:\w+>/<action:\w+>/<keyword:\w+>'=>'<controller>/<action>',
+				
+				
+ 				'module/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
+				//now do the following just so you see what I meant
+				'module/<m:\w+>/<c:\w+>/<a:\w+>'=>'<m>/<c>/<a>',
 			),
 		),
+		*/
+		
+		
 		
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/chs.db',

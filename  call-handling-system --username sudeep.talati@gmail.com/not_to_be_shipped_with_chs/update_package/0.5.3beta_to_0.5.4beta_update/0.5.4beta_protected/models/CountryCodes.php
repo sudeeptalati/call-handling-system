@@ -43,6 +43,9 @@ class CountryCodes extends CActiveRecord
 		return array(
 			array('iso2, short_name, long_name, iso3, numcode, un_member, calling_code, cctld', 'safe'),
 			array('iso2,calling_code','unique','message'=>'{attribute}:{value} already exists!'),
+			array('calling_code', 'numerical', 'integerOnly'=>true),
+			array('calling_code,long_name', 'required'),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, iso2, short_name, long_name, iso3, numcode, un_member, calling_code, cctld', 'safe', 'on'=>'search'),
@@ -68,12 +71,12 @@ class CountryCodes extends CActiveRecord
 		return array(
 			'id' => 'Country',
 			'iso2' => 'Iso2',
-			'short_name' => 'Short Name',
-			'long_name' => 'Long Name',
+			'short_name' => 'Country Short Name',
+			'long_name' => 'Country Long Name',
 			'iso3' => 'Iso3',
 			'numcode' => 'Numcode',
 			'un_member' => 'Un Member',
-			'calling_code' => 'Calling Code',
+			'calling_code' => 'Country Calling Code (For Sending SMS)',
 			'cctld' => 'Cctld',
 		);
 	}

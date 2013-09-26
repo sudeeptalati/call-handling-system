@@ -322,7 +322,7 @@ $mpdf->Output();
 				
 				if($model->save())
 				{
-					$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
+					$this->redirect(array('view','id'=>$model->id ));
 					//echo "saved";
 				}
 				else
@@ -336,7 +336,7 @@ $mpdf->Output();
 		else 
 		{
 			//$this->redirect(array('view', array('id'=>$model->id, 'notify_response'=>$response)));
-			$this->redirect(array('view','id'=>$model->id, 'notify_response'=>$response));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 	
 		$this->render('updateServicecall',array('model'=>$model));
@@ -459,7 +459,7 @@ $mpdf->Output();
 				
 				$engg_id=$model->engineer_id;
 				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
+				$this->redirect($baseUrl.'/index.php?r=enggdiary/bookingAppointment&id='.$model->id.'&engineer_id='.$engg_id);
 				
 			}//end of model->save.
 							
@@ -680,7 +680,7 @@ $mpdf->Output();
 													'engineer_id'=>$engg_id
 											));
 			/******** CHANGING DIARY AND ENGINEER ID IN SERVICECALL ******************/
-			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
+			$this->redirect(array('view','id'=>$service_id ));
 			
 		}///end of  if ($diary_id!=0){
 		
@@ -693,66 +693,13 @@ $mpdf->Output();
 			$product_id=$serviceModel->product_id;
 			Product::model()->updateByPk($product_id,array('engineer_id'=>$engg_id)); 
 			
-			$this->redirect(array('view','id'=>$service_id, 'notify_response'=>''));
+			$this->redirect(array('view','id'=>$service_id ));
 			
 		}///end of else i.e, Servicecall is in LOGGED state. 
 	}//end of actionSelectEngineer.
 	
-	public function actionEnggJobReport($engg_id, $status_id, $startDate, $endDate)
-	{
-		$criteriaData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
-		
-		$this->renderPartial('downloadEnggCallReport',array('criteriaData'=>$criteriaData));
-		
-	}//end of actionEnggJobReport().
-	
-	public function actionExport()
-	{
-		$model=new Servicecall();
-		//echo "in action test";
-		//echo "<br>Value of engg id from engineer_id  = ".$_GET['engglist'];
-		$engg_id = $_GET['engglist'];
-		//echo "<br>Value of Stattus id  = ".$_GET['statuslist'];
-		$status_id = $_GET['statuslist'];
-		//echo "<br>Start date = ".$_GET['startDate'];
-		$startDate = $_GET['startDate'];
-		//echo "<br>Start date = ".$_GET['endDate'];
-		$endDate = $_GET['endDate'];
-		$exportData = '';
-		
-		if($startDate != '')
-		{
-			$str_startdate = strtotime($startDate);
-			$str_enddate = strtotime($endDate );
-			
-			if($str_enddate < $str_startdate )
-			{
-				$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>2));
-			}//end of if comparing dates.
-			else
-			{
-				$exportData = Servicecall::model()->enggJobReport($engg_id, $status_id, $startDate, $endDate);
-				$this->render('engg_job_report',
-					array('enggjobdata'=>$exportData, 'engg_id'=>$engg_id, 'status_id'=>$status_id, 'startDate'=>$startDate, 'endDate'=>$endDate)
-				);
-			}//end of else(comparing dates.)
-		}//end of if(start_date not empty).
-		else 
-		{
-			$this->render('enggReportDropdown',array('model'=>$model,'date_error'=>1));
-		}
-		
-	}//end of export.
-	
-	public function actionDisplayDropdown()
-	{
-		//$model=new Servicecall('search');
-		$model=new Servicecall();
-		$model->unsetAttributes();
-		 
-		$this->render('enggReportDropdown',array('model'=>$model));	
-	}//end of actionDisplayDropdown();
-	
+
+
 	
 	public function performNotification($status_id, $service_id)
 	{

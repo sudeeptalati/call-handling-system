@@ -6,7 +6,7 @@
 
 <h1>Set Up</h1>
 
-<div style="text-align:right"><b><?php echo CHtml::link('Edit Details', array('/setup/update/1'));?></b></div>
+<div style="text-align:right"><b><?php echo CHtml::link('Edit Details', array('/setup/update/&id=1'));?></b></div>
 
 
 

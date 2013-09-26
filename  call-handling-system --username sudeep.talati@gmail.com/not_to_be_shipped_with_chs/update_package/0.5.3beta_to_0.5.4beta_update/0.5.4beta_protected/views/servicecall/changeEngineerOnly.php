@@ -44,7 +44,10 @@ function engg_change(id)
 <?php
 
 $baseUrl=Yii::app()->request->baseUrl;
-$changeEnggUrl=$baseUrl.'/Servicecall/selectEngineer/?diary_id='.$servicecallModel->engg_diary_id.'&service_id='.$service_id;
+
+ 
+
+$changeEnggUrl=$baseUrl.'/index.php?r=Servicecall/selectEngineer&diary_id='.$servicecallModel->engg_diary_id.'&service_id='.$service_id;
 
 $updateServicecallChangeEngineerForm=$this->beginWidget('CActiveForm', array(
 		'id'=>'updateService-changeEngineer-form',

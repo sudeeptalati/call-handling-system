@@ -63,7 +63,7 @@ class ApiController extends Controller
 					$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 					$diary_events_array['start'] = $start_date;
 					$diary_events_array['end'] = $end_date;
-		    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+		    		$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 		    		$diary_events_array['allDay'] = false ;
 		    		$diary_events_array['textColor'] = "white" ;
 	 
@@ -109,7 +109,7 @@ class ApiController extends Controller
 					$diary_events_array['title'] = $customer_name." ".$customer_postcode."\n ".$engineer_name." "; ///** HERE WE WIL DISPLAY custtomer name and postcode
 					$diary_events_array['start'] = $start_date;
 					$diary_events_array['end'] = $end_date;
-		    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+		    		$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 		    		$diary_events_array['allDay'] = false ;
 		    		//'end' => "$year-$month-22",
 		    		 
@@ -202,7 +202,7 @@ class ApiController extends Controller
 			$diary_events_array['title'] = $customer_name." ".$customer_postcode; ///** HERE WE WIL DISPLAY custtomer name and postcode
 			$diary_events_array['start'] = $start_date;
 			$diary_events_array['end'] = $end_date;
-    		$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+    		$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/".$data->servicecall_id;
     		$diary_events_array['allDay'] = false ;
     		
     		echo "start date = ".date('d-m-Y H:i',$data->visit_start_date)."<br>";
@@ -585,7 +585,7 @@ class ApiController extends Controller
 				    $diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 					$diary_events_array['start'] = $start_date;
 					$diary_events_array['end'] = $end_date;
-				    $diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+				    $diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 				    $diary_events_array['allDay'] = false ;
 				    $diary_events_array['textColor'] = "white" ;
 					    
@@ -636,7 +636,7 @@ class ApiController extends Controller
 				    $diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 					$diary_events_array['start'] = $start_date;
 					$diary_events_array['end'] = $end_date;
-				    $diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+				    $diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 				    $diary_events_array['allDay'] = false ;
 				    $diary_events_array['textColor'] = "white" ;
 					    

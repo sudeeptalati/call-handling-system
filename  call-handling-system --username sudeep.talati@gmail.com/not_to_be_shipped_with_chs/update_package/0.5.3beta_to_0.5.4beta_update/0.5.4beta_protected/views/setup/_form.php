@@ -225,7 +225,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 						$country_code_val = $model->countryCodes->calling_code;
 						//echo "<br>Code = ".$country_code_val;
 						
-						$selected = $model->country;
+						$selected = $model->country_id;
 						
 					}//end if inner if(strlen()).
 					

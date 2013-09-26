@@ -128,7 +128,7 @@ class TasksToDo extends CActiveRecord
 		switch ($task) 
 		{
 			case 'email':
-				//echo "<br>Send email";
+				echo "<br>Send email";
 				
 				$response = NotificationRules::model()->sendEmail($send_to, $msgbody, $subject);
 				//echo "<br>Response in tasks model = ".$response;

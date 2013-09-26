@@ -308,7 +308,7 @@ class NotificationRules extends CActiveRecord
 				
 				//************ ADDING EMAIL TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
-				$tasksModel->task = 'Email';
+				$tasksModel->task = 'email';
 				$tasksModel->status = 'pending';
 				$tasksModel->msgbody =  $body;
 				$tasksModel->subject =  $subject;
@@ -320,7 +320,7 @@ class NotificationRules extends CActiveRecord
 				
 				//************ ADDING SMS TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
-				$tasksModel->task = 'SMS';
+				$tasksModel->task = 'sms';
 				$tasksModel->status = 'pending';
 				$tasksModel->msgbody =  $smsMessage;
 				$tasksModel->send_to = $telephone;

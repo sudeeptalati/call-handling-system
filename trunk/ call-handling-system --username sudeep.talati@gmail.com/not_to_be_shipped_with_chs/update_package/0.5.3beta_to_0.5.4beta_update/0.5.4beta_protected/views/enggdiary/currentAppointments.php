@@ -5,7 +5,7 @@
   /*To import the client script*/
   $baseUrl = Yii::app()->baseUrl; 
   $cs = Yii::app()->getClientScript();
-  $dataUrl=$baseUrl.'/api/currentAppointments/?id='.$future_engg_id;
+  $dataUrl=$baseUrl.'/index.php?r=api/currentAppointments&id='.$future_engg_id;
   
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-1.7.1.min.js');
   $cs->registerScriptFile($baseUrl.'/js/fullcalendar/jquery-ui-1.8.17.custom.min.js');
@@ -26,7 +26,7 @@
 if(isset($_POST['show_all']))
 {
 	//echo "<br>Show all clicked";
-	$dataUrl = $baseUrl.'/api/ViewFullDiaryJsonData/?engg_id='.$future_engg_id;
+	$dataUrl = $baseUrl.'/index.php?r=api/ViewFullDiaryJsonData&engg_id='.$future_engg_id;
 }
 ?>
 
@@ -41,7 +41,7 @@ if(isset($_POST['show_all']))
 
 	//echo $model->engineer_id;
 	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/Enggdiary/currentAppointments/?id='.$future_engg_id;		
+	$changeEnggUrl=$baseUrl.'/index.php?r=Enggdiary/currentAppointments&id='.$future_engg_id;		
 
 	$futureAppointmentsform=$this->beginWidget('CActiveForm', array(
 	'id'=>'future-appointments-form',
@@ -295,7 +295,7 @@ function isTouchDevice()
 	    //alert("DAYS MOVED IN FUNC = "+days_moved);
 
 	    //var updateUrl= baseUrl+'/api/UpdateDiary?engg_id='+diary_id+'&days_moved='+days_moved;
-	     var updateUrl= baseUrl+'/api/UpdateDiary?diary_id='+diary_id+'&days_moved='+days_moved+'&minutes_moved='+minutes_moved;
+	     var updateUrl= baseUrl+'/index.php?r=api/UpdateDiary&diary_id='+diary_id+'&days_moved='+days_moved+'&minutes_moved='+minutes_moved;
 	    //model = 'Enggdiary';
 	    $.ajax({
         	type: 'POST',
@@ -324,7 +324,7 @@ function isTouchDevice()
 
 		//alert("ENGG ID IN updateMinutes func = "+engg_id);
 
-		 var updateUrl= baseUrl+'/api/UpdateEndDateTime?engg_id='+engg_id+'&minutes='+minuteDelta;
+		 var updateUrl= baseUrl+'/index.php?r=api/UpdateEndDateTime&engg_id='+engg_id+'&minutes='+minuteDelta;
 		 //model = 'Enggdiary';
 		 $.ajax
 		 ({

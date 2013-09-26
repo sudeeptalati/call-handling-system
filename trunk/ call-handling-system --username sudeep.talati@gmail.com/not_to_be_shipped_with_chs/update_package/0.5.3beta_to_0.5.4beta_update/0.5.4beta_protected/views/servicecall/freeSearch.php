@@ -79,7 +79,7 @@ $("#faq_search_input").keyup(function()
  
 /*You need to change the URL as per your requirements, else this will show error page*/
 $model_name=Yii::app()->controller->id;
-$current_url=$baseUrl."/".$model_name;
+$current_url=$baseUrl."/index.php?r=".$model_name;
 
 /*To Send the additional data if needed*/
 //$reference_id = 88;
@@ -176,7 +176,7 @@ vertical-align:top;
 	'columns'=>array(
 		array(	'name'=>'service_reference_number',
 				'value'=>'$data->service_reference_number',
-			    'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/".$data->id."?notify_response="))',
+			    'value' => 'CHtml::link($data->service_reference_number, array("Servicecall/view&id=".$data->id))',
 		 		'type'=>'raw',
 				'header' => 'Ref No#'
 		),
@@ -277,7 +277,7 @@ $allStatus = JobStatus::model()->findAll( array(
 						{?>
 							  
 							<tr><td>							
-								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/".$row->id."?notify_response=")); ?>
+								<?php echo CHtml::link($row->service_reference_number, array("Servicecall/view&id=".$row->id)); ?>
 							</td><td>
 								<?php echo $row->customer->fullname; ?>							
 							</td><td style="width:25px;">
@@ -316,6 +316,7 @@ $allStatus = JobStatus::model()->findAll( array(
 		<span><b>&nbsp;&nbsp;Notifications</b></span><br><br>
 		
 		<div style="margin-left:20px;">
+		<ul>
 		<?php 
 	
 		$setupModel = Setup::model()->findByPk(1);
@@ -326,6 +327,9 @@ $allStatus = JobStatus::model()->findAll( array(
 		
 			if($conn = @fsockopen("google.com", 80, $errno, $errstr, 30))
 			{
+				
+ 
+				
 				$update_url_from_db = $setupModel->version_update_url;
 				//$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';
 				$request = $update_url_from_db.'/latest_callhandling_version.txt';	
@@ -335,7 +339,7 @@ $allStatus = JobStatus::model()->findAll( array(
 				if ($available_version!=$installed_version)
 				{	
 					?>
-					<ul>
+					
 					<li style="text-align:justify; margin-left:10px;">
 					<span style="color:red;">
 					Your current version is <?php echo $installed_version; ?>
@@ -350,24 +354,30 @@ $allStatus = JobStatus::model()->findAll( array(
 							echo $server_msg; 
 					?>
 					</li>
-					</ul>
+					
 				<?php 
 				}//end if inner if(version compare).
+				
+				
+				
+				
+				
+				
+				
+				
 			}//end of if(internet from Google).
 			else
 			{
 				echo "<span style='color:red'><b>No Internet. All internet features like notifications, email, sms have been disabled.</b></span>";
 				//We will set the settings in the database back to offline so that the performance is not affected
 				disableInternetConnection();
-				
-			
 			}
 		
 		}// end of if internet from database
 		else
 			{
 			echo "<span style='color:red'><b>Internet connection not available.You will not be able to use any internet serivce like emails, sms or notifications<br>Please Connect to Internet and enable connection from here.</b></span><br><br>";
-			echo '<a href="?enable_internet=yes">Enable Internet</a>'; 
+			echo '<a href="?enable_internet=yes">Enable Internet</a><br><br>'; 
 			
 			if(isset($_GET['enable_internet']))
 			{
@@ -379,6 +389,8 @@ $allStatus = JobStatus::model()->findAll( array(
 			?>
 	
 		</span>
+		
+		</ul>
 		</td>
 		
 		</tr>

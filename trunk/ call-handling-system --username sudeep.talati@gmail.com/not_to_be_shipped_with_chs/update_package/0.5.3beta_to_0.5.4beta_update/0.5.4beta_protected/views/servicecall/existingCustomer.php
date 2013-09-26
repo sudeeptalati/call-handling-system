@@ -193,6 +193,11 @@
 	<!-- end of product service table -->
 	
 	<!-- ******************* PREVIOUS SERVICECALLS RECORD *************** -->
+	<?php 
+		$previousCall = $model->previousCall($cust_id,$prod_id); 
+		if(count($previousCall) != 0)
+		{
+	?>
 	
 	<tr><td colspan="6">
 		<?php //$model->previousCall($cust_id,$prod_id);?>
@@ -229,6 +234,8 @@
 	</td></tr>
 	
 	<!-- ******************* END OF PREVIOUS SERVICECALLS RECORD *************** -->
+	
+	<?php }//end of if count of foreach. ?>
 	
 	
 	<!-- ****** THIRD PART OF FORM TO ENTER SERVICECALL DETAILS ******* -->

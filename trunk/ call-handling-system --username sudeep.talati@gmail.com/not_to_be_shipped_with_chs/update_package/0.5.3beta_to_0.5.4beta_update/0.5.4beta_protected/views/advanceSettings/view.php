@@ -22,7 +22,7 @@
 <table>
 <tr><td></td>
 <td align="centre">
-<?php echo CHtml::button('Edit', array('submit'=>array('/advanceSettings/update/'.$model->id))); ?>
+<?php echo CHtml::button('Edit', array('submit'=>array('/advanceSettings/update/&id='.$model->id))); ?>
 </td></tr>
 </table>
 

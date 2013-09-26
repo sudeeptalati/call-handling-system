@@ -312,7 +312,7 @@ class RoutePlannerController extends Controller
 						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 						$diary_events_array['start'] = $start_date;
 						$diary_events_array['end'] = $end_date;
-						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 						$diary_events_array['allDay'] = false ;
 						$diary_events_array['textColor'] = "white" ;
 							
@@ -344,7 +344,7 @@ class RoutePlannerController extends Controller
 						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 						$diary_events_array['start'] = $start_date;
 						$diary_events_array['end'] = $end_date;
-						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 						$diary_events_array['allDay'] = false ;
 						$diary_events_array['textColor'] = "white" ;
 							
@@ -377,7 +377,7 @@ class RoutePlannerController extends Controller
 						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 						$diary_events_array['start'] = $start_date;
 						$diary_events_array['end'] = $end_date;
-						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 						$diary_events_array['allDay'] = false ;
 						$diary_events_array['textColor'] = "white" ;
 							
@@ -444,7 +444,7 @@ class RoutePlannerController extends Controller
 						$diary_events_array['title'] = "\n ".$customer_name." ".$customer_postcode."\n ".$engineer_name.""; ///** HERE WE WIL DISPLAY custtomer name and postcode
 						$diary_events_array['start'] = $start_date;
 						$diary_events_array['end'] = $end_date;
-						$diary_events_array['url'] = Yii::app()->baseUrl."/Servicecall/".$data->servicecall_id.'?notify_response=';
+						$diary_events_array['url'] = Yii::app()->baseUrl."/index.php?r=Servicecall/view&id=".$data->servicecall_id;
 						$diary_events_array['allDay'] = false ;
 						$diary_events_array['textColor'] = "white" ;
 							

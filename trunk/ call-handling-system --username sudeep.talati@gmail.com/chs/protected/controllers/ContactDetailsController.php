@@ -76,7 +76,7 @@ class ContactDetailsController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	}//end of create.
 
 	/**
 	 * Updates a particular model.
@@ -88,7 +88,7 @@ class ContactDetailsController extends Controller
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['ContactDetails']))
 		{
@@ -100,7 +100,7 @@ class ContactDetailsController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
-	}
+	}//end of update.
 
 	/**
 	 * Deletes a particular model.

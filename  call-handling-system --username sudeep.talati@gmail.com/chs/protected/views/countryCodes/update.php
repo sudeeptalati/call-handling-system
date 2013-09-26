@@ -3,9 +3,7 @@
 </div>
 
 
-<div style="text-align:right;" >
-<?php echo CHtml::link('Edit',array('update', 'id'=>$model->id)); ?>
-</div>
+ 
 
 <h1>Update CountryCodes: <?php echo $model->long_name; ?></h1>
 <div id="submenu">   

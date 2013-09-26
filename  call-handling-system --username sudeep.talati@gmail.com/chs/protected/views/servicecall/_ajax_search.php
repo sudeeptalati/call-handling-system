@@ -177,8 +177,8 @@ vertical-align:top;
 			?>
 			
 			<td>
-				<?php echo CHtml::link($booked_service_img_html, array('Servicecall/'.$service->id));?>
-				<?php echo CHtml::link($service->service_reference_number, array('Servicecall'));?>
+				<?php echo CHtml::link($booked_service_img_html, array('servicecall/view', 'id'=>$service->id));?>
+				<?php echo CHtml::link($service->service_reference_number, array('servicecall/view', 'id'=>$service->id));?>
 				<?php 
 				
 					if($service->job_status_id >100)

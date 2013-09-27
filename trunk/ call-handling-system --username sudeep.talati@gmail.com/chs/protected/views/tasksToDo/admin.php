@@ -6,8 +6,10 @@
 <h1>Tasks To Dos</h1>
 
 <div id="submenu">   
-<li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
 <li><?php echo CHtml::link('Perform Tasks',array('/tasksToDo/completeTasks')); ?></li>
+<li><?php echo CHtml::link('Manage Tasks',array('/tasksToDo/admin')); ?></li>
+<li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
+
 </div>
 
 

@@ -111,7 +111,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				?>
 				<div style="text-align:justify; margin:10px;background-color:#FAF88D">
 					<span style="margin-left:10px;color:">
-					<b><a href="<?php echo $notifyUrl; ?>">Tasks Pending: Click Here</a> </b> :There are some tasks pending for notifying the Customers, Engineers and Other about the Status Updates of Service Calls.
+					<b><a href="<?php echo $notifyUrl; ?>">Tasks Pending: Click Here</a>  :There are some notification tasks pending about the Status Updates of Service Calls.</b>
 					
 					</span>
 				</div>

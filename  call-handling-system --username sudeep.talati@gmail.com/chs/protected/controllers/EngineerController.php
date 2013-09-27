@@ -70,7 +70,7 @@ class EngineerController extends Controller
 		$this->performAjaxValidation($model, $contactDetailsModel, $deliveryDetailsModel);
 		
 		
-		if(isset($_POST['Engineer'],$_POST['ContactDetails']))
+		if(isset($_POST['Engineer'],$_POST['ContactDetails'][1], $_POST['ContactDetails'][2]))
 		{
 			$model->attributes=$_POST['Engineer'];
 			
@@ -82,20 +82,25 @@ class EngineerController extends Controller
 			
 			$engg_valid=$model->validate();
 			$contact_details_valid=$contactDetailsModel->validate();
-			//$valid=$deliveryDetailsModel->validate() && $valid;
+			$valid = $contact_details_valid;
 			
-			if($engg_valid && $contact_details_valid)
+			if(!(isset($_POST['delivery_checkbox'])))
         	{
-        		
+				$delivery_details_valid=$deliveryDetailsModel->validate();
+				$valid = $delivery_details_valid && $contact_details_valid;
+			 
+			}
+			
+			
+			
+			//if($engg_valid && $contact_details_valid && $delivery_details_valid)
+			if($engg_valid && $valid)
+        	{
         		//******* ContactDetails MODEL TO SAVE CONTACT DETAILS.
-        		 	
-        		//echo"<br>Address 1 of engg contact details = ".$contactDetailsModel->address_line_1;
         		$contactDetailsModel->save();
-        		//echo "<br>id if contact details = ".$contactDetailsModel->id;
         		$model->contact_details_id = $contactDetailsModel->id;
         			
-        		//******  MAENS DELIVERY ADDRESS IS SAME AS CONTACT ADDRESS *********
-        		if(isset($_POST['delivery_checkbox']))
+        		if(isset($_POST['delivery_checkbox']))//******  MAENS DELIVERY ADDRESS IS SAME AS CONTACT ADDRESS *********
         		{
         			//echo "<br>Delivery contact details checkbox status = ".$_POST['delivery_checkbox'];
         			$model->delivery_contact_details_id = $contactDetailsModel->id;
@@ -104,16 +109,13 @@ class EngineerController extends Controller
         		else //******* MEANS DELIVERY ADDRESS IS DIFFERENT THAN CONTACT ADDRESS  *********
         		{
         			//echo "<br>Checbox is checked";
-        			
-        			//echo "<br>Address 1 of delivery contact details = ".$deliveryDetailsModel->address_line_1;
         			$deliveryDetailsModel->lockcode = 0;
         			if($deliveryDetailsModel->save())
         			{
         				//echo "<br>Delivery contact details id = ".$deliveryDetailsModel->id;
         				$model->delivery_contact_details_id = $deliveryDetailsModel->id;
         			}
-        			//else
-        				//echo "<br>NOT SAVED DELIVRY MODEL";
+        			
         		}//end of else i.e, checkbox is not checked.
         		
 				if($model->save())
@@ -324,7 +326,7 @@ class EngineerController extends Controller
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='engineer-form')
 		{
-			echo CActiveForm::validate(array($model, $contactDetailsModel,$deliveryDetailsModel));
+			echo CActiveForm::validate(array($model, $deliveryDetailsModel, $contactDetailsModel));
 			Yii::app()->end();
 		}
 	}//end of performAjaxValidation().

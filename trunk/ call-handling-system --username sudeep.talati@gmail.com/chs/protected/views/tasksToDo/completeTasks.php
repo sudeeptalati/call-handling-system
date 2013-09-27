@@ -14,7 +14,25 @@ echo "<br>Performing tasks.... Please wait.... Update messages will be displayed
 $baseUrl = Yii::app()->getBaseUrl();
 //echo $baseUrl;
 
-$tasksModel = TasksToDo::model()->findAll();
+///////DELETING THE OLD JOBS///////////
+
+		$notification_lifetime='';		
+		$notification_lifetimeModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'notification_lifetime'));
+		foreach($notification_lifetimeModel as $lifetime)
+		{
+			$notification_lifetime = $lifetime->value;
+		}//end of advanced foreach.
+		TasksToDo::model()->clearOldNotification($notification_lifetime);
+	
+///////DELETING THE OLD JOBS///////////
+
+
+
+$q = new CDbCriteria( array(
+    'condition' => "status NOT LIKE :match",         // no quotes around :match
+    'params'    => array(':match' => "%finished%")  // Aha! Wildcards go here
+) );
+$tasksModel = TasksToDo::model()->findAll($q);
 $total_tasks = count($tasksModel);
 //echo "<br>Total count of table = ".$total_tasks;
 
@@ -81,9 +99,12 @@ function pass_value(id)
 	}
 	else
 	{
+	
+
+	
 		$internet_available = '';
+
 		$advanceSettingsModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
-		
 		foreach($advanceSettingsModel as $settings)
 		{
 			//echo "Name = ".$settings->name;

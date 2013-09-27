@@ -31,7 +31,7 @@ class TasksToDoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin', 'CompleteTasks', 'PerformTasks'),
+				'actions'=>array('create','update','admin', 'CompleteTasks', 'PerformTasks','TasksLifetime', 'UpdateTasksLifetime', 'delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -221,6 +221,18 @@ class TasksToDoController extends Controller
 		
 	}//end of PerformTasks
 	
+	public function actionTasksLifetime()
+	{
+		$this->render('tasksLifetime');
+		
+	}//end of actionTasksLifetime.
+	
+	public function actionUpdateTasksLifetime()
+	{
+		//echo "<br>In anothjer view";
+		$this->render('updateTasksLifetime');
+		
+	}//end of actionTasksLifetime.
 	
 	
 	

@@ -223,6 +223,22 @@ class TasksToDoController extends Controller
 	
 	public function actionTasksLifetime()
 	{
+		if(isset($_POST['lifetime_update_value']))
+		{
+			//echo "<br>Update value = ".$_POST['lifetime_update_value'];
+			$new_lifetime_val = $_POST['lifetime_update_value'];
+			$lifetime_id = '';
+			$advancedModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'notification_lifetime'));
+			foreach($advancedModel as $lifetime)
+			{
+				$lifetime_id = $lifetime->id;
+				//echo "<br>id = ".$lifetime_id;
+			}
+			
+			$advancedUpdateModel = AdvanceSettings::model()->updateByPk($lifetime_id, array('value'=>$new_lifetime_val));
+			
+		}//end of if(isset[]).
+		
 		$this->render('tasksLifetime');
 		
 	}//end of actionTasksLifetime.
@@ -230,6 +246,9 @@ class TasksToDoController extends Controller
 	public function actionUpdateTasksLifetime()
 	{
 		//echo "<br>In anothjer view";
+		
+		
+		
 		$this->render('updateTasksLifetime');
 		
 	}//end of actionTasksLifetime.

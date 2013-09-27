@@ -2,7 +2,12 @@
 <div id="sidemenu">             
 <?php include('setup_sidemenu.php'); ?>   
 </div>
+<div id="submenu">   
+<li><?php echo CHtml::link('Perform Tasks',array('/tasksToDo/completeTasks')); ?></li>
+<li><?php echo CHtml::link('Manage Tasks',array('/tasksToDo/admin')); ?></li>
+<li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
 
+</div>
 <div class="form"> 
  <?php
  

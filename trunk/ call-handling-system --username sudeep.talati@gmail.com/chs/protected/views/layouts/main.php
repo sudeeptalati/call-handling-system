@@ -106,7 +106,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 				if ($tasksCount>0)
 				{
 				
-				$notifyUrl= $baseUrl.'/index.php?r=TasksToDo/completeTasks';
+				$notifyUrl= $baseUrl.'/index.php?r=TasksToDo/admin';
 				
 				?>
 				<div style="text-align:justify; margin:10px;background-color:#FAF88D">

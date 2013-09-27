@@ -6,7 +6,9 @@
 <h1>Tasks Lifetime value</h1>
 
 <div id="submenu">   
-<li><?php echo CHtml::link('Tasks admin',array('/tasksToDo/admin')); ?></li>
+<li><?php echo CHtml::link('Perform Tasks',array('/tasksToDo/completeTasks')); ?></li>
+<li><?php echo CHtml::link('Manage Tasks',array('/tasksToDo/admin')); ?></li>
+<li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
 </div>
 
 <div class="form">
@@ -30,8 +32,10 @@
 	?>
 
 	<div class="row">
-		<?php echo "Tasks Lifetime"; ?><br>
-		<?php echo CHtml::textField('lifetime_update_value', $lifetime_val, array('id'=>'lifetime_update_value')); ?>
+		<br><br>
+		<b>Tasks Lifetime </b>&nbsp;(in Days)<br>
+		<?php echo CHtml::textField('lifetime_update_value', $lifetime_val, array('id'=>'lifetime_update_value', 'type'=>'number')); ?><br>
+		<small>This is the life time of tasks, until when tasks are held in the system. Any Task older than the provided value will be automatically deleted. Currenty the System have Major task of notifying customers by email and sms.</small>
 		<?php //echo CHtml::CheckBox('delivery_checkbox', $delivery_checkbox_status, array ('value'=>'', 'id'=>'delivery-checkbox-id')); ?>
 	</div>
 

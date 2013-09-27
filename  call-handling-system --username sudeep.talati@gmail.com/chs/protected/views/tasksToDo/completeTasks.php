@@ -11,14 +11,25 @@
 	'enableAjaxValidation'=>false,
 )); 
 
-?>
-
-
-<?php
-echo "<br>Performing tasks.... Please wait.... Update messages will be displayed";
 $baseUrl = Yii::app()->getBaseUrl();
 //echo $baseUrl;
 
+?>
+
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Performing tasks.... Please wait.... Update messages will be displayed
+
+<div>
+    <img id="progress_bar" src="<?php echo $baseUrl.'/images/progress_bar_running.gif'; ?>"  />
+</div>
+
+
+
+
+
+
+
+ <?php
 ///////DELETING THE OLD JOBS///////////
 
 		$notification_lifetime='';		
@@ -48,7 +59,7 @@ $total_tasks = count($tasksModel);
 
 baseUrl = "<?php echo $baseUrl; ?>";
 
-function pass_value(id)
+function pass_value(id,count)
 {
 	//console.log('In pass_value function');
 	//alert('In pass_value function');
@@ -72,10 +83,7 @@ function pass_value(id)
 						div.innerHTML += data;
 						div.scrollTop = div.scrollHeight;
 						
-						if(id == total_tasks)
-						{
-							alert('All tasks completed');
-						}
+						 
 					},//end of success function.
                 error:
                     function () 
@@ -86,8 +94,14 @@ function pass_value(id)
                
 					
             }).done(function() {
-		alert('All tasks finished');
-    });
+		
+		if (count==total_tasks)
+			{
+				alert('Task  finished.');
+				document.getElementById("progress_bar").src = "images/progress_bar_static.gif";;
+			}
+			
+	});	
 			
 	
 	
@@ -102,6 +116,8 @@ function pass_value(id)
 
 	<?php
 	
+	
+	$i=0;
 	if($total_tasks == 0)
 	{
 		echo "<span style='color:maroon'><br>No tasks to perform</span>";
@@ -142,9 +158,14 @@ function pass_value(id)
 				$id = $task_id;
 				//echo "<br>";
 				//********* Calling js function which calls AJAX ********
-				echo "<script> pass_value(".$id."); </script>";
+				$i++;
+				echo "<script> pass_value(".$id.",".$i."); </script>";
 				
 			}//end of foreach().
+			
+	 
+		 
+	 
 			
 		}//end of if internet available.
 		else

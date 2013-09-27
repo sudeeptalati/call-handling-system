@@ -264,7 +264,9 @@ class SetupController extends Controller
 	    			//echo '<br>'.$location;
 	    			if (move_uploaded_file($uploaded_file,$location))
 	    			{
-	    				//echo "<br>Stored";
+	    				echo "<br>Stored";
+						//$this->redirect(array('changeLogo'));
+						$this->redirect(array('setup/changeLogo'));
 	    			}
 	    			else
 	    			{

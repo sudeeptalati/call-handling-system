@@ -7,6 +7,7 @@
 
 <div id="submenu">   
 <li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
+<li><?php echo CHtml::link('Perform Tasks',array('/tasksToDo/completeTasks')); ?></li>
 </div>
 
 

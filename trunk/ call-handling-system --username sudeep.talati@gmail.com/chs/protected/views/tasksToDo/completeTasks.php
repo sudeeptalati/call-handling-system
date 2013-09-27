@@ -1,3 +1,8 @@
+
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
 <div class="form"> 
  <?php
  
@@ -42,7 +47,7 @@ $total_tasks = count($tasksModel);
 <script type="text/javascript">
 
 baseUrl = "<?php echo $baseUrl; ?>";
-	
+
 function pass_value(id)
 {
 	//console.log('In pass_value function');
@@ -80,7 +85,11 @@ function pass_value(id)
 										
                
 					
-            });//end of AJAX.
+            }).done(function() {
+		alert('All tasks finished');
+    });
+			
+	
 	
 			
 	

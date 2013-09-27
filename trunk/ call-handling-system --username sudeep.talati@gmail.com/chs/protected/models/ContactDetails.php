@@ -60,7 +60,7 @@ class ContactDetails extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('address_line_1, town, postcode_s, telephone, email, postcode_e', 'required'),
+			array('address_line_1, town,  telephone, email,  postcode_s, postcode_e', 'required'),
 			array('address_line_2, address_line_3, country, latitudes, longitudes, mobile, fax, website', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -93,11 +93,10 @@ class ContactDetails extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'address_line_1' => 'Address',
+			'address_line_1' => 'Address Line 1',
 			'address_line_2' => 'Address Line 2',
 			'address_line_3' => 'Address Line 3',
 			'town' => 'Town',
-			'postcode_s' => 'Postcode',
 			'country' => 'Country',
 			'latitudes' => 'Latitudes',
 			'longitudes' => 'Longitudes',
@@ -107,7 +106,8 @@ class ContactDetails extends CActiveRecord
 			'email' => 'Email',
 			'website' => 'Website',
 			'created' => 'Created',
-			'postcode_e' => 'Postcode South',
+			'postcode_s' => 'Postcode First Part',
+			'postcode_e' => 'Postcode Second Part',
 			'postcode' => 'Postcode',
 		);
 	}

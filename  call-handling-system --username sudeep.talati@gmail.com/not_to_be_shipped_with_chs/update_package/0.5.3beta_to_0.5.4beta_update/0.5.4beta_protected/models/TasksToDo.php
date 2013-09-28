@@ -128,7 +128,7 @@ class TasksToDo extends CActiveRecord
 		switch ($task) 
 		{
 			case 'email':
-				echo "<br>Send email";
+				//echo "<br>Send email";
 				
 				$response = NotificationRules::model()->sendEmail($send_to, $msgbody, $subject);
 				//echo "<br>Response in tasks model = ".$response;
@@ -179,6 +179,42 @@ class TasksToDo extends CActiveRecord
 	}//end of listTasksToDo.
 	
 	
+	
+	
+	public function clearOldNotification($notification_lifetime)
+	{
+				//*********** DELETING OLD FINISHED TASKS.
+				//echo "<br>Task is finished";
+			$tasksToDelete = TasksToDo::model()->FindAll();
+				
+				
+			foreach ($tasksToDelete as $task)
+			{
+				$created_time = $task->created;
+				if(!empty($created_time))
+				{
+					//echo "<br>Finished date = ".$created_time;
+					$dEnd = time();
+					$dStart = $created_time;
+					
+					//******** CALCULATING DIFF IN DAYS **********
+					$date_diff = $dEnd - $dStart;
+					$days = round($date_diff/(60 * 60 * 24));
+					//echo "<br>Diff days = ".$days;
+					//**** END OF CALCULATING DIFF IN DAYS *******
+					
+					if($days >= $notification_lifetime)
+					{
+						//echo "<br>Difference in more than 1. ID = ".$task_id;
+						$taskDeleteModel=TasksToDo::model()->findByPk($task->id); 
+						$taskDeleteModel->delete(); 
+					}
+					
+				}//end of if (!empty($created_time)).
+				
+			}///END OF FOREACH 	
+
+	}///end of function clearOldNotification($id)
 	
 	
 	

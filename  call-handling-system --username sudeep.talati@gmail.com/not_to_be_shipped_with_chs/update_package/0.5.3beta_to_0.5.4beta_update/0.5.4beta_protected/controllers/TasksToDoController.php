@@ -31,7 +31,7 @@ class TasksToDoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin', 'CompleteTasks', 'PerformTasks'),
+				'actions'=>array('create','update','admin', 'CompleteTasks', 'PerformTasks','TasksLifetime', 'UpdateTasksLifetime', 'delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -210,34 +210,8 @@ class TasksToDoController extends Controller
 				
 				
 			}//end of if task status != finished.
-			else//*********** DELETING OLD FINISHED TASKS.
-			{
-				//echo "<br>Task is finished";
-				$taskFinishedModel = TasksToDo::model()->FindByPk($task_id);
-				$finished_time = $taskFinishedModel->finished;
-				
-				if(!empty($finished_time))
-				{
-					//echo "<br>Finished date = ".$finished_time;
-					$dEnd = time();
-					$dStart = $finished_time;
-					
-					//******** CALCULATING DIFF IN DAYS **********
-					$date_diff = $dEnd - $dStart;
-					$days = round($date_diff/(60 * 60 * 24));
-					//echo "<br>Diff = ".$days;
-					//**** END OF CALCULATING DIFF IN DAYS *******
-					
-					if($days > 1)
-					{
-						//echo "<br>Difference in more than 1. ID = ".$task_id;
-						$taskDeleteModel=TasksToDo::model()->findByPk($task_id); 
-						$taskDeleteModel->delete(); 
-					}
-					
-				}//end of if (!empty($finished_time)).
-				
-			}//end of else
+			
+			//}//end of else
 			
 		}//end of if(task_id != 0).
 		else
@@ -246,6 +220,43 @@ class TasksToDoController extends Controller
 		}//end of else.
 		
 	}//end of PerformTasks
+	
+	public function actionTasksLifetime()
+	{
+		if(isset($_POST['lifetime_update_value']))
+		{
+			//echo "<br>Update value = ".$_POST['lifetime_update_value'];
+			$new_lifetime_val = $_POST['lifetime_update_value'];
+			$lifetime_id = '';
+			$advancedModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'notification_lifetime'));
+			foreach($advancedModel as $lifetime)
+			{
+				$lifetime_id = $lifetime->id;
+				//echo "<br>id = ".$lifetime_id;
+			}
+			
+			$advancedUpdateModel = AdvanceSettings::model()->updateByPk($lifetime_id, array('value'=>$new_lifetime_val));
+			
+		}//end of if(isset[]).
+		
+		$this->render('tasksLifetime');
+		
+	}//end of actionTasksLifetime.
+	
+	public function actionUpdateTasksLifetime()
+	{
+		//echo "<br>In anothjer view";
+		
+		
+		
+		$this->render('updateTasksLifetime');
+		
+	}//end of actionTasksLifetime.
+	
+	
+	
+
+	
 	
 	
 	

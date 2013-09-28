@@ -257,7 +257,7 @@ class NotificationRules extends CActiveRecord
 		switch ($notificaionCode)
 		{
 			case 1:
-				echo "<br>Send email";
+				//echo "<br>Send email";
 				
 				//************ ADDING TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
@@ -280,7 +280,7 @@ class NotificationRules extends CActiveRecord
 				break;
 				
 			case 2:
-				echo "<br>Send SMS";
+				//echo "<br>Send SMS";
 				
 				//************ ADDING TASK TO TASKS TO DO TABLE *******
 				$tasksModel = new TasksToDo();
@@ -454,6 +454,9 @@ class NotificationRules extends CActiveRecord
 		$contract_id = $serviceModel->product->contract_id;
 		$company_name = $setupModel->company;
 		$company_email = $setupModel->email;
+
+		$product_type_name=$serviceModel->product->productType->name;
+		$product_brand=$serviceModel->product->brand->name;
 		//echo "<br>cust id = ".$cust_id;
 		//echo "<br>engg id = ".$engineer_id;
 		//echo "<br>contract id = ".$contract_id;
@@ -481,9 +484,9 @@ class NotificationRules extends CActiveRecord
 			$subject = 'Service call '.$reference_number.' Status changed to '.$status;
 			//echo "<br>Subject = ".$subject;
 				
-			$body = '<br>'.'The status of servicecall with reference number '.$reference_number.' is changed to <strong>'.$status.'</strong>.<br>'.'Customer Name : '.$customer_name.'<br>'.'Engineer Name : '.$engineer_name.'<br><br>For any queries related to this call, please contact '.$company_email.'. <br><br>Regards,<br>'.$company_name;
-			$smsMessage = 'The status of servicecall with reff no '.$reference_number.' is changed to '.$status."\n".'Customer: '.$customer_name."\n".'Engineer: '.$engineer_name;
-				
+			$body = '<br>  The status of your '.$product_brand.' '.$product_type_name.' servicecall with reference no '.$reference_number.' is changed to '.$status."\n".'Engineer: '.$engineer_name.'<br><br>For any queries related to this call, please contact '.$company_email.'. <br><br>Regards,<br>'.$company_name;
+			$smsMessage = 'Dear '.$customer_name.', The status of your '.$product_brand.' '.$product_type_name.' servicecall with reference no '.$reference_number.' is changed to '.$status."\n".'Engineer: '.$engineer_name;
+		
 			foreach($notificationModel as $data)
 			{
 				$customerNotificationCode =$data->customer_notification_code;

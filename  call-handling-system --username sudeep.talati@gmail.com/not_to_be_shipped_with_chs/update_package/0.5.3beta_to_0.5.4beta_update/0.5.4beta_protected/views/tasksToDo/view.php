@@ -1,19 +1,17 @@
-<?php
-$this->breadcrumbs=array(
-	'Tasks To Dos'=>array('index'),
-	$model->id,
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List TasksToDo', 'url'=>array('index')),
-	array('label'=>'Create TasksToDo', 'url'=>array('create')),
-	array('label'=>'Update TasksToDo', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete TasksToDo', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage TasksToDo', 'url'=>array('admin')),
-);
-?>
-
+ 
 <h1>View TasksToDo #<?php echo $model->id; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Perform Tasks',array('/tasksToDo/completeTasks')); ?></li>
+<li><?php echo CHtml::link('Manage Tasks',array('/tasksToDo/admin')); ?></li>
+<li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
+
+</div>
+
+<br><br>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

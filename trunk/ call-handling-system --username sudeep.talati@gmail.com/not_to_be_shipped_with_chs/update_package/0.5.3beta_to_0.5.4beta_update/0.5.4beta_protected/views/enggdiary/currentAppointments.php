@@ -140,10 +140,10 @@ function isTouchDevice()
 //		        );
 
 		        //alert("Engg diary id = "+event.id);
-		        engg_id = event.id;
+		        diary_id = event.id;
 
 				////CALL UPDATE STATEMNET HERE 
-				updateEndDateTime(engg_id, dayDelta, minuteDelta);
+				updateEndDateTime(diary_id, dayDelta, minuteDelta);
 
 //		        if (!confirm("is this okay?")) 
 //				{
@@ -156,8 +156,8 @@ function isTouchDevice()
 			eventDrop: function (event,delta, minuteDelta) /**EVENT FOR CHANGING APPOINTMENT.**/
 			{
 				
-//				alert(event.title + ' was moved ' + delta + ' days\n' +
-//					'(should probably update your database)');
+				//alert(event.title + ' was moved ' + delta + ' days\n' +
+					//'(should probably update your database)');
 				
 				//alert ('Add Logic here to call and change database');	
 
@@ -316,7 +316,7 @@ function isTouchDevice()
     }//end of getResponse func().
 
 
-    function updateEndDateTime(engg_id, dayDelta, minuteDelta)
+    function updateEndDateTime(diary_id, dayDelta, minuteDelta)
     {
 		//alert('In updateMinutes func');
 
@@ -324,7 +324,7 @@ function isTouchDevice()
 
 		//alert("ENGG ID IN updateMinutes func = "+engg_id);
 
-		 var updateUrl= baseUrl+'/index.php?r=api/UpdateEndDateTime&engg_id='+engg_id+'&minutes='+minuteDelta;
+		 var updateUrl= baseUrl+'/index.php?r=api/UpdateEndDateTime&diary_id='+diary_id+'&minutes='+minuteDelta;
 		 //model = 'Enggdiary';
 		 $.ajax
 		 ({
@@ -336,7 +336,7 @@ function isTouchDevice()
 		    },
 	        error: function()
 	        {
-		        alert("ERROR"); 
+		        alert("ERROR in updating"); 
 	        }
 	     });//end of AJAX.
 	    

@@ -1,3 +1,13 @@
+
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+<div id="submenu">   
+<li><?php echo CHtml::link('Perform Tasks',array('/tasksToDo/completeTasks')); ?></li>
+<li><?php echo CHtml::link('Manage Tasks',array('/tasksToDo/admin')); ?></li>
+<li><?php echo CHtml::link('Tasks Lifetime',array('/tasksToDo/tasksLifetime')); ?></li>
+
+</div>
 <div class="form"> 
  <?php
  
@@ -6,15 +16,44 @@
 	'enableAjaxValidation'=>false,
 )); 
 
-?>
-
-
-<?php
-echo "<br>Performing tasks.... Please wait.... Update messages will be displayed";
 $baseUrl = Yii::app()->getBaseUrl();
 //echo $baseUrl;
 
-$tasksModel = TasksToDo::model()->findAll();
+?>
+
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Performing tasks.... Please wait.... Update messages will be displayed
+
+<div>
+    <img id="progress_bar" src="<?php echo $baseUrl.'/images/progress_bar_running.gif'; ?>"  />
+</div>
+
+
+
+
+
+
+
+ <?php
+///////DELETING THE OLD JOBS///////////
+
+		$notification_lifetime='';		
+		$notification_lifetimeModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'notification_lifetime'));
+		foreach($notification_lifetimeModel as $lifetime)
+		{
+			$notification_lifetime = $lifetime->value;
+		}//end of advanced foreach.
+		TasksToDo::model()->clearOldNotification($notification_lifetime);
+	
+///////DELETING THE OLD JOBS///////////
+
+
+
+$q = new CDbCriteria( array(
+    'condition' => "status NOT LIKE :match",         // no quotes around :match
+    'params'    => array(':match' => "%finished%")  // Aha! Wildcards go here
+) );
+$tasksModel = TasksToDo::model()->findAll($q);
 $total_tasks = count($tasksModel);
 //echo "<br>Total count of table = ".$total_tasks;
 
@@ -24,8 +63,8 @@ $total_tasks = count($tasksModel);
 <script type="text/javascript">
 
 baseUrl = "<?php echo $baseUrl; ?>";
-	
-function pass_value(id)
+
+function pass_value(id,count)
 {
 	//console.log('In pass_value function');
 	//alert('In pass_value function');
@@ -49,10 +88,7 @@ function pass_value(id)
 						div.innerHTML += data;
 						div.scrollTop = div.scrollHeight;
 						
-						if(id == total_tasks)
-						{
-							alert('All tasks completed');
-						}
+						 
 					},//end of success function.
                 error:
                     function () 
@@ -62,7 +98,17 @@ function pass_value(id)
 										
                
 					
-            });//end of AJAX.
+            }).done(function() {
+		
+		if (count==total_tasks)
+			{
+				alert('Task  finished.');
+				document.getElementById("progress_bar").src = "images/progress_bar_static.gif";;
+			}
+			
+	});	
+			
+	
 	
 			
 	
@@ -75,15 +121,20 @@ function pass_value(id)
 
 	<?php
 	
+	
+	$i=0;
 	if($total_tasks == 0)
 	{
 		echo "<span style='color:maroon'><br>No tasks to perform</span>";
 	}
 	else
 	{
+	
+
+	
 		$internet_available = '';
+
 		$advanceSettingsModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
-		
 		foreach($advanceSettingsModel as $settings)
 		{
 			//echo "Name = ".$settings->name;
@@ -112,9 +163,14 @@ function pass_value(id)
 				$id = $task_id;
 				//echo "<br>";
 				//********* Calling js function which calls AJAX ********
-				echo "<script> pass_value(".$id."); </script>";
+				$i++;
+				echo "<script> pass_value(".$id.",".$i."); </script>";
 				
 			}//end of foreach().
+			
+	 
+		 
+	 
 			
 		}//end of if internet available.
 		else

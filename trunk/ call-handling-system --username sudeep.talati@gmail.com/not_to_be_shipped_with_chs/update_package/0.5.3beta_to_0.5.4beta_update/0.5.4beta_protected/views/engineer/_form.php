@@ -12,6 +12,7 @@ $(document).ready(function(){
 
 	//********* FUNCTION TO TOGGLE DIV TAG.
 	$('#delivery-checkbox-id').change(function(){
+			
 		$('.delivery-details-form').toggle();
 			return false;
 		});
@@ -115,12 +116,12 @@ $(document).ready(function(){
 			<?php echo $form->error($contactDetailsModel,'[1]address_line_1'); ?>
 		</td>
 		<td>
-			<?php //echo $form->labelEx($contactDetailsModel,'[1]address_line_2'); ?>
+			<?php echo $form->labelEx($contactDetailsModel,'[1]address_line_2'); ?>
 			<?php echo $form->textField($contactDetailsModel,'[1]address_line_2',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'[1]address_line_2'); ?>
 		</td>
 		<td>
-			<?php //echo $form->labelEx($contactDetailsModel,'[1]address_line_3'); ?>
+			<?php echo $form->labelEx($contactDetailsModel,'[1]address_line_3'); ?>
 			<?php echo $form->textField($contactDetailsModel,'[1]address_line_3',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'[1]address_line_3'); ?>
 		</td>
@@ -132,10 +133,11 @@ $(document).ready(function(){
 			<?php echo $form->error($contactDetailsModel,'[1]town'); ?>
 		</td>
 		<td>
-			<?php echo $form->labelEx($contactDetailsModel,'[1]postcode_s'); ?>
-			<?php echo $form->textField($contactDetailsModel,'[1]postcode_s',array('size'=>6)); ?>
-			<?php echo $form->textField($contactDetailsModel,'[1]postcode_e',array('size'=>6)); ?>
+			<?php echo $form->labelEx($contactDetailsModel,'[1]postcode',array('size'=>3, 'maxlength'=>5, 'style'=>'width:2.5em;display: inline')); ?><span class="required">*</span><br>
+			<?php echo $form->textField($contactDetailsModel,'[1]postcode_s',array('size'=>6, 'maxlength'=>5, 'style'=>'width:2.5em')); ?>
 			<?php echo $form->error($contactDetailsModel,'[1]postcode_s'); ?>
+			<?php echo $form->textField($contactDetailsModel,'[1]postcode_e',array('size'=>6,  'maxlength'=>5, 'style'=>'width:2.5em')); ?>
+			<?php echo $form->error($contactDetailsModel,'[1]postcode_e'); ?>
 		</td>
 		<td>
 			<?php echo $form->labelEx($contactDetailsModel,'[1]country'); ?>
@@ -187,26 +189,28 @@ $(document).ready(function(){
 			
 			//******* CALLED IN UPDATE, AND IF DELIVERY ADDRESS IS CHANGE THAN CONTACT DETAILS.
 			//**********	OTHERWISE JUST A CHECKED BOX IS SHOWED *************
+						
+			//if(($model->delivery_contact_details_id == '') || ($model->delivery_contact_details_id == $model->contact_details_id))
 			
 			/*
-			if((!empty($model->delivery_contact_details_id)) && ($model->delivery_contact_details_id != $model->contact_details_id))
-			{
-				$deliveryDetailsModel=ContactDetails::model()->findByPk($model->delivery_contact_details_id);
-				//$delivery_checkbox_status = false;
-			}
-			
-			else//***** CALLED WHILE CREATE, CREATES NEW ContactDetails MODEL. 
-			{
- 				$deliveryDetailsModel=ContactDetails::model();
- 				//$delivery_checkbox_status = true;
-			}
-			*/
-			
-			if(($model->delivery_contact_details_id == '') || ($model->delivery_contact_details_id == $model->contact_details_id))
+			if ($model->delivery_contact_details_id == $model->contact_details_id)
 				$delivery_checkbox_status = true;
 			else 
 				$delivery_checkbox_status = false;
+			*/
 			
+			
+			if($model->delivery_contact_details_id == '' || ($model->delivery_contact_details_id != $model->contact_details_id) )
+			{
+				$delivery_checkbox_status = false;/////Khulne walal
+			}
+			else
+			{
+					$delivery_checkbox_status = true;/////Naiu Khulne walal
+			}
+			
+			
+			//$delivery_checkbox_status = false;
 			
 			?>
 		
@@ -247,10 +251,11 @@ $(document).ready(function(){
 						<?php echo $form->error($deliveryDetailsModel,'[2]town'); ?>
 					</td>
 					<td>
-						<?php echo $form->labelEx($deliveryDetailsModel,'[2]postcode_s'); ?>
-						<?php echo $form->textField($deliveryDetailsModel,'[2]postcode_s',array('size'=>6)); ?>
-						<?php echo $form->textField($deliveryDetailsModel,'[2]postcode_e',array('size'=>6)); ?>
+						<?php echo $form->labelEx($deliveryDetailsModel,'[2]postcode',array('size'=>3, 'maxlength'=>5, 'style'=>'width:2.5em;display: inline')); ?><span class="required">*</span><br>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]postcode_s',array('size'=>6, 'maxlength'=>5, 'style'=>'width:2.5em')); ?>
 						<?php echo $form->error($deliveryDetailsModel,'[2]postcode_s'); ?>
+						<?php echo $form->textField($deliveryDetailsModel,'[2]postcode_e',array('size'=>6,  'maxlength'=>5, 'style'=>'width:2.5em')); ?>
+						<?php echo $form->error($deliveryDetailsModel,'[2]postcode_e'); ?>
 					</td>
 					<td>
 						<?php echo $form->labelEx($deliveryDetailsModel,'[2]country'); ?>

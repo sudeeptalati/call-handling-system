@@ -255,82 +255,117 @@ class Enggdiary extends CActiveRecord
     
     public function updateAppointment($id, $days_moved, $minutes_moved)
     {
-    	
-    	 
     	//echo "end date from method in model = ".$end_date."<br>";
     	//echo "NORMAL END date from method in model = ".date("Y-m-d H:i",$end_date)."<br>";
-    	echo "<hr>id from method in model = ".$id."<br>";
-    	echo "days moved from method in model = ".$days_moved."<br>";
-    	echo "minutes moved = ".$minutes_moved;
+    	//echo "<hr>id from method in model = ".$id."<br>";
+    	//echo "days moved from method in model = ".$days_moved."<br>";
+    	//echo "minutes moved = ".$minutes_moved;
     	    	
-    	$diaryModel = Enggdiary::model()->findAllByPk($id);
+    	$diaryModel = Enggdiary::model()->findByPk($id);
     	
-    	
-    	foreach($diaryModel as $data)
-    	{
-    		/****** UPDATING START DATE SETTING TIME TO 9 AM *******/
-    		echo "<br>******************** DATA FROM MODEL FUNC ***********<br>";
-    		echo "satrt date from db = ".date("Y-m-d H:i",$data->visit_start_date)."<br>";
-    		$date= date("Y-m-d H:i",$data->visit_start_date);
-    		//echo "service call from model = ".$data->servicecall_id."<br>";
+    	/****** UPDATING START DATE SETTING TIME TO 9 AM *******/
+    	//echo "<br>******************** DATA FROM MODEL FUNC ***********<br>";
+    	//echo "satrt date from db = ".date("Y-m-d H:i",$diaryModel->visit_start_date)."<br>";
+    	$date= date("Y-m-d H:i",$diaryModel->visit_start_date);
+    	//echo "service call from model = ".$diaryModel->servicecall_id."<br>";
     		
-    		$updated_start_date = strtotime(date("Y-m-d H:i", $data->visit_start_date) . $days_moved."day". $minutes_moved."minutes");
-    		echo "NEW UPDATED DATE AFTER ADDING DAYS = ".date('Y-m-d H:i', $updated_start_date)."<br>";
-    		echo "<br>PHP UPDATED START DATE = ".$updated_start_date;
-    		$new_start_date = strtotime($updated_start_date);
+    	$updated_start_date = strtotime(date("Y-m-d H:i", $diaryModel->visit_start_date) . $days_moved."day". $minutes_moved."minutes");
+    	//echo "NEW UPDATED DATE AFTER ADDING DAYS = ".date('Y-m-d H:i', $updated_start_date)."<br>";
+    	//echo "<br>PHP UPDATED START DATE = ".$updated_start_date;
+    	$new_start_date = strtotime($updated_start_date);
     		
-    		/****** END OF UPDATING START DATE SETTING TIME TO 9 AM *******/
+    	/****** END OF UPDATING START DATE SETTING TIME TO 9 AM *******/
             
             
-            /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
+        /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
             
-            echo "<br>end date from db = ".date("Y-m-d H:i",$data->visit_end_date);
-            $updated_end_date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $days_moved."day". $minutes_moved."minutes");
-            echo "<br>PHP END DATE = ".$updated_end_date;
-            echo "<br>NORMAL END DATE = ".date("Y-m-d H:i",$updated_end_date);
-            $new_end_date = date("Y-m-d H:i",$updated_end_date);
-            echo "<br>******************** END OF DATA FROM MODEL FUNC ***********<br>";
+        //echo "<br>end date from db = ".date("Y-m-d H:i",$diaryModel->visit_end_date);
+        $updated_end_date = strtotime(date("Y-m-d H:i", $diaryModel->visit_end_date) . $days_moved."day". $minutes_moved."minutes");
+        //echo "<br>PHP END DATE = ".$updated_end_date;
+        //echo "<br>NORMAL END DATE = ".date("Y-m-d H:i",$updated_end_date);
+        $new_end_date = date("Y-m-d H:i",$updated_end_date);
+        //echo "<br>******************** END OF DATA FROM MODEL FUNC ***********<br>";
             
-            /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
+        /****** UPDATING END DATE WHEN APPO IS CHANGED TO NEXT DAY******/
             
-            $notesStr = $data->notes."\n Appointment has been updated to ".date('d-m-Y H:i', $updated_start_date)." by ".Yii::app()->user->name.".";
-            
-            $updateDiaryModel = Enggdiary::model()->updateByPk($data->id,
-    											array(
-    												'visit_start_date'=>$updated_start_date,
-    												//'visit_start_date'=>$new_start_date,
-    												'visit_end_date'=>$updated_end_date,
-    												'notes'=>$notesStr
-    											)
-    										);
-    		
-    	}//end of foreach().
+        $notesStr = $diaryModel->notes."\n Appointment has been updated to ".date('d-m-Y H:i', $updated_start_date)." by ".Yii::app()->user->name.".";
+		
+		//********** PERFORM NOTIFICATION OF INFORMING ABOUT CHANGED APPOINTMENT TIME ************
+		//echo "<br>service call id = ".$diaryModel->servicecall_id;
+		$service_id = $diaryModel->servicecall_id;
+		//echo "<br>Status = ".$diaryModel->servicecall->jobStatus->name;
+		//echo "<br>Status = ".$diaryModel->servicecall->jobStatus->id;
+		$status_id = $diaryModel->servicecall->jobStatus->id;
+		
+		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
+		
+		if(count($notificationModel)!=0)
+		{
+			//echo "<br>Rule is present";
+			NotificationRules::model()->performNotification($status_id, $service_id);
+		}//end of if notification.
+		else
+		{
+			//echo "<br>No rule present";
+		}
+        //********** END OF PERFORM NOTIFICATION OF INFORMING ABOUT CHANGED APPOINTMENT TIME ************  
+		
+        $updateDiaryModel = Enggdiary::model()->updateByPk($diaryModel->id,
+    										array(
+    											'visit_start_date'=>$updated_start_date,
+    											//'visit_start_date'=>$new_start_date,
+    											'visit_end_date'=>$updated_end_date,
+    											'notes'=>$notesStr
+    										)
+    									);
+		
     	
     }//end of updateAppointment().
     
     public function updateEndDateTime($id, $minutes)
     {
-    	echo "minutes from func in model = ".$minutes."<br>";
+    	//echo "minutes from func in model = ".$minutes."<br>";
     	
-    	$enggModel = Enggdiary::model()->findAllByPk($id);
+    	$diaryModel = Enggdiary::model()->findByPk($id);
     	
-    	foreach ($enggModel as $data)
-    	{
-    		//echo "id from func in model = ".$data->id."<br>";
-    		//echo "VISIT START DATE = ".date('d-m-Y H:i', $data->visit_start_date)."<br>";	
-    		//echo "VISIT END DATE = ".date('d-m-Y H:i', $data->visit_end_date)."<br>";
-    		$date = strtotime(date("Y-m-d H:i", $data->visit_end_date) . $minutes."minutes");
-    		//echo "time after adding min = ".date('d-m-Y H:i', $date);
-    		$notesStr = $data->notes."\n Appointment end time was changed to ".date('d-m-Y H:i', $date)." by ".Yii::app()->user->name.".";
+    	//echo "id from func in model = ".$diaryModel->id."<br>";
+    	//echo "VISIT START DATE = ".date('d-m-Y H:i', $diaryModel->visit_start_date)."<br>";	
+    	//echo "VISIT END DATE = ".date('d-m-Y H:i', $diaryModel->visit_end_date)."<br>";
+    	$date = strtotime(date("Y-m-d H:i", $diaryModel->visit_end_date) . $minutes."minutes");
+    	//echo "time after adding min = ".date('d-m-Y H:i', $date);
+    	$notesStr = $diaryModel->notes."\n Appointment end time was changed to ".date('d-m-Y H:i', $date)." by ".Yii::app()->user->name.".";
+		
+		//********** PERFORM NOTIFICATION OF INFORMING ABOUT CHANGED APPOINTMENT TIME ************
+		//echo "<br>service call id = ".$diaryModel->servicecall_id;
+		$service_id = $diaryModel->servicecall_id;
+		//echo "<br>Status = ".$diaryModel->servicecall->jobStatus->name;
+		//echo "<br>Status = ".$diaryModel->servicecall->jobStatus->id;
+		$status_id = $diaryModel->servicecall->jobStatus->id;
+		
+		$notificationModel = NotificationRules::model()->findAllByAttributes(array('job_status_id'=>$status_id, 'active'=>'1'));
+		
+		if(count($notificationModel)!=0)
+		{
+			//echo "<br>Rule is present";
+			NotificationRules::model()->performNotification($status_id, $service_id);
+		}//end of if notification.
+		else
+		{
+			//echo "<br>No rule present";
+		}
+        //********** END OF PERFORM NOTIFICATION OF INFORMING ABOUT CHANGED APPOINTMENT TIME ************  
     		
-    		$enggUpdateModel = Enggdiary::model()->updateByPk($id,
-    											array(
-    											'visit_end_date'=>$date,
-    											'notes'=>$notesStr
-    											)	
-    										);
-    	}//end of foreach().
-
+		/*
+    	$enggUpdateModel = Enggdiary::model()->updateByPk($id,
+    									array(
+    										'visit_end_date'=>$date,
+    										'notes'=>$notesStr
+    										)	
+    									);
+		*/
+			
+    	
+		
     }//end of updateEndTime(). 
     
     public function changePreviousAppointment($diary_id)

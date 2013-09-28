@@ -185,12 +185,12 @@ $('.technical-form').toggle();
 			<?php echo $form->error($contactDetailsModel,'address_line_1'); ?>
 		</td>
 		<td>
-			<?php //echo $form->labelEx($contactDetailsModel,'address_line_2'); ?>
+			<?php echo $form->labelEx($contactDetailsModel,'address_line_2'); ?>
 			<?php echo $form->textField($contactDetailsModel,'address_line_2',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'address_line_2'); ?>
 		</td>
 		<td>
-			<?php //echo $form->labelEx($contactDetailsModel,'address_line_3'); ?>
+			<?php echo $form->labelEx($contactDetailsModel,'address_line_3'); ?>
 			<?php echo $form->textField($contactDetailsModel,'address_line_3',array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($contactDetailsModel,'address_line_3'); ?>
 		</td>
@@ -215,10 +215,12 @@ $('.technical-form').toggle();
 				$contactDetailsModel->postcode_e = 'N/A';
 			}
 			?>
-			<?php echo $form->labelEx($contactDetailsModel,'postcode_s'); ?>
-			<?php echo $form->textField($contactDetailsModel,'postcode_s',array('size'=>6)); ?>
-			<?php echo $form->textField($contactDetailsModel,'postcode_e',array('size'=>6)); ?>
+			<?php echo $form->labelEx($contactDetailsModel,'postcode',array('size'=>3, 'maxlength'=>5, 'style'=>'width:2.5em;display: inline')); ?><span class="required">*</span><br>
+			<?php echo $form->textField($contactDetailsModel,'postcode_s',array('size'=>3, 'maxlength'=>5, 'style'=>'width:2.5em')); ?>
 			<?php echo $form->error($contactDetailsModel,'postcode_s'); ?>
+			<?php echo $form->textField($contactDetailsModel,'postcode_e',array('size'=>3,'maxlength'=>5,'style'=>'width:2.5em' )); ?>
+			<?php echo $form->error($contactDetailsModel,'postcode_e'); ?>
+		
 		</td>
 		<td>
 			<?php echo $form->labelEx($contactDetailsModel,'country'); ?>

@@ -76,7 +76,7 @@ class ContactDetailsController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	}//end of create.
 
 	/**
 	 * Updates a particular model.
@@ -100,7 +100,7 @@ class ContactDetailsController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
-	}
+	}//end of update.
 
 	/**
 	 * Deletes a particular model.

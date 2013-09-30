@@ -8,7 +8,7 @@ $this->menu=array(
 	array('label'=>'Company Logo', 'url'=>array('setup/changeLogo')),
 	array('label'=>'Engineers', 'url'=>array('Engineer/admin')),
 
-	array('label'=>'Internet', 'url'=>array('/advanceSettings/view/&id=10001')),
+	array('label'=>'Internet', 'url'=>array('/advanceSettings/update&id=10001')),
 	//array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),
 	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),
 	//array('label'=>'Mail Notifications', 'url'=>array('setup/mailServer')),

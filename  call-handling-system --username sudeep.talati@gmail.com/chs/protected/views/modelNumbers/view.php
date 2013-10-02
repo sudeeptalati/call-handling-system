@@ -1,26 +1,25 @@
-<?php
-$this->breadcrumbs=array(
-	'Model Numbers'=>array('index'),
-	$model->id,
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List ModelNumbers', 'url'=>array('index')),
-	array('label'=>'Create ModelNumbers', 'url'=>array('create')),
-	array('label'=>'Update ModelNumbers', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete ModelNumbers', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage ModelNumbers', 'url'=>array('admin')),
-);
-?>
+ <h1>Model Numbers	</h1>
+ 
 
-<h1>View ModelNumbers #<?php echo $model->id; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Model Numbers',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Model Numbers',array('create')); ?></li>
+</div>
+
+<br>
+<br>
+
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
+		//'id',
 		'model_number',
-		'brand_id',
-		'product_type_id',
+		//'brand_id',
+		//'product_type_id',
 	),
 )); ?>

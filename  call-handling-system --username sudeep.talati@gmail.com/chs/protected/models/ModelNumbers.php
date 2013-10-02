@@ -38,6 +38,9 @@ class ModelNumbers extends CActiveRecord
 		return array(
 			array('brand_id, product_type_id', 'numerical', 'integerOnly'=>true),
 			array('model_number', 'safe'),
+			array('model_number', 'required'),
+			
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, model_number, brand_id, product_type_id', 'safe', 'on'=>'search'),

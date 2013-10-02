@@ -11,10 +11,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'model_number'); ?>
-		<?php echo $form->textArea($model,'model_number',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'model_number'); ?>
 		<?php echo $form->error($model,'model_number'); ?>
 	</div>
 
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'brand_id'); ?>
 		<?php echo $form->textField($model,'brand_id'); ?>
@@ -26,7 +27,7 @@
 		<?php echo $form->textField($model,'product_type_id'); ?>
 		<?php echo $form->error($model,'product_type_id'); ?>
 	</div>
-
+-->
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

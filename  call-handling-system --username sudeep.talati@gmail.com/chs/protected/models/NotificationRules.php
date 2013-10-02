@@ -355,7 +355,7 @@ class NotificationRules extends CActiveRecord
 		$company_name = $setupModel->company;
 		
 		$reciever_email=$reciever_email_address;
-		$sender_email='';
+		$sender_email=$setupModel->email;
 		
 		try 
 		{
@@ -373,7 +373,12 @@ class NotificationRules extends CActiveRecord
 			//echo "<br>Host value from main = ".$encry;
 			$smtp_auth = Yii::app()->params['smtp_auth'];
 			//echo "<br>SMTP authentication = ".$smtp_auth;
-			$sender_email = $username;
+			$smtp_port = Yii::app()->params['smtp_port'];
+			//echo "<br>SMTP authentication = ".$smtp_auth;
+			
+			
+			
+			//$sender_email = $username;
 				
 			$mail = new PHPMailer();
 
@@ -383,7 +388,7 @@ class NotificationRules extends CActiveRecord
 			$mail->Username = $username;// SMTP username
 			$mail->Password = $password;// SMTP password
 			$mail->SMTPSecure = $encry;  
-				
+			$mail->Port       = $smtp_port;
 			$from_name = $company_name;
 				
 			$mail->From = $sender_email;
@@ -403,7 +408,16 @@ class NotificationRules extends CActiveRecord
 			
 			if(!$mail->Send())
 			{
-				//echo "<br>Mailer Error: " . $mail->ErrorInfo."<hr>";
+				echo "<br>Mailer Error: " . $mail->ErrorInfo."<hr>";
+				echo "<br>Mailer Error: " . $mail->ErrorInfo."<hr>";
+				echo "<br> IsSMTP: ".$mail->IsSMTP();
+				echo "<br> SMTPAuth: ".$mail->SMTPAuth; 
+				echo "<br> Host: ".$mail->Host ;  // Specify main and backup server
+				echo "<br>Username :".$mail->Username ;// SMTP username
+				echo "<br>Password :".$mail->Password ;// SMTP password
+				echo "<br>SMTPSecure :".$mail->SMTPSecure ;  
+				echo "<br>SMTP PORT :".$mail->Port ;  
+				
 				$email_response = 0;
 			}
 			else

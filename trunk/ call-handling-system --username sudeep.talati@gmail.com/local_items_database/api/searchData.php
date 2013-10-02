@@ -57,8 +57,9 @@
 					<td><?php echo $data['part_number'];?></td>
 					<td><?php echo $data['name'];?></td>
 					<td>
-				 	<a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>#spares_details'>
-					<img src="../../images/plus.jpg" width="35" height="35" />
+				 	<!-- <a href='../update/<?php echo $service_id;?>?cloud_id=0&master_id=<?php echo $data['id'];?>#spares_details'> -->
+					<a href='../chs/index.php?r=servicecall/update&id=<?php echo $service_id;?>&cloud_id=0&master_id=<?php echo $data['id'];?>#spares_details'>
+					<img src="../images/plus.jpg" width="35" height="35" />
 					</a> <br> 
 					</td>
 					</tr>
@@ -71,9 +72,6 @@
 			//**VALUE CHANGEWD To 100 to deactivate the CLOUD URL ASK KRUTHIKA TO EXPLAIN as if item not in localdatabase and cloud url is deactivated taking to blank screen**//
 			else if($n < 1)
 			{
-				//echo "No Data available matching your search";
-				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
-				//$cloud_url="http://192.168.1.200/itemsfreesearch/searchapi.php?keyword=".$keyword."&service_id=".$service_id;
 				
 			/**********WORKING PROPERLY, COMMENTED FOR TESTING **********///$cloud_url="http://spares.rapportsoftware.co.uk/itemsfreesearch/searchapi.php?keyword=".urlencode($keyword)."&service_id=".$service_id;
 			/**********WORKING PROPERLY, COMMENTED FOR TESTING **********/
@@ -119,7 +117,9 @@
 				ITS WAS CONFLITING WITH SERVICECALL UPDATE FORM. 
 				SOMEWEHRE FORM TAG IS NOT CLOSED CHECK FOR THAT FIX IT AND REMOVE THIS FROM HERE ****  -->
 				
-				<form action="<?php echo '../../sparesUsed/newItemDetails';?>" method="POST">
+				<!-- <form action="<?php //echo '../../sparesUsed/newItemDetails';?>" method="POST"> -->
+				<form action="<?php echo '../chs/index.php?r=sparesUsed/newItemDetails';?>" method="POST">
+				
 				<table>
 					<tr>
 						<td colspan="4" style="text-align:center;">

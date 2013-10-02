@@ -1,4 +1,3 @@
-
 <div id="sidemenu">             
 <?php include('setup_sidemenu.php'); ?>   
 </div>

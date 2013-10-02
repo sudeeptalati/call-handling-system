@@ -183,9 +183,10 @@ vertical-align:top;
 				
 					if($service->job_status_id >100)
 					{
-						//echo "new call";
-						?><br> 	<small>(closed)</small>
-						
+						echo "<br> 	<small>(closed)</small>";
+					}
+						?>
+					 
 						<td style="width:150px;background-color:#DCDCF2;">
 							<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
 							<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
@@ -194,7 +195,7 @@ vertical-align:top;
 						<?php 
 						
 						
-					}
+					
 				?>
 			</td>
 			

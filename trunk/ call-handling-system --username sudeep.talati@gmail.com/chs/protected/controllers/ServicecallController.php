@@ -61,6 +61,13 @@ class ServicecallController extends Controller
 	public function actionPreview($id)
 	{
 	
+		//mPDF, **** accessing mpdf directly from vendors *******
+		Yii::import('application.vendors.*');
+		require_once('mpdf/mpdf.php');
+		///Create an instance of the class:
+		$mpdf=new mPDF();
+
+	
 		$model=$this->loadModel($id);
 		$setupModel = Setup::model()->findByPk(1);
 		//$config= Config::model()->findByPk(1);	
@@ -71,20 +78,14 @@ class ServicecallController extends Controller
 		$warranty=$model->contract->name;
 		$filename=$service_ref_no.' '.$customer_name.' '.$model_number.' '.$warranty.'.pdf';
 		
-		//mPDF, **** accessing mpdf directly from vendors *******
-		Yii::import('application.vendors.*');
-		require_once('mpdf/mpdf.php');
-	
-	///Create an instance of the class:
-		$mpdf=new mPDF();
 
 ////Write some HTML code:
 //$mpdf->WriteHTML('<p>Hallo World</p>');
 
 $mpdf->WriteHTML($this->renderPartial('preview',array('model'=>$model,'company_details'=>$setupModel), true));
-
+ 
 ///Output a PDF file:
-$mpdf->Output();
+$mpdf->Output($filename,'I');
 	
 	/*
 	

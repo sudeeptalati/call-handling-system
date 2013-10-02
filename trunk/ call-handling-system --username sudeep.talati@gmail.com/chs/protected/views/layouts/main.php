@@ -56,7 +56,7 @@ $baseUrl= Yii::app()->request->baseUrl;
 	<table style="width:100%;">
 	<tr>
 		
-		<td style="margin:50px; text-align:left;">
+		<td style="padding-left:20px; padding-top:12px;text-align:left;">
 			<a href='<?php echo $baseUrl;?>' style='color:#555;text-decoration:none;' >
 			<?php echo CHtml::image($company_logo,"ballpop",array()); ?>
 			</a>

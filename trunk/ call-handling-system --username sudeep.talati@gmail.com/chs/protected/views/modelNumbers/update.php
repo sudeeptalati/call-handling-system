@@ -1,18 +1,14 @@
-<?php
-$this->breadcrumbs=array(
-	'Model Numbers'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List ModelNumbers', 'url'=>array('index')),
-	array('label'=>'Create ModelNumbers', 'url'=>array('create')),
-	array('label'=>'View ModelNumbers', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage ModelNumbers', 'url'=>array('admin')),
-);
-?>
+ <h1>Model Numbers	</h1>
+ 
 
-<h1>Update ModelNumbers <?php echo $model->id; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Model Numbers',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Model Numbers',array('create')); ?></li>
+</div>
 
+ 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

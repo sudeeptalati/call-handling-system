@@ -434,11 +434,10 @@ background-color: #FFFF9D;
 		</td>	
 		<td>
 			<?php echo $form->labelEx($productModel,'model_number'); ?>
-			<?php echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
+			<?php //echo $form->textField($productModel,'model_number',array('size'=>30)); ?>
 			<?php echo $form->error($productModel,'model_number'); ?>
 			<?php 
-			/****** AUTO COMPLETE WIDGET, TO BE IMPLEMENTED IN LATER STAGE ************
-				$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			 	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				    'model'=>$productModel,
 				    'attribute'=>'model_number',
 				    //'source'=>$this->createUrl('jui/autocompleteTest'),
@@ -455,7 +454,7 @@ background-color: #FFFF9D;
 					),
 				    'cssFile'=>false,
 				));
-				*/
+				
 			
 			?>
 			

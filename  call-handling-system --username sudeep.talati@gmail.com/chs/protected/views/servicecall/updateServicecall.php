@@ -51,7 +51,7 @@ vertical-align:top;
 		
 	
 		<p class="note">Fields with <span class="required">*</span> are required.</p>
-	
+		
 		<?php echo $form->errorSummary($model); ?>
 		
 		<?php 
@@ -454,7 +454,7 @@ vertical-align:top;
 					$model_name=Yii::app()->controller->id;
 					$current_url=$baseUrl."/".$model_name;
 					
-					$local_db_url='../../../local_items_database/api/searchData.php?';
+					$local_db_url='../local_items_database/api/searchData.php?';
 				?>
 				
 				<input type="hidden" id="service_id" value="<?php echo $service_id;?>"/>

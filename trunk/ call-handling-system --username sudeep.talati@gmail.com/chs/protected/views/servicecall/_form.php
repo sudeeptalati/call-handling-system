@@ -500,6 +500,8 @@ background-color: #FFFF9D;
 				    'options'=>array(
 				        'showAnim'=>'fold',
 						'dateFormat' => 'dd-mm-yy',
+						'onSelect'=> 'js:function(selectedDate) {console.log("Hiiiii "+selectedDate);document.getElementById("Product_purchase_date").value=selectedDate}',
+
 				    ),
 				    'htmlOptions'=>array(
 				        'style'=>'height:20px;'
@@ -527,7 +529,31 @@ background-color: #FFFF9D;
 	<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'purchased_from'); ?>
-			<?php echo $form->textField($productModel,'purchased_from',array('size'=>30)); ?>
+			<?php //echo $form->textField($productModel,'purchased_from',array('size'=>30)); ?>
+			<?php 
+			 	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+				    'model'=>$productModel,
+				    'attribute'=>'purchased_from',
+				    //'source'=>$this->createUrl('jui/autocompleteTest'),
+				    //'source'=>array('ac1', 'ac2', 'ac3', 'b1', 'ba', 'ba34', 'ba33'),
+				    'source'=>Engineer::model()->getAllCompanyNamesArray(),
+				    // additional javascript options for the autocomplete plugin
+				    'options' => array(
+					    'showAnim' => 'fold',
+					    //'select' => 'js:function(event, ui){ alert(ui.item.value) }',
+					),
+					'htmlOptions' => array(
+						'style'=>'height:20px;',
+					   // 'onClick' => 'document.getElementById("test1_id").value=""'
+					),
+				    'cssFile'=>false,
+				));
+				
+			
+			?>
+			
+			
+			
 			<?php echo $form->error($productModel,'purchased_from'); ?>
 		</td>
 		<td>

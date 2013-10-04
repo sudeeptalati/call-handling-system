@@ -114,7 +114,7 @@
 				<?php echo $form->error($productModel,'brand_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'model_number'); ?>
-				<?php echo //$form->textField($productModel,'model_number',array('rows'=>6, 'cols'=>50)); ?>
+				<?php //echo $form->textField($productModel,'model_number',array('rows'=>6, 'cols'=>50)); ?>
 				<?php 
 			 	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				    'model'=>$productModel,

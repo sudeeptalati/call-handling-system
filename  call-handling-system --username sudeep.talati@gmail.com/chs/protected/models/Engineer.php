@@ -256,6 +256,23 @@ class Engineer extends CActiveRecord
     	return $data;
     }//end of getCodeArray().
 	
+	public function getAllCompanyNamesArray()
+	{
+		$companyNamesArray = array();
+		$companyNamesResult = Engineer::model()->findAll();
+		 
+		foreach ($companyNamesResult as $data)
+		{
+			//echo "model no = ".$data->model_number."<br>";
+			array_push($companyNamesArray, $data->company);
+			//array_push($companyNamesArray[$data->id] = $data->company);
+			
+
+		}//end pf foreach.
+	
+		return $companyNamesArray;
+		 
+	}//end of getAllModelNumbers().
 	
 	
     

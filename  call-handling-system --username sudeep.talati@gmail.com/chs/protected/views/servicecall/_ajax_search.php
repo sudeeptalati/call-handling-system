@@ -187,10 +187,7 @@ vertical-align:top;
 					}
 						?>
 					 
-						<td style="width:150px;background-color:#DCDCF2;">
-							<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
-							<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
-						</td>
+
 						
 						<?php 
 						
@@ -203,7 +200,17 @@ vertical-align:top;
 		<!--<td><?php //echo $service->jobStatus->name;?></td>-->
 
 			<?php }//end of foreach of servicecall.?>
+			
+
+			
+			
 		<?php }//end of else of no active calls i.e, display call details.?>
+		
+		<td style="width:150px;background-color:#DCDCF2;">
+			<?php echo CHtml::link($service_img_html, array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id));?>
+			<?php echo CHtml::link('New Call', array('Servicecall/existingCustomer', 'customer_id'=>$data->customer->id, 'product_id'=>$product->id))?>
+		</td>	
+		
 		<!--
 		<td>
 		<form method="get" action="http://www.google.com/search" target="_blank">

@@ -27,6 +27,7 @@
  * @property string $modified
  * @property string $cancelled
  * @property string $lockcode
+ * @property string $distributor
  *
  * The followings are the available model relations:
  * @property Customer[] $customers
@@ -80,11 +81,11 @@ class Product extends CActiveRecord
 			array('contract_id, brand_id, product_type_id', 'required'),
 			array('contract_id, brand_id, product_type_id, customer_id, engineer_id, discontinued, warranty_for_months, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('purchase_price', 'numerical'),
-			array('purchased_from, warranty_until, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode', 'safe'),
+			array('purchased_from, warranty_until, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode, distributor', 'safe'),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, contract_id, brand_id, product_type_id, customer_id, engineer_id, purchased_from, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, discontinued, warranty_for_months, purchase_price, notes, created_by_user_id, created, modified, cancelled', 'safe', 'on'=>'search'),
+			array('id, contract_id, brand_id, product_type_id, customer_id, engineer_id, purchased_from, purchase_date, distributor, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, discontinued, warranty_for_months, purchase_price, notes, created_by_user_id, created, modified, cancelled', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -138,7 +139,7 @@ class Product extends CActiveRecord
 			'cancelled' => 'Cancelled',
 		/*USER ADDED ATTRIBUTED*/
 			'warranty_until' => 'Warranty Expires',
-		
+			'distributor' => 'Distributor',
 		);
 	}
 
@@ -180,6 +181,7 @@ class Product extends CActiveRecord
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('cancelled',$this->cancelled,true);
+		$criteria->compare('distributor',$this->distributor,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

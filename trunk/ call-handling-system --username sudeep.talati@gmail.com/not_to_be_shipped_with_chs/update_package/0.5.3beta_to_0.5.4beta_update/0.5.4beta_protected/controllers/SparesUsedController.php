@@ -154,8 +154,8 @@ class SparesUsedController extends Controller
 		$this->loadModel($id)->delete();
 		$service_id = $_GET['servicecall_id'];
 		
-		$this->redirect(array('/servicecall/update/'.$service_id));
-		
+		//$this->redirect(array('/servicecall/update/'.$service_id));
+		$this->redirect(array('servicecall/update&id='.$service_id.'#spares_details'));
 		
 		/*
 		if(Yii::app()->request->isPostRequest)
@@ -287,7 +287,7 @@ class SparesUsedController extends Controller
 																	array('spares_used_status_id'=>1)
 																	);
 			
-			$this->redirect(array('servicecall/update/'.$service_id.'#spares_details'));
+			$this->redirect(array('servicecall/update&id='.$service_id.'#spares_details'));
 			
 		}//end of if save.
 		else 
@@ -339,8 +339,8 @@ class SparesUsedController extends Controller
 			$result = $db->query("INSERT INTO master_items (part_number,name,created) values('$part_number','$item_name','$created')");
 			/********* END OF CODE TO ADD ITEM TO MASTER DATABASE **********/
 			
-			$this->redirect(array('servicecall/update/'.$service_id.'#spares_details'));
-			
+		//	$this->redirect(array('servicecall/update/'.$service_id.'#spares_details'));
+			$this->redirect(array('servicecall/update&id='.$service_id.'#spares_details'));
 		}
 		else 
 		{

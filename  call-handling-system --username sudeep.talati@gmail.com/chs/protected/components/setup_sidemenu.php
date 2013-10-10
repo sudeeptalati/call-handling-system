@@ -9,6 +9,7 @@ $this->menu=array(
 	array('label'=>'Contracts', 'url'=>array('Contract/admin')),
 	array('label'=>'Company Logo', 'url'=>array('setup/changeLogo')),
 	array('label'=>'Engineers', 'url'=>array('Engineer/admin')),
+	array('label'=>'Retailers & Distributors', 'url'=>array('retailersAndDistributors/admin')),
 
 	array('label'=>'Internet', 'url'=>array('/advanceSettings/update&id=10001')),
 	//array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),

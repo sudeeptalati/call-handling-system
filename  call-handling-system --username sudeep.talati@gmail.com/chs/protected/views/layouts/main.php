@@ -145,7 +145,6 @@ $baseUrl= Yii::app()->request->baseUrl;
 </div><!-- page -->
 
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/oow/oow.js"></script>
 
 
 </body>

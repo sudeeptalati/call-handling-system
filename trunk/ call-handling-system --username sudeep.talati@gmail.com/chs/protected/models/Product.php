@@ -82,7 +82,7 @@ class Product extends CActiveRecord
 			array('contract_id, brand_id, product_type_id, customer_id, engineer_id, discontinued, warranty_for_months, created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('purchase_price', 'numerical'),
 			array('purchased_from, warranty_until, purchase_date, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, notes, modified, cancelled, lockcode, distributor', 'safe'),
-			
+			array('serial_number','unique','message'=>'{attribute}:{value} already exists!'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, contract_id, brand_id, product_type_id, customer_id, engineer_id, purchased_from, purchase_date, distributor, warranty_date, model_number, serial_number, production_code, enr_number, fnr_number, discontinued, warranty_for_months, purchase_price, notes, created_by_user_id, created, modified, cancelled', 'safe', 'on'=>'search'),
@@ -262,7 +262,8 @@ class Product extends CActiveRecord
         {
 			$this->purchase_date=strtotime($this->purchase_date);
         	$this->warranty_date=strtotime($this->warranty_date);
-        	
+			$this->serial_number=Product::model()->processSerialNumber($this->serial_number);
+			
         	if($this->isNewRecord)  // Creating new record 
             {
         		//$this->created_by_user_id=Yii::app()->user->id;
@@ -335,6 +336,15 @@ class Product extends CActiveRecord
     	}//end of else, returns selected engg's prods.
     	
     }//end of enggProductReport($engg_id).
-    
-    
+	
+	
+	 public function processSerialNumber($serialnumber)
+    {
+		$serial_number=str_replace(" ", "", $serial_number);
+		$serial_number = strtoupper($serial_number);
+		return $serial_number;
+	}
+	
+	
+	
 }//end of class.

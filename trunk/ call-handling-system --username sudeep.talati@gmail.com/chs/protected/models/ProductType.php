@@ -169,4 +169,6 @@ class ProductType extends CActiveRecord
 	
 	
 	
+	
+	
 }//end of class.

@@ -8,8 +8,8 @@
 	<?php echo CHtml::encode($data->company); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_person')); ?>:</b>
-	<?php echo CHtml::encode($data->contact_person); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('companytype')); ?>:</b>
+	<?php echo CHtml::encode($data->companytype); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('address')); ?>:</b>

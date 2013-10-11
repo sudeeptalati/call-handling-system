@@ -6,12 +6,12 @@
  * The followings are the available columns in table 'retailers_and_distributors':
  * @property integer $id
  * @property string $company
- * @property string $contact_person
+ * @property string $companytype
  * @property string $address
  * @property string $town
  * @property string $postcode
  * @property string $telephone
- * @property integer $created
+ * @property string $created
  */
 class RetailersAndDistributors extends CActiveRecord
 {
@@ -40,11 +40,10 @@ class RetailersAndDistributors extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created', 'numerical', 'integerOnly'=>true),
-			array('company, contact_person, address, town, postcode, telephone', 'safe'),
+			array('company, companytype, address, town, postcode, telephone, created', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, company, contact_person, address, town, postcode, telephone, created', 'safe', 'on'=>'search'),
+			array('id, company, companytype, address, town, postcode, telephone, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +66,7 @@ class RetailersAndDistributors extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'company' => 'Company',
-			'contact_person' => 'Contact Person',
+			'companytype' => 'Companytype',
 			'address' => 'Address',
 			'town' => 'Town',
 			'postcode' => 'Postcode',
@@ -89,15 +88,25 @@ class RetailersAndDistributors extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('company',$this->company,true);
-		$criteria->compare('contact_person',$this->contact_person,true);
+		$criteria->compare('companytype',$this->companytype,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('town',$this->town,true);
 		$criteria->compare('postcode',$this->postcode,true);
 		$criteria->compare('telephone',$this->telephone,true);
-		$criteria->compare('created',$this->created);
+		$criteria->compare('created',$this->created,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function getListDataByType($companytype)
+	{
+		$listData=CHtml::listData(RetailersAndDistributors::model()->findAllByAttributes(array('companytype'=>$companytype)),'id','company');
+		return $listData;
+		
+	}//	public function getListDataByType($companytype)
+
+	
+	
 }

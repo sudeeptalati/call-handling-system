@@ -166,7 +166,16 @@ class ProductType extends CActiveRecord
 			self::$_items[$type][$model->id]=$model->name;
 	}//end of loaditems.
 	
+	 public function getActiveProductTypesListData()
+    {
+    	return CHtml::listData(ProductType::model()->findAll(array('condition'=>'active=1', 'order'=>"`name` ASC")), 'id', 'name');
+    }//end of getproductTypes().
 	
+	
+	 public function getAllProductTypesListData()
+    {
+    	return CHtml::listData(ProductType::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name');
+    }//end of getproductTypes().
 	
 	
 	

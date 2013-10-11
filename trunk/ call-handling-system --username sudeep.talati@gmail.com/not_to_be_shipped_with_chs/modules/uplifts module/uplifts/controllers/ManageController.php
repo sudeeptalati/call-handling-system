@@ -62,9 +62,11 @@ class ManageController extends Controller
 	public function actionCreate()
 	{
 		$model=new Uplifts;
-
+	 
+		$model->date_of_call=time();
+			
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		 $this->performAjaxValidation($model);
 
 		if(isset($_POST['Uplifts']))
 		{

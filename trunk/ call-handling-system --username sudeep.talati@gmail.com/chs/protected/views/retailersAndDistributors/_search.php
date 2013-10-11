@@ -16,8 +16,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'contact_person'); ?>
-		<?php echo $form->textArea($model,'contact_person',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'companytype'); ?>
+		<?php echo $form->textArea($model,'companytype',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">

@@ -16,9 +16,11 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'contact_person'); ?>
-		<?php echo $form->textArea($model,'contact_person',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'contact_person'); ?>
+		<?php echo $form->labelEx($model,'companytype'); ?>
+ 
+		<?php echo $form->dropDownList($model, 'companytype', array('RETAILER'=>'Retailer', 'DISTRIBUTOR'=>'Distributor'));?>
+	
+		<?php echo $form->error($model,'companytype'); ?>
 	</div>
 
 	<div class="row">

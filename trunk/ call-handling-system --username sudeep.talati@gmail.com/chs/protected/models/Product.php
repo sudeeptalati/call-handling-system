@@ -340,9 +340,9 @@ class Product extends CActiveRecord
 	
 	 public function processSerialNumber($serialnumber)
     {
-		$serial_number=str_replace(" ", "", $serial_number);
-		$serial_number = strtoupper($serial_number);
-		return $serial_number;
+		$serialnumber=str_replace(" ", "", $serialnumber);
+		$serialnumber = strtoupper($serialnumber);
+		return $serialnumber;
 	}
 	
 	

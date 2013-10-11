@@ -20,7 +20,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'company',
-		'contact_person',
+		'companytype',
 		'address',
 		'town',
 		'postcode',

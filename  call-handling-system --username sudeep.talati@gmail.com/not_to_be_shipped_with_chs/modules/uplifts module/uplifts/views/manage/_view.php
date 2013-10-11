@@ -24,17 +24,25 @@
 	<?php echo CHtml::encode($data->product_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('product_type')); ?>:</b>
-	<?php echo CHtml::encode($data->product_type); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('product_type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->product_type_id); ?>
 	<br />
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('retailer')); ?>:</b>
-	<?php echo CHtml::encode($data->retailer); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('retailer_id')); ?>:</b>
+	<?php echo CHtml::encode($data->retailer_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('distributor')); ?>:</b>
-	<?php echo CHtml::encode($data->distributor); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('retailer_contact')); ?>:</b>
+	<?php echo CHtml::encode($data->retailer_contact); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('retailer_phone')); ?>:</b>
+	<?php echo CHtml::encode($data->retailer_phone); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('distributor_id')); ?>:</b>
+	<?php echo CHtml::encode($data->distributor_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('visited_engineer_id')); ?>:</b>
@@ -53,8 +61,8 @@
 	<?php echo CHtml::encode($data->reason_for_uplift); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('request_type')); ?>:</b>
-	<?php echo CHtml::encode($data->request_type); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('request_type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->request_type_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('model_number')); ?>:</b>
@@ -69,16 +77,20 @@
 	<?php echo CHtml::encode($data->index_number); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date_of_purchase')); ?>:</b>
-	<?php echo CHtml::encode($data->date_of_purchase); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('purchase_date')); ?>:</b>
+	<?php echo CHtml::encode($data->purchase_date); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('exchange_date')); ?>:</b>
+	<?php echo CHtml::encode($data->exchange_date); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('authorised_by')); ?>:</b>
 	<?php echo CHtml::encode($data->authorised_by); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('postcode')); ?>:</b>
-	<?php echo CHtml::encode($data->postcode); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('price')); ?>:</b>
+	<?php echo CHtml::encode($data->price); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('customer_claim_description')); ?>:</b>

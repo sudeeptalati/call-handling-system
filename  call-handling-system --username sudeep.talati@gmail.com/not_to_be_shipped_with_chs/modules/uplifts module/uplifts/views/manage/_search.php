@@ -36,18 +36,28 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'product_type'); ?>
-		<?php echo $form->textArea($model,'product_type',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'product_type_id'); ?>
+		<?php echo $form->textArea($model,'product_type_id',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'retailer'); ?>
-		<?php echo $form->textArea($model,'retailer',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'retailer_id'); ?>
+		<?php echo $form->textField($model,'retailer_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'distributor'); ?>
-		<?php echo $form->textArea($model,'distributor',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'retailer_contact'); ?>
+		<?php echo $form->textArea($model,'retailer_contact',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'retailer_phone'); ?>
+		<?php echo $form->textArea($model,'retailer_phone',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'distributor_id'); ?>
+		<?php echo $form->textArea($model,'distributor_id',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -71,8 +81,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'request_type'); ?>
-		<?php echo $form->textArea($model,'request_type',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'request_type_id'); ?>
+		<?php echo $form->textField($model,'request_type_id'); ?>
 	</div>
 
 	<div class="row">
@@ -91,8 +101,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'date_of_purchase'); ?>
-		<?php echo $form->textField($model,'date_of_purchase'); ?>
+		<?php echo $form->label($model,'purchase_date'); ?>
+		<?php echo $form->textField($model,'purchase_date'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'exchange_date'); ?>
+		<?php echo $form->textField($model,'exchange_date'); ?>
 	</div>
 
 	<div class="row">
@@ -101,8 +116,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'postcode'); ?>
-		<?php echo $form->textArea($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'price'); ?>
+		<?php echo $form->textArea($model,'price',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">

@@ -429,7 +429,7 @@ background-color: #FFFF9D;
 		</td>
 		<td>
 			<?php echo $form->labelEx($productModel,'product_type_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', $productModel->getProductTypes(), array('empty'=>array('1000000'=>'Not Known')));?>
+			<?php echo CHtml::activeDropDownList($productModel, 'product_type_id', ProductType::model()->getActiveProductTypesListData(), array('empty'=>array('1000000'=>'Not Known')));?>
 			<?php echo $form->error($productModel,'product_type_id'); ?>
 		</td>	
 		<td>

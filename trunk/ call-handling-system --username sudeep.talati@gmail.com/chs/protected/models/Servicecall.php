@@ -272,7 +272,7 @@ class Servicecall extends CActiveRecord
             else
             {     	
             	$current_user=Yii::app()->user->name;
-            	$this->activity_log.="\n Status is changed to ".$this->jobStatus->name." by ".$current_user;
+            	$this->activity_log.="\n Status is changed to ".$this->jobStatus->name." by ".$current_user." on ".date('d-M-Y', time()).".\n";
             	$this->modified=time();
                 return true;
             }

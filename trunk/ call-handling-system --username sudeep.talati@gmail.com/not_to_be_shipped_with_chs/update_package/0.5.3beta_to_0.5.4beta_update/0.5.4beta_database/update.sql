@@ -59,3 +59,5 @@ UPDATE engineer SET delivery_contact_details_id=contact_details_id WHERE deliver
 ALTER TABLE product ADD distributor TEXT;
 CREATE TABLE addons(id INTEGER PRIMARY KEY NOT NULL, type TEXT, name TEXT, information TEXT, active INTEGER, created_on DATETIME, created_by INTEGER, inactivated_on DATETIME, inactivated_by INTEGER);
 CREATE TABLE retailers_and_distributors(id INTEGER PRIMARY KEY NOT NULL, company TEXT, contact_person TEXT, address TEXT, town TEXT, postcode TEXT, telephone TEXT, created INTEGER)
+/************ ADDING NEW STATUS CUSTOMER INVOICED TO JOB STATUS ****************/
+INSERT INTO job_status (id,name,information,published,dropdown_display,view_order,dashboard_display,dashboard_prority_order,html_name,updated_by_user_id,updated) VALUES ('103','Customer Invoiced','Customer is charged for the call','','0','','0','','','','');

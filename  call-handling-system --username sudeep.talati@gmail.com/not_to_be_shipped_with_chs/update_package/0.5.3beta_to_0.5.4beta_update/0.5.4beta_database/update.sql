@@ -61,3 +61,7 @@ CREATE TABLE addons(id INTEGER PRIMARY KEY NOT NULL, type TEXT, name TEXT, infor
 CREATE TABLE retailers_and_distributors(id INTEGER PRIMARY KEY NOT NULL, company TEXT, contact_person TEXT, address TEXT, town TEXT, postcode TEXT, telephone TEXT, created INTEGER)
 /************ ADDING NEW STATUS CUSTOMER INVOICED TO JOB STATUS ****************/
 INSERT INTO job_status (id,name,information,published,dropdown_display,view_order,dashboard_display,dashboard_prority_order,html_name,updated_by_user_id,updated) VALUES ('103','Customer Invoiced','Customer is charged for the call','0','0','105','0','105','','1','1369911292');
+/************* ADDING NEW FIELD IN SPARES USED TABLE *********************/
+ALTER TABLE spares_used  ADD notes TEXT;
+/************* ADDING NEW FIELD IN SERVICECALL TABLE *********************/
+ALTER TABLE  servicecall ADD work_summary TEXT;

@@ -152,7 +152,7 @@ class Uplifts extends CActiveRecord
 		$criteria->compare('servicecall_id',$this->servicecall_id);
 		$criteria->compare('customer_id',$this->customer_id);
 		$criteria->compare('product_id',$this->product_id);
-		$criteria->compare('product_type_id_id',$this->product_type_id_id,true);
+		$criteria->compare('product_type_id_id',$this->product_type_id,true);
 		$criteria->compare('retailer_id',$this->retailer_id);
 		$criteria->compare('retailer_contact',$this->retailer_contact,true);
 		$criteria->compare('retailer_phone',$this->retailer_phone,true);

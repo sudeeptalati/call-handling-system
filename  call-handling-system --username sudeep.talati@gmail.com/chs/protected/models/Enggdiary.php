@@ -158,16 +158,15 @@ class Enggdiary extends CActiveRecord
             	
         		
         		$this->created=time();
-            	$this->notes = "An appointment is created on ".date('d-m-Y', time())." by ".$this->userid->name.".";
+            	$this->notes .= "An appointment is created on ".date('d-m-Y', time())." by ".$this->userid->name.".";
         		
         		//SAVING CHANGED ENGG_ID TO SERVICE TABLE.
         		$serviceQueryModel = Servicecall::model()->findByPk($this->servicecall_id);
         		
-        		$serviceUpdateModel = Servicecall::model()->updateByPk($serviceQueryModel->id,
+				$serviceUpdateModel = Servicecall::model()->updateByPk($serviceQueryModel->id,
         													array(
         													'engineer_id'=>$this->engineer_id,
-        													)
-        													);
+        													));
 				$productQueryModel = Product::model()->findByPk($serviceQueryModel->product_id);
 				$productUpdateModel = Product::model()->updateByPk($serviceQueryModel->product_id,
 																	array(
@@ -333,7 +332,7 @@ class Enggdiary extends CActiveRecord
     	//echo "VISIT END DATE = ".date('d-m-Y H:i', $diaryModel->visit_end_date)."<br>";
     	$date = strtotime(date("Y-m-d H:i", $diaryModel->visit_end_date) . $minutes."minutes");
     	//echo "time after adding min = ".date('d-m-Y H:i', $date);
-    	$notesStr = $diaryModel->notes."\n Appointment end time was changed to ".date('d-m-Y H:i', $date)." by ".Yii::app()->user->name.".";
+    	$notesStr = $diaryModel->notes."<br> Appointment end time was changed to ".date('d-m-Y H:i', $date)." by ".Yii::app()->user->name.".";
 		
 		//********** PERFORM NOTIFICATION OF INFORMING ABOUT CHANGED APPOINTMENT TIME ************
 		//echo "<br>service call id = ".$diaryModel->servicecall_id;

@@ -36,7 +36,7 @@ $this->menu=array(
 		array(
 			'name'=>'Warranty Date',
 			//'value'=>date('d-M-y',$model->warranty_date),
-			'value'=>(!empty($model->purchase_date)) ? CHtml::encode(date('d-M-y',$model->warranty_date)) : '',
+			'value'=>(!empty($model->warranty_date)) ? CHtml::encode(date('d-M-y',$model->warranty_date)) : '',
 		),
 		'model_number',
 		'serial_number',

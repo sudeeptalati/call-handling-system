@@ -9,10 +9,10 @@ class DefaultController extends Controller
 	
 	public function actionSearchServicecall()
 	{
-		$servicecall_id=$_GET['servicecall_id'];
+		$service_reference_number=$_GET['service_reference_number'];
 		
 		///echo "********* <br>".$servicecall_id;
-		$servicecall=Servicecall::model()->findByAttributes(array('service_reference_number'=>$servicecall_id));
+		$servicecall=Servicecall::model()->findByAttributes(array('service_reference_number'=>$service_reference_number));
 	
 		$result_array=array();
 		
@@ -21,6 +21,10 @@ class DefaultController extends Controller
 		{		
 			$result_array['searchstatus']='1';
 			$result_array['searchstatustext']='Found';
+			
+			$result_array['servicecall_id']=$servicecall->id;
+			$result_array['service_reference_number']=$servicecall->service_reference_number;
+			
 			$result_array['customer_id']=$servicecall->customer->id;
 			$result_array['customer_name']=$servicecall->customer->fullname;
 			$result_array['customer_town_postcode']=$servicecall->customer->town.",  ".$servicecall->customer->postcode;
@@ -174,7 +178,14 @@ class DefaultController extends Controller
 					return $data;			
 				 
 		case "DATETIME":
-					return date("d-M-Y",$data);			
+					if (!empty($data))
+					{
+						return date("d-M-Y",$data);			
+					}
+					else
+					{
+						return "";
+					}
 					
 		return $data;
 		}///end of SWICTCH

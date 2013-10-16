@@ -57,10 +57,13 @@
 		<?php echo $form->error($model,'date_of_call'); ?>
 	</td>
 	<td>
-
-		<?php echo $form->labelEx($model,'servicecall_id'); ?>
-		<?php echo $form->textField($model,'servicecall_id'); ?>
+		<?php echo $form->hiddenField($model,'servicecall_id'); ?>
 		<?php echo $form->error($model,'servicecall_id'); ?>
+
+		<?php echo $form->labelEx($model,'service_reference_number'); ?>
+		<?php echo $form->textField($model,'service_reference_number'); ?>
+		<?php echo $form->error($model,'service_reference_number'); ?>
+		
 	</td>
  
 	<td>

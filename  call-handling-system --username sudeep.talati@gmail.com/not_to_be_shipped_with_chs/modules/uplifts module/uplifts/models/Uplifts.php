@@ -8,6 +8,7 @@
  * @property string $uplift_number
  * @property integer $prefix_id
  * @property integer $servicecall_id
+ * @property integer $service_reference_number
  * @property integer $customer_id
  * @property integer $product_id
  * @property string $product_type
@@ -61,7 +62,7 @@ class Uplifts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('prefix_id, product_type_id, serial_number, servicecall_id, customer_id, product_id, distributor_id,  retailer_id, visited_engineer_id, request_type_id, authorised_by, created_by, modified_by', 'numerical', 'integerOnly'=>true),
+			array('prefix_id, product_type_id, serial_number, servicecall_id, service_reference_number,  customer_id, product_id, distributor_id,  retailer_id, visited_engineer_id, request_type_id, authorised_by, created_by, modified_by', 'numerical', 'integerOnly'=>true),
 			array('uplift_number, retailer_contact, retailer_phone,  visited_engineer_name, date_of_call, reason_for_uplift, model_number, serial_number, index_number, purchase_date, exchange_date, price, customer_claim_description, notes, created, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -69,7 +70,7 @@ class Uplifts extends CActiveRecord
 			array('serial_number', 'length', 'is'=>14, 'message'=>'{attribute}:should be of exact 14 charecters-numeric values only!'),
 			array('serial_number','unique','message'=>'{attribute}:{value} already exists!'),
 		
-			array('id, uplift_number, prefix_id, servicecall_id, customer_id, product_id, product_type_id, retailer_id, retailer_contact, retailer_phone, distributor_id, visited_engineer_id, visited_engineer_name, date_of_call, reason_for_uplift, request_type_id, model_number, serial_number, index_number, purchase_date, exchange_date, authorised_by, price, customer_claim_description, notes, created, modified, created_by, modified_by', 'safe', 'on'=>'search'),
+			array('id, uplift_number, prefix_id, servicecall_id, service_reference_number, customer_id, product_id, product_type_id, retailer_id, retailer_contact, retailer_phone, distributor_id, visited_engineer_id, visited_engineer_name, date_of_call, reason_for_uplift, request_type_id, model_number, serial_number, index_number, purchase_date, exchange_date, authorised_by, price, customer_claim_description, notes, created, modified, created_by, modified_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,6 +108,7 @@ class Uplifts extends CActiveRecord
 			'uplift_number' => 'Uplift Number',
 			'prefix_id' => 'Prefix',
 			'servicecall_id' => 'Servicecall',
+			'service_reference_number' => 'Servicecall Reference Number',
 			'customer_id' => 'Customer',
 			'product_id' => 'Product',
 			'product_type_id' => 'Product Type',
@@ -150,6 +152,7 @@ class Uplifts extends CActiveRecord
 		$criteria->compare('uplift_number',$this->uplift_number,true);
 		$criteria->compare('prefix_id',$this->prefix_id);
 		$criteria->compare('servicecall_id',$this->servicecall_id);
+		$criteria->compare('service_reference_number',$this->service_reference_number);
 		$criteria->compare('customer_id',$this->customer_id);
 		$criteria->compare('product_id',$this->product_id);
 		$criteria->compare('product_type_id_id',$this->product_type_id,true);

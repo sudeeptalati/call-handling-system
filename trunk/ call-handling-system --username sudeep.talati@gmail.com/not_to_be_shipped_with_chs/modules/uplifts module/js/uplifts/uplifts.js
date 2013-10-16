@@ -6,10 +6,10 @@
 	
 	
 	
-	if (document.getElementById("Uplifts_servicecall_id"))
+	if (document.getElementById("Uplifts_service_reference_number"))
 	{
-		var servicecall_attribute= document.getElementById("Uplifts_servicecall_id");   	
-		console.log("Uplifts_servicecall_id ini is "+servicecall_attribute.value);
+		var servicecall_attribute= document.getElementById("Uplifts_service_reference_number");   	
+		console.log("Uplifts_service_reference_number ini is "+servicecall_attribute.value);
 		servicecall_attribute.setAttribute("onkeyup","checkIfServicecallPresent();"); 	  
 	}
 	
@@ -30,16 +30,16 @@ imgurl=imgurl+"images/uplifts/ajax-loader.gif";
 style.type = 'text/css';
 style.innerHTML = '.ajaxSpin { background: url("'+imgurl+'") no-repeat right center; }';
 document.getElementsByTagName('head')[0].appendChild(style);
-document.getElementById('Uplifts_servicecall_id').className = 'ajaxSpin';
+document.getElementById('Uplifts_service_reference_number').className = 'ajaxSpin';
 //console.log(imgurl);
 ///////END TO SHOW AJAX SEARCH IMAGE 
 
   
-	var servicecall_id= document.getElementById("Uplifts_servicecall_id").value;   	
+	var service_reference_number= document.getElementById("Uplifts_service_reference_number").value;   	
 	
 	////Removing all spaces
-	servicecall_id = servicecall_id.replace(/\s/g,'');
-	servicecall_id =servicecall_id.toUpperCase()
+	service_reference_number = service_reference_number.replace(/\s/g,'');
+	service_reference_number =service_reference_number.toUpperCase()
 	///////console.log("checkIfSerialNumberOow Serial ini is "+servicecall_id);
 	
  
@@ -47,7 +47,7 @@ document.getElementById('Uplifts_servicecall_id').className = 'ajaxSpin';
 $.ajax({
 type: "GET",
 url: "index.php?r=uplifts/default/searchservicecall",
-data: "servicecall_id="+servicecall_id,
+data: "service_reference_number="+service_reference_number,
 async:false,
 success: function(server_response)
 {
@@ -61,7 +61,9 @@ success: function(server_response)
 		//alert (jsonObj.response);
 		console.log(jsonObj.searchstatustext);
 
-		document.getElementById('Uplifts_servicecall_id').className = '';
+		document.getElementById('Uplifts_service_reference_number').className = '';
+		
+		document.getElementById("Uplifts_servicecall_id").value=jsonObj.servicecall_id;
 		document.getElementById("Uplifts_customer_id").value=jsonObj.customer_id;
 		document.getElementById("Uplifts_customer_name").innerHTML=jsonObj.customer_name;
 		document.getElementById("Uplifts_customer_town_postcode").innerHTML=jsonObj.customer_town_postcode;

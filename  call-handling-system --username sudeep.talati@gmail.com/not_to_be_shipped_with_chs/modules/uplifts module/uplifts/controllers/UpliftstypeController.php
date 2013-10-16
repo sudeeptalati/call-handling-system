@@ -1,6 +1,6 @@
 <?php
 
-class ManageController extends Controller
+class UpliftstypeController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,16 +61,14 @@ class ManageController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Uplifts;
-	 
-		$model->date_of_call=time();
-			
-		// Uncomment the following line if AJAX validation is needed
-		 $this->performAjaxValidation($model);
+		$model=new UpliftsType;
 
-		if(isset($_POST['Uplifts']))
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['UpliftsType']))
 		{
-			$model->attributes=$_POST['Uplifts'];
+			$model->attributes=$_POST['UpliftsType'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,11 +88,11 @@ class ManageController extends Controller
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
-		 $this->performAjaxValidation($model);
+		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Uplifts']))
+		if(isset($_POST['UpliftsType']))
 		{
-			$model->attributes=$_POST['Uplifts'];
+			$model->attributes=$_POST['UpliftsType'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -129,7 +127,7 @@ class ManageController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Uplifts');
+		$dataProvider=new CActiveDataProvider('UpliftsType');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -140,10 +138,10 @@ class ManageController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Uplifts('search');
+		$model=new UpliftsType('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Uplifts']))
-			$model->attributes=$_GET['Uplifts'];
+		if(isset($_GET['UpliftsType']))
+			$model->attributes=$_GET['UpliftsType'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -157,7 +155,7 @@ class ManageController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Uplifts::model()->findByPk($id);
+		$model=UpliftsType::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -169,7 +167,7 @@ class ManageController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='uplifts-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='uplifts-type-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

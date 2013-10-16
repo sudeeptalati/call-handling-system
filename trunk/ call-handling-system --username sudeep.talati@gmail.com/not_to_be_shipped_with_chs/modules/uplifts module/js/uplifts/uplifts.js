@@ -80,6 +80,10 @@ success: function(server_response)
 		document.getElementById("Uplifts_customer_claim_description").value=jsonObj.fault_description;
 		document.getElementById("Uplifts_reason_for_uplift").value=jsonObj.reason_for_uplift;
 		
+
+		
+		
+		
 		document.getElementById("Uplifts_retailer_id").value=jsonObj.product_retailer;
 		var retailer_comapny = jsonObj.product_retailer;
 		retailer_comapny = retailer_comapny.replace(/\s/g,'');
@@ -98,40 +102,48 @@ success: function(server_response)
 				selectretailer.selectedIndex = i;
 				break;
 			}//////end of if
-		
+ 
 		}//end of for Retailer
+
+		
+		console.log("SELCETCEWD IS :"+selectretailer.selectedIndex);
+		if (selectretailer.selectedIndex=-1)
+		{
+		selectretailer.selectedIndex = 1;
+		document.getElementById("Uplifts_retailer_contact").value=jsonObj.product_retailer;
+		}
 		
 		
 		document.getElementById("Uplifts_distributor_id").value=jsonObj.product_distributor;
 		console.log("Uplifts_distributor_id "+jsonObj.product_distributor);
 		
+		
+		var selectdistributor = document.getElementById("Uplifts_distributor_id");
 		if ( jsonObj.product_distributor!=null)
 		{
-			
 		console.log("*********");
 		var distributor_comapny = jsonObj.product_distributor;
 		distributor_comapny = distributor_comapny.replace(/\s/g,'');
 		distributor_comapny = distributor_comapny.toLowerCase();
 			
-		var selectdistributor = document.getElementById("Uplifts_distributor_id");
-		
 		for(var i=0; i<selectdistributor.options.length; i++) {
 		
 			var currentValue=selectdistributor.options[i].text;
 			currentValue=currentValue.replace(/\s/g,'');
 			currentValue =currentValue.toLowerCase();
 			console.log(" I "+selectdistributor.options[i].text);
-		
 			if (distributor_comapny==currentValue)
 			{
 				selectdistributor.selectedIndex =i;
 				break;
 			}//////end of if
-		
 		}//end of for Retailer
-		
-		
 		}//end of if
+		else
+		{
+			selectdistributor.selectedIndex = 1;
+			 
+		}
 		
 		
 		

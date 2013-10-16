@@ -27,7 +27,7 @@
 <tr>
 	<td>	
 		<?php echo $form->labelEx($model,'prefix_id'); ?>
-		<?php echo $form->dropDownList($model, 'prefix_id', CHtml::listData(UpliftsConfig::model()->findAll(array('order'=>"`prefix` ASC")), 'id', 'prefix'));?>
+		<?php echo $form->dropDownList($model, 'prefix_id', CHtml::listData(UpliftsConfig::model()->findAll(array('order'=>"`id` ASC")), 'id', 'prefix'));?>
 		<?php echo $form->error($model,'prefix_id'); ?>
 		<?php echo $form->labelEx($model,'date_of_call'); ?>
 		<?php //echo $form->textField($model,'date_of_call'); 
@@ -66,7 +66,15 @@
 	<td>
 		<?php echo $form->labelEx($model,'customer_id'); ?>
 		<?php echo $form->hiddenField($model,'customer_id'); ?>
-		<span id="Uplifts_customer_name"></span><br>
+		<span id="Uplifts_customer_name">
+		<?php 
+			if (!empty($model->customer_id))
+			{
+				echo $model->customer->fullname;
+				echo "<br>".$model->customer->town.", ".$model->customer->postcode;
+			}
+		?></span><br>
+		
 		<span id="Uplifts_customer_town_postcode"></span><br><br>
 		<?php echo $form->error($model,'customer_id'); ?>	
 	</td>
@@ -79,7 +87,7 @@
 <table class="second">
 <tr>
 	<td>
-		<?php echo $form->textField($model,'product_id'); ?>
+		<?php echo $form->hiddenField($model,'product_id'); ?>
 		<?php echo $form->labelEx($model,'product_type_id'); ?>
 		<?php echo $form->dropDownList($model, 'product_type_id', ProductType::model()->getAllProductTypesListData()); ?>
 		<?php echo $form->error($model,'product_type_id'); ?>
@@ -128,7 +136,7 @@
 	<td>
 		<?php echo $form->labelEx($model,'retailer_id'); ?>
 		<?php //echo $form->dropDownList($model, 'retailer_id', CHtml::listData(RetailersAnddistributor_ids::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company'));
-				echo $form->dropDownList($model,'retailer_id',RetailersAndDistributors::model()->getListDataByType('RETAILER')); ?> 
+				echo $form->dropDownList($model,'retailer_id',RetailersAndDistributors::model()->getListDataByType('RETAILER'), array('empty'=>array('1000000'=>'Not Known'))); ?>  <!-- 1000000 code is for RETAILERS --> 
 		<?php 	echo $form->error($model,'retailer_id'); ?>
 		<a href="">New Retailer</a>
 	</td>
@@ -148,21 +156,22 @@
 	<td>
 		<?php echo $form->labelEx($model,'distributor_id'); ?>
 		<?php //echo $form->dropDownList($model, 'retailer_id', CHtml::listData(RetailersAnddistributor_ids::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company'));
-			  echo $form->dropDownList($model,'distributor_id',RetailersAndDistributors::model()->getListDataByType('DISTRIBUTOR')); ?> 
+			  echo $form->dropDownList($model,'distributor_id',RetailersAndDistributors::model()->getListDataByType('DISTRIBUTOR'), array('empty'=>array('1000001'=>'Not Known'))); ?> <!-- 1000001 code is for DISTRIBUTORS --> 
 		<?php echo $form->error($model,'distributor_id'); ?>
 	</td>
 </tr>
 
 <tr>
 	<td>
+	
 		<?php echo $form->labelEx($model,'purchase_date'); ?>
 		<?php 
-				/*
+				
 				if (!empty($model->purchase_date))
 				{
 					$model->purchase_date=date('d-m-Y',$model->purchase_date);
 				}
-				*/
+				
 				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					'name'=>CHtml::activeName($model, 'purchase_date'),
@@ -184,12 +193,12 @@
 	<td>
 		<?php echo $form->labelEx($model,'exchange_date'); ?>
 		<?php 
-				/*
+				
 				if (!empty($model->exchange_date))
 				{
 					$model->exchange_date=date('d-m-Y',$model->exchange_date);
 				}
-				*/
+				
 				
 				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(

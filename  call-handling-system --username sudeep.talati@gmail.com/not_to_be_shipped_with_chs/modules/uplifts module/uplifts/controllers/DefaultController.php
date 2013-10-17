@@ -167,6 +167,61 @@ class DefaultController extends Controller
 	}/////end 	public function actionUpLiftsreport()
 	
 	
+	
+	
+	
+	public function actionGetRelationsAndFieldsListByModelName()
+	{
+		$modelname= $_GET['modelname'];
+		$list_data=UpliftsReport::model()->getRelationsAndFieldsListByModelName($modelname);
+		echo json_encode($list_data);		
+
+	}
+	
+	
+	public function actionCheckFieldOrRelationByModelNameAndValue()
+	{
+		
+		$modelname= $_GET['modelname'];
+		$selected_value= $_GET['selected_value'];
+		
+		/*
+		$modelname="Uplifts";
+		$selected_value="servicecall";
+		*/
+		
+		$fieldslist = UpliftsReport::model()->getFieldsListByModelName($modelname);
+		$relationslist = UpliftsReport::model()->getOneToOneRelationListByModelName($modelname);
+		$newmodel=
+		
+		$response=array();
+		
+		if (in_array($selected_value, $relationslist)) {
+		
+			$response['value_type']='relation';
+			$response['value_selected']=$selected_value;	
+			
+			$newmodel=UpliftsReport::model()->getNewModelNameBySelectedValueAndCurrentModelName($modelname,$selected_value);
+			$newmodellistdata=UpliftsReport::model()->getRelationsAndFieldsListByModelName($newmodel);
+			$response['newmodel']=$newmodel;
+			$response['list_data']=$newmodellistdata;
+		}
+		
+		
+		if (in_array($selected_value, $fieldslist)) {
+		
+			$response['value_type']='field';
+			$response['value_selected']=$selected_value;	
+		}
+		
+				
+		echo json_encode($response);		
+
+	}
+	
+	
+	
+	
 	public function processDataForReports ($data,$type)
 	{
 		switch ($type) {
@@ -191,6 +246,8 @@ class DefaultController extends Controller
 		}///end of SWICTCH
 	}/// end of 	public processDataForReports($data,$type)
 
+	
+	
 	
 	
 	

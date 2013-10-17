@@ -93,7 +93,7 @@ class Uplifts extends CActiveRecord
 			'authorisedByUser' => array(self::BELONGS_TO, 'User', 'authorised_by'),
 			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by'),
 			'modifiedByUser' => array(self::BELONGS_TO, 'User', 'modified_by'),
-			'retailer' => array(self::BELONGS_TO, 'User', 'retailer_id'),
+			'retailer' => array(self::BELONGS_TO, 'RetailersAndDistributors', 'retailer_id'),
 			
 		);
 	}

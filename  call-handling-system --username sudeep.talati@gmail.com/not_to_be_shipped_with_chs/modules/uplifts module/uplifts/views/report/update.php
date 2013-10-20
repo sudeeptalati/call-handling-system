@@ -1,13 +1,10 @@
 <?php include('uplifts_menu.php'); ?>   
+
  <?php
 $this->menu=array( 
-	array('label'=>'Manage Uplifts', 'url'=>array('admin')),
+	array('label'=>'Manage Reports Fields', 'url'=>array('admin')),
 );
 ?>
-
-
- 
-<h1>Update</h1>
-<h4>Uplift Number # <?php echo $model->uplift_number; ?></h4>
+<h4>Report Field #  <?php echo $model->field_label; ?></h4>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

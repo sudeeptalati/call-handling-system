@@ -11,7 +11,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'prefix'); ?>
-		<?php echo $form->textArea($model,'prefix',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'prefix',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'prefix'); ?>
 	</div>
 
@@ -21,12 +21,7 @@
 		<?php echo $form->error($model,'start_from'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'available_code'); ?>
-		<?php echo $form->textArea($model,'available_code',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'available_code'); ?>
-	</div>
-
+ 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

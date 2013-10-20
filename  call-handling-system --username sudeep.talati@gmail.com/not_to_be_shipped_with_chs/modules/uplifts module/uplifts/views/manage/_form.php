@@ -27,7 +27,7 @@
 <tr>
 	<td>	
 		<?php echo $form->labelEx($model,'prefix_id'); ?>
-		<?php echo $form->dropDownList($model, 'prefix_id', CHtml::listData(UpliftsConfig::model()->findAll(array('order'=>"`id` ASC")), 'id', 'prefix'));?>
+		<?php echo $form->dropDownList($model, 'prefix_id', CHtml::listData(UpliftsNumberSeries::model()->findAll(array('order'=>"`id` ASC")), 'id', 'prefix'));?>
 		<?php echo $form->error($model,'prefix_id'); ?>
 		<?php echo $form->labelEx($model,'date_of_call'); ?>
 		<?php //echo $form->textField($model,'date_of_call'); 
@@ -234,7 +234,7 @@
 	<td>
 
 		<?php echo $form->labelEx($model,'request_type_id'); ?>
-		<?php echo $form->dropDownList($model, 'request_type_id', CHtml::listData(UpliftsType::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name'));?>
+		<?php echo $form->dropDownList($model, 'request_type_id', CHtml::listData(UpliftsRequestType::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name'));?>
 		<?php echo $form->error($model,'request_type_id'); ?>
 		
 	</td>

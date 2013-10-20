@@ -66,13 +66,12 @@ class DefaultController extends Controller
 		{
 			//echo "<br>".$e->field_name;
 			$fields=array();
-			$fields['field_name']=$e->field_name;
 			$fields['field_relation']=$e->field_relation;
 			$fields['field_label']=$e->field_label;
 			$fields['field_type']=$e->field_type;
 			$fields['active']=$e->active;
 			array_push($selected_fields_of_reports,$fields);
-			array_push($selected_fields_of_uplifts,$fields['field_name']);
+			array_push($selected_fields_of_uplifts,$fields['field_relation']);
 			
 		}
 		
@@ -108,7 +107,8 @@ class DefaultController extends Controller
 			foreach ($selected_fields_of_reports as $s)////runs for each column
 			{
 				$excel_data .= "<td>";
-				if (in_array($s['field_name'], $upliftsColumns)) {
+//				if (in_array($s['field_relation'], $upliftsColumns)) {
+					if ($s['field_relation']!='blank_field') {
 					$f=$s['field_relation'];
 					
 					$length='0';
@@ -222,29 +222,6 @@ class DefaultController extends Controller
 	
 	
 	
-	public function processDataForReports ($data,$type)
-	{
-		switch ($type) {
-	
-		case "TEXT":
-					return $data;			
-					 
-		case "INTEGER":
-					return $data;			
-				 
-		case "DATETIME":
-					if (!empty($data))
-					{
-						return date("d-M-Y",$data);			
-					}
-					else
-					{
-						return "";
-					}
-					
-		return $data;
-		}///end of SWICTCH
-	}/// end of 	public processDataForReports($data,$type)
 
 	
 	

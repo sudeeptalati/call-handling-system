@@ -1,6 +1,6 @@
 <?php
 
-class UpliftstypeController extends Controller
+class UpliftsNumberSeriesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,14 +61,14 @@ class UpliftstypeController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new UpliftsType;
+		$model=new UpliftsNumberSeries;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['UpliftsType']))
+		if(isset($_POST['UpliftsNumberSeries']))
 		{
-			$model->attributes=$_POST['UpliftsType'];
+			$model->attributes=$_POST['UpliftsNumberSeries'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,9 +90,9 @@ class UpliftstypeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['UpliftsType']))
+		if(isset($_POST['UpliftsNumberSeries']))
 		{
-			$model->attributes=$_POST['UpliftsType'];
+			$model->attributes=$_POST['UpliftsNumberSeries'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -127,7 +127,7 @@ class UpliftstypeController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('UpliftsType');
+		$dataProvider=new CActiveDataProvider('UpliftsNumberSeries');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -138,10 +138,10 @@ class UpliftstypeController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new UpliftsType('search');
+		$model=new UpliftsNumberSeries('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['UpliftsType']))
-			$model->attributes=$_GET['UpliftsType'];
+		if(isset($_GET['UpliftsNumberSeries']))
+			$model->attributes=$_GET['UpliftsNumberSeries'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -155,7 +155,7 @@ class UpliftstypeController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=UpliftsType::model()->findByPk($id);
+		$model=UpliftsNumberSeries::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -167,7 +167,7 @@ class UpliftstypeController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='uplifts-type-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='uplifts-config-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

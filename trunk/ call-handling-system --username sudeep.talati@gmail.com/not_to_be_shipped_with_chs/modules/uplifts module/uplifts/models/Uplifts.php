@@ -84,7 +84,7 @@ class Uplifts extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'upliftPrefix' => array(self::BELONGS_TO, 'UpliftsConfig', 'prefix_id'),
+			'upliftPrefix' => array(self::BELONGS_TO, 'UpliftsNumberSeries', 'prefix_id'),
 			'servicecall' => array(self::BELONGS_TO, 'Servicecall', 'servicecall_id'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),	
@@ -94,6 +94,8 @@ class Uplifts extends CActiveRecord
 			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by'),
 			'modifiedByUser' => array(self::BELONGS_TO, 'User', 'modified_by'),
 			'retailer' => array(self::BELONGS_TO, 'RetailersAndDistributors', 'retailer_id'),
+			'distributor' => array(self::BELONGS_TO, 'RetailersAndDistributors', 'distributor_id'),
+			'requestType' => array(self::BELONGS_TO, 'UpliftsRequestType', 'request_type_id'),
 			
 		);
 	}
@@ -200,7 +202,7 @@ protected function beforeSave()
         	if($this->isNewRecord)  // Creating new record 
             {
 			
-				$this->uplift_number=UpliftsConfig::model()->getAvailableCodeById($this->prefix_id);
+				$this->uplift_number=UpliftsNumberSeries::model()->getAvailableCodeById($this->prefix_id);
 				$this->created_by=Yii::app()->user->id;
         		$this->authorised_by=Yii::app()->user->id;
         		$this->created=time();
@@ -221,7 +223,7 @@ protected function beforeSave()
 
         	if($this->isNewRecord)  // Creating new record 
             {
-				UpliftsConfig::model()->updateNextAvailableCodeById($this->prefix_id);
+				UpliftsNumberSeries::model()->updateNextAvailableCodeById($this->prefix_id);
 				return true;
             }//end of new record.
             else

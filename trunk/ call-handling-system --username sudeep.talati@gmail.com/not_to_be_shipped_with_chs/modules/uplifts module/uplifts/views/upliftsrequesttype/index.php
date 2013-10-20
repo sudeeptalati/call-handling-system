@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create UpliftsType', 'url'=>array('create')),
-	array('label'=>'Manage UpliftsType', 'url'=>array('admin')),
+	array('label'=>'Create UpliftsRequestType', 'url'=>array('create')),
+	array('label'=>'Manage UpliftsRequestType', 'url'=>array('admin')),
 );
 ?>
 

@@ -10,7 +10,7 @@ header( "Content-Disposition: inline; filename=\"Engineer Report  ".date("F j, Y
 
 
 $dataProvider = $criteriaData;
-$dataProvider->pagination = False;
+$dataProvider->pagination = false;
 
 ?>
         <table border="1"> 

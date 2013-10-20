@@ -1,19 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "uplifts_type".
+ * This is the model class for table "uplifts_config".
  *
- * The followings are the available columns in table 'uplifts_type':
+ * The followings are the available columns in table 'uplifts_config':
  * @property integer $id
- * @property string $name
- * @property string $info
- * @property string $created
+ * @property string $prefix
+ * @property integer $start_from
+ * @property string $available_code
  */
-class UpliftsType extends CActiveRecord
+class UpliftsNumberSeries extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return UpliftsType the static model class
+	 * @return UpliftsNumberSeries the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -25,7 +25,7 @@ class UpliftsType extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'uplifts_type';
+		return 'uplifts_number_series';
 	}
 
 	/**
@@ -36,11 +36,11 @@ class UpliftsType extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('info, created', 'safe'),
+			array('start_from', 'numerical', 'integerOnly'=>true),
+			array('prefix, available_code', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, info, created', 'safe', 'on'=>'search'),
+			array('id, prefix, start_from, available_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,12 +62,28 @@ class UpliftsType extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'info' => 'Info',
-			'created' => 'Created',
+			'prefix' => 'Prefix',
+			'start_from' => 'Start From Number',
+			'available_code' => 'Next Code',
 		);
 	}
-
+	
+	public function getAvailableCodeById($id)
+	{
+		$series = UpliftsNumberSeries::model()->findByPk($id);
+		return $series->available_code;
+	}
+	
+	public function updateNextAvailableCodeById($id)
+	{
+		$series = UpliftsNumberSeries::model()->findByPk($id);
+		$series->start_from=$series->start_from+1;
+		$series->available_code=$series->prefix.$series->start_from;
+		$series->save();
+	}
+	
+	
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -80,12 +96,23 @@ class UpliftsType extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('info',$this->info,true);
-		$criteria->compare('created',$this->created,true);
+		$criteria->compare('prefix',$this->prefix,true);
+		$criteria->compare('start_from',$this->start_from);
+		$criteria->compare('available_code',$this->available_code,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+	
+	
+	protected function beforeSave()
+    {
+		$this->available_code=$this->prefix.$this->start_from;
+		return true;
+		
+	}
+	
+	
+	
 }

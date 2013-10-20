@@ -95,6 +95,23 @@ $baseUrl= Yii::app()->request->baseUrl;
 			),
 		)); ?>
 	</div><!-- mainmenu -->
+	
+	<div id='submenu' style="text-align:center">
+		<?php
+		
+			$addons_list=Addons::model()->findAll(array('condition'=>'active=1'));
+			foreach ($addons_list as $addon)
+			{	
+				echo "<li>";
+			 
+				echo CHtml::link($addon->addon_label,array('/'.$addon->name)); 
+				echo "</li>";
+			
+			}
+		
+		?>
+	</div>
+	
 	<?php
 					/////////TASK TO PERFORM NOTIFICATION////
 				

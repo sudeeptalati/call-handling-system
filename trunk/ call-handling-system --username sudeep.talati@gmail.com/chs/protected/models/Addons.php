@@ -7,6 +7,8 @@
  * @property integer $id
  * @property string $type
  * @property string $name
+ * @property string $addon_label 
+ 
  * @property string $information
  * @property integer $active
  * @property string $created_on
@@ -42,10 +44,10 @@ class Addons extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('active, created_by, inactivated_by', 'numerical', 'integerOnly'=>true),
-			array('type, name, information, created_on, inactivated_on', 'safe'),
+			array('type, name, addon_label ,information, created_on, inactivated_on', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, name, information, active, created_on, created_by, inactivated_on, inactivated_by', 'safe', 'on'=>'search'),
+			array('id, type, name,addon_label , information, active, created_on, created_by, inactivated_on, inactivated_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +71,7 @@ class Addons extends CActiveRecord
 			'id' => 'ID',
 			'type' => 'Type',
 			'name' => 'Name',
+			'addon_label' => 'Addon Label',
 			'information' => 'Information',
 			'active' => 'Active',
 			'created_on' => 'Created On',
@@ -92,6 +95,8 @@ class Addons extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('addon_label',$this->addon_label,true);
+		
 		$criteria->compare('information',$this->information,true);
 		$criteria->compare('active',$this->active);
 		$criteria->compare('created_on',$this->created_on,true);

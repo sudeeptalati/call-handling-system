@@ -57,7 +57,7 @@ INSERT INTO contract (id,contract_type_id,name,main_contact_details_id,vat_reg_n
 INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'notification_lifetime','3','Lifetime of Notification Messages In Days (Messages older than given value will be automatically deleted )');
 UPDATE engineer SET delivery_contact_details_id=contact_details_id WHERE delivery_contact_details_id ='';
 ALTER TABLE product ADD distributor TEXT;
-CREATE TABLE addons(id INTEGER PRIMARY KEY NOT NULL, type TEXT, name TEXT, information TEXT, active INTEGER, created_on DATETIME, created_by INTEGER, inactivated_on DATETIME, inactivated_by INTEGER);
+CREATE TABLE addons(id INTEGER PRIMARY KEY NOT NULL, type TEXT, name TEXT, addon_label TEXT, information TEXT, active INTEGER, created_on DATETIME, created_by INTEGER, inactivated_on DATETIME, inactivated_by INTEGER);
 CREATE TABLE retailers_and_distributors(id INTEGER PRIMARY KEY NOT NULL, company TEXT, companytype TEXT, contact_person TEXT, address TEXT, town TEXT, postcode TEXT, telephone TEXT, created DATETIME);
 INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000000','Not Known','RETAILER','Not Known',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000001','Not Known','DISTRIBUTOR','Not Known',NULL,NULL,NULL,NULL,NULL);

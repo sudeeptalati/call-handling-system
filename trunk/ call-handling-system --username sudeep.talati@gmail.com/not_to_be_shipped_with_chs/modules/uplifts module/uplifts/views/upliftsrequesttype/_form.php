@@ -11,7 +11,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
@@ -20,12 +20,7 @@
 		<?php echo $form->textArea($model,'info',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'info'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
+ 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

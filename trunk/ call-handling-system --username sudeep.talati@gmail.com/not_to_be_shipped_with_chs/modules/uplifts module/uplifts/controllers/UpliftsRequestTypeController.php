@@ -1,6 +1,6 @@
 <?php
 
-class ConfigController extends Controller
+class UpliftsRequestTypeController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,14 +61,14 @@ class ConfigController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new UpliftsConfig;
+		$model=new UpliftsRequestType;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['UpliftsConfig']))
+		if(isset($_POST['UpliftsRequestType']))
 		{
-			$model->attributes=$_POST['UpliftsConfig'];
+			$model->attributes=$_POST['UpliftsRequestType'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,9 +90,9 @@ class ConfigController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['UpliftsConfig']))
+		if(isset($_POST['UpliftsRequestType']))
 		{
-			$model->attributes=$_POST['UpliftsConfig'];
+			$model->attributes=$_POST['UpliftsRequestType'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -127,7 +127,7 @@ class ConfigController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('UpliftsConfig');
+		$dataProvider=new CActiveDataProvider('UpliftsRequestType');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -138,10 +138,10 @@ class ConfigController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new UpliftsConfig('search');
+		$model=new UpliftsRequestType('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['UpliftsConfig']))
-			$model->attributes=$_GET['UpliftsConfig'];
+		if(isset($_GET['UpliftsRequestType']))
+			$model->attributes=$_GET['UpliftsRequestType'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -155,7 +155,7 @@ class ConfigController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=UpliftsConfig::model()->findByPk($id);
+		$model=UpliftsRequestType::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -167,7 +167,7 @@ class ConfigController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='uplifts-config-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='uplifts-type-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

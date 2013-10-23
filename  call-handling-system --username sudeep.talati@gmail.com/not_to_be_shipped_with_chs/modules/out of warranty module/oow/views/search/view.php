@@ -21,7 +21,7 @@ $this->menu=array(
 		'id',
 		'serial_number',
 		'model_number',
-		'mdel_range',
+		'model_range',
 		'notes',
 		'created',
 		'modified',

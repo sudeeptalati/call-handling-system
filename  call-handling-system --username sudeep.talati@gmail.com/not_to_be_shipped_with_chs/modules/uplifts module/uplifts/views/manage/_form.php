@@ -141,7 +141,6 @@
 		<?php //echo $form->dropDownList($model, 'retailer_id', CHtml::listData(RetailersAnddistributor_ids::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company'));
 				echo $form->dropDownList($model,'retailer_id',RetailersAndDistributors::model()->getListDataByType('RETAILER'), array('empty'=>array('1000000'=>'Not Known'))); ?>  <!-- 1000000 code is for RETAILERS --> 
 		<?php 	echo $form->error($model,'retailer_id'); ?>
-		<a href="">New Retailer</a>
 	</td>
 	<td>
 		<?php echo $form->labelEx($model,'retailer_contact'); ?>

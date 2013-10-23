@@ -21,8 +21,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'mdel_range'); ?>
-		<?php echo $form->textArea($model,'mdel_range',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'model_range'); ?>
+		<?php echo $form->textArea($model,'model_range',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">

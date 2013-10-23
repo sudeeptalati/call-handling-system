@@ -4,6 +4,6 @@ class DefaultController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		$this->redirect('index.php?r=oow/search/admin');
 	}
 }

@@ -1,8 +1,5 @@
-<?php
-$this->breadcrumbs=array(
-	$this->module->id,
-);
-?>
+<?php include('oow_menu.php'); ?>   
+ 
 <h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
 
 <p>

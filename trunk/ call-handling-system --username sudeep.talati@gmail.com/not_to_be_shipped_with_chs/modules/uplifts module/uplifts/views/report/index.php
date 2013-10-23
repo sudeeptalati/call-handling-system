@@ -125,8 +125,24 @@ $today = date('d-M-y', time());
 <br>
 </div><!-- End of first Content -->
 
+<?php
+	$excel_filename=' Uplifts Reports '.date('M-Y').'.xls';
+	
+	if (isset($_GET['upliftnumberseries_id']))
+	{	
+		if (!empty($_GET['upliftnumberseries_id']))
+		{
+		$upliftseries=UpliftsNumberSeries::model()->findByPk($_GET['upliftnumberseries_id']);
+		$excel_filename=$upliftseries->prefix.$excel_filename;
+		}
+	}
+	
+?>	
+
+
+
 <div id="sudeepxls" style="text-align:right">
-<a id="dynamicxls" download="jjj.xls" href='#' onclick="javascript:callme()" >Export To Excel</a>
+<a id="dynamicxls" download="<?php echo $excel_filename?>" href='#' onclick="javascript:callme()" >Export To Excel</a>
 <script>
 
 function callme()
@@ -271,12 +287,10 @@ dynxls.setAttribute('href',xlsdata );
  ?>
  
 <div id="kruthikaxls">
-<?php
-echo $excel_data;
-?>
+<?php echo $excel_data; ?>
 </div>
-<a download="mydata.xls" href="data:application/csv;charset=utf-8,<?php echo $excel_data; ?>">Export to Excel</a>
- </div><!-- END OF DIV Container -->
+<a download="<?php echo $excel_filename?>" href="data:application/csv;charset=utf-8,<?php echo $excel_data; ?>">Export to Excel</a>
+</div><!-- END OF DIV Container -->
  
  
  

@@ -4,7 +4,8 @@ class DefaultController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		//$this->render('index');
+		$this->redirect('index.php?r=uplifts/manage/admin');
 	}
 	
 	public function actionSearchServicecall()

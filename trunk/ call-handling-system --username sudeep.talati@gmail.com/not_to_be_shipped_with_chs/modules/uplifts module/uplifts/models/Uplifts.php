@@ -206,6 +206,7 @@ protected function beforeSave()
 				$this->created_by=Yii::app()->user->id;
         		$this->authorised_by=Yii::app()->user->id;
         		$this->created=time();
+			
         		return true;
             }//end of new record.
             else
@@ -224,6 +225,11 @@ protected function beforeSave()
         	if($this->isNewRecord)  // Creating new record 
             {
 				UpliftsNumberSeries::model()->updateNextAvailableCodeById($this->prefix_id);
+				$oowmodel=new Oow;
+				$oowmodel->serial_number=$this->serial_number;
+				$oowmodel->notes="Please Refer to Uplift Number: ".$this->uplift_number;
+				$oowmodel->save();
+
 				return true;
             }//end of new record.
             else

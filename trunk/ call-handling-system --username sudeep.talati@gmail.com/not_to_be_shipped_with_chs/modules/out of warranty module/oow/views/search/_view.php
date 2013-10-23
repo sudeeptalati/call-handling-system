@@ -12,8 +12,8 @@
 	<?php echo CHtml::encode($data->model_number); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('mdel_range')); ?>:</b>
-	<?php echo CHtml::encode($data->mdel_range); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('model_range')); ?>:</b>
+	<?php echo CHtml::encode($data->model_range); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('notes')); ?>:</b>

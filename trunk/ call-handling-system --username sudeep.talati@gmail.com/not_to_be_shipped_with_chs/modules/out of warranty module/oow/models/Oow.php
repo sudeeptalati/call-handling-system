@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $serial_number
  * @property string $model_number
- * @property string $mdel_range
+ * @property string $model_range
  * @property string $notes
  * @property string $created
  * @property string $modified
@@ -42,10 +42,12 @@ class Oow extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('createdby, modifiedy', 'numerical', 'integerOnly'=>true),
-			array('serial_number, model_number, mdel_range, notes, created, modified', 'safe'),
+			array('serial_number, model_number, model_range, notes, created, modified', 'safe'),
+			array('serial_number','unique','message'=>'{attribute}:{value} already exists!'),
+			array('serial_number', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, serial_number, model_number, mdel_range, notes, created, modified, createdby, modifiedy', 'safe', 'on'=>'search'),
+			array('id, serial_number, model_number, model_range, notes, created, modified, createdby, modifiedy', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,7 +78,7 @@ class Oow extends CActiveRecord
 			'id' => 'ID',
 			'serial_number' => 'Serial Number',
 			'model_number' => 'Model Number',
-			'mdel_range' => 'Mdel Range',
+			'model_range' => 'Model Range',
 			'notes' => 'Notes',
 			'created' => 'Created',
 			'modified' => 'Modified',
@@ -99,7 +101,7 @@ class Oow extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('serial_number',$this->serial_number,true);
 		$criteria->compare('model_number',$this->model_number,true);
-		$criteria->compare('mdel_range',$this->mdel_range,true);
+		$criteria->compare('model_range',$this->model_range,true);
 		$criteria->compare('notes',$this->notes,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('modified',$this->modified,true);
@@ -115,11 +117,8 @@ class Oow extends CActiveRecord
 	protected function beforeSave()
     {
 	
-		$this->serial_number=str_replace(" ", "", $this->serial_number);
-		$this->serial_number = strtoupper($this->serial_number);
-		
-		
-		
+		$this->serial_number=Product::model()->processSerialNumber($this->serial_number);
+
     	if(parent::beforeSave())
         {
         	if($this->isNewRecord)  // Creating new record 

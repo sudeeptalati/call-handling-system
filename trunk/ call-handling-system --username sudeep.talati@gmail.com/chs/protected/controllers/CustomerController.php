@@ -128,7 +128,7 @@ class CustomerController extends Controller
 	{
 		//echo "<br>In Update contr";
 		$model=$this->loadModel($id);
-		$productModel=new Product;
+		$productModel=Product::model()->findByPk($model->product_id);
 									
 
 		// Uncomment the following line if AJAX validation is needed

@@ -641,33 +641,5 @@ background-color: #FFFF9D;
 
 </div><!-- form -->
 
-<?php 
-
-
-		for($i=0;$i<=100;$i++)
-		{
-			
-			$last_po_number = Yii::app()->db->createCommand()
-                                ->select('id , service_reference_number')                                
-                                ->from('servicecall')
-                               
-                                ;
-                	$data = $last_po_number->query();
-                					
-					foreach ($data as $out)
-					{
-						$serviceRefNo=$out['service_reference_number'];
-						if($serviceRefNo == '200001')
-						{
-							$id=$out['id'];
-//							echo $serviceRefNo;
-//							echo $id."&nbsp;&nbsp;&nbsp;&nbsp;";
-//							echo $i."<br>";
-						}
-					}///end of foreach
-	
-		}
-
-	//}
-?>
+ 
 

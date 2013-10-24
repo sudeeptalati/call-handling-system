@@ -5,4 +5,5 @@ INSERT INTO uplifts_number_series (id,prefix,start_from,available_code) VALUES (
 INSERT INTO uplifts_number_series (id,prefix,start_from,available_code) VALUES (2,'ST',NULL,NULL);
 INSERT INTO uplifts_number_series (id,prefix,start_from,available_code) VALUES (3,'CS',NULL,NULL);
 CREATE TABLE uplifts_report (id INTEGER PRIMARY KEY NOT NULL, report_type INTEGER, field_type TEXT, field_relation TEXT, field_label TEXT, sort_order INTEGER,active INTEGER );
-INSERT INTO uplifts_request_type (id,name,info,created) VALUES ('1000000','Unknown',NULL,time(''))
+INSERT INTO uplifts_request_type (id,name,info,created) VALUES ('1000000','Unknown',NULL,time(''));
+INSERT INTO addons (id,type,name,addon_label,information,active,created_on,created_by,inactivated_on,inactivated_by) VALUES (NULL,'component','uplifts','Uplifts',NULL,'1',NULL,NULL,NULL,NULL);

@@ -19,7 +19,14 @@
 	'attributes'=>array(
 		//'id',
 		'model_number',
-		//'brand_id',
-		//'product_type_id',
+		array(
+			'label'=>'brand_id',
+			'value'=>$model->brand_id ? $model->brand->name : "Not Known",
+		),
+		array(
+			'label'=>'product_type_id',
+			'value'=>$model->product_type_id ? $model->productType->name : "Not Known",
+		),
+ 
 	),
 )); ?>

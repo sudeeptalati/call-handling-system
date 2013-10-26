@@ -21,6 +21,13 @@
 				'value' => 'CHtml::link($data->model_number, array("modelnumbers/update&id=".$data->id))',
 		 		'type'=>'raw',
         ),
+		array(	'name'=>'brand_id',
+				'value'=>'$data->brand->name'),
+        
+		array(	'name'=>'product_type_id',
+				'value'=>'$data->productType->name'),
+		 
+ 
 		//'brand_id',
 		//'product_type_id',
 		array(

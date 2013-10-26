@@ -467,7 +467,7 @@ class SetupController extends Controller
 								)
 					);
 			
-			$this->redirect('postcodeAnywhereView',array('model'=>$model));
+			$this->redirect('index.php?r=setup/postcodeAnywhereView',array('model'=>$model));
 			
 		}//end of if(isset()).
 		

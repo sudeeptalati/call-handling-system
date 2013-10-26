@@ -178,5 +178,15 @@ class Brand extends CActiveRecord
 			self::$_items[$type][$model->id]=$model->name;
 	}//end of loaditems.
     
-    
+    	
+	public function getAllBrands()
+    {
+    	return CHtml::listData(Brand::model()->findAll(array('order'=>"`name` ASC")), 'id', 'name');
+    }//end of getAllBrands().
+	
+	public function getAllActiveBrands()
+    {
+    	return CHtml::listData(Brand::model()->findAll(array('condition'=>'active=1', 'order'=>"`name` ASC")), 'id', 'name');
+    }//end of getAllBrands().
+	
 }//END OF CLASS

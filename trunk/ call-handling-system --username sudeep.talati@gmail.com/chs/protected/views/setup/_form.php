@@ -238,7 +238,7 @@ function PostcodeAnywhere_Interactive_RetrieveByPostcodeAndBuilding_v1_10End(res
 			<?php 
 			echo CHtml::dropDownList('calling_codes', $selected, $codes_list, 
 					array(
-						'prompt' => 'Please Select job status (required)',
+						'prompt' => 'Please Select The Country',
 						'value' => '0',
 						'ajax'  => array(
 									'type'  => 'POST',

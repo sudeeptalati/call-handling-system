@@ -55,6 +55,9 @@ class ModelNumbers extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'productType' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
+			'brand' => array(self::BELONGS_TO, 'Brand', 'brand_id'),
+			
 		);
 	}
 

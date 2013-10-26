@@ -123,10 +123,18 @@ background-color: #FFFF9D;
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'servicecall-form',
-	//'enableAjaxValidation'=>false,
 		'enableAjaxValidation'=>true,
 		'clientOptions'=>array(
 				'validateOnSubmit'=>true,
+				'afterValidate'=>"js:function(form,data,hasError){
+                        if(hasError){
+							 $('html, body').animate({ scrollTop: 0 }, 'slow');
+						}
+						else
+						{
+							return true;
+						}
+						}", 
 		),
 )); ?>
 
@@ -424,7 +432,7 @@ background-color: #FFFF9D;
 	<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'brand_id'); ?>
-			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(), array('empty'=>array('1000000'=>'Not Known')));?>
+			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands());?>
 			<?php echo $form->error($productModel,'brand_id'); ?>
 		</td>
 		<td>

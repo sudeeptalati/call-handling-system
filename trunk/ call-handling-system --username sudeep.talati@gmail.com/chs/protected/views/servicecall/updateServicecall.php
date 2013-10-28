@@ -513,7 +513,7 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 	<!-- ************** FORM TO ADD SPARES THAT ARE IN LIST ***************** -->
 	<form action="<?php echo Yii::app()->createUrl("SparesUsed/saveData");?>" method="POST">
 	
-	<table style="border-radius:15px;" bgcolor="#B2DFEE" >
+	<table style="border-radius:15px;padding:1	5px;" bgcolor="#B2DFEE" >
 	<tr><td>
 		<input type="hidden" name="master_id" value=<?php echo $master_id;?>>
 		<input type="hidden" name="service_id" value=<?php echo $model->id;?>>
@@ -523,17 +523,23 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 	</td>
 	</tr>
 	<tr>
-		<td colspan="3"><b> <?php echo $part_number;?>&nbsp;&nbsp; 
-		   <?php echo $name;?></b></td> 
+		<td colspan="3"><b> <?php echo $part_number;?>&nbsp;&nbsp;<?php echo $name;?></b></td> 
 	</tr>
 	<tr>
-		<td>Price<input type="text" name="unit_price" size="3">
+		<td colspan="3" style="text-align:left;">Quantity<span style="color:red">*</span>
+			<input type="text" name="quantity" size="3"> 
+			Price <input type="text" name="unit_price" size="3"> 
+			<br>
+			<small style="color:red">* Required</small>
+			
 		</td>
-		<td>Quantity*  <input type="text" name="quantity" size="3"></td>
-		<td style="text-align:right;"> <input type="submit" value="Add To Spares" style="width:auto" > </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<input type="submit" value="Add To Spares" style="width:auto" >
+		</td>
 	</tr>
 
-	<tr><td colspan="3"><br> <small><b>* Required</b></small></td></tr>
 	
 	</table>
 	</form>
@@ -565,33 +571,13 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 				<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>40)); ?>
 				<?php echo $form->error($model,'comments'); ?>
 				
-				<?php echo $form->labelEx($model,'job_payment_date'); ?>
-
-				<?php 
 				
-				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-				    'name'=>CHtml::activeName($model, 'job_payment_date'),
-					'model'=>$model,
-	        		'value' => $model->attributes['job_payment_date'],
-				    // additional javascript options for the date picker plugin
-				    'options'=>array(
-				        'showAnim'=>'fold',
-						'dateFormat' => 'dd-mm-yy',
-				    ),
-				    'htmlOptions'=>array(
-				        'style'=>'height:20px;'
-				    ),
-				));
-				
-				?>
-				<?php //echo $form->textField($model,'job_payment_date'); ?>
-				<?php echo $form->error($model,'job_payment_date'); ?>
 				
 				<?php echo $form->labelEx($model,'job_finished_date'); ?>
 				<?php 
 					if (!empty($model->job_finished_date))
 					{
-						$model->job_finished_date=date('j-M-y', $model->job_finished_date);
+						$model->job_finished_date=date('d-M-y', $model->job_finished_date);
 					}
 				?>
 				<?php 
@@ -612,9 +598,80 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 				<?php //echo $form->textField($model,'job_finished_date'); ?>
 				<?php echo $form->error($model,'job_finished_date'); ?>
 				
+				
+				
+				
+				<?php echo $form->labelEx($model,'job_payment_date'); ?>
+
+				<?php 
+				
+				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				    'name'=>CHtml::activeName($model, 'job_payment_date'),
+					'model'=>$model,
+	        		'value' => $model->attributes['job_payment_date'],
+				    // additional javascript options for the date picker plugin
+				    'options'=>array(
+				        'showAnim'=>'fold',
+						'dateFormat' => 'd-M-y',
+				    ),
+				    'htmlOptions'=>array(
+				        'style'=>'height:20px;'
+				    ),
+				));
+				
+				?>
+				<?php //echo $form->textField($model,'job_payment_date'); ?>
+				<?php echo $form->error($model,'job_payment_date'); ?>
+				
+				
+				
 			</td>
 			
 		</tr>
+			
+			<tr><td colspan="2" style="text-align:center">
+	<h3>Previous Service Calls </h3>
+	</td></tr>
+	<tr><td colspan="2" style="text-align:center">
+	<table><tr>
+    	<th>Service Ref#</th>
+		<th>Product</th>
+    	<th>Reported Date</th>
+    	<th>Fault Description</th>
+    	<th>Engineer Visited</th>
+    	<th>Visit Date</th>
+    	<th>Job Status</th>
+    	</tr>
+    	<?php $previousCall = $model->previousCall($model->customer_id);
+    	foreach ($previousCall as $data)
+    	{
+			if ($data->service_reference_number!=$model->service_reference_number)//////since we want to skip the current service call
+			{
+    		$enggdiaryModel=Enggdiary::model()->findByPk($data->engg_diary_id);
+		?>
+		<tr>
+    		<td><?php echo CHtml::link($data->service_reference_number, array('view', 'id'=>$data->id));?></td>
+    		<td><?php echo "<b>".$data->product->productType->name."<b>";?></td>
+    		<td><?php
+    				if(!empty($data->fault_date)) 
+    					echo date('d-M-Y', $data->fault_date);
+    			?>
+    		</td>
+    		<td><?php echo $data->fault_description;?></td>
+    		<td><?php echo $data->engineer->fullname;?></td>
+    		<td><?php
+    				if(!empty($enggdiaryModel->visit_start_date)) 
+    					echo date('d-M-Y',$enggdiaryModel->visit_start_date);?>
+    		</td>
+    		<td style="color:maroon"><?php echo $data->jobStatus->name;?></td>
+    		</tr>
+		<?php 
+		
+			}////end of if
+		}//end of foreach().?>
+    	</table>
+		</td>
+	</tr>
 			
 		<tr>
 			<td>
@@ -726,6 +783,10 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 				</table><!-- end of product table -->
 			</td>
 			</tr>
+			
+		
+			
+			
 		</table>
 		</div>
 		

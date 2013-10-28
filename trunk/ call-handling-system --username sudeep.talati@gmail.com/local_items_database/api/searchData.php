@@ -130,7 +130,7 @@
 					<tr>
 						<td><b>Item Name</b></td>
 						<td colspan="3">
-						<input type="text" name="item_name"><small>(required)</small>
+						<input type="text" name="item_name"><small  style="color:red">(required)</small>
 						</td>
 					</tr>
 					<tr>
@@ -141,7 +141,7 @@
 					<tr>
 						<td>
 						<b>Unit Price</b></td><td><input type="text" name="unit_price" size="3">
-						<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input type="text" name="quantity" size="3"><small>(required)</small>
+						<b>&nbsp;&nbsp;&nbsp;&nbsp;Qty</b>&nbsp;<input onkeyup="showAddNewSpareSubmitButton()" type="text" name="quantity" size="3"><small style="color:red">(required)</small>
 						</td>
 					</tr>
 					<tr>
@@ -149,7 +149,7 @@
 							
 						<input type="hidden" name="master_id" value="0">
 						<input type="hidden" name="service_id" value="<?php echo $service_id;?>">
-						<div align="center"><input value="Add" type="submit" align="middle" style="width:100px"></div>
+						<div align="center"><input id="addnewsparebutton" value="Add" type="hidden" align="middle" style="width:100px"></div>
 						</td>
 					</tr>
 				</table>
@@ -192,4 +192,24 @@ return $contents;
 }///end of functn curl File get contents
 
 ?>
+
+<script>
+function showAddNewSpareSubmitButton()
+{
+	console.log("**********");
+	var addnewsparesubmitbutton= document.getElementById("addnewsparebutton");   	
+	addnewsparesubmitbutton.setAttribute("type","submit"); 	 
+}////function showAddNewSpareSubmitButton()
+
+function showAddSpareSubmitButton()
+{
+	console.log("**********");
+	var addnewsparesubmitbutton= document.getElementById("addnewsparebutton");   	
+	addnewsparesubmitbutton.setAttribute("type","submit"); 	 
+}////function showAddNewSpareSubmitButton()
+
+
+
+
+</script>
  

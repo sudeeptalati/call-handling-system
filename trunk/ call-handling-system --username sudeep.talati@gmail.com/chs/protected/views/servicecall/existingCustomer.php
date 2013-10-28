@@ -201,21 +201,25 @@
 	
 	<tr><td colspan="6">
 		<?php //$model->previousCall($cust_id,$prod_id);?>
-		<table><tr>
-    	<th>Service Reference Number</th>
+	
+	
+	<table><tr>
+    	<th>Service Ref#</th>
+		<th>Product</th>
     	<th>Reported Date</th>
     	<th>Fault Description</th>
     	<th>Engineer Visited</th>
     	<th>Visit Date</th>
     	<th>Job Status</th>
     	</tr>
-    	<?php $previousCall = $model->previousCall($cust_id,$prod_id);
+    	<?php $previousCall = $model->previousCall($cust_id);
     	foreach ($previousCall as $data)
     	{
     		$enggdiaryModel=Enggdiary::model()->findByPk($data->engg_diary_id);
 		?>
 		<tr>
     		<td><?php echo CHtml::link($data->service_reference_number, array('view', 'id'=>$data->id));?></td>
+    		<td><?php echo "<b>".$data->product->productType->name."<b>";?></td>
     		<td><?php
     				if(!empty($data->fault_date)) 
     					echo date('d-M-Y', $data->fault_date);
@@ -231,6 +235,9 @@
     		</tr>
 		<?php }//end of foreach().?>
     	</table>
+
+	
+	
 	</td></tr>
 	
 	<!-- ******************* END OF PREVIOUS SERVICECALLS RECORD *************** -->

@@ -115,165 +115,17 @@ $baseUrl = Yii::app()->baseUrl;
 	</tr>  
 	-->
 	
-	<tr>
+
+	<tr><td colspan="2" style="text-align:center">
+		<h2>Service Call Details</h2>
+		</td>
+	</tr>
+		<tr>
 		<th><b>Job Status : </b> 
 		<h6 style="color:maroon"><?php echo $model->jobStatus->name; ?></h6></th>
 		<th >Service Ref. No.# <h1 style="color:green"><?php echo $model->service_reference_number;?></h1></th>
 		
 	</tr>
-	
-	<tr>
-		<td>
-			<h4>Customer Details</h4>
-			<small><?php echo CHtml::link('Edit Details',array('Customer/openDialog','customer_id'=>$customerModel->id, 'product_id'=>$productModel->id));?></small>
-		</td>
-		<td>
-			<h4>Product Details</h4>
-			<small><?php echo CHtml::link('Edit Details',array('Product/updateProduct','id'=>$productModel->id));?></small>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>
-			<?php echo $form->labelEx($customerModel,'fullname'); ?>
-			<br>
-			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
-			<?php echo $form->error($customerModel,'fullname'); ?>
-			
-			<?php echo "<br>Address";?>
-			<span id="opener"><img src="<?php echo $baseUrl;?>/images/maps.png" width="30px" height="30px"/></span><br> 
-			<?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
-			 
-			<!-- *********** GOOGLE MAP DISPLAY ***************** -->
-			<br>
-			
-			<div id="dialog" title="Google Map">
-			  <div id='map_div'></div>
-			</div>
-	
-	  	 	<script>
-
-				$.fx.speeds._default = 500;
-				$(function() {
-					$( "#dialog" ).dialog({
-						autoOpen: false,
-						show: "blind",
-						hide: "explode",
-						width: 470,
-						
-					});
-			
-					$( "#opener" ).click(function() 
-					{
-						$( "#dialog" ).dialog( "open" );
-						drawmap();
-						$("#map_div").load('DisplayMap', {'postcode':'<?php echo $customerModel->postcode; ?>'});
-						return false;
-					});
-				});
-				function drawmap()
-				{
-					console.info('I AM CA:LED');
-				}
-
-				
-			</script>
-			
-			<!-- *********** END OF GOOGLE MAP DISPLAY ***************** -->
-
-		  	<br>
-		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
-			<br>
-			<?php echo $form->textField($customerModel,'telephone',array('disabled'=>'disabled')); ?>
-			<?php echo $form->textField($customerModel,'mobile',array('disabled'=>'disabled')); ?>
-			<br>
-			<?php echo $form->labelEx($customerModel,'email'); ?>
-			<br>
-			<?php echo $form->textField($customerModel,'email',array('disabled'=>'disabled')); ?>
-			<br>
-			<?php echo $form->labelEx($customerModel,'notes'); ?>
-			<br>
-			<?php echo $form->textArea($customerModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
-		</td>
-		<td style="vertical-align:top;">
-			<table>
-			<tr>
-				<td style="vertical-align:top;">
-					<?php echo $form->labelEx($brandModel,'name'); ?><br>
-					<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
-					
-					<?php echo $form->labelEx($productTypeModel ,'name'); ?><br>
-					<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
-					
-					<?php //echo CHtml::textField('',$productType, array('disabled'=>'disabled')); ?>
-					
-					<br>
-					<?php echo $form->labelEx($productModel,'model_number'); ?><br>
-					<?php echo $form->textField($productModel,'model_number',array('disabled'=>'disabled')); ?>
-					<br>
-					<?php echo $form->labelEx($productModel,'serial_number'); ?><br>
-					<?php echo $form->textField($productModel,'serial_number',array('disabled'=>'disabled')); ?>
-					<br>
-					<?php echo $form->labelEx($productModel,'enr_number'); ?><br>
-					<?php echo $form->textField($productModel,'enr_number',array('disabled'=>'disabled')); ?>
-				</td>
-				<td style="vertical-align:top;">
-					<?php echo $form->labelEx($productModel,'purchased_from'); ?><br>
-					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
-					<br>
-					<?php $viewPurchaseDate='';
-							if(!empty($productModel->purchase_date)){
-								$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);
-							}
-						?>
-					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
-					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
-					<br>
-					<?php 	//$viewWarrantyDate='';
-							if (!empty($productModel->warranty_date))
-							{
-							$productModel->warranty_date=date('d-M-y', $productModel->warranty_date);
-							}
-							?>
-					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
-					<?php //echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
-					<?php echo $form->textField($productModel, 'warranty_date', array('disabled'=>'disabled'));?>
-					
-					<?php echo $form->labelEx($productModel,'warranty_until'); ?><br>
-					<?php 
-						echo CHtml::textField('Warranty Date',$res,  array('disabled'=>'disabled'));
-					?>
-					<br>
-					<?php echo $form->labelEx($productModel,'fnr_number'); ?><br>
-					<?php echo $form->textField($productModel,'fnr_number',array('disabled'=>'disabled')); ?>
-					
-				</td>
-				</tr>
-				<tr>
-					<td>
-						<?php 
-							if($productModel->discontinued == 0)
-								$discontinued_value = 'No';
-							else 
-								$discontinued_value = 'Yes';
-						?>
-						<?php echo $form->labelEx($productModel,'discontinued'); ?><br>
-						<?php //echo $form->textField($productModel,'discontinued',array('disabled'=>'disabled')); ?>
-						<?php echo CHtml::textField('', $discontinued_value, array('disabled'=>'disabled'));?>
-					</td>
-					<td colspan="2">
-						<?php echo $form->labelEx($productModel,'notes'); ?><br>
-						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>20)); ?>
-					</td>
-				</tr>
-				</table><!-- end of product table -->
-			</td>
-		</tr>
-<tr><td colspan="2" style="text-align:center">
-		<h2>Service Call Details</h2>
-		</td>
-	</tr>
-	
 	<tr>
 		<td>
 		<?php
@@ -423,16 +275,6 @@ $baseUrl = Yii::app()->baseUrl;
 			
 			<?php echo $form->labelEx($model,'comments'); ?><small>&nbsp;&nbsp;&nbsp;(not visible on call sheet)</small><br>
 			<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>	
-			<br><br>
-			
-			<?php 
-				if(!empty($model->job_payment_date))
-				{
-					$model->job_payment_date=date('d-M-y',$model->job_payment_date);
-				}
-				echo $form->labelEx($model,'job_payment_date');
-				echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled')); 
-			?>
 			<br>
 			<br>
 			<?php  
@@ -443,11 +285,217 @@ $baseUrl = Yii::app()->baseUrl;
 				}
 				echo $form->labelEx($model,'job_finished_date');
 				echo $form->textField($model,'job_finished_date', array('disabled'=>'disabled')); 
+			?><br><br>
+			
+			<?php 
+				if(!empty($model->job_payment_date))
+				{
+					$model->job_payment_date=date('d-M-y',$model->job_payment_date);
+				}
+				echo $form->labelEx($model,'job_payment_date');
+				echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled')); 
 			?>
+			
 			
 		</td>
 		
 	</tr>
+
+	<tr><td colspan="2" style="text-align:center">
+	<h3>Previous Service Calls </h3>
+	</td></tr>
+	<tr><td colspan="2" style="text-align:center">
+	<table><tr>
+    	<th>Service Ref#</th>
+		<th>Product</th>
+    	<th>Reported Date</th>
+    	<th>Fault Description</th>
+    	<th>Engineer Visited</th>
+    	<th>Visit Date</th>
+    	<th>Job Status</th>
+    	</tr>
+    	<?php $previousCall = $model->previousCall($model->customer_id);
+    	foreach ($previousCall as $data)
+    	{
+			if ($data->service_reference_number!=$model->service_reference_number)//////since we want to skip the current service call
+			{
+    		$enggdiaryModel=Enggdiary::model()->findByPk($data->engg_diary_id);
+		?>
+		<tr>
+    		<td><?php echo CHtml::link($data->service_reference_number, array('view', 'id'=>$data->id));?></td>
+    		<td><?php echo "<b>".$data->product->productType->name."<b>";?></td>
+    		<td><?php
+    				if(!empty($data->fault_date)) 
+    					echo date('d-M-Y', $data->fault_date);
+    			?>
+    		</td>
+    		<td><?php echo $data->fault_description;?></td>
+    		<td><?php echo $data->engineer->fullname;?></td>
+    		<td><?php
+    				if(!empty($enggdiaryModel->visit_start_date)) 
+    					echo date('d-M-Y',$enggdiaryModel->visit_start_date);?>
+    		</td>
+    		<td style="color:maroon"><?php echo $data->jobStatus->name;?></td>
+    		</tr>
+		<?php
+			}///end of if
+
+		}//end of foreach().?>
+    	</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h4>Customer Details</h4>
+			<small><?php echo CHtml::link('Edit Details',array('Customer/openDialog','customer_id'=>$customerModel->id, 'product_id'=>$productModel->id));?></small>
+		</td>
+		<td>
+			<h4>Product Details</h4>
+			<small><?php echo CHtml::link('Edit Details',array('Product/updateProduct','id'=>$productModel->id));?></small>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<?php echo $form->labelEx($customerModel,'fullname'); ?>
+			<br>
+			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
+			<?php echo $form->error($customerModel,'fullname'); ?>
+			
+			<?php echo "<br>Address";?>
+			<span id="opener"><img src="<?php echo $baseUrl;?>/images/maps.png" width="30px" height="30px"/></span><br> 
+			<?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+			 
+			<!-- *********** GOOGLE MAP DISPLAY ***************** -->
+			<br>
+			
+			<div id="dialog" title="Google Map">
+			  <div id='map_div'></div>
+			</div>
+	
+	  	 	<script>
+
+				$.fx.speeds._default = 500;
+				$(function() {
+					$( "#dialog" ).dialog({
+						autoOpen: false,
+						show: "blind",
+						hide: "explode",
+						width: 470,
+						
+					});
+			
+					$( "#opener" ).click(function() 
+					{
+						$( "#dialog" ).dialog( "open" );
+						drawmap();
+						$("#map_div").load('DisplayMap', {'postcode':'<?php echo $customerModel->postcode; ?>'});
+						return false;
+					});
+				});
+				function drawmap()
+				{
+					console.info('I AM CA:LED');
+				}
+
+				
+			</script>
+			
+			<!-- *********** END OF GOOGLE MAP DISPLAY ***************** -->
+
+		  	<br>
+		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
+			<br>
+			<?php echo $form->textField($customerModel,'telephone',array('disabled'=>'disabled')); ?>
+			<?php echo $form->textField($customerModel,'mobile',array('disabled'=>'disabled')); ?>
+			<br>
+			<?php echo $form->labelEx($customerModel,'email'); ?>
+			<br>
+			<?php echo $form->textField($customerModel,'email',array('disabled'=>'disabled')); ?>
+			<br>
+			<?php echo $form->labelEx($customerModel,'notes'); ?>
+			<br>
+			<?php echo $form->textArea($customerModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>40)); ?>
+		</td>
+		<td style="vertical-align:top;">
+			<table>
+			<tr>
+				<td style="vertical-align:top;">
+					<?php echo $form->labelEx($brandModel,'name'); ?><br>
+					<?php echo $form->textField($brandModel,'name', array('disabled'=>'disabled')); ?>
+					
+					<?php echo $form->labelEx($productTypeModel ,'name'); ?><br>
+					<?php echo $form->textField($productTypeModel,'name', array('disabled'=>'disabled')); ?>
+					
+					<?php //echo CHtml::textField('',$productType, array('disabled'=>'disabled')); ?>
+					
+					<br>
+					<?php echo $form->labelEx($productModel,'model_number'); ?><br>
+					<?php echo $form->textField($productModel,'model_number',array('disabled'=>'disabled')); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'serial_number'); ?><br>
+					<?php echo $form->textField($productModel,'serial_number',array('disabled'=>'disabled')); ?>
+					<br>
+					<?php echo $form->labelEx($productModel,'enr_number'); ?><br>
+					<?php echo $form->textField($productModel,'enr_number',array('disabled'=>'disabled')); ?>
+				</td>
+				<td style="vertical-align:top;">
+					<?php echo $form->labelEx($productModel,'purchased_from'); ?><br>
+					<?php echo $form->textField($productModel,'purchased_from', array('disabled'=>'disabled')); ?>
+					<br>
+					<?php $viewPurchaseDate='';
+							if(!empty($productModel->purchase_date)){
+								$viewPurchaseDate=date('d-M-y', $productModel->purchase_date);
+							}
+						?>
+					<?php echo $form->labelEx($productModel,'purchase_date'); ?><br>
+					<?php echo CHtml::textField('',$viewPurchaseDate,  array('disabled'=>'disabled')); ?>
+					<br>
+					<?php 	//$viewWarrantyDate='';
+							if (!empty($productModel->warranty_date))
+							{
+							$productModel->warranty_date=date('d-M-y', $productModel->warranty_date);
+							}
+							?>
+					<?php echo $form->labelEx($productModel,'warranty_date'); ?><br>
+					<?php //echo CHtml::textField('',$viewWarrantyDate,  array('disabled'=>'disabled')); ?>
+					<?php echo $form->textField($productModel, 'warranty_date', array('disabled'=>'disabled'));?>
+					
+					<?php echo $form->labelEx($productModel,'warranty_until'); ?><br>
+					<?php 
+						echo CHtml::textField('Warranty Date',$res,  array('disabled'=>'disabled'));
+					?>
+					<br>
+					<?php echo $form->labelEx($productModel,'fnr_number'); ?><br>
+					<?php echo $form->textField($productModel,'fnr_number',array('disabled'=>'disabled')); ?>
+					
+				</td>
+				</tr>
+				<tr>
+					<td>
+						<?php 
+							if($productModel->discontinued == 0)
+								$discontinued_value = 'No';
+							else 
+								$discontinued_value = 'Yes';
+						?>
+						<?php echo $form->labelEx($productModel,'discontinued'); ?><br>
+						<?php //echo $form->textField($productModel,'discontinued',array('disabled'=>'disabled')); ?>
+						<?php echo CHtml::textField('', $discontinued_value, array('disabled'=>'disabled'));?>
+					</td>
+					<td colspan="2">
+						<?php echo $form->labelEx($productModel,'notes'); ?><br>
+						<?php echo $form->textArea($productModel,'notes',array('disabled'=>'disabled', 'rows'=>4, 'cols'=>20)); ?>
+					</td>
+				</tr>
+				</table><!-- end of product table -->
+			</td>
+		</tr>
+
+		
+		
+	
+	
 	
 </table>
 <?php $this->endWidget(); ?>

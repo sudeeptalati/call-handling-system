@@ -387,9 +387,9 @@ class Servicecall extends CActiveRecord
     	return $result;
     }//end of updateStatus().
     
-    public function previousCall($customer_id,$product_id)
+    public function previousCall($customer_id)
     {
-    	$result = Servicecall::model()->findAllByAttributes(array('customer_id'=>$customer_id, 'product_id'=>$product_id));
+    	$result = Servicecall::model()->findAllByAttributes(array('customer_id'=>$customer_id));
     	return $result;
 
     }//end of previousCall().

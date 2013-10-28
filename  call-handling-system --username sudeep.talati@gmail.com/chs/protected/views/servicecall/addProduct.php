@@ -110,7 +110,7 @@
 				
 				<?php echo $form->labelEx($productModel,'brand_id'); ?>
 				<?php //echo $form->textField($model,'brand_id'); ?>
-				<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands(),  array('empty'=>array('1000000'=>'Not Known')));?>
+				<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands() );?>
 				<?php echo $form->error($productModel,'brand_id'); ?>
 				
 				<?php echo $form->labelEx($productModel,'model_number'); ?>

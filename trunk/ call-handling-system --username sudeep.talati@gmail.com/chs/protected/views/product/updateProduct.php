@@ -146,7 +146,7 @@
 			<?php 
 				if(!empty($model->purchase_date))
 				{
-					$model->purchase_date=date('d-m-Y');
+					$model->purchase_date=date('d-m-Y',$model->purchase_date );
 				}
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'purchase_date'),
@@ -170,7 +170,7 @@
 			<?php
 				 if(!empty($model->warranty_date))
 				{
-					$model->warranty_date=date('d-m-Y');
+					$model->warranty_date=date('d-m-Y', $model->warranty_date);
 				} 
 				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(

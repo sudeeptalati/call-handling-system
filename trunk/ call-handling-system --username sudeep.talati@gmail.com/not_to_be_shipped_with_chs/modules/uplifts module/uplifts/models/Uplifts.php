@@ -66,7 +66,7 @@ class Uplifts extends CActiveRecord
 			array('uplift_number, retailer_contact, retailer_phone,  visited_engineer_name, date_of_call, reason_for_uplift, model_number, serial_number, index_number, purchase_date, exchange_date, price, customer_claim_description, notes, created, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('serial_number', 'required'),
+			array('serial_number,prefix_id', 'required'),
 			array('serial_number', 'length', 'is'=>14, 'message'=>'{attribute}:should be of exact 14 charecters-numeric values only!'),
 			array('serial_number','unique','message'=>'{attribute}:{value} already exists!'),
 		
@@ -183,6 +183,7 @@ class Uplifts extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array( 'defaultOrder'=>'id DESC',),
 		));
 	}
 

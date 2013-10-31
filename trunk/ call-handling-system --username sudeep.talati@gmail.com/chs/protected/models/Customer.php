@@ -69,7 +69,7 @@ class Customer extends CActiveRecord
 		return array(
 			array('title, last_name, address_line_1, town, postcode_s, postcode_e', 'required'),
 			array('product_id, created_by_user_id', 'numerical', 'integerOnly'=>true),
-			array('first_name, address_line_2, address_line_3, country, mobile, email, fax, notes, modified, fullname, lockcode, model_number, serial_number', 'safe'),
+			array('first_name, address_line_2, address_line_3, country,telephone, mobile, email, fax, notes, modified, fullname, lockcode, model_number, serial_number', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, first_name, last_name, product_id, address_line_1, address_line_2, address_line_3, town, postcode, country, telephone, mobile, fax, email, notes, created_by_user_id, created, modified, fullname, postcode, model_number, serial_number, product_id, product_brand, product_type', 'safe', 'on'=>'search'),

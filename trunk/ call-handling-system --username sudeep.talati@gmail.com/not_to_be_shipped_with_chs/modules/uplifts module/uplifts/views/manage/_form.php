@@ -26,9 +26,7 @@
 <table class="first">
 <tr>
 	<td>	
-		<?php echo $form->labelEx($model,'prefix_id'); ?>
-		<?php echo $form->dropDownList($model, 'prefix_id', CHtml::listData(UpliftsNumberSeries::model()->findAll(array('order'=>"`id` ASC")), 'id', 'prefix'));?>
-		<?php echo $form->error($model,'prefix_id'); ?>
+ 	
 		<?php echo $form->labelEx($model,'date_of_call'); ?>
 		<?php //echo $form->textField($model,'date_of_call'); 
 			
@@ -140,6 +138,10 @@
 		<?php echo $form->labelEx($model,'retailer_id'); ?>
 		<?php //echo $form->dropDownList($model, 'retailer_id', CHtml::listData(RetailersAnddistributor_ids::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company'));
 				echo $form->dropDownList($model,'retailer_id',RetailersAndDistributors::model()->getListDataByType('RETAILER'), array('empty'=>array('1000000'=>'Not Known'))); ?>  <!-- 1000000 code is for RETAILERS --> 
+		
+		<a href="http://192.168.1.100/amica/chs/index.php?r=retailersAndDistributors/create" target="_blank">Add New Retailer</a>
+		
+		
 		<?php 	echo $form->error($model,'retailer_id'); ?>
 	</td>
 	<td>
@@ -272,7 +274,14 @@
 
 
 
-<tr><td colspan="3">
+<tr>
+
+	<td><?php echo $form->labelEx($model,'prefix_id'); ?>
+		<?php echo $form->dropDownList($model, 'prefix_id', CHtml::listData(UpliftsNumberSeries::model()->findAll(array('order'=>"`id` ASC")), 'id', 'prefix'),array('empty'=>array(''=>'Please Select')));?>
+		<?php echo $form->error($model,'prefix_id'); ?>
+		
+		</td>
+<td colspan="2">
 <?php echo CHtml::submitButton($model->isNewRecord ? 'Generate the Uplift Number' : 'Save'); ?>
 	</td>
 	</tr>

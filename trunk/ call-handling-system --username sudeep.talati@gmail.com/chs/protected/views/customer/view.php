@@ -45,7 +45,7 @@ $user=$customerModel->createdByUser->username;
 $brand=$productModel->brand->name;
 $type=$productModel->productType->name;
 $contract=$productModel->contract->name;
-$engineer=$productModel->engineer->fullname;
+$engineer=$productModel->engineer->company.','.$productModel->engineer->fullname;
 $productUser=$productModel->createdByUser->username;
 
 

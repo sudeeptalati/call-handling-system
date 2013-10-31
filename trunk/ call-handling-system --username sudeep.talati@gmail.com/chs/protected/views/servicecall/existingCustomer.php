@@ -226,7 +226,7 @@
     			?>
     		</td>
     		<td><?php echo $data->fault_description;?></td>
-    		<td><?php echo $data->engineer->fullname;?></td>
+    		<td><?php echo $data->engineer->company.', '.$data->engineer->company;?></td>
     		<td><?php
     				if(!empty($enggdiaryModel->visit_start_date)) 
     					echo date('d-M-Y',$enggdiaryModel->visit_start_date);?>

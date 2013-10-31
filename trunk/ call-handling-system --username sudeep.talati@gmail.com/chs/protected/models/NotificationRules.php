@@ -489,7 +489,7 @@ class NotificationRules extends CActiveRecord
 			//echo "<br>Customer Name = ".$serviceDetailsModel->customer->fullname;
 			$customer_name = $serviceDetailsModel->customer->fullname;
 			//echo "<br>Engineer Name = ".$serviceDetailsModel->engineer->fullname;
-			$engineer_name = $serviceDetailsModel->engineer->fullname;
+			$engineer_name = $serviceDetailsModel->engineer->company.', '.$serviceDetailsModel->engineer->fullname;
 				
 			$jobStatusModel = JobStatus::model()->findByPk($status_id);
 			//echo "<br>Status id from job model = ".$jobStatusModel->name;

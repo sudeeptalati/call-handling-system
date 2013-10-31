@@ -153,7 +153,7 @@ $baseUrl = Yii::app()->baseUrl;
 	
 		<table><tr><td>
 		Engineer Visit Date	<br>
-			<b><i><?php 	echo $model->engineer->fullname;?></i></b>
+			<b><i><?php 	echo $model->engineer->company;?></i></b>
 		<?php 	 
 				//echo $form->labelEx($enggDiaryModel,'visit_start_date').'<br>';	
 				$viewVisitStartDate='';
@@ -330,7 +330,7 @@ $baseUrl = Yii::app()->baseUrl;
     			?>
     		</td>
     		<td><?php echo $data->fault_description;?></td>
-    		<td><?php echo $data->engineer->fullname;?></td>
+    		<td><?php echo $data->engineer->company.', '.$data->engineer->fullname;?></td>
     		<td><?php
     				if(!empty($enggdiaryModel->visit_start_date)) 
     					echo date('d-M-Y',$enggdiaryModel->visit_start_date);?>

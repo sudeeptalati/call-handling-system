@@ -15,7 +15,7 @@ $servicecallModel = Servicecall::model()->findByPk($service_id);
 <center>
  	<b>
  		Changing Engineer for service call no :<?php echo $servicecallModel->service_reference_number;?>
- 		<br>Current Engineer : <?php echo $servicecallModel->engineer->fullname;?>
+ 		<br>Current Engineer : <?php echo $servicecallModel->engineer->company.",".$servicecallModel->engineer->fullname.;?>
  	</b>
  </center>
  

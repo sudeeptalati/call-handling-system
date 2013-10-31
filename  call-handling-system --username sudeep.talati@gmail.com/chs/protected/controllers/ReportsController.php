@@ -122,7 +122,7 @@ class ReportsController extends Controller
 				<td><?php echo $data->customer->fullname;?></td>
 				<td><?php echo $data->customer->town;?></td>
 				<td><?php echo $data->customer->postcode;?></td>
-				<td><?php echo $data->engineer->fullname;?></td>
+				<td><?php echo $data->engineer->company.', '.$data->engineer->fullname;?></td>
 				
 			</tr>
         

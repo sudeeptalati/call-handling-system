@@ -215,7 +215,7 @@ vertical-align:top;
 			
 			<?php echo $form->labelEx($model,'engineer_id'); ?>
 			 
-			<?php echo $form->textField($engineerModel, 'fullname', array('disabled'=>'disabled'));?>
+			<?php echo $form->textField($engineerModel, 'company', array('disabled'=>'disabled'));?>
 			<?php echo $form->error($model,'engineer_id'); ?>
 			<?php echo CHtml::link('Change Engineer', array('servicecall/changeEngineerOnly/', 'service_id'=>$model->id));
 					?>
@@ -658,7 +658,7 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
     			?>
     		</td>
     		<td><?php echo $data->fault_description;?></td>
-    		<td><?php echo $data->engineer->fullname;?></td>
+    		<td><?php echo $data->engineer->company.','.$data->engineer->fullname;?></td>
     		<td><?php
     				if(!empty($enggdiaryModel->visit_start_date)) 
     					echo date('d-M-Y',$enggdiaryModel->visit_start_date);?>

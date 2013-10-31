@@ -238,7 +238,7 @@ class Servicecall extends CActiveRecord
         		 
         	if($this->isNewRecord)  // Creating new record 
             {
-				$this->created_by_user_id="1";
+				$this->created_by_user_id=Yii::app()->user->id; 
         		$this->created=time();
 				$this->activity_log="Service status is changed to booked by ".$this->createdByUser->username." on ".date('d-M-Y', time()).".\n";
         	
@@ -450,7 +450,7 @@ class Servicecall extends CActiveRecord
 			$criteria=new CDbCriteria();
 			//$criteria->condition = 'engineer_id='.$engg_id;
 			$criteria->condition = 'job_status_id='.$status_id;
-			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+			$criteria->addCondition('job_payment_date BETWEEN :from_date AND :to_date');
 			$criteria->params = array(
 			  ':from_date' => $from_date,
 			  ':to_date' => $to_date,
@@ -468,7 +468,7 @@ class Servicecall extends CActiveRecord
 			$criteria=new CDbCriteria();
 			$criteria->condition = 'engineer_id='.$engg_id;
 			//$criteria->addCondition('job_status_id='.$status_id);
-			$criteria->addCondition('fault_date BETWEEN :from_date AND :to_date');
+			$criteria->addCondition('job_payment_date BETWEEN :from_date AND :to_date');
 			$criteria->params = array(
 			  ':from_date' => $from_date,
 			  ':to_date' => $to_date,

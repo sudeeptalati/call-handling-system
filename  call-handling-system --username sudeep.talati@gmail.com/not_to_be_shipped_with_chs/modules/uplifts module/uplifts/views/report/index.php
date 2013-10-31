@@ -150,7 +150,7 @@ function callme()
 var divdata=document.getElementById("kruthikaxls").innerHTML;
 console.log(divdata);
 var dynxls=document.getElementById("dynamicxls");
-var xlsdata="data:application/csv;charset=utf-8,"+divdata;
+var xlsdata="data:text/html;charset=utf-8,"+divdata;
 dynxls.setAttribute('href',xlsdata );
 }
 </script>
@@ -289,7 +289,7 @@ dynxls.setAttribute('href',xlsdata );
 <div id="kruthikaxls">
 <?php echo $excel_data; ?>
 </div>
-<a download="<?php echo $excel_filename?>" href="data:application/csv;charset=utf-8,<?php echo $excel_data; ?>">Export to Excel</a>
+<a download="<?php echo $excel_filename?>" href="data:text/html;charset=utf-8,<?php echo $excel_data; ?>">Export to Excel</a>
 </div><!-- END OF DIV Container -->
  
  

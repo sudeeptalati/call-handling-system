@@ -343,7 +343,7 @@ vertical-align:top;
 						?>
 						<tr>
 						<td colspan="3"><?php echo $form->labelEx($model,'total_cost'); ?> </td>
-						<td  colspan="2" style="text-align:right;"   >
+						<td  colspan="2" style="text-align:right;">
 						<?php 
 								echo CHtml::textField('',$model->total_cost, array('disabled'=>'disabled','size'=>'10' , 'style'=>'text-align:right'));
 								echo $form->textField($model,'total_cost', array('hidden'=>'hidden','size'=>'10' , 'style'=>'text-align:right'));
@@ -354,10 +354,9 @@ vertical-align:top;
 						
 						<tr>
 						<td colspan="3"><?php echo $form->labelEx($model,'vat_on_total'); ?> </td>
-						<td  colspan="2" style="text-align:right;"   ><?php echo $form->textField($model,'vat_on_total', array('size'=>'10' , 'style'=>'text-align:right')); ?></td>
+						<td  colspan="2" style="text-align:right;"><?php echo $form->textField($model,'vat_on_total', array('size'=>'10' , 'style'=>'text-align:right')); ?></td>
 						<td><?php echo $form->error($model,'vat_on_total'); ?></td>	
 						</tr>
-						
 						
 						<?php 
 						
@@ -380,7 +379,6 @@ vertical-align:top;
 				?>
 				
 				<!-- ****** END OF CODE TO DISPLAY SPARES ALREADY USED ******* -->
-				
 				
 				<!-- ***** CODE TO GET THE FREES SEARCH OF MASTER DATABASE **** -->
 				

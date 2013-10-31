@@ -218,12 +218,6 @@ class Servicecall extends CActiveRecord
 		));
 		
 		
-		
- 
-
-
-
-		
 	}//end of search().
 	
 	protected function beforeSave()
@@ -231,7 +225,7 @@ class Servicecall extends CActiveRecord
     	if(parent::beforeSave())
         {
         	
-        	$this->net_cost=$this->total_cost+$this->vat_on_total;
+        	$this->net_cost = $this->total_cost+$this->vat_on_total;
         	$this->job_payment_date=strtotime($this->job_payment_date);
         	$this->job_finished_date=strtotime($this->job_finished_date);
         	$this->fault_date=strtotime($this->fault_date);

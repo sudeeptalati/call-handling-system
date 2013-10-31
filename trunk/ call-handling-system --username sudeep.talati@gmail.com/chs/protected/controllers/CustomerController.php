@@ -104,12 +104,14 @@ class CustomerController extends Controller
 				
 				//**** END OF GETTING PHONE NUMBER FROM FORM *****
 				
+				
 				if($model->save())
 				{
 					$this->redirect(array('view','id'=>$model->id));
 				}
 				
-			}
+				
+			}//end of if model valid.
 // 			else 
 // 			{
 // 				echo "Enter all mandatory fields of Products";
@@ -171,14 +173,17 @@ class CustomerController extends Controller
 						//echo "<br>Mobile no after adding code = ".$model->mobile;
 						
 					}//end of if ($mobile_number != '')
+					
 				}//end of if(isset(['hidden_code_val'])), getting mobile no with calling code.
 				
 				
 				//******* END OF GETTING PHONE NUMBER FROM FORM ********
 				
+				
 				if($model->save())
 					$this->redirect(array('viewProduct','customer_id'=>$model->id, 'product_id'=>$model->product_id));
-			}
+					
+			}//end of model validate.
 			
 		}//end of if(isset()).
 

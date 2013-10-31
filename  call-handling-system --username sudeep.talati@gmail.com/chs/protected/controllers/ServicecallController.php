@@ -275,6 +275,9 @@ $mpdf->Output($filename,'I');
 	{
 		$model=$this->loadModel($id);
 		
+		$previous_status_id = $model->job_status_id;
+		//echo "<br>Id before getting form values = ".$previous_status_id;
+		
 		$response = '';
 		
 		// Uncomment the following line if AJAX validation is needed
@@ -285,14 +288,10 @@ $mpdf->Output($filename,'I');
 		{ 
 			if(isset($_POST['Servicecall']))
 			{
-				//echo "I M HERE<br>";
-				
-				$previous_status_id = $model->job_status_id;
-				//echo "<br>Id before getting form values = ".$previous_status_id;
-				
 				$model->attributes=$_POST['Servicecall'];
-// 				echo "Contract id in update cntl = ".$model->contract_id;
-// 				echo "<br>Contract id of product, Imust chamge this = ".$model->product->contract_id;
+				
+				//echo "Contract id in update cntl = ".$model->contract_id;
+				//echo "<br>Contract id of product, Imust chamge this = ".$model->product->contract_id;
 				$product_id = $model->product_id;
 				
 				$productModel = Product::model()->updateByPk($product_id, 
@@ -307,7 +306,7 @@ $mpdf->Output($filename,'I');
 				{
 					//echo "<br>Status Changed....";
 					$internet_connection = '';
-					/**** CHECKING IF CONNECT TO INTERNET IS ENABLED OR NOT ****/
+					//**** CHECKING IF CONNECT TO INTERNET IS ENABLED OR NOT ****
 					$advancedModel = AdvanceSettings::model()->findAllByAttributes(array('parameter'=>'internet_connected'));
 					foreach ($advancedModel as $data)
 					{
@@ -322,6 +321,7 @@ $mpdf->Output($filename,'I');
 					}
 				}//END of IF(status change).
 				
+				
 				if($model->save())
 				{
 					$this->redirect(array('view','id'=>$model->id ));
@@ -331,16 +331,16 @@ $mpdf->Output($filename,'I');
 				{
 					//echo "<br>Not Save";
 				}
-
-			}//end of if(isset()).
-		
+				
+			}//end of if(isset(Servicecall)).
+			
 		}/////end of if( $model->job_status_id < 100 )
 		else 
 		{
 			//$this->redirect(array('view', array('id'=>$model->id, 'notify_response'=>$response)));
 			$this->redirect(array('view','id'=>$model->id));
 		}
-	
+		
 		$this->render('updateServicecall',array('model'=>$model));
 	}//end of update().
 

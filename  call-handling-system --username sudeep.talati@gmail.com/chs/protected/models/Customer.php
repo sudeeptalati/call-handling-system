@@ -228,8 +228,7 @@ class Customer extends CActiveRecord
         	
         	if($this->isNewRecord)  // Creating new record 
             {
-        		//$this->created_by_user_id=Yii::app()->user->id;
-        		$this->created_by_user_id="1";
+        		$this->created_by_user_id=Yii::app()->user->id;
         		
         		/******CHECKING WHETHER CUSTOMER IS CREATED FROM CREATE OF CUSTOMER*/
         		if($this->lockcode == '0')

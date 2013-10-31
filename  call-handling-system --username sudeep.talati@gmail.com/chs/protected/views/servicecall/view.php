@@ -3,10 +3,6 @@
 $baseUrl = Yii::app()->baseUrl; 
  
 ?>
-
- 
-
-	
  
 
 <link type="text/css" href="<?php echo $baseUrl;?>/css/dialoguebox/smoothness/jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	

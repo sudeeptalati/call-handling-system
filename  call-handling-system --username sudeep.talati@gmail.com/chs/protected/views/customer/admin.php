@@ -71,6 +71,7 @@ $('.search-form form').submit(function(){
 			//'name'=>'',
 			'type' => 'raw',
 			'value' => 'CHtml::link("Add another product",array("product/addProduct", "id"=>$data->id))',
+			
 		),
 	),
 )); 

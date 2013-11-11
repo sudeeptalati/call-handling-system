@@ -11,7 +11,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'company'); ?>
-		<?php echo $form->textArea($model,'company',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'company',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'company'); ?>
 	</div>
 
@@ -31,28 +31,22 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'town'); ?>
-		<?php echo $form->textArea($model,'town',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'town',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'town'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'postcode'); ?>
-		<?php echo $form->textArea($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'postcode'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'telephone'); ?>
-		<?php echo $form->textArea($model,'telephone',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'telephone',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'telephone'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
+ 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

@@ -137,7 +137,25 @@
 		<table>
 		<tr>
 			<?php echo $form->labelEx($model,'purchased_from'); ?>
-			<?php echo $form->textField($model,'purchased_from',array('rows'=>6, 'cols'=>50)); ?>
+			<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+				    'model'=>$model,
+				    'attribute'=>'purchased_from',
+				    //'source'=>$this->createUrl('jui/autocompleteTest'),
+				    //'source'=>array('ac1', 'ac2', 'ac3', 'b1', 'ba', 'ba34', 'ba33'),
+				    'source'=>RetailersAndDistributors::model()->getAllRetailersAndDistributorsNamesArray(),
+				    // additional javascript options for the autocomplete plugin
+				    'options' => array(
+					    'showAnim' => 'fold',
+					    //'select' => 'js:function(event, ui){ alert(ui.item.value) }',
+					),
+					'htmlOptions' => array(
+						'style'=>'height:20px;',
+					   // 'onClick' => 'document.getElementById("test1_id").value=""'
+					),
+				    'cssFile'=>false,
+				));
+				
+				?>
 			<?php echo $form->error($model,'purchased_from'); ?>
 		</tr>
 		<tr>

@@ -1,15 +1,14 @@
-<?php
-$this->breadcrumbs=array(
-	'Retailers And Distributors'=>array('index'),
-	'Create',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List RetailersAndDistributors', 'url'=>array('index')),
-	array('label'=>'Manage RetailersAndDistributors', 'url'=>array('admin')),
-);
-?>
+ <h1>Retailers & Distributors</h1>
+ 
 
-<h1>Create RetailersAndDistributors</h1>
-
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Retailers  & Distributors',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New ',array('create')); ?></li>
+</div>
+ 
+ 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

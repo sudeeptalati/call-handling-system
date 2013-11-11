@@ -1,4 +1,4 @@
-<h1>Manage Customers</h1>
+<h1>Merge Customers</h1>
 
 <?php
 
@@ -30,11 +30,11 @@ if(isset($_GET['merged']))
 				'value' => 'CHtml::link($data->fullname, array("default/selectedPostcodeCustomers&primary_id=".$data->id."&postcode=".$data->postcode))',
 		 		'type'=>'raw',
         ),
-		'fullname',
+		//'fullname',
 		'town',
 		'postcode',
-		array('name'=>'product_brand','value'=>'$data->product->brand->name'),
-		array('name'=>'product_type','value'=>'$data->product->productType->name'),
+		array('name'=>'product_brand','value'=>'$data->product->brand->name', 'filter'=>false),
+		array('name'=>'product_type','value'=>'$data->product->productType->name', 'filter'=>false),
 		array('name'=>'model_number','value'=>'$data->product->model_number'),
 		array('name'=>'serial_number','value'=>'$data->product->serial_number'),
 		array('name'=>'created', 'value'=>'date("d-M-Y",$data->created)', 'filter'=>false),

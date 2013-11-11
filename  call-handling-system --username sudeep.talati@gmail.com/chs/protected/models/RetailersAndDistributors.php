@@ -65,8 +65,8 @@ class RetailersAndDistributors extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'company' => 'Company',
-			'companytype' => 'Companytype',
+			'company' => 'Company Name	',
+			'companytype' => 'Company Type',
 			'address' => 'Address',
 			'town' => 'Town',
 			'postcode' => 'Postcode',
@@ -97,6 +97,10 @@ class RetailersAndDistributors extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			//'pagination'=>false,
+			'sort'=>array(
+							'defaultOrder'=>'id DESC',
+							),
 		));
 	}
 	

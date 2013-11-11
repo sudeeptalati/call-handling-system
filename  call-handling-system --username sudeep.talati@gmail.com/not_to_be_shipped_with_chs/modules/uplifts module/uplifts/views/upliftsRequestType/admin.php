@@ -18,8 +18,12 @@ $this->menu=array(
 		'name',
 		'info',
 		'created',
+		
 		array(
-			'class'=>'CButtonColumn',
+		'class'=>'CButtonColumn',
+		'template'=>'{view}{update}',
 		),
+	
+	
 	),
 )); ?>

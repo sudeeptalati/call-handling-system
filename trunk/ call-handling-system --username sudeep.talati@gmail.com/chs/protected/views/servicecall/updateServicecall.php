@@ -602,7 +602,10 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 				<?php echo $form->labelEx($model,'job_payment_date'); ?>
 
 				<?php 
-				
+					if (!empty($model->job_payment_date))
+					{
+						$model->job_payment_date=date('j-M-y', $model->job_payment_date);
+					}
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'job_payment_date'),
 					'model'=>$model,

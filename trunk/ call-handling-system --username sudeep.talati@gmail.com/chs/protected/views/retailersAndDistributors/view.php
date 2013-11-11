@@ -1,30 +1,28 @@
-<?php
-$this->breadcrumbs=array(
-	'Retailers And Distributors'=>array('index'),
-	$model->id,
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List RetailersAndDistributors', 'url'=>array('index')),
-	array('label'=>'Create RetailersAndDistributors', 'url'=>array('create')),
-	array('label'=>'Update RetailersAndDistributors', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete RetailersAndDistributors', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage RetailersAndDistributors', 'url'=>array('admin')),
-);
-?>
+ <h1>Retailers & Distributors</h1>
+ 
 
-<h1>View RetailersAndDistributors #<?php echo $model->id; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Retailers  & Distributors',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New ',array('create')); ?></li>
+</div>
+
+<br>
+<h4>  <?php echo $model->company; ?></h4>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
+		///'id',
 		'company',
 		'companytype',
 		'address',
 		'town',
 		'postcode',
 		'telephone',
-		'created',
+		//'created',
 	),
 )); ?>

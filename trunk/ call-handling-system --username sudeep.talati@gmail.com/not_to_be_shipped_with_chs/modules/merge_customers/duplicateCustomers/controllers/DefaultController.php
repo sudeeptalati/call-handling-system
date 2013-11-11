@@ -4,7 +4,8 @@ class DefaultController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		$this->redirect(array('default/getAllCustomers'));
+		
 	}
 	
 	public function actionGetAllCustomers()

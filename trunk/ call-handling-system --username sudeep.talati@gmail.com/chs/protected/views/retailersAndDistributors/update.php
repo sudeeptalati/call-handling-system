@@ -1,18 +1,14 @@
-<?php
-$this->breadcrumbs=array(
-	'Retailers And Distributors'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-$this->menu=array(
-	array('label'=>'List RetailersAndDistributors', 'url'=>array('index')),
-	array('label'=>'Create RetailersAndDistributors', 'url'=>array('create')),
-	array('label'=>'View RetailersAndDistributors', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage RetailersAndDistributors', 'url'=>array('admin')),
-);
-?>
+ <h1>Retailers & Distributors</h1>
+ 
 
-<h1>Update RetailersAndDistributors <?php echo $model->id; ?></h1>
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Retailers  & Distributors',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New ',array('create')); ?></li>
+</div>
+<h1>Update Retailers & Distributors <?php echo $model->company; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

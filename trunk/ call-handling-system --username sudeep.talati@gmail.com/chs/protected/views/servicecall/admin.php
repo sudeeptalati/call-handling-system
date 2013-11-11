@@ -93,6 +93,12 @@ $('.search-form form').submit(function(){
 			'class'=>'CButtonColumn',
 			'template'=>'{update}',
 		),
+		array(	 
+		'header'=>'Raise a new Servicecall',
+		'value' => 'CHtml::link("RAISE A NEW CALL", array("Servicecall/existingCustomer","customer_id"=>$data->customer_id,"product_id"=>$data->product_id))',
+		'type'=>'raw',
+		),
+		
 	),
 ));
 

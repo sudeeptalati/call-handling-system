@@ -1,0 +1,3 @@
+C:/xampp/setup_xampp.bat
+C:/xampp/xampp-control.exe
+C:/xampp/call-handling.lnk

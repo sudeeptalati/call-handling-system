@@ -87,7 +87,7 @@ class ModelNumbers extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('model_number',$this->model_number,true);
-		$criteria->compare('brand_id',$this->brand_id);
+		$criteria->compare('brand.name',$this->brand_id);
 		$criteria->compare('product_type_id',$this->product_type_id);
 
 		return new CActiveDataProvider($this, array(

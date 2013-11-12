@@ -1,10 +1,14 @@
- <div id="sidemenu">             
+<div id="sidemenu">             
 <?php include('setup_sidemenu.php'); ?>   
 </div>
-
-
-
 <h1>View Brand #<?php echo $model->name; ?></h1>
+ 
+
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage Brands',array('admin')); ?></li>
+<li><?php echo CHtml::link('Add New Brand',array('create')); ?></li>
+</div>
+
 
 
 <div style="text-align:right;" >

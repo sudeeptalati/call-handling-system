@@ -102,7 +102,7 @@ $result = $db->query($serviceSql);
 ////////////// CREATE RETAILER & DISTRIBUTOR TABLE TABLE ////////
 $retailer_distributor_sql = 'CREATE TABLE retailers_and_distributors(id INTEGER PRIMARY KEY NOT NULL, company TEXT, companytype TEXT, contact_person TEXT, address TEXT, town TEXT, postcode TEXT, telephone TEXT, created DATETIME)';
 $result = $db->query('DROP TABLE IF EXISTS retailers_and_distributors');
-$result = $db->query($serviceSql);
+$result = $db->query($retailer_distributor_sql);
 $result = $db->query("INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000000','Not Known','RETAILER','Not Known',NULL,NULL,NULL,NULL,NULL)");
 $result = $db->query("INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000001','Not Known','DISTRIBUTOR','Not Known',NULL,NULL,NULL,NULL,NULL)");
 

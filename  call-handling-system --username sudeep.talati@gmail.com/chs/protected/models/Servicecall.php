@@ -207,7 +207,7 @@ class Servicecall extends CActiveRecord
 		$criteria->compare('closed',$this->closed,true);
 		$criteria->compare('recalled_job',$this->recalled_job, true);
 		$criteria->compare('activity_log',$this->activity_log, true);
-		$criteria->compare('work_summary',$this->work_summary, true);
+		//$criteria->compare('work_summary',$this->work_summary, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -141,8 +141,8 @@
 				    'model'=>$model,
 				    'attribute'=>'purchased_from',
 				    //'source'=>$this->createUrl('jui/autocompleteTest'),
-				    //'source'=>array('ac1', 'ac2', 'ac3', 'b1', 'ba', 'ba34', 'ba33'),
-				    'source'=>RetailersAndDistributors::model()->getAllRetailersAndDistributorsNamesArray(),
+				    'source'=>array('Talati Electric Works Pvt. Ltd'),
+				    //'source'=>RetailersAndDistributors::model()->getAllRetailersAndDistributorsNamesArray(),
 				    // additional javascript options for the autocomplete plugin
 				    'options' => array(
 					    'showAnim' => 'fold',

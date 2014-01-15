@@ -255,11 +255,40 @@ $baseUrl = Yii::app()->baseUrl;
 					<?php echo $form->textField($model,'vat_on_total', array('disabled'=>'disabled')); ?>
 					</td>
 				</tr>
-				<tr><td>
+				<tr>
+					<td>
 					<?php echo $form->labelEx($model,'net_cost'); ?>
 					</td>
 					<td>
 					<?php echo $form->textField($model,'net_cost', array('disabled'=>'disabled')); ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<?php
+						if(!empty($model->job_finished_date))
+						{
+							$model->job_finished_date=date('d-M-y',$model->job_finished_date);
+						}
+					?>
+					<?php echo $form->labelEx($model,'job_finished_date'); ?>
+					</td>
+					<td>
+					<?php echo $form->textField($model,'job_finished_date', array('disabled'=>'disabled')); ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<?php
+						if(!empty($model->job_payment_date))
+						{
+							$model->job_payment_date=date('d-M-y',$model->job_payment_date);
+						}
+					?>
+					<?php echo $form->labelEx($model,'job_payment_date'); ?>
+					</td>
+					<td>
+					<?php echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled'));?>
 					</td>
 				</tr>
 			</table>
@@ -272,25 +301,9 @@ $baseUrl = Yii::app()->baseUrl;
 			<?php echo $form->labelEx($model,'comments'); ?><small>&nbsp;&nbsp;&nbsp;(not visible on call sheet)</small><br>
 			<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>33, 'disabled'=>'disabled')); ?>	
 			<br>
-			<br>
-			<?php  
- 
-				if(!empty($model->job_finished_date))
-				{
-					$model->job_finished_date=date('d-M-y',$model->job_finished_date);
-				}
-				echo $form->labelEx($model,'job_finished_date');
-				echo $form->textField($model,'job_finished_date', array('disabled'=>'disabled')); 
-			?><br><br>
 			
-			<?php 
-				if(!empty($model->job_payment_date))
-				{
-					$model->job_payment_date=date('d-M-y',$model->job_payment_date);
-				}
-				echo $form->labelEx($model,'job_payment_date');
-				echo $form->textField($model,'job_payment_date', array('disabled'=>'disabled')); 
-			?>
+			<?php echo $form->labelEx($model,'work_summary'); ?>
+			<?php echo $form->textArea($model,'work_summary',array('rows'=>3, 'cols'=>33, 'disabled'=>'disabled')); ?>	
 			
 			
 		</td>
@@ -391,7 +404,7 @@ $baseUrl = Yii::app()->baseUrl;
 				});
 				function drawmap()
 				{
-					console.info('I AM CA:LED');
+					console.info('I AM CALLED');
 				}
 
 				

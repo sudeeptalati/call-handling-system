@@ -8,7 +8,6 @@
 <style type="text/css">
 td
 {
-
 vertical-align:top;
 }
 </style>
@@ -624,7 +623,23 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 				<?php //echo $form->textField($model,'job_payment_date'); ?>
 				<?php echo $form->error($model,'job_payment_date'); ?>
 				
+				<?php echo $form->labelEx($model,'work_summary'); ?>
+				<?php //echo $form->textField($model,'work_summary',array('rows'=>6, 'cols'=>50)); ?>
 				
+				<?php 
+					$works_array = array();
+					array_push($works_array, '');
+					array_push($works_array, 'RETURNED WITH ENGINEER VISIT');
+					array_push($works_array, 'RETURNED WITHOUT ENGINEER VISIT');
+					array_push($works_array, 'REPAIRED');
+					array_push($works_array, 'CALL AVOIDANCE ENGINEER');
+					array_push($works_array, 'CANCELLED');
+					array_push($works_array, 'SPARES ONLY');
+					array_push($works_array, 'CALL AVOIDANCE CC');
+					array_push($works_array, 'CUSTOMER CHARGED');
+					array_push($works_array, 'NOT KNOWN');
+				?>
+				<?php 	echo $form->dropDownList($model,'work_summary', array_combine($works_array,$works_array)); ?>
 				
 			</td>
 			

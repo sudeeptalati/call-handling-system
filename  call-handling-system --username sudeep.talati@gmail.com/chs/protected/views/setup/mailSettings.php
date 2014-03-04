@@ -96,39 +96,7 @@ $data = file_get_contents($filename);
 	
 ?>
 
-<!-- ***** SAVING VALUES TO JSON FILE ********* -->
-
-<?php 
-
-/*	
-	
-	if(file_exists($filename))
-	{
-		//echo "File is present<br>";
- 		$data = file_get_contents($filename);
- 		$decodedata = json_decode($data, true);
- 		
-		$decodedata['smtp_host'] = $smtp_host;
-		$decodedata['smtp_username'] = $smtp_username;
-		$decodedata['smtp_password'] = $smtp_password;
-		$decodedata['smtp_encryption'] = $smtp_encryption;
-		$decodedata['smtp_port'] = $smtp_port;
-		
-		$fh = fopen($filename, 'w');
-  		fwrite($fh, json_encode($decodedata));
-  		fclose($fh);
-		
-	}//end of if file present.
-	
-	else 
-	{
-		echo "file not present";
-	}
-	
-	
-	*/
-
-?>
+ 
 
 
 <!-- ***** END OF SAVING VALUES TO JSON FILE ********* -->
@@ -198,6 +166,14 @@ $data = file_get_contents($filename);
 
 	
 <?php $this->endWidget(); ?>
+
+
+
+<div style="float: right; margin-top: -278px;">
+	<?php
+	$this->renderPartial('sendTestEmail');
+	?>
+</div><!-- END OF TEST EMAIL -->
 
 </div><!-- form -->
 

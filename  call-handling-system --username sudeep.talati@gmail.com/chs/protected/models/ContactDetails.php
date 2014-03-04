@@ -62,6 +62,7 @@ class ContactDetails extends CActiveRecord
 		return array(
 			array('address_line_1, town,  telephone, email,  postcode_s, postcode_e', 'required'),
 			array('address_line_2, address_line_3, country, latitudes, longitudes, mobile, fax, website', 'safe'),
+			array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, address_line_1, address_line_2, address_line_3, town, postcode, country, latitudes, longitudes, mobile, telephone, fax, email, website, created', 'safe', 'on'=>'search'),

@@ -40,6 +40,7 @@ class RetailersAndDistributors extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('id, company,companytype ', 'required'),
 			array('company, companytype, address, town, postcode, telephone, created', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

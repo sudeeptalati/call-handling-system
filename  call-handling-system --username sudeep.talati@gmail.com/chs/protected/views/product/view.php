@@ -1,11 +1,7 @@
 <?php
-$this->breadcrumbs=array(
-	'Products'=>array('index'),
-	$model->id,
-);
-
+ 
 $this->menu=array(
-	array('label'=>'Manage Product', 'url'=>array('admin')),
+	array('label'=>'Manage Customers', 'url'=>array('/customer/admin')),
 );
 ?>
 

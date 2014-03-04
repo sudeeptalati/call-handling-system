@@ -53,8 +53,9 @@ class Setup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company, postcode_s, postcode_e, address, telephone', 'required'),
+			array('company, postcode_s, postcode_e, address, email, telephone', 'required'),
 			array('company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, postcode, version_update_url, backup_location', 'safe'),
+			array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, company, address, town, postcode_s, postcode_e, county, country, email, telephone, mobile, alternate, fax, postcodeanywhere_account_code, postcodeanywhere_license_key, website, vat_reg_no, company_number, postcode, version_update_url', 'safe', 'on'=>'search'),

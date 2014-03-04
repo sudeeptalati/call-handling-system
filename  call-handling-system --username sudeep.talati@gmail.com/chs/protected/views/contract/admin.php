@@ -28,6 +28,15 @@
 		),
 
 		array('name'=>'created_by_user','value'=>'$data->createdByUser->username', 'filter'=>false),
+		//'active',
+		array(  'name'=>'active',
+				'header'=>'Active',
+				'value'=>'($data->active == 0)?"No":"Yes"',
+				'filter'=>array('1'=>'Yes', '0'=>'No'),
+			),
+		
+		
+		
 // 		'main_contact_details_id',
 // 		'management_contact_details',
 // 		'spares_contact_details',

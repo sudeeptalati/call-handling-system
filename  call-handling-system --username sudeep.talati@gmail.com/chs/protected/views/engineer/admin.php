@@ -29,8 +29,15 @@
 			),
 	*/		
 		'company',
-		
-		array('name'=>'vat_reg_number', 'filter'=>false),
+	//'active',
+		array(  'name'=>'active',
+				'header'=>'Active',
+				'value'=>'($data->active == 0)?"No":"Yes"',
+				'filter'=>array('1'=>'Yes', '0'=>'No'),
+			),
+	
+	
+		//array('name'=>'vat_reg_number', 'filter'=>false),
 		//'created_by_user_id',
 		array(
 			  'name'=>'user',

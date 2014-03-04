@@ -3,7 +3,7 @@
 
 $this->menu=array(
 	//array('label'=>'List Servicecall', 'url'=>array('index')),
-	array('label'=>'Create Service Call', 'url'=>array('servicecall/freeSearch')),
+	array('label'=>'Create Service Call', 'url'=>array('servicecall/create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

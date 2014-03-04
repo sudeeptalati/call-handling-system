@@ -12,6 +12,15 @@ $result = $db->query('DROP TABLE IF EXISTS livecall_setup');
 $result = $db->query('DROP TABLE IF EXISTS preferences');
 $result = $db->query('DROP TABLE IF EXISTS config');
 $result = $db->query('DROP TABLE IF EXISTS spares_used_status');
+$result = $db->query('DROP TABLE IF EXISTS customer_duplicates');
+$result = $db->query('DROP TABLE IF EXISTS invoice');
+$result = $db->query('DROP TABLE IF EXISTS oow');
+$result = $db->query('DROP TABLE IF EXISTS uplifts');
+$result = $db->query('DROP TABLE IF EXISTS uplifts_back_up');
+$result = $db->query('DROP TABLE IF EXISTS uplifts_config');
+$result = $db->query('DROP TABLE IF EXISTS uplifts_report');
+$result = $db->query('DROP TABLE IF EXISTS uplifts_type');
+
 
 
 //////////// DROP & CREATE CONTRACT TABLE //////////

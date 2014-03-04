@@ -32,7 +32,7 @@ class SetupController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('PostcodeAnywhereView','PostcodeAnywhereSetup','RemoteConnection','ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings'),
+				'actions'=>array('PostcodeAnywhereView','PostcodeAnywhereSetup','RemoteConnection','ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings', 'sendTestEmail'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -481,6 +481,63 @@ class SetupController extends Controller
 		$this->render('postcodeAnywhereView',array('model'=>$model));
 	}//end of actionPostcodeAnywhereView().
 	
+	
+	
+	
+	public function actionSendTestEmail()
+	{
+		$model=new Setup;
+		
+		// uncomment the following code to enable ajax-based validation
+		/*	if(isset($_POST['ajax']) && $_POST['ajax']==='setup-sendTestEmail-form')
+			{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+			}
+		*/
+		
+		if(isset($_POST['Setup']))
+		{
+		 
+			
+
+
+
+			
+			$model->attributes=$_POST['Setup'];
+			$reciever_email_address=$model->email;
+			$body=$model->alternate;
+			$subject="Notification Test from Rapport Call Handling";
+			
+			/*
+			echo "I am here";
+			echo "<br> EMAIL IS :".$model->email;
+			echo "<br> Body is IS :".$model->alternate;
+			echo "<br> Subject IS :".$subject;
+			*/
+			
+			$success_msg="";
+			
+			if (NotificationRules::model()->sendEmail($reciever_email_address, $body, $subject))
+			{
+				$success_msg="The Test Email has been successfully sent";				
+			}else
+			{
+				$success_msg="ERROR : There was problem in sending your email. Please check your settings again or the email address";				
+			}
+			
+			
+			echo "<script>alert('$success_msg');</script>";
+			
+		 
+			
+			
+			
+			
+			 
+		}
+		$this->render('mailSettings',array('model'=>$model));
+	}
 	
 	
 }//end of class.

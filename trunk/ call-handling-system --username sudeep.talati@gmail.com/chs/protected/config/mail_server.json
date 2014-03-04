@@ -1,1 +1,1 @@
-{"smtp_host":"mail.laser.com","smtp_username":"iseapp","smtp_password":"#m1neral!","smtp_encryption":"tls","smtp_port":"587","smtp_auth":"true"}
+{"smtp_host":"smtp.gmail.com","smtp_username":"sudeep.makku","smtp_password":"l0ve2oo8","smtp_encryption":"ssl","smtp_port":"465","smtp_auth":"true"}

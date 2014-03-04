@@ -65,7 +65,7 @@
 </tr>
 <tr>
 	<td style="vertical-align:top;"><b>Internet Connection</b></td>
-	<td style="vertical-align :top;">The app is designed to work perfectly with as well as without internet. However for the features like email notificatiuon, sms notification, remote call booking alerts, the system need to have internet connection.</td>
+	<td style="vertical-align :top;">The app is designed to work perfectly with as well as without internet. However for the features like email notification, sms notification, remote call booking alerts, the system need to have internet connection.</td>
 </tr>
 
 </table>

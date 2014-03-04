@@ -431,7 +431,7 @@ background-color: #FFFF9D;
 	
 	<tr>
 		<td>
-			<?php echo $form->labelEx($productModel,'brand_id'); ?>
+			<?php echo $form->labelEx($productModel,'brand_id'); ?><small><b><a href="index.php?r=brand/admin"  target="_blank">Click here to acivate More Brands</a> </b></small>
 			<?php echo CHtml::activeDropDownList($productModel, 'brand_id', $productModel->getAllBrands());?>
 			<?php echo $form->error($productModel,'brand_id'); ?>
 		</td>
@@ -630,6 +630,7 @@ background-color: #FFFF9D;
 		<tr>
 		<td>
 			<?php echo $form->labelEx($productModel,'engineer_id'); ?>
+			<small><b><a href="index.php?r=engineer/create"  target="_blank">Click here to add More Engineers</a> </b></small>
 			<?php //echo $form->textField($model,'engineer_id'); ?>
 			<?php echo CHtml::activeDropDownList($productModel, 'engineer_id', Engineer::model()->getAllEnggAndCompany(), array('empty'=>array('90000000'=>'Not Assigned')));?>
 			<?php //CHtml::listData(Engineer::model()->findAll(array('order'=>"`company` ASC")), 'id', 'company');?>

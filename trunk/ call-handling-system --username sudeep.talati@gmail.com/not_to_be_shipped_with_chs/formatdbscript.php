@@ -103,6 +103,9 @@ $result = $db->query($retailer_distributor_sql);
 $result = $db->query("INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000000','Not Known','RETAILER','Not Known',NULL,NULL,NULL,NULL,NULL)");
 $result = $db->query("INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000001','Not Known','DISTRIBUTOR','Not Known',NULL,NULL,NULL,NULL,NULL)");
 
+
+$result = $db->query('VACUUM;');
+
 echo "<br><br>FINISHED......... Database is Empty Now";
 
 

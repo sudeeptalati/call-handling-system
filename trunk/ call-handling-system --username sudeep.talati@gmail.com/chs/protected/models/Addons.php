@@ -45,6 +45,7 @@ class Addons extends CActiveRecord
 		return array(
 			array('active, created_by, inactivated_by', 'numerical', 'integerOnly'=>true),
 			array('type, name, addon_label ,information, created_on, inactivated_on', 'safe'),
+			array('name', 'unique','message'=>'{attribute}:{value} 	already exists!'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, name,addon_label , information, active, created_on, created_by, inactivated_on, inactivated_by', 'safe', 'on'=>'search'),
@@ -70,7 +71,7 @@ class Addons extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'type' => 'Type',
-			'name' => 'Name',
+			'name' => 'Addon Name',
 			'addon_label' => 'Addon Label',
 			'information' => 'Information',
 			'active' => 'Active',
@@ -107,5 +108,105 @@ class Addons extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function upload()
+	{
+		
+		if(isset($_POST['finish']))/////if form Submitted
+	    {
+			if(isset($_POST['addon_url']))
+			{
+				/////Logic To Install from URL			
+			}
+			else
+			{
+				echo "Problems in Installing from URL";
+
+			}
+			
+			
+			$zip_mimes = array('application/zip', 'application/x-zip', 'application/octet-stream', 'application/x-zip-compressed');
+			if (in_array($_FILES["addon_zip"]["type"], $zip_mimes))
+			{
+				//echo " I MA IN ";
+			
+				//echo "Uploaded Zip ";
+				echo "<br>File naame is ".$_FILES["addon_zip"]["tmp_name"];
+				$uploadedname="tempaddonfile.zip";
+	    		$uploaded_file= $_FILES["addon_zip"]["tmp_name"];
+				$location="temp/".$uploadedname;
+				if (move_uploaded_file($uploaded_file,$location))
+	    			{
+	    				echo "<br>Temp zip Uploaded<br>";
+						 
+	    			}
+	    			else
+	    			{
+	    				echo "Problem in storing";
+	    			}
+			}
+			else
+			{
+				echo "Problems in Installing ZIP file";
+
+			}
+			
+			
+			
+		}////end of if form submitted
+					
+	}//end of upload
+	
+	public function unzip()
+	{
+		//echo "File unzipped*";
+		$zip = new ZipArchive;
+		$res = $zip->open('temp/tempaddonfile.zip');
+		if ($res === TRUE)
+		{
+		$zip->extractTo('temp/');
+		echo "File unzipped<br>";
+		$zip->close();
+		}
+		
+	}//end of unzip
+	
+	public function readscript()
+	{
+		$db = new PDO('sqlite:protected/data/chs.db');
+		$file_handle = fopen("temp/out of warranty module/sql.txt","r");
+		$i=0;
+		while (!feof($file_handle) ) 
+							{
+							
+							$line_of_text = fgets($file_handle);
+							if(!empty($line_of_text)){
+							
+							$db->exec($line_of_text);
+							echo "db changed";
+							}
+							}
+		$i++;
+		fclose($file_handle);
+	}
+	
+	
+	public function copyfiles()
+	{	
+		echo "----------------";
+		
+		$xml=simplexml_load_file("temp/out of warranty module/sample_addon.xml");
+		$source_file=getcwd()."/temp/".$xml->install->source->folder;
+
+		
+		$desti_file=getcwd()."/".$xml->install->destination->folder;
+		
+		echo $source_file;
+		echo $desti_file;
+
+
+		Setup::model()->recurse_copy($source_file,$desti_file);
+		
 	}
 }

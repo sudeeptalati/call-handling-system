@@ -493,6 +493,9 @@ class Setup extends CActiveRecord
 	
 	public function recurse_copy($src,$dst)
 	{
+	
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+
 		$dir = opendir($src);
 		@mkdir($dst);
 		while(false !== ( $file = readdir($dir)) ) {

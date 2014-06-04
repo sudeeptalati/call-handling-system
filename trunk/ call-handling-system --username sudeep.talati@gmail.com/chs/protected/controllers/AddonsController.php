@@ -48,63 +48,65 @@ class AddonsController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	 
+	public function actionIndex()
+	{
+		 $this->render('index');
+	}
+	
+	
+	
  	public function actionInstall()
 	{
+	//echo "*******************";
+		$model=new Addons();
+		//Step 1: Download or upload package in temp folder
+		$model->upload();
+		//Step 2: Unzip it
+		$model->unzip();
+		//Step 3: Read the XML Install Script
+		$addons_model=new Addons();
+		$xml=simplexml_load_file("temp/out of warranty module/sample_addon.xml");
+		$addons_model->id=$xml->info->id;
+		$addons_model->name=$xml->info->name;
+		$addons_model->addon_label=$xml->info->label;
+		$addons_model->type=$xml->info->name;
+		if(!$addons_model->save())
+		{
+			echo "<br>-----------------module already exist <br>";
+			$errors=$addons_model->getErrors();
+			foreach ($errors as $e)
+			{
+				
+				echo $e[0]."<br>";
+			}
+		}
+		else
+		{
+			echo "<hr>new module installed.";
+
+		}
+		//Step 4: Install Table
+		$model->readscript();
+		//Step 5: Copy files images, javascript and all
+		$model->copyfiles();
+		//Step 6: Create Entry in XML file in Config Folder
+		
 		/*
-		Step 1: Download or upload package in temp folder
-		Step 2: Unzip it
-		Step 3: Read the Install Script
-		Step 4: Install Table
-		Step 5: Copy files images, javascript and all
-		Step 6: Create Entry in XML file in Config Folder
 		Step 7: Create entry in table
 		Step 8: Ammend if you want for javascript like in main file.
-		
-		
 		*/
-	
-		if(isset($_POST['finish']))/////if form Submitted
-	    {
-			if(isset($_POST['addon_url']))
-			{
-			/////Logic To Install from URL
-			
-			}
-				
-			
-			if ($_FILES["addon_zip"]["type"]=="application/x-zip-compressed")
-			{
-				echo "Uploaded Zip ";
-				echo "<br>File naame is ".$_FILES["addon_zip"]["tmp_name"];
-				$uploadedname="tempaddonfile.zip";
-	    		$uploaded_file= $_FILES["addon_zip"]["tmp_name"];
-				$location="temp/".$uploadedname;
-				if (move_uploaded_file($uploaded_file,$location))
-	    			{
-	    				echo "<br>Temp zip Uploaded";
-						 
-	    			}
-	    			else
-	    			{
-	    				echo "Problem in storing";
-	    			}
-			
-			
-			}
-			
-			
-		 
-		}////end of if form submitted
-					
- 
-		$model=new Addons;
-		$this->render('install',array(
+		
+		
+		$this->redirect(array('admin')); 
+		
+		/*$this->render('install',array(
 			'model'=>$model,
-		));
-	}
-
-	 
+		));*/
+		
+		
+	
+	}///endo of actionInstall
+	
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -182,13 +184,7 @@ class AddonsController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Addons');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+
 
 	/**
 	 * Manages all models.
@@ -229,5 +225,13 @@ class AddonsController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	
+	public function actionInstalladdon()
+	{
+		$model=new Setup;
+		
+		$this->render('Installaddon',array('model'=>$model));
 	}
 }

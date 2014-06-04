@@ -5,12 +5,11 @@ $this->menu=array(
 	array('label'=>'Company Details', 'url'=>array('/setup/view&id=1')),
 	array('label'=>'Brands / Make', 'url'=>array('Brand/admin')),
 	array('label'=>'Model Numbers', 'url'=>array('Modelnumbers/admin')),
-	
+	array('label'=>'Install Addon', 'url'=>array('addons/')),	
 	array('label'=>'Contracts', 'url'=>array('Contract/admin')),
 	array('label'=>'Company Logo', 'url'=>array('setup/changeLogo')),
 	array('label'=>'Engineers', 'url'=>array('Engineer/admin')),
 	array('label'=>'Retailers & Distributors', 'url'=>array('retailersAndDistributors/admin')),
-
 	array('label'=>'Internet', 'url'=>array('/advanceSettings/update&id=10001')),
 	//array('label'=>'FTP Settings', 'url'=>array('ftpSettings/update/1')),
 	array('label'=>'Job Status', 'url'=>array('JobStatus/admin')),

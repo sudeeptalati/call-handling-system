@@ -165,7 +165,7 @@ class Addons extends CActiveRecord
 		$res = $zip->open('temp/tempaddonfile.zip');
 		if ($res === TRUE)
 		{
-		$zip->extractTo('temp/');
+		$zip->extractTo('temp/tempaddonfile');
 		echo "File unzipped<br>";
 		$zip->close();
 		}
@@ -175,7 +175,7 @@ class Addons extends CActiveRecord
 	public function readscript()
 	{
 		$db = new PDO('sqlite:protected/data/chs.db');
-		$file_handle = fopen("temp/out of warranty module/sql.txt","r");
+		$file_handle = fopen("temp/tempaddonfile/sql.txt","r");
 		$i=0;
 		while (!feof($file_handle) ) 
 							{
@@ -195,15 +195,25 @@ class Addons extends CActiveRecord
 	public function copyfiles()
 	{	
 		echo "----------------";
-		
-		$xml=simplexml_load_file("temp/out of warranty module/sample_addon.xml");
-		$source_file=getcwd()."/temp/".$xml->install->source->folder;
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+		$xml=simplexml_load_file("temp/tempaddonfile/install_addon.xml");
+		$source_file=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->folder;
 
 		
-		$desti_file=getcwd()."/".$xml->install->destination->folder;
+		$desti_file=getcwd().DS.$xml->install->destination->folder;
 		
-		echo $source_file;
-		echo $desti_file;
+		echo $source_file."<br>";
+		echo $desti_file."<br>";
+
+
+		Setup::model()->recurse_copy($source_file,$desti_file);
+		$source_file=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->js;
+
+		
+		$desti_file=getcwd().DS.$xml->install->destination->js;
+		
+		echo $source_file."<br>";
+		echo $desti_file."<br>";
 
 
 		Setup::model()->recurse_copy($source_file,$desti_file);

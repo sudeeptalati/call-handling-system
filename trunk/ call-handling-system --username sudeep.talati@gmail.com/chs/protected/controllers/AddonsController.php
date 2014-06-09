@@ -65,7 +65,7 @@ class AddonsController extends Controller
 		$model->unzip();
 		//Step 3: Read the XML Install Script
 		$addons_model=new Addons();
-		$xml=simplexml_load_file("temp/out of warranty module/sample_addon.xml");
+		$xml=simplexml_load_file("temp/tempaddonfile/install_addon.xml");
 		$addons_model->id=$xml->info->id;
 		$addons_model->name=$xml->info->name;
 		$addons_model->addon_label=$xml->info->label;
@@ -99,9 +99,9 @@ class AddonsController extends Controller
 		
 		$this->redirect(array('admin')); 
 		
-		/*$this->render('install',array(
-			'model'=>$model,
-		));*/
+		//$this->render('install',array(
+			//'model'=>$model,
+		//));
 		
 		
 	

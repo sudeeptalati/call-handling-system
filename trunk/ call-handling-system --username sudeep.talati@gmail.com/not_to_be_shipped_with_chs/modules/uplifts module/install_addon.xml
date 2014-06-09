@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adddon>
+	<info>
+		<id>1</id>
+		<type>Component</type>
+		<name>uplifts</name>
+		<label>uplifts</label>
+		<information>uplifts module</information>
+		<active></active>
+		<version></version>
+		<description></description>
+	</info>
+		
+	<install>
+		<source>
+			<folder>uplifts</folder>
+			<files></files>
+			<sql>/sql.txt</sql>
+			<js>/js/uplifts</js>
+			<images>images/uplifts</images>
+		</source>
+		<destination>
+			<folder>/protected/modules/uplifts</folder>
+			<files></files>
+			<js>js/uplifts</js>
+			<images>images/uplifts</images>
+		</destination>	
+	</install>
+
+</adddon>

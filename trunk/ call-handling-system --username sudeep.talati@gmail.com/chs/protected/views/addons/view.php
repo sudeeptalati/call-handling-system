@@ -22,7 +22,14 @@ $this->menu=array(
 		'type',
 		'name',
 		'information',
-		'active',
+		
+		array(  'name'=>'active',
+				'header'=>'Active',
+				'value'=>$model->active == 0? "Disabled":"Enabled" ,
+		),
+		
+		
+		
 		'created_on',
 		'created_by',
 		'inactivated_on',

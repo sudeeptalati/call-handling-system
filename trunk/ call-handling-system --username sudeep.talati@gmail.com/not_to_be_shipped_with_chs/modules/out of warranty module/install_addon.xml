@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <adddon>
 	<info>
-		<id>1</id>
 		<type>Component</type>
 		<name>oow</name>
 		<label>Out of Warranty</label>
 		<information>Shows the products which are out of warranty</information>
-		<active></active>
-		<version></version>
+		<active>1</active>
+		<version>0.1</version>
 		<description></description>
 	</info>
 	

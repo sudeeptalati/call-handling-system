@@ -35,7 +35,7 @@ class AddonsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','uninstall'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -69,7 +69,10 @@ class AddonsController extends Controller
 		$addons_model->id=$xml->info->id;
 		$addons_model->name=$xml->info->name;
 		$addons_model->addon_label=$xml->info->label;
-		$addons_model->type=$xml->info->name;
+		$addons_model->type=$xml->info->type;
+		$addons_model->active=$xml->info->active;
+		
+		
 		if(!$addons_model->save())
 		{
 			echo "<br>-----------------module already exist <br>";
@@ -153,7 +156,7 @@ class AddonsController extends Controller
 		{
 			$model->attributes=$_POST['Addons'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
@@ -166,21 +169,36 @@ class AddonsController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionUninstall($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+			
+		$model=$this->loadModel($id);
+			
+		if(isset($_POST['confirm_uinstall']))
 		{
-			// we only allow deletion via POST request
+			//// STEP 1 DELETE FOLDER
+			$model->deletemodulefolder($model->name);
+			//// STEP 2 DROP TABLES
+			
+			//// STEP 3 DELETE ENTRY FROM DATABASE
 			$this->loadModel($id)->delete();
-
+			// we only allow deletion via POST request
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
 
+		$this->render('uninstall',array(
+			'model'=>$model,
+		));
+		
+		
+		
+	}///end of actionUninstall
+
+	
+	
+	
+	
 	/**
 	 * Lists all models.
 	 */

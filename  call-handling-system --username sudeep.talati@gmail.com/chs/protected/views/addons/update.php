@@ -1,18 +1,19 @@
-<?php
-$this->breadcrumbs=array(
-	'Addons'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
 
-$this->menu=array(
-	array('label'=>'List Addons', 'url'=>array('index')),
-	array('label'=>'Create Addons', 'url'=>array('create')),
-	array('label'=>'View Addons', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Addons', 'url'=>array('admin')),
-);
-?>
 
-<h1>Update Addons <?php echo $model->id; ?></h1>
+
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
+
+<h1>Addons</h1>
+
+
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage',array('admin')); ?></li>
+<li><?php echo CHtml::link('Install',array('index')); ?></li>
+</div>
+
+
+ 
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

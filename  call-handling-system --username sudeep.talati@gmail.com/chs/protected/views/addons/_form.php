@@ -5,57 +5,57 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
+	<br>
+	
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->textArea($model,'type',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'type'); ?>
+		<?php echo $form->textField($model,'type',array( 'disabled'=>'disabled')); ?>
+		<?php echo $form->error($model,'type'); ?>.
+		
+
+	</div>
+
+	<div class="row">
+
+		<?php echo $form->labelEx($model,'active'); ?>
+		<?php 
+		
+		echo $form->dropDownList($model,
+			'active',
+			array(0 => 'Disabled', 1 => 'Enabled')
+			);
+ 	
+		?>
+		<?php echo $form->error($model,'active'); ?>
+		<p class="note">If addons is <span class="required">disabled</span> you will not be able to use it or see in menu</p>
+
+	 
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name',array(  'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'addon_label'); ?>
+		<?php echo $form->textField($model,'addon_label',array(  'disabled'=>'disabled')); ?>
+		<?php echo $form->error($model,'addon_label'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'information'); ?>
-		<?php echo $form->textArea($model,'information',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'information',array('rows'=>6, 'cols'=>50, 'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'information'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'active'); ?>
-		<?php echo $form->textField($model,'active'); ?>
-		<?php echo $form->error($model,'active'); ?>
-	</div>
+	 
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_on'); ?>
-		<?php echo $form->textField($model,'created_on'); ?>
-		<?php echo $form->error($model,'created_on'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_by'); ?>
-		<?php echo $form->textField($model,'created_by'); ?>
-		<?php echo $form->error($model,'created_by'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'inactivated_on'); ?>
-		<?php echo $form->textField($model,'inactivated_on'); ?>
-		<?php echo $form->error($model,'inactivated_on'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'inactivated_by'); ?>
-		<?php echo $form->textField($model,'inactivated_by'); ?>
-		<?php echo $form->error($model,'inactivated_by'); ?>
-	</div>
+	 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

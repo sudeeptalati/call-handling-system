@@ -1,60 +1,82 @@
-<?php
-$this->breadcrumbs=array(
-	'Addons'=>array('index'),
-	'Manage',
-);
+ 
 
-$this->menu=array(
-	array('label'=>'List Addons', 'url'=>array('index')),
-	array('label'=>'Create Addons', 'url'=>array('create')),
-);
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('addons-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+<div id="sidemenu">             
+<?php include('setup_sidemenu.php'); ?>   
+</div>
 
-<h1>Manage Addons</h1>
+<h1>Addons</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<div id="submenu">   
+<li><?php echo CHtml::link('Manage',array('admin')); ?></li>
+<li><?php echo CHtml::link('Install',array('index')); ?></li>
+
+</div>
+ 
+
+
+
+ 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'addons-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	
+	/*
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('update').'/id/"+$.fn.yiiGridView.getSelection(id);}',
+	*/
+	
 	'columns'=>array(
-		'id',
+		//'id',
 		'type',
-		'name',
-		'information',
-		'active',
-		'created_on',
+		'addon_label',
+		//'information',
+		//'active',
+ 		
+		
+	
+		
+		array(  'name'=>'active',
+				'header'=>'Active',
+				'value'=>'($data->active == 0)?"Disabled":"Enabled"',
+				'filter'=>array('1'=>'Enabled', '0'=>'Disabled'),
+		),	
+		
+		
+		array(	'name'=>'active',
+				'header'=>'Actions',
+				'value' => 'CHtml::link(($data->active == 0)?"Enable":"Disable", array("addons/update&id=".$data->id))',
+		 		'type'=>'raw',
+				'filter'=>false,
+        ),
+		
+		
+		array( 'name'=>'created_on', 'value'=>'$data->created_on==null ? "":date("d-M-Y",$data->created_on)', 'filter'=>false),
+		
+		
+		'link'=>array(
+                        'header'=>'Actions',
+                        'type'=>'raw',
+                        'value'=> 'CHtml::button("Uninstall",array("onclick"=>"document.location.href=\'".Yii::app()->controller->createUrl("addons/uninstall",array("id"=>$data->id))."\'"))',
+        ),     
+		
+		
 		/*
 		'created_by',
 		'inactivated_on',
 		'inactivated_by',
 		*/
+		
+		/*
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update}',
 		),
+		*/
+		
+		
 	),
 )); ?>

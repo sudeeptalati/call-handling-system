@@ -218,5 +218,44 @@ class Addons extends CActiveRecord
 
 		Setup::model()->recurse_copy($source_file,$desti_file);
 		
-	}
+	}//end of copy files
+	
+	
+	
+	public function deletemodulefolder($addonname)
+	{
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+		
+		//echo $addonname;
+		$addon_to_be_deleted = getcwd().DS.'protected'.DS.'modules'.DS.$addonname;
+		echo $addon_to_be_deleted; 
+		
+		$this->delete_directory($addon_to_be_deleted);
+		
+	
+	
+	}///end of deletemodulefolder
+	
+	
+	
+	
+	
+	public function delete_directory($dirname) {
+      if (is_dir($dirname))
+			$dir_handle = opendir($dirname);
+			if (!$dir_handle)
+				return false;
+			while($file = readdir($dir_handle)) {
+				if ($file != "." && $file != "..") {
+	            if (!is_dir($dirname."/".$file))
+	                 unlink($dirname."/".$file);
+	            else
+	                 $this->delete_directory($dirname.'/'.$file);
+				}
+			}
+	 closedir($dir_handle);
+	 rmdir($dirname);
+	 return true;
+	}///end of delete_directory
+	
 }

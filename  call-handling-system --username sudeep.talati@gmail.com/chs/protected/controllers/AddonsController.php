@@ -57,54 +57,50 @@ class AddonsController extends Controller
 	
  	public function actionInstall()
 	{
-	//echo "*******************";
+ 
+		$log_msgs=array();
+		
+		
+		
 		$model=new Addons();
 		//Step 1: Download or upload package in temp folder
-		$model->upload();
+
+		array_push($log_msgs,$model->upload());
+	
 		//Step 2: Unzip it
-		$model->unzip();
+		array_push($log_msgs,$model->unzip());
+
 		//Step 3: Read the XML Install Script
 		$addons_model=new Addons();
 		$xml=simplexml_load_file("temp/tempaddonfile/install_addon.xml");
-		$addons_model->id=$xml->info->id;
+		
 		$addons_model->name=$xml->info->name;
 		$addons_model->addon_label=$xml->info->label;
 		$addons_model->type=$xml->info->type;
 		$addons_model->active=$xml->info->active;
 		
 		
-		if(!$addons_model->save())
+		if($addons_model->save())
 		{
-			echo "<br>-----------------module already exist <br>";
-			$errors=$addons_model->getErrors();
-			foreach ($errors as $e)
-			{
-				
-				echo $e[0]."<br>";
-			}
-		}
-		else
-		{
-			echo "<hr>new module installed.";
+			//Step 4: Install Table
+			array_push($log_msgs,$model->readscript());
+		 
+			//Step 5: Copy files images, javascript and all
+			array_push($log_msgs,$model->copyfiles());
+
+			//Step 6: Create Entry in XML file in Config Folder
+			array_push($log_msgs,$model->appendaddonsxml_forinstall($addons_model->name));
+
+			/*
+			Step 7: Create entry in table
+			Step 8: Ammend if you want for javascript like in main file.
+			*/
 
 		}
-		//Step 4: Install Table
-		$model->readscript();
-		//Step 5: Copy files images, javascript and all
-		$model->copyfiles();
-		//Step 6: Create Entry in XML file in Config Folder
 		
-		/*
-		Step 7: Create entry in table
-		Step 8: Ammend if you want for javascript like in main file.
-		*/
-		
-		
-		$this->redirect(array('admin')); 
-		
-		//$this->render('install',array(
-			//'model'=>$model,
-		//));
+		$this->render('install',array(
+			'model'=>$model, 'errors'=>$addons_model->getErrors(), 'log_msgs'=>$log_msgs,
+			));
 		
 		
 	

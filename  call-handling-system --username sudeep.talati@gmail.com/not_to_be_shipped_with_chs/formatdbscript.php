@@ -3,7 +3,7 @@
 echo "<br>Please wait......... Formating database";
 
 
-$db = new PDO('sqlite:chs/protected/data/chs.db');
+$db = new PDO('sqlite:../chs/protected/data/chs.db');
 	
 //////// DROPPING UNUSED TABLES /////////
 
@@ -103,6 +103,10 @@ $result = $db->query($retailer_distributor_sql);
 $result = $db->query("INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000000','Not Known','RETAILER','Not Known',NULL,NULL,NULL,NULL,NULL)");
 $result = $db->query("INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000001','Not Known','DISTRIBUTOR','Not Known',NULL,NULL,NULL,NULL,NULL)");
 
+
+////////////// Empty Addons Table ////////
+$addons_sql = 'DELETE FROM addons WHERE 1';
+$result = $db->query($addons_sql);
 
 $result = $db->query('VACUUM;');
 

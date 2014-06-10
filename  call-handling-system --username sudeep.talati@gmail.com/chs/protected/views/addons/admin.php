@@ -54,21 +54,25 @@
         ),
 		
 		
-		array( 'name'=>'created_on', 'value'=>'$data->created_on==null ? "":date("d-M-Y",$data->created_on)', 'filter'=>false),
 		
 		
+		array( 'name'=>'created_on', 'value'=>'$data->createdByUser->name', 'filter'=>false),
+		array( 'name'=>'created_by', 'value'=>'$data->created_on==null ? "":date("d-M-Y H:i:s ",$data->created_on)', 'filter'=>false),
+		
+		array( 'name'=>'inactivated_by', 'value'=>'$data->inactivated_by==null ? "":$data->inactivatedByUser->name', 'filter'=>false),
+		array( 'name'=>'inactivated_on', 'value'=>'$data->inactivated_on==null ? "":date("d-M-Y H:i:s ",$data->inactivated_on)', 'filter'=>false),
+				
+				
+ 
 		'link'=>array(
-                        'header'=>'Actions',
+                        'header'=>'Uninstall',
                         'type'=>'raw',
                         'value'=> 'CHtml::button("Uninstall",array("onclick"=>"document.location.href=\'".Yii::app()->controller->createUrl("addons/uninstall",array("id"=>$data->id))."\'"))',
         ),     
 		
 		
-		/*
-		'created_by',
-		'inactivated_on',
-		'inactivated_by',
-		*/
+
+		
 		
 		/*
 		array(
@@ -80,3 +84,12 @@
 		
 	),
 )); ?>
+
+<?php
+
+$model = Addons::model()->findAll(); //returns AR objects
+  if (count($model)==0)
+  {
+	echo "<h3>No Addons have been installed</h3>";
+  }
+?>

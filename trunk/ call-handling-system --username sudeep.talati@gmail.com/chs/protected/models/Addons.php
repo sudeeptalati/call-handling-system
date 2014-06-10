@@ -45,7 +45,7 @@ class Addons extends CActiveRecord
 		return array(
 			array('active, created_by, inactivated_by', 'numerical', 'integerOnly'=>true),
 			array('type, name, addon_label ,information, created_on, inactivated_on', 'safe'),
-			array('name', 'unique','message'=>'{attribute}:{value} 	already exists!'),
+			array('name', 'unique','message'=>'{attribute} : {value} 	already exists!'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, name,addon_label , information, active, created_on, created_by, inactivated_on, inactivated_by', 'safe', 'on'=>'search'),
@@ -60,6 +60,8 @@ class Addons extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'createdByUser' => array(self::BELONGS_TO, 'User', 'created_by'),
+			'inactivatedByUser' => array(self::BELONGS_TO, 'User', 'inactivated_by'),
 		);
 	}
 
@@ -77,8 +79,8 @@ class Addons extends CActiveRecord
 			'active' => 'Active',
 			'created_on' => 'Created On',
 			'created_by' => 'Created By',
-			'inactivated_on' => 'Inactivated On',
-			'inactivated_by' => 'Inactivated By',
+			'inactivated_on' => 'Last Inactivated On',
+			'inactivated_by' => 'Last Inactivated By',
 		);
 	}
 
@@ -112,7 +114,7 @@ class Addons extends CActiveRecord
 	
 	public function upload()
 	{
-		
+		$msg='';
 		if(isset($_POST['finish']))/////if form Submitted
 	    {
 			if(isset($_POST['addon_url']))
@@ -129,51 +131,52 @@ class Addons extends CActiveRecord
 			$zip_mimes = array('application/zip', 'application/x-zip', 'application/octet-stream', 'application/x-zip-compressed');
 			if (in_array($_FILES["addon_zip"]["type"], $zip_mimes))
 			{
-				//echo " I MA IN ";
-			
-				//echo "Uploaded Zip ";
-				echo "<br>File naame is ".$_FILES["addon_zip"]["tmp_name"];
+ 
 				$uploadedname="tempaddonfile.zip";
 	    		$uploaded_file= $_FILES["addon_zip"]["tmp_name"];
 				$location="temp/".$uploadedname;
 				if (move_uploaded_file($uploaded_file,$location))
 	    			{
-	    				echo "<br>Temp zip Uploaded<br>";
+	    				$msg.= "<br>Addon zip file Uploaded<br>";
 						 
 	    			}
 	    			else
 	    			{
-	    				echo "Problem in storing";
+	    				$msg.= "Problem in uploading Zip File";
 	    			}
 			}
 			else
 			{
-				echo "Problems in Installing ZIP file";
+				$msg.= "Problems in uploading ZIP file";
 
 			}
 			
-			
-			
 		}////end of if form submitted
-					
+			
+		return $msg;
 	}//end of upload
 	
 	public function unzip()
 	{
+		$msg='';
 		//echo "File unzipped*";
 		$zip = new ZipArchive;
 		$res = $zip->open('temp/tempaddonfile.zip');
 		if ($res === TRUE)
 		{
 		$zip->extractTo('temp/tempaddonfile');
-		echo "File unzipped<br>";
+		$msg.= "File unzipped<br>";
 		$zip->close();
+		}else
+		{
+		$msg.='Error in Unzipping File';
 		}
-		
+		return $msg;
 	}//end of unzip
 	
 	public function readscript()
 	{
+		$msg='';
 		$db = new PDO('sqlite:protected/data/chs.db');
 		$file_handle = fopen("temp/tempaddonfile/sql.txt","r");
 		$i=0;
@@ -184,17 +187,18 @@ class Addons extends CActiveRecord
 							if(!empty($line_of_text)){
 							
 							$db->exec($line_of_text);
-							echo "db changed";
+							$msg.= "db changed";
 							}
 							}
 		$i++;
 		fclose($file_handle);
+		return $msg;
 	}
 	
 	
 	public function copyfiles()
 	{	
-		echo "----------------";
+		$msg='';
 		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 		$xml=simplexml_load_file("temp/tempaddonfile/install_addon.xml");
 		$source_file=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->folder;
@@ -202,9 +206,10 @@ class Addons extends CActiveRecord
 		
 		$desti_file=getcwd().DS.$xml->install->destination->folder;
 		
-		echo $source_file."<br>";
-		echo $desti_file."<br>";
-
+		$msg.="<br>Source file ". $source_file;
+		$msg.="<br>Destination file ". $desti_file;
+	
+	
 
 		Setup::model()->recurse_copy($source_file,$desti_file);
 		$source_file=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->js;
@@ -212,13 +217,63 @@ class Addons extends CActiveRecord
 		
 		$desti_file=getcwd().DS.$xml->install->destination->js;
 		
-		echo $source_file."<br>";
-		echo $desti_file."<br>";
-
-
+		$msg.="<br>Source file ". $source_file;
+		$msg.="<br>Destination file ". $desti_file;
+	
 		Setup::model()->recurse_copy($source_file,$desti_file);
-		
+		return $msg;
 	}//end of copy files
+	
+	
+	
+	public function appendaddonsxml_forinstall($addonname)
+	{	
+		$msg='';
+	
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+		 
+		$xmladdonfile = getcwd().DS.'protected'.DS.'config'.DS.'addons.xml';
+
+		$xmldoc = new DOMDocument();
+		$xmldoc->load($xmladdonfile);
+		
+		$root = $xmldoc->firstChild;
+		$newElement = $xmldoc->createElement('modules');
+		$root->appendChild($newElement);
+		$newText = $xmldoc->createTextNode($addonname);
+		$newElement->appendChild($newText);
+		
+		if ($xmldoc->save($xmladdonfile))
+		{
+			$msg.='Addon added to config file';
+		}else{
+				$msg.='Error in Adding Addon config file';
+			}
+		
+		
+		return $msg;
+	}//end of appendaddonsxml_forinstall
+	
+	
+	public function appendaddonsxml_foruninstall($addonname)
+	{
+	
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+		 
+		$xmladdonfile = getcwd().DS.'protected'.DS.'config'.DS.'addons.xml';
+
+		$xmldoc = new DOMDocument();
+		$xmldoc->load($xmladdonfile);
+		
+		$root = $xmldoc->firstChild;
+		$newElement = $xmldoc->createElement('modules');
+		$root->appendChild($newElement);
+		$newText = $xmldoc->createTextNode($addonname);
+		$newElement->appendChild($newText);
+		$xmldoc->save($xmladdonfile);
+ 	
+	}//end of appendaddonsxml_foruninstall UNISTALL
+	
 	
 	
 	
@@ -257,5 +312,29 @@ class Addons extends CActiveRecord
 	 rmdir($dirname);
 	 return true;
 	}///end of delete_directory
+	
+	
+	protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->created_by=Yii::app()->user->id;
+        		$this->created_on=time();
+    			return true;
+            }
+            else
+            {
+            	if ($this->active==0)
+				{
+					$this->inactivated_by=Yii::app()->user->id;
+					$this->inactivated_on=time();
+            	}
+            	return true;
+            }
+        }//end of if(parent())
+    }//end of beforeSave().
+
 	
 }

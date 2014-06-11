@@ -137,7 +137,7 @@ class Addons extends CActiveRecord
 				$location="temp/".$uploadedname;
 				if (move_uploaded_file($uploaded_file,$location))
 	    			{
-	    				$msg.= "<br>Addon zip file Uploaded<br>";
+	    				$msg.= "<br>Addon zip file Uploaded";
 						 
 	    			}
 	    			else
@@ -147,7 +147,7 @@ class Addons extends CActiveRecord
 			}
 			else
 			{
-				$msg.= "Problems in uploading ZIP file";
+				$msg.= "<br>Problems in uploading ZIP file";
 
 			}
 			
@@ -229,7 +229,7 @@ class Addons extends CActiveRecord
 	public function appendaddonsxml_forinstall($addonname)
 	{	
 		$msg='';
-	
+		$addonname=trim($addonname);
 		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 		 
 		$xmladdonfile = getcwd().DS.'protected'.DS.'config'.DS.'addons.xml';
@@ -256,21 +256,42 @@ class Addons extends CActiveRecord
 	
 	
 	public function appendaddonsxml_foruninstall($addonname)
-	{
-	
-		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
-		 
-		$xmladdonfile = getcwd().DS.'protected'.DS.'config'.DS.'addons.xml';
-
-		$xmldoc = new DOMDocument();
-		$xmldoc->load($xmladdonfile);
+	{	
+		$msg='';
 		
-		$root = $xmldoc->firstChild;
-		$newElement = $xmldoc->createElement('modules');
-		$root->appendChild($newElement);
-		$newText = $xmldoc->createTextNode($addonname);
-		$newElement->appendChild($newText);
-		$xmldoc->save($xmladdonfile);
+		$addonname=trim($addonname);
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+		
+		$xmladdonfile = getcwd().DS.'protected'.DS.'config'.DS.'addons.xml';
+ 
+		$doc = new DOMDocument; 	
+		$doc->load($xmladdonfile);
+
+		$thedocument = $doc->documentElement;
+
+		//this gives you a list of the modules
+		$list = $thedocument->getElementsByTagName('modules');
+
+		//figure out which ones you want -- assign it to a variable (ie: $nodeToRemove )
+		$nodeToRemove = null;
+
+		foreach ($list as $domElement){
+			//echo "<br>***".$domElement->nodeValue;
+			$value=$domElement->nodeValue;
+			$attrValue = $domElement->getAttribute('time');
+			
+			//echo '<br>--'.$attrValue;
+			if ($value == $addonname) {
+				$nodeToRemove = $domElement; //will only remember last one- but this is just an example :)
+			}
+		}//end of foreach 
+
+		//Now remove it.
+		if ($nodeToRemove != null)
+			$thedocument->removeChild($nodeToRemove);
+
+		
+		$doc->save($xmladdonfile);
  	
 	}//end of appendaddonsxml_foruninstall UNISTALL
 	
@@ -296,6 +317,8 @@ class Addons extends CActiveRecord
 	
 	
 	public function delete_directory($dirname) {
+		
+	
       if (is_dir($dirname))
 			$dir_handle = opendir($dirname);
 			if (!$dir_handle)

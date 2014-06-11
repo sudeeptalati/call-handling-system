@@ -36,7 +36,7 @@
 		foreach ($log_msgs as $l)
 			{
 				echo "<span style='color:green'>";
-				echo $l[0];
+				echo $l;
 				echo "<span><br>";
 
 			}

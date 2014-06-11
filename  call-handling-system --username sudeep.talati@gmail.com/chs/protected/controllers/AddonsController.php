@@ -66,19 +66,22 @@ class AddonsController extends Controller
 		//Step 1: Download or upload package in temp folder
 
 		array_push($log_msgs,$model->upload());
-	
+		
+		//print_r($log_msgs);
+		
 		//Step 2: Unzip it
 		array_push($log_msgs,$model->unzip());
 
 		//Step 3: Read the XML Install Script
 		$addons_model=new Addons();
+		
+		
 		$xml=simplexml_load_file("temp/tempaddonfile/install_addon.xml");
 		
 		$addons_model->name=$xml->info->name;
 		$addons_model->addon_label=$xml->info->label;
 		$addons_model->type=$xml->info->type;
 		$addons_model->active=$xml->info->active;
-		
 		
 		if($addons_model->save())
 		{
@@ -91,12 +94,14 @@ class AddonsController extends Controller
 			//Step 6: Create Entry in XML file in Config Folder
 			array_push($log_msgs,$model->appendaddonsxml_forinstall($addons_model->name));
 
-			/*
-			Step 7: Create entry in table
-			Step 8: Ammend if you want for javascript like in main file.
-			*/
+			
+			//Step 7: Create entry in table
+			//Step 8: Ammend if you want for javascript like in main file.
+			
 
 		}
+		
+		
 		
 		$this->render('install',array(
 			'model'=>$model, 'errors'=>$addons_model->getErrors(), 'log_msgs'=>$log_msgs,
@@ -172,17 +177,27 @@ class AddonsController extends Controller
 			
 		if(isset($_POST['confirm_uinstall']))
 		{
-			//// STEP 1 DELETE FOLDER
-			$model->deletemodulefolder($model->name);
-			//// STEP 2 DROP TABLES
+			//// STEP 1 DELETE ENTRY FROM AddonXML
+			$model->appendaddonsxml_foruninstall($model->name);
+	
 			
+			//// STEP 2 DELETE FOLDER
+			$model->deletemodulefolder($model->name);
+			//// STEP 3 DROP TABLES if required
+			
+			
+	
 			//// STEP 3 DELETE ENTRY FROM DATABASE
 			$this->loadModel($id)->delete();
+			
+			
+			
 			// we only allow deletion via POST request
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
-
+	
+		
 		$this->render('uninstall',array(
 			'model'=>$model,
 		));

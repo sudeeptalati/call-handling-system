@@ -60,7 +60,7 @@ if ($model->active==0)
 }
 else
 {
-	echo "<p><span style='color:red'>Sorry the module cannot be uninstalled as it is in Used and enabled. Please ". CHtml::link('Disable ',array('update', 'id'=>$model->id))." the module first and then try again</span><p>";
+	echo "<p><span style='color:red'>Sorry the module cannot be uninstalled as it is in use and enabled. Please ". CHtml::link('Disable ',array('update', 'id'=>$model->id))." the module first and then try again</span><p>";
 	
 	echo "<br>";
 		

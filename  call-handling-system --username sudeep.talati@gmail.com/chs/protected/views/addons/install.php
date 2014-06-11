@@ -1,23 +1,6 @@
-<div id="sidemenu">             
-<?php include('setup_sidemenu.php'); ?>   
-</div>
-
-
-<h1>Installing Addon</h1>
-
-<div id="submenu">   
-<li><?php echo CHtml::link('Manage',array('admin')); ?></li>
-<li><?php echo CHtml::link('Install',array('index')); ?></li>
-
-</div>
- <br><br>
-
-
-
-
+ 
+<a href="JavaScript:window.close()">Close This Window</a>
 <?php
-
-
 	
 	if ($errors)
 		{

@@ -26,7 +26,7 @@ function Checkfiles(f){
 };
 </script>
 
-<form   action="index.php?r=addons/install" onsubmit="return Checkfiles(this);" enctype="multipart/form-data" method="post">		
+<form target="_blank"   action="index.php?r=addons/install" onsubmit="return Checkfiles(this);" enctype="multipart/form-data" method="post">		
 
 		
 		 Please Upload the Add On Zip file<br>

@@ -31,7 +31,7 @@ class AddonsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'install'),
+				'actions'=>array('create','update', 'install', 'Installsuccess'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -86,7 +86,7 @@ class AddonsController extends Controller
 		if($addons_model->save())
 		{
 			//Step 4: Install Table
-			array_push($log_msgs,$model->readscript());
+			array_push($log_msgs,$model->readsqlscript());
 		 
 			//Step 5: Copy files images, javascript and all
 			array_push($log_msgs,$model->copyfiles());
@@ -103,13 +103,25 @@ class AddonsController extends Controller
 		
 		
 		
-		$this->render('install',array(
+		$this->renderPartial('install',array(
 			'model'=>$model, 'errors'=>$addons_model->getErrors(), 'log_msgs'=>$log_msgs,
 			));
 		
 		
 	
 	}///endo of actionInstall
+	
+	public function actionInstallsuccess()
+	{
+		
+		
+		
+		$this->render('install',array(
+			'model'=>$model, 'errors'=>$addons_model->getErrors(), 'log_msgs'=>$log_msgs,
+			));
+	}
+	
+	
 	
 	public function actionView($id)
 	{

@@ -174,7 +174,7 @@ class Addons extends CActiveRecord
 		return $msg;
 	}//end of unzip
 	
-	public function readscript()
+	public function readsqlscript()
 	{
 		$msg='';
 		$db = new PDO('sqlite:protected/data/chs.db');

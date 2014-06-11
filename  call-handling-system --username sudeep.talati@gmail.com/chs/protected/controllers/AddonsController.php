@@ -31,7 +31,7 @@ class AddonsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'install', 'Installsuccess'),
+				'actions'=>array('create','update', 'install'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -111,19 +111,7 @@ class AddonsController extends Controller
 	
 	}///endo of actionInstall
 	
-	public function actionInstallsuccess()
-	{
-		
-		
-		
-		$this->render('install',array(
-			'model'=>$model, 'errors'=>$addons_model->getErrors(), 'log_msgs'=>$log_msgs,
-			));
-	}
-	
-	
-	
-	public function actionView($id)
+ 	public function actionView($id)
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),

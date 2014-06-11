@@ -4,7 +4,7 @@
 	
 	if ($errors)
 		{
-			echo "<h3><span style='color:red'>Error in Installing Module</span></h3>'";
+			echo "<h3><span style='color:red'>Error in Installing Module</span></h3>";
 			foreach ($errors as $e)
 			{
 				echo "<span style='color:red'>";

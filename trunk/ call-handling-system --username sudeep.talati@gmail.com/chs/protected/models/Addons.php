@@ -304,7 +304,7 @@ class Addons extends CActiveRecord
 		
 		//echo $addonname;
 		$addon_to_be_deleted = getcwd().DS.'protected'.DS.'modules'.DS.$addonname;
-		echo $addon_to_be_deleted; 
+		//echo $addon_to_be_deleted; 
 		
 		$this->delete_directory($addon_to_be_deleted);
 		

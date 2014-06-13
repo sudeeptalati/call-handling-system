@@ -336,7 +336,7 @@ class Config extends CActiveRecord
 							$db = new PDO('sqlite:protected\data\chs.db');
 							//	echo '<hr>'.$db_update_file;
 							$file_handle=fopen($db_update_file,'r');
-							echo "<br />";
+							//echo "<br />";
 							while(!feof($file_handle))
 							{
 								$line=fgets($file_handle);

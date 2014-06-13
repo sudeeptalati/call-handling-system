@@ -335,8 +335,9 @@ $allStatus = JobStatus::model()->findAll( array(
 				$request = $update_url_from_db.'/latest_callhandling_version.txt';	
 				$available_version = curl_file_get_contents($request, true);
 				$installed_version=Yii::app()->params['software_version'];
+				
 			 
-				if ($available_version!=$installed_version)
+				if ( $available_version>$installed_version )
 				{	
 					?>
 					
@@ -346,20 +347,21 @@ $allStatus = JobStatus::model()->findAll( array(
 					There is a new updated version <?php echo $available_version ?> available for this software. Please go to rapportsoftware.co.uk to download and update the package
 					</span>
 					</li>
-					<li style="text-align:justify; margin-left:10px;">	
+					
+					
+				<?php 
+				}//end if inner if(version compare).
+				
+				?>
+				<li style="text-align:justify; margin-left:10px;">	
 					<?php
 						$server_msg_url='http://www.rapportsoftware.co.uk/versions/rapport_callhandling_general_message.txt';	
 							$server_msg = curl_file_get_contents($server_msg_url, true);
 			
 							echo $server_msg; 
 					?>
-					</li>
-					
-				<?php 
-				}//end if inner if(version compare).
-				
-				
-				
+				</li>
+				<?php
 				
 				
 				

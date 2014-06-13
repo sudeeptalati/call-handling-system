@@ -178,7 +178,7 @@ class ApiController extends Controller
     	
     	$model->attributes=$_POST['Enggdiary'];
     	 //echo $model->engineer_id;
-    	echo "ENGINEER ID IN CONTROLLER :".$model->engineer_id."<br>";
+    	//echo "ENGINEER ID IN CONTROLLER :".$model->engineer_id."<br>";
     	$engg_id = $model->engineer_id;
     	
     	 //$this->forward('viewFullDiaryJson/'); 

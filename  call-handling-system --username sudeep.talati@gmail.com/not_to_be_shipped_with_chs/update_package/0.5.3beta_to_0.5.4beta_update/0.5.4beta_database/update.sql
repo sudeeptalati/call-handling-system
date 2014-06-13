@@ -67,3 +67,4 @@ INSERT INTO job_status (id,name,information,published,dropdown_display,view_orde
 ALTER TABLE spares_used  ADD notes TEXT;
 /************* ADDING NEW FIELD IN SERVICECALL TABLE *********************/
 ALTER TABLE  servicecall ADD work_summary TEXT;
+VACUUM;

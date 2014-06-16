@@ -44,7 +44,7 @@ class Oow extends CActiveRecord
 			array('createdby, modifiedy', 'numerical', 'integerOnly'=>true),
 			array('serial_number, model_number, model_range, notes, created, modified', 'safe'),
 			array('serial_number', 'required'),
-			array('serial_number', 'length', 'is'=>14, 'message'=>'{attribute}:should be of exact 14 charecters-numeric values only!'),
+			//array('serial_number', 'length', 'is'=>14, 'message'=>'{attribute}:should be of exact 14 charecters-numeric values only!'),
 			array('serial_number','unique','message'=>'{attribute}:{value} already exists!'),
 		
 			// The following rule is used by search().

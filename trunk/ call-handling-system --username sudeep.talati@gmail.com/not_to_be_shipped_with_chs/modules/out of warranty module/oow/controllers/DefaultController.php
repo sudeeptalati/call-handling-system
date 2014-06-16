@@ -7,6 +7,11 @@ class DefaultController extends Controller
 		$this->redirect('index.php?r=oow/search/admin');
 	}
 	
+	public function actionConfig()
+	{
+		$this->render('config' );
+	}
+	
 	public function actionCreateoowbyapi()
 	{
 	

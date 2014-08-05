@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_MOD_BY	Bostjan Mihoric	/ccompletion@gmail.com/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	/unofficial modification/
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	/unofficial modification/
+destroymychart	index.php	293;"	function
+displayGraph	index.php	129;"	function
+displaycustomrangegraph	index.php	264;"	function
+displaylastmonth	index.php	229;"	function
+displaylastweek	index.php	209;"	function
+displaylastyear	index.php	246;"	function
+drawGraph	index.php	178;"	function
+error	index.php	145;"	jsfunction
+first_date_of_year	index.php	22;"	variable
+onload	index.php	124;"	jsfunction
+prepareGraphData	index.php	155;"	function
+randomScalingFactor	index.php	97;"	jsfunction
+setWeekdays	index.php	347;"	function
+setweekdays	index.php	305;"	function
+success	index.php	140;"	jsfunction
+today	index.php	42;"	variable
+window.onload	index.php	124;"	jsfunction

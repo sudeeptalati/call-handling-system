@@ -22,30 +22,7 @@
 		
 		<td>
 		
-<?php
-	if(isset($date_error))
-{
-	if($date_error == 1)
-		$msg = "Please enter start date";
-	elseif($date_error == 2)
-		$msg = "End date is earlier to start date..!!! Please change end date";
-	
-	
-	$this->beginWidget('zii.widgets.jui.CJuiDialog',array(
-			'id'=>'date_error',
-			// additional javascript options for the dialog plugin
-			'options'=>array(
-					'title'=>'Enter start date',
-					'autoOpen'=>true,
-			),
-	));
-	
-	echo $msg;
-	
-	$this->endWidget('zii.widgets.jui.CJuiDialog');
 
-}
-?>
 		<h4><b>Start Date*</b></h4>
 		<?php 					
 			$first_date_of_year='1-1-'. date('Y', time());
@@ -146,10 +123,16 @@ $url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.
 			responsive: true
 		});
 	
+  $(document).ready(function(){
+   console.log('*****');
+       
+       
+               displaylastweek();        
+});
  
  
-window.onload = function(){
-		displaylastweek();
+//window.onload = function(){
+		/displaylastweek();
 	}///end of window.onloaD
  
 
@@ -347,7 +330,7 @@ function setweekdays()
 		}
 		
 		
-		console.log('CHECKED WEEKDAYS 	*'+checked_weekdays);
+		//console.log('CHECKED WEEKDAYS 	*'+checked_weekdays);
 		return checked_weekdays;
  }////end of function setWeekdays
   
@@ -374,8 +357,8 @@ function displaycustomrangegraph()
 	
 	start_date=custom_start_date;
 	end_date=custom_end_date;
-	console.log ("7777777"+custom_start_date);
-	console.log ("44444444"+start_date);
+	//console.log ("7777777"+custom_start_date);
+	//console.log ("44444444"+start_date);
 	
 	daysdifference();
 	displayGraph();

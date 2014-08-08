@@ -1,0 +1,32 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_MOD_BY	Bostjan Mihoric	/ccompletion@gmail.com/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	/unofficial modification/
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	/unofficial modification/
+daysdifference	index.php	386;"	function
+daysdifference	index.php	387;"	function
+destroymychart	index.php	299;"	function
+displayGraph	index.php	156;"	function
+displaycustomrangegraph	index.php	369;"	function
+displaycustomrangegraph	index.php	370;"	function
+displaylastmonth	index.php	259;"	function
+displaylastweek	index.php	237;"	function
+displaylastyear	index.php	279;"	function
+drawGraph	index.php	203;"	function
+error	index.php	172;"	jsfunction
+first_date_of_year	index.php	51;"	variable
+hide_weekdays	index.php	356;"	function
+msg	index.php	29;"	variable
+msg	index.php	31;"	variable
+onload	index.php	151;"	jsfunction
+prepareGraphData	index.php	181;"	function
+randomScalingFactor	index.php	123;"	jsfunction
+setWeekdays	index.php	352;"	function
+setweekdays	index.php	310;"	function
+show_weekdays	index.php	363;"	function
+success	index.php	167;"	jsfunction
+today	index.php	72;"	variable
+url	index.php	95;"	variable
+window.onload	index.php	151;"	jsfunction

@@ -94,17 +94,17 @@ class DefaultController extends Controller
 */		
 		////First create an array of Start date of month and end date of month of 12 Months
 			//for ($i=0;$i<12;$i++)///initialization for loop
+			
+							////if month $startdate == $month of enddate
+			$sd_month=date('n',strtotime($start_date));
+			$ed_month=date('n',strtotime($end_date));
+			$ed_year=date('Y',strtotime($end_date));
+				
 			$exit=false;
 			
 			$i=0;
 			while($exit==false)
 			{
-
-				////if month $startdate == $month of enddate
-				$sd_month=date('n',strtotime($start_date));
-				$ed_month=date('n',strtotime($end_date));
-				$ed_year=date('Y',strtotime($end_date));
-				
 				if ($i==0)
 				{
 					$sd=$start_date;
@@ -143,6 +143,7 @@ class DefaultController extends Controller
 			
 				
 				$forloop_month=$forloop_month+1;
+				
 				if ($forloop_month>12)
 				{
 					$forloop_month='1';

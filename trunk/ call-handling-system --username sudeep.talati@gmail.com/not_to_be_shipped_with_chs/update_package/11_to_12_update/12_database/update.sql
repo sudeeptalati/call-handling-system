@@ -49,9 +49,9 @@ CREATE TABLE tbl_profiles_fields (
 -- Data dump for tbl_profiles_fields, a total of 3 rows
 ----
 BEGIN TRANSACTION;
-INSERT INTO tbl_profiles_fields (id,varname,title,field_type,field_size,field_size_min,required,match,range,error_message,other_validator,default,widget,widgetparams,position,visible) VALUES ('1','lastname','Last Name','VARCHAR','50','3','1','','','Incorrect Last Name (length between 3 and 50 characters).','','','','','1','3');
-INSERT INTO tbl_profiles_fields (id,varname,title,field_type,field_size,field_size_min,required,match,range,error_message,other_validator,default,widget,widgetparams,position,visible) VALUES ('2','firstname','First Name','VARCHAR','50','3','1','','','Incorrect First Name (length between 3 and 50 characters).','','','','','0','3');
-INSERT INTO tbl_profiles_fields (id,varname,title,field_type,field_size,field_size_min,required,match,range,error_message,other_validator,default,widget,widgetparams,position,visible) VALUES ('3','birthday','Birthday','DATE','0','0','2','','','','','0000-00-00','UWjuidate','{"ui-theme":"redmond"}','3','2');
+INSERT INTO tbl_profiles_fields (id, varname, title, field_type, field_size, field_size_min, required, 'match', range, error_message, other_validator, 'default', widget, widgetparams, position, visible) VALUES (1, 'lastname', 'Last Name', 'VARCHAR', 50, 3, 1, '', '', 'Incorrect Last Name (length between 3 and 50 characters).', '', '', '', '', 1, 3);
+INSERT INTO tbl_profiles_fields (id, varname, title, field_type, field_size, field_size_min, required, 'match', range, error_message, other_validator, 'default', widget, widgetparams, position, visible) VALUES (2, 'firstname', 'First Name', 'VARCHAR', 50, 3, 1, '', '', 'Incorrect First Name (length between 3 and 50 characters).', '', '', '', '', 0, 3);
+INSERT INTO tbl_profiles_fields (id, varname, title, field_type, field_size, field_size_min, required, 'match', range, error_message, other_validator, 'default', widget, widgetparams, position, visible) VALUES (3, 'birthday', 'Birthday', 'DATE', 0, 0, 2, '', '', '', '', '0000-00-00', 'UWjuidate', '{"ui-theme":"redmond"}', 3, 2);
 COMMIT;
 
 

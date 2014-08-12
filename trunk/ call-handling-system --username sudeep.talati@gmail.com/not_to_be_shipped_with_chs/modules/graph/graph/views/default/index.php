@@ -123,18 +123,9 @@ $url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.
 			responsive: true
 		});
 	
-  $(document).ready(function(){
-   console.log('*****');
        
-       
-               displaylastweek();        
-});
- 
- 
-//window.onload = function(){
-		/displaylastweek();
-	}///end of window.onloaD
- 
+displaylastweek();        
+
 
 function displayGraph()
 {

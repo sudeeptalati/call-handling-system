@@ -101,6 +101,7 @@ class Servicecall extends CActiveRecord
 	 */
 	public function relations()
 	{
+		 //Yii::import('application.modules.user.models.*');
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
@@ -185,7 +186,7 @@ class Servicecall extends CActiveRecord
 		 
 		$criteria->compare('product_id',$this->product_id);
 		$criteria->compare('contract_id',$this->contract_id);
-		$criteria->compare('engineer.id',$this->engineer_id, true);
+		$criteria->compare('engineer.id',$this->engineer_id);
 		$criteria->compare('insurer_reference_number',$this->insurer_reference_number,true);
 		$criteria->compare('job_status_id',$this->job_status_id);
 		$criteria->compare('fault_date',$this->fault_date,true);

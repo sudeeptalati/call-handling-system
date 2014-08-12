@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 /**
  * This is the model class for table "enggdiary".
@@ -158,7 +158,7 @@ class Enggdiary extends CActiveRecord
             	
         		
         		$this->created=time();
-            	$this->notes .= "An appointment is created on ".date('d-m-Y', time())." by ".$this->userid->name.".";
+            	$this->notes .= "An appointment is created on ".date('d-m-Y', time())." by user ".Yii::app()->user->name.".";
         		
         		//SAVING CHANGED ENGG_ID TO SERVICE TABLE.
         		$serviceQueryModel = Servicecall::model()->findByPk($this->servicecall_id);

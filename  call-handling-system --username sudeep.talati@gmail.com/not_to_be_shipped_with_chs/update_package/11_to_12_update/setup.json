@@ -1,0 +1,38 @@
+{
+	"setup_filesystem": {
+		"title": "Updated Files and Script from 0.5.3beta to version 11",
+		"folders": {
+			"components": "/12_protected/components/",
+			"config":"/12_protected/config/",
+			"controllers":"/12_protected/controllers/",
+			"extensions": "/12_protected/extensions/",
+			"models": "/12_protected/models/",
+			"modules": "/12_protected/modules/",
+			"vendors": "/12_protected/vendors/",
+			"views": "/12_protected/views/",
+			"js": "/12_js/js/",
+			"css": "/12_css/css/",
+			"images": "/12_images/images/",
+			"temp": "/12_temp/temp/",
+			"database_backups": "/12_database_backups/database_backups/"
+		},
+		"destination_folders": {
+			"components": "/protected/components/",
+			"config":"/protected/config/",
+			"controllers":"/protected/controllers/",
+			"extensions": "/protected/extensions/",
+			"models": "/protected/models/",
+			"modules": "/protected/modules/",
+			"vendors": "/protected/vendors/",
+			"views": "/protected/views/",
+			"js": "/js/",
+			"css": "/css/",
+			"images": "/images/",
+			"temp": "/temp/",
+			"database_backups": "/database_backups/"
+		},
+		"database_update_files": {
+			"database": "/12_database/update.sql"
+		}
+	}
+}

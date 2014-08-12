@@ -38,7 +38,7 @@
 		//'inactivated_by_user_id',
 		//'inactivated_on',
 		//'created_by_user_id',
-		'createdByUser.username',
+		'createdByUser.user.username',
 		//'created',
 		array( 'name'=>'created', 'value'=>$model->created==null ? "":date("d-M-Y",$model->created)),
 		//'modified',

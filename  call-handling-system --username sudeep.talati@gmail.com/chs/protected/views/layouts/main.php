@@ -32,7 +32,7 @@
 
 
 
- 
+ <?php Yii::app()->bootstrap->register(); ?>
  
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
@@ -40,6 +40,8 @@
 
 <body>
 <?php
+
+ 
 $company_logo=Yii::app()->request->baseUrl."/images/company_logo.png";
 $rapport_logo=Yii::app()->request->baseUrl."/images/rapport_logo.png";
 

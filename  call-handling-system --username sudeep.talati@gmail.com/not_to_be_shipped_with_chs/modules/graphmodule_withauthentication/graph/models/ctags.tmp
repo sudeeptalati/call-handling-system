@@ -1,0 +1,28 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_MOD_BY	Bostjan Mihoric	/ccompletion@gmail.com/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	/unofficial modification/
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	/unofficial modification/
+Graph	graph.php	2;"	class
+contents	graph.php	96;"	variable
+curl_file_get_contents	graph.php	87;"	function
+curl_req	graph.php	89;"	variable
+decrypt	graph.php	19;"	function
+decrypted	graph.php	21;"	variable
+e	graph.php	62;"	variable
+e	graph.php	72;"	variable
+ed	graph.php	56;"	variable
+eed	graph.php	53;"	variable
+encrypt	graph.php	25;"	function
+encrypted	graph.php	27;"	variable
+file_put_contents_deep	graph.php	46;"	function
+json_a	graph.php	38;"	variable
+loadjson	graph.php	32;"	function
+model	graph.php	4;"	function
+ob_key	graph.php	50;"	variable
+sayHello	graph.php	14;"	function
+string	graph.php	36;"	variable
+tableName	graph.php	9;"	function
+url	graph.php	34;"	variable

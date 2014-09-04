@@ -53,14 +53,28 @@ class DefaultController extends Controller
 	
 	public function actionSelectedPostcodeCustomers($primary_id, $postcode)
 	{
-		$model=new Customer('search');
+		
+		/*
+		$model=new Customer;
 		
 		//echo "<br>Postcode passed = ".$postcode;
 		//echo "<br>Primary id passed = ".$primary_id;
 		
-		$postcodeSearchResult = DuplicateCustomer::model()->postcodeSearch($postcode, $primary_id);
+		if(isset($_GET['Customer']))
+			$model->attributes=$_GET['Customer'];
+		$this->render('selectedPostcodeCustomers',array('model'=>$model,  'primary_id'=>$primary_id));
+		*/
 		
-		$this->render('selectedPostcodeCustomers',array('model'=>$model, 'postcodeData'=>$postcodeSearchResult, 'primary_id'=>$primary_id));
+		
+		
+		$model=new DuplicateCustomer;
+		if(isset($_GET['DuplicateCustomer']))
+			$model->attributes=$_GET['DuplicateCustomer'];
+		$this->render('selectedPostcodeCustomers',array('model'=>$model,  'primary_id'=>$primary_id));
+		
+		//$this->render('test',array('model'=>$model));
+		
+		
 		
 	}//end of SelectedPostcodeCustomers.
 	

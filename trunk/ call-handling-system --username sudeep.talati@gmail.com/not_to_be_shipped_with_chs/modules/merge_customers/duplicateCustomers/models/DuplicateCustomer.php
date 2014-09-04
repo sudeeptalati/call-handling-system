@@ -372,21 +372,49 @@ class DuplicateCustomer extends CActiveRecord
     	return Product::model()->findAllByAttributes(array('customer_id'=>$id));
     }
 	
-	public function postcodeSearch($postcode, $primary_id)
+	public function postcodeSearch($primary_id)
     {
         $criteria=new CDbCriteria;
 
-		$criteria->compare('postcode', $postcode, true, 'AND');
 		$criteria->compare('id','<>'.$primary_id, true, 'AND'); 
+		$criteria->compare('fullname',$this->fullname,true);
+	
 		
+ 
 		
+		/*
 		return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
-         //  'pagination'=>array('pageSize'=>'100',),
-                  'pagination'=>false,
+           'pagination'=>array('pageSize'=>'100',),
+                  'pagination'=>true,
                 ));
-
-    }//end of freeSearch().
+		*/
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array(
+							'defaultOrder'=>'fullname DESC',
+						),
+			 
+		
+		));
+    }//end of postcodeSearch().
+	
+	
+	public function testsearch($primary_id)
+    {
+		$criteria=new CDbCriteria;
+	 
+		$criteria->compare('id','<>'.$primary_id, true, 'AND'); 
+		$criteria->compare('fullname',$this->fullname,true, 'AND');
+ 	//	$criteria->order = 'product.created DESC';
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array(
+							'defaultOrder'=>'fullname ASC',
+						),
+		));
+	}
     
     
 }//end of class.

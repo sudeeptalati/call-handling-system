@@ -1,9 +1,11 @@
-<h1>Manage Customers</h1>
+<h1>Merge Customers</h1>
 
 
 <?php 
-
-	echo "<br>primary id =".$primary_id;
+	$selectedcustomer = Customer::model()->findByPk($primary_id);
+	echo "<h2> Selected Customer :".$selectedcustomer->fullname." </h2>";
+	
+	echo 'prid id'.$primary_id;
 	
 	$pri_cust_id  = $primary_id;
 	
@@ -11,8 +13,8 @@
 	$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'customer-grid',
 	//'dataProvider'=>$model->search(),
-	'dataProvider'=>$postcodeData,
-	'filter'=>$model,
+	'dataProvider'=> $model->testsearch($primary_id),
+	'filter'=> $model, 
 	'columns'=>array(
 		/*
 		array(	'name'=>'fullname',

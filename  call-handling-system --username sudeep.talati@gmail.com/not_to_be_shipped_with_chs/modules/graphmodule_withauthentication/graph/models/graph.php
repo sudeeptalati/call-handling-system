@@ -6,10 +6,7 @@ public static function model($className=__CLASS__)
         return parent::model($className);
     }
 
-    public function tableName()
-    {
-        return '{{UNVETTED}}';
-    }
+   
 
     public function sayHello()
     { 
@@ -45,37 +42,38 @@ public static function model($className=__CLASS__)
 	
 	public function file_put_contents_deep( $file, $data)
 	{
-		if ($data['server_status']=='OK')
+		if ($data['results']['status']=='OK')
 		{
-			$ob_key=$data['result']['key'];
-			echo '<hr>OB KEY IS '.$ob_key;
+			$ob_key=$data['results']['key'];
+			//echo '<hr>OB KEY IS '.$ob_key;
 				
-			$eed=$data['result']['eed'];
-			echo '<hr>OB KEY IS '.$eed;
+			$eed=$data['results']['encrypted_expiry_date'];
+			//echo '<hr>OB KEY IS '.$eed;
 			
-			$ed=$data['result']['ed'];
-			echo '<hr>OB KEY IS '.$ed;
+			$ed=$data['results']['expiry_date'];
+			//echo '<hr>OB KEY IS '.$ed;
 			
+			$pd=$data['results']['purchase_date'];
+			//echo '<hr>OB KEY IS '.$pd;
 			/////
-			echo "<hr>".$file;
+			//echo "<hr>".$file;
 			
 			$e=$this->loadjson();
 
-			echo '<hr>';
-			print_r($e);
+			//echo '<hr>';
+			//print_r($e);
 			$e['key']=$ob_key;
-			$e['ed']=$ed;
-			$e['eed']=$eed;
 			$e['status']='1';
-			echo '<hr>';
+			$e['expiry_date']=$ed;
+			$e['encrypted_expiry_date']=$eed;
+			$e['purchase_date']=$pd;
+			//echo '<hr>';
 			
 			$e=json_encode($e);
-			print_r($e);
+			//print_r($e);
 			file_put_contents($file,$e); 
 		}//end of if serverstatusok
 		
-	
-
 	}///end of file_put_contents_deep
 	
 	

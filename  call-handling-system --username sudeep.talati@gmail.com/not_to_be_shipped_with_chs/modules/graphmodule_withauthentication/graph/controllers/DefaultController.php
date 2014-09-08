@@ -41,12 +41,12 @@ class DefaultController extends Controller
 	
 	
 	
-	$request='http://127.0.0.1/purva/test/modulemanagement/checkstatus.php?key='.$k;
+	$request='http://127.0.0.1/purva/test/modulemanagement/keyauthentication.php?key='.$k;
 	//$request='http://127.0.0.1/purva/test/modulemanagement/testjson-after.json';
 	
 	$curl=Graph::model()->curl_file_get_contents($request);
 	$s=json_decode($curl,true);
-    //echo $curl;
+    echo $curl;
 	
 	
 	//echo $s['result']['key'];
@@ -255,7 +255,7 @@ class DefaultController extends Controller
 		$json_a=Graph::model()->loadjson();
 		$encryption_key=$json_a['key'];
 		//echo $json_a['exp_date_e'];
-		$encrypted_string=$json_a['eed'];
+		$encrypted_string=$json_a['encrypted_expiry_date'];
 		/*echo "<hr>";
 		echo "<hr>";
 		*/
@@ -279,7 +279,7 @@ class DefaultController extends Controller
 		//echo '<br> Today time'.$t_time;
 		//echo '<br> DECRYPETD time'.$dd_time;
 	
-		if ($json_a['ed']==null || $dd_time<$t_time)
+		if ($json_a['expiry_date']==null || $dd_time<$t_time)
 		{
 			$this->redirect(array('default/paidcustomer'));
 		}

@@ -2,7 +2,11 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'product-changeProduct-form',
-	'enableAjaxValidation'=>false,
+	//'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array(
+			'validateOnSubmit'=>true,
+	),	 
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -162,10 +166,15 @@
 			<?php echo $form->labelEx($model,'purchase_date'); ?>
 			<?php //echo $form->textField($model,'purchase_date'); ?>
 			<?php 
+			
+				
 				if(!empty($model->purchase_date))
 				{
 					$model->purchase_date=date('d-m-Y',$model->purchase_date );
 				}
+				
+				
+				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'purchase_date'),
 					'model'=>$model,
@@ -186,10 +195,13 @@
 			<?php echo $form->labelEx($model,'warranty_date'); ?>
 			<?php //echo $form->textField($model,'warranty_date'); ?>
 			<?php
+			
+				
 				 if(!empty($model->warranty_date))
 				{
 					$model->warranty_date=date('d-m-Y', $model->warranty_date);
 				} 
+				
 				
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 				    'name'=>CHtml::activeName($model, 'warranty_date'),

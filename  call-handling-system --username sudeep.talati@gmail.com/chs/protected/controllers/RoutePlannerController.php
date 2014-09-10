@@ -1,6 +1,6 @@
 <?php
 
-class RoutePlannerController extends Controller
+class RoutePlannerController extends RController
 {
 	public function actionGetEngineerDiary($engg_id, $cust_postcode)
 	{

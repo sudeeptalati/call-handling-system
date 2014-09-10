@@ -1,6 +1,6 @@
 <?php
 session_start();
-class SetupController extends Controller
+class SetupController extends RController
 {
 	
 	/**
@@ -15,7 +15,7 @@ class SetupController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
 

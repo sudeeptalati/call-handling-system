@@ -1,5 +1,5 @@
 <?php 
-class ReportsController extends Controller
+class ReportsController extends Rontroller
 {
 
 

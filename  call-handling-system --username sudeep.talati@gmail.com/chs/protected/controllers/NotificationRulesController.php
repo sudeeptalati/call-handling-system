@@ -2,11 +2,11 @@
 
 
 
-///*THISI SSUS A  TEST COMMENT***/////
+///*THIS IS A  TEST COMMENT***/////
 
 
 
-class NotificationRulesController extends Controller
+class NotificationRulesController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -20,7 +20,7 @@ class NotificationRulesController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
 

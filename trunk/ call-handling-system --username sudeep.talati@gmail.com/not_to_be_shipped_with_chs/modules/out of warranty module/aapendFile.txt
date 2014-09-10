@@ -1,1 +1,5 @@
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/oow/oow.js"></script>
+<?
+$oow_url =	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.oow.assets'));	
+Yii::app()->getClientScript()->registerScriptFile($oow_url.'/js/oow.js', CClientScript::POS_END);
+?>
+

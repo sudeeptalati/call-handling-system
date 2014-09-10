@@ -76,7 +76,7 @@ class Addons extends CActiveRecord
 			'name' => 'Addon Name',
 			'addon_label' => 'Addon Label',
 			'information' => 'Information',
-			'active' => 'Active',
+			'active' => 'Addon Status',
 			'created_on' => 'Created On',
 			'created_by' => 'Created By',
 			'inactivated_on' => 'Last Inactivated On',

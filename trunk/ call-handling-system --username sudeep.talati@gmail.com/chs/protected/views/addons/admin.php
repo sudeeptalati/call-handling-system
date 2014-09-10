@@ -40,18 +40,12 @@
 	
 		
 		array(  'name'=>'active',
-				'header'=>'Active',
+				//'header'=>'Status',
 				'value'=>'($data->active == 0)?"Disabled":"Enabled"',
 				'filter'=>array('1'=>'Enabled', '0'=>'Disabled'),
 		),	
 		
-		
-		array(	'name'=>'active',
-				'header'=>'Actions',
-				'value' => 'CHtml::link(($data->active == 0)?"Enable":"Disable", array("addons/update&id=".$data->id))',
-		 		'type'=>'raw',
-				'filter'=>false,
-        ),
+	
 		
 		
 		array( 'name'=>'created_by', 'value'=>'$data->created_by==null ? "":$data->createdByUser->username', 'filter'=>false),
@@ -63,7 +57,20 @@
 		array( 'name'=>'inactivated_on', 'value'=>'$data->inactivated_on==null ? "":date("d-M-Y H:i:s ",$data->inactivated_on)', 'filter'=>false),
 				
 				
- 
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{update}',
+		),
+			
+		array(	'name'=>'active',
+				'header'=>'Actions',
+				'value' => 'CHtml::link(($data->active == 0)?"Enable":"Disable", array("addons/enable_disable&id=".$data->id))',
+		 		'type'=>'raw',
+				'filter'=>false,
+        ),
+		
+		
+
 		'link'=>array(
                         'header'=>'Uninstall',
                         'type'=>'raw',
@@ -74,12 +81,9 @@
 
 		
 		
-		/*
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}',
-		),
-		*/
+		
+
+		
 		
 		
 	),

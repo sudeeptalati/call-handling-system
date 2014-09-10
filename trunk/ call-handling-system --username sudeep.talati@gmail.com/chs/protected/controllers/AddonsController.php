@@ -30,7 +30,7 @@ class AddonsController extends RController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','view','index','admin'),
+				'actions'=>array('create','update','view','index','admin','enable_disable'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -164,6 +164,33 @@ class AddonsController extends RController
 			'model'=>$model,
 		));
 	}
+	
+	
+	public function actionEnable_disable($id)
+	{
+		$model=$this->loadModel($id);
+		
+		
+		echo '<br>BEFORE SAVE -'.$model->active;
+		
+		
+		if ($model->active==0)
+		{
+			$model->active=1;
+		}else
+		{
+			$model->active=0;
+		}
+		
+		echo '<br>AFTER SAVE -'.$model->active;
+		
+		
+		if($model->save())
+				$this->redirect(array('admin'));
+		
+	
+	}/// end of actionEnableDisable($id)
+
 
 	/**
 	 * Deletes a particular model.

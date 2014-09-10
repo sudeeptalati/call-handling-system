@@ -1,6 +1,6 @@
 <?php
 
-class ServicecallController extends Controller
+class ServicecallController extends RController
 {
 	public $notify_flag;
 	public $job_status_before;
@@ -17,7 +17,7 @@ class ServicecallController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
 

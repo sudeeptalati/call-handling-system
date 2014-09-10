@@ -20,7 +20,7 @@
 						'postcode_e',
 						'county',
 						//'country',
-						array('name'=>'country_id', 'value'=>$model->countryCodes->short_name),
+						array('name'=>'country_id', 'value'=>$model->country_id==null ? "":$model->countryCodes->short_name),
 						'email',
 						'website',
 						'telephone',

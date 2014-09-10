@@ -1,5 +1,10 @@
-<?
-$oow_url =	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.oow.assets'));	
-Yii::app()->getClientScript()->registerScriptFile($oow_url.'/js/oow.js', CClientScript::POS_END);
-?>
 
+ <?php 
+ 
+	if (is_dir(Yii::getPathOfAlias('application.modules.oow.assets')))	
+	{
+	$oow_url =	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.oow.assets'));	
+	Yii::app()->getClientScript()->registerScriptFile($oow_url.'/js/oow.js', CClientScript::POS_END); 
+	}
+	
+ ?>

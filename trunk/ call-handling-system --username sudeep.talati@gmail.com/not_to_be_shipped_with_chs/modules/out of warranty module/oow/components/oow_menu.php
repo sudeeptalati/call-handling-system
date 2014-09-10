@@ -27,9 +27,10 @@ border-radius: 15px;
 </style>
 
 <div id='uplifts_menu'><?php
+
+echo "<li>".CHtml::link("How To Setup",array('/oow/default/config'))."</li>"; 
 echo "<li>".CHtml::link("Add New Out of Warranty Product",array('/oow/search/create'))."</li>"; 
 echo "<li>".CHtml::link("Manage",array('/oow/search/admin'))."</li>"; 
-echo "<li>".CHtml::link("Config",array('/oow/default/config'))."</li>"; 
 
 ?>
 </div>

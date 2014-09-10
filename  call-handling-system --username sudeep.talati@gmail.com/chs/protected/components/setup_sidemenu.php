@@ -1,6 +1,8 @@
-<?php
 
-$this->menu=array(
+
+<?php
+ 
+$sidebarMenuItems=array(
 	array('label'=>'Tasks To Do', 'url'=>array('TasksToDo/admin')),
 	array('label'=>'Company Details', 'url'=>array('/setup/view&id=1')),
 	array('label'=>'Brands / Make', 'url'=>array('Brand/admin')),
@@ -29,6 +31,9 @@ $this->menu=array(
 	
 	
 );
+
+	$this->menu=$sidebarMenuItems;
 		
 ?>
- 
+
+

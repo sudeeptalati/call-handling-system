@@ -81,7 +81,8 @@ class AddonsController extends RController
 		$addons_model->addon_label=$xml->info->label;
 		$addons_model->type=$xml->info->type;
 		$addons_model->active=intval($xml->info->active);
-		echo intval($xml->info->active);
+		//echo intval($xml->info->active);
+		
 		if($addons_model->save())
 		{
 			//Step 4: Install Table

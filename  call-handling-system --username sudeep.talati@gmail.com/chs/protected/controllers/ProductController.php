@@ -14,6 +14,7 @@ class ProductController extends RController
 	public function filters()
 	{
 		return array(
+			//'accessControl', // perform access control for CRUD operations
 			'rights', // perform access control for CRUD operations
 		);
 	}
@@ -211,25 +212,37 @@ class ProductController extends RController
 		//$model=new Product('view');
 		$model=$this->loadModel($id);
 	
-		// uncomment the following code to enable ajax-based validation
-		/*
-		 if(isset($_POST['ajax']) && $_POST['ajax']==='product-changeProduct-form')
-		 {
-		echo CActiveForm::validate($model);
-		Yii::app()->end();
+		// uncomment the following code to enable ajax-based validation			
+		if(isset($_POST['ajax']) && $_POST['ajax']==='product-changeProduct-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
 		}
-		*/
+		
 	
+		//$this->performAjaxValidation($model);
+ 
+
+
 		if(isset($_POST['Product']))
 		{
+			
 			$model->attributes=$_POST['Product'];
+			
+			echo "*********************";
+			
 			if($model->validate())
 			{
+				
 				// form inputs are valid, do something here
-				$model->save();
-				$this->redirect(array('view','id'=>$model->id));
-				//return;
+				if ($model->save())
+				{
+					$this->redirect(array('view','id'=>$model->id));
+				}
+				 
 			}
+			
+			
 		}//end of if(isset)
 		$this->render('updateProduct',array('model'=>$model));
 	}//end of updateProduct().

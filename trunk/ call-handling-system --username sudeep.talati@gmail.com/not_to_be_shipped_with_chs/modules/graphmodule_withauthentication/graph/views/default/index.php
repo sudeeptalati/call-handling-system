@@ -1,98 +1,239 @@
-<h1><font color="#0094EF"> Graph: Service Calls by Day</font> </h1>
- <table style='width:600px;'>
-	<tr>
-		<td>
-		<div id = "weekdays">
-			<input type="checkbox" checked='' onclick="displayGraph()" value="1" id='monday_checkbox'> Monday
-			<br>
-			<input type="checkbox" checked='' onclick="displayGraph()" value="2" id='tuesday_checkbox'> Tuesday
-			<br>
-			<input type="checkbox" checked='' onclick="displayGraph()" value="3" id='wednesday_checkbox'> Wednesday
-			<br>
-			<input type="checkbox" checked='' onclick="displayGraph()"  value="4" id='thursday_checkbox'> Thursday
-			<br>
-			<input type="checkbox" checked='' onclick="displayGraph()" value="5" id='friday_checkbox'> Friday
-			<br>
-			<input type="checkbox"  onclick="displayGraph()"  value="6" id='saturday_checkbox'> Saturday
-			<br>
-			<input type="checkbox"  onclick="displayGraph()"  value="0" id='sunday_checkbox'> Sunday
-		</div>
-		</td>
-		
-		
-		<td>
-		
-
-		<h4><b>Start Date*</b></h4>
-		<?php 					
-			$first_date_of_year='1-1-'. date('Y', time());
-			 
-			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-			'name'=>'custom_start_date',
-			'value'=>$first_date_of_year,
-		// additional javascript options for the date picker plugin
-			'options'=>array(
-				'showAnim'=>'fold',
-				'dateFormat' => 'd-m-yy',
-			),
-			'htmlOptions'=>array(
-				'style'=>'height:20px;'
-			),
-		));
-		
-		?>
-		</td>
-		
-		<td>
-		<h4><b>End Date*</b></h4>
-		<?php
-		$today = date('j-n-Y', time()); 
-		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-	    'name'=>'custom_end_date',
-		'value'=>$today,
-		// additional javascript options for the date picker plugin
-	    'options'=>array(
-	        'showAnim'=>'fold',
-			'dateFormat' => 'd-m-yy',
-		),
-	    'htmlOptions'=>array(
-	        'style'=>'height:20px;'
-	    ),
-		));			
-		?>
-		<button type="button" onclick="displaycustomrangegraph()">Display Graph</button>
-		
-		</td>
-	</tr>
-</table> 
-
-<!--including javascript for graph--> 
-<!--<script src="js/Chart.js"></script>-->
 <?php
-$url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.graph.assets'));	
-		Yii::app()->clientScript->registerScriptFile($url.'\js\Chart.js') ;
+$alljobstatus=Jobstatus::model()->getAllPublishedListdata();
+//print_r($alljobstatus);
+$alljobstatus[0]= 'All Status';
+$alljobstatus=array_reverse($alljobstatus,true);
+	 
+$url =	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.graph.assets'));	
+Yii::app()->clientScript->registerScriptFile($url.'\js\Chart.js') ;
 //echo $url;
+ 
 ?>
 
-<div style="width:70%;margin-left: 30px"><div>
-		<h3 id='chartLabel'></h3>
-		<button type="button" onclick="displaylastweek()">Last week</button>
-		<button type="button" onclick="displaylastmonth()">Last 30 Days</button>
-		<button type="button" onclick="displaylastyear()">Last Year</button>
-		<br><br>
-		<canvas style="margin-left: 50px;width:600px;height:500px;background-color: #FFFFFF;" id="canvas"></canvas>
-	 </div>
+<h1><font color="#0094EF"> Graph: No of Service Calls</font> </h1>
+
+
+
+<div id="container" style="width:inherit;">
+
+ 
+
+	
+	<div id="custom_date_form" style="background-color:#FFFFFF; height:150px; width:850px;float:left;">
+		<table style='width:700px;'>
+			<tr>
+				<td>
+						<h4><b>Start Date*</b></h4>
+						<?php 					
+							$first_date_of_year='1-1-'. date('Y', time());
+							 
+							$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+							'name'=>'custom_start_date',
+							'value'=>$first_date_of_year,
+						// additional javascript options for the date picker plugin
+							'options'=>array(
+								'showAnim'=>'fold',
+								'dateFormat' => 'd-m-yy',
+							),
+							'htmlOptions'=>array(
+								'style'=>'height:20px;'
+							),
+						));
+						
+						?>
+					</td>
+					<td>
+						<h4><b>End Date*</b></h4>
+						<?php
+							$today = date('j-n-Y', time()); 
+							$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+							'name'=>'custom_end_date',
+							'value'=>$today,
+							// additional javascript options for the date picker plugin
+							'options'=>array(
+								'showAnim'=>'fold',
+								'dateFormat' => 'd-m-yy',
+							),
+							'htmlOptions'=>array(
+								'style'=>'height:20px;'
+							),
+							));			
+							?>
+					</td>
+					<td>
+							<br><button type="button" onclick="displaycustomrangegraph()">Display Graph</button>
+					</td>
+					</tr>
+			<tr>
+					<td colspan='3'>
+						<button style="width:200px;;" type="button" onclick="displaylastweek()">Last week</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button style="width:200px;" type="button" onclick="displaylastmonth()">Last 30 Days</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+						<button style="width:200px;" type="button" onclick="displaylastyear()">Last Year</button>
+				</td>
+			</tr>
+		</table> 
+	</div><!-- END OF custom_date_form -->
+			
+	<div id="right-sidebar" style="background-color:#FFFFFF;   width:200px;float:left;">
+	</div>
+	
+	<div id="graph_data_part" style="background-color:#FFFFFF; width:850px;float:left;">
+		<table>
+				<tr>
+					<td colspan='3'><h3 id='chartLabel'></h3></td>
+				</tr>
+				<tr>
+					<td><h4><b>Filter By Job Status</b></h4></td>
+					<td><h3>Total Service Calls :</h3></td>
+					<td><h3 id='totalCount'></h3></td>
+					
+				</tr>
+				<tr>
+					<td><?php
+							echo CHtml::dropDownList(	
+													'job_status', '', 
+													$alljobstatus, 
+													array(       
+														'onchange' => 'displaycustomrangegraph();',
+													)
+												);
+					?></td>
+				 
+					<td><h3 id='jobStatusFilterTotalCountLabel'></h3></td>
+					<td><h3 id='jobStatusFilterTotalCount'></h3></td>
+				</tr>
+			</table>
+	</div><!-- end of graph_data_part-->
+	
+	<div id="right-sidebar" style="background-color:#FFFFFF;width:200px;float:left;">
+	</div>
+	
+	<div id="weekdays_div" style="background-color:#FFFFFF; width:850px;float:left;">
+		<table>
+			<tr>
+				<td>
+					<input type="checkbox" checked='' onclick="displayGraph()" value="1" id='monday_checkbox'> Monday
+				</td>
+				<td>
+					<input type="checkbox" checked='' onclick="displayGraph()" value="2" id='tuesday_checkbox'> Tuesday
+				</td>
+				<td>
+					<input type="checkbox" checked='' onclick="displayGraph()" value="3" id='wednesday_checkbox'> Wednesday
+				</td>
+				<td>
+					<input type="checkbox" checked='' onclick="displayGraph()"  value="4" id='thursday_checkbox'> Thursday
+				</td>
+				<td>
+					<input type="checkbox" checked='' onclick="displayGraph()" value="5" id='friday_checkbox'> Friday
+				</td>
+				<td>
+					<input type="checkbox"  onclick="displayGraph()"  value="6" id='saturday_checkbox'> Saturday
+				</td>
+				<td>
+					<input type="checkbox"  onclick="displayGraph()"  value="0" id='sunday_checkbox'> Sunday
+				</td>
+			</tr>
+		</table>
+	
+	</div><!-- END OF WEEKDAYS DIV -->
+	
+	
 	 
-</div>
+	
+	
+	<div id="graph_canvas_div" style="background-color:#FFFFFF; width:850px;float:left;">
+		<canvas style="width:600px;height:500px;background-color: #FFFFFF;" id="canvas"></canvas>
+	</div><!-- END OF graph_canvas_div-->
+	
+	<div id="right-sidebar3" style="background-color:#FFFFFF;width:200px;float:right;height:500px;">
+	 	<table  border="1" style="width:200px;"  id='job_statuses_servicecall_count_table' >
+				<tr>
+					<th style='border:1px solid black;background-color:#C9E0ED;'>Job Statuses</th>
+					<th style='border:1px solid black;background-color:#C9E0ED;'>No of Service Calls</th>
+				</tr>
+			</table>
+	</div>
+	
+	
+	
+
+</div><!-- END OF Container DIV -->
+
+
+
+
+
+
+<table>
+	<tr>
+		<td style='width:700px;'>
+			
+		</td>
+		<td></td>
+	</tr>
+	<tr>	
+		<td>
+			
+			
+				
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<div id = "weekdays">
+				
+			</div><!-- END OF DIV OF WEEKDAYS-->
+		</td>
+		<td></td>
+			
+	</tr>
+	<tr>
+		<td>
+				
+			
+		
+		</td>
+		<td>
+			<!--<button onclick="getJobStatusesCountOfServiceCalls();">Click me</button>-->
+			<div id='job_statuses_servicecall_count'></div>
+			
+		</td>
+	</tr>
+	
+</table>
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	 
 
 
 <script>
  
+ 
+
+
+
+
  var graphData=[];
  var graphLabel=[];
+ var jobstatusFiltergraphData=[];
+ var jobstatusFiltergraphLabel=[];
+ var total_calls=0;
+ var jobstatus_filter_total_calls=0;
+ 
  var start_date="";
  var end_date="";
- 
+ var selected_js='0';
+
  var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
  var chartLabel="";
@@ -115,7 +256,19 @@ $url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.
 					pointHighlightStroke : "rgba(151,187,205,1)",
 					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
 //					data :graphData
-				}
+				},
+				 {
+					label: "My First dataset",
+					//fillColor: "rgba(220,220,220,0.2)",
+					fillColor: "rgba(45,108,134,0.2)",
+					strokeColor: "rgba(220,220,220,1)",
+					pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					data: [65, 59, 80, 81, 56, 55, 40]
+				},
+				
 			]
 
 		}
@@ -125,7 +278,6 @@ $url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.
 	
        
 displaylastweek();        
-
 
 function displayGraph()
 {
@@ -137,7 +289,7 @@ function displayGraph()
       url: 'index.php?r=graph/default/GetCustomDaysData',
       type: 'get',
 	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
-	  data: {'start_date':start_date, 'end_date': end_date, 'weekdays':showweekdays},
+	  data: {'start_date':start_date, 'end_date': end_date, 'weekdays':showweekdays,'job_status_id':selected_js},
 	  success: function(data, status) {   
 				///step 3 Now Draw the Graph
 				prepareGraphData(data);
@@ -157,53 +309,93 @@ function prepareGraphData(data)
 	///emptying the previous data
 	graphData=[];
 	graphLabel=[];
+	jobstatusFiltergraphData=[];
+	jobstatusFiltergraphLabel=[];
+	total_calls=0;
+	jobstatus_filter_total_calls=0;
 	
+	rawGraphData=[];
 	json_data=jQuery.parseJSON(data);
 	
-	for (var key in json_data) {
-		if (json_data.hasOwnProperty(key)) {
-			
-			console.log(key + " -> " + json_data[key]);
-			
-			graphData.push(json_data[key]);
-			graphLabel.push(key);
-			
-		}//end of if
-	}///end of for
+	///First we will extract total calls of filtered and normal data
+	total_calls=json_data['total_calls'];
+	rawGraphData=getJsonKeyValueArray(json_data['full_data']);
+	graphData=rawGraphData['valuearray'];
+	graphLabel=rawGraphData['keyarray'];
+	
+	console.log('TOTAL CALLS'+total_calls); 
+	console.log('TOTAL CALLS'+jobstatus_filter_total_calls); 
+	
+	 
+	if (selected_js!=0)///if any job status selected
+	{
+		jobstatus_filter_total_calls=json_data['jobstatus_filter_total_calls'];
+		rawjobstatusFiltergraphData=getJsonKeyValueArray(json_data['jobstatus_filter_data']);
+		jobstatusFiltergraphData=rawjobstatusFiltergraphData['valuearray'];
+		jobstatusFiltergraphLabel=rawjobstatusFiltergraphData['keyarray'];
+	}
+	else{
+		///we will keep both the data as same and will overlap both graphs on each other
+		jobstatus_filter_total_calls=total_calls;
+		jobstatusFiltergraphData=graphData;
+		jobstatusFiltergraphLabel=graphLabel;
+	}
+	
 	
 }///end of funct prepareGraphData()
 
 	
 function drawGraph(){
  
-  lineChartData = {
+	getJobStatusesCountOfServiceCalls();
+	document.getElementById("totalCount").innerHTML = total_calls;	
+	var e = document.getElementById("job_status");
+	document.getElementById("jobStatusFilterTotalCountLabel").innerHTML = e.options[e.selectedIndex].text+" Service Calls:";
+
+	document.getElementById("jobStatusFilterTotalCount").innerHTML = jobstatus_filter_total_calls;	
+	graphLabel.shift();
+	graphData.shift();
+	//console.log(graphData.toString());
+	
+	lineChartData = {
 			labels : graphLabel,
 			 
 			datasets : [ 
 				{
-					label: "Service Calls by Date",
-					fillColor : "rgba(151,187,205,0.2)",
+					label: "Full Graph Data : Service Calls by Date",
+					fillColor : "rgba(220,220,220,0.2)",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(151,187,205,1)",
 					pointHitDetectionRadius : 2,
-					
 //					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-					data :graphData
-					
-				}
+					data :graphData					
+				},
+				{
+					label: "Filtered Graph Data By Job Status",
+					//fillColor: "rgba(151,187,205,0.2)",
+					fillColor: "rgba(45,108,134,0.2)",
+					strokeColor: "rgba(220,220,220,1)",
+					pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					data: jobstatusFiltergraphData
+				},
+				
 			]
 
 		}
- 
+		
 		destroymychart();
 		myLineChart = new Chart(ctx).Line(lineChartData, {
 			responsive: true
 		});
 		//window.myLine.destroy();
 		document.getElementById("chartLabel").innerHTML = chartLabel;
+		
 		 
 }///end of drawGraph
 
@@ -350,6 +542,10 @@ function displaycustomrangegraph()
 	end_date=custom_end_date;
 	//console.log ("7777777"+custom_start_date);
 	//console.log ("44444444"+start_date);
+	selected_js=document.getElementById("job_status").value;
+	
+	console.log ("SELECTED JS "+selected_js);
+	
 	
 	daysdifference();
 	displayGraph();
@@ -396,6 +592,112 @@ if(diffDays < 60)
  
  
 }// end of daysdifference
+
+
+
+function getJsonKeyValueArray(jsonData)
+{
+
+keyarray=[];
+valuearray=[];
+key_value_seperate_array=[];
+for (var key in jsonData) {
+		if (jsonData.hasOwnProperty(key)) {
+			
+			console.log(key + " -> " + jsonData[key]);
+			valuearray.push(jsonData[key]);
+			keyarray.push(key);
+			
+		}//end of if
+	}///end of for
+	
+	key_value_seperate_array['keyarray']=keyarray;
+	key_value_seperate_array['valuearray']=valuearray;
+	
+	return key_value_seperate_array;
+}///end of getJsonKeyValueArray(jsonData) 
+
+
+
+function getJobStatusesCountOfServiceCalls()
+{
+
+	 jobstatuses_count=[];
+	 
+	 $.ajax({
+      url: 'index.php?r=graph/default/GetServicecallsCountByStatusesInDateRange',
+      type: 'get',
+	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
+	  data: {'start_date':start_date, 'end_date': end_date, 'weekdays':showweekdays},
+	  success: function(data, status) {   
+				///step 3 Now Draw the Graph
+				 
+				 displayJobStatusesCount(data);
+				
+      },
+      error: function(xhr, desc, err) {
+        console.log(xhr);
+        console.log("Details: " + desc + "\nError:" + err);
+      }
+    }); // end ajax call
+		
+	
+	
+	
+}///end of getJobStatusesCountOfServiceCalls
+
+function displayJobStatusesCount(data){
+ 
+	console.log('***********'+data);
+	json_data=jQuery.parseJSON(data);
+	
+	jobstatus_value_array=[];
+	jobstatus_key_array=[];
+	
+	jobstatus_rawdata=getJsonKeyValueArray(json_data['jobstatuses_count']);
+	jobstatus_value_array=jobstatus_rawdata['valuearray'];
+	jobstatus_key_array=jobstatus_rawdata['keyarray'];
+	
+	console.log('VALUE ARRAY  : '+jobstatus_value_array);
+	console.log('keyarray ARRAY  : '+jobstatus_key_array);
+	
+	//document.getElementById("job_statuses_servicecall_count").innerHTML =jobstatus_key_array;
+
+	
+	$('#job_statuses_servicecall_count_table tr').slice(1).remove();
+	
+	var arrayLength = jobstatus_value_array.length;
+	//var theTable = document.createElement('table');
+	var theTable = document.getElementById('job_statuses_servicecall_count_table');
+
+	
+// Note, don't forget the var keyword!
+for (var i = 0, tr, td; i < arrayLength; i++) {
+    tr = document.createElement('tr');
+    
+	td = document.createElement('td');
+	td.style.backgroundColor='#C9E0ED';
+	td.style.border='1px solid black';
+    td.appendChild(document.createTextNode(jobstatus_key_array[i]));
+    tr.appendChild(td);
+	
+	td = document.createElement('td');
+	td.style.backgroundColor='#C9E0ED';
+	td.style.border='1px solid black';
+    td.appendChild(document.createTextNode(jobstatus_value_array[i]));
+    tr.appendChild(td);
+	
+	theTable.appendChild(tr);
+	
+	}///end of for
+
+//document.getElementById('job_statuses_servicecall_count').appendChild(theTable);
+ 
+
+	 
+	
+
+}////end of displayJobStatusesCount
 
 </script>
 

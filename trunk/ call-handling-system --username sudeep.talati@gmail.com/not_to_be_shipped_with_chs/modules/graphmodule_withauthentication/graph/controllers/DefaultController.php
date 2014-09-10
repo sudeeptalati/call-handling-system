@@ -18,7 +18,7 @@ class DefaultController extends Controller
 		'users'=>array('@'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-		'actions'=>array('index','getcustomdaysdata','getexpirydate','servercode_simple_for_json'),
+		'actions'=>array('index','getcustomdaysdata','getexpirydate','servercode_simple_for_json','getServicecallsCountByStatusesInDateRange'),
 		'users'=>array('admin'),
 		),
 		array('deny',  // deny all users
@@ -31,49 +31,31 @@ class DefaultController extends Controller
 	
 	public function actionServercode_simple_for_json()
 	{
-	//echo "*********** *****";
-	if(isset($_POST['key']))
-	{
-
-	$k = $_POST['key'];
-	//////////////////////////
-	///Call the URL http://127.0.0.1/purva/test/modulemanagement/checkstatus.php?key=55555
-	
-	
-	
-	$request='http://127.0.0.1/purva/test/modulemanagement/keyauthentication.php?key='.$k;
-	//$request='http://127.0.0.1/purva/test/modulemanagement/testjson-after.json';
-	
-	$curl=Graph::model()->curl_file_get_contents($request);
-	$s=json_decode($curl,true);
-    echo $curl;
-	
-	
-	//echo $s['result']['key'];
-	//echo $s['result'];
-	
-	///Read the JSON & get the values
-	$url = 	Yii::getPathOfAlias('application.modules.graph.components');	
-	$file= $url.'\graph.json';
+		if(isset($_POST['key']))
+		{
+		$k = $_POST['key'];		
+		$request='http://www.rapportsoftware.co.uk/phocadownloads/addonsauthentication/keyauthentication.php?key='.$k;
+		$curl=Graph::model()->curl_file_get_contents($request);
+		$s=json_decode($curl,true);
+    
+		if($s['status']=='OK'){
+				$url = 	Yii::getPathOfAlias('application.modules.graph.components');	
+				$file= $url.'\graph.json';	
+				Graph::model()->file_put_contents_deep($file,$s); 
+				$this->redirect(array('default/index'));
+			}
+			else
+			{
+				$this->render('servercode_simple_for_json',array('server_response'=>$s));
+			}
+			
+		}///end of if(isset($_POST['key']))
+		else{		
+			
+			$this->redirect(array('default/index'));
+		}
 		
-	Graph::model()->file_put_contents_deep($file,$s); 
-
-	$this->redirect(array('default/index'));
-
-
-	//////////////////////////
-
-
-	//$e=Graph::model()->loadjson();
-	//$e['key']=$k;
-	//$s=json_encode($e);
-	//echo $s;
-
-	}
-	
-	//$this->render('servercode_simple_for_json');
-	
-	}
+	}//////end of actionServercode_simple_for_json 
 	
 	
 	
@@ -96,45 +78,20 @@ class DefaultController extends Controller
 	public function actionGetCustomDaysData()
 	{
 		//$data=CHtml::listData(Servicecall::model()->findAll(array('condition'=>'fault_date>=1404165600', 'order'=>"`fault_date` ASC")), 'id', 'fault_date');
-		$start_date=$_GET['start_date'];
-		$end_date=$_GET['end_date'];
+		 
 		$weekdays=$_GET['weekdays'];
-		$month_names = array(	"1"=>"January", 
-								"2"=>"February",
-								"3"=>"March",
-								"4"=>"April",
-								"5"=>"May",
-								"6"=>"June",
-								"7"=>"July",
-								"8"=>"August",
-								"9"=>"September",
-								"10"=>"October",
-								"11"=>"November",
-								"12"=>"December"
-							);
-		
-		$start_date_explode = explode("-", $start_date);
-		$start_date=$start_date_explode[0].'-'.$month_names[$start_date_explode[1]].'-'.$start_date_explode[2];
-		$end_date_explode = explode("-", $end_date);
-		$end_date=$end_date_explode[0].'-'.$month_names[$end_date_explode[1]].'-'.$end_date_explode[2];
-		
-		/*
-		echo '<br> STRAT DATE'.$start_date;
-		echo '<br> END DATE'.$end_date;
-		echo '<hr>';
-		*/
+		$job_status_id=$_GET['job_status_id'];
+		$start_date=Graph::model()->formatDateForGraphData($_GET['start_date']);
+		$end_date=Graph::model()->formatDateForGraphData($_GET['end_date']);
+		$days_difference=Graph::model()->getDaysDifference($start_date, $end_date);
 		
 		
-		$start_date_time_format = new DateTime($start_date);
-		$end_date_time_format = new DateTime($end_date);
-		$interval = date_diff($start_date_time_format,$end_date_time_format);
-		//$interval->format('%R%a days');
-		$days_difference=$interval->format('%R%a');
-	
+ 
+ 
+		
 		//echo "<br>".$days_difference;
-
 		$show_days=array('0','1','2','3','4','5','6'); ///0 (for Sunday) through 6 (for Saturday)
-	
+
 		//$show_days=array('1','2','3','4','5'); ///0 (for Sunday) through 6 (for Saturday)
 		$show_days=str_split($weekdays);
 
@@ -142,22 +99,32 @@ class DefaultController extends Controller
 		$today=date('d-M-Y');
 		$today_time=strtotime($today);
 		
-		$graph_data=array();
+		$full_graph_data=array();
+		$jobstatus_filter_graph_data=array();
+		$total_count=0;
+		$jobstatus_filter_total_count=0;
  
 		if ($days_difference<60)
 		{
 			for ($i=0;$i<=$days_difference;$i++)
 			{
-			$d = strtotime(date("d-M-Y", strtotime($end_date)) . " -".$i." day");
-			
+			$d = strtotime(date("d-M-Y", strtotime($start_date)) . "+".$i." day");
 			
 			$weekday = date('w', $d);
 			if (in_array($weekday, $show_days)) {
 					
 					$label_date=date('l d-M-Y',$d);
 					$no_of_calls= Servicecall::model()->countByAttributes(array('fault_date'=>$d));
-					$graph_data[$label_date]=$no_of_calls;
-				}			
+					$full_graph_data[$label_date]=$no_of_calls;
+					$total_count=$total_count+$no_of_calls;		
+					
+					if ($job_status_id!=0)/// 0 means all status not selected
+					{
+						$jobstatus_filter_no_of_calls= Servicecall::model()->countByAttributes(array('fault_date'=>$d,'job_status_id'=>$job_status_id));
+						$jobstatus_filter_graph_data[$label_date]=$jobstatus_filter_no_of_calls;
+						$jobstatus_filter_total_count=$jobstatus_filter_total_count+$jobstatus_filter_no_of_calls;
+					} //end of if ($job_status_id!=0)/// 0 means all status not selected
+				}///end of 	if (in_array($weekday, $show_days)) {		
 			}//end of for
 		}///end of if $days_difference
 		else
@@ -166,21 +133,13 @@ class DefaultController extends Controller
 			$months = date_diff(new DateTime($start_date),new DateTime($end_date));
 			$count_month=(int) abs(($months->format('%R%a'))/30);
 			//echo (int) abs(($months->format('%R%a'))/30);
-				
-			
 			$forloop_month=date('n',strtotime($start_date));
 			$forloop_year=date('Y',strtotime($start_date));
- 
-		
-/*		
-			echo $start_date;
-			echo '<br> FOr LOOOP MOnth'.$forloop_month;
-			echo '<br> FOr LOOOP Year'.$forloop_year;
-*/		
-		////First create an array of Start date of month and end date of month of 12 Months
+
+			////First create an array of Start date of month and end date of month of 12 Months
 			//for ($i=0;$i<12;$i++)///initialization for loop
 			
-							////if month $startdate == $month of enddate
+			////if month $startdate == $month of enddate
 			$sd_month=date('n',strtotime($start_date));
 			$ed_month=date('n',strtotime($end_date));
 			$ed_year=date('Y',strtotime($end_date));
@@ -195,7 +154,8 @@ class DefaultController extends Controller
 					$sd=$start_date;
 				}else
 				{
-					$sd='01-'.$month_names[$forloop_month].'-'.$forloop_year;
+					$month_name=Graph::model()->getMonthNameByNumber($forloop_month);
+					$sd='01-'.$month_name.'-'.$forloop_year;
 				}
 
 				if ($ed_month===date('n',strtotime($sd)) && $ed_year===date('Y',strtotime($sd)))
@@ -218,13 +178,22 @@ class DefaultController extends Controller
 				$criteria->select="fault_date";
 				$criteria->addBetweenCondition('fault_date', $sd, $ed);
 				$no_of_calls=Servicecall::model()->count($criteria);
-				
 				$label_date=date('M-Y',$sd);
+				$full_graph_data[$label_date]=$no_of_calls;
+				$total_count=$total_count+$no_of_calls;
+			
+				
+				if ($job_status_id!=0)/// 0 means select all status
+				{	 
+					$criteria->addCondition('job_status_id='.$job_status_id); 
+					$jobstatus_filter_no_of_calls=Servicecall::model()->count($criteria);
+					$jobstatus_filter_graph_data[$label_date]=$jobstatus_filter_no_of_calls;
+					$jobstatus_filter_total_count=$jobstatus_filter_total_count+$jobstatus_filter_no_of_calls;
+				}
+				
 				//echo '<br> '.$label_date.':	'.$no_of_calls;
 				
-				$graph_data[$label_date]=$no_of_calls;
-			
-			
+				
 			
 				
 				$forloop_month=$forloop_month+1;
@@ -242,10 +211,61 @@ class DefaultController extends Controller
 			
 		}
 		
-		///print_r($graph_data);
-		echo json_encode($graph_data);
+		 $final=array('full_data'=>$full_graph_data,'jobstatus_filter_data'=>$jobstatus_filter_graph_data, 'total_calls'=>$total_count,'jobstatus_filter_total_calls'=>$jobstatus_filter_total_count);
+		 
+		//array_push($full_graph_data,$total_count);
+		//$full_graph_data=array_reverse($full_graph_data);
+		///print_r($full_graph_data);
+		//echo json_encode($full_graph_data);
+		echo json_encode($final);
 
 	}///end of actiongetcustomdaysdata
+	
+	
+	
+	public function actionGetServicecallsCountByStatusesInDateRange()
+	{
+		 
+		$weekdays=$_GET['weekdays'];
+		$start_date=Graph::model()->formatDateForGraphData($_GET['start_date']);
+		$end_date=Graph::model()->formatDateForGraphData($_GET['end_date']);
+		$days_difference=Graph::model()->getDaysDifference($start_date, $end_date);
+		
+		$jobstatuses_count=array();
+		$total_count=0;
+		/*
+		echo "****".$start_date;
+		echo "<br>***".$end_date;
+		echo '<br> DF-'.$days_difference;
+		*/
+		
+		
+		//get list of JS
+		$sd=strtotime($start_date);
+		$ed=strtotime($end_date);
+		$all_published_job_status=JobStatus::model()->getAllPublishedListdata();
+		//print_r($all_published_job_status);
+		
+		
+		foreach ($all_published_job_status as $id => $job_status_label) {
+		
+			$criteria=new CDbCriteria();
+			$criteria->select="fault_date";
+			$criteria->addBetweenCondition('fault_date', $sd, $ed);
+			$criteria->addCondition('job_status_id='.$id); 		
+			$no_of_calls=Servicecall::model()->count($criteria);
+			//echo "<hr>".$jobstatus_label;
+			$jobstatuses_count[$job_status_label]=$no_of_calls;
+			$total_count=$total_count+$no_of_calls;
+		}
+		
+		//echo "<hr>".print_r($jobstatuses_count);
+
+		$final=array('jobstatuses_count'=>$jobstatuses_count,'total_calls'=>$total_count);
+		echo json_encode($final);  
+	
+	}///end of actionGetServicecallsCountByStatusesInDateRange()
+	
 	
 	public function actionGetExpiryDate()
 	{

@@ -1,6 +1,6 @@
 <?php
 
-class AddonsController extends Controller
+class AddonsController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,10 +14,9 @@ class AddonsController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
-
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -31,7 +30,7 @@ class AddonsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'install'),
+				'actions'=>array('create','update','view','index','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -57,7 +56,7 @@ class AddonsController extends Controller
 	
  	public function actionInstall()
 	{
- 
+	
 		$log_msgs=array();
 		
 		
@@ -81,8 +80,8 @@ class AddonsController extends Controller
 		$addons_model->name=$xml->info->name;
 		$addons_model->addon_label=$xml->info->label;
 		$addons_model->type=$xml->info->type;
-		$addons_model->active=$xml->info->active;
-		
+		$addons_model->active=intval($xml->info->active);
+		echo intval($xml->info->active);
 		if($addons_model->save())
 		{
 			//Step 4: Install Table

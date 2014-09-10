@@ -48,7 +48,7 @@
 	
 	<div class="row buttons">
 		<?php //echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-		<?php echo CHtml::ajaxSubmitButton('Save',CHtml::normalizeUrl(array('notificationContact/create','render'=>false)),array('success'=>'js: function(data) {
+		<?php echo CHtml::ajaxSubmitButton('Save',CHtml::normalizeUrl(array('notificationContact/create','render'=>true)),array('success'=>'js: function(data) {
                         $("#formdialog").dialog("close");
                     }'),array('id'=>'closeJobDialog'));
 					//$("#Person_jid").append(data);

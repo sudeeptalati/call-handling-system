@@ -154,7 +154,7 @@ $productTypeModel=ProductType::model()->findByPk($productModel->product_type_id)
 
 <?php 
 	$baseUrl=Yii::app()->request->baseUrl;
-	$changeEnggUrl=$baseUrl.'/enggdiary/changeEngineer/';		
+	$changeEnggUrl=$baseUrl.'/index.php?r=enggdiary/admin';		
 
 	$enggdiaryform=$this->beginWidget('CActiveForm', array(
 	'id'=>'enggdiary-changeEngineer-form',

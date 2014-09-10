@@ -48,7 +48,8 @@ $this->menu=array(
 		'purchase_price',
 		//'notes',
 		//'created_by_user_id',
-		'createdByUser.username',
+		//'createdByUser.username',
+		array( 'name'=>'created_by_user_id', 'value'=>$model->createdByUser->username, 'filter'=>false),
 		//'created',
 		array(
 				'name'=>'Created',

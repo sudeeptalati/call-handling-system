@@ -1,5 +1,3 @@
-
-
 <div id="sidemenu">             
 <?php include('setup_sidemenu.php'); ?>   
 </div>
@@ -7,8 +5,6 @@
 <h1>Set Up</h1>
 
 <div style="text-align:right"><b><?php echo CHtml::link('Edit Details', array('/setup/update/&id=1'));?></b></div>
-
-
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -69,3 +65,5 @@
 </tr>
 
 </table>
+
+<div>

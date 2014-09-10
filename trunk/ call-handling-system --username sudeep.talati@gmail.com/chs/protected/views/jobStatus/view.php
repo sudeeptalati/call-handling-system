@@ -26,9 +26,8 @@
 		
 		//'updatedByUser.name',
     	
-		 array(  'name'=>'Last Updated By',
-				 'value'=>$model->updatedByUser->name,
-			),
+		 array(  'name'=>'updated_by_user_id',
+				 'value'=>$model->updated_by_user_id==null ? "":$model->updatedByUser->username),
     	
     	
     	array(  'name'=>'updated',

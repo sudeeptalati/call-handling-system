@@ -22,12 +22,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'created_by_user_id'); ?>
-		<?php echo $form->textField($model,'created_by_user_id'); ?>
-		<?php echo $form->error($model,'created_by_user_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'created'); ?>
 		<?php echo $form->textField($model,'created'); ?>
 		<?php echo $form->error($model,'created'); ?>

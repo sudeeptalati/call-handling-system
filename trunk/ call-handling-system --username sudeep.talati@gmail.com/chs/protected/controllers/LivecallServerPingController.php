@@ -1,6 +1,6 @@
 <?php
 
-class LivecallServerPingController extends Controller
+class LivecallServerPingController extends RController
 {
 
 

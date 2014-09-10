@@ -25,14 +25,21 @@
 				'header'=>'Active',
 				'value'=>$model->active == 0?"No":"Yes",
 		),
-		//'created_by_user_id',
-		'createdByUser.username',
-		//'created',
+		
+		
+		'created_by_user_id',
+		
+		
+		array( 'name'=>'created_by_user_id', 'value'=>$model->createdByUser->username),
+		
+		//'createdByUser.name',
 		array( 'name'=>'created', 'value'=>$model->created==null ? "":date("d-M-Y",$model->created)),
 		//'modified',
 		array( 'name'=>'modified', 'value'=>$model->modified==null ? "":date("d-M-Y",$model->modified)),
 		//'inactivated'
 		array( 'name'=>'inactivated', 'value'=>$model->inactivated==null ? "":date("d-M-Y",$model->inactivated)),
+		
+	
 	),
 )); 
 

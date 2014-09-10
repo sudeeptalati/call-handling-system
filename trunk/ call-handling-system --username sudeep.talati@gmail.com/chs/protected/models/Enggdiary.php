@@ -181,7 +181,7 @@ class Enggdiary extends CActiveRecord
             else
             {
             	//echo "visit time in update in before save = ".$this->visit_start_date;
-            	console.info("visit time in update in before save = ". $this->visit_start_date);
+            	//console.info("visit time in update in before save = ". $this->visit_start_date);
 //            	$this->visit_start_date=strtotime($this->visit_start_date);
 //            	$this->visit_end_date=strtotime($this->visit_end_date);
 //            	$this->modified=time();

@@ -41,7 +41,7 @@
 		//'created_by_user_id',
 		array(
 			  'name'=>'user',
-			  'value'=>'$data->createdByUser->name',
+			  'value'=>'$data->createdByUser->username',
 				'filter'=>false
 				),
 		/*

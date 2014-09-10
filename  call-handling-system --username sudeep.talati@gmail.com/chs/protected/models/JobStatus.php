@@ -235,7 +235,7 @@ class JobStatus extends CActiveRecord
     	if(parent::beforeSave())
         {
         	$this->updated=time();
-        	$this->updated_by_user_id=Yii::app()->user->id;
+        	//$this->updated_by_user_id=Yii::app()->user->id;
             return true;
             
         }//end of if(parent())

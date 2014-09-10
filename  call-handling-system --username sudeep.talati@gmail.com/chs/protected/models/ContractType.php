@@ -43,7 +43,7 @@ class ContractType extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, created_by_user_id, created', 'required'),
+			array('name, created', 'required'),
 			array('created_by_user_id', 'numerical', 'integerOnly'=>true),
 			array('information', 'safe'),
 			// The following rule is used by search().

@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Enggdiary', 'url'=>array('index')),
-	array('label'=>'Create Enggdiary', 'url'=>array('create')),
+	//array('label'=>'Create Enggdiary', 'url'=>array('create')),
 	array('label'=>'Update Enggdiary', 'url'=>array('update', 'id'=>$model->id)),
 	//array('label'=>'Delete Enggdiary', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Enggdiary', 'url'=>array('admin')),
@@ -32,7 +32,8 @@ $this->menu=array(
 		'status',
 		'servicecall_id',
 		//'user_id',
-		'userid.username',
+		//'userid.username',
+		array( 'name'=>'user_id', 'value'=>$model->user_id==null ? "":$model->userid->username),
 		//'created',
 		array( 'name'=>'created', 'value'=>$model->created==null ? "":date("d-M-Y",$model->created)),
 		//'modified',

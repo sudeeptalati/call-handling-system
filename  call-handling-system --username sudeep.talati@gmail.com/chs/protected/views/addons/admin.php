@@ -54,12 +54,12 @@
         ),
 		
 		
+		array( 'name'=>'created_by', 'value'=>'$data->created_by==null ? "":$data->createdByUser->username', 'filter'=>false),
 		
 		
-		array( 'name'=>'created_on', 'value'=>'$data->createdByUser->name', 'filter'=>false),
-		array( 'name'=>'created_by', 'value'=>'$data->created_on==null ? "":date("d-M-Y H:i:s ",$data->created_on)', 'filter'=>false),
+		array( 'name'=>'created_on', 'value'=>'$data->created_on==null ? "":date("d-M-Y H:i:s ",$data->created_on)', 'filter'=>false),
 		
-		array( 'name'=>'inactivated_by', 'value'=>'$data->inactivated_by==null ? "":$data->inactivatedByUser->name', 'filter'=>false),
+		array( 'name'=>'inactivated_by', 'value'=>'$data->inactivated_by==null ? "":$data->inactivatedByUser->username', 'filter'=>false),
 		array( 'name'=>'inactivated_on', 'value'=>'$data->inactivated_on==null ? "":date("d-M-Y H:i:s ",$data->inactivated_on)', 'filter'=>false),
 				
 				

@@ -25,9 +25,15 @@
 				'value'=>'($data->active == 0)?"No":"Yes"',
 				'filter'=>array('1'=>'Yes', '0'=>'No'),
 		),
-		//'created_by_user_id',
-		//'createdByUser.name'
-		//array( 'name'=>'created_by_user', 'value'=>'$data->createdByUser->username' ),
+		'created_by_user_id',
+		//'created_by_user',
+		
+		//'value'=>'$data->createdByUser->username' 
+		
+		array( 'name'=>'created_by_user_id', 'value'=>'$data->created_by_user_id==null ? "":$data->createdByUser->username', 'filter'=>false),
+									
+		
+		
 		//'created',
 		array( 'name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
 		//'modified',

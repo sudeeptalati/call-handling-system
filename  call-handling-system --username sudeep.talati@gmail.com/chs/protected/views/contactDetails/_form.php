@@ -5,7 +5,7 @@
 	'enableAjaxValidation'=>true,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -32,13 +32,16 @@
 		<?php echo $form->textField($model,'town',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'town'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'postcode'); ?>
-		<?php echo $form->textField($model,'postcode',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'postcode'); ?>
+<div class="row">
+		<?php echo $form->labelEx($model,'postcode_s'); ?>
+		<?php echo $form->textField($model,'postcode_s',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'postcode_s'); ?>
 	</div>
-
+	<div class="row">
+		<?php echo $form->labelEx($model,'postcode_e'); ?>
+		<?php echo $form->textField($model,'postcode_e',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'postcode_e'); ?>
+	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'country'); ?>
 		<?php echo $form->textField($model,'country',array('rows'=>6, 'cols'=>50)); ?>

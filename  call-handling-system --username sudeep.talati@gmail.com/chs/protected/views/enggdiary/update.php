@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Enggdiary', 'url'=>array('index')),
-	array('label'=>'Create Enggdiary', 'url'=>array('create')),
+	//array('label'=>'Create Enggdiary', 'url'=>array('create')),
 	array('label'=>'View Enggdiary', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Enggdiary', 'url'=>array('admin')),
 );

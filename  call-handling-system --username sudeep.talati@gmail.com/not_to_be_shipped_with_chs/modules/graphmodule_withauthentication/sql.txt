@@ -1,0 +1,1 @@
+CREATE TABLE graph_reportfields (id INTEGER PRIMARY KEY NOT NULL, report_type INTEGER, field_name TEXT, field_type TEXT, field_relation TEXT, field_label TEXT, sort_order INTEGER,active INTEGER );

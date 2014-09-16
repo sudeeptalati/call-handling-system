@@ -1,3 +1,5 @@
+<?php include('graph_menu.php'); ?>   
+ 
 <?php
 $alljobstatus=Jobstatus::model()->getAllPublishedListdata();
 //print_r($alljobstatus);

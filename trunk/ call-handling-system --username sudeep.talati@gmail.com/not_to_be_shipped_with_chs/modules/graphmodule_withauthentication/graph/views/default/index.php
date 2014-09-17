@@ -1,7 +1,7 @@
 <?php include('graph_menu.php'); ?>   
  
 <?php
-$alljobstatus=Jobstatus::model()->getAllPublishedListdata();
+$alljobstatus=JobStatus::model()->getAllPublishedListdata();
 //print_r($alljobstatus);
 $alljobstatus[0]= 'All Status';
 $alljobstatus=array_reverse($alljobstatus,true);

@@ -1,18 +1,11 @@
-<?php
-/* @var $this GmJsonFieldsController */
-/* @var $model GmJsonFields */
 
-$this->breadcrumbs=array(
-	'Gm Json Fields'=>array('index'),
-	$model->id,
-);
+<?php include('gomobile_menu.php');  
+ 
+ 
 
 $this->menu=array(
-	array('label'=>'List GmJsonFields', 'url'=>array('index')),
-	array('label'=>'Create GmJsonFields', 'url'=>array('create')),
-	array('label'=>'Update GmJsonFields', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete GmJsonFields', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage GmJsonFields', 'url'=>array('admin')),
+		array('label'=>'Create GmJsonFields', 'url'=>array('create')),
+		array('label'=>'Manage GmJsonFields', 'url'=>array('admin')),
 );
 ?>
 

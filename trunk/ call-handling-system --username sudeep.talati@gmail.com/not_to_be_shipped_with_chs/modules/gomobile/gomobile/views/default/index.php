@@ -32,12 +32,15 @@ $servicecall=array();
 $customer=array();
 $customer['name']=$servicecall_model->customer->fullname;
 
-
-$servicecall['job_status_id']=$job_status_id;
-$servicecall['created']=$created;
-$servicecall['created_by']=$created_by;
-$servicecall['modified']=$modified;
-
+$gm_json_fields_model=GmJsonFields::model()->findAll();
+foreach($gm_json_fields_model as $p)
+{
+	$key=$p['field_relation'];
+	$value=$servicecall_model->$p['field_relation'];
+	
+$servicecall[$key]=$value;
+	
+}
 
 $myarray['servicecall']=$servicecall;
 $myarray['customer']=$customer;
@@ -49,5 +52,3 @@ array_push($foreacharray,$myarray);
 $json_data=array('Details'=>$foreacharray);
 echo json_encode($json_data);
 ?>
-
-

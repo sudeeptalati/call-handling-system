@@ -32,7 +32,7 @@ class GraphReportfieldsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','checkFieldOrRelationByModelNameAndValue', 'getRelationsAndFieldsListByModelName'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -65,7 +65,7 @@ class GraphReportfieldsController extends Controller
 		$model=new GraphReportfields;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['GraphReportfields']))
 		{
@@ -170,4 +170,63 @@ class GraphReportfieldsController extends Controller
 			Yii::app()->end();
 		}
 	}
+	
+	
+	
+	///////////My Contriolllers
+	
+		
+	public function actionGetRelationsAndFieldsListByModelName()
+	{
+		$modelname= $_GET['modelname'];
+		$list_data=GraphReportfields::model()->getRelationsAndFieldsListByModelName($modelname);
+		echo json_encode($list_data);		
+
+	}//end of actionGetRelationsAndFieldsListByModelName
+	
+	
+	public function actionCheckFieldOrRelationByModelNameAndValue()
+	{
+		
+		$modelname= $_GET['modelname'];
+		$selected_value= $_GET['selected_value'];
+		
+		$model=GraphReportfields::model();
+		/*
+		$modelname="Uplifts";
+		$selected_value="servicecall";
+		*/
+		
+		$fieldslist = $model->getFieldsListByModelName($modelname);
+		$relationslist = $model->getOneToOneRelationListByModelName($modelname);
+ 
+		
+		$response=array();
+		
+		if (in_array($selected_value, $relationslist)) {
+		
+			$response['value_type']='relation';
+			$response['value_selected']=$selected_value;	
+			
+			$newmodel=$model->getNewModelNameBySelectedValueAndCurrentModelName($modelname,$selected_value);
+			$newmodellistdata=$model->getRelationsAndFieldsListByModelName($newmodel);
+			$response['newmodel']=$newmodel;
+			$response['list_data']=$newmodellistdata;
+		}
+		
+		
+		if (in_array($selected_value, $fieldslist)) {
+		
+			$response['value_type']='field';
+			$response['value_selected']=$selected_value;	
+		}
+		
+				
+		echo json_encode($response);		
+
+	}///end of actionCheckFieldOrRelationByModelNameAndValue
+	
+	
+	
+	
 }

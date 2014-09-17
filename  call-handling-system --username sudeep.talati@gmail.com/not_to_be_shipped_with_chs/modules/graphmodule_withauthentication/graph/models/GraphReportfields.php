@@ -120,8 +120,9 @@ class GraphReportfields extends CActiveRecord
 		$fieldslist=$this->getFieldsListByModelName($modelname);		
 		
 		$one_to_one_relationlist=$this->getOneToOneRelationListByModelName($modelname);
+ 
 		
-		$list_data= array_merge($fieldslist, $one_to_one_relationlist);
+		$list_data= array_merge( $one_to_one_relationlist,$fieldslist);
 		//array_push($list_data,"");
 		
 		//$list_data=array_reverse($list_data);	
@@ -133,7 +134,24 @@ class GraphReportfields extends CActiveRecord
 	{
 		$table = Yii::app()->getDb()->getSchema()->getTable($modelname::model()->tableName());
 		$fieldslist = $table->getColumnNames();
-		return $fieldslist;
+		
+		$fieldlist_withoutids=array();
+		$fieldlist_with_only_ids=array();		
+		
+		foreach ($fieldslist as $f)
+		{
+			if (strpos($f,'_id') !== false) ///here we eliminate all fields with _id
+			{ 
+				array_push($fieldlist_with_only_ids, $f);
+			}else
+			{
+				if (strcmp($f, 'id') !== 0)///here we will eliminate id too
+					array_push($fieldlist_withoutids, $f);
+			}
+			
+		}
+		
+		return $fieldlist_withoutids;
 	}
 	
 	public function getOneToOneRelationListByModelName($modelname)

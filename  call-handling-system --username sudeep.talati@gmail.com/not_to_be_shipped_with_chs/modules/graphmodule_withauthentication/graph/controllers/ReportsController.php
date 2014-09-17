@@ -20,10 +20,11 @@ class ReportsController extends Controller
 		
 		if(isset($_GET['generate_report']))
 			{
+				/*
 				echo '***********************';
 				echo '<br> Engg ID is :'.$_GET['engineer_id'];
 				echo '<br> Status ID is :'.$_GET['job_status_id'];
-				
+				*/
 				$criteria=new CDbCriteria();
 				
 				$criteria->compare('job_status_id',$_GET['job_status_id']);
@@ -42,8 +43,8 @@ class ReportsController extends Controller
 					$jobPaymentStartDate=strtotime($_GET['jobPaymentStartDate']);
 					$jobPaymentEndDate=strtotime($_GET['jobPaymentEndDate']);
 					
-					echo '<br> job PAYMENT START DATE : '.$jobPaymentStartDate;
-					echo '<br> job PAYMENT END DATE : '.$jobPaymentEndDate;
+				//	echo '<br> job PAYMENT START DATE : '.$jobPaymentStartDate;
+				//	echo '<br> job PAYMENT END DATE : '.$jobPaymentEndDate;
 					$criteria->addBetweenCondition('job_payment_date', $jobPaymentStartDate, $jobPaymentEndDate);
 				}
 				
@@ -55,7 +56,7 @@ class ReportsController extends Controller
 					$criteria->addBetweenCondition('job_finished_date', $jobFinishedStartDate, $jobFinishedEndDate);
 				}
 
-				echo '<br> SERVICECALLS WITH STATUS	:	'.$serviceacall_model->count($criteria);
+				//echo '<br> SERVICECALLS WITH STATUS	:	'.$serviceacall_model->count($criteria);
 				$data=Servicecall::model()->find($criteria);
 				//print_r($data);
 				

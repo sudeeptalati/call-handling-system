@@ -36,12 +36,29 @@ $gm_json_fields_model=GmJsonFields::model()->findAll();
 foreach($gm_json_fields_model as $p)
 {
 	$key=$p['field_relation'];
-	$value=$servicecall_model->$p['field_relation'];
 	
-$servicecall[$key]=$value;
+	if (strpos($key, '|')!== false)
+	{
+		$str_array = explode( '|', $key);
+		
+		//print_r($str_array);
+		
+		$value= $servicecall_model->$str_array[0]->$str_array[1];	
+		$servicecall[$key]=$value;			
+		//echo $servicecall_model->customer->town;			
+		
+	}
+	else
+	{
+		//echo "<br>Its a FIELS ";
+		$value=$servicecall_model->$p['field_relation'];
+		$servicecall[$key]=$value;
+		
+	}
 	
 }
-
+$engineer_id=$servicecall_model->engineer_id;
+$myarray['engineer_id']=$engineer_id;
 $myarray['servicecall']=$servicecall;
 $myarray['customer']=$customer;
 

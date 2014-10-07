@@ -1574,3 +1574,22 @@ Stack trace:
 REQUEST_URI=/purva/gomobileServer/gomobile/index.php?r=server
 in C:\xampp\htdocs\purva\gomobileServer\gomobile\protected\controllers\ServerController.php (8)
 in C:\xampp\htdocs\purva\gomobileServer\gomobile\index.php (13)
+2014/10/07 16:19:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "getmyenggdetails".' in C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController('getmyenggdetail...')
+#1 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/call-handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=getmyenggdetails
+---
+2014/10/07 16:19:37 [error] [php] Undefined index: engineer_id (C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:48)
+Stack trace:
+#0 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/call-handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/getmyenggdetails
+in C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (48)
+in C:\xampp\htdocs\call-handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)

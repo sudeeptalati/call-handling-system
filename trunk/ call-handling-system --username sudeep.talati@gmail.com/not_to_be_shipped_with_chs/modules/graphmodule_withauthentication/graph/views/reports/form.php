@@ -1,5 +1,8 @@
 <?php include('graph_menu.php'); ?>   
 
+<h1><font color="#0094EF"> Service Calls Reports</font> </h1>
+
+
 <?php
 if (isset($_GET['engineer_id']))
 	$engineer_id=$_GET['engineer_id'];
@@ -50,7 +53,7 @@ if (isset($_GET['jobFinishedEndDate']))
 
 
 
-
+$csvdata='';
 
 
 //get servicecall model
@@ -116,18 +119,16 @@ $today = date('d-M-y', time());
 	</tr>
 	<tr>
 		<td colspan='4' ><hr><b><?php echo $servicecall_label['job_status_id']; ?></b>
-		<?php
-			
-			echo CHtml::dropDownList('job_status_id',$job_status_id, $job_status_data, array('empty'=> 'All Status'));
+		<?php			
+				echo CHtml::dropDownList('job_status_id',$job_status_id, $job_status_data, array('empty'=> 'All Status'));
+				//echo CHtml::dropDownList('job_status_id',$job_status_id, $job_status_data );
 		?>
 		</td>
 	</tr>
 	<tr>
 		<td colspan='4'><hr><b><?php echo $servicecall_label['engineer_id']; ?></b>
 		<?php
-			echo CHtml::dropDownList('engineer_id',$engineer_id, $engg_data,
-									array('empty'=> 'All Engineers')
-									);
+			echo CHtml::dropDownList('engineer_id',$engineer_id, $engg_data, array('empty'=> 'All Engineers'));
 		?>
 		
 		</td>
@@ -227,6 +228,7 @@ $today = date('d-M-y', time());
 			echo CHtml::submitButton('Generate Report',array('name' => 'generate_report'));
 			echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 			echo CHtml::link('Reset',array('/graph/reports/form')); 
+			
 		?>
 		</td>
 	</tr>
@@ -236,9 +238,28 @@ $today = date('d-M-y', time());
 <?php echo CHtml::endForm(); ?>
 </div><!-- END OF FORM DIV -->
 
+<br><br>
 <?php
+
+
 if(isset($_GET['generate_report']))///////SHOW THE FOLLOWING GRID ONLY IF FORM IS SUBMITTED
 {
+		echo CHtml::beginForm('index.php?r=graph/reports/exporttocsv','get',  array('target'=>'_blank')); 
+		//echo CHtml::textArea('json_data_for_csv', json_encode($active_data_for_csv), array('id'=>'json_data_for_csv'));
+		echo CHtml::hiddenField('fault_dateStartDate', $fault_dateStartDate);
+		echo CHtml::hiddenField('fault_dateEndDate', $fault_dateEndDate);
+		echo CHtml::hiddenField('job_status_id', $job_status_id);
+		echo CHtml::hiddenField('engineer_id', $engineer_id);
+		echo CHtml::hiddenField('jobPaymentStartDate', $jobPaymentStartDate);
+		echo CHtml::hiddenField('jobPaymentEndDate', $jobPaymentEndDate);
+		echo CHtml::hiddenField('jobFinishedStartDate', $jobFinishedStartDate);
+		echo CHtml::hiddenField('jobFinishedEndDate', $jobFinishedEndDate);	
+		echo CHtml::submitButton('Export as CSV'); 
+		echo CHtml::endForm(); 
+		echo 'You can save the following data in the CSV format and later convert it to excel. Just click on Export as CSV ';
+
+
+
 		$this->widget('zii.widgets.grid.CGridView',
 						array(
 							'dataProvider' => $active_data,
@@ -292,16 +313,41 @@ if(isset($_GET['generate_report']))///////SHOW THE FOLLOWING GRID ONLY IF FORM I
 		
 			
 		));
+		
+		//print_r($active_data_for_csv);
+		
+	 	 
+			
+			
+	 
+		 
+		
 
+
+	 
+		
+		 
+		
 }////end of if(isset($_GET['generate_report']))		
-?>
 
+
+
+
+ 
+?>
+ 
+
+ 
 
 <script>
 
 function setTodaysDateInTextField(field_id)
 {
-document.getElementById(field_id).value=document.getElementById("todays_date").value;
+	document.getElementById(field_id).value=document.getElementById("todays_date").value;
 }///end of setTodaysDateInTextField("fault_dateEndDate")
+
+
+ 
+
 </script>
  

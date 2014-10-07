@@ -33,6 +33,8 @@ class GraphReportfields extends CActiveRecord
 		return array(
 			array('report_type, sort_order, active', 'numerical', 'integerOnly'=>true),
 			array('field_name, field_type, field_relation, field_label', 'safe'),
+			array('sort_order, field_type, field_relation, field_label', 'required'),
+			
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, report_type, field_name, field_type, field_relation, field_label, sort_order, active', 'safe', 'on'=>'search'),
@@ -122,7 +124,7 @@ class GraphReportfields extends CActiveRecord
 		$one_to_one_relationlist=$this->getOneToOneRelationListByModelName($modelname);
  
 		
-		$list_data= array_merge( $one_to_one_relationlist,$fieldslist);
+		$list_data= array_merge( $fieldslist,$one_to_one_relationlist);
 		//array_push($list_data,"");
 		
 		//$list_data=array_reverse($list_data);	
@@ -145,7 +147,7 @@ class GraphReportfields extends CActiveRecord
 				array_push($fieldlist_with_only_ids, $f);
 			}else
 			{
-				if (strcmp($f, 'id') !== 0)///here we will eliminate id too
+				//if (strcmp($f, 'id') !== 0)///here we will eliminate id too
 					array_push($fieldlist_withoutids, $f);
 			}
 			
@@ -159,7 +161,6 @@ class GraphReportfields extends CActiveRecord
 		$relationslist=$modelname::model()->relations();
 		
 		$one_to_one_relationlist=array();
-		
 		foreach ($relationslist as $key=>$value)
 		{
 			

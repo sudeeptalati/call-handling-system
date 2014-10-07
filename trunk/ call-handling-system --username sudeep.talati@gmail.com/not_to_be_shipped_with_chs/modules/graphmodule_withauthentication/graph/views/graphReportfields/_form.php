@@ -21,31 +21,44 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'report_type'); ?>
 		<?php echo $form->textField($model,'report_type'); ?>
 		<?php echo $form->error($model,'report_type'); ?>
 	</div>
+	
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'field_name'); ?>
 		<?php echo $form->textField($model,'field_name',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'field_name'); ?>
 	</div>
-
+	-->
 	<div class="row">
 		<?php echo $form->labelEx($model,'field_type'); ?>
-		<?php echo $form->dropDownList($model,'field_type', array('TEXT'=>'TEXT', 'DATETIME'=>'DATETIME', 'INTEGER'=>'INTEGER')); ?>
+		<?php echo $form->dropDownList($model,'field_type', array('TEXT'=>'TEXT', 'DATETIME'=>'DATETIME')); ?>
 		<?php echo $form->error($model,'field_type'); ?>
 	</div>
 
+	
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'field_label'); ?>
+		<?php echo $form->textField($model,'field_label',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'field_label'); ?>
+	</div>
+	
 	<div id='field_relation_div' style='padding:1em;border-radius: 1em;' class="row">
 		
 		<span id='field_relation_span_text'></span>
 		<?php echo $form->labelEx($model,'field_relation'); ?>
 		<?php echo $form->hiddenField($model,'field_relation',array( 'style'=>'width:300px;')); ?>
-		<div id="field_relation"><?php  echo $model->field_relation; ?></div>
+		<div id="field_relation">
+			<?php echo $model->field_relation; ?>
+		</div>
+		
 		<?php echo $form->error($model,'field_relation'); ?>
 	
 		<br>
@@ -71,19 +84,16 @@
 			 
 		?>
 		
-		<span id='dynamicselect'></span>
+		<span id='dynamicselect'></span> 
 		<span id="fooBar">&nbsp;</span>
+		<?php echo CHtml::link('Reset', array('onclick'=>'js:location.reload()')); ?>
+		
 	
 	
 	</div>
 	
 	
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'field_label'); ?>
-		<?php echo $form->textField($model,'field_label',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'field_label'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'sort_order'); ?>
@@ -170,38 +180,39 @@ function relation_changed(relation_select_id)
 
 function createDropDown(listdata,modelname)
 {
-	var dropdownid=modelname+"_relation_dynamic";
-	console.log("*****createDropDown*******");
-	var dynamicselect=document.getElementById("dynamicselect");
-	
-	var select12 = document.createElement("Select");
-	select12.setAttribute("name", dropdownid);
-	select12.setAttribute("id", dropdownid);
-	
-	//select12.style.width = "300px"
-	dynamicselect.innerHTML="";
-	//console.log("*****createDropdynamicselecDown*******");
-	
-	for(var i = 0; i < listdata.length; i++) {
-		
-		var opt = document.createElement('option');
-		opt.innerHTML = listdata[i];
-		opt.value = listdata[i];
-		select12.appendChild(opt);
-		//console.log("*****createDropdynamicselecDown*******"+listdata[i]);
-	
-	}
-	
-	select12.setAttribute("onchange", "relation_changed_dynamic("+dropdownid+")");
 
-	select12.setAttribute('style', 'width:75px;');
-	
-	console.log("************"+dropdownid);
-	
-	addSelectObject(select12);
-	
-	
+	if (maximumrelationlimit()){
+		
+		var dropdownid=modelname+"_relation_dynamic";
+		console.log("*****createDropDown*******");
+		var dynamicselect=document.getElementById("dynamicselect");
+		
+		var select12 = document.createElement("Select");
+		select12.setAttribute("name", dropdownid);
+		select12.setAttribute("id", dropdownid);
+		
+		//select12.style.width = "300px"
+		dynamicselect.innerHTML="";
+		//console.log("*****createDropdynamicselecDown*******");
+		
+		for(var i = 0; i < listdata.length; i++) {
+			
+			var opt = document.createElement('option');
+			opt.innerHTML = listdata[i];
+			opt.value = listdata[i];
+			select12.appendChild(opt);
+			//console.log("*****createDropdynamicselecDown*******"+listdata[i]);
+		}
+		select12.setAttribute("onchange", "relation_changed_dynamic("+dropdownid+")");
+		select12.setAttribute('style', 'width:75px;');
+		console.log("************"+dropdownid);
+		addSelectObject(select12);
 	}
+	else
+	{
+		location.reload(); 
+	}
+}//end of createDropDown(listdata,modelname) 
 
 
 function relation_changed_dynamic(dynamic_relation_select_object)
@@ -297,6 +308,24 @@ function validateForm()
 		return false;
 	}
 }
+
+function maximumrelationlimit()
+{
+	var relation_text=document.getElementById("GraphReportfields_field_relation").value;
+	var res = relation_text.split("|");
+	
+	if (res.length>=5) ///Maximum Relation Limit is 5
+	{
+		alert ('Cannot Go Beyond Level '+res.length+'. The Relation will be Reset');
+		return false;
+	}else	
+		return true;
+	
+	/*
+	$a = explode( '|', $relation);
+	$length=count($a);
+	*/
+}///end of 
 
 
 

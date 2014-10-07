@@ -5,7 +5,6 @@ class ReportsController extends Controller
 	public function actionForm()
 	{
 		$serviceacall_model=new Servicecall();
-	
 		
 		$active_data=new CActiveDataProvider($serviceacall_model, array(
 						'criteria'=>array('condition'=>'id=0'),
@@ -15,51 +14,9 @@ class ReportsController extends Controller
 							),
 					));
 		
-		 
-		
-		
 		if(isset($_GET['generate_report']))
-			{
-				/*
-				echo '***********************';
-				echo '<br> Engg ID is :'.$_GET['engineer_id'];
-				echo '<br> Status ID is :'.$_GET['job_status_id'];
-				*/
-				$criteria=new CDbCriteria();
-				
-				$criteria->compare('job_status_id',$_GET['job_status_id']);
-				$criteria->compare('engineer_id',$_GET['engineer_id']);
-				
-						
-				if ($_GET['fault_dateStartDate']!='')
-				{
-					$fault_dateStartDate=strtotime($_GET['fault_dateStartDate']);
-					$fault_dateEndDate=strtotime($_GET['fault_dateEndDate']);
-					$criteria->addBetweenCondition('fault_date', $fault_dateStartDate, $fault_dateEndDate);
-				}
-				
-				if ($_GET['jobPaymentStartDate']!='')
-				{
-					$jobPaymentStartDate=strtotime($_GET['jobPaymentStartDate']);
-					$jobPaymentEndDate=strtotime($_GET['jobPaymentEndDate']);
-					
-				//	echo '<br> job PAYMENT START DATE : '.$jobPaymentStartDate;
-				//	echo '<br> job PAYMENT END DATE : '.$jobPaymentEndDate;
-					$criteria->addBetweenCondition('job_payment_date', $jobPaymentStartDate, $jobPaymentEndDate);
-				}
-				
-				
-				if ($_GET['jobFinishedStartDate']!='')
-				{
-					$jobFinishedStartDate=strtotime($_GET['jobFinishedStartDate']);
-					$jobFinishedEndDate=strtotime($_GET['jobFinishedEndDate']);
-					$criteria->addBetweenCondition('job_finished_date', $jobFinishedStartDate, $jobFinishedEndDate);
-				}
-
-				//echo '<br> SERVICECALLS WITH STATUS	:	'.$serviceacall_model->count($criteria);
-				$data=Servicecall::model()->find($criteria);
-				//print_r($data);
-				
+		{
+				$criteria=$this->loadCriteria();
 				$active_data=new CActiveDataProvider($serviceacall_model, array(
 						'criteria'=>$criteria,
 						//'pagination'=>false,
@@ -67,13 +24,66 @@ class ReportsController extends Controller
 							'defaultOrder'=>'service_reference_number DESC',
 							),
 					));
-					
-	
 			}///end of if(isset($_GET['generate_report']))
-			
-			$this->render('form',array('model'=>$serviceacall_model, 'active_data'=>$active_data));
+			$this->render('form',array('model'=>$serviceacall_model, 'active_data'=>$active_data ));
 	
 	}///end of form
+	
+	
+	
+	public function actionExporttocsv()
+	{
+		$serviceacall_model=new Servicecall();
+		$criteria=$this->loadCriteria();
+		$active_data_for_csv=new CActiveDataProvider($serviceacall_model, array(
+										'criteria'=>$criteria,
+										'pagination'=>false,
+										'sort'=>array(
+										'defaultOrder'=>'service_reference_number DESC',
+											),
+										));	
+		
+		
+		$this->renderPartial('csvdata', array('active_data_for_csv'=> $active_data_for_csv));  
+		 
+		
+	}///enf of 	public function actionExporttocsv()
+
+	
+	/************************************************************************************************************************
+	**************************************************LOCAL FUNCTIONS********************************************************
+	************************************************************************************************************************/
+	
+	public function loadCriteria()
+	{
+		$criteria=new CDbCriteria();
+		$criteria->compare('job_status_id',$_GET['job_status_id']);
+		$criteria->compare('engineer_id',$_GET['engineer_id']);
+		
+		if ($_GET['fault_dateStartDate']!='')
+		{
+			$fault_dateStartDate=strtotime($_GET['fault_dateStartDate']);
+			$fault_dateEndDate=strtotime($_GET['fault_dateEndDate']);
+			$criteria->addBetweenCondition('fault_date', $fault_dateStartDate, $fault_dateEndDate);
+		}
+		if ($_GET['jobPaymentStartDate']!='')
+		{
+			$jobPaymentStartDate=strtotime($_GET['jobPaymentStartDate']);
+			$jobPaymentEndDate=strtotime($_GET['jobPaymentEndDate']);
+			$criteria->addBetweenCondition('job_payment_date', $jobPaymentStartDate, $jobPaymentEndDate);
+		}
+		if ($_GET['jobFinishedStartDate']!='')
+		{
+			$jobFinishedStartDate=strtotime($_GET['jobFinishedStartDate']);
+			$jobFinishedEndDate=strtotime($_GET['jobFinishedEndDate']);
+			$criteria->addBetweenCondition('job_finished_date', $jobFinishedStartDate, $jobFinishedEndDate);
+		}
+	
+		return $criteria;
+	}//end of loadCriteria()
+	
+	
+	
 
 	
 	

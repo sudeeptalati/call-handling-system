@@ -28,9 +28,11 @@ border-radius: 15px;
 
 <div id='uplifts_menu'><?php
 
-echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
+//echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
 echo "<li>".CHtml::link("Setup",array('/gomobile/gmjsonfields/admin'))."</li>";  
-
+echo "<li>".CHtml::link("Send Servicecalls by Appointment Date",array('/gomobile/default/Databyappointmentdate'))."</li>";  
+//echo "<li>".CHtml::link("Select Job Status of Servicecall",array('/gomobile/default/Jobstatusselectionofservicecall'))."</li>"; 
+//echo "<li>".CHtml::link("Post Data to Server",array('/gomobile/default/PostDatatoServer'))."</li>"; 
 ?>
 </div>
  <br><br>

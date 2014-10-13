@@ -6,11 +6,9 @@
  * The followings are the available columns in table 'gm_servicecalls':
  * @property integer $id
  * @property integer $servicecall_id
- * @property integer $mobile_status
+ * @property string $mobile_status
  * @property integer $created
- * @property integer $created_by
  * @property integer $modified
- * @property integer $modified_by
  */
 class GmServicecalls extends CActiveRecord
 {
@@ -30,10 +28,11 @@ class GmServicecalls extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('servicecall_id, mobile_status, created, created_by, modified, modified_by', 'numerical', 'integerOnly'=>true),
+			array('servicecall_id, created, modified', 'numerical', 'integerOnly'=>true),
+			array('mobile_status', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, servicecall_id, mobile_status, created, created_by, modified, modified_by', 'safe', 'on'=>'search'),
+			array('id, servicecall_id, mobile_status, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,9 +57,7 @@ class GmServicecalls extends CActiveRecord
 			'servicecall_id' => 'Servicecall',
 			'mobile_status' => 'Mobile Status',
 			'created' => 'Created',
-			'created_by' => 'Created By',
 			'modified' => 'Modified',
-			'modified_by' => 'Modified By',
 		);
 	}
 
@@ -84,11 +81,9 @@ class GmServicecalls extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('servicecall_id',$this->servicecall_id);
-		$criteria->compare('mobile_status',$this->mobile_status);
+		$criteria->compare('mobile_status',$this->mobile_status,true);
 		$criteria->compare('created',$this->created);
-		$criteria->compare('created_by',$this->created_by);
 		$criteria->compare('modified',$this->modified);
-		$criteria->compare('modified_by',$this->modified_by);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -105,4 +100,26 @@ class GmServicecalls extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	protected function beforeSave()
+	{
+		if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->created=time();
+				
+				return true;
+            }//end of new record.
+            else
+            {
+            	$this->modified=time();
+            	
+            	
+            	//if()
+            	
+            	return true;
+            }
+        }//end of if(parent())
+	}///end of beforesave
 }

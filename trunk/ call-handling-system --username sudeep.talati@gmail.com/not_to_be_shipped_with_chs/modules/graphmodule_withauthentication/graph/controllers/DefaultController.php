@@ -31,6 +31,8 @@ class DefaultController extends Controller
 	
 	public function actionServercode_simple_for_json()
 	{
+	defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+	
 		if(isset($_POST['key']))
 		{
 		$k = $_POST['key'];		
@@ -40,7 +42,7 @@ class DefaultController extends Controller
     
 		if($s['status']=='OK'){
 				$url = 	Yii::getPathOfAlias('application.modules.graph.components');	
-				$file= $url.'\graph.json';	
+				$file= $url.DS.'graph.json';	
 				Graph::model()->file_put_contents_deep($file,$s); 
 				$this->redirect(array('default/index'));
 			}

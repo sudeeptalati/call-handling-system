@@ -1,5 +1,4 @@
 CREATE TABLE gm_json_fields(id INTEGER PRIMARY KEY NOT NULL, field_type TEXT, field_relation TEXT, field_label TEXT, sort_order INTEGER, active INTEGER, created INTEGER);
-
 CREATE TABLE gm_mobile_status(id INTEGER PRIMARY KEY NOT NULL, name TEXT);
+CREATE TABLE gm_servicecalls(id INTEGER PRIMARY KEY NOT NULL, servicecall_id INTEGER,service_reference_number INTEGER, mobile_status_id INTEGER, created INTEGER, modified INTEGER);
 
-CREATE TABLE gm_servicecalls(id INTEGER PRIMARY KEY NOT NULL, servicecall_id INTEGER, mobile_status INTEGER, created INTEGER, created_by INTEGER, modified INTEGER, modified_by INTEGER);

@@ -6,7 +6,8 @@
  * The followings are the available columns in table 'gm_servicecalls':
  * @property integer $id
  * @property integer $servicecall_id
- * @property string $mobile_status
+ * @property integer $service_reference_number
+ * @property integer $mobile_status_id
  * @property integer $created
  * @property integer $modified
  */
@@ -28,11 +29,10 @@ class GmServicecalls extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('servicecall_id, created, modified', 'numerical', 'integerOnly'=>true),
-			array('mobile_status', 'safe'),
+			array('servicecall_id, service_reference_number, mobile_status_id, created, modified', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, servicecall_id, mobile_status, created, modified', 'safe', 'on'=>'search'),
+			array('id, servicecall_id, service_reference_number, mobile_status_id, created, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,6 +44,8 @@ class GmServicecalls extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'mobile_status'=>	array(self::BELONGS_TO, 'GmMobileStatus', 'mobile_status_id')
+			
 		);
 	}
 
@@ -55,7 +57,8 @@ class GmServicecalls extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'servicecall_id' => 'Servicecall',
-			'mobile_status' => 'Mobile Status',
+			'service_reference_number' => 'Service Reference Number',
+			'mobile_status_id' => 'Mobile Status',
 			'created' => 'Created',
 			'modified' => 'Modified',
 		);
@@ -81,7 +84,8 @@ class GmServicecalls extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('servicecall_id',$this->servicecall_id);
-		$criteria->compare('mobile_status',$this->mobile_status,true);
+		$criteria->compare('service_reference_number',$this->service_reference_number);
+		$criteria->compare('mobile_status_id',$this->mobile_status_id);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('modified',$this->modified);
 
@@ -100,26 +104,4 @@ class GmServicecalls extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	
-	protected function beforeSave()
-	{
-		if(parent::beforeSave())
-        {
-        	if($this->isNewRecord)  // Creating new record 
-            {
-        		$this->created=time();
-				
-				return true;
-            }//end of new record.
-            else
-            {
-            	$this->modified=time();
-            	
-            	
-            	//if()
-            	
-            	return true;
-            }
-        }//end of if(parent())
-	}///end of beforesave
 }

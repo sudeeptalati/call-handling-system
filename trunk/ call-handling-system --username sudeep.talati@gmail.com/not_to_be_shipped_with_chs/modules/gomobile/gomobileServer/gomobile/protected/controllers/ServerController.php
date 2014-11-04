@@ -45,7 +45,7 @@ class ServerController extends Controller
 	////////creating function getmyenggdetails
 	public function actiongetmyenggdetails()
 	{
-	$id=$_GET['engineer_id'];
+	$id=$_GET['engineer_email'];
 	$engineer_model=EngineerData::model()->findAllByAttributes(array('engineer_id'=>$id));
 	$myarray=array();
 	

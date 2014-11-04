@@ -102,4 +102,37 @@ class Engineer extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	
+	
+	
+	
+	public function validatePassword($pwd)	
+    {
+    	if (!empty($this->newPwd))
+    	
+                    $this->pwd = hash('sha256', $this->newPwd);
+    }//end of validatePassword().
+    
+    protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->pwd = hash('sha256', $this->pwd);
+        		$this->created=time();
+    			return true;
+            }
+            else
+            {
+            	$this->pwd = hash('sha256', $this->pwd);
+                $this->modified=time();
+                return true;
+            }
+        }//end of if(parent())
+        else
+        	return false;
+    }//end of beforeSave()          
+	
 }

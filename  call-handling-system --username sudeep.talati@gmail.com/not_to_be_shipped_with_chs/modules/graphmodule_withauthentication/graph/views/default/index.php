@@ -355,8 +355,7 @@ function drawGraph(){
 	document.getElementById("jobStatusFilterTotalCountLabel").innerHTML = e.options[e.selectedIndex].text+" Service Calls:";
 
 	document.getElementById("jobStatusFilterTotalCount").innerHTML = jobstatus_filter_total_calls;	
-	graphLabel.shift();
-	graphData.shift();
+ 
 	//console.log(graphData.toString());
 	
 	lineChartData = {

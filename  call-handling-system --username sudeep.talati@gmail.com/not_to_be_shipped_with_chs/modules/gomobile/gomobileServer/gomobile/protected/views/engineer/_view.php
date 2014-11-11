@@ -13,16 +13,12 @@
 	<?php echo CHtml::encode($data->engineer_email); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('pwd')); ?>:</b>
-	<?php echo CHtml::encode($data->pwd); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('exp_date')); ?>:</b>
 	<?php echo CHtml::encode($data->exp_date); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
+	<?php echo CHtml::encode(date("d-M-Y",$data->created)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('last_modified')); ?>:</b>

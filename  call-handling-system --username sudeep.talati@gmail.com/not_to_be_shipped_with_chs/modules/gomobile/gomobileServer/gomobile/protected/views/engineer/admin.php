@@ -49,7 +49,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'engineer_email',
 		'pwd',
 		'exp_date',
-		'created',
+		//array('name'=>'exp_date', 'value'=>'date("d-M-Y",$data->exp_date)', 'filter'=>false),
+		//'created',
+		array('name'=>'created', 'value'=>'date("d-M-Y",$data->created)', 'filter'=>false),
 		'last_modified',
 		array(
 			'class'=>'CButtonColumn',

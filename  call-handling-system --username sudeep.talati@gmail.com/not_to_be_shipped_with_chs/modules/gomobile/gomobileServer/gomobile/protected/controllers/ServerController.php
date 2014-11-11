@@ -18,9 +18,10 @@ class ServerController extends Controller
 		foreach ($value as $p)
 		{
 		$model=new EngineerData;
-		$model->engineer_id=$p['engineer_id'];
+		$model->engineer_email=$p['engineer_email'];
 		$x=json_encode($p['servicecall']);
-		array_push($servicecalls,$p['servicecall']['service_reference_number'] );
+		$service_reference_number=$p['service_reference_number'];
+		array_push($servicecalls,$service_reference_number);
 		$model->data=$x;
 		//echo $x;
 		//print_r($p['servicecall']);
@@ -45,8 +46,8 @@ class ServerController extends Controller
 	////////creating function getmyenggdetails
 	public function actiongetmyenggdetails()
 	{
-	$id=$_GET['engineer_email'];
-	$engineer_model=EngineerData::model()->findAllByAttributes(array('engineer_id'=>$id));
+	$engineer_email=$_GET['engineer_email'];
+	$engineer_model=EngineerData::model()->findAllByAttributes(array('engineer_email'=>$engineer_email));
 	$myarray=array();
 	
 	foreach ($engineer_model as $data)
@@ -57,54 +58,9 @@ class ServerController extends Controller
 		}
 		
 		
-	$details=json_encode($myarray);
+	$details=json_encode(array($myarray));
 	echo $details;
 	}
 	/////end of getmyenggdetails
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+		
 }

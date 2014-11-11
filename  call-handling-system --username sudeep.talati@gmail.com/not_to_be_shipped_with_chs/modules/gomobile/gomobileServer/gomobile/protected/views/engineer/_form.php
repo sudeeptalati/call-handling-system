@@ -32,8 +32,22 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'exp_date'); ?>
-		<?php echo $form->textField($model,'exp_date'); ?>
+		<?php echo $form->labelEx($model,'exp_date');
+			//$model->exp_date=//date('d-m-Y');
+			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			    'name'=>CHtml::activeName($model, 'exp_date'),
+				'model'=>$model,
+        		'value' => $model->attributes['exp_date'],
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+					'dateFormat' => 'dd-mm-yy',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;'
+			    ),
+			)); ?>
+		<?php //echo $form->textField($model,'exp_date'); ?>
 		<?php echo $form->error($model,'exp_date'); ?>
 	</div>
 

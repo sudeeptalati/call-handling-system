@@ -1,4 +1,17 @@
 CREATE TABLE gm_json_fields(id INTEGER PRIMARY KEY NOT NULL, field_type TEXT, field_relation TEXT, field_label TEXT, sort_order INTEGER, active INTEGER, created INTEGER);
+
+
 CREATE TABLE gm_mobile_status(id INTEGER PRIMARY KEY NOT NULL, name TEXT);
+----
+-- Data dump for gm_mobile_status, a total of 4 rows
+----
+BEGIN TRANSACTION;
+INSERT INTO gm_mobile_status (id,name) VALUES ('1','Sent');
+INSERT INTO gm_mobile_status (id,name) VALUES ('2','Approved');
+INSERT INTO gm_mobile_status (id,name) VALUES ('3','Rejected & Send Again');
+INSERT INTO gm_mobile_status (id,name) VALUES ('4','Cancelled');
+COMMIT;
+
+
 CREATE TABLE gm_servicecalls(id INTEGER PRIMARY KEY NOT NULL, servicecall_id INTEGER,service_reference_number INTEGER, mobile_status_id INTEGER, created INTEGER, modified INTEGER);
 

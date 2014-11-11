@@ -37,7 +37,7 @@ if(isset( $_GET['start_date']))
 	foreach ($fd as $f)	
 	{
 		$servicecall_model=Servicecall::model()->findByPk($f->servicecall_id);
-		$servicecall_id=$servicecall_model->service_reference_number;
+		$service_reference_number=$servicecall_model->service_reference_number;
 		$job_status_id=$servicecall_model->job_status_id;
 		$created_by=$servicecall_model->created_by_user_id;
 		$modified=$servicecall_model->modified;
@@ -46,8 +46,8 @@ if(isset( $_GET['start_date']))
 		
 
 		/////paasing the values to array
-		$myarray['servicecall_number']=$servicecall_id;
-		$myarray['sentcall_id']=$servicecall_model->id;
+		$myarray['service_reference_number']=$service_reference_number;
+		$myarray['gomobile_sentcall_id']=$servicecall_model->id;
 		$servicecall=array();
 		$customer=array();
 		$customer['name']=$servicecall_model->customer->fullname;
@@ -72,8 +72,10 @@ if(isset( $_GET['start_date']))
 			}
 		}
 		
-		$engineer_id=$servicecall_model->engineer_id;
-		$myarray['engineer_id']=$engineer_id;
+		//$engineer_id=$servicecall_model->engineer_id;
+		$engineer_email=$servicecall_model->engineer->contactDetails->email;
+		$myarray['engineer_email']=$engineer_email;		
+		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;
 		////passing data to json format
@@ -114,8 +116,10 @@ var data = <?php echo json_encode($json_data)?>;
 json_data = JSON.stringify(data);
 console.log(json_data);
 $.ajax({
-      url: 'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server',
-      type: 'post',
+      ///url: 'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server',
+      url: 'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server',
+      
+	  type: 'post',
 	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
 	  data: {'jsonData':json_data},
 	  success: function(data, status) {   
@@ -144,7 +148,7 @@ $.ajax({
 	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
 	  data: {'servicecall_ids':servicecalls},
 	  success: function(data, status) {   
-				alert(data+"Success");
+				alert("Success");
 				window.location='<?php echo Yii::app()->request->baseUrl."/index.php?r=gomobile/gmservicecalls/admin" ?>';
       },
       error: function(xhr, desc, err) {

@@ -25,7 +25,8 @@ $this->menu=array(
 		'engineer_email',
 		'pwd',
 		'exp_date',
-		'created',
+		//'created',
+		array('name'=>'created', 'value'=>'date("d-M-Y",$data->created)', 'filter'=>false),
 		'last_modified',
 	),
 )); ?>

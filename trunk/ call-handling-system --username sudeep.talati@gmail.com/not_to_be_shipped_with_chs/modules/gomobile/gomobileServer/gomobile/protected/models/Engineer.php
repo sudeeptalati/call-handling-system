@@ -121,13 +121,15 @@ class Engineer extends CActiveRecord
         	if($this->isNewRecord)  // Creating new record 
             {
         		$this->pwd = hash('sha256', $this->pwd);
+				$this->exp_date=strtotime($this->exp_date);
         		$this->created=time();
+				
     			return true;
             }
             else
             {
             	$this->pwd = hash('sha256', $this->pwd);
-                $this->modified=time();
+                //$this->modified=time();
                 return true;
             }
         }//end of if(parent())

@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'engineer_data':
  * @property integer $id
- * @property integer $engineer_id
+ * @property string $engineer_email
  * @property string $data
- * @property integer $status
+ * @property integer $data_status_id
  * @property string $created
  * @property string $last_modified
  */
@@ -29,11 +29,11 @@ class EngineerData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('engineer_id, status', 'numerical', 'integerOnly'=>true),
-			array('data, created, last_modified', 'safe'),
+			array('data_status_id', 'numerical', 'integerOnly'=>true),
+			array('engineer_email, data, created, last_modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, engineer_id, data, status, created, last_modified', 'safe', 'on'=>'search'),
+			array('id, engineer_email, data, data_status_id, created, last_modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,9 +55,9 @@ class EngineerData extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'engineer_id' => 'Engineer',
+			'engineer_email' => 'Engineer Email',
 			'data' => 'Data',
-			'status' => 'Status',
+			'data_status_id' => 'Data Status',
 			'created' => 'Created',
 			'last_modified' => 'Last Modified',
 		);
@@ -82,9 +82,9 @@ class EngineerData extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('engineer_id',$this->engineer_id);
+		$criteria->compare('engineer_email',$this->engineer_email,true);
 		$criteria->compare('data',$this->data,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('data_status_id',$this->data_status_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('last_modified',$this->last_modified,true);
 

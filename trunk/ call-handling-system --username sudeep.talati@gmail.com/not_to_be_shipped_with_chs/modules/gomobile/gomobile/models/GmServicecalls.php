@@ -104,4 +104,26 @@ class GmServicecalls extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->created=time();
+    			return true;
+            }
+            else
+            {
+            	if ($this->active==0)
+				{
+					
+					$this->modified=time();
+            	}
+            	return true;
+            }
+        }//end of if(parent())
+    }//end of beforeSave().
+
 }

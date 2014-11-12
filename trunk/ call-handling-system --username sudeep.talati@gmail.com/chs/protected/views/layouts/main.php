@@ -32,6 +32,9 @@
 
 
 
+
+
+
  <?php Yii::app()->bootstrap->register(); ?>
  
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -157,14 +160,26 @@ $baseUrl= Yii::app()->request->baseUrl;
 	</td>
 	<td style="text-align:right;">
 		Copyright &copy; <?php echo date('Y'); ?> by UK Whitegoods Ltd.<br/>
-
-			
 	</td></tr></table>
+	
+ 
+
+
+
 </div><!-- footer -->
 </div><!-- page -->
 
 
 
+ <?php 
+ 
+	if (is_dir(Yii::getPathOfAlias('application.modules.oow.assets')))	
+	{
+	$oow_url =	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.oow.assets'));	
+	Yii::app()->getClientScript()->registerScriptFile($oow_url.'/js/oow.js', CClientScript::POS_END); 
+	}
+	
+ ?>
 
 </body>
 </html>

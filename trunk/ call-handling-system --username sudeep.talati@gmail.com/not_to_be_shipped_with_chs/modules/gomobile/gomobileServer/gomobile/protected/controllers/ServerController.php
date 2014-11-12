@@ -25,6 +25,10 @@ class ServerController extends Controller
 		$model->engineer_email=$p['engineer_email'];
 		$x['service_reference_number']=$service_reference_number;
 		$x['engineer_email']=$p['engineer_email'];
+		$x['customer_fullname']=$p['customer_fullname'];
+		$x['customer_postcode']=$p['customer_postcode'];
+		
+		
 		$x['data']=$p['servicecall'];
 		$model->data=json_encode($x);
 		
@@ -66,8 +70,7 @@ class ServerController extends Controller
 		}
 		
 		
-	$details=json_encode(array($myarray));
-	echo $details;
+	echo json_encode($myarray);
 	}
 	/////end of getmyenggdetails
 		

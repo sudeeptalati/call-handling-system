@@ -23,12 +23,27 @@
 				//'value'=>'$data->servicecall_id',
 			    'value' => 'CHtml::link($data->service_reference_number, array("/Servicecall/view&id=".$data->servicecall_id))',
 		 		'type'=>'raw',
-				//'header' => 'Ref No#'
+				'filter'=>false,
+				'header' => 'Service Ref No#'
 		),
 		//'mobile_status',
 		
 		array('name'=>'mobile_status_id',
-			'value'=>'$data->mobile_status->name',),
+			'value'=>'$data->mobile_status->name',
+			'filter'=>false),
+			
+		array(	'header' => 'Customer',
+            	'name'=>'customer_name',
+				'value'=>'$data->servicecall->customer->fullname',
+				'filter'=>false
+				),
+		array(	'header' => 'Address',
+            	'name'=>'customer_address',
+				'value'=>'$data->servicecall->customer->postcode',
+				'filter'=>false
+				),
+			
+			
 		
 		
 		array('name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),

@@ -7,6 +7,8 @@
 <th>Customer Town</th>
 <th>Customer Postcode</th>
 <th>Fault Description</th>
+<th>Engineer</th>
+<th>Engineer Email</th>
 </tr>
 
 <b>Date Selected:</b>
@@ -56,19 +58,23 @@ if(isset( $_GET['start_date']))
 		foreach($gm_json_fields_model as $p)
 		{
 			$key=$p['field_relation'];
+			$label=$p['field_label'];
+			
 			if (strpos($key, '|')!== false)
 			{
 				$str_array = explode( '|', $key);
 				//print_r($str_array);
 				$value=$servicecall_model->$str_array[0]->$str_array[1];	
-				$servicecall[$key]=$value;			
+				//$servicecall[$key]=$value;///disabled to be visible as label			
+				$servicecall[$label]=$value;			
 				//echo $servicecall_model->customer->town;			
 			}
 			else
 			{
 				//echo "<br>Its a FIELS ";
 				$value=$servicecall_model->$p['field_relation'];
-				$servicecall[$key]=$value;
+				//$servicecall[$key]=$value;///disabled to be visible as label			
+				$servicecall[$label]=$value;
 			}
 		}
 		
@@ -90,6 +96,8 @@ if(isset( $_GET['start_date']))
 			<td><?php echo $servicecall_model->customer->town;?></td>
 			<td><?php echo $servicecall_model->customer->postcode; ?></td>
 			<td><?php echo $servicecall_model->fault_description; ?></td>
+			<td><?php echo $servicecall_model->engineer->company." - ".$servicecall_model->engineer->fullname; ?></td>
+			<td><?php echo $servicecall_model->engineer->contactDetails->email; ?></td>
 		</tr>
 		<?php
 		}///end of foreach
@@ -123,7 +131,7 @@ $.ajax({
 	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
 	  data: {'jsonData':json_data},
 	  success: function(data, status) {   
-				alert(data);
+				alert("Following Servicecalls has been sent to server:"+data);
 				///Call a Javascript Function
 				setServicecallsStatus(data);
       },

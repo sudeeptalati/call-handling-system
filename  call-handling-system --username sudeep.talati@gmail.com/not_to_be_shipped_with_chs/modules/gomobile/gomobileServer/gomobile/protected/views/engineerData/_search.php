@@ -17,8 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'engineer_id'); ?>
-		<?php echo $form->textField($model,'engineer_id'); ?>
+		<?php echo $form->label($model,'engineer_email'); ?>
+		<?php echo $form->textArea($model,'engineer_email',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -27,8 +27,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
+		<?php echo $form->label($model,'data_status_id'); ?>
+		<?php echo $form->textField($model,'data_status_id'); ?>
 	</div>
 
 	<div class="row">

@@ -12,8 +12,19 @@
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
-)); ?>
+//	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array('validateOnSubmit'=>true),
+)); 
+$model->pwd='';
+
+
+if ($model->exp_date!='')
+{
+	$model->exp_date=date('d-m-Y', $model->exp_date);
+
+}
+?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
@@ -21,13 +32,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'engineer_email'); ?>
-		<?php echo $form->textArea($model,'engineer_email',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'engineer_email',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'engineer_email'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'pwd'); ?>
-		<?php echo $form->textArea($model,'pwd',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'pwd',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'pwd'); ?>
 	</div>
 
@@ -41,7 +52,7 @@
 			    // additional javascript options for the date picker plugin
 			    'options'=>array(
 			        'showAnim'=>'fold',
-					'dateFormat' => 'dd-mm-yy',
+					'dateFormat' => 'd-M-yy',
 			    ),
 			    'htmlOptions'=>array(
 			        'style'=>'height:20px;'
@@ -51,17 +62,6 @@
 		<?php echo $form->error($model,'exp_date'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'last_modified'); ?>
-		<?php echo $form->textField($model,'last_modified'); ?>
-		<?php echo $form->error($model,'last_modified'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

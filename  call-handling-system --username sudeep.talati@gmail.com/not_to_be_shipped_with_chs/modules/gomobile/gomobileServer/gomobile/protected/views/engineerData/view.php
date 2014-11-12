@@ -22,9 +22,9 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'engineer_id',
+		'engineer_email',
 		'data',
-		'status',
+		'data_status_id',
 		'created',
 		'last_modified',
 	),

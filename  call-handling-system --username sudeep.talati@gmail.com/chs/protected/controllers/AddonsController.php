@@ -83,27 +83,38 @@ class AddonsController extends RController
 		$addons_model->active=intval($xml->info->active);
 		//echo intval($xml->info->active);
 		
+		
+		
 		if($addons_model->save())
 		{
+		
+			
 			//Step 4: Install Table
 			array_push($log_msgs,$model->readsqlscript());
 		 
+			
+			
 			//Step 5: Copy files images, javascript and all
 			array_push($log_msgs,$model->copyfiles());
 
+			
 			//Step 6: Create Entry in XML file in Config Folder
 			array_push($log_msgs,$model->appendaddonsxml_forinstall($addons_model->name));
-
+			
 			
 			//Step 7: Create entry in table
 			//Step 8: Ammend if you want for javascript like in main file.
 			
-
+			//Setp 9: DELETE THE CONTENTS OF TEMP FOLDER
+			
+			array_push($log_msgs,$model->cleartempdata());
+			
+			
 		}
 		
 		
 		
-		$this->renderPartial('install',array(
+		$this->render('install',array(
 			'model'=>$model, 'errors'=>$addons_model->getErrors(), 'log_msgs'=>$log_msgs,
 			));
 		

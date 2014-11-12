@@ -161,6 +161,8 @@ class Addons extends CActiveRecord
 		$msg='';
 		//echo "File unzipped*";
 		$zip = new ZipArchive;
+ 
+		
 		$res = $zip->open('temp/tempaddonfile.zip');
 		if ($res === TRUE)
 		{
@@ -171,6 +173,8 @@ class Addons extends CActiveRecord
 		{
 		$msg.='Error in Unzipping File';
 		}
+		
+		
 		return $msg;
 	}//end of unzip
 	
@@ -201,26 +205,14 @@ class Addons extends CActiveRecord
 		$msg='';
 		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 		$xml=simplexml_load_file("temp/tempaddonfile/install_addon.xml");
-		$source_file=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->folder;
-
 		
-		$desti_file=getcwd().DS.$xml->install->destination->folder;
+		$source_folder=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->folder;
+		$destination_folder=getcwd().DS.$xml->install->destination->folder;
 		
-		$msg.="<br>Source file ". $source_file;
-		$msg.="<br>Destination file ". $desti_file;
+		$msg.="<br>Source file ". $source_folder;
+		$msg.="<br>Destination file ". $destination_folder;
 	
-	
-
-		Setup::model()->recurse_copy($source_file,$desti_file);
-		$source_file=getcwd().DS."temp".DS."tempaddonfile".DS.$xml->install->source->js;
-
-		
-		$desti_file=getcwd().DS.$xml->install->destination->js;
-		
-		$msg.="<br>Source file ". $source_file;
-		$msg.="<br>Destination file ". $desti_file;
-	
-		Setup::model()->recurse_copy($source_file,$desti_file);
+		Setup::model()->recurse_copy($source_folder,$destination_folder);
 		return $msg;
 	}//end of copy files
 	
@@ -313,12 +305,31 @@ class Addons extends CActiveRecord
 	}///end of deletemodulefolder
 	
 	
+	public function cleartempdata()
+	{
+		$msg='';
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 	
+		$folder_to_be_deleted = getcwd().DS.'temp'.DS.'tempaddonfile';
+		
+		if ($this->delete_directory($folder_to_be_deleted))
+			$msg=$msg.'<br>Temp directory Cleared';
+		else
+			$msg=$msg.'<br>Temp directory NOT Cleared';
+			
+		$files_to_be_deleted = getcwd().DS.'temp'.DS.'tempaddonfile.zip';
+		
+		if ($this->delete_file($files_to_be_deleted))
+			$msg=$msg.'<br>Temp files cleared';
+		else
+			$msg=$msg.'<br>Temp files NOT CLEARED';
+			
+		return $msg;
+	}///end of cleartempdata		
+			
 	
 	
 	public function delete_directory($dirname) {
-		
-	
       if (is_dir($dirname))
 			$dir_handle = opendir($dirname);
 			if (!$dir_handle)
@@ -335,6 +346,14 @@ class Addons extends CActiveRecord
 	 rmdir($dirname);
 	 return true;
 	}///end of delete_directory
+	
+	
+	
+	
+	public function delete_file($filepath) {
+		unlink($filepath);
+		return true;
+	}///end of delete_file
 	
 	
 	protected function beforeSave()

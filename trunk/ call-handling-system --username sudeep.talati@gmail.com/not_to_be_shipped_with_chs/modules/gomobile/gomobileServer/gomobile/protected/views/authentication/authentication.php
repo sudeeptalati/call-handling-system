@@ -12,8 +12,9 @@ if($model=Engineer::model()->findByAttributes(array('engineer_email'=>$username,
 	$json_array['exp_date']=$model->exp_date;
 	$json_array['engineer_id']=$model->id;
 	$json_array['status']='OK';
-	$exp_date_time=strtotime($json_array['exp_date']);
-	$e= json_encode(array($json_array));	
+	$exp_date_time=$json_array['exp_date'];
+	$e= json_encode(array($json_array));
+		
 	if ($exp_date_time > time())///checking if account is expired
 	{
 		echo $e;

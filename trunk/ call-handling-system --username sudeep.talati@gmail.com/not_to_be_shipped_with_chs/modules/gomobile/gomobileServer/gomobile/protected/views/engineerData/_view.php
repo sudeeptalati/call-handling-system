@@ -9,16 +9,16 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('engineer_id')); ?>:</b>
-	<?php echo CHtml::encode($data->engineer_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('engineer_email')); ?>:</b>
+	<?php echo CHtml::encode($data->engineer_email); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('data')); ?>:</b>
 	<?php echo CHtml::encode($data->data); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('data_status_id')); ?>:</b>
+	<?php echo CHtml::encode($data->data_status_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>

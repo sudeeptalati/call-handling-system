@@ -17,12 +17,18 @@ class ServerController extends Controller
 		
 		foreach ($value as $p)
 		{
+		$x=array();
+		
+		$service_reference_number=$p['service_reference_number'];
+		
 		$model=new EngineerData;
 		$model->engineer_email=$p['engineer_email'];
-		$x=json_encode($p['servicecall']);
-		$service_reference_number=$p['service_reference_number'];
-		array_push($servicecalls,$service_reference_number);
-		$model->data=$x;
+		$x['service_reference_number']=$service_reference_number;
+		$x['engineer_email']=$p['engineer_email'];
+		$x['data']=$p['servicecall'];
+		$model->data=json_encode($x);
+		
+		
 		//echo $x;
 		//print_r($p['servicecall']);
 		//$model=new EngineerData;
@@ -30,6 +36,8 @@ class ServerController extends Controller
 		//$model->data=$r['Details'][0]['servicecall']['fault_description'];
 		//echo $model->data;
 		$model->save();
+		array_push($servicecalls,$service_reference_number);
+		
 		}///end of foreach ($value as $p)
 	}///end iof foreach($r as $value)
 	

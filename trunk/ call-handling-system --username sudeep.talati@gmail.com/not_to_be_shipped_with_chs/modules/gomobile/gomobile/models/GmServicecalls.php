@@ -44,8 +44,8 @@ class GmServicecalls extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'mobile_status'=>	array(self::BELONGS_TO, 'GmMobileStatus', 'mobile_status_id')
-			
+			'mobile_status'=>	array(self::BELONGS_TO, 'GmMobileStatus', 'mobile_status_id'),
+			'servicecall'=> array(self::BELONGS_TO, 'Servicecall', 'servicecall_id')
 		);
 	}
 
@@ -59,7 +59,7 @@ class GmServicecalls extends CActiveRecord
 			'servicecall_id' => 'Servicecall',
 			'service_reference_number' => 'Service Reference Number',
 			'mobile_status_id' => 'Mobile Status',
-			'created' => 'Created',
+			'created' => 'Sent On',
 			'modified' => 'Modified',
 		);
 	}

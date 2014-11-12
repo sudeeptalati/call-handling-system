@@ -29,6 +29,9 @@ class Engineer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('engineer_email', 'email'),	
+			array('engineer_email', 'unique'),
+			array('engineer_email, pwd, exp_date', 'required'),
 			array('engineer_email, pwd, exp_date, created, last_modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -118,18 +121,18 @@ class Engineer extends CActiveRecord
     {
     	if(parent::beforeSave())
         {
-        	if($this->isNewRecord)  // Creating new record 
+       		$this->pwd = hash('sha256', $this->pwd);
+			$this->exp_date=strtotime($this->exp_date);
+
+			if($this->isNewRecord)  // Creating new record 
             {
-        		$this->pwd = hash('sha256', $this->pwd);
-				$this->exp_date=strtotime($this->exp_date);
         		$this->created=time();
 				
     			return true;
             }
             else
             {
-            	$this->pwd = hash('sha256', $this->pwd);
-                //$this->modified=time();
+                $this->modified=time();
                 return true;
             }
         }//end of if(parent())

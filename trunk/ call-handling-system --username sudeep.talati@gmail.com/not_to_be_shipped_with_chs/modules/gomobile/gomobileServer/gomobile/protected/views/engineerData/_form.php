@@ -20,9 +20,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'engineer_id'); ?>
-		<?php echo $form->textField($model,'engineer_id'); ?>
-		<?php echo $form->error($model,'engineer_id'); ?>
+		<?php echo $form->labelEx($model,'engineer_email'); ?>
+		<?php echo $form->textArea($model,'engineer_email',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'engineer_email'); ?>
 	</div>
 
 	<div class="row">
@@ -32,9 +32,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
+		<?php echo $form->labelEx($model,'data_status_id'); ?>
+		<?php echo $form->textField($model,'data_status_id'); ?>
+		<?php echo $form->error($model,'data_status_id'); ?>
 	</div>
 
 	<div class="row">

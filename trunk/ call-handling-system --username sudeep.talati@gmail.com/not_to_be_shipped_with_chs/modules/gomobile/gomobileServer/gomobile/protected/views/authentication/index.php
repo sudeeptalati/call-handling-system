@@ -1,6 +1,6 @@
 <html>
 <body>
-<form action="index.php?r=authentication_post/authentication" method="post">
+<form action="index.php?r=authentication/authentication" method="post">
 E-mail: <input type="text" name="email">
 <br><br>
 Password: <input type="text" name="pwd"><br>

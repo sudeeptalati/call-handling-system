@@ -80,7 +80,10 @@ if(isset( $_GET['start_date']))
 		
 		//$engineer_id=$servicecall_model->engineer_id;
 		$engineer_email=$servicecall_model->engineer->contactDetails->email;
-		$myarray['engineer_email']=$engineer_email;		
+		$myarray['engineer_email']=$engineer_email;	
+        $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
+        $myarray['customer_postcode']=$servicecall_model->customer->postcode;
+                
 		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;
@@ -125,8 +128,7 @@ json_data = JSON.stringify(data);
 console.log(json_data);
 $.ajax({
       ///url: 'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server',
-      url: 'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server',
-      
+          url: 'http://127.0.0.1/call-handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server', 
 	  type: 'post',
 	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
 	  data: {'jsonData':json_data},

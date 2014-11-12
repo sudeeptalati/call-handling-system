@@ -45,7 +45,7 @@ class AuthenticationController extends Controller
 			$json_array['engineer_email']=$model->engineer_email;
 			$json_array['exp_date']=date('d-M-Y',$model->exp_date);
 			$json_array['engineer_id']=$model->id;
-			$exp_date_time=$json_array['exp_date'];
+			$exp_date_time=$model->exp_date;
 			if ($exp_date_time > time())///checking if account is expired
 			{
 				$status='OK';

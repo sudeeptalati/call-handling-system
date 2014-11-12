@@ -132,7 +132,7 @@ class Engineer extends CActiveRecord
             }
             else
             {
-                $this->modified=time();
+                $this->last_modified=time();
                 return true;
             }
         }//end of if(parent())

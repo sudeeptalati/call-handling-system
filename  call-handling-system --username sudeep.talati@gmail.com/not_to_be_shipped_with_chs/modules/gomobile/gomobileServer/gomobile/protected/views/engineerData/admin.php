@@ -48,9 +48,19 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'engineer_email',
 		'data',
-		'data_status_id',
-		'created',
-		'last_modified',
+		//'data_status_id',
+		
+		array('name'=>'data_status_id',
+		'value'=>'$data->data_status->name',
+		'filter'=>false),
+		
+			
+			
+		//'created',
+		array('name'=>'created', 'value'=>'$data->created==null ? "":date("d-M-Y",$data->created)', 'filter'=>false),
+		array('name'=>'last_modified', 'value'=>'$data->last_modified==null ? "":date("d-M-Y",$data->last_modified)', 'filter'=>false),
+		
+		//'last_modified',
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -17,7 +17,7 @@
 	<?php echo CHtml::encode($data->data); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('data_status_id')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('data_status')); ?>:</b>
 	<?php echo CHtml::encode($data->data_status_id); ?>
 	<br />
 

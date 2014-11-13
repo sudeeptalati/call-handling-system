@@ -45,6 +45,7 @@ class EngineerData extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+		'data_status'=>array(self::BELONGS_TO, 'DataStatus', 'data_status_id'),
 		);
 	}
 
@@ -103,4 +104,27 @@ class EngineerData extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+		protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+				$this->data_status_id='1';///since 1 is recvd from CHS
+        		$this->created=time();
+				
+    			return true;
+            }
+            else
+            {
+            	if ($this->active==0)
+				{
+					
+					$this->last_modified=time();
+            	}
+            	return true;
+            }
+        }//end of if(parent())
+    }//end of beforeSave().
 }

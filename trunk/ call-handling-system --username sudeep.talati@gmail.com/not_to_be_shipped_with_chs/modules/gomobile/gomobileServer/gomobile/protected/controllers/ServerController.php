@@ -27,8 +27,6 @@ class ServerController extends Controller
 		$x['engineer_email']=$p['engineer_email'];
 		$x['customer_fullname']=$p['customer_fullname'];
 		$x['customer_postcode']=$p['customer_postcode'];
-		
-		
 		$x['data']=$p['servicecall'];
 		$model->data=json_encode($x);
 		
@@ -49,12 +47,6 @@ class ServerController extends Controller
 	echo json_encode($servicecalls);
 	}///end of  actionIndex
 	
-	
-	
-	
-	
-	
-	
 	////////creating function getmyenggdetails
 	public function actiongetmyenggdetails()
 	{
@@ -65,13 +57,27 @@ class ServerController extends Controller
 	foreach ($engineer_model as $data)
 		{
 		//echo $data->data;
-			
+		
 		array_push($myarray,json_decode($data->data));
+		$this->deleteengineerdatarecords($data->id);
 		}
 		
 		
 	echo json_encode($myarray);
+	
 	}
 	/////end of getmyenggdetails
+	
+	public function deleteengineerdatarecords($id)
+	{
+		$engineer_data_model=EngineerData::model()->findByPk($id);
+		if($engineer_data_model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+
+		$engineer_data_model->delete();
+	
+	}////end of deleteengineerdatarecords
+	
+	
 		
 }

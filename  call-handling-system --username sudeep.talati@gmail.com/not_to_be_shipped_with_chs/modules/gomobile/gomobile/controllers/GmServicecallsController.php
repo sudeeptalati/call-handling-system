@@ -148,11 +148,29 @@ class GmServicecallsController extends Controller
 	public function actionServicecallsenttogomobileserver()
 	{
 	header("Access-Control-Allow-Origin: *");
-	
-	//$data='{"unsent_servicecalls":["127550","127548"],"sent_servicecalls":["127542"]}';
 	$servicecall_recieved=$_POST['servicecall_ids'];
+	//$data='{"unsent_servicecalls":[{"service_reference_number":"127550","message":"Servicecall Cannot be Sent as engineer email is not found on the server. Please contact us at www.rapportsoftware.co.uk"},{"service_reference_number":"127548","message":"Servicecall Cannot be Sent as engineer email is not found on the server. Please contact us at www.rapportsoftware.co.uk"}],"sent_servicecalls":[{"service_reference_number":"127542","message":"Servicecall Sent"}]} ';
 	$mydata=json_decode($servicecall_recieved);
 	
+	foreach ($mydata->unsent_servicecalls as $servicecalls)
+	{	
+		$unsent_servicecalls_ref_no=$servicecalls->service_reference_number;
+		$comments=$servicecalls->message;
+		$this->savesentservicecallstatus($unsent_servicecalls_ref_no, '3',$comments);///since 3 is rejected status
+	}
+	
+	foreach ($mydata->sent_servicecalls as $servicecalls)
+	{	
+		$sent_servicecalls_ref_no=$servicecalls->service_reference_number;
+		$comments=$servicecalls->message;
+		$this->savesentservicecallstatus($sent_servicecalls_ref_no, '1', $comments);///since 1 is sent status
+	}
+	
+	
+	
+	/*
+	$servicecall_recieved=$_POST['servicecall_ids'];
+	$mydata=json_decode($servicecall_recieved);
 	foreach ($mydata->unsent_servicecalls as $unsent_servicecalls_ref_no)
 	{	
 		echo "<br>".$unsent_servicecalls_ref_no;
@@ -165,7 +183,7 @@ class GmServicecallsController extends Controller
 		$this->savesentservicecallstatus($sent_servicecalls_ref_no, '1');///since 1 is sent status
 
 	}
-
+	*/
 	
 	/*
 	$servicecall_recieved=$_POST['servicecall_ids'];
@@ -182,13 +200,14 @@ class GmServicecallsController extends Controller
 
 	
 	
-	public function savesentservicecallstatus($service_ref_no, $received_server_status)
+	public function savesentservicecallstatus($service_ref_no, $received_server_status,$comments)
 	{
 			$servicecall_id=$this->getserviceidbyservicerefrencenumber($service_ref_no);
 			$model=new GmServicecalls;
 			$model->servicecall_id=$servicecall_id;
-			$model->mobile_status_id=$received_server_status; 
+			$model->server_status_id=$received_server_status; 
 			$model->service_reference_number=$service_ref_no;
+			$model->comments=$comments;
 			$model->save();
 		
 	}

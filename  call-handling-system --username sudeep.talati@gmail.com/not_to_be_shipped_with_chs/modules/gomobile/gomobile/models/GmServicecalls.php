@@ -7,9 +7,10 @@
  * @property integer $id
  * @property integer $servicecall_id
  * @property integer $service_reference_number
- * @property integer $mobile_status_id
+ * @property integer $server_status_id
  * @property integer $created
  * @property integer $modified
+ * @property string $comments
  */
 class GmServicecalls extends CActiveRecord
 {
@@ -29,10 +30,11 @@ class GmServicecalls extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('servicecall_id, service_reference_number, mobile_status_id, created, modified', 'numerical', 'integerOnly'=>true),
+			array('servicecall_id, service_reference_number, server_status_id, created, modified', 'numerical', 'integerOnly'=>true),
+			array('comments', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, servicecall_id, service_reference_number, mobile_status_id, created, modified', 'safe', 'on'=>'search'),
+			array('id, servicecall_id, service_reference_number, server_status_id, created, modified, comments', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,8 +46,8 @@ class GmServicecalls extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'mobile_status'=>	array(self::BELONGS_TO, 'GmMobileStatus', 'mobile_status_id'),
-			'servicecall'=> array(self::BELONGS_TO, 'Servicecall', 'servicecall_id')
+		'server_status'=>	array(self::BELONGS_TO, 'GmServerStatus', 'server_status_id'),
+		'servicecall'=> array(self::BELONGS_TO, 'Servicecall', 'servicecall_id')
 		);
 	}
 
@@ -58,9 +60,10 @@ class GmServicecalls extends CActiveRecord
 			'id' => 'ID',
 			'servicecall_id' => 'Servicecall',
 			'service_reference_number' => 'Service Reference Number',
-			'mobile_status_id' => 'Mobile Status',
-			'created' => 'Sent On',
+			'server_status_id' => 'Server Status',
+			'created' => 'Created',
 			'modified' => 'Modified',
+			'comments' => 'Comments',
 		);
 	}
 
@@ -85,9 +88,10 @@ class GmServicecalls extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('servicecall_id',$this->servicecall_id);
 		$criteria->compare('service_reference_number',$this->service_reference_number);
-		$criteria->compare('mobile_status_id',$this->mobile_status_id);
+		$criteria->compare('server_status_id',$this->server_status_id);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('modified',$this->modified);
+		$criteria->compare('comments',$this->comments,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -125,5 +129,4 @@ class GmServicecalls extends CActiveRecord
             }
         }//end of if(parent())
     }//end of beforeSave().
-
 }

@@ -149,22 +149,50 @@ class GmServicecallsController extends Controller
 	{
 	header("Access-Control-Allow-Origin: *");
 	
+	//$data='{"unsent_servicecalls":["127550","127548"],"sent_servicecalls":["127542"]}';
+	$servicecall_recieved=$_POST['servicecall_ids'];
+	$mydata=json_decode($servicecall_recieved);
+	
+	foreach ($mydata->unsent_servicecalls as $unsent_servicecalls_ref_no)
+	{	
+		echo "<br>".$unsent_servicecalls_ref_no;
+		$this->savesentservicecallstatus($unsent_servicecalls_ref_no, '3');///since 3 is rejected status
+	}
+   
+	foreach ($mydata->sent_servicecalls as $sent_servicecalls_ref_no)
+	{	
+		echo "<br>".$sent_servicecalls_ref_no;
+		$this->savesentservicecallstatus($sent_servicecalls_ref_no, '1');///since 1 is sent status
+
+	}
+
+	
+	/*
 	$servicecall_recieved=$_POST['servicecall_ids'];
 	print_r($servicecall_recieved);
-	$servicecall_recieved_array=json_decode($servicecall_recieved);
+	
+		$servicecall_recieved_array=json_decode($servicecall_recieved);
 		foreach($servicecall_recieved_array as $service_reference_number)
 		{	
-			$servicecall_id=$this->getserviceidbyservicerefrencenumber($service_reference_number);
-			
-			$model=new GmServicecalls;
-			$model->servicecall_id=$servicecall_id;
-			$model->mobile_status_id='1';//since1 is 'sent' status
-			$model->service_reference_number=$service_reference_number;
-			$model->save();
-		
+	
 		}////end of foreach
+		
+		*/
 	}///// end of Servicecallsenttogomobileserver
 
+	
+	
+	public function savesentservicecallstatus($service_ref_no, $received_server_status)
+	{
+			$servicecall_id=$this->getserviceidbyservicerefrencenumber($service_ref_no);
+			$model=new GmServicecalls;
+			$model->servicecall_id=$servicecall_id;
+			$model->mobile_status_id=$received_server_status; 
+			$model->service_reference_number=$service_ref_no;
+			$model->save();
+		
+	}
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

@@ -14,7 +14,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mobile_status')); ?>:</b>
-	<?php echo CHtml::encode($data->mobile_status); ?>
+	<?php echo CHtml::encode($data->mobile_status_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>

@@ -28,8 +28,8 @@
 		),
 		//'mobile_status',
 		
-		array('name'=>'mobile_status_id',
-			'value'=>'$data->mobile_status->name',
+		array('name'=>'server_status_id',
+			'value'=>'$data->server_status->name',
 			'filter'=>false),
 			
 		array(	'header' => 'Customer',
@@ -53,5 +53,6 @@
 		//array(
 			//'class'=>'CButtonColumn',
 		//),
+		'comments',
 	),
 )); ?>

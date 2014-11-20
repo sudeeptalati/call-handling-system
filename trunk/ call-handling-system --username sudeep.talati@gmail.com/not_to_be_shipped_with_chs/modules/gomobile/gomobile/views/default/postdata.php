@@ -162,7 +162,7 @@ $.ajax({
 	  data: {'servicecall_ids':servicecalls},
 	  success: function(data, status) {   
 				alert("Success");
-				//window.location='<?php echo Yii::app()->request->baseUrl."/index.php?r=gomobile/gmservicecalls/admin" ?>';
+				window.location='<?php echo Yii::app()->request->baseUrl."/index.php?r=gomobile/gmservicecalls/admin" ?>';
       },
       error: function(xhr, desc, err) {
         console.log(xhr);

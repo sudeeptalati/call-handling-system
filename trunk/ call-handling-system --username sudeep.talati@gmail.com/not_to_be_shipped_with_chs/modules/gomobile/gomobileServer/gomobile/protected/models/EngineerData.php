@@ -111,8 +111,7 @@ class EngineerData extends CActiveRecord
         {
         	if($this->isNewRecord)  // Creating new record 
             {
-				$this->data_status_id='1';///since 1 is recvd from CHS
-        		$this->created=time();
+				$this->created=time();
 				
     			return true;
             }

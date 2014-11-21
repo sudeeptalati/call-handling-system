@@ -33,12 +33,21 @@ class ServerController extends Controller
 				$x['customer_postcode']=$p['customer_postcode'];
 				$x['data']=$p['servicecall'];
 				$model->data=json_encode($x);
-				$model->save();
-				
+				$model->data_status_id='1';///since 1 is recvd from CHS
 				$ar=array();
+				
+				if($model->save())
+				{
+		
 				$ar['service_reference_number']=$service_reference_number;
 				$ar['message']='Servicecall Sent';
+				}
+				else
+				{
 				
+				$ar['service_reference_number']=$service_reference_number;
+				$ar['message']='Servicecall cannot be saved on the server. Please try again.';
+				}
 				array_push($sent_servicecalls,$ar);	
 				
 			}///end of foreach ($value as $p)
@@ -64,38 +73,67 @@ class ServerController extends Controller
 }///end of  actionIndex
 	
 	////////creating function getmyenggdetails
-	public function actiongetmyenggdetails()
+	public function actionGetengineerdataformobile()
 	{
-	$engineer_email=$_GET['engineer_email'];
-	$engineer_pwd=$_GET['pwd'];
-	////
-	
-	
-	
-	if($this->verifyengineer($engineer_email,$engineer_pwd))
-	{
-	$engineer_model=EngineerData::model()->findAllByAttributes(array('engineer_email'=>$engineer_email));
-	
-	$myarray=array();
-	
-	foreach ($engineer_model as $data)
+		$engineer_email=$_GET['engineer_email'];
+		$engineer_pwd=$_GET['pwd'];
+		
+		if($this->verifyengineer($engineer_email,$engineer_pwd))
 		{
-		//echo $data->data;
+		$engineer_model=EngineerData::model()->findAllByAttributes(array('engineer_email'=>$engineer_email,'data_status_id'=>'1'));
 		
-		array_push($myarray,json_decode($data->data));
-		$this->deleteengineerdatarecords($data->id);
-		}
+		$myarray=array();
 		
-		
-		echo json_encode($myarray);
-		}////end of if
+		foreach ($engineer_model as $data)
+			{
+			//echo $data->data;
+			
+			array_push($myarray,json_decode($data->data));
+			$this->deleteengineerdatarecord($data->id);
+			}
+			
+			
+			echo json_encode($myarray);
+			}////end of if
+			else
+			{
+				echo json_encode(array('message'=>'INVALID ENGINEER'));
+			}
+	}/////end of actionGetengineerdataformobile
+	
+	public function actionGetdatafrommobile()
+	{
+		$status="";
+		$status_message="";
+		$engineer_email=$_GET['engineer_email'];
+		$engineer_pwd=$_GET['pwd'];
+		if($this->verifyengineer($engineer_email,$engineer_pwd))
+		{
+			$getdata=$_GET['data'];
+			$model=new EngineerData;
+			$model->engineer_email=$engineer_email;
+			$model->data=$getdata;
+			$model->data_status_id=3;
+				if($model->save())
+				{
+				$status="OK";
+				$status_message='Servicecall has been received and saved on the server.';
+				}//end of if model save
+				else
+				{
+				$status="FAILED";
+				$status_message='Servicecall not saved on the server';
+				}///end of else
+				echo json_encode(array('status'=>$status,'status_message'=>$status_message));
+		}///end of if verifyengineer
 		else
 		{
-			echo json_encode(array('message'=>'INVALID ENGINEER'));
-		}
-	}/////end of getmyenggdetails
+			echo json_encode(array('status'=>'FAILED','status_message'=>' The username or password is incorrect. Please try again.'));
+		}///end of else
+	}///end of actiongetdatafrommobile
+
 	
-	public function deleteengineerdatarecords($id)
+	public function deleteengineerdatarecord($id)
 	{
 		$engineer_data_model=EngineerData::model()->findByPk($id);
 		if($engineer_data_model===null)
@@ -122,5 +160,4 @@ class ServerController extends Controller
 			return false;
 	}
 	
-		
 }

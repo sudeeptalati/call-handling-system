@@ -4354,3 +4354,25 @@ Stack trace:
 REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (9)
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2014/11/21 17:24:23 [error] [php] Object of class stdClass could not be converted to string (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:105)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/getdatafrommobile&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba&data={%22service_reference_number%22:%22127542%22,%22engineer_email%22:%22sweetpullo@gmail.com%22,%22customer_fullname%22:%22%20chee%22,%22customer_postcode%22:%22wa11%200jj%22,%22data%22:{%22Customer%22:%22%20chee%22,%22Postcode%22:%22wa11%200jj%22,%22Brand%22:{%22created_by_user%22:null},%22Model%20%22:%22508EE1(W)%22,%22Type%22:[],%22Fault%22:%22oven%20not%20working%20again.%20a%20selector%20switch%20will%20be%20sent%20to%20you%20today%22,%22Appointment%20Date%22:%221415779200%22}}
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (105)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2014/11/21 17:24:48 [error] [php] Object of class stdClass could not be converted to string (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:105)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/getdatafrommobile&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba&data={%22service_reference_number%22:%22127542%22,%22engineer_email%22:%22sweetpullo@gmail.com%22,%22customer_fullname%22:%22%20chee%22,%22customer_postcode%22:%22wa11%200jj%22,%22data%22:{%22Customer%22:%22%20chee%22,%22Postcode%22:%22wa11%200jj%22,%22Brand%22:{%22created_by_user%22:null},%22Model%20%22:%22508EE1(W)%22,%22Type%22:[],%22Fault%22:%22oven%20not%20working%20again.%20a%20selector%20switch%20will%20be%20sent%20to%20you%20today%22,%22Appointment%20Date%22:%221415779200%22}}
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (105)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)

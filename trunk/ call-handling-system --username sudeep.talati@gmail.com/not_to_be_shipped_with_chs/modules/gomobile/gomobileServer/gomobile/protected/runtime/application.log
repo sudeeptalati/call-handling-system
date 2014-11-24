@@ -4430,3 +4430,14 @@ Stack trace:
 REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/Getengineerdataformobile
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (70)
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2014/11/24 16:04:22 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:14)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/Getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (14)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)

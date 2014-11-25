@@ -24,7 +24,7 @@ $this->menu=array(
 		'id',
 		'engineer_email',
 		'data',
-		'data_status',
+		'data_status_id',
 		'created',
 		'last_modified',
 	),

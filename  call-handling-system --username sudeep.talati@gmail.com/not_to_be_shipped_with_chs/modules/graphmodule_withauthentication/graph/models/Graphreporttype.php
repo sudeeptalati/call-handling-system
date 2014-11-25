@@ -9,7 +9,7 @@
  * @property string $model
  * @property integer $active
  */
-class GraphReporttype extends CActiveRecord
+class Graphreporttype extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name

@@ -13,7 +13,7 @@
  * @property integer $sort_order
  * @property integer $active
  */
-class GraphReportfields extends CActiveRecord
+class Graphreportfields extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name

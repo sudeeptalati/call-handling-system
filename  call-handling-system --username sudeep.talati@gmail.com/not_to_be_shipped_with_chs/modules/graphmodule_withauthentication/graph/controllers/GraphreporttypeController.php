@@ -1,6 +1,6 @@
 <?php
 
-class GraphReportfieldsController extends Controller
+class GraphreporttypeController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class GraphReportfieldsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','checkFieldOrRelationByModelNameAndValue', 'getRelationsAndFieldsListByModelName'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,14 +62,14 @@ class GraphReportfieldsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GraphReportfields;
+		$model=new GraphReporttype;
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GraphReportfields']))
+		if(isset($_POST['GraphReporttype']))
 		{
-			$model->attributes=$_POST['GraphReportfields'];
+			$model->attributes=$_POST['GraphReporttype'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class GraphReportfieldsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GraphReportfields']))
+		if(isset($_POST['GraphReporttype']))
 		{
-			$model->attributes=$_POST['GraphReportfields'];
+			$model->attributes=$_POST['GraphReporttype'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class GraphReportfieldsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GraphReportfields');
+		$dataProvider=new CActiveDataProvider('GraphReporttype');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class GraphReportfieldsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GraphReportfields('search');
+		$model=new GraphReporttype('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GraphReportfields']))
-			$model->attributes=$_GET['GraphReportfields'];
+		if(isset($_GET['GraphReporttype']))
+			$model->attributes=$_GET['GraphReporttype'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class GraphReportfieldsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return GraphReportfields the loaded model
+	 * @return GraphReporttype the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=GraphReportfields::model()->findByPk($id);
+		$model=GraphReporttype::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,73 +160,14 @@ class GraphReportfieldsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param GraphReportfields $model the model to be validated
+	 * @param GraphReporttype $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='graph-reportfields-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='graph-reporttype-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
-	
-	
-	
-	///////////My Contriolllers
-	
-		
-	public function actionGetRelationsAndFieldsListByModelName()
-	{
-		$modelname= $_GET['modelname'];
-		$list_data=GraphReportfields::model()->getRelationsAndFieldsListByModelName($modelname);
-		echo json_encode($list_data);		
-
-	}//end of actionGetRelationsAndFieldsListByModelName
-	
-	
-	public function actionCheckFieldOrRelationByModelNameAndValue()
-	{
-		
-		$modelname= $_GET['modelname'];
-		$selected_value= $_GET['selected_value'];
-		
-		$model=GraphReportfields::model();
-		/*
-		$modelname="Uplifts";
-		$selected_value="servicecall";
-		*/
-		
-		$fieldslist = $model->getFieldsListByModelName($modelname);
-		$relationslist = $model->getOneToOneRelationListByModelName($modelname);
- 
-		
-		$response=array();
-		
-		if (in_array($selected_value, $relationslist)) {
-		
-			$response['value_type']='relation';
-			$response['value_selected']=$selected_value;	
-			
-			$newmodel=$model->getNewModelNameBySelectedValueAndCurrentModelName($modelname,$selected_value);
-			$newmodellistdata=$model->getRelationsAndFieldsListByModelName($newmodel);
-			$response['newmodel']=$newmodel;
-			$response['list_data']=$newmodellistdata;
-		}
-		
-		
-		if (in_array($selected_value, $fieldslist)) {
-		
-			$response['value_type']='field';
-			$response['value_selected']=$selected_value;	
-		}
-		
-				
-		echo json_encode($response);		
-
-	}///end of actionCheckFieldOrRelationByModelNameAndValue
-	
-	
-	
-	
 }

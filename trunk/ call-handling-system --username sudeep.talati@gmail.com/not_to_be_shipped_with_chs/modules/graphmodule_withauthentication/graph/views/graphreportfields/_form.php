@@ -136,10 +136,11 @@ function relation_changed(relation_select_id)
 {	
 	console.log("relation_changed CALLED "+relation_select_id);
 	var selected_value=relation_1.value;
+	console.log("RELATION VALUE "+selected_value);
 	
-	document.getElementById("GraphReportfields_field_relation").value=selected_value;
+	document.getElementById("Graphreportfields_field_relation").value=selected_value;
 	relation_1.disabled=true;
-	document.getElementById("field_relation").innerHTML=document.getElementById("GraphReportfields_field_relation").value;	
+	document.getElementById("field_relation").innerHTML=document.getElementById("Graphreportfields_field_relation").value;	
 	
 				
 	//console.log("SLECTC RELATION 1 is "+relation_1.value);
@@ -282,9 +283,9 @@ function relation_changed_dynamic(dynamic_relation_select_object)
 
 function append_relation_form_field(relationname)
 {
-	var GraphReportfields_field_relation=document.getElementById("GraphReportfields_field_relation");
-	GraphReportfields_field_relation.value=GraphReportfields_field_relation.value+"|"+relationname;
-	document.getElementById("field_relation").innerHTML=document.getElementById("GraphReportfields_field_relation").value;	
+	var Graphreportfields_field_relation=document.getElementById("Graphreportfields_field_relation");
+	Graphreportfields_field_relation.value=Graphreportfields_field_relation.value+"|"+relationname;
+	document.getElementById("field_relation").innerHTML=document.getElementById("Graphreportfields_field_relation").value;	
  
 	
 	}
@@ -311,7 +312,7 @@ function validateForm()
 
 function maximumrelationlimit()
 {
-	var relation_text=document.getElementById("GraphReportfields_field_relation").value;
+	var relation_text=document.getElementById("Graphreportfields_field_relation").value;
 	var res = relation_text.split("|");
 	
 	if (res.length>=5) ///Maximum Relation Limit is 5

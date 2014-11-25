@@ -179,7 +179,7 @@ class GraphreportfieldsController extends Controller
 	public function actionGetRelationsAndFieldsListByModelName()
 	{
 		$modelname= $_GET['modelname'];
-		$list_data=GraphReportfields::model()->getRelationsAndFieldsListByModelName($modelname);
+		$list_data=Graphreportfields::model()->getRelationsAndFieldsListByModelName($modelname);
 		echo json_encode($list_data);		
 
 	}//end of actionGetRelationsAndFieldsListByModelName

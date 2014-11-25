@@ -127,8 +127,15 @@ class ServerController extends Controller
 	
 	public function actionGetdatafordesktop()
 	{
-	$engineer_data_model=EngineerData::model()->findByAttributes(array('data_status_id'=>'3'));
-	echo $engineer_data_model->data;
+	$engineer_data_model=EngineerData::model()->findAllByAttributes(array('data_status_id'=>'3'));
+	$new_array=array();
+	foreach($engineer_data_model as $data)
+	{
+
+		array_push($new_array,json_decode($data->data));
+		
+	}
+	echo json_encode($new_array);
 	}///end of actionGetdatafordesktop
 	
 	

@@ -117,11 +117,9 @@ class EngineerData extends CActiveRecord
             }
             else
             {
-            	if ($this->active==0)
-				{
-					
+            	
 					$this->last_modified=time();
-            	}
+            	
             	return true;
             }
         }//end of if(parent())

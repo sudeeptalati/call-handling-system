@@ -5,7 +5,7 @@ $csv_header=array();
 $selected_fields_of_reports=array();
 $results=array();
 
-$report_fields=GraphReportfields::model()->findAll(array('condition'=>'active=1',	'order'=>'sort_order ASC'));
+$report_fields=Graphreportfields::model()->findAll(array('condition'=>'active=1',	'order'=>'sort_order ASC'));
 foreach($report_fields as $e)
 {	
 	array_push($csv_header,$e->field_label);

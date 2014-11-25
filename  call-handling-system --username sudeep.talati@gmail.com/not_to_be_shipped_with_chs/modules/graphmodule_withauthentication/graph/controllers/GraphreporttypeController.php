@@ -62,14 +62,14 @@ class GraphreporttypeController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GraphReporttype;
+		$model=new Graphreporttype;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GraphReporttype']))
+		if(isset($_POST['Graphreporttype']))
 		{
-			$model->attributes=$_POST['GraphReporttype'];
+			$model->attributes=$_POST['Graphreporttype'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class GraphreporttypeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GraphReporttype']))
+		if(isset($_POST['Graphreporttype']))
 		{
-			$model->attributes=$_POST['GraphReporttype'];
+			$model->attributes=$_POST['Graphreporttype'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class GraphreporttypeController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GraphReporttype');
+		$dataProvider=new CActiveDataProvider('Graphreporttype');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class GraphreporttypeController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GraphReporttype('search');
+		$model=new Graphreporttype('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GraphReporttype']))
-			$model->attributes=$_GET['GraphReporttype'];
+		if(isset($_GET['Graphreporttype']))
+			$model->attributes=$_GET['Graphreporttype'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -152,7 +152,7 @@ class GraphreporttypeController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GraphReporttype::model()->findByPk($id);
+		$model=Graphreporttype::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

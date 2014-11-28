@@ -73,23 +73,41 @@ class ServerController extends Controller
 	////////creating function Getengineerdataformobile
 	public function actionGetengineerdataformobile()
 	{
+	
+		
 		$engineer_email=$_GET['engineer_email'];
 		$engineer_pwd=$_GET['pwd'];
-		
+		$myarray=array();
+		$status="";
+		$status_message="";
 		if($this->verifyengineer($engineer_email,$engineer_pwd))
 		{
 		$engineer_model=EngineerData::model()->findAllByAttributes(array('engineer_email'=>$engineer_email,'data_status_id'=>'1'));
-		$myarray=array();
-		foreach ($engineer_model as $data)
-			{
-			array_push($myarray,json_decode($data->data));
-			$this->deleteengineerdatarecord($data->id);
-			}///end of foreach $engineer_model as $data
-			echo json_encode($myarray);
+		$totalrecords=count($engineer_model);
+		
+			if ($totalrecords==0)
+				{
+				$status="NO CALLS";
+				$status_message='No Calls Available';
+				}
+			else
+				{
+				foreach ($engineer_model as $data)
+					{
+					array_push($myarray,json_decode($data->data));
+					$this->deleteengineerdatarecord($data->id);
+					}///end of foreach $engineer_model as $data
+				$status='OK';
+				$status_message='Calls Received successfully';	
+				}
+			
+			echo json_encode(array('details'=>$myarray, 'status'=>$status, 'status_message'=>$status_message));
 		}////end of if verifyengineer
 		else
-		{
-			echo json_encode(array('message'=>'INVALID ENGINEER'));
+		{	
+			//$status="FAILED";
+			//$status_message="INVALID ENGINEER";
+			echo json_encode(array('status'=>'FAILED','status_message'=>'INVALID ENGINEER'));
 		}///end of else verifyengineer
 	}/////end of actionGetengineerdataformobile
 	
@@ -141,12 +159,18 @@ class ServerController extends Controller
 	
 	
 	public function deleteengineerdatarecord($id)
-	{
-		$engineer_data_model=EngineerData::model()->findByPk($id);
-		if($engineer_data_model===null)
+	{	
+		if($engineer_data_model=EngineerData::model()->findByPk($id))
+		{
+			if($engineer_data_model===null)
+			{
 			throw new CHttpException(404,'The requested page does not exist.');
+			}
 			$engineer_data_model->delete();
-	
+			return true;
+		}
+		else
+			return false;
 	}////end of deleteengineerdatarecords
 	
 	public function verifyengineer($engineer_email,$engineer_pwd)

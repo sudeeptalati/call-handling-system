@@ -12,6 +12,9 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('engineer_email')); ?>:</b>
 	<?php echo CHtml::encode($data->engineer_email); ?>
 	<br />
+	<b><?php echo CHtml::encode($data->getAttributeLabel('pwd')); ?>:</b>
+	<?php echo CHtml::encode($data->pwd); ?>
+	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('exp_date')); ?>:</b>
 	<?php echo CHtml::encode($data->exp_date); ?>

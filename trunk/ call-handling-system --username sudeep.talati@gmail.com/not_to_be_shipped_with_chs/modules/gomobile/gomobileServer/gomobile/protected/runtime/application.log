@@ -4637,3 +4637,13 @@ Stack trace:
 REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/getdatafrommobile&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (104)
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2014/11/27 15:29:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getmyenggdetails".' in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(270): CController->missingAction('getmyenggdetail...')
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): CController->run('getmyenggdetail...')
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController('server/getmyeng...')
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/getmyenggdetails
+---

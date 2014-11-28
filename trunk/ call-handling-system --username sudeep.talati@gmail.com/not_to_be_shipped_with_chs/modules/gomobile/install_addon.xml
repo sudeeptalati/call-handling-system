@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adddon>
+	<info>
+		<type>Component</type>
+		<name>gomobile</name>
+		<label>Gomobile</label>
+		<information>Interaction of system and engineers via mobile</information>
+		<active>1</active>
+		<version>0.1</version>
+		<description></description>
+	</info>
+	
+	<install>
+		<source>
+			<folder>gomobile</folder>
+			<files></files>
+			<sql>/sql.txt</sql>
+			
+		</source>
+		<destination>
+			<folder>/protected/modules/gomobile</folder>
+			<files></files>
+			
+		</destination>	
+	</install>
+
+</adddon>

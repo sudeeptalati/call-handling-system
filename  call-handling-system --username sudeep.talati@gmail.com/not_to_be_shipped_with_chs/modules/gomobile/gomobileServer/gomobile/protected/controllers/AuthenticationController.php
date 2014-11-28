@@ -33,7 +33,7 @@ class AuthenticationController extends Controller
 		if(isset($_POST['email']) && isset($_POST["pwd"]))
 		{
 		$username=$_POST["email"];
-		$pwd= hash('sha256', $_POST["pwd"]);
+		$pwd= $_POST["pwd"];
 		$json_array=array();///declaring a blank array 
 		$status='NOT_OK';
 		$status_message='This is not status message';

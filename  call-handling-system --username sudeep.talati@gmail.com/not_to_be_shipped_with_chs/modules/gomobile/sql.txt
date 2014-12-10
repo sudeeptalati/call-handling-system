@@ -30,3 +30,5 @@ INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,
 INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('8','TEXT','enggdiary|visit_start_date','Appointment Date','','','');
 COMMIT;
 
+
+INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'gomobile_account_id','Please Insert','GoMobile Account ID');

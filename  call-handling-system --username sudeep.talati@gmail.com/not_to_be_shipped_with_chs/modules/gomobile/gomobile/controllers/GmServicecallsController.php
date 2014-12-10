@@ -29,11 +29,11 @@ class GmServicecallsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','Servicecallreceivedfromgomobileserver','receivedcalls'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','Servicecallsenttogomobileserver'),
+				'actions'=>array('create','update','servicecallsenttogomobileserver','receiveservicecallfrommobile','receivedcalldetails'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -144,6 +144,27 @@ class GmServicecallsController extends Controller
 		));
 	}
 	
+	public function actionReceivedcalls()
+	{
+		$model=new GmServicecalls('search_receivedcall');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['GmServicecalls']))
+			$model->attributes=$_GET['GmServicecalls'];
+		
+		$this->render('receivedcalls',array(
+			'model'=>$model,
+		));
+	}
+	
+	public function actionReceivedcalldetails($id)
+	{
+		$model=$this->loadModel($id);
+		 
+		$this->render('receivedcalldetails',array(
+			'model'=>$model,
+		));
+	}
+	
 	
 	public function actionServicecallsenttogomobileserver()
 	{
@@ -153,51 +174,46 @@ class GmServicecallsController extends Controller
 	$mydata=json_decode($servicecall_recieved);
 	
 	foreach ($mydata->unsent_servicecalls as $servicecalls)
-	{	
-		$unsent_servicecalls_ref_no=$servicecalls->service_reference_number;
-		$comments=$servicecalls->message;
-		$this->savesentservicecallstatus($unsent_servicecalls_ref_no, '3',$comments);///since 3 is rejected status
-	}
-	
-	foreach ($mydata->sent_servicecalls as $servicecalls)
-	{	
-		$sent_servicecalls_ref_no=$servicecalls->service_reference_number;
-		$comments=$servicecalls->message;
-		$this->savesentservicecallstatus($sent_servicecalls_ref_no, '1', $comments);///since 1 is sent status
-	}
-	
-	
-	
-	/*
-	$servicecall_recieved=$_POST['servicecall_ids'];
-	$mydata=json_decode($servicecall_recieved);
-	foreach ($mydata->unsent_servicecalls as $unsent_servicecalls_ref_no)
-	{	
-		echo "<br>".$unsent_servicecalls_ref_no;
-		$this->savesentservicecallstatus($unsent_servicecalls_ref_no, '3');///since 3 is rejected status
-	}
-   
-	foreach ($mydata->sent_servicecalls as $sent_servicecalls_ref_no)
-	{	
-		echo "<br>".$sent_servicecalls_ref_no;
-		$this->savesentservicecallstatus($sent_servicecalls_ref_no, '1');///since 1 is sent status
-
-	}
-	*/
-	
-	/*
-	$servicecall_recieved=$_POST['servicecall_ids'];
-	print_r($servicecall_recieved);
-	
-		$servicecall_recieved_array=json_decode($servicecall_recieved);
-		foreach($servicecall_recieved_array as $service_reference_number)
 		{	
-	
-		}////end of foreach
+			$unsent_servicecalls_ref_no=$servicecalls->service_reference_number;
+			$comments=$servicecalls->message;
+			$this->savesentservicecallstatus($unsent_servicecalls_ref_no, '3',$comments);///since 3 is rejected status
+		}
 		
-		*/
+	foreach ($mydata->sent_servicecalls as $servicecalls)
+		{	
+			$sent_servicecalls_ref_no=$servicecalls->service_reference_number;
+			$comments=$servicecalls->message;
+			$this->savesentservicecallstatus($sent_servicecalls_ref_no, '1', $comments);///since 1 is sent status
+		}
 	}///// end of Servicecallsenttogomobileserver
-
+	
+	
+	public function actionServicecallreceivedfromgomobileserver()
+	{
+	header("Access-Control-Allow-Origin: *");
+	$servicecall_recieved=$_POST['data'];
+	//$servicecall_recieved='[[{"service_reference_number":127549,"work_carried_out":"{\"report_findings\":\"iphone 6\",\"workdone\":\"WORK DONE\",\"parts\":[{\"partused\":\"bearing\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}]]';
+	$mydata=json_decode($servicecall_recieved);
+	//print_r($servicecall_recieved);
+	
+	
+	foreach ($mydata as $servicecalls)
+	{
+	
+			$received_servicecalls_ref_no=$servicecalls[0]->service_reference_number;
+			$comments=$servicecalls[0]->work_carried_out;
+			$this->savesentservicecallstatus($received_servicecalls_ref_no, '5',$comments);///since 5 is received from mobile status
+	}//end of foreach 
+	
+	}
+	
+	
+	
+	public function actionReceiveservicecallfrommobile()
+	{
+	 $this->render('receiveservicecallfrommobile');
+	}
 	
 	
 	public function savesentservicecallstatus($service_ref_no, $received_server_status,$comments)

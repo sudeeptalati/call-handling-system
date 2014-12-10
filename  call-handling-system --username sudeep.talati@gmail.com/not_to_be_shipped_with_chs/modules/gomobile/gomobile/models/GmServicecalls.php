@@ -97,6 +97,21 @@ class GmServicecalls extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+		public function search_receivedcall()
+		{
+		$criteria=new CDbCriteria;
+		$criteria->compare('id',$this->id);
+		$criteria->compare('servicecall_id',$this->servicecall_id);
+		$criteria->compare('service_reference_number',$this->service_reference_number);
+		$criteria->compare('server_status_id',5);
+		$criteria->compare('created',$this->created);
+		$criteria->compare('modified',$this->modified);
+		$criteria->compare('comments',$this->comments,true);
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+		}
 
 	/**
 	 * Returns the static model of the specified AR class.

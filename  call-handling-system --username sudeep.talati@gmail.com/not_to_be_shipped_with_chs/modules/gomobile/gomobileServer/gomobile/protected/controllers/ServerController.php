@@ -119,7 +119,7 @@ class ServerController extends Controller
 		$engineer_pwd=$_GET['pwd'];
 		if($this->verifyengineer($engineer_email,$engineer_pwd))
 		{
-			$getdata=$_GET['data'];
+			$getdata=$_POST['data'];
 			$model=new EngineerData;
 			$model->engineer_email=$engineer_email;
 			$model->data=$getdata;

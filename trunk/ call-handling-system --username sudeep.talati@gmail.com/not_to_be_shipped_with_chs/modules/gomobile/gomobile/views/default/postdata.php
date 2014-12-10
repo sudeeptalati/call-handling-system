@@ -54,6 +54,7 @@ if(isset( $_GET['start_date']))
 		$customer=array();
 		$customer['name']=$servicecall_model->customer->fullname;
 		$customer['postcode']=$servicecall_model->customer->postcode;
+		
 		$gm_json_fields_model=GmJsonFields::model()->findAll();
 		foreach($gm_json_fields_model as $p)
 		{
@@ -83,7 +84,7 @@ if(isset( $_GET['start_date']))
 		$myarray['engineer_email']=$engineer_email;	
         $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
         $myarray['customer_postcode']=$servicecall_model->customer->postcode;
-                
+        $myarray['customer_address']=$servicecall_model->customer->address_line_1." ".$servicecall_model->customer->address_line_2." ".$servicecall_model->customer->address_line_3." ".$servicecall_model->customer->town." ".$servicecall_model->customer->postcode;        
 		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;
@@ -127,11 +128,11 @@ var data = <?php echo json_encode($json_data)?>;
 json_data = JSON.stringify(data);
 console.log(json_data);
 $.ajax({
-      ///url: 'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server',
-          url: 'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server', 
+   url: 'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server/Getdatafromodule',
+ ///  url: 'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/Getdatafromodule', 
 		 
 	  type: 'post',
-	 // data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
+	/// data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
 	  data: {'jsonData':json_data},
 	  success: function(data, status) {   
 				alert("Following Servicecalls has been sent to server:"+data);

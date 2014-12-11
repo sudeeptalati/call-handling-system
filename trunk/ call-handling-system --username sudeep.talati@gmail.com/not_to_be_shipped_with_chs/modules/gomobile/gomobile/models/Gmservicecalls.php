@@ -46,7 +46,7 @@ class Gmservicecalls extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		'server_status'=>	array(self::BELONGS_TO, 'GmServerStatus', 'server_status_id'),
+		'server_status'=>	array(self::BELONGS_TO, 'Gmserverstatus', 'server_status_id'),
 		'servicecall'=> array(self::BELONGS_TO, 'Servicecall', 'servicecall_id')
 		);
 	}

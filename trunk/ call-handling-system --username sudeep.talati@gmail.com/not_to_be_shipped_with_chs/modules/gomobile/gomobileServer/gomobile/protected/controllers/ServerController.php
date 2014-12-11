@@ -145,6 +145,7 @@ class ServerController extends Controller
 	
 	public function actionGetdatafordesktop()
 	{
+	header('Access-Control-Allow-Origin: *');
 	$engineer_data_model=EngineerData::model()->findAllByAttributes(array('data_status_id'=>'3'));
 	$new_array=array();
 	foreach($engineer_data_model as $data)

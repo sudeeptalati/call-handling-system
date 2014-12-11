@@ -98,16 +98,10 @@ class Gmservicecalls extends CActiveRecord
 		));
 	}
 	
-		public function search_receivedcall()
+		public function getdatabyserverstatusid($server_status_id)
 		{
 		$criteria=new CDbCriteria;
-		$criteria->compare('id',$this->id);
-		$criteria->compare('servicecall_id',$this->servicecall_id);
-		$criteria->compare('service_reference_number',$this->service_reference_number);
-		$criteria->compare('server_status_id',5);
-		$criteria->compare('created',$this->created);
-		$criteria->compare('modified',$this->modified);
-		$criteria->compare('comments',$this->comments,true);
+		$criteria->compare('server_status_id',$server_status_id);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

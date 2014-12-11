@@ -63,7 +63,7 @@ class GmservicecallsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GmServicecalls;
+		$model=new Gmservicecalls;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -123,7 +123,7 @@ class GmservicecallsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GmServicecalls');
+		$dataProvider=new CActiveDataProvider('Gmservicecalls');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -219,7 +219,7 @@ class GmservicecallsController extends Controller
 	public function savesentservicecallstatus($service_ref_no, $received_server_status,$comments)
 	{
 			$servicecall_id=$this->getserviceidbyservicerefrencenumber($service_ref_no);
-			$model=new GmServicecalls;
+			$model=new Gmservicecalls;
 			$model->servicecall_id=$servicecall_id;
 			$model->server_status_id=$received_server_status; 
 			$model->service_reference_number=$service_ref_no;
@@ -237,7 +237,7 @@ class GmservicecallsController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GmServicecalls::model()->findByPk($id);
+		$model=Gmservicecalls::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

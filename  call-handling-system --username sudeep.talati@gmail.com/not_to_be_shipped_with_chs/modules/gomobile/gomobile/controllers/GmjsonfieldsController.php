@@ -152,7 +152,7 @@ class GmjsonfieldsController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=GmJsonFields::model()->findByPk($id);
+		$model=Gmjsonfields::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -1,6 +1,6 @@
 <?php
 
-class GmServicecallsController extends Controller
+class GmservicecallsController extends Controller
 {
 
 	/**
@@ -134,7 +134,7 @@ class GmServicecallsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GmServicecalls('search');
+		$model=new Gmservicecalls('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['GmServicecalls']))
 			$model->attributes=$_GET['GmServicecalls'];
@@ -146,7 +146,7 @@ class GmServicecallsController extends Controller
 	
 	public function actionReceivedcalls()
 	{
-		$model=new GmServicecalls('search_receivedcall');
+		$model=new Gmservicecalls('search_receivedcall');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['GmServicecalls']))
 			$model->attributes=$_GET['GmServicecalls'];

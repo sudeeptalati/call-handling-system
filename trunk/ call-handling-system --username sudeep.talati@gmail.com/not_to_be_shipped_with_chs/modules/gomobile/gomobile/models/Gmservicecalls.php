@@ -12,7 +12,7 @@
  * @property integer $modified
  * @property string $comments
  */
-class GmServicecalls extends CActiveRecord
+class Gmservicecalls extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name

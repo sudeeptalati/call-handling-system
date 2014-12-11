@@ -8,7 +8,7 @@
  * @property integer $engineer_id
  * @property string $data
  */
-class EngineerData extends CActiveRecord
+class Engineerdata extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name

@@ -30,9 +30,9 @@ border-radius: 15px;
 
 //echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
 echo "<li>".CHtml::link("Setup",array('/gomobile/gmjsonfields/admin'))."</li>";  
-echo "<li>".CHtml::link("Send Servicecalls by Appointment Date",array('/gomobile/default/Databyappointmentdate'))."</li>";  
+echo "<li>".CHtml::link("Send Servicecalls by Appointment Date",array('/gomobile/default/databyappointmentdate'))."</li>";  
 echo "<li>".CHtml::link("Received Servicecalls",array('/gomobile/gmservicecalls/receivedcalls'))."</li>";  echo "<li>".CHtml::link("Sent Servicecalls",array('/gomobile/gmservicecalls/admin'))."</li>";  
-echo "<li>".CHtml::link("Receive Call from Mobile",array('/gomobile/gmservicecalls/Receiveservicecallfrommobile'))."</li>"; 
+echo "<li>".CHtml::link("Receive Call from Mobile",array('/gomobile/gmservicecalls/receiveservicecallfrommobile'))."</li>"; 
 //echo "<li>".CHtml::link("Post Data to Server",array('/gomobile/default/PostDatatoServer'))."</li>"; 
 ?>
 </div>

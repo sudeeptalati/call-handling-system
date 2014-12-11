@@ -81,11 +81,7 @@
 		<?php echo $form->error($model,'active'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
+ 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
@@ -119,9 +115,9 @@ function relation_changed(relation_select_id)
 	console.log("relation_changed CALLED "+relation_select_id);
 	var selected_value=relation_1.value;
 	
-	document.getElementById("GmJsonFields_field_relation").value=selected_value;
+	document.getElementById("Gmjsonfields_field_relation").value=selected_value;
 	relation_1.disabled=true;
-	document.getElementById("field_relation").innerHTML=document.getElementById("GmJsonFields_field_relation").value;	
+	document.getElementById("field_relation").innerHTML=document.getElementById("Gmjsonfields_field_relation").value;	
 	
 				
 	//console.log("SLECTC RELATION 1 is "+relation_1.value);
@@ -139,7 +135,7 @@ function relation_changed(relation_select_id)
 		
 		$.ajax({
 		type: "GET",
-		url: "index.php?r=gomobile/gmjsonfields/GetRelationsAndFieldsListByModelName",
+		url: "index.php?r=gomobile/gmjsonfields/getrelationsandfieldslistbymodelname",
 		data: "modelname="+relation_1_model,
 		async:false,
 		success: function(server_response)
@@ -216,7 +212,7 @@ function relation_changed_dynamic(dynamic_relation_select_object)
 	/////////Check Weather selected value is field or relation 
 	$.ajax({
 		type: "GET",
-		url: "index.php?r=gomobile/gmjsonfields/CheckFieldOrRelationByModelNameAndValue",
+		url: "index.php?r=gomobile/gmjsonfields/checkfieldorrelationbymodelnameandvalue",
 		data: "modelname="+relation_model_name+"&selected_value="+dynamic_relation_select_object.value,
 		async:false,
 		success: function(server_response)
@@ -265,9 +261,9 @@ function relation_changed_dynamic(dynamic_relation_select_object)
 
 function append_relation_form_field(relationname)
 {
-	var GmJsonFields_field_relation=document.getElementById("GmJsonFields_field_relation");
-	GmJsonFields_field_relation.value=GmJsonFields_field_relation.value+"|"+relationname;
-	document.getElementById("field_relation").innerHTML=document.getElementById("GmJsonFields_field_relation").value;	
+	var Gmjsonfields_field_relation=document.getElementById("Gmjsonfields_field_relation");
+	Gmjsonfields_field_relation.value=Gmjsonfields_field_relation.value+"|"+relationname;
+	document.getElementById("field_relation").innerHTML=document.getElementById("Gmjsonfields_field_relation").value;	
  
 	
 	}

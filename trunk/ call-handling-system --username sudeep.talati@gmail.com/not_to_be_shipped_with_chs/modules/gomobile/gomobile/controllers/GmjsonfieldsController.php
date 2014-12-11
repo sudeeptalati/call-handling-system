@@ -67,9 +67,9 @@ class GmjsonfieldsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GmJsonFields']))
+		if(isset($_POST['Gmjsonfields']))
 		{
-			$model->attributes=$_POST['GmJsonFields'];
+			$model->attributes=$_POST['Gmjsonfields'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -135,8 +135,8 @@ class GmjsonfieldsController extends Controller
 	{
 		$model=new Gmjsonfields('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GmJsonFields']))
-			$model->attributes=$_GET['GmJsonFields'];
+		if(isset($_GET['Gmjsonfields']))
+			$model->attributes=$_GET['Gmjsonfields'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -172,10 +172,10 @@ class GmjsonfieldsController extends Controller
 	}
 	
 	
-	public function actionGetrelationsandfieldslistbymodelmame()
+	public function actionGetrelationsandfieldslistbymodelname()
 	{
 		$modelname= $_GET['modelname'];
-		$list_data=Gmjsonfields::model()->getrelationsandfieldslistbymodelmame($modelname);
+		$list_data=Gmjsonfields::model()->getRelationsAndFieldsListByModelName($modelname);
 		echo json_encode($list_data);		
 
 	}//end of actionGetRelationsAndFieldsListByModelName

@@ -128,7 +128,7 @@ class Gmjsonfields extends CActiveRecord
 		
 	}
 	
-	public function getfieldslistbymodelname($modelname)
+	public function getFieldsListByModelName($modelname)
 	{
 		$table = Yii::app()->getDb()->getSchema()->getTable($modelname::model()->tableName());
 		$fieldslist = $table->getColumnNames();
@@ -197,6 +197,40 @@ class Gmjsonfields extends CActiveRecord
 	}//////public function getNewModelNameBySelectedValueAndCurrentModelName($currentmodelname,$selectedvalue)
 
 	
+	protected function beforeSave()
+    {
+    	if(parent::beforeSave())
+        {
+        	if($this->isNewRecord)  // Creating new record 
+            {
+        		$this->created=time();
+    			return true;
+            }
+        }//end of if(parent())
+    }//end of beforeSave().
 	
 	
+		 
+	public function processDataFormat ($data,$type)
+		{
+			switch ($type) {
+		
+			case "TEXT":
+						return $data;			
+			case "INTEGER":
+						return $data;			
+
+			case "DATETIME":
+						if (!empty($data))
+						{
+							return date("d-M-Y",$data);			
+						}
+						else
+						{
+							return "";
+						}
+						
+			return $data;
+			}///end of SWICTCH
+	}/// end of 	public processDataForReports($data,$type)
 }

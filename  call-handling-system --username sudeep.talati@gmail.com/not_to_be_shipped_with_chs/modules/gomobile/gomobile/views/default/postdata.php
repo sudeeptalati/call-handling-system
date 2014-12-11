@@ -60,14 +60,14 @@ if(isset( $_GET['start_date']))
 		{
 			$key=$p['field_relation'];
 			$label=$p['field_label'];
-			
+			$type=$p['field_type'];
 			if (strpos($key, '|')!== false)
 			{
 				$str_array = explode( '|', $key);
 				//print_r($str_array);
 				$value=$servicecall_model->$str_array[0]->$str_array[1];	
 				//$servicecall[$key]=$value;///disabled to be visible as label			
-				$servicecall[$label]=$value;			
+				$servicecall[$label]=Gmjsonfields::model()->processDataFormat($value,$type);			
 				//echo $servicecall_model->customer->town;			
 			}
 			else
@@ -75,7 +75,7 @@ if(isset( $_GET['start_date']))
 				//echo "<br>Its a FIELS ";
 				$value=$servicecall_model->$p['field_relation'];
 				//$servicecall[$key]=$value;///disabled to be visible as label			
-				$servicecall[$label]=$value;
+				$servicecall[$label]=Gmjsonfields::model()->processDataFormat($value,$type);
 			}
 		}
 		

@@ -55,7 +55,7 @@ if(isset( $_GET['start_date']))
 		$customer['name']=$servicecall_model->customer->fullname;
 		$customer['postcode']=$servicecall_model->customer->postcode;
 		
-		$gm_json_fields_model=GmJsonFields::model()->findAll();
+		$gm_json_fields_model=Gmjsonfields::model()->findAll();
 		foreach($gm_json_fields_model as $p)
 		{
 			$key=$p['field_relation'];

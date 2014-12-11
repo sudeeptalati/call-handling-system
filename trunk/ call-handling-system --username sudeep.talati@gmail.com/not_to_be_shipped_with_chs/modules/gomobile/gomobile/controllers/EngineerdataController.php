@@ -1,6 +1,6 @@
 <?php
 
-class GmJsonFieldsController extends Controller
+class EngineerdataController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class GmJsonFieldsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','checkFieldOrRelationByModelNameAndValue', 'getRelationsAndFieldsListByModelName'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,14 +62,14 @@ class GmJsonFieldsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GmJsonFields;
+		$model=new Engineerdata;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GmJsonFields']))
+		if(isset($_POST['EngineerData']))
 		{
-			$model->attributes=$_POST['GmJsonFields'];
+			$model->attributes=$_POST['EngineerData'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class GmJsonFieldsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GmJsonFields']))
+		if(isset($_POST['EngineerData']))
 		{
-			$model->attributes=$_POST['GmJsonFields'];
+			$model->attributes=$_POST['EngineerData'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class GmJsonFieldsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GmJsonFields');
+		$dataProvider=new CActiveDataProvider('Engineerdata');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class GmJsonFieldsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GmJsonFields('search');
+		$model=new Engineerdata('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GmJsonFields']))
-			$model->attributes=$_GET['GmJsonFields'];
+		if(isset($_GET['EngineerData']))
+			$model->attributes=$_GET['EngineerData'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class GmJsonFieldsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return GmJsonFields the loaded model
+	 * @return EngineerData the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=GmJsonFields::model()->findByPk($id);
+		$model=Engineerdata::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,67 +160,14 @@ class GmJsonFieldsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param GmJsonFields $model the model to be validated
+	 * @param EngineerData $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='gm-json-fields-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='engineer-data-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
-	
-	
-	public function actionGetRelationsAndFieldsListByModelName()
-	{
-		$modelname= $_GET['modelname'];
-		$list_data=GmJsonFields::model()->getRelationsAndFieldsListByModelName($modelname);
-		echo json_encode($list_data);		
-
-	}//end of actionGetRelationsAndFieldsListByModelName
-	
-	
-	public function actionCheckFieldOrRelationByModelNameAndValue()
-	{
-		
-		$modelname= $_GET['modelname'];
-		$selected_value= $_GET['selected_value'];
-		
-		$model=GmJsonFields::model();
-		/*
-		$modelname="Uplifts";
-		$selected_value="servicecall";
-		*/
-		
-		$fieldslist = $model->getFieldsListByModelName($modelname);
-		$relationslist = $model->getOneToOneRelationListByModelName($modelname);
- 
-		
-		$response=array();
-		
-		if (in_array($selected_value, $relationslist)) {
-		
-			$response['value_type']='relation';
-			$response['value_selected']=$selected_value;	
-			
-			$newmodel=$model->getNewModelNameBySelectedValueAndCurrentModelName($modelname,$selected_value);
-			$newmodellistdata=$model->getRelationsAndFieldsListByModelName($newmodel);
-			$response['newmodel']=$newmodel;
-			$response['list_data']=$newmodellistdata;
-		}
-		
-		
-		if (in_array($selected_value, $fieldslist)) {
-		
-			$response['value_type']='field';
-			$response['value_selected']=$selected_value;	
-		}
-		
-				
-		echo json_encode($response);		
-
-	}///end of actionCheckFieldOrRelationByModelNameAndValue
-	
-	
 }

@@ -12,7 +12,7 @@
  * @property integer $active
  * @property integer $created
  */
-class GmJsonFields extends CActiveRecord
+class Gmjsonfields extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -128,7 +128,7 @@ class GmJsonFields extends CActiveRecord
 		
 	}
 	
-	public function getFieldsListByModelName($modelname)
+	public function getfieldslistbymodelname($modelname)
 	{
 		$table = Yii::app()->getDb()->getSchema()->getTable($modelname::model()->tableName());
 		$fieldslist = $table->getColumnNames();

@@ -14,7 +14,7 @@
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'gm-servicecalls-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->getdatabyserverstatusid(1),
 	'filter'=>$model,
 	'columns'=>array(
 		//'id',

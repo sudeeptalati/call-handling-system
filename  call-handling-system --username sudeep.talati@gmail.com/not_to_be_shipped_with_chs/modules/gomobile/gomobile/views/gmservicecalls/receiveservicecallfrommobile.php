@@ -1,5 +1,10 @@
 <?php include('gomobile_menu.php'); ?>  
-<button onclick="receive_data();">Recieve data from Mobile</button>
+
+<h2>Get Data</h2>
+
+
+
+<button onclick="receive_data();">Get Data</button>
 
 <script>
 function receive_data() 

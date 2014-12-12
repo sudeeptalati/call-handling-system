@@ -9,6 +9,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create GmJsonFields</h1>
+<h2>Create Data Field</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

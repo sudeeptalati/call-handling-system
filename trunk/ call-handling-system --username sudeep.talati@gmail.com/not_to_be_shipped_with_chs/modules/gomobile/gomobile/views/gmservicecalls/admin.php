@@ -8,7 +8,7 @@
  
 ?>
 
-<h1>Manage Gm Servicecalls</h1>
+<h2>Sent Data</h2>
 
  
 

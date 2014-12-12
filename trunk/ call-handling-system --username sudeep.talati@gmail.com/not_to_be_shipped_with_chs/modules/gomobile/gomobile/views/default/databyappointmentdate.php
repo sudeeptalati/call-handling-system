@@ -1,5 +1,9 @@
-<?php include('gomobile_menu.php'); ?>  
+<?php include('gomobile_menu.php'); 
 
+ 
+
+?>  
+<h2>Send Data</h2>
 <?php
 echo CHtml::beginForm('index.php?r=gomobile/default/postdatatoserver','get'); 
 //$start_date=$_GET['start_date'];

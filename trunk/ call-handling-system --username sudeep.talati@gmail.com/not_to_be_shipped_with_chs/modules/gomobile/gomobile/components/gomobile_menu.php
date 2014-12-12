@@ -10,19 +10,20 @@ margin-top: -5px;
 margin-bottom: 0px;
 list-style: inline;
 border-radius: 15px;
-text-align: right;	
+text-align: left;	
 }
 
 #uplifts_menu {
 padding-top: 5px;
 padding-left: 25px;
-padding-right: 1px;
+padding-right: 25px;
 padding-bottom: 5px;
 background: #C7FAFF;
 margin-top: -5px;
 margin-bottom: 0px;
 list-style: inline;
 border-radius: 15px;	
+text-align: right;
 }
 
 #uplifts_menu li {
@@ -39,15 +40,7 @@ border-radius: 15px;
 
 </style>
  <br>
-<div id='uplifts_menu'><?php
-
-//echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
-echo "<li>".CHtml::link("Setup",array('/gomobile/gmjsonfields/admin'))."</li>";  
-echo "<li>".CHtml::link("Received Servicecalls",array('/gomobile/gmservicecalls/receivedcalls'))."</li>";  echo "<li>".CHtml::link("Sent Servicecalls",array('/gomobile/gmservicecalls/admin'))."</li>";  
- //echo "<li>".CHtml::link("Post Data to Server",array('/gomobile/default/PostDatatoServer'))."</li>"; 
-?>
-</div>
- <br>
+ 
  <div id='actions_menu'><?php
 
 //echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
@@ -56,5 +49,18 @@ echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
 //echo "<li>".CHtml::link("Post Data to Server",array('/gomobile/default/PostDatatoServer'))."</li>"; 
 ?>
 </div>
+<br>
+<div id='uplifts_menu'><?php
+
+//echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
+echo "<li>".CHtml::link("Sent Data",array('/gomobile/gmservicecalls/admin'))."</li>";  
+echo "<li>".CHtml::link("Received Data",array('/gomobile/gmservicecalls/receivedcalls'))."</li>";  
+echo "<li>".CHtml::link("Setup",array('/gomobile/gmjsonfields/admin'))."</li>";  
+ 
+ //echo "<li>".CHtml::link("Post Data to Server",array('/gomobile/default/PostDatatoServer'))."</li>"; 
+?>
+</div>
+ <br>
+ 
 
 <br>

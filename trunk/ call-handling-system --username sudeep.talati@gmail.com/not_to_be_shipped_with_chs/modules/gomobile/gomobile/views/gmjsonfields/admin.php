@@ -9,7 +9,7 @@ $this->menu=array(
  
 ?>
 
-<h1>Manage Go Mobile Json Fields</h1>
+<h2>Data Fields to be Sent</h2>
 
  
 

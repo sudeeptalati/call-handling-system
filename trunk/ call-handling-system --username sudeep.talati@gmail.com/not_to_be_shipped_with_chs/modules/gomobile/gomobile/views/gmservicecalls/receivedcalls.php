@@ -3,10 +3,15 @@
 /* @var $model GmServicecalls */
 
  include('gomobile_menu.php'); 
+ 
+ $this->menu=array(
+	//array('label'=>'Create GmJsonFields', 'url'=>array('create')),
+);
+
 
 ?>
 
-<h1>Manage Received Servicecalls</h1>
+<h2>Received Data</h2>
 
  
 

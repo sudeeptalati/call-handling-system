@@ -11,15 +11,23 @@
 <th>Engineer Email</th>
 </tr>
 
-<b>Date Selected:</b>
+<h3>Date:</h3>
 <?php
 //checking if the value is set to get
 if(isset( $_GET['start_date']))
 {
 ////today date times
-	echo $_GET['start_date'];
+	//echo $_GET['start_date'];
+	
+	
+	
+	
 	$start_date_starttime=$_GET['start_date']." 00:00";
 	$sd=strtotime($start_date_starttime);
+	
+	
+	echo '<h1>'.date('l, j-F-Y',$sd).'</h1>';
+	
 	$datetime = new DateTime($_GET['start_date']);
 	$datetime->modify('+1 day');
 	$start_date_endtime=$_GET['start_date']." 23:59";
@@ -27,6 +35,7 @@ if(isset( $_GET['start_date']))
 ////end of today
 
 ///calling engineer model for the criteria of appointment date
+	/*
 	$enggdiary_model=new Enggdiary();
 	$criteria=new CDbCriteria();
 	$criteria->addBetweenCondition('visit_start_date', $sd, $ed);
@@ -35,7 +44,15 @@ if(isset( $_GET['start_date']))
 										'pagination'=>false,
 										));	
 	$fd=$active_data_for_server->getData();///getting the data from criteria into variable fd
+	*/
+	
 	$foreacharray=array();//declaring a blank array for storing all fields
+	$engg_id='90000002';
+	$fd=Enggdiary::model()->getData($engg_id, $sd, $ed);
+
+	
+	
+	
 	foreach ($fd as $f)	
 	{
 		$servicecall_model=Servicecall::model()->findByPk($f->servicecall_id);

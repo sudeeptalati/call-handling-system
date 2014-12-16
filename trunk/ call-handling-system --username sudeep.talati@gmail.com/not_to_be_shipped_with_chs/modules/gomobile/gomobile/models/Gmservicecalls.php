@@ -96,16 +96,16 @@ class Gmservicecalls extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
+	}///end of search
 	
-		public function getdatabyserverstatusid($server_status_id)
-		{
+	public function getdatabyserverstatusid($server_status_id)
+	{
 		$criteria=new CDbCriteria;
 		$criteria->compare('server_status_id',$server_status_id);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-		}
+	}////end of getdatabyserverstatusid
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -137,5 +137,12 @@ class Gmservicecalls extends CActiveRecord
             	return true;
             }
         }//end of if(parent())
-    }//end of beforeSave().
+    }//end of beforeSave()
+	
+	public function getaccountid()
+	{
+		$gomobile_accountid_model=AdvanceSettings::model()->findByAttributes(array('parameter'=>'gomobile_account_id'));
+		return $gomobile_accountid_model->value;
+
+	}///end of getaccountid
 }

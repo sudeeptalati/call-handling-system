@@ -1,5 +1,4 @@
 <?php include('gomobile_menu.php'); ?>  
-
 <table>
 <tr>
 <th>Ref No.</th>
@@ -10,7 +9,6 @@
 <th>Engineer</th>
 <th>Engineer Email</th>
 </tr>
-
 <h3>Date:</h3>
 <?php
 //checking if the value is set to get
@@ -18,16 +16,9 @@ if(isset( $_GET['start_date']))
 {
 ////today date times
 	//echo $_GET['start_date'];
-	
-	
-	
-	
 	$start_date_starttime=$_GET['start_date']." 00:00";
 	$sd=strtotime($start_date_starttime);
-	
-	
 	echo '<h1>'.date('l, j-F-Y',$sd).'</h1>';
-	
 	$datetime = new DateTime($_GET['start_date']);
 	$datetime->modify('+1 day');
 	$start_date_endtime=$_GET['start_date']." 23:59";
@@ -45,14 +36,11 @@ if(isset( $_GET['start_date']))
 										));	
 	$fd=$active_data_for_server->getData();///getting the data from criteria into variable fd
 	*/
-	
+
 	$foreacharray=array();//declaring a blank array for storing all fields
-	$engg_id='90000002';
+	$engg_id='90000050';
 	$fd=Enggdiary::model()->getData($engg_id, $sd, $ed);
 
-	
-	
-	
 	foreach ($fd as $f)	
 	{
 		$servicecall_model=Servicecall::model()->findByPk($f->servicecall_id);
@@ -62,7 +50,6 @@ if(isset( $_GET['start_date']))
 		$modified=$servicecall_model->modified;
 		$created= $servicecall_model->created;
 		$fault_description=$servicecall_model->fault_description;
-		
 
 		/////paasing the values to array
 		$myarray['service_reference_number']=$service_reference_number;
@@ -105,6 +92,8 @@ if(isset( $_GET['start_date']))
 		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;
+		$account_id=Gmservicecalls::model()->getaccountid();
+		$myarray['gomobile_account_id']=$account_id;
 		////passing data to json format
 		array_push($foreacharray,$myarray);
 		//echo "<br>";	
@@ -131,16 +120,13 @@ if(isset( $_GET['start_date']))
 
 </table>
 
-
 <br><br><button onclick="post_data();">Sent To Mobile</button>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-
 <script>
 function post_data() 
 {
-
 var data = <?php echo json_encode($json_data)?>;
 json_data = JSON.stringify(data);
 console.log(json_data);
@@ -162,17 +148,11 @@ $.ajax({
 		alert("Details: " + desc + "\nError:" + err);
       }
     }); // end ajax call
-
-			
-			
 //$.post("proto2.php", {'jsonData': json_data},function(data) {alert(data);});
 }///end of function
 
 function setServicecallsStatus(servicecalls)
 {
-
-
-
 $.ajax({
       url: 'index.php?r=gomobile/gmservicecalls/servicecallsenttogomobileserver',
       type: 'post',
@@ -187,10 +167,6 @@ $.ajax({
 		alert("Details: " + desc + "\nError:" + err);
       }
     }); // end ajax call
-
-
-
 }
-
 </script>
 

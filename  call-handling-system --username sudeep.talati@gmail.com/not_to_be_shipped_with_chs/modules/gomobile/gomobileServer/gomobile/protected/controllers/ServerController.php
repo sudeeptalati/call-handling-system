@@ -159,6 +159,39 @@ class ServerController extends Controller
 	
 	
 	
+	public function actionUploadimagefromotherdevice()
+	{
+	$status="";
+	$status_message="";
+	$engineer_email=$_GET['engineer_email'];
+	$engineer_pwd=$_GET['pwd'];
+
+	if($this->verifyengineer($engineer_email,$engineer_pwd))
+	{
+		$target = "imagesfrommobile/";
+		$target = $target . basename( $_FILES['media']['name']) ;
+		$ok=1;
+		if(move_uploaded_file($_FILES['media']['tmp_name'], $target))
+		{
+			//echo "The file ". basename( $_FILES['media']['name']). " has been uploaded";
+			$status="OK";
+			$status_message="The file ". basename( $_FILES['media']['name']). " has been uploaded";
+		}
+		else {
+			$status="FAILED";
+			$status_message="Sorry, there was a problem uploading your file.";
+		}
+	}else///END OF if($this->verifyengineer($engineer_email,$engineer_pwd))
+	{
+		$status="INVALID_LOGIN";
+		$status_message="The username or password is incorrect. Please try again.";
+	}
+		
+		echo json_encode(array('status'=>$status,'status_message'=>$status_message));
+	}///end of public function actionUploadimagefromotherdevice()
+	
+	
+	
 	public function deleteengineerdatarecord($id)
 	{	
 		if($engineer_data_model=EngineerData::model()->findByPk($id))

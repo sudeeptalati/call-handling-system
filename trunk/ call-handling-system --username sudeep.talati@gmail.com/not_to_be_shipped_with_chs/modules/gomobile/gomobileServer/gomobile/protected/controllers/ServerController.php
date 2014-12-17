@@ -87,7 +87,7 @@ class ServerController extends Controller
 		
 			if ($totalrecords==0)
 				{
-				$status="NO CALLS";
+				$status="NO_CALLS";
 				$status_message='No Calls Available';
 				}
 			else
@@ -101,13 +101,13 @@ class ServerController extends Controller
 				$status_message='Calls Received successfully';	
 				}
 			
-			echo json_encode(array('details'=>$myarray, 'status'=>$status, 'status_message'=>$status_message));
+				echo json_encode(array('details'=>$myarray, 'status'=>$status, 'status_message'=>$status_message));
 		}////end of if verifyengineer
 		else
 		{	
 			//$status="FAILED";
 			//$status_message="INVALID ENGINEER";
-			echo json_encode(array('status'=>'FAILED','status_message'=>'INVALID ENGINEER'));
+			echo json_encode(array('status'=>'INVALID ENGINEER','status_message'=>'The email or password is incorrect. '));
 		}///end of else verifyengineer
 	}/////end of actionGetengineerdataformobile
 	
@@ -184,7 +184,7 @@ class ServerController extends Controller
 	}else///END OF if($this->verifyengineer($engineer_email,$engineer_pwd))
 	{
 		$status="INVALID_LOGIN";
-		$status_message="The username or password is incorrect. Please try again.";
+		$status_message="The username or password is incorrect.";
 	}
 		
 		echo json_encode(array('status'=>$status,'status_message'=>$status_message));

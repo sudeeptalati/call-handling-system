@@ -100,6 +100,19 @@ $baseUrl = Yii::app()->baseUrl;
 			?>
 			 
 			</b>
+			
+			<b>
+			<?php 
+					$mobileImgUrl = Yii::app()->request->baseUrl.'/images/mobile.png';
+					$mobileImg = CHtml::image($mobileImgUrl, 'sendToMobile', array('width'=>35, 'height'=>35, 'title'=>'Send to Mobile'));
+  
+ 
+					echo CHtml::link($mobileImg,  array('/gomobile/default/sendsingleservicecalltoserver','id'=>$model->id) , array('target'=>'_blank'));
+				
+			?>
+			 
+			</b>
+			
 		</td>
 	</tr>
 	

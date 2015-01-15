@@ -4715,3 +4715,630 @@ Stack trace:
 REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileserver/gomobile/index.php?r=server/Getengineerdataformobile&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (101)
 in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2014/12/18 16:03:01 [error] [exception.CException] exception 'CException' with message 'CAssetManager.basePath "/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/assets" is invalid. Please make sure the directory exists and is writable by the Web server process.' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CAssetManager.php:138
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CAssetManager.php(123): CAssetManager->setBasePath('/var/www/html/r...')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CAssetManager.php(217): CAssetManager->getBasePath()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CClientScript.php(510): CAssetManager->publish('/var/www/html/r...')
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CClientScript.php(547): CClientScript->getCoreScriptUrl()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CClientScript.php(348): CClientScript->getPackageBaseUrl('jquery')
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CClientScript.php(208): CClientScript->renderCoreScripts()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(351): CClientScript->render('<!DOCTYPE html ...')
+#7 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(788): CController->processOutput('<!DOCTYPE html ...')
+#8 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/SiteController.php(98): CController->render('login', Array)
+#9 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#10 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): CController->run('login')
+#14 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#15 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/gomobile/index.php?r=site/login
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/
+---
+2014/12/18 16:03:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/18 16:03:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/18 16:03:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=datastatus
+---
+2014/12/18 16:03:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/18 16:04:32 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[HY000]: General error: 8 attempt to write a readonly database. The SQL statement executed was: INSERT INTO 'engineer' ("engineer_email", "pwd", "exp_date", "created") VALUES (:yp0, :yp1, :yp2, :yp3).
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/EngineerController.php (73)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2014/12/18 16:04:32 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY000]: General error: 8 attempt to write a readonly database. The SQL statement executed was: INSERT INTO 'engineer' ("engineer_email", "pwd", "exp_date", "created") VALUES (:yp0, :yp1, :yp2, :yp3)' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/db/CDbCommand.php:358
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/db/ar/CActiveRecord.php(1077): CDbCommand->execute()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/db/ar/CActiveRecord.php(806): CActiveRecord->insert(NULL)
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/EngineerController.php(73): CActiveRecord->save()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/actions/CInlineAction.php(49): EngineerController->actionCreate()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(291): CFilterChain->run()
+#11 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): CController->run('create')
+#13 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineer/create')
+#14 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#15 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/gomobile/index.php?r=engineer/create
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer/create
+---
+2014/12/18 16:08:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer/admin
+---
+2014/12/18 16:08:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/18 16:09:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/18 16:25:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/18 16:43:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/18 16:43:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/18 16:43:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/18 16:43:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=datastatus
+---
+2014/12/18 16:44:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/18 16:44:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/18 16:49:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/
+---
+2014/12/18 16:49:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 13:03:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=site/page&view=about
+---
+2014/12/22 13:03:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 13:03:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 13:03:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=datastatus
+---
+2014/12/22 13:03:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/22 13:06:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/22 13:08:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/22 13:08:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/22 13:08:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:09:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:09:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:10:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:10:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer
+---
+2014/12/22 14:19:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:19:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:19:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=site/index
+---
+2014/12/22 14:19:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=datastatus
+---
+2014/12/22 14:21:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer/admin
+---
+2014/12/22 14:21:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:21:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "engineerdata".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineer/admin
+---
+2014/12/22 14:22:28 [error] [exception.CException] exception 'CException' with message 'EngineerdataController cannot find the requested view "index".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php:878
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/EngineerdataController.php(128): CController->render('index', Array)
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/actions/CInlineAction.php(49): EngineerdataController->actionIndex()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(291): CFilterChain->run()
+#10 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): CController->run('')
+#12 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#13 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerData
+---
+2014/12/22 14:22:31 [error] [exception.CException] exception 'CException' with message 'EngineerdataController cannot find the requested view "index".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php:878
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/EngineerdataController.php(128): CController->render('index', Array)
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/actions/CInlineAction.php(49): EngineerdataController->actionIndex()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(291): CFilterChain->run()
+#10 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): CController->run('')
+#12 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('engineerdata')
+#13 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/gomobile/index.php?r=engineerdata
+---
+2014/12/22 14:22:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "datastatus".' in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController('datastatus')
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/gomobile/index.php?r=datastatus
+HTTP_REFERER=http://gomobileserver.rapportsoftware.co.uk/gomobile/index.php?r=engineerdata
+---
+2015/01/06 16:27:39 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_reportfindings_1418739814999.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 16:27:39 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420558446518.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 16:28:43 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:172)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (172)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 16:30:17 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_reportfindings_1418739814999.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 16:30:18 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420558446518.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 17:16:05 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_reportfindings_1418739814999.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:176)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (176)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 17:16:06 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420558446518.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:176)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (176)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 17:27:51 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420565253179.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:176)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (176)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 17:31:37 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420565253179.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:176)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (176)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 17:33:16 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420565253179.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:176)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (176)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/06 17:35:55 [error] [php] move_uploaded_file(imagesfrommobile/accountid_200003_product_1420565253179.png): failed to open stream: Permission denied (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:176)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (176)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/14 12:00:55 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/14 16:42:09 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/15 13:22:38 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/15 13:23:46 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/15 13:25:19 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:174)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (174)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/15 13:30:28 [error] [php] Undefined index: media (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:175)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/uploadimagefromotherdevice&engineer_email=sweetpullo@gmail.com&pwd=c9ebf569947258fc5263bb8d0b00192a988e99280104d5298e80d1b320deaeba
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (175)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/15 14:58:08 [error] [php] Undefined index: jsonData (/var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php:15)
+Stack trace:
+#0 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(286): ServerController->runAction()
+#1 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CController.php(265): ServerController->runActionWithFilters()
+#2 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(282): ServerController->run()
+#3 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php(13): CWebApplication->run()
+REQUEST_URI=/gomobile/index.php?r=server/getdatafromodule
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (15)
+in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)

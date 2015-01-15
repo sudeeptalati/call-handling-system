@@ -30,8 +30,8 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+				//array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Engineer', 'url'=>array('/engineer')),
 				array('label'=>'Engineer Data', 'url'=>array('/engineerdata')),
 				array('label'=>'Data Status', 'url'=>array('/datastatus')),

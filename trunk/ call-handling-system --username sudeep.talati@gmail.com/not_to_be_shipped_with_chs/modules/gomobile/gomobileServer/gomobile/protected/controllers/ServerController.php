@@ -150,8 +150,9 @@ class ServerController extends Controller
 	$new_array=array();
 	foreach($engineer_data_model as $data)
 	{
-
+	
 		array_push($new_array,json_decode($data->data));
+		$this->deleteengineerdatarecord($data->id);
 		
 	}
 	echo json_encode($new_array);
@@ -161,6 +162,8 @@ class ServerController extends Controller
 	
 	public function actionUploadimagefromotherdevice()
 	{
+	header('Access-Control-Allow-Origin: *');
+	
 	$status="";
 	$status_message="";
 	$engineer_email=$_GET['engineer_email'];

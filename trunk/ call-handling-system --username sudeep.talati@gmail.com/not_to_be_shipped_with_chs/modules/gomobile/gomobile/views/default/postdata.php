@@ -1,3 +1,41 @@
+<?php
+function getthevalue($obj_model,$arr)
+{
+	//echo '<hr>';
+	//echo '<br> length of array'.count($arr);
+	$arr_len=count($arr);
+	$return_value='';
+ 
+	switch ($arr_len) {
+		case "0":
+			$return_value='';	
+			break;
+		case "1":
+			$return_value=$obj_model->$arr[0];	
+			break;
+		case "2":
+			$return_value=$obj_model->$arr[0]->$arr[1];	
+			break;
+		case "3":
+			$return_value=$obj_model->$arr[0]->$arr[1]->$arr[2];	
+			break;
+		case "4":
+			$return_value=$obj_model->$arr[0]->$arr[1]->$arr[2]->$arr[3];	
+			break;
+		case "5":
+			$return_value=$obj_model->$arr[0]->$arr[1]->$arr[2]->$arr[3]->$arr[4];	
+			break;
+	}//end of switch
+	
+	//echo '<br> return Value'.$return_value;
+	
+	return $return_value;
+}///end of function getthevalue()
+
+
+?>
+
+<div id='gmcontainer'>
 <?php include('gomobile_menu.php'); ?>  
 <table>
 <tr>
@@ -14,7 +52,6 @@
 //checking if the value is set to get
 if(isset( $_GET['start_date']))
 {
-////today date times
 	//echo $_GET['start_date'];
 	$start_date_starttime=$_GET['start_date']." 00:00";
 	$sd=strtotime($start_date_starttime);
@@ -23,22 +60,47 @@ if(isset( $_GET['start_date']))
 	$datetime->modify('+1 day');
 	$start_date_endtime=$_GET['start_date']." 23:59";
 	$ed=strtotime($start_date_endtime);
-////end of today
+	////end of today
 
-///calling engineer model for the criteria of appointment date
-	/*
-	$enggdiary_model=new Enggdiary();
-	$criteria=new CDbCriteria();
-	$criteria->addBetweenCondition('visit_start_date', $sd, $ed);
-		$active_data_for_server=new CActiveDataProvider($enggdiary_model, array(
-										'criteria'=>$criteria,
-										'pagination'=>false,
-										));	
-	$fd=$active_data_for_server->getData();///getting the data from criteria into variable fd
-	*/
-
+ 
 	$foreacharray=array();//declaring a blank array for storing all fields
-	$engg_id='90000050';
+	
+	
+	$engg_id=$_GET['engg_id'];
+	 
+	 ///if enggid==101 it means show all engineers
+	if ($engg_id=='101')
+	{
+		$engglist=CHtml::listData(Engineer::model()->findAll(),	'id', 'id');
+		foreach ($engglist as $e_id)
+		{	
+			$foreacharray=getservicecallsdatafromenggdiary($e_id, $sd, $ed, $foreacharray );
+
+		}///end of foreach ($engglist as $e)
+		
+	}///end of if ($engg_id=='101')
+	else
+	{
+		$foreacharray=getservicecallsdatafromenggdiary($engg_id, $sd, $ed, $foreacharray );
+	
+	}//end of else if ($engg_id=='101')
+	
+	
+		
+	//echo $myarray['customer']['name'];
+	$json_data=array('Details'=>$foreacharray);
+	//echo json_encode($json_data);
+	$gomobile_server_url=Gmservicecalls::model()->getserverurl();
+}///end of if(isset( $_GET['start_date']))
+
+
+
+
+
+
+
+function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
+{
 	$fd=Enggdiary::model()->getData($engg_id, $sd, $ed);
 
 	foreach ($fd as $f)	
@@ -68,11 +130,13 @@ if(isset( $_GET['start_date']))
 			if (strpos($key, '|')!== false)
 			{
 				$str_array = explode( '|', $key);
+				$value=getthevalue($servicecall_model, $str_array);
 				//print_r($str_array);
-				$value=$servicecall_model->$str_array[0]->$str_array[1];	
-				//$servicecall[$key]=$value;///disabled to be visible as label			
+				//$value=$servicecall_model->$str_array[0]->$str_array[1];	
 				$servicecall[$label]=Gmjsonfields::model()->processDataFormat($value,$type);			
 				//echo $servicecall_model->customer->town;			
+				
+			
 			}
 			else
 			{
@@ -89,11 +153,12 @@ if(isset( $_GET['start_date']))
         $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
         $myarray['customer_postcode']=$servicecall_model->customer->postcode;
         $myarray['customer_address']=$servicecall_model->customer->address_line_1." ".$servicecall_model->customer->address_line_2." ".$servicecall_model->customer->address_line_3." ".$servicecall_model->customer->town." ".$servicecall_model->customer->postcode;        
+		$gomobile_account_id=Gmservicecalls::model()->getaccountid();
+		$myarray['gomobile_account_id']=$gomobile_account_id;
 		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;
-		$account_id=Gmservicecalls::model()->getaccountid();
-		$myarray['gomobile_account_id']=$account_id;
+		
 		////passing data to json format
 		array_push($foreacharray,$myarray);
 		//echo "<br>";	
@@ -111,11 +176,9 @@ if(isset( $_GET['start_date']))
 		</tr>
 		<?php
 		}///end of foreach
-		
-		//echo $myarray['customer']['name'];
-	$json_data=array('Details'=>$foreacharray);
-	//echo json_encode($json_data);
-	}
+
+		return  $foreacharray;
+}///end of function getservicecallsdatafromenggdiary
 ?>
 
 </table>
@@ -131,7 +194,7 @@ var data = <?php echo json_encode($json_data)?>;
 json_data = JSON.stringify(data);
 console.log(json_data);
 $.ajax({
-   url: 'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server/Getdatafromodule',
+   url: '<?php echo $gomobile_server_url."index.php?r=server/getdatafromodule"?>',
  ///  url: 'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/Getdatafromodule', 
 		 
 	  type: 'post',
@@ -169,4 +232,7 @@ $.ajax({
     }); // end ajax call
 }
 </script>
+
+</div>
+
 

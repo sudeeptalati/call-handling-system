@@ -32,3 +32,5 @@ COMMIT;
 
 
 INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'gomobile_account_id','Please Insert','GoMobile Account ID');
+
+INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'gomobile_server_url','http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php','GoMobile Server URL')

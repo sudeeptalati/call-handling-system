@@ -117,6 +117,20 @@ class Gmservicecalls extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	////creating function to load json file
+	public function loadsetupjson()
+		 {
+			$url = 	Yii::getPathOfAlias('application.modules.gomobile.components');	
+			//echo $url.'/graph.json';
+			$string = file_get_contents($url.'/setup.json');
+			//echo $string;
+			$json_a=json_decode($string,true);
+			//print_r ($json_a);
+			return $json_a;
+			
+		 }///end of loadjson
+	
+	
 	
 	protected function beforeSave()
     {
@@ -139,10 +153,44 @@ class Gmservicecalls extends CActiveRecord
         }//end of if(parent())
     }//end of beforeSave()
 	
+	
+	public function getserverurl()
+	{
+		$json_data=$this->loadsetupjson();
+		return $json_data['gomobile_server_url'];
+	}//END OF public function getserverurl
+	
+	public function setserverurl($url)
+	{
+		$json_data=$this->loadsetupjson();
+		return $json_data['gomobile_server_url'];
+	}//END OF public function getserverurl
+	
+	
+	
+	
+	
 	public function getaccountid()
 	{
-		$gomobile_accountid_model=AdvanceSettings::model()->findByAttributes(array('parameter'=>'gomobile_account_id'));
-		return $gomobile_accountid_model->value;
+		$json_data=$this->loadsetupjson();
+		return $json_data['gomobile_account_id'];
+	}//END OF public function Getaccountid
+	
+	public function setaccountid($account_id)
+	{	
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);	
+		$url = 	Yii::getPathOfAlias('application.modules.gomobile.components');	
+		$file=$url.DS.'setup.json';
+		$string=json_decode(file_get_contents($file));
+		print_r($string->gomobile_account_id);
+		$string->gomobile_account_id=$account_id;
+		//echo $data['gomobile_account_id'];
+		$data=json_encode($string);
+		file_put_contents($file,$data); 
 
-	}///end of getaccountid
+	}//END OF public function Getaccountid
+	
+	
+	
+	
 }

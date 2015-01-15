@@ -29,7 +29,7 @@ class GmservicecallsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','Servicecallreceivedfromgomobileserver','receivedcalls'),
+				'actions'=>array('index','view','Servicecallreceivedfromgomobileserver','receivedcalls','gomobileserverurl','getserverurlname'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -193,6 +193,8 @@ class GmservicecallsController extends Controller
 	{
 	header("Access-Control-Allow-Origin: *");
 	$servicecall_recieved=$_POST['data'];
+	
+	 
 	//$servicecall_recieved='[[{"service_reference_number":127549,"work_carried_out":"{\"report_findings\":\"iphone 6\",\"workdone\":\"WORK DONE\",\"parts\":[{\"partused\":\"bearing\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}]]';
 	$mydata=json_decode($servicecall_recieved);
 	//print_r($servicecall_recieved);
@@ -200,10 +202,20 @@ class GmservicecallsController extends Controller
 	
 	foreach ($mydata as $servicecalls)
 	{
-	
 			$received_servicecalls_ref_no=$servicecalls[0]->service_reference_number;
-			$comments=$servicecalls[0]->work_carried_out;
-			$this->savesentservicecallstatus($received_servicecalls_ref_no, '5',$comments);///since 5 is received from mobile status
+			$recieved_data=array();
+			/*
+			array_push($recieved_data,$servicecalls[0]->work_carried_out);
+			array_push($recieved_data,$servicecalls[0]->images);
+ 			*/
+ 			$recieved_data['work_carried_out']=$servicecalls[0]->work_carried_out;
+ 			$recieved_data['images']=$servicecalls[0]->images;
+ 			
+ 			$recieved_data_json=json_encode($recieved_data);
+			echo 'SERVIC REF NO#'.$received_servicecalls_ref_no;
+			echo '<br>COMMENTS ARE :'.print_r($recieved_data);
+			
+			$this->savesentservicecallstatus($received_servicecalls_ref_no, '5',$recieved_data_json);///since status id 5 is received from mobile status
 	}//end of foreach 
 	
 	}
@@ -227,6 +239,7 @@ class GmservicecallsController extends Controller
 			$model->save();
 		
 	}
+
 	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

@@ -12,6 +12,9 @@ class GomobileModule extends CWebModule
 			'gomobile.models.*',
 			'gomobile.components.*',
 		));
+		
+		$url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.gomobile.assets'));	
+		Yii::app()->clientScript->registerCssFile($url.'\css\gomobile.css') ;
 	}
 
 	public function beforeControllerAction($controller, $action)

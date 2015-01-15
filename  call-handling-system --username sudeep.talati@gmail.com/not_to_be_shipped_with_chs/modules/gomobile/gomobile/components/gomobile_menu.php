@@ -55,7 +55,9 @@ echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
 //echo "<li>".CHtml::link("Go Mobile",array('/gomobile'))."</li>"; 
 echo "<li>".CHtml::link("Sent Data",array('/gomobile/gmservicecalls/admin'))."</li>";  
 echo "<li>".CHtml::link("Received Data",array('/gomobile/gmservicecalls/receivedcalls'))."</li>";  
-echo "<li>".CHtml::link("Setup",array('/gomobile/gmjsonfields/admin'))."</li>";  
+echo "<li>".CHtml::link("Setup",array('/gomobile/gmjsonfields/admin'))."</li>";
+echo "<li>".CHtml::link("Account ID",array('/gomobile/default/getaccountid'))."</li>";  
+
  
  //echo "<li>".CHtml::link("Post Data to Server",array('/gomobile/default/PostDatatoServer'))."</li>"; 
 ?>

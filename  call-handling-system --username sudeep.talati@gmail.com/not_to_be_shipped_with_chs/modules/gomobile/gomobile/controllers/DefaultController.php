@@ -4,7 +4,6 @@ class DefaultController extends CController
 {
 	public function actionIndex()
 	{
-
 		$this->render('index');
 	}///end of index
 	
@@ -23,32 +22,36 @@ class DefaultController extends CController
 		$this->render('databyappointmentdate');
 	}///end of Databyappointmentdate
 	
-	public function actionAccountsetup()
+	public function actionGetaccountid()
 	{
-	$this->render('accountsetup');
+		$gomobile_account_id=Gmservicecalls::model()->getaccountid();
+		$this->render('accountsetup_view', array('gomobile_account_id'=>$gomobile_account_id));
+	}////end of Getaccountid
 	
-	}///end of accountsetup
+	public function actionSetaccountid()
+	{
+		if (isset($_POST['gomobile_account_id']))
+		{
+			Gmservicecalls::model()->setaccountid($_POST['gomobile_account_id']); 
+		}
+		$gomobile_account_id=Gmservicecalls::model()->getaccountid(); 
+		$this->render('setaccountid', array('gomobile_account_id'=>$gomobile_account_id));
+	}////end of Getaccountid
 	
-	public function actionAccountsetupview()
+	public function actionGetserverurl()
+	{
+		$gomobile_server_url=Gmservicecalls::model()->getserverurl();
+		$this->render('serverurl_view', array('server_url'=>$gomobile_server_url));
+	}////end of actionGetserverurl
+	
+	
+	public function actionSendsingleservicecalltoserver()
 	{
 	
+		$this->renderPartial('sendsingleservicecalltoserver');
 	
-	$account_id=$_POST['account_id'];
-	$id=$_POST['advance_parameter_id'];
-	$advancesettingsmodel=AdvanceSettings::model()->findByPK(array('id'=>$id));
-	$advancesettingsmodel->value=$account_id;
-	if ($advancesettingsmodel->save())
-		$this->render('accountsetup_view', array('account_id'=>$account_id));
 	
-	}///end of accountsetupview
-	/*
-	public function filters()
-	{
-		return array(
-			'rights', // perform access control for CRUD operations
-		);
-	}
-	*/
-	
-
-}
+	}//end of public function actionSendsingleservicecalltoserver() ///created by SUDEEP TALATI
+		
+		
+}////end of class

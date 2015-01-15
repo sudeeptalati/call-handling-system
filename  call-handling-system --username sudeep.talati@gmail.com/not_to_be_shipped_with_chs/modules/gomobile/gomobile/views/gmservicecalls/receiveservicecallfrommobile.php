@@ -1,17 +1,15 @@
-<?php include('gomobile_menu.php'); ?>  
+<?php include('gomobile_menu.php'); 
+$gomobile_server_url=Gmservicecalls::model()->getserverurl();
+?>  
 
 <h2>Get Data</h2>
-
-
-
 <button onclick="receive_data();">Get Data</button>
-
 <script>
 function receive_data() 
 {
 $.ajax({
 	///url:'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/getdatafordesktop',
-  url:'http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php?r=server/getdatafordesktop', 
+	url:'<?php echo $gomobile_server_url."?r=server/getdatafordesktop"?>', 
 	type: 'get',	
 	data: {'engineer_email':'sweetpullo@gmail.com'}, 
 	success: function(data, status) {   
@@ -31,9 +29,6 @@ $.ajax({
 
 function setServicecallsStatus(data)
 {
-
-
-
 $.ajax({
       url: 'index.php?r=gomobile/gmservicecalls/servicecallreceivedfromgomobileserver',
       type: 'post',
@@ -47,9 +42,6 @@ $.ajax({
 		alert("Details: " + desc + "\nError:" + err);
       }
     }); // end ajax call
-
-
-
 }
 
 </script>

@@ -383,48 +383,129 @@ $baseUrl = Yii::app()->baseUrl;
 			<br>
 			<?php echo $form->textField($customerModel,'fullname', array('disabled'=>'disabled')); ?>
 			<?php echo $form->error($customerModel,'fullname'); ?>
-			
+			<br><br>
 			<?php echo "<br>Address";?>
-			<span id="opener"><img src="<?php echo $baseUrl;?>/images/maps.png" width="30px" height="30px"/></span><br> 
-			<?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
-			 
+
 			<!-- *********** GOOGLE MAP DISPLAY ***************** -->
-			<br>
 			
-			<div id="dialog" title="Google Map">
-			  <div id='map_div'></div>
-			</div>
-	
-	  	 	<script>
+			 
+			
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"  type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"  type="text/javascript"></script>
 
-				$.fx.speeds._default = 500;
-				$(function() {
-					$( "#dialog" ).dialog({
-						autoOpen: false,
-						show: "blind",
-						hide: "explode",
-						width: 470,
-						
-					});
-			
-					$( "#opener" ).click(function() 
-					{
-						$( "#dialog" ).dialog( "open" );
-						drawmap();
-						$("#map_div").load('DisplayMap', {'postcode':'<?php echo $customerModel->postcode; ?>'});
-						return false;
-					});
-				});
-				function drawmap()
-				{
-					console.info('I AM CALLED');
-				}
+<style>
+    .gBubble
+    {
+        color:black;
+        font-family:Tahoma, Geneva, sans-serif;
+        font-size:12px;    
+    }
+    .mapBox{
+		background-image:url(<?php echo $baseUrl."/images/maps.png"; ?>);
+		background-repeat:no-repeat;
+		background-size: 30px;
+		background-position: initial;
+		width:177px;
+		background-color: #C9E0ED;
+   }
+    
+</style>
+<script>
+    var map;
+    var coords = new Object();
+    var markersArray = [];
+    coords.lat = 44.856051;
+    coords.lng = -93.242539;
+    
+    $(document).ready(function() 
+    {
+        GetLocation();
+        $( "#map_container" ).dialog({
+            autoOpen:false,
+            width: 555,
+            height: 400,
+            resizeStop: function(event, ui) {google.maps.event.trigger(map, 'resize')  },
+            open: function(event, ui) {google.maps.event.trigger(map, 'resize'); }      
+        });  
 
-				
-			</script>
-			
+        $( "#showMap" ).click(function() {           
+            $( "#map_container" ).dialog( "open" );
+            map.setCenter(new google.maps.LatLng(coords.lat, coords.lng), 10);
+            return false;
+        });    
+        $(  "input:submit,input:button, a, button", "#controls" ).button();
+        initialize();
+        plotPoint(coords.lat,coords.lng,'Mall of America','<span class="gBubble"><b>Mall of America</b><br>60 East Brodway<br>Bloomington, MN 55425</span>');
+    });
+
+    function plotPoint(srcLat,srcLon,title,popUpContent,markerIcon)
+    {
+            var myLatlng = new google.maps.LatLng(srcLat, srcLon);            
+            var marker = new google.maps.Marker({
+                  position: myLatlng, 
+                  map: map, 
+                  title:title,
+                  icon: markerIcon
+              });
+              markersArray.push(marker);
+            var infowindow = new google.maps.InfoWindow({
+                content: popUpContent
+            });
+              google.maps.event.addListener(marker, 'click', function() {
+              infowindow.open(map,marker);
+            });                                          
+    }
+    function initialize() 
+    {      
+    
+        var latlng = new google.maps.LatLng(coords.lat, coords.lng);
+        var myOptions = {
+          zoom: 10,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+       map = new google.maps.Map(document.getElementById("map_canvas"),  myOptions);                         
+    }
+    
+    
+    
+    function GetLocation() {
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById("Address").value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    console.log("Latitude: " + latitude + "\nLongitude: " + longitude);
+					coords.lat=latitude;
+				    coords.lng = longitude;
+				    initialize();
+				    plotPoint(coords.lat,coords.lng,'Customer Loctaion','<b>'+document.getElementById("Customer_fullname").value+'</b></br>'+document.getElementById("Address").value);
+                  
+                } else {
+                    alert("Postcode cooredinates Request failed.")
+                }
+            });
+        };
+        
+        
+        
+                
+</script>
+ 
+    <div id="map_container" title="Location Map">    
+        <div id="map_canvas" style="width:100%;height:100%;"></div>
+    </div>
+    
+    <div id="controls">
+	  <input type="button" name="showMap" value="    Show On Map" id="showMap"  class="mapBox" />
+         	
+    </div>    
 			<!-- *********** END OF GOOGLE MAP DISPLAY ***************** -->
 
+	<?php echo CHtml::textArea('Address', $address,  array('rows'=>4, 'cols'=>30,'disabled'=>'disabled')); ?>
+			 
 		  	<br>
 		  	<?php echo $form->labelEx($customerModel,'telephone'); ?>
 			<br>
@@ -521,3 +602,4 @@ $baseUrl = Yii::app()->baseUrl;
 	
 </table>
 <?php $this->endWidget(); ?>
+

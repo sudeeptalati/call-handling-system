@@ -874,10 +874,10 @@ $mpdf->Output($filename,'I');
 	}//end of createMessage().
 	
 	
-	public function actionDisplayMap()
+	public function actionDisplaymap()
 	{
 		//echo 'dialog content here';
-		$postcode = $_POST['postcode'];
+		$postcode = $_GET['postcode'];
 		//echo "<br>Value of postcode in controller = ".$postcode;
 		$this->renderPartial('displayMap', array('postcode'=>$postcode));
 		

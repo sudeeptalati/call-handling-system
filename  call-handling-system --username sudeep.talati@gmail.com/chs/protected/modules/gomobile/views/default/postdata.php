@@ -102,6 +102,7 @@ if(isset( $_GET['start_date']))
 function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 {
 	$fd=Enggdiary::model()->getData($engg_id, $sd, $ed);
+        $gomobile_account_id=Gmservicecalls::model()->getaccountid();
 
 	foreach ($fd as $f)	
 	{
@@ -114,8 +115,6 @@ function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 		$fault_description=$servicecall_model->fault_description;
 
 		/////paasing the values to array
-		$myarray['service_reference_number']=$service_reference_number;
-		$myarray['gomobile_sentcall_id']=$servicecall_model->id;
 		$servicecall=array();
 		$customer=array();
 		$customer['name']=$servicecall_model->customer->fullname;
@@ -149,12 +148,22 @@ function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 		
 		//$engineer_id=$servicecall_model->engineer_id;
 		$engineer_email=$servicecall_model->engineer->contactDetails->email;
-		$myarray['engineer_email']=$engineer_email;	
-        $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
-        $myarray['customer_postcode']=$servicecall_model->customer->postcode;
-        $myarray['customer_address']=$servicecall_model->customer->address_line_1." ".$servicecall_model->customer->address_line_2." ".$servicecall_model->customer->address_line_3." ".$servicecall_model->customer->town." ".$servicecall_model->customer->postcode;        
-		$gomobile_account_id=Gmservicecalls::model()->getaccountid();
-		$myarray['gomobile_account_id']=$gomobile_account_id;
+                
+                
+                
+                $myarray['service_reference_number'] = $service_reference_number;
+                $myarray['gomobile_sentcall_id'] = $servicecall_model->id;
+                $myarray['visit_start_date'] = $servicecall_model->enggdiary->visit_start_date;
+                $myarray['visit_end_date'] = $servicecall_model->enggdiary->visit_end_date;
+                $myarray['gomobile_account_id'] = Gmservicecalls::model()->getaccountid();
+    
+    
+    
+                $myarray['engineer_email']=$engineer_email;	
+                $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
+                $myarray['customer_postcode']=$servicecall_model->customer->postcode;
+                $myarray['customer_address']=$servicecall_model->customer->address_line_1." ".$servicecall_model->customer->address_line_2." ".$servicecall_model->customer->address_line_3." ".$servicecall_model->customer->town." ".$servicecall_model->customer->postcode;        
+		
 		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;

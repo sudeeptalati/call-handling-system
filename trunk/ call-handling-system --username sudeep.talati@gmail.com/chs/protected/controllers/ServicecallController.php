@@ -242,8 +242,10 @@ $mpdf->Output($filename,'I');
 										
 										$engg_id=$serviceCallModel->engineer_id; 
 										$baseUrl=Yii::app()->request->baseUrl;
-										//$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$serviceCallModel->id.'?engineer_id='.$engg_id);
-										$this->redirect(array('/enggdiary/bookingAppointment/', 'id'=>$serviceCallModel->id, 'engineer_id'=>$engg_id));
+										//$this->redirect(array('/enggdiary/bookingAppointment/', 'id'=>$serviceCallModel->id, 'engineer_id'=>$engg_id));
+										$this->redirect(array('/enggdiary/diary/', 'id'=>$serviceCallModel->id, 'engineer_id'=>$engg_id));
+										
+										
 										
 									}//end of if(save).
 									

@@ -10,6 +10,7 @@
  * @property integer $data_status_id
  * @property string $created
  * @property string $last_modified
+ * @property string $account_id
  */
 class EngineerData extends CActiveRecord
 {
@@ -30,10 +31,10 @@ class EngineerData extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('data_status_id', 'numerical', 'integerOnly'=>true),
-			array('engineer_email, data, created, last_modified', 'safe'),
+			array('engineer_email, account_id, data, created, last_modified', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, engineer_email, data, data_status_id, created, last_modified', 'safe', 'on'=>'search'),
+			array('id, account_id, engineer_email, data, data_status_id, created, last_modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +62,7 @@ class EngineerData extends CActiveRecord
 			'data_status_id' => 'Data Status',
 			'created' => 'Created',
 			'last_modified' => 'Last Modified',
+			'account_id' => 'Account Id',
 		);
 	}
 
@@ -88,6 +90,7 @@ class EngineerData extends CActiveRecord
 		$criteria->compare('data_status_id',$this->data_status_id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('last_modified',$this->last_modified,true);
+		$criteria->compare('account_id',$this->account_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

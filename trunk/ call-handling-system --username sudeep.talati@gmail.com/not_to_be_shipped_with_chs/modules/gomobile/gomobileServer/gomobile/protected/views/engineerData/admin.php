@@ -48,6 +48,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'engineer_email',
 		'data',
+		'account_id',
 		//'data_status_id',
 		
 		array('name'=>'data_status_id',

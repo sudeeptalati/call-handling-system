@@ -5342,3 +5342,88 @@ Stack trace:
 REQUEST_URI=/gomobile/index.php?r=server/getdatafromodule
 in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/protected/controllers/ServerController.php (15)
 in /var/www/html/rapportsoftware.co.uk/html.gomobileserver/gomobile/index.php (13)
+2015/01/15 18:08:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "authentication_post".' in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController('authentication_...')
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=authentication_post
+---
+2015/01/19 17:28:44 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2015/01/19 17:28:58 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2015/01/19 17:29:15 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2015/01/19 17:29:45 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2015/01/19 17:30:04 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2015/01/19 17:30:26 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)
+2015/01/23 18:49:50 [error] [php] Undefined index: jsonData (C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(286): ServerController->runAction()
+#1 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CController.php(265): ServerController->runActionWithFilters()
+#2 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(282): ServerController->run()
+#3 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php(13): CWebApplication->run()
+REQUEST_URI=/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/?r=server/getdatafromodule
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\protected\controllers\ServerController.php (15)
+in C:\xampp\htdocs\purva\call_handling\not_to_be_shipped_with_chs\modules\gomobile\gomobileServer\gomobile\index.php (13)

@@ -31,7 +31,7 @@ class EnggdiaryController extends RController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('AppointIcalender','currentAppointments','viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
+				'actions'=>array('AppointIcalender','diary','currentAppointments','viewFullDiary', 'BookingAppointment','ICalLink', 'test', 'ChangeEngineerOnly','admin','create','update','ChangeEngineer','ChangeAppointment','WeeklyReport'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -506,6 +506,12 @@ class EnggdiaryController extends RController
 		*/
 		$this->render('appointIcalender',array('model'=>$model));
 	}//end of AppointIcalender.
+	
+	public function actionDiary()
+	{
+	header('Access-Control-Allow-Origin: *');
+	$this->render('diary');
+	}
 	
 	
 	

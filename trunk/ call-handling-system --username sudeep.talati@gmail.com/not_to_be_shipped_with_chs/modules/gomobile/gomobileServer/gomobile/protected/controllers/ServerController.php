@@ -31,6 +31,7 @@ class ServerController extends Controller
 				{
 					$model=new EngineerData;
 					$model->engineer_email=$engineer_email;
+					$model->account_id=$p['gomobile_account_id'];
 					$x=array();
 					$x['service_reference_number']=$service_reference_number;
 					$x['engineer_email']=$engineer_email;

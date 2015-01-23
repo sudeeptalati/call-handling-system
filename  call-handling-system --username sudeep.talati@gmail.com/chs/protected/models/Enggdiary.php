@@ -413,6 +413,25 @@ class Enggdiary extends CActiveRecord
     	return $diaryData;
     }//end of getData().
     
-    
+    ////creating functions
+	public function getConsiderdaysforslotavailabity()
+	{
+	return '5';
+	}//end of getConsiderdays
+	
+	public function getAveragetimeperservicecall()
+	{
+	return '1';
+	}
+	
+	public function getTotaldistancetobetravelledinaday()
+	{
+	return '100';
+	}
+	
+	public function getTotalnoofcallsperday()
+	{
+	return '8';
+	}
     
 }//end of class.

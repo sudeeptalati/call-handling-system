@@ -40,6 +40,9 @@ function getthevalue($obj_model,$arr)
 <table>
 <tr>
 <th>Ref No.</th>
+
+<th>Visit Date</th>
+        
 <th>Customer Name</th>
 <th>Customer Town</th>
 <th>Customer Postcode</th>
@@ -102,6 +105,7 @@ if(isset( $_GET['start_date']))
 function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 {
 	$fd=Enggdiary::model()->getData($engg_id, $sd, $ed);
+        $gomobile_account_id=Gmservicecalls::model()->getaccountid();
 
 	foreach ($fd as $f)	
 	{
@@ -114,8 +118,6 @@ function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 		$fault_description=$servicecall_model->fault_description;
 
 		/////paasing the values to array
-		$myarray['service_reference_number']=$service_reference_number;
-		$myarray['gomobile_sentcall_id']=$servicecall_model->id;
 		$servicecall=array();
 		$customer=array();
 		$customer['name']=$servicecall_model->customer->fullname;
@@ -149,12 +151,27 @@ function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 		
 		//$engineer_id=$servicecall_model->engineer_id;
 		$engineer_email=$servicecall_model->engineer->contactDetails->email;
-		$myarray['engineer_email']=$engineer_email;	
-        $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
-        $myarray['customer_postcode']=$servicecall_model->customer->postcode;
-        $myarray['customer_address']=$servicecall_model->customer->address_line_1." ".$servicecall_model->customer->address_line_2." ".$servicecall_model->customer->address_line_3." ".$servicecall_model->customer->town." ".$servicecall_model->customer->postcode;        
-		$gomobile_account_id=Gmservicecalls::model()->getaccountid();
-		$myarray['gomobile_account_id']=$gomobile_account_id;
+                
+                
+                
+                $myarray['service_reference_number'] = $service_reference_number;
+                $myarray['gomobile_sentcall_id'] = $servicecall_model->id;
+                   ///VISIT DATE FORMAT FOR UNIVERSAL USE YYYY-MM-DD
+    $vsd_int= $servicecall_model->enggdiary->visit_start_date;
+    $vsd=date('Y-m-d',$vsd_int);
+    $myarray['visit_start_date'] = $vsd;
+
+    $ved_int= $servicecall_model->enggdiary->visit_end_date;
+    $ved=date('Y-m-d',$ved_int);
+    $myarray['visit_end_date'] = $ved; $myarray['gomobile_account_id'] = Gmservicecalls::model()->getaccountid();
+    
+    
+    
+                $myarray['engineer_email']=$engineer_email;	
+                $myarray['customer_fullname']=$servicecall_model->customer->fullname;	
+                $myarray['customer_postcode']=$servicecall_model->customer->postcode;
+                $myarray['customer_address']=$servicecall_model->customer->address_line_1." ".$servicecall_model->customer->address_line_2." ".$servicecall_model->customer->address_line_3." ".$servicecall_model->customer->town." ".$servicecall_model->customer->postcode;        
+		
 		//$myarray['engineer_id']=$engineer_id;
 		$myarray['servicecall']=$servicecall;
 		$myarray['customer']=$customer;
@@ -167,7 +184,8 @@ function getservicecallsdatafromenggdiary($engg_id, $sd, $ed,  $foreacharray )
 		?>
 		<tr>
 			<td><a href="<?php echo Yii::app()->request->baseUrl."/index.php?r=Servicecall/view&id=".$servicecall_model->id;?>"><?php echo $servicecall_model->service_reference_number;?></a></td>
-			<td><?php echo $servicecall_model->customer->fullname; ?></td>
+			   <td><?php echo $vsd; ?></td>
+                        <td><?php echo $servicecall_model->customer->fullname; ?></td>
 			<td><?php echo $servicecall_model->customer->town;?></td>
 			<td><?php echo $servicecall_model->customer->postcode; ?></td>
 			<td><?php echo $servicecall_model->fault_description; ?></td>
@@ -194,8 +212,9 @@ var data = <?php echo json_encode($json_data)?>;
 json_data = JSON.stringify(data);
 console.log(json_data);
 $.ajax({
-  url: '<?php echo $gomobile_server_url."index.php?r=server/getdatafromodule"?>',
- 		 
+   url: '<?php echo $gomobile_server_url."index.php?r=server/getdatafromodule"?>',
+ ///  url: 'http://127.0.0.1/purva/call_handling/not_to_be_shipped_with_chs/modules/gomobile/gomobileServer/gomobile/index.php?r=server/Getdatafromodule', 
+		 
 	  type: 'post',
 	/// data: {'start_date': '24-Jul-2014', 'end_date': '30-Jul-2014', 'weekdays':showweekdays},
 	  data: {'jsonData':json_data},

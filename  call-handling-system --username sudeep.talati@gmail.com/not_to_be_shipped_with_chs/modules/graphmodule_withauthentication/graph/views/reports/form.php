@@ -9,6 +9,18 @@ if (isset($_GET['engineer_id']))
 else
 	$engineer_id='';
 
+
+if (isset($_GET['brand_id']))
+	$brand_id=$_GET['brand_id'];
+else
+	$brand_id='';
+
+if (isset($_GET['product_type_id']))
+	$product_type_id=$_GET['product_type_id'];
+else
+	$product_type_id='';
+	
+	
 if (isset($_GET['job_status_id']))
 	$job_status_id=$_GET['job_status_id'];
 else
@@ -63,6 +75,11 @@ $job_status_data = JobStatus::model()->getAllPublishedListdata();
 $engg_data = Engineer::model()->getAllCompanyNames();	
 $today = date('d-M-y', time()); 
 
+
+$brand_list=Brand::model()->getAllActiveBrands();
+$product_type_list=ProductType::model()->getActiveProductTypesListData();
+
+
 ?> 
  
 
@@ -73,8 +90,36 @@ $today = date('d-M-y', time());
 <input type='hidden' id='todays_date' name='todays_date' value='<?php echo $today; ?>'/>
 
 <table>
+
 	<tr>
-		<td colspan='4'><b><?php echo $servicecall_label['fault_date']; ?></b></td>
+		<td colspan='4'><hr><b><?php echo $servicecall_label['engineer_id']; ?></b>
+		<?php
+			echo CHtml::dropDownList('engineer_id',$engineer_id, $engg_data, array('empty'=> 'All Engineers'));
+		?>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan='4'><hr><b><?php echo $servicecall_label['product_id']; ?> </b></td>
+	</tr>
+	<tr>
+		<td>Brand 
+			<?php
+				echo CHtml::dropDownList('brand_id',$brand_id, $brand_list, array('empty'=> 'All Brands'));
+			?>	
+		</td>
+		<td>
+			Product Type 
+			<?php
+				echo CHtml::dropDownList('product_type_id',$product_type_id, $product_type_list, array('empty'=> 'All Products'));
+			?>	
+		</td>
+		<td></td>
+		<td></td>
+	</tr>	
+	
+	<tr>
+		<td colspan='4'>	<hr><b><?php echo $servicecall_label['fault_date']; ?></b></td>
 	</tr>
 	<tr>
 		<td>Start Date*
@@ -125,14 +170,8 @@ $today = date('d-M-y', time());
 		?>
 		</td>
 	</tr>
-	<tr>
-		<td colspan='4'><hr><b><?php echo $servicecall_label['engineer_id']; ?></b>
-		<?php
-			echo CHtml::dropDownList('engineer_id',$engineer_id, $engg_data, array('empty'=> 'All Engineers'));
-		?>
-		
-		</td>
-	</tr>
+ 
+	
 	<tr>
 		<td colspan='4'><hr> <b><?php echo $servicecall_label['job_payment_date']; ?></b></td>
 	</tr>
@@ -222,6 +261,10 @@ $today = date('d-M-y', time());
 		<td></td>
 	</tr>
 	
+	
+
+	
+	
 	<tr>
 		<td colspan='4'><hr>
 		<?php 
@@ -232,6 +275,10 @@ $today = date('d-M-y', time());
 		?>
 		</td>
 	</tr>
+	
+	
+	
+	
 	
 </table>
 
@@ -245,6 +292,10 @@ $today = date('d-M-y', time());
 if(isset($_GET['generate_report']))///////SHOW THE FOLLOWING GRID ONLY IF FORM IS SUBMITTED
 {
 		echo CHtml::beginForm('index.php?r=graph/reports/exporttocsv','get',  array('target'=>'_blank')); 
+		
+		echo CHtml::hiddenField('brand_id', $brand_id);
+		echo CHtml::hiddenField('product_type_id', $product_type_id);
+		
 		//echo CHtml::textArea('json_data_for_csv', json_encode($active_data_for_csv), array('id'=>'json_data_for_csv'));
 		echo CHtml::hiddenField('fault_dateStartDate', $fault_dateStartDate);
 		echo CHtml::hiddenField('fault_dateEndDate', $fault_dateEndDate);

@@ -49,6 +49,7 @@ for ($i = 1; $i <=$no_next_days; $i++)
 	}
 	
 	array_push($days_postcodes_array,$customer_postcodes);
+	//$days_postcodes_array[$forloopdate_string]=$customer_postcodes;
 	
 	
 	echo '</td>';
@@ -95,6 +96,8 @@ var markersArray = [];
 var x=0;
 var considerdays=<?php echo $no_next_days; ?>;
 var fivedayspostcodes=<?php echo json_encode($days_postcodes_array); ?>;
+
+console.log(fivedayspostcodes);
  
 var recievd_postcodes=[];
 var recievd_distances=[];
@@ -104,6 +107,8 @@ var engg_id=<?php echo $engineer_id; ?>;
 var service_id=<?php echo $servicecall_id; ?>;
 var nearestdate='';
 
+
+var availabledays=[];
 var destinationIcon = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=D|FF0000|000000';
 var originIcon = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=O|FFFF00|000000';
 
@@ -118,40 +123,55 @@ function initialize() {
 
 function calculateDistances() {
 	
-	if (x<considerdays)
+	if ((x<considerdays))
 	{
 	d_array=[];
 	d_array = fivedayspostcodes[x];
-	
-	var service = new google.maps.DistanceMatrixService();
-	service.getDistanceMatrix(
-    {
-/*
-		origins: ['KA32SN', 'KA12NP'],
-		destinations: ['PA12BE'],
-*/
-		origins:['PA12BE'],
-		destinations:d_array,
+		if(d_array.length!=0)
+		{
+			var service = new google.maps.DistanceMatrixService();
+			service.getDistanceMatrix(
+			{
+	/*
+			origins: ['KA32SN', 'KA12NP'],
+			destinations: ['PA12BE'],
+	*/
+			origins:['PA12BE'],
+			destinations:d_array,
 
-		travelMode: google.maps.TravelMode.DRIVING,
-		unitSystem: google.maps.UnitSystem.IMPERIAL,
-		avoidHighways: false,
-		avoidTolls: false
-    }, callback);
+			travelMode: google.maps.TravelMode.DRIVING,
+			unitSystem: google.maps.UnitSystem.IMPERIAL,
+			avoidHighways: false,
+			avoidTolls: false
+			}, callback);
+		}
+		else
+		{
+				alert('No calls on this days so you can book this day');
+				availabledays.push(x);
+		}
 	x++;
 	}
 	else
 	{	
 		//x=0;
 		alert('The system can only consider for '+considerdays+' days and plan. Please choose a date manually or leave call in logged state to book later.');
-		console.log(recievd_distances);
+		myfnc();
+		clearInterval(autotimer);
+	}		
+}///end of function calculateDistance
+
+
+function myfnc()
+{
+		console.log('------recievd_distances-----------'+recievd_distances);
+		console.log('------recievd_postcodes-----------'+recievd_postcodes);
 		p=indexOfSmallest(recievd_distances);
-		
 		nearestday=finddayofnearestpostcode(recievd_postcodes[p]);
 		nearestdate=finddayofnearestdate(nearestday);
 		console.log(nearestdate,engg_id,service_id);
 		msg='The nearest available slot is on Day '+nearestday+ ', ' +nearestdate+ ' which is '+recievd_distances[p]+ ' miles by postcode '+recievd_postcodes[p]+' and it takes '+recievd_time[p];
-		console.log(msg );
+		console.log(msg);
 		document.getElementById('outputDiv').innerHTML=msg;
 		var resetBtn = document.createElement("input");
 		resetBtn.type = "button";
@@ -159,11 +179,18 @@ function calculateDistances() {
 		resetBtn.style = "margin:5px";
 		resetBtn.onclick=createNewDiaryEntry;
 		document.getElementById('outputDiv').appendChild(resetBtn);
-		clearInterval(autotimer);
-	}
-
 		
-}///end of function calculateDistance
+		 
+		
+}//end of my fnc
+
+ 
+
+function findnextnearestday()
+{
+	myfnc();
+	
+}//findnextnearestday()
 
 function callback(response, status) {
 
@@ -392,3 +419,6 @@ function finddayofnearestdate(nearestday)
     </div>
     <div id="map-canvas"></div>
   
+  <p><button type="button" onclick="findnextnearestday();">findnextnearestday
+          </button></p>
+    

@@ -164,8 +164,8 @@ function calculateDistances() {
 
 function myfnc()
 {
-		console.log('------recievd_distances-----------'+recievd_distances);
-		console.log('------recievd_postcodes-----------'+recievd_postcodes);
+		//console.log('------recievd_distances-----------'+recievd_distances);
+		//console.log('------recievd_postcodes-----------'+recievd_postcodes);
 		p=indexOfSmallest(recievd_distances);
 		nearestday=finddayofnearestpostcode(recievd_postcodes[p]);
 		nearestdate=finddayofnearestdate(nearestday);
@@ -184,13 +184,7 @@ function myfnc()
 		
 }//end of my fnc
 
- 
 
-function findnextnearestday()
-{
-	myfnc();
-	
-}//findnextnearestday()
 
 function callback(response, status) {
 
@@ -418,7 +412,5 @@ function finddayofnearestdate(nearestday)
       <div id="outputDiv"></div>
     </div>
     <div id="map-canvas"></div>
-  
-  <p><button type="button" onclick="findnextnearestday();">findnextnearestday
-          </button></p>
+
     

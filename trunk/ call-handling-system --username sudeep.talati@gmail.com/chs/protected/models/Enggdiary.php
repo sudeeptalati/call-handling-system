@@ -431,12 +431,18 @@ class Enggdiary extends CActiveRecord
 	
 	public function getTotalnoofcallsperday()
 	{
-	return '8';
+	return '5';
 	}
 	
 	public function gettraveldistanceallowedbetweenpostcodes()
 	{
-	return '15';
+		return '15';
 	}
+	
+	public function getworkingdaysinweek()
+	{
+		return '12345';  ///1 (for Monday) through 7 (for Sunday)
+	}//end of getworkingdaysinweek
+    
     
 }//end of class.

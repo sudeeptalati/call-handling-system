@@ -1,4 +1,6 @@
 <?php
+$this->layout='main';
+
 $servicecall_id=$_GET['id'];
 $engineer_id=$_GET['engineer_id'];
 $servicecallmodel=Servicecall::model()->findbyPK(array('id'=>$servicecall_id));
@@ -8,7 +10,11 @@ $servicecallmodel=Servicecall::model()->findbyPK(array('id'=>$servicecall_id));
 $model=Enggdiary::model();
 $no_next_days=$model->getconsiderdaysforslotavailabity();
 $allowedtraveldistancebetweenpostcodes=$model->gettraveldistanceallowedbetweenpostcodes();
+$totalnoofcallsperday=$model->getTotalnoofcallsperday();
 
+$workingdaysofweekstring=$model->getworkingdaysinweek();
+$workingdaysofweekarray=str_split($workingdaysofweekstring);
+//print_r($workingdaysofweekarray);
 
 $today=date('d-m-Y');
 
@@ -22,6 +28,9 @@ Engineer ID:<?php echo $engineer_name;?><br>
 <tr>
 <?php
 $days_postcodes_array=array();
+$considered_dates=array();
+$selectday_row_dates=array();
+
 for ($i = 1; $i <=$no_next_days; $i++)
 {
     $forloopdate_time= time() + (86400 * $i);
@@ -29,80 +38,112 @@ for ($i = 1; $i <=$no_next_days; $i++)
 	$forloop_day=date("d", $forloopdate_time);
 	$forloop_month=date("m", $forloopdate_time);
 	$forloop_year=date("Y", $forloopdate_time);
+	$forloop_weekday=date("N", $forloopdate_time);
 	
-	$forloop_start_date_time=mktime(0, 0, 0, $forloop_month, $forloop_day, $forloop_year);////hours,minutes,seconds,month,day,year
-	$forloop_end_date_time=mktime(23, 59, 59, $forloop_month, $forloop_day, $forloop_year);////hours,minutes,seconds,month,day,year
+	array_push($selectday_row_dates,date("j-n-Y", $forloopdate_time));
+			
+		
+		
+	echo '<td style="vertical-align:top; width:150px;">';
+	echo '<b>'.$forloopdate_string.'</b><br>';
 
-	//echo '<hr>'.date('l jS \of F Y h:i:s A',$s);
-	$data=Enggdiary::model()->getData($engineer_id, $forloop_start_date_time,$forloop_end_date_time);
-//print_r($data);
-
-
-	echo '<td style="vertical-align:top;">';
-	echo '<b>'.$forloopdate_string.'</b>';
-
-	$customer_postcodes=array();
-	foreach ($data as $d)
+	if (in_array($forloop_weekday, $workingdaysofweekarray))
 	{
-		$diary_customer_postcode=$d->servicecall->customer->postcode;
-		$diary_customer_postcode = strtoupper($diary_customer_postcode);
-		$diary_customer_postcode = trim($diary_customer_postcode);
-		echo '<br>'.$diary_customer_postcode;
-		array_push($customer_postcodes,$diary_customer_postcode);
-	}
+		echo '<br>	<b>NOT HOLIDAY</b>';
+		$forloop_start_date_time=mktime(0, 0, 0, $forloop_month, $forloop_day, $forloop_year);////hours,minutes,seconds,month,day,year
+		$forloop_end_date_time=mktime(23, 59, 59, $forloop_month, $forloop_day, $forloop_year);////hours,minutes,seconds,month,day,year
+
+		$data=Enggdiary::model()->getData($engineer_id, $forloop_start_date_time,$forloop_end_date_time);
+		if (count($data)>=$totalnoofcallsperday)
+		{
+			foreach ($data as $d)
+			{
+				echo '<br>'.$d->servicecall->customer->postcode; 
+			}
+			echo '<br><div style="background:#EFEFEF;"><b>This day is fully booked</b><div>';
+			$no_next_days=$no_next_days+1;
+		}else
+		{
+			$customer_postcodes=array();
+			foreach ($data as $d)
+			{
+				$diary_customer_postcode=$d->servicecall->customer->postcode;
+				$diary_customer_postcode = strtoupper($diary_customer_postcode);
+				$diary_customer_postcode = trim($diary_customer_postcode);
+				echo '<br>'.$diary_customer_postcode;
+				array_push($customer_postcodes,$diary_customer_postcode);
+				
+			}
+		
+			array_push($days_postcodes_array,$customer_postcodes);
+			array_push($considered_dates,date("j-n-Y", $forloopdate_time));
+			//echo '<hr>'.date("j-n-Y", $forloopdate_time);
+			//$days_postcodes_array[$forloopdate_string]=$customer_postcodes;
+		
+		}//end of else if (count($data)>=$totalnoofcallsperday)
+		
+	}///end of if in_array
+	else{
 	
-	array_push($days_postcodes_array,$customer_postcodes);
-	//$days_postcodes_array[$forloopdate_string]=$customer_postcodes;
-	
+		echo '<br><b>HOLIDAY</b>';
+		$no_next_days=$no_next_days+1;
+	}///end of else of in_array
 	
 	echo '</td>';
-	
 }//end of days forloop_end_date_time
 
-$x=1;
-echo '<table><tr>';
-foreach ($days_postcodes_array as $pa)
-	{
-		echo '<td style="vertical-align:top;"><hr> <b>DAY '.$x.'</b>';
-		foreach ($pa as $p)
-		{
-			$passing_postcodes_array=array();
-			array_push($passing_postcodes_array,$p);
-			echo '<br>'.$p;
-		}
-		echo '</td>';
-		
-		$x++;
-		
-	}
 
-		
-echo '</tr></table>';
+
+ 
 ?>
 </tr>
+
+
+<tr>
+<?php
+//print_r($selectday_row_dates);
+
+for ($i = 0; $i <count($selectday_row_dates); $i++)
+{
+	
+	echo '<td id='.$selectday_row_dates[$i].' style="vertical-align:top;">';
+	
+	//echo $selectday_row_dates[$i];
+	echo '</td>';
+}
+
+?>
+</tr>
+
+
 </table>
 <?php
 
 
 ?>
 <br>
-<?php echo $current_customer_postcode ?>
+<?php ///echo $current_customer_postcode ?>
  
  
      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
     <script>
+	
+
 var map;
 var geocoder;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 var x=0;
 var considerdays=<?php echo $no_next_days; ?>;
-var fivedayspostcodes=<?php echo json_encode($days_postcodes_array); ?>;
+
+var considered_dates=<?php echo json_encode($considered_dates); ?>;
+var considered_postcodes=<?php echo json_encode($days_postcodes_array); ?>;
 var current_customer_postcode='<?php echo $current_customer_postcode; ?>';
 var allowedtraveldistancebetweenpostcodes=<?php echo $allowedtraveldistancebetweenpostcodes; ?>;
 
-console.log(fivedayspostcodes);
+console.log(considered_dates);
+console.log(considered_postcodes);
  
 var recievd_postcodes=[];
 var recievd_distances=[];
@@ -113,12 +154,15 @@ var service_id=<?php echo $servicecall_id; ?>;
 var firstnearestdate='';
 
 
-var availabledatesinddmmyyyy=[];
-var availabledays=[];//can starts from 0 which will be day 1
+var availabledatesinddmmyyyy=[]; 
 
 
 var destinationIcon = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=D|FF0000|000000';
 var originIcon = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=O|FFFF00|000000';
+
+
+window.onload=function(){callme();};
+
 
 function initialize() {
   var opts = {
@@ -131,10 +175,13 @@ function initialize() {
 
 function calculateDistances() {
 	
-	if ((x<considerdays))
-	{
-	d_array=[];
-	d_array = fivedayspostcodes[x];
+	
+	if ((x<considered_postcodes.length))////so that it runs for all the postcodes
+	{	
+		current_date=considered_dates[x];
+		current_postcodes=considered_postcodes[x];
+		d_array=[];
+		d_array = current_postcodes;
 		if(d_array.length!=0)
 		{
 			var service = new google.maps.DistanceMatrixService();
@@ -155,10 +202,9 @@ function calculateDistances() {
 		}
 		else
 		{
-				nearestdate=adddaystodate(x+1);///since x starts with 0
-				console.log('There are no calls Booked on Day  '+nearestdate);
-				availabledatesinddmmyyyy.push(nearestdate);
-				availabledays.push(x);
+				console.log('There are no calls Booked on Day  '+current_date);
+				availabledatesinddmmyyyy.push(current_date);
+				 
 		}
 	x++;
 	}
@@ -178,8 +224,7 @@ function showavailabledatesinddmmyyyy()
 		//console.log('------recievd_distances-----------'+recievd_distances);
 		//console.log('------recievd_postcodes-----------'+recievd_postcodes);
 		console.log('availablle days are availabledatesinddmmyyyy  '+availabledatesinddmmyyyy);
-		console.log('availablle days are '+availabledays);
-		
+		 
 		if (recievd_postcodes.length!=0)
 		{
 			//we will call this 3 times to get the 3 options
@@ -189,28 +234,63 @@ function showavailabledatesinddmmyyyy()
 		}
 		else		
 		{
-			console.log('Recieve postcodes lenth 0. No postcodes were recieved or SENT');
+			console.log('Recieve postcodes lenth 0. No Near Postcodes found');
 		}
 		
 	
-		firstslotmsg='first available day is '+availabledatesinddmmyyyy[0];
-		secondslotmsg='Second available day is '+availabledatesinddmmyyyy[1];
-		thirdslotmsg='Third available day is '+availabledatesinddmmyyyy[2];
-		
-		availabledatesinddmmyyyy=availabledatesinddmmyyyy.sort();
-		availabledays=availabledays.sort();
+		availabledatesinddmmyyyy=sortavailabledatesinorder(availabledatesinddmmyyyy);
 		console.log('=============AFTER SORTING ========================');
 		console.log(availabledatesinddmmyyyy);
-		console.log(availabledays);
-		
-		createpreferecncebutton('0');
-		createpreferecncebutton('1');
-		createpreferecncebutton('2');
+
+		createpreferecncebutton('0', availabledatesinddmmyyyy[0]);
+		createpreferecncebutton('1', availabledatesinddmmyyyy[1]);
+		createpreferecncebutton('2', availabledatesinddmmyyyy[2]);
 		
 		setonclickforpreferreddatesbtn();
-	
-		
 }//end of my fnc
+
+function sortavailabledatesinorder(da)
+{
+	console.log('SORTING DATES : '+da);
+	var dateobjarray=[];
+	var sorteddatestringarray=[];
+
+	for (var n=0;n<da.length;n++)
+	{
+		//console.log(da[n]);
+		res = da[n].split("-");
+		c_day=res[0];
+		c_month=res[1]-1;///since javascript month start from 0
+		c_year=res[2];
+		date_obj=new Date(c_year, c_month, c_day, 0, 0, 0, 0);
+		dateobjarray.push(date_obj);
+	}
+
+	dateobjarray = dateobjarray.sort(sortByDateAsc);
+	//console.log(dateobjarray);
+
+	for (var n=0;n<dateobjarray.length;n++)
+	{
+		//console.log(dateobjarray[n]);
+		var d =dateobjarray[n];
+		d_date=d.getDate();
+		d_month= d.getMonth()+1;
+		d_year= d.getFullYear();
+		d_string = d_date+ "-" + d_month + "-" + d_year;
+		sorteddatestringarray.push(d_string);
+	}//end of for
+
+	console.log(sorteddatestringarray);
+	return sorteddatestringarray;
+	
+}///end of sortavailabledatesinorder
+
+
+
+function sortByDateAsc(a, b) {
+    return a<b ? -1 : a>b ? 1 : 0;
+}//end of function  sortByDateAsc()
+
 
 
 function filterdatabydistancebetweentwopostcodes()
@@ -257,7 +337,6 @@ function findthenextdaywithnearestpostcode()
 		}else
 		{		
 			console.log('NEXT NEAREST DATE IS'+nearestdate);
-			availabledays.push(day_count);			
 			availabledatesinddmmyyyy.push(nearestdate);
 			
 		}	
@@ -267,22 +346,26 @@ function findthenextdaywithnearestpostcode()
 
 function setonclickforpreferreddatesbtn()
 {
+	document.getElementById('outputDiv').innerHTML+='<br> The first  Available Day for Booking is DAY <b>'+availabledatesinddmmyyyy[0]+'</b>	';
+	document.getElementById('outputDiv').innerHTML+='<br> The Second Available Day for Booking is DAY <b>'+availabledatesinddmmyyyy[1]+'</b>	';
+	document.getElementById('outputDiv').innerHTML+='<br> The Third  Available Day for Booking is DAY <b>'+availabledatesinddmmyyyy[2]+'</b>	';
 	document.getElementById('0preferecncebutton').onclick=selectthefirstavailableday;
 	document.getElementById('1preferecncebutton').onclick=selectthesecondavailableday;
 	document.getElementById('2preferecncebutton').onclick=selectthethirdavailableday;
 }
 
 
-function createpreferecncebutton(pref)
+function createpreferecncebutton(pref,dateid)
 {
-		document.getElementById('outputDiv').innerHTML+='<br> The '+pref+' Available Day for Booking is DAY <b>'+availabledatesinddmmyyyy[pref]+'</b>	';
-		var firstpreferencebutton = document.createElement("input");
-		firstpreferencebutton.id=pref+'preferecncebutton';
-		firstpreferencebutton.name=pref+'preferecncebutton';
-		firstpreferencebutton.type = "button";
-		firstpreferencebutton.value = "Select";
-		firstpreferencebutton.style = "margin:5px";
-		document.getElementById('outputDiv').appendChild(firstpreferencebutton);
+		var preferencebutton = document.createElement("input");
+		preferencebutton.id=pref+'preferecncebutton';
+		preferencebutton.name=pref+'preferecncebutton';
+		preferencebutton.type = "button";
+		preferencebutton.value = "Select";
+		preferencebutton.style = "margin:5px";
+		document.getElementById(dateid).appendChild(preferencebutton);
+		document.getElementById('loading').style.display = 'none';
+	
 }//end of createfirstpreferecncebutton
 
 function selectthefirstavailableday()
@@ -393,8 +476,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 function callme()
 {
-	var div = document.getElementById('inputs');
-		div.style.display = 'none';
+	 
+	document.getElementById('inputs').style.display = 'none';
+	document.getElementById('loading').style.display = 'block';
 	
 	
 		autotimer=setInterval(function() {
@@ -530,13 +614,12 @@ function arraycontains(a, obj) {
       }
     </style>
     <div id="content-pane">
-      <div id="inputs">
-    
-		
-		 
-		
-        <p><button type="button" onclick="callme();">Calculate
-          distances</button></p>
+			
+		<div id='loading' style='display:none'><img src="images/loading.gif"  \>
+		<br>
+		<span>Please wait, the system is calculating the nearest suitable day<span></div>
+		<div id="inputs">
+        <p><button type="button" onclick="callme();">Show me Available Days</button></p>
       </div>
       <div id="outputDiv"></div>
     </div>

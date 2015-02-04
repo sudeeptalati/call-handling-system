@@ -44,8 +44,8 @@ for ($i = 1; $i <=$no_next_days; $i++)
 			
 		
 		
-	echo '<td style="vertical-align:top; width:150px;">';
-	echo '<b>'.$forloopdate_string.'</b><br>';
+	echo '<td style="vertical-align:top; border: 1px solid black;">';
+	echo '<div style="height:50px; background:#EFEFEF"><b>'.$forloopdate_string.'</b></div>';
 
 	if (in_array($forloop_weekday, $workingdaysofweekarray))
 	{
@@ -85,7 +85,7 @@ for ($i = 1; $i <=$no_next_days; $i++)
 	}///end of if in_array
 	else{
 	
-		echo '<br><b>HOLIDAY</b>';
+		echo '<br><div style="height:260px; background: #EFEFEF; "><b>HOLIDAY</b></div>';
 		$no_next_days=$no_next_days+1;
 	}///end of else of in_array
 	
@@ -106,7 +106,7 @@ for ($i = 1; $i <=$no_next_days; $i++)
 for ($i = 0; $i <count($selectday_row_dates); $i++)
 {
 	
-	echo '<td id='.$selectday_row_dates[$i].' style="vertical-align:top;">';
+	echo '<td id='.$selectday_row_dates[$i].' style="vertical-align:top; border: 1px solid black;">';
 	
 	//echo $selectday_row_dates[$i];
 	echo '</td>';
@@ -361,8 +361,9 @@ function createpreferecncebutton(pref,dateid)
 		preferencebutton.id=pref+'preferecncebutton';
 		preferencebutton.name=pref+'preferecncebutton';
 		preferencebutton.type = "button";
-		preferencebutton.value = "Select";
+		preferencebutton.value = "Available";
 		preferencebutton.style = "margin:5px";
+		document.getElementById(dateid).style.background='#99FFCC';
 		document.getElementById(dateid).appendChild(preferencebutton);
 		document.getElementById('loading').style.display = 'none';
 	
@@ -550,6 +551,7 @@ function createNewDiaryEntry(dateofappointment)
  
 		var urlToCreate ='<?php echo Yii::app()->getBaseUrl(); ?>'+'/index.php?r=api/createNewDiaryEntry&start_date='+dateofappointment+'&engg_id='+engg_id+'&service_id='+service_id;
 		//alert(urlToCreate);
+		
 	
 		$.ajax
 		 ({
@@ -560,7 +562,7 @@ function createNewDiaryEntry(dateofappointment)
 	        success: function(data) 
 	        { 
 		    	alert('Appointment Created'+data);
-				//location.href="baseUrl+'/index.php?r=servicecall/view&id="+service_id;
+				location.href='<?php echo Yii::app()->getBaseUrl(); ?>'+'/index.php?r=servicecall/view&id='+service_id;
 		    },
 	        error: function()
 	        {

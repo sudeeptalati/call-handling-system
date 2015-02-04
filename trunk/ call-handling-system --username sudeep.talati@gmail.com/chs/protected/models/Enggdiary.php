@@ -414,7 +414,7 @@ class Enggdiary extends CActiveRecord
     }//end of getData().
     
     ////creating functions
-	public function getConsiderdaysforslotavailabity()
+	public function getconsiderdaysforslotavailabity()
 	{
 	return '5';
 	}//end of getConsiderdays
@@ -432,6 +432,11 @@ class Enggdiary extends CActiveRecord
 	public function getTotalnoofcallsperday()
 	{
 	return '8';
+	}
+	
+	public function gettraveldistanceallowedbetweenpostcodes()
+	{
+	return '15';
 	}
     
 }//end of class.

@@ -435,8 +435,6 @@ class EnggdiaryController extends RController
 			//echo "Value in  is = ".$model->engineer_id;
 			$engg_id = $model->engineer_id;
 			//echo "CAUGT ".$engg_id;
-			
-			
 		}//end of if engg_id is present got from dropdown in viewFullDiary view.
 		/****** END OF PROCESSING ENGG_ID GOT FROM DROPDOWN ********/
 		

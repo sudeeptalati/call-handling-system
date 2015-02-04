@@ -6,7 +6,10 @@ $current_customer_postcode=$servicecallmodel->customer->postcode;
 $engineer_name=$servicecallmodel->engineer->fullname;
 $servicecallmodel=Servicecall::model()->findbyPK(array('id'=>$servicecall_id));
 $model=Enggdiary::model();
-$no_next_days=$model->getConsiderdaysforslotavailabity();
+$no_next_days=$model->getconsiderdaysforslotavailabity();
+$allowedtraveldistancebetweenpostcodes=$model->gettraveldistanceallowedbetweenpostcodes();
+
+
 $today=date('d-m-Y');
 
 //echo $data->servicecall->customer->postcode;
@@ -96,6 +99,8 @@ var markersArray = [];
 var x=0;
 var considerdays=<?php echo $no_next_days; ?>;
 var fivedayspostcodes=<?php echo json_encode($days_postcodes_array); ?>;
+var current_customer_postcode='<?php echo $current_customer_postcode; ?>';
+var allowedtraveldistancebetweenpostcodes=<?php echo $allowedtraveldistancebetweenpostcodes; ?>;
 
 console.log(fivedayspostcodes);
  
@@ -105,10 +110,13 @@ var recievd_time=[];
 var autotimer;
 var engg_id=<?php echo $engineer_id; ?>;
 var service_id=<?php echo $servicecall_id; ?>;
-var nearestdate='';
+var firstnearestdate='';
 
 
-var availabledays=[];
+var availabledatesinddmmyyyy=[];
+var availabledays=[];//can starts from 0 which will be day 1
+
+
 var destinationIcon = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=D|FF0000|000000';
 var originIcon = 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=O|FFFF00|000000';
 
@@ -136,7 +144,7 @@ function calculateDistances() {
 			origins: ['KA32SN', 'KA12NP'],
 			destinations: ['PA12BE'],
 	*/
-			origins:['PA12BE'],
+			origins:[current_customer_postcode],
 			destinations:d_array,
 
 			travelMode: google.maps.TravelMode.DRIVING,
@@ -147,7 +155,9 @@ function calculateDistances() {
 		}
 		else
 		{
-				alert('No calls on this days so you can book this day');
+				nearestdate=adddaystodate(x+1);///since x starts with 0
+				console.log('There are no calls Booked on Day  '+nearestdate);
+				availabledatesinddmmyyyy.push(nearestdate);
 				availabledays.push(x);
 		}
 	x++;
@@ -155,37 +165,156 @@ function calculateDistances() {
 	else
 	{	
 		//x=0;
-		alert('The system can only consider for '+considerdays+' days and plan. Please choose a date manually or leave call in logged state to book later.');
-		myfnc();
+		filterdatabydistancebetweentwopostcodes();
+		//alert('The system can only consider for '+considerdays+' days and plan. Please choose a date manually or leave call in logged state to book later.');
+		showavailabledatesinddmmyyyy();
 		clearInterval(autotimer);
 	}		
 }///end of function calculateDistance
 
 
-function myfnc()
+function showavailabledatesinddmmyyyy()
 {
 		//console.log('------recievd_distances-----------'+recievd_distances);
 		//console.log('------recievd_postcodes-----------'+recievd_postcodes);
-		p=indexOfSmallest(recievd_distances);
-		nearestday=finddayofnearestpostcode(recievd_postcodes[p]);
-		nearestdate=finddayofnearestdate(nearestday);
-		console.log(nearestdate,engg_id,service_id);
-		msg='The nearest available slot is on Day '+nearestday+ ', ' +nearestdate+ ' which is '+recievd_distances[p]+ ' miles by postcode '+recievd_postcodes[p]+' and it takes '+recievd_time[p];
-		console.log(msg);
-		document.getElementById('outputDiv').innerHTML=msg;
-		var resetBtn = document.createElement("input");
-		resetBtn.type = "button";
-		resetBtn.value = "Select";
-		resetBtn.style = "margin:5px";
-		resetBtn.onclick=createNewDiaryEntry;
-		document.getElementById('outputDiv').appendChild(resetBtn);
+		console.log('availablle days are availabledatesinddmmyyyy  '+availabledatesinddmmyyyy);
+		console.log('availablle days are '+availabledays);
 		
-		 
+		if (recievd_postcodes.length!=0)
+		{
+			//we will call this 3 times to get the 3 options
+			findthenextdaywithnearestpostcode();
+			findthenextdaywithnearestpostcode();
+			findthenextdaywithnearestpostcode();
+		}
+		else		
+		{
+			console.log('Recieve postcodes lenth 0. No postcodes were recieved or SENT');
+		}
+		
+	
+		firstslotmsg='first available day is '+availabledatesinddmmyyyy[0];
+		secondslotmsg='Second available day is '+availabledatesinddmmyyyy[1];
+		thirdslotmsg='Third available day is '+availabledatesinddmmyyyy[2];
+		
+		availabledatesinddmmyyyy=availabledatesinddmmyyyy.sort();
+		availabledays=availabledays.sort();
+		console.log('=============AFTER SORTING ========================');
+		console.log(availabledatesinddmmyyyy);
+		console.log(availabledays);
+		
+		createpreferecncebutton('0');
+		createpreferecncebutton('1');
+		createpreferecncebutton('2');
+		
+		setonclickforpreferreddatesbtn();
+	
 		
 }//end of my fnc
 
 
+function filterdatabydistancebetweentwopostcodes()
+{
+	/*
+	recievd_distances
+	recievd_postcodes
+	allowedtraveldistancebetweenpostcodes
+	*/
+	for (var m=0;m<recievd_distances.length;m++)
+	{
+		console.log('Recieved Distances'+recievd_distances[m]);
+		if (recievd_distances[m]>allowedtraveldistancebetweenpostcodes)
+		{
+			recievd_postcodes.splice(m, 1);
+			recievd_distances.splice(m, 1);
+		}
+		else
+		{
+			document.getElementById('outputDiv').innerHTML+='<br>The nearest postcode to '+current_customer_postcode+' is '+recievd_postcodes[m]+' is '+recievd_distances[m]+' miles';
+		}
+	}//end of for`
+	
+	console.log('filtered Recieved Distances'+recievd_distances);
+	console.log('filtered Recieved POSTCODES'+recievd_postcodes);
+	
+}//filterdatabydistancebetweentwopostcodes()
 
+function findthenextdaywithnearestpostcode()
+{	
+	console.log('********************findthenextdaywithnearestpostcode***********************************');
+	console.log(recievd_distances);	
+	if (recievd_postcodes.length>0)
+	{
+		p=indexOfSmallest(recievd_distances);
+		day_count=finddayofnearestpostcode(recievd_postcodes[p]);
+		nearestdate=adddaystodate(day_count+1); ///since day starts with 0
+		console.log(day_count,engg_id,service_id, nearestdate);
+		if (arraycontains(availabledatesinddmmyyyy,nearestdate)==true)
+		{	
+			recievd_postcodes.splice(p, 1);
+			recievd_distances.splice(p, 1);
+			findthenextdaywithnearestpostcode();
+		}else
+		{		
+			console.log('NEXT NEAREST DATE IS'+nearestdate);
+			availabledays.push(day_count);			
+			availabledatesinddmmyyyy.push(nearestdate);
+			
+		}	
+	}
+}///end of findthenextdaywithnearestpostcode
+
+
+function setonclickforpreferreddatesbtn()
+{
+	document.getElementById('0preferecncebutton').onclick=selectthefirstavailableday;
+	document.getElementById('1preferecncebutton').onclick=selectthesecondavailableday;
+	document.getElementById('2preferecncebutton').onclick=selectthethirdavailableday;
+}
+
+
+function createpreferecncebutton(pref)
+{
+		document.getElementById('outputDiv').innerHTML+='<br> The '+pref+' Available Day for Booking is DAY <b>'+availabledatesinddmmyyyy[pref]+'</b>	';
+		var firstpreferencebutton = document.createElement("input");
+		firstpreferencebutton.id=pref+'preferecncebutton';
+		firstpreferencebutton.name=pref+'preferecncebutton';
+		firstpreferencebutton.type = "button";
+		firstpreferencebutton.value = "Select";
+		firstpreferencebutton.style = "margin:5px";
+		document.getElementById('outputDiv').appendChild(firstpreferencebutton);
+}//end of createfirstpreferecncebutton
+
+function selectthefirstavailableday()
+{
+	console.log('selectthefirstavailableday SELECTEWD');
+	createNewDiaryEntry(availabledatesinddmmyyyy[0]);
+}///end of selectthefirstavailableday
+
+
+ 
+function selectthesecondavailableday()
+{
+	console.log('selectthesecondavailableday SELECTEWD');
+	createNewDiaryEntry(availabledatesinddmmyyyy[1]);
+
+}///end of selectthesecondavailableday
+
+
+ 
+function selectthethirdavailableday()
+{
+	console.log('THIRD preferecncebutton SELECTEWD');
+	createNewDiaryEntry(availabledatesinddmmyyyy[3]);
+
+}///endf of selectthethirdavailableday
+
+
+
+
+
+
+////***==============================================================================*///
 function callback(response, status) {
 
 	console.log(response);
@@ -218,11 +347,11 @@ function callback(response, status) {
 		recievd_time.push(results[j].duration.text);
  
  
- 
+		/*
 		outputDiv.innerHTML += 'PA12BE  to ' + destinations[j]
             + ': ' + results[j].distance.text + ' in '
             + results[j].duration.text + '<br>';
-		
+		*/
 	  }
     }
   }
@@ -279,7 +408,7 @@ function callme()
 			div.style.display = 'block';
 			}
 		*/
-		}, 5000);
+		}, 1000);
 }
 
 function indexOfSmallest(a) {
@@ -313,7 +442,8 @@ for (var key in data) {
 		if (n!=-1)
 		{
 			console.log('INDEX OF G75 8TD in DAY '+day+'is '+n );
-			foundonday=parseInt(day)+1;
+			//foundonday=parseInt(day)+1;//deactivated by SUDEEP TALATI
+			foundonday=parseInt(day);
 			return foundonday;
 		}
 
@@ -328,26 +458,14 @@ for (var key in data) {
 
 
 
-function createButton()
-{
-		/*
-		var resetBtn = document.createElement("input");
-		resetBtn.type = "button";
-		resetBtn.value = "Select";
-		resetBtn.style = "margin:5px";
-		resetBtn.onclick=createNewDiaryEntry(nearestdate,engg_id,service_id);
-		document.getElementById('outputDiv').appendChild(resetBtn);
-		console.log('<?php echo json_encode($days_postcodes_array); ?>');
-		*/
-}
 
 
-function createNewDiaryEntry()
+function createNewDiaryEntry(dateofappointment)
 {
-		alert ('select btn clicjked');
+		alert ('createNewDiaryEntry Called');
  
-		var urlToCreate ='<?php echo Yii::app()->getBaseUrl(); ?>'+'/index.php?r=api/createNewDiaryEntry&start_date='+nearestdate+'&engg_id='+engg_id+'&service_id='+service_id;
-		alert(urlToCreate);
+		var urlToCreate ='<?php echo Yii::app()->getBaseUrl(); ?>'+'/index.php?r=api/createNewDiaryEntry&start_date='+dateofappointment+'&engg_id='+engg_id+'&service_id='+service_id;
+		//alert(urlToCreate);
 	
 		$.ajax
 		 ({
@@ -357,7 +475,7 @@ function createNewDiaryEntry()
 	        modal: true,
 	        success: function(data) 
 	        { 
-		    	alert('Appointment Created');
+		    	alert('Appointment Created'+data);
 				//location.href="baseUrl+'/index.php?r=servicecall/view&id="+service_id;
 		    },
 	        error: function()
@@ -369,11 +487,12 @@ function createNewDiaryEntry()
 	     
 }//end of createNewDiaryEntry().
     
-function finddayofnearestdate(nearestday)
+//function finddayofnearestdate(nearestday)
+function adddaystodate(no_of_days)
 {
 	var today = new Date();
 	var nearestdate = new Date(today);
-	nearestdate.setDate(today.getDate()+nearestday);
+	nearestdate.setDate(today.getDate()+no_of_days);
 	
 	var dd = nearestdate.getDate();
 	var mm = nearestdate.getMonth()+1; //January is 0!
@@ -382,6 +501,16 @@ function finddayofnearestdate(nearestday)
 	  
 	rtn_date=dd+'-'+mm+'-'+yyyy;
 	return rtn_date;
+}
+
+function arraycontains(a, obj) {
+    var i = a.length;
+    while (i--) {
+       if (a[i] === obj) {
+           return true;
+       }
+    }
+    return false;
 }
 </script>
 <style>

@@ -46,34 +46,42 @@ for ($i = 1; $i <=$no_next_days; $i++)
 		
 	echo '<td style="vertical-align:top; border: 1px solid black;">';
 	echo '<div style="height:50px; background:#EFEFEF"><b>'.$forloopdate_string.'</b></div>';
+	//echo '<div style="height:10px; background:#9AFD95"></div>';
 
 	if (in_array($forloop_weekday, $workingdaysofweekarray))
 	{
-		echo '<br>	<b>NOT HOLIDAY</b>';
+		//echo '<br>	<b>NOT HOLIDAY</b>';
 		$forloop_start_date_time=mktime(0, 0, 0, $forloop_month, $forloop_day, $forloop_year);////hours,minutes,seconds,month,day,year
 		$forloop_end_date_time=mktime(23, 59, 59, $forloop_month, $forloop_day, $forloop_year);////hours,minutes,seconds,month,day,year
 
 		$data=Enggdiary::model()->getData($engineer_id, $forloop_start_date_time,$forloop_end_date_time);
 		if (count($data)>=$totalnoofcallsperday)
-		{
+		{	
+			echo '<br><div style="height:260px; background: #EFEFEF; ">';
+		
 			foreach ($data as $d)
 			{
-				echo '<br>'.$d->servicecall->customer->postcode; 
+				echo '<p style="margin: 0 0 2px 10px">'.$d->servicecall->customer->postcode.'</p>'; 
 			}
-			echo '<br><div style="background:#EFEFEF;"><b>This day is fully booked</b><div>';
+			echo '<br><b>This day is fully booked</b>';
+			
+			echo '</div>';
+			 
 			$no_next_days=$no_next_days+1;
 		}else
 		{
 			$customer_postcodes=array();
+			echo '<br><div style="height:260px; background: #FFFFFF; ">';
 			foreach ($data as $d)
 			{
 				$diary_customer_postcode=$d->servicecall->customer->postcode;
 				$diary_customer_postcode = strtoupper($diary_customer_postcode);
 				$diary_customer_postcode = trim($diary_customer_postcode);
-				echo '<br>'.$diary_customer_postcode;
+				echo '<p style="margin:	0 0 2px 10px">'.$d->servicecall->customer->postcode.'</p>'; 
 				array_push($customer_postcodes,$diary_customer_postcode);
 				
 			}
+			echo '</div>';
 		
 			array_push($days_postcodes_array,$customer_postcodes);
 			array_push($considered_dates,date("j-n-Y", $forloopdate_time));
@@ -300,13 +308,31 @@ function filterdatabydistancebetweentwopostcodes()
 	recievd_postcodes
 	allowedtraveldistancebetweenpostcodes
 	*/
-	for (var m=0;m<recievd_distances.length;m++)
+	console.log('Recieved Distances from customer postcodes  '+recievd_distances);
+	
+/*
+	temp_googlerecievedpc_array=recievd_postcodes;
+	temp_googlerecieveddistance_array=recievd_distances;	
+	
+	for (var m=0;m<temp_googlerecieveddistance_array.length;m++)
 	{
-		console.log('Recieved Distances'+recievd_distances[m]);
+		if (temp_googlerecieveddistance_array[m]>allowedtraveldistancebetweenpostcodes)
+		{
+			///find the postcode in recievd_postcodes array and delete it
+			pc_to_be_deleted=temp_googlerecievedpc_array[m];
+			var pc_to_be_deleted_index = recievd_postcodes.indexOf(pc_to_be_deleted);
+			
+			recievd_postcodes.splice(pc_to_be_deleted_index, 1);
+			recievd_distances.splice(pc_to_be_deleted_index, 1);
+*/			
+		for (var m=0;m<recievd_distances.length;m++)
+		{
 		if (recievd_distances[m]>allowedtraveldistancebetweenpostcodes)
 		{
+ 	
 			recievd_postcodes.splice(m, 1);
 			recievd_distances.splice(m, 1);
+			
 		}
 		else
 		{
@@ -322,12 +348,15 @@ function filterdatabydistancebetweentwopostcodes()
 function findthenextdaywithnearestpostcode()
 {	
 	console.log('********************findthenextdaywithnearestpostcode***********************************');
-	console.log(recievd_distances);	
+	console.log('FILTERED RECIEVED DISTANCES'+recievd_distances);	
+	console.log('FILTERED RECIEVED DISTANCES'+recievd_postcodes);	
 	if (recievd_postcodes.length>0)
 	{
 		p=indexOfSmallest(recievd_distances);
 		day_count=finddayofnearestpostcode(recievd_postcodes[p]);
-		nearestdate=adddaystodate(day_count+1); ///since day starts with 0
+		//nearestdate=adddaystodate(day_count+1); ///since day starts with 0
+		//getting index of neartestday
+		nearestdate=considered_dates[day_count]; ///since day starts with 0
 		console.log(day_count,engg_id,service_id, nearestdate);
 		if (arraycontains(availabledatesinddmmyyyy,nearestdate)==true)
 		{	
@@ -526,7 +555,7 @@ for (var key in data) {
 		var n = postcode.indexOf(current_pc);
 		if (n!=-1)
 		{
-			console.log('INDEX OF G75 8TD in DAY '+day+'is '+n );
+			console.log('INDEX OF '+postcode+' in DAY '+day+'is '+n );
 			//foundonday=parseInt(day)+1;//deactivated by SUDEEP TALATI
 			foundonday=parseInt(day);
 			return foundonday;

@@ -308,35 +308,47 @@ function filterdatabydistancebetweentwopostcodes()
 	recievd_postcodes
 	allowedtraveldistancebetweenpostcodes
 	*/
+	
+	console.log('----------------------FILTERING DISTANCE NOW---------------------------------');
 	console.log('Recieved Distances from customer postcodes  '+recievd_distances);
 	
-/*
+
 	temp_googlerecievedpc_array=recievd_postcodes;
 	temp_googlerecieveddistance_array=recievd_distances;	
-	
+	recievd_postcodes=[];
+	recievd_distances=[];
 	for (var m=0;m<temp_googlerecieveddistance_array.length;m++)
 	{
+		console.log('Recieved Distances '+temp_googlerecieveddistance_array[m]+'from customer postcodes  '+temp_googlerecieveddistance_array[m]);
+			
 		if (temp_googlerecieveddistance_array[m]>allowedtraveldistancebetweenpostcodes)
 		{
 			///find the postcode in recievd_postcodes array and delete it
 			pc_to_be_deleted=temp_googlerecievedpc_array[m];
 			var pc_to_be_deleted_index = recievd_postcodes.indexOf(pc_to_be_deleted);
 			
+			/*
 			recievd_postcodes.splice(pc_to_be_deleted_index, 1);
 			recievd_distances.splice(pc_to_be_deleted_index, 1);
-*/			
+			*/
+	/*			
 		for (var m=0;m<recievd_distances.length;m++)
 		{
+			console.log('Recieved Distances '+recievd_distances[m]+'from customer postcodes  '+recievd_postcodes[m]);
+			
+
 		if (recievd_distances[m]>allowedtraveldistancebetweenpostcodes)
 		{
  	
 			recievd_postcodes.splice(m, 1);
 			recievd_distances.splice(m, 1);
-			
+*/
 		}
 		else
 		{
-			document.getElementById('outputDiv').innerHTML+='<br>The nearest postcode to '+current_customer_postcode+' is '+recievd_postcodes[m]+' is '+recievd_distances[m]+' miles';
+			recievd_postcodes.push(temp_googlerecievedpc_array[m]);
+			recievd_distances.push(temp_googlerecieveddistance_array[m]);
+			document.getElementById('outputDiv').innerHTML+='<br>The nearest postcode to '+current_customer_postcode+' is '+temp_googlerecievedpc_array[m]+' is '+temp_googlerecieveddistance_array[m]+' miles';
 		}
 	}//end of for`
 	
@@ -392,7 +404,8 @@ function createpreferecncebutton(pref,dateid)
 		preferencebutton.type = "button";
 		preferencebutton.value = "Available";
 		preferencebutton.style = "margin:5px";
-		document.getElementById(dateid).style.background='#99FFCC';
+		//document.getElementById(dateid).style.background='#99FFCC';
+		document.getElementById(dateid).style.background='#66FF66';
 		document.getElementById(dateid).appendChild(preferencebutton);
 		document.getElementById('loading').style.display = 'none';
 	
@@ -418,7 +431,7 @@ function selectthesecondavailableday()
 function selectthethirdavailableday()
 {
 	console.log('THIRD preferecncebutton SELECTEWD');
-	createNewDiaryEntry(availabledatesinddmmyyyy[3]);
+	createNewDiaryEntry(availabledatesinddmmyyyy[2]);
 
 }///endf of selectthethirdavailableday
 

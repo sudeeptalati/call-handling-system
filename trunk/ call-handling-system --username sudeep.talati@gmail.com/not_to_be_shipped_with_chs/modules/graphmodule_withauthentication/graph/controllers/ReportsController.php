@@ -58,10 +58,10 @@ class ReportsController extends Controller
 	{
 		$criteria=new CDbCriteria();
 		$criteria->with = array( 'engineer','jobStatus','customer', 'product');
+		$criteria->together = true;
+		$criteria->compare('job_status_id',$_GET['job_status_id'],true);
+		$criteria->compare('product.engineer_id',$_GET['engineer_id'],true);
 		
-		$criteria->compare('job_status_id',$_GET['job_status_id']);
-		$criteria->compare('engineer_id',$_GET['engineer_id']);
-
 		$criteria->compare( 'product.brand_id', $_GET['brand_id'], true );
 		$criteria->compare( 'product.product_type_id', $_GET['product_type_id'], true );
 		

@@ -436,7 +436,7 @@ class Enggdiary extends CActiveRecord
 	
 	public function gettraveldistanceallowedbetweenpostcodes()
 	{
-		return '15';
+		return '10';
 	}
 	
 	public function getworkingdaysinweek()

@@ -1,8 +1,5 @@
 <?php
 
-$this->menu=array(
-	array('label'=>'Manage Customer', 'url'=>array('admin')),
-);
 ?>
 
 <h1>Customer Registration</h1>

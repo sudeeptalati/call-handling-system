@@ -1,6 +1,8 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php
+include('servicecall_sidemenu.php');
+ $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'servicecall-existingCustomer-form',
 	'enableAjaxValidation'=>false,
 )); ?>

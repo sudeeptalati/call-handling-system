@@ -1,10 +1,5 @@
 <?php
-
-
-$this->menu=array(
-	//array('label'=>'List Servicecall', 'url'=>array('index')),
-	array('label'=>'Create Service Call', 'url'=>array('servicecall/create')),
-);
+include('servicecall_sidemenu.php');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -59,7 +54,7 @@ $('.search-form form').submit(function(){
 			'filter'=>Engineer::items('Engineer'),
 		),
 	
-		'created_by_user_id',
+	//	'created_by_user_id',
 		
 		array('header' => 'RaisedBy',
             	'name'=>'user_name','value'=>'$data->createdByUser->profile->lastname','filter'=>false),
@@ -91,10 +86,7 @@ $('.search-form form').submit(function(){
 		'cancelled',
 		'closed',
 		*/
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}',
-		),
+	 
 		array(	 
 		'header'=>'Raise a new Servicecall',
 		'value' => 'CHtml::link("RAISE A NEW CALL", array("Servicecall/existingCustomer","customer_id"=>$data->customer_id,"product_id"=>$data->product_id))',

@@ -1,9 +1,5 @@
 <?php
-
-$this->menu=array(
-	//array('label'=>'List Customer', 'url'=>array('index')),
-	array('label'=>'Register Customer', 'url'=>array('create')),
-);
+include('servicecall_sidemenu.php');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

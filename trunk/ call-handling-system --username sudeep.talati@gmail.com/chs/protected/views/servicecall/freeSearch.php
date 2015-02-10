@@ -1,10 +1,7 @@
 <body onload="document.search_form.query.focus()">
  
 <?php
-
-$this->menu=array(
-	array('label'=>'Manage Customer', 'url'=>array('/customer/admin')),
-);
+include('servicecall_sidemenu.php');
 ?>
 
 

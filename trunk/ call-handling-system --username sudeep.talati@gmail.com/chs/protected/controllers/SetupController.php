@@ -32,7 +32,7 @@ class SetupController extends RController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('PostcodeAnywhereView','PostcodeAnywhereSetup','RemoteConnection','ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings', 'sendTestEmail'),
+				'actions'=>array('PostcodeAnywhereView','PostcodeAnywhereSetup','RemoteConnection','diaryparameterform', 'ClickatellsmsAccount','SmsSettingsView','smsSettingsForm','CloudUrlUpdated','CloudUrlUpdated','CloudSetup','ShowUpdateProgress','create','update','admin','about','changeLogo','restoreDatabase','testConnection','mailServer','mailSettings', 'diaryparametersview', 'sendTestEmail'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -427,6 +427,14 @@ class SetupController extends RController
 		$this->render('smsSettingsView');
 	}
 	
+	public function actionDiaryparametersview()
+	{
+		$this->render('diaryparametersview');
+	}
+	public function actionDiaryparameterform()
+	{
+		$this->render('diaryparameterform');
+	}
 	public function actionClickatellsmsAccount()
 	{
 		$model=new Setup('view');

@@ -5,6 +5,8 @@ class SiteController extends RController
 	/**
 	 * Declares class-based actions.
 	 */
+
+
 	public function actions()
 	{
 		return array(

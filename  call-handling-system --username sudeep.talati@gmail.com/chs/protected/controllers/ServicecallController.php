@@ -474,7 +474,7 @@ $mpdf->Output($filename,'I');
 				
 				$engg_id=$model->engineer_id;
 				$baseUrl=Yii::app()->request->baseUrl;
-				$this->redirect($baseUrl.'/index.php?r=enggdiary/bookingAppointment&id='.$model->id.'&engineer_id='.$engg_id);
+				$this->redirect($baseUrl.'/index.php?r=enggdiary/diary&id='.$model->id.'&engineer_id='.$engg_id);
 				
 			}//end of model->save.
 							
@@ -575,7 +575,7 @@ $mpdf->Output($filename,'I');
 					$engg_id=$model->engineer_id;
 					$baseUrl=Yii::app()->request->baseUrl;
 					//$this->redirect($baseUrl.'/enggdiary/bookingAppointment/'.$model->id.'?engineer_id='.$engg_id);
-					$this->redirect($baseUrl.'/index.php?r=enggdiary/bookingAppointment&id='.$model->id.'&engineer_id='.$engg_id);
+					$this->redirect($baseUrl.'/index.php?r=enggdiary/diary&id='.$model->id.'&engineer_id='.$engg_id);
 				
 				
 				}//end of SERVICECALL save

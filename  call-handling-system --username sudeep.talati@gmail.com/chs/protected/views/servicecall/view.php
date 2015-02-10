@@ -1,5 +1,8 @@
+           
+<?php include('servicecall_sidemenu.php'); ?>   
 
 <?php 
+
 $baseUrl = Yii::app()->baseUrl; 
  
 ?>

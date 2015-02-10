@@ -2,6 +2,14 @@
 
 class RoutePlannerController extends RController
 {
+	
+	public function filters()
+	{
+		return array(
+			'rights', // perform access control for CRUD operations
+		);
+	}
+	
 	public function actionGetEngineerDiary($engg_id, $cust_postcode)
 	{
 		//$engg_id = '90000114';

@@ -130,10 +130,14 @@ for ($i = 0; $i <count($selectday_row_dates); $i++)
 
 ?>
 <br>
-<?php ///echo $current_customer_postcode ?>
- 
- 
-     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<?php 
+$baseUrl=Yii::app()->request->baseUrl;
+$url=$baseUrl."/index.php?r=enggdiary/bookingAppointment&id=".$servicecall_id."&engineer_id=".$engineer_id;
+//echo $url;
+?>
+<a href="<?php echo $url?>">Or Click here to book the appointment on calendar manually</a>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
     <script>
 	

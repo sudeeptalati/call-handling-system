@@ -128,7 +128,6 @@ $mpdf->Output($filename,'I');
 	 */
 	public function actionCreate()
 	{
-		//echo "<br>In servicecall create action";
 		$serviceCallModel=new Servicecall;
 		$customerModel=new Customer;
 		$productModel=new Product;
@@ -424,6 +423,18 @@ $mpdf->Output($filename,'I');
 		}
 	}
 	
+	protected function performAjaxValidationForNewproductButExistingCustomer($model, $productModel)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='servicecall-addProduct-form')
+		{
+			echo CActiveForm::validate(array($model, $productModel));
+			Yii::app()->end();
+		}
+	}
+		
+	
+	
+	
 	public function actionExistingCustomer($customer_id)
 	{
 		$model=new Servicecall;
@@ -505,36 +516,36 @@ $mpdf->Output($filename,'I');
 		$notify_status = $model->job_status_id;
 		$productModel = new Product;
 		
+		$cust_id=$_GET['cust_id'];
+		$customerModel=Customer::model()->findByPk($cust_id);
+		 
+	 	$this->performAjaxValidationForNewproductButExistingCustomer($model, $productModel);
+		
 		if(isset($_POST['Product']) && isset($_POST['Servicecall']))
 		{
 			$productModel->attributes=$_POST['Product'];
 			$model->attributes=$_POST['Servicecall'];
+			 		
+			print_r($productModel->attributes);
+			echo '<hr> ENGG ID'.$model->engineer_id;
+			echo '<hr> ';
+			print_r($model->attributes);
+	
 			
-			
-			$product_valid = $productModel->validate();
-			$service_valid = $model->validate();
-
-			if($product_valid && $service_valid)
+			$productModel->customer_id=$cust_id;
+			$productModel->attributes=$_POST['Product'];
+	
+			if($productModel->save())
 			{
-				$productModel->customer_id=$cust_id;
-				$productModel->attributes=$_POST['Product'];
-				if($productModel->validate())
-				{
-					if($productModel->save())
-					{
-						//echo "saved";
-					}
-				}//end of product validate().
-				//else 
-					//echo "<br>Enter all product fields";
-			
-				//******* SAVING SERVICECALL DETAILS ************
-				$model->customer_id=$cust_id;
+	 
+				//******* SAVING SERVICECALL DETAILS IF PRODUCT MODEL IS SAVED ************
+				$model->engineer_id=$productModel->engineer_id;
+		     	$model->customer_id=$cust_id;
 		     	$model->product_id=$productModel->id;
-		     	$model->engineer_id=$productModel->engineer_id;
 		     	$model->contract_id=$productModel->contract_id;
 		        $model->attributes=$_POST['Servicecall'];
-		        if($model->save())
+		        
+				if($model->save())
 				{
 					
 					$internet_status = '';
@@ -573,12 +584,12 @@ $mpdf->Output($filename,'I');
 		        	//echo "not saved";
 		        }
 		    
-			}//end of PRODUCT and SERVICE validate.
-			//else 
+			 
+			}//else 
 				//echo "<br><b>Enter all mandatory fields of servicecall and product</b>";
 		}//END OF IF ISSET().
-	    
-	    $this->render('addProduct',array('model'=>$model));
+		
+	    $this->render('addProduct',array('model'=>$model, 'productModel'=>$productModel, 'customerModel'=>$customerModel));
 	}//end of addProduct().
 	
 	public function actionFreeSearch()

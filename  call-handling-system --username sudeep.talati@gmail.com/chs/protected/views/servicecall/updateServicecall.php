@@ -124,7 +124,21 @@ vertical-align:top;
 						
 						);
 						echo $form->error($model,'job_status_id'); 
-					}//end of if().
+					}else if (Yii::app()->user->name=='admin')
+										{
+						$result=$model->updateStatus();
+						$list=CHtml::listData($result, 'id','name');
+						echo $form->dropDownList($model, 'job_status_id', $list, array('onchange'=>'js:my_change(this.value)')
+//												array(
+//													'ajax' => array(
+//													'type'=>'POST', //request type
+//													'url'=>CController::createUrl('setup/testConnection'), //url to call.
+//												))
+						
+						);
+						echo $form->error($model,'job_status_id'); 
+					}//end of if (Yii::app()->user->name=='admin')
+					
 					
 				?>
 			</td>

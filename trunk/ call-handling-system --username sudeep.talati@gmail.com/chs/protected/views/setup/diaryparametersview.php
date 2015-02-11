@@ -62,6 +62,8 @@ else
 			//echo "File exixts";
 			$diarydata = file_get_contents($filename);
 			$diaryDecodedData = json_decode($diarydata, true);
+			
+			
 			//echo "<br>";
 			//print_r($smsDecodedData);
 			

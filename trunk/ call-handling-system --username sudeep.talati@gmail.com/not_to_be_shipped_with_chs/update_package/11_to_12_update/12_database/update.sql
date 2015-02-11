@@ -196,3 +196,5 @@ COMMIT;
 -- Structure for index sqlite_autoindex_AuthAssignment_1 on table AuthAssignment
 ----
 ;
+
+INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'engglistdisplayformat','1','Engineer List Display Format');

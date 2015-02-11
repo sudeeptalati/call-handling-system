@@ -285,13 +285,13 @@ background-color: #FFFF9D;
 	<tr>
 			<td>
 				<?php echo $form->labelEx($customerModel,'postcode_s'); ?> <small>First Part &nbsp; Second Part</small><br>
-				<?php echo $form->textField($customerModel,'postcode_s',array('size'=>3,'maxlength'=>4)); ?>
+				<?php echo $form->textField($customerModel,'postcode_s',array('size'=>3,'maxlength'=>4, 'style'=>'width:50px;' )); ?>
 				<?php echo $form->error($customerModel,'postcode_s'); ?>
 			
 				<?php //echo $form->labelEx($customerModel,'postcode_e'); ?>
-				<?php echo $form->textField($customerModel,'postcode_e',array('size'=>3, 'maxlength'=>4)); ?>
+				<?php echo $form->textField($customerModel,'postcode_e',array('size'=>3, 'maxlength'=>4, 'style'=>'width:50px;'  )); ?>
 				<?php echo $form->error($customerModel,'postcode_e'); ?>
- 			</td><td>
+ 			
 			<?php
 					$postcode_service=Setup::model()->findByPk(1);
 				 	$postcodeanwhere_account_code=$postcode_service->postcodeanywhere_account_code;
@@ -304,6 +304,7 @@ background-color: #FFFF9D;
        (document.getElementById('Customer_postcode_s').value + document.getElementById('Customer_postcode_e').value),
        ''
       )"> 
+	  </td><td>
 		</td>
 	</tr>
 	

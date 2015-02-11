@@ -416,33 +416,69 @@ class Enggdiary extends CActiveRecord
     ////creating functions
 	public function getconsiderdaysforslotavailabity()
 	{
-	return '5';
+		$diaryDecodedData=$this->loaddiaryparameterjsonfile();
+		$no_next_days=$diaryDecodedData['no_next_days'];
+		return $no_next_days;
+		//return '5';
 	}//end of getConsiderdays
 	
 	public function getAveragetimeperservicecall()
 	{
-	return '1';
+		$diaryDecodedData=$this->loaddiaryparameterjsonfile();
+		$averagetimeperservicecall=$diaryDecodedData['averagetimeperservicecall'];
+		return $averagetimeperservicecall;
+		//return '1';
 	}
 	
 	public function getTotaldistancetobetravelledinaday()
 	{
-	return '100';
+		$diaryDecodedData=$this->loaddiaryparameterjsonfile();
+		$totaldistancetobetravelledinaday=$diaryDecodedData['totaldistancetobetravelledinaday'];
+		return $totaldistancetobetravelledinaday;
+		//return '75';
 	}
 	
 	public function getTotalnoofcallsperday()
 	{
-	return '5';
+		$diaryDecodedData=$this->loaddiaryparameterjsonfile();
+		$totalnoofcallsperday=$diaryDecodedData['totalnoofcallsperday'];
+		return $totalnoofcallsperday;
+		//return '5';
 	}
 	
 	public function gettraveldistanceallowedbetweenpostcodes()
 	{
-		return '10';
+		$diaryDecodedData=$this->loaddiaryparameterjsonfile();
+		$allowedtraveldistancebetweenpostcodes=$diaryDecodedData['allowedtraveldistancebetweenpostcodes'];
+		return $allowedtraveldistancebetweenpostcodes;
+		//return '15';
 	}
 	
 	public function getworkingdaysinweek()
 	{
-		return '12345';  ///1 (for Monday) through 7 (for Sunday)
+		$diaryDecodedData=$this->loaddiaryparameterjsonfile();
+		$workingdaysofweekstring=$diaryDecodedData['workingdaysofweekstring'];
+		return $workingdaysofweekstring;  ///1 (for Monday) through 7 (for Sunday)
+		//return '12345';
 	}//end of getworkingdaysinweek
-    
+	
+    public function loaddiaryparameterjsonfile()
+	{	
+		defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+		$diaryDecodedData=array();
+		$root = dirname(dirname(dirname(__FILE__)));
+		//echo $root."<br>";
+		$filename = $root.DS.'protected'.DS.'config'.DS.'diary_parameters.json';
+	//	echo $filename."<br>";
+		
+		if(file_exists($filename))
+		{
+			//echo "File exixts";
+			$diarydata = file_get_contents($filename);
+			$diaryDecodedData = json_decode($diarydata, true);
+		}
+		return ($diaryDecodedData);
+		
+	}////end of loaddiaryparameterjsonfile
     
 }//end of class.

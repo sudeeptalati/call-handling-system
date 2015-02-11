@@ -236,7 +236,7 @@ vertical-align:top;
 			<?php if(empty($model->engg_diary_id))
 				  {	
 				  	echo CHtml::link($imghtml, array('enggdiary/create/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
-					echo CHtml::link('Create Appointment', array('enggdiary/bookingAppointment/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
+					echo CHtml::link('Create Appointment', array('enggdiary/diary/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 					echo "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 					
 				  }
@@ -247,7 +247,7 @@ vertical-align:top;
 				  	echo CHtml::link('Change Appointment', array('enggdiary/viewFullDiary/', 'engg_id'=>$model->engineer_id));
 				  	//echo CHtml::link('Change Appointment', array('enggdiary/bookingAppointment/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 				  	echo "<br>";
-					echo CHtml::link('Book Appointment for another visit', array('enggdiary/bookingAppointment/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
+					echo CHtml::link('Book Appointment for another visit', array('enggdiary/diary/', 'id'=>$model->id, 'engineer_id'=>$model->engineer_id));
 				  }
 			?>
 			

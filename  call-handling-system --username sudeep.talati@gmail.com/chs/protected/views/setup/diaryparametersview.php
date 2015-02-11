@@ -89,11 +89,11 @@ else
 <!-- ********** DISPLAYING CHANGED DATA ************ -->
 	
 	<div class="row">
-		<?php echo "<b>No. of next days</b><br>";?>
+		<?php echo "<b>No. of days To be considered for Diary Planning</b><br>";?>
 		<?php echo CHtml::textField('',$no_next_days, array('disabled'=>'disabled'));?>
 	</div>
 	<div class="row">
-		<?php echo "<b>Allowed distance between two postcodes</b><br>";?>
+		<?php echo "<b>Allowed distance between two postcodes (in Miles)</b><br>";?>
 		<?php echo CHtml::textField('',$allowedtraveldistancebetweenpostcodes, array('disabled'=>'disabled'));?>
 	</div>
 	<div class="row">
@@ -103,15 +103,22 @@ else
 	<div class="row">
 		<?php echo "<b>Working days of week</b><br>";?>
 		<?php echo CHtml::textField('',$workingdaysofweekstring, array('disabled'=>'disabled'));?>
+		<br><small>Please use format 1234567 as 1 (for Monday) through 7 (for Sunday). <br>
+		For Example:<br>
+		For working days as Monday to Friday use 12345<br>
+		For working days as Monday to Saturday use 123456<br>
+		For working days as Tuesday to Sunday use 234567<br>
+		</small>
+		
 	</div>
 	
 	<div class="row">
-		<?php echo "<b>Average time per call</b><br>";?>
+		<?php echo "<b>Average time per call (in hours)</b><br>";?>
 		<?php echo CHtml::textField('',$averagetimeperservicecall, array('disabled'=>'disabled'));?>
 	</div>
 	
 	<div class="row">
-		<?php echo "<b>Distance to be travelled in a day</b><br>";?>
+		<?php echo "<b>Maximum Distance to be travelled in a day (in Miles)</b><br>";?>
 		<?php echo CHtml::textField('',$totaldistancetobetravelledinaday, array('disabled'=>'disabled'));?>
 	</div>
 	

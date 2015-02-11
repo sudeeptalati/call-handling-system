@@ -33,6 +33,9 @@
 	*/
 	
 	$addons=array(
+	
+	'gomobile'=>array(),
+	
 	'gii' => array(
 				'class' => 'system.gii.GiiModule',
 				'password' => 'gii',

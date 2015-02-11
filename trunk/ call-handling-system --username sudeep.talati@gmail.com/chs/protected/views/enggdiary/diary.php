@@ -1,4 +1,4 @@
-<?php
+<?php	
 $this->layout = 'main';
 
 $servicecall_id = $_GET['id'];
@@ -21,8 +21,49 @@ $today = date('d-m-Y');
 //echo $data->servicecall->customer->postcode;
 ?>
 <br>
-Current Customer Code: <?php echo $current_customer_postcode; ?><br>
-Engineer ID:<?php echo $engineer_name; ?><br>
+<div>
+	<div style='width:25%; float:left;'>
+		<table>
+			<tr>
+				<td>
+					<b>Customer PostCode:</b> 
+				</td>
+				<td>
+				<?php echo $current_customer_postcode; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Engineer:</b> 
+				</td>
+				<td>
+					<?php echo $engineer_name; ?>
+				</td>
+			</tr>
+		</table>
+		
+	</div>
+
+	<div style='width:50%;float:right'>
+		<b>Based on parameters</b>
+		<br>
+		<table>
+			<tr>
+				<td><b>Days Considered for Planning</b></td>
+				<td><?php echo $no_next_days; ?> days</td>
+			</tr>
+			<tr>
+				<td><b>Maximum Travel Distance Between Two postcodes</b></td>
+				<td><?php echo $allowedtraveldistancebetweenpostcodes; ?> miles</td>
+			</tr>
+			<tr>
+				<td><b>Maximum Number of Servicecalls per day</b></td>
+				<td><?php echo $totalnoofcallsperday; ?> servicecalls</td>
+			</tr>
+		</table>
+			
+	</div>
+</div>
 <br>
 <table>
     <tr>

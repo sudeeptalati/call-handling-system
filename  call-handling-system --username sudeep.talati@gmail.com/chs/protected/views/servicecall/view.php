@@ -138,6 +138,27 @@ $baseUrl = Yii::app()->baseUrl;
 		<th >Service Ref. No.# <h1 style="color:green"><?php echo $model->service_reference_number;?></h1></th>
 		
 	</tr>
+	
+	<tr><td colspan="2" style="text-align:left">
+		<h4>GoMobile Log</h4>
+		<?php
+			$gmservicecallslogs=Gmservicecalls::model()->findAllByAttributes(array('servicecall_id'=> $model->id), array('order'=>'created ASC'));
+			
+			foreach ($gmservicecallslogs as $gmservice)
+			{
+				echo '<br>Service call sent to Mobile on <b>'.date ('l, j-F-Y',$gmservice->created).'</b>';
+			}
+	 
+		?>
+		
+		</td>	
+	</tr>
+	
+	
+	
+	
+	
+	
 	<tr>
 		<td>
 		<?php

@@ -1,6 +1,6 @@
 <?php
 
-class GmservicecallsController extends Controller
+class GmservicecallsController extends RController
 {
 
 	/**
@@ -15,8 +15,7 @@ class GmservicecallsController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'rights', // perform access control for CRUD operations
 		);
 	}
 
@@ -33,11 +32,11 @@ class GmservicecallsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','servicecallsenttogomobileserver','receiveservicecallfrommobile','receivedcalldetails'),
+				'actions'=>array('admin','sentcalls', 'create','update','servicecallsenttogomobileserver','receiveservicecallfrommobile','receivedcalldetails'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -144,6 +143,20 @@ class GmservicecallsController extends Controller
 		));
 	}
 	
+	public function actionSentcalls()
+	{
+		$model=new Gmservicecalls('search_receivedcall');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['GmServicecalls']))
+			$model->attributes=$_GET['GmServicecalls'];
+		
+		$this->render('sentcalls',array(
+			'model'=>$model,
+		));
+	}
+	
+	
+	
 	public function actionReceivedcalls()
 	{
 		$model=new Gmservicecalls('search_receivedcall');
@@ -154,7 +167,7 @@ class GmservicecallsController extends Controller
 		$this->render('receivedcalls',array(
 			'model'=>$model,
 		));
-	}
+	}///end of actionReceivedcalls()
 	
 	public function actionReceivedcalldetails($id)
 	{

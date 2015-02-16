@@ -8,21 +8,21 @@
  
 ?>
 
-<h2>Sent Data</h2>
+<h2>All Servicecalls passed through GoMobile</h2>
 
  
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'gm-servicecalls-grid',
-	'dataProvider'=>$model->getdatabyserverstatusid(1),
+	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		//'id',
 		//'servicecall_id',
 		array(	'name'=>'service_reference_number',
 				//'value'=>'$data->servicecall_id',
-			    'value' => 'CHtml::link($data->service_reference_number, array("/Servicecall/view&id=".$data->servicecall_id))',
-		 		'type'=>'raw',
+			     'value' => 'CHtml::link($data->service_reference_number, array("/Servicecall/view&id=".$data->servicecall_id))',
+				'type'=>'raw',
 				'filter'=>false,
 				'header' => 'Service Ref No#'
 		),

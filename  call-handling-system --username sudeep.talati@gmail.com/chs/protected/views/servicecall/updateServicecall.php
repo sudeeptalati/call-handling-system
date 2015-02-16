@@ -578,7 +578,7 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 				<?php echo $form->textArea($model,'notes',array('rows'=>3, 'cols'=>40)); ?>
 				<?php echo $form->error($model,'notes'); ?>
 				
-				<?php echo $form->labelEx($model,'comments'); ?><small>(not visible on call sheet)</small>
+				<?php echo $form->labelEx($model,'comments'); ?><br><small>(not visible on call sheet)</small>
 				<?php echo $form->textArea($model,'comments',array('rows'=>4, 'cols'=>40)); ?>
 				<?php echo $form->error($model,'comments'); ?>
 				
@@ -659,7 +659,123 @@ if (!empty($_GET['cloud_id']) || !empty($_GET['master_id']))
 			
 		</tr>
 			
-			<tr><td colspan="2" style="text-align:center">
+	
+	
+	<tr><td colspan="2" style="text-align:left">
+		<h4>GoMobile Log</h4>
+		<table style='width:100%'>
+		<tr>
+			<th>Status</th>
+			<th>Activity Date</th>
+			<th>Comments</th>
+		</tr>
+		
+		<?php
+		
+			$gomobile_server_url=Gmservicecalls::model()->getserverurl();
+			$gmservicecallslogs=Gmservicecalls::model()->findAllByAttributes(array('servicecall_id'=> $model->id), array('order'=>'created ASC'));
+			
+			foreach ($gmservicecallslogs as $gmservice)
+			{
+			echo '<tr>';
+				echo '<td>'.$gmservice->server_status->name.'</td>';
+				echo '<td><b>'.date ('l, j-F-Y  h:i:s A',$gmservice->created).'</b></td>';
+				echo '<td>';
+				if ($gmservice->server_status_id!='5')
+				{
+					echo $gmservice->comments;
+				}
+				else{ /////HERE WE WILLD DECODE JSON Comments
+					?>
+					 
+					
+					<div style='background: #EAEAEA;padding: 10px;border-radius: 15px;'>
+					<?php
+					$data=json_decode($gmservice->comments);
+					$wd=json_decode($data->work_carried_out);
+					$img=json_decode($data->images);
+					
+					echo '<b>Work Carried Out :</b><pre>'. $wd->workdone.'</pre>';
+					echo '<b>Report Findings  :</b><pre>'.$wd->report_findings.'</pre>';
+					echo '<br><b>Parts Used:</b>';
+					echo '<pre>';
+						
+					if (count($wd->parts)==0)
+					{
+						echo '<b>NO Spares Parts Reported as Being used in the Service</b>';
+					}else{
+					
+						echo "<table style='width:25%'><tr><th>Item</th><th>Qty</th></tr>";
+						foreach ($wd->parts as $parts)
+						{
+							echo '<tr>';
+							echo '<td>'.$parts->partused."</td>";
+							echo '<td>'.$parts->quantity."</td>";
+							echo '</tr>';
+						}
+						echo '</table>';
+					}///end of else if (count($wd->parts)==0)
+					
+					echo '</pre>';
+					
+					
+					if ($img->product!='NOIMAGE' || $img->findings!='NOIMAGE' )
+					{
+					?>
+				 				
+						<table style='width:75%'>
+							<tr>
+								<td><b>Product Image</b></td>
+								<td><b>Findings Image</b></td>
+							</tr>
+							<tr>
+								<td>
+									<?php 
+										if ($img->product!='NOIMAGE')
+										{	$img_url=$gomobile_server_url.'imagesfrommobile/'.$img->product;
+											echo '<a href='.$img_url.' target=_blank><img src='.$img_url.' height="300px" width="300px"></a>';
+										}
+									?>
+								</td>
+								<td>
+									<?php  
+										if ($img->findings!='NOIMAGE')
+										{	$img_url=$gomobile_server_url.'imagesfrommobile/'.$img->findings;
+											echo '<a href='.$img_url.' target=_blank><img src='.$img_url.' height="300px" width="300px"></a>';
+										}
+									?>
+								</td>
+							</tr>
+						</table>
+					<?php
+					}///end of if ($img->product!='NOIMAGE' || $img->findings!='NOIMAGE' )
+					?>
+					
+					</div>
+			 
+					<?php
+				}///end of else ($gmservice->server_status_id!='5') ie if data is recieved from the server
+				
+				
+				
+				echo '</td>';
+			echo '</tr>';
+	
+			}//end of foreach ($gmservicecallslogs 
+	 
+		?>
+		</table>
+		</td>	
+	</tr>
+	
+	
+	
+	
+	
+	
+	
+	
+	<tr><td colspan="2" style="text-align:center">
 	<h3>Previous Service Calls </h3>
 	</td></tr>
 	<tr><td colspan="2" style="text-align:center">

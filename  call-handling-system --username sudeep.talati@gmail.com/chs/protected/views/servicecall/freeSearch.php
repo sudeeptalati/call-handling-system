@@ -184,10 +184,13 @@ vertical-align:top;
              	'name'=>'product_name',
  				'value'=>'$data->product->brand->name." ".$data->product->productType->name',
  				),
- 		array( 'header' => 'Engineer',      	
- 			'name'=>'engineer_name','value'=>'$data->engineer->company'),
-		
-
+ 		array( 	'header' => 'Engineer', 
+				'type'=>'raw',     	
+				'name'=>'engineer_name',
+				'value'=>'$data->engineer->fullname',
+				 
+				
+			),
 	),
 )); ?>
 		</td>

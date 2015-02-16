@@ -1,7 +1,15 @@
 <?php
 
-class DefaultController extends CController
+class DefaultController extends RController
 {
+
+	public function filters() {
+        return array(
+            'rights', // perform access control for CRUD operations
+        );
+    }
+	
+	
 	public function actionIndex()
 	{
 		$this->render('index');
@@ -33,6 +41,7 @@ class DefaultController extends CController
 		if (isset($_POST['gomobile_account_id']))
 		{
 			Gmservicecalls::model()->setaccountid($_POST['gomobile_account_id']); 
+			$this->redirect(array('/gomobile/default/getaccountid'));
 		}
 		$gomobile_account_id=Gmservicecalls::model()->getaccountid(); 
 		$this->render('setaccountid', array('gomobile_account_id'=>$gomobile_account_id));

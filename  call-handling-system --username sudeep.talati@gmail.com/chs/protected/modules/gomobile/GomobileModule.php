@@ -15,6 +15,24 @@ class GomobileModule extends CWebModule
 		
 		$url = 	Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.gomobile.assets'));	
 		Yii::app()->clientScript->registerCssFile($url.'\css\gomobile.css') ;
+		
+		
+		
+		$gomobile_account_id=Gmservicecalls::model()->getaccountid();
+		if ($gomobile_account_id=='' || $gomobile_account_id=='DEMO')
+		{	
+			$url=Yii::app()->getBaseUrl().'/index.php?r=gomobile/default/getaccountid';
+			
+			echo '<div style="background-color:red; padding:20px; width:100%;"> <h4>Please set <a href='.$url.'>account id</a> first before using the GoMobile service</h4>
+					Or <a href=''> Click here</a> to get the account id
+			</div>';
+			 
+		}
+		
+		
+		
+		
+		
 	}
 
 	public function beforeControllerAction($controller, $action)

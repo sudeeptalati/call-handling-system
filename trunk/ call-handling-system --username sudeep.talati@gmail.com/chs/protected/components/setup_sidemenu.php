@@ -3,7 +3,7 @@
 <?php
  
 $sidebarMenuItems=array(
-	array('label'=>'GO MOBILE', 'url'=>array('/gomobile')),
+	array('label'=>'GoMobile', 'url'=>array('/gomobile')),
 	array('label'=>'Tasks To Do', 'url'=>array('TasksToDo/admin')),
 	array('label'=>'Company Details', 'url'=>array('/setup/view&id=1')),
 	array('label'=>'Brands / Make', 'url'=>array('Brand/admin')),

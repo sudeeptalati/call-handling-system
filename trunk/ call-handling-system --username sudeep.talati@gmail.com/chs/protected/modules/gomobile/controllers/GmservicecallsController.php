@@ -195,28 +195,37 @@ class GmservicecallsController extends Controller
 	$servicecall_recieved=$_POST['data'];
 	
 	 
-	//$servicecall_recieved='[[{"service_reference_number":127549,"work_carried_out":"{\"report_findings\":\"iphone 6\",\"workdone\":\"WORK DONE\",\"parts\":[{\"partused\":\"bearing\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}],[{"service_reference_number":127542,"work_carried_out":"{\"report_findings\":\"i found a wet Floor\\t\\t\",\"workdone\":\"This is work Done I replaced Bearings\\t\",\"parts\":[{\"partused\":\"Bearing\",\"quantity\":\"50\"},{\"partused\":\"Seal\",\"quantity\":\"50\"}]}"}]]';
+	//$servicecall_recieved=' [{"gomobile_account_id":"Sudeep","service_reference_number":200001,"work_carried_out":"{\"report_findings\":\"this is the report\",\"workdone\":\"this is the findibr\",\"parts\":[]}","images":"{\"findings\":\"NOIMAGE\",\"product\":\"NOIMAGE\",\"no_access\":\"NOIMAGE\",\"other\":\"NOIMAGE\"}"},{"gomobile_account_id":"Sudeep","service_reference_number":200002,"work_carried_out":"{\"report_findings\":\"Ggg\",\"workdone\":\"Ggf\",\"parts\":[{\"partused\":\"Re\",\"quantity\":\"2\"}]}","images":"{\"findings\":\"NOIMAGE\",\"product\":\"NOIMAGE\",\"no_access\":\"NOIMAGE\",\"other\":\"NOIMAGE\"}"}]';
+	//$servicecall_recieved=' [{"gomobile_account_id":"Sudeep","service_reference_number":200002,"work_carried_out":"{\"report_findings\":\"Ggg\",\"workdone\":\"Ggf\",\"parts\":[{\"partused\":\"Re\",\"quantity\":\"2\"}]}","images":"{\"findings\":\"NOIMAGE\",\"product\":\"NOIMAGE\",\"no_access\":\"NOIMAGE\",\"other\":\"NOIMAGE\"}"}]';
+	
 	$mydata=json_decode($servicecall_recieved);
-	//print_r($servicecall_recieved);
+	//echo json_encode($mydata);
 	
-	
+
 	foreach ($mydata as $servicecalls)
 	{
-			$received_servicecalls_ref_no=$servicecalls[0]->service_reference_number;
+			$received_servicecalls_ref_no=$servicecalls->service_reference_number;
 			$recieved_data=array();
-			/*
-			array_push($recieved_data,$servicecalls[0]->work_carried_out);
-			array_push($recieved_data,$servicecalls[0]->images);
- 			*/
- 			$recieved_data['work_carried_out']=$servicecalls[0]->work_carried_out;
- 			$recieved_data['images']=$servicecalls[0]->images;
+			
+			array_push($recieved_data,$servicecalls->work_carried_out);
+			array_push($recieved_data,$servicecalls->images);
+ 			
+ 			$recieved_data['work_carried_out']=$servicecalls->work_carried_out;
+ 			$recieved_data['images']=$servicecalls->images;
  			
  			$recieved_data_json=json_encode($recieved_data);
-			echo 'SERVIC REF NO#'.$received_servicecalls_ref_no;
-			echo '<br>COMMENTS ARE :'.print_r($recieved_data);
+			
+			
+			echo '<hr>SERVIC REF NO#'.$received_servicecalls_ref_no;
+			echo '<br>WORK CARRIED OUT#'.$servicecalls->work_carried_out;
+			echo '<br>IMAGES #'.$servicecalls->images;
+			echo $recieved_data_json;
+			//echo '<br>COMMENTS ARE :'.print_r($recieved_data).'<hr>';
 			
 			$this->savesentservicecallstatus($received_servicecalls_ref_no, '5',$recieved_data_json);///since status id 5 is received from mobile status
 	}//end of foreach 
+	
+	
 	
 	}
 	

@@ -207,8 +207,7 @@ return array(
 		//'application.extensions.*',
 		'application.extensions.bootstrap.*',
 		'bootstrap.helpers.TbHtml',
-		'application.vendors.*',
-		
+		'application.modules.gomobile.models.*',
 		'application.modules.user.models.*',
         'application.modules.user.components.*',
         'application.modules.rights.*',

@@ -81,7 +81,7 @@ $current_version=Yii::app()->params['software_version'];
 </tr>
 <tr>
 	<td style="vertical-align:top;"><h4>Designed by</h4></td>
-	<td style="vertical-align :top;">			Sudeep Talati, 
+	<td style="vertical-align :top;">			Sudeep Talati, Purva Talati 
 		  	Kruthika Bethur &amp; Team</td>
 </tr>
 

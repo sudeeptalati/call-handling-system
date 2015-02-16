@@ -17,7 +17,7 @@
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'gm-servicecalls-grid',
-	'dataProvider'=>$model->getdatabyserverstatusid(5), ///where 5 is status is for recieved from mobile
+	'dataProvider'=>$model->getdatabyserverstatusid(1), ///where 5 is status is for recieved from mobile
 	'filter'=>$model,
 	'columns'=>array(
 		//'id',

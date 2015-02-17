@@ -11,9 +11,10 @@ class ServerController extends Controller
 	
 	public function actionGetdatafromodule()
 	{		
-		header('Access-Control-Allow-Origin: *');  
+		header('Access-Control-Allow-Origin: *');
 		$datareceived=$_POST['jsonData'];
-		//$datareceived='{"Details":[{"id":"27422","servicecall_number":"125685","engineer_id":"90000000","servicecall":{"service_reference_number":"125685","fault_description":"installation fail","fault_date":"1410300000","product_id":"22207","job_finished_date":"","customer|town":"dewas"},"customer":{"name":" Purva"}},{"id":"27423","servicecall_number":"125686","engineer_id":"564","servicecall":{"service_reference_number":"125686","fault_description":"installation fail","fault_date":"1410300000","product_id":"22208","job_finished_date":"","customer|town":"dewas"},"customer":{"name":" Purva"}},{"id":"27424","servicecall_number":"125687","engineer_id":"435","servicecall":{"service_reference_number":"125687","fault_description":"installation failed","fault_date":"1410300000","product_id":"22208","job_finished_date":"","customer|town":"dewas"},"customer":{"name":" Purva"}},{"id":"27425","servicecall_number":"125688","engineer_id":"403","servicecall":{"service_reference_number":"125688","fault_description":"installation failed","fault_date":"1410300000","product_id":"22209","job_finished_date":"","customer|town":"SWINDON"},"customer":{"name":" Purva"}}]} ';
+	
+		//$datareceived=' {"Details":[{"service_reference_number":"127550","gomobile_sentcall_id":"29287","visit_start_date":"1421913600","visit_end_date":"1421917200","gomobile_account_id":"Sudeep","engineer_email":"sweetpullo@gmail.com","customer_fullname":" kenny","customer_postcode":"m22 4ng","customer_address":"2 Royle Green Road   Manchester m22 4ng","servicecall":{"Customer":" kenny","Postcode":"m22 4ng","Model":"AWB510L","Type":"Washing Machine","Fault":"drum stopped spinning, has checked filter, \r\nis aware call chargeable if not a manufacturing fault or NFF\r\n****can you get the 14 digit number starting 114****","Appointment Date":"22-Jan-2015","Brand":"Amica"},"customer":{"name":" kenny","postcode":"m22 4ng"}}]}';
 		$servicecalls=array();
 		$sent_servicecalls=array();
 		$unsent_servicecalls=array();
@@ -27,24 +28,29 @@ class ServerController extends Controller
 			{
 				$service_reference_number=$p['service_reference_number'];	
 				$engineer_email=$p['engineer_email'];
+				
 				if($this->ifengineeremailexists($engineer_email))//calling function
 				{
 					$model=new EngineerData;
 					$model->engineer_email=$engineer_email;
-					$model->account_id=$p['gomobile_account_id'];
 					$x=array();
 					$x['service_reference_number']=$service_reference_number;
 					$x['engineer_email']=$engineer_email;
+					$x['gomobile_account_id']=$p['gomobile_account_id'];
 					$x['customer_fullname']=$p['customer_fullname'];
 					$x['customer_postcode']=$p['customer_postcode'];
+					$x['visit_start_date']=$p['visit_start_date'];
+					$x['visit_end_date']=$p['visit_end_date'];
+						
 					$x['data']=$p['servicecall'];
 					$model->data=json_encode($x);
 					$model->data_status_id='1';///since 1 is recvd from CHS
+					$model->gomobile_account_id=$p['gomobile_account_id'];
 					$ar=array();
 					if($model->save())
 						{
 						$ar['service_reference_number']=$service_reference_number;
-						$ar['message']='Servicecall Sent';
+						$ar['message']='Servicecall Sent To Mobile';
 						}///end of if $model->save
 					else
 						{
@@ -121,21 +127,35 @@ class ServerController extends Controller
 		if($this->verifyengineer($engineer_email,$engineer_pwd))
 		{
 			$getdata=$_POST['data'];
-			$model=new EngineerData;
-			$model->engineer_email=$engineer_email;
-			$model->data=$getdata;
-			$model->data_status_id=3;
+			//$getdata='[{"gomobile_account_id":"Sudeep","service_reference_number":127548,"work_carried_out":"{\"report_findings\":\"2bsd\",\"workdone\":\"\",\"parts\":[]}","images":"{\"findings\":\"NOIMAGE\",\"product\":\"NOIMAGE\",\"no_access\":\"NOIMAGE\",\"other\":\"NOIMAGE\"}"},{"gomobile_account_id":"Sudeep","service_reference_number":127550,"work_carried_out":"{\"report_findings\":\"\",\"workdone\":\"\",\"parts\":[]}","images":"{\"findings\":\"NOIMAGE\",\"product\":\"NOIMAGE\",\"no_access\":\"NOIMAGE\",\"other\":\"NOIMAGE\"}"}]';
+			$datareceived_array=(array)json_decode($getdata, true); 
+			$status="OK";
+			$status_message='Saving Servicecalls: Ref Nos#';
+			
+			foreach($datareceived_array as $datareceived_array_value)
+			{
+				$model=new EngineerData;
+				$model->engineer_email=$engineer_email;
+				$model->gomobile_account_id=$datareceived_array_value['gomobile_account_id'];
+				$model->data=json_encode($datareceived_array_value);
+				$model->data_status_id=3;
 				if($model->save())
 				{
-				$status="OK";
-				$status_message='Servicecall has been received and saved on the server.';
+					$status_message=$status_message.' '.$datareceived_array_value['service_reference_number'].', ';
 				}//end of if model save
 				else
 				{
-				$status="FAILED";
-				$status_message='Servicecall not saved on the server';
+					$status="FAILED";
+					$status_message=$status_message.'NOT SAVED :'.$datareceived_array_value['service_reference_number'].', ' ;
 				}///end of else
-				echo json_encode(array('status'=>$status,'status_message'=>$status_message));
+			}	
+				
+				
+			//print_r($datareceived_array);
+			//$gomobile_account_id=$datareceived_array[0]['gomobile_account_id'];
+			
+			
+			echo json_encode(array('status'=>$status,'status_message'=>$status_message));
 		}///end of if verifyengineer
 		else
 		{
@@ -147,16 +167,36 @@ class ServerController extends Controller
 	public function actionGetdatafordesktop()
 	{
 	header('Access-Control-Allow-Origin: *');
-	$engineer_data_model=EngineerData::model()->findAllByAttributes(array('data_status_id'=>'3'));
-	$new_array=array();
-	foreach($engineer_data_model as $data)
-	{
 	
+	$engineer_emails=$_GET['engineer_emails'];
+	$gomobile_account_id=$_GET['gomobile_account_id'];
+	$new_array=array();
+/*
+	echo '<br> gomobile_account_id EMAIL SO N SERVE '.$gomobile_account_id	;		
+	echo '<br> RECIEBEVD EMAIL SO N SERVE '.	$engineer_emails;
+*/
+	foreach ($engineer_emails as $engg_email)
+	{
+		//echo '<br> ARRAY  EMAIL SO N SERVE '.$engg_email	;
+		$engineer_data_model=EngineerData::model()->findAllByAttributes(array('data_status_id'=>'3', 'engineer_email'=>$engg_email, 'gomobile_account_id'=>$gomobile_account_id));
+		
+		foreach($engineer_data_model as $data)
+		{
+		//echo '<br> ARRAY  EMAIL SO N SERVE '.§$data->data	;
 		array_push($new_array,json_decode($data->data));
 		$this->deleteengineerdatarecord($data->id);
 		
+		}
+		
+		
 	}
+	/*
+		$engineer_data_model=EngineerData::model()->findAllByAttributes(array('data_status_id'=>'3'));
+	*/
 	echo json_encode($new_array);
+	
+	
+	
 	}///end of actionGetdatafordesktop
 	
 	

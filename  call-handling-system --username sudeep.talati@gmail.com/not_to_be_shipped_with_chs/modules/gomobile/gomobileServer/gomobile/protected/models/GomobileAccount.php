@@ -1,24 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "engineer_data".
+ * This is the model class for table "gomobile_account".
  *
- * The followings are the available columns in table 'engineer_data':
+ * The followings are the available columns in table 'gomobile_account':
  * @property integer $id
- * @property string $engineer_email
- * @property string $data
- * @property integer $data_status_id
- * @property string $created
- * @property string $last_modified
+ * @property string $gomobile_account_name
+ * @property string $company_name
+ * @property string $contact_email
+ * @property integer $no_of_rapport_users
+ * @property integer $no_of_engineers
+ * @property string $created_on
+ * @property string $last_modified_on
  */
-class EngineerData extends CActiveRecord
+class GomobileAccount extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'engineer_data';
+		return 'gomobile_account';
 	}
 
 	/**
@@ -29,11 +31,11 @@ class EngineerData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('data_status_id', 'numerical', 'integerOnly'=>true),
-			array('engineer_email, data, created, last_modified', 'safe'),
+			array('no_of_rapport_users, no_of_engineers', 'numerical', 'integerOnly'=>true),
+			array('gomobile_account_name, company_name, contact_email, created_on, last_modified_on', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, engineer_email, data, data_status_id, created, last_modified', 'safe', 'on'=>'search'),
+			array('id, gomobile_account_name, company_name, contact_email, no_of_rapport_users, no_of_engineers, created_on, last_modified_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,7 +47,6 @@ class EngineerData extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		'data_status'=>array(self::BELONGS_TO, 'DataStatus', 'data_status_id'),
 		);
 	}
 
@@ -56,11 +57,13 @@ class EngineerData extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'engineer_email' => 'Engineer Email',
-			'data' => 'Data',
-			'data_status_id' => 'Data Status',
-			'created' => 'Created',
-			'last_modified' => 'Last Modified',
+			'gomobile_account_name' => 'Gomobile Account Name',
+			'company_name' => 'Company Name',
+			'contact_email' => 'Contact Email',
+			'no_of_rapport_users' => 'No Of Rapport Users',
+			'no_of_engineers' => 'No Of Engineers',
+			'created_on' => 'Created On',
+			'last_modified_on' => 'Last Modified On',
 		);
 	}
 
@@ -83,11 +86,13 @@ class EngineerData extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('engineer_email',$this->engineer_email,true);
-		$criteria->compare('data',$this->data,true);
-		$criteria->compare('data_status_id',$this->data_status_id);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('last_modified',$this->last_modified,true);
+		$criteria->compare('gomobile_account_name',$this->gomobile_account_name,true);
+		$criteria->compare('company_name',$this->company_name,true);
+		$criteria->compare('contact_email',$this->contact_email,true);
+		$criteria->compare('no_of_rapport_users',$this->no_of_rapport_users);
+		$criteria->compare('no_of_engineers',$this->no_of_engineers);
+		$criteria->compare('created_on',$this->created_on,true);
+		$criteria->compare('last_modified_on',$this->last_modified_on,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -98,30 +103,31 @@ class EngineerData extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return EngineerData the static model class
+	 * @return GomobileAccount the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 	
-		protected function beforeSave()
+	
+	protected function beforeSave()
     {
     	if(parent::beforeSave())
         {
-        	if($this->isNewRecord)  // Creating new record 
+    		if($this->isNewRecord)  // Creating new record 
             {
-				$this->created=time();
+        		$this->created_on=time();
 				
     			return true;
             }
             else
             {
-            	
-					$this->last_modified=time();
-            	
-            	return true;
+                $this->last_modified_on=time();
+                return true;
             }
         }//end of if(parent())
-    }//end of beforeSave().
+        else
+        	return false;
+    }//end of beforeSave()  
 }

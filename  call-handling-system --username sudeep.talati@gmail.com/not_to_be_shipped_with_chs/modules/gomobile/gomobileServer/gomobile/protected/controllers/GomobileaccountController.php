@@ -1,6 +1,6 @@
 <?php
 
-class EngineerdataController extends Controller
+class GomobileaccountController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -15,7 +15,7 @@ class EngineerdataController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			//'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -28,11 +28,11 @@ class EngineerdataController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(''),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,14 +62,14 @@ class EngineerdataController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new EngineerData;
+		$model=new GomobileAccount;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['EngineerData']))
+		if(isset($_POST['GomobileAccount']))
 		{
-			$model->attributes=$_POST['EngineerData'];
+			$model->attributes=$_POST['GomobileAccount'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class EngineerdataController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['EngineerData']))
+		if(isset($_POST['GomobileAccount']))
 		{
-			$model->attributes=$_POST['EngineerData'];
+			$model->attributes=$_POST['GomobileAccount'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class EngineerdataController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('EngineerData');
+		$dataProvider=new CActiveDataProvider('GomobileAccount');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class EngineerdataController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new EngineerData('search');
+		$model=new GomobileAccount('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['EngineerData']))
-			$model->attributes=$_GET['EngineerData'];
+		if(isset($_GET['GomobileAccount']))
+			$model->attributes=$_GET['GomobileAccount'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class EngineerdataController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return EngineerData the loaded model
+	 * @return GomobileAccount the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=EngineerData::model()->findByPk($id);
+		$model=GomobileAccount::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +160,11 @@ class EngineerdataController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param EngineerData $model the model to be validated
+	 * @param GomobileAccount $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='engineer-data-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='gomobile-account-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

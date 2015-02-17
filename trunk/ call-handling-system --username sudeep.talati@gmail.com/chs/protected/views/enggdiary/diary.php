@@ -266,9 +266,10 @@ $today = date('d-m-Y');
         if (recievd_postcodes.length != 0)
         {
             //we will call this 3 times to get the 3 options
-            findthenextdaywithnearestpostcode();
-            findthenextdaywithnearestpostcode();
-            findthenextdaywithnearestpostcode();
+			for (var p=0;p<availabledatesinddmmyyyy.length;p++)
+			{
+				findthenextdaywithnearestpostcode();
+            }
         }
         else
         {
@@ -280,10 +281,19 @@ $today = date('d-m-Y');
         console.log('=============AFTER SORTING ========================');
         console.log(availabledatesinddmmyyyy);
 
-        createpreferecncebutton('0', availabledatesinddmmyyyy[0]);
+        /*
+		createpreferecncebutton('0', availabledatesinddmmyyyy[0]);
         createpreferecncebutton('1', availabledatesinddmmyyyy[1]);
         createpreferecncebutton('2', availabledatesinddmmyyyy[2]);
-
+		*/
+		
+		for (var p=0;p<availabledatesinddmmyyyy.length;p++)
+		{
+			createpreferecncebutton(p, availabledatesinddmmyyyy[p]);
+		}
+		
+		
+		
         setonclickforpreferreddatesbtn();
     }//end of my fnc
 
@@ -417,13 +427,42 @@ $today = date('d-m-Y');
 
     function setonclickforpreferreddatesbtn()
     {
+		
+		/*
         document.getElementById('outputDiv').innerHTML += '<br> The first  Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[0] + '</b>	';
         document.getElementById('outputDiv').innerHTML += '<br> The Second Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[1] + '</b>	';
         document.getElementById('outputDiv').innerHTML += '<br> The Third  Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[2] + '</b>	';
         document.getElementById('0preferecncebutton').onclick = selectthefirstavailableday;
         document.getElementById('1preferecncebutton').onclick = selectthesecondavailableday;
         document.getElementById('2preferecncebutton').onclick = selectthethirdavailableday;
-    }
+		*/
+		
+		for (var p=0;p<availabledatesinddmmyyyy.length;p++)
+		{
+			document.getElementById('outputDiv').innerHTML += '<br> The NEXT Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[0] + '</b>	';
+			var elementid=p+'preferecncebutton';
+			
+			switch (p)
+			{
+				case 0:
+						document.getElementById(elementid).onclick = selectthefirstavailableday;
+						document.getElementById('outputDiv').innerHTML += '<br> The first  Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[0] + '</b>	';
+						break;
+				case 1:
+						document.getElementById(elementid).onclick = selectthesecondavailableday;
+						document.getElementById('outputDiv').innerHTML += '<br> The Second Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[1] + '</b>	';
+						break;
+				case 2:
+						document.getElementById(elementid).onclick = selectthethirdavailableday;
+						document.getElementById('outputDiv').innerHTML += '<br> The Third  Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[2] + '</b>	';
+						break;
+						
+				
+			}//end of switch
+			
+			
+		}//for 
+	}
 
 
     function createpreferecncebutton(pref, dateid)

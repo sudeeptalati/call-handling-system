@@ -24,7 +24,7 @@ class GomobileModule extends CWebModule
 			$url=Yii::app()->getBaseUrl().'/index.php?r=gomobile/default/getaccountid';
 			
 			echo '<div style="background-color:red; padding:20px; width:100%;"> <h4>Please set <a href='.$url.'>account id</a> first before using the GoMobile service</h4>
-					Or <a href=''> Click here</a> to get the account id
+					Or <a href="http://www.rapportsoftware.co.uk/index.php/about/mobile/request-gomobile-account-id" target=_blank> Click here</a> to get the account id
 			</div>';
 			 
 		}

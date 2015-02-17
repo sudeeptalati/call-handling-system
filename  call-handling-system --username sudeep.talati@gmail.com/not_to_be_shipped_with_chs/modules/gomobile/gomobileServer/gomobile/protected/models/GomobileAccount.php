@@ -33,6 +33,7 @@ class GomobileAccount extends CActiveRecord
 		return array(
 			array('no_of_rapport_users, no_of_engineers', 'numerical', 'integerOnly'=>true),
 			array('gomobile_account_name, company_name, contact_email, created_on, last_modified_on', 'safe'),
+			array('gomobile_account_name', 'unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, gomobile_account_name, company_name, contact_email, no_of_rapport_users, no_of_engineers, created_on, last_modified_on', 'safe', 'on'=>'search'),

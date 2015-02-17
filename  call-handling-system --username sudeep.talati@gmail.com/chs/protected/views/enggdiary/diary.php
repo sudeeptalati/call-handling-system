@@ -8,6 +8,7 @@ $current_customer_postcode = $servicecallmodel->customer->postcode;
 $engineer_name = $servicecallmodel->engineer->fullname;
 $servicecallmodel = Servicecall::model()->findbyPK(array('id' => $servicecall_id));
 $model = Enggdiary::model();
+//$no_next_days = 10;
 $no_next_days = $model->getconsiderdaysforslotavailabity();
 $allowedtraveldistancebetweenpostcodes = $model->gettraveldistanceallowedbetweenpostcodes();
 $totalnoofcallsperday = $model->getTotalnoofcallsperday();
@@ -262,13 +263,30 @@ $today = date('d-m-Y');
         //console.log('------recievd_distances-----------'+recievd_distances);
         //console.log('------recievd_postcodes-----------'+recievd_postcodes);
         console.log('availablle days are availabledatesinddmmyyyy  ' + availabledatesinddmmyyyy);
+		
+		console.log('availablle days are availabledatesinddmmyyyy  ' + availabledatesinddmmyyyy.length);
+		if(availabledatesinddmmyyyy.length==0)////means if system could not find any available dates we ask user to manually create diary entry
+		{
+				
+				//document.getElementById('systemmessage')='<b>System cannot find any suitable dates, Please book the call manually</b>'
+				document.getElementById('outputDiv').innerHTML += '<br><b>System cannot find any suitable dates, Please book the call manually by the above link.</b>';
+				document.getElementById('loading').style.display = 'none';
+				//document.getElementById('systemmessage').style.display = 'block';
 
-        if (recievd_postcodes.length != 0)
+		}
+        
+		
+		
+		
+		if (recievd_postcodes.length != 0)
         {
             //we will call this 3 times to get the 3 options
 			for (var p=0;p<availabledatesinddmmyyyy.length;p++)
 			{
+				if(p>2)
+				break;////otherwise it will show more than 3 available days
 				findthenextdaywithnearestpostcode();
+				
             }
         }
         else
@@ -289,6 +307,9 @@ $today = date('d-m-Y');
 		
 		for (var p=0;p<availabledatesinddmmyyyy.length;p++)
 		{
+			
+			if(p>2)
+				break;////otherwise it will show more than 3 available days
 			createpreferecncebutton(p, availabledatesinddmmyyyy[p]);
 		}
 		
@@ -439,7 +460,9 @@ $today = date('d-m-Y');
 		
 		for (var p=0;p<availabledatesinddmmyyyy.length;p++)
 		{
-			document.getElementById('outputDiv').innerHTML += '<br> The NEXT Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[0] + '</b>	';
+			if(p>2)
+				break;////otherwise it will show more than 3 available days
+			//document.getElementById('outputDiv').innerHTML += '<br> The NEXT Available Day for Booking is DAY <b>' + availabledatesinddmmyyyy[0] + '</b>	';
 			var elementid=p+'preferecncebutton';
 			
 			switch (p)
@@ -730,7 +753,7 @@ $today = date('d-m-Y');
 
     <div id='loading' style='display:none'><img src="images/loading.gif"  \>
         <br>
-        <span>Please wait, the system is calculating the nearest suitable day<span></div>
+        <div id='systemmessage'>Please wait, the system is calculating the nearest suitable day</div></div>
                 <div id="inputs">
                     <p><button type="button" onclick="callme();">Show me Available Days</button></p>
                 </div>

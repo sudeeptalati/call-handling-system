@@ -32,9 +32,10 @@
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				//array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Engineer', 'url'=>array('/engineer')),
-				array('label'=>'Engineer Data', 'url'=>array('/engineerdata')),
-				array('label'=>'Data Status', 'url'=>array('/datastatus')),
+				array('label'=>'Account ID', 'url'=>array('/gomobileaccount/admin')),
+				array('label'=>'Engineer', 'url'=>array('/engineer/admin')),
+				array('label'=>'Engineer Data', 'url'=>array('/engineerdata/admin')),
+				array('label'=>'Data Status', 'url'=>array('/datastatus/admin')),
 				array('label'=>'Authentication', 'url'=>array('/authentication')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
@@ -52,9 +53,9 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by UK Whitegoods.<br/>
 		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+		 
 	</div><!-- footer -->
 
 </div><!-- page -->

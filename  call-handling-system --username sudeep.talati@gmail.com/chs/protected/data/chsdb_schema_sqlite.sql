@@ -1106,7 +1106,7 @@ CREATE TABLE "engineer" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , first_n
 -- Data dump for engineer, a total of 1 rows
 ----
 BEGIN TRANSACTION;
-INSERT INTO engineer (id,first_name,last_name,active,company,vat_reg_number,notes,inactivated_by_user_id,inactivated_on,contact_details_id,delivery_contact_details_id,created_by_user_id,created,modified,fullname) VALUES ('90000000','N/A','N/A','1','N/A','N/A','N/A','','','1000000','1000000','2','1366114663','','N/A');
+INSERT INTO engineer (id,first_name,last_name,active,company,vat_reg_number,notes,inactivated_by_user_id,inactivated_on,contact_details_id,delivery_contact_details_id,created_by_user_id,created,modified,fullname) VALUES ('90000000','Not','Assigned','1','Not Assigned','N/A','N/A','','','1000000','1000000','2','1366114663','1424268011','Not Assigned');
 COMMIT;
 
 ----

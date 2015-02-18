@@ -1,7 +1,7 @@
 ----
 -- phpLiteAdmin database dump (http://phpliteadmin.googlecode.com)
 -- phpLiteAdmin version: 1.9.0
--- Exported on Feb 11th, 2015, 08:20:46PM
+-- Exported on Feb 18th, 2015, 12:10:51PM
 -- Database file: ./chs/protected/data/chs.db
 ----
 
@@ -660,7 +660,7 @@ INSERT INTO advance_settings (id,parameter,value,name) VALUES ('4','ftp_port',''
 INSERT INTO advance_settings (id,parameter,value,name) VALUES ('5','livecall_max_calls','10','Livecall Max Calls');
 INSERT INTO advance_settings (id,parameter,value,name) VALUES ('6','livecall_max_day_distance','500','Livecall Max Distance');
 INSERT INTO advance_settings (id,parameter,value,name) VALUES ('7','livecall_max_day_traveltime','500','Livecall Max Travell time');
-INSERT INTO advance_settings (id,parameter,value,name) VALUES ('10001','internet_connected','0','Internet Available');
+INSERT INTO advance_settings (id,parameter,value,name) VALUES ('10001','internet_connected','1','Internet Available');
 INSERT INTO advance_settings (id,parameter,value,name) VALUES ('10002','warranty_notification','1','Warranty Notification');
 INSERT INTO advance_settings (id,parameter,value,name) VALUES ('10003','notification_lifetime','1','Lifetime of Notification Messages In Days (Messages older than given value will be automatically deleted )');
 INSERT INTO advance_settings (id,parameter,value,name) VALUES ('10004','engglistdisplayformat','2','Engineer List Display Format');
@@ -696,10 +696,9 @@ DROP TABLE 'tasks_to_do';
 CREATE TABLE tasks_to_do(id INTEGER PRIMARY KEY NOT NULL, task TEXT, status TEXT, msgbody TEXT, subject TEXT, send_to TEXT, created DATETIME, scheduled DATETIME, executed DATETIME, finished DATETIME);
 
 ----
--- Data dump for tasks_to_do, a total of 1 rows
+-- Data dump for tasks_to_do, a total of 0 rows
 ----
 BEGIN TRANSACTION;
-INSERT INTO tasks_to_do (id,task,status,msgbody,subject,send_to,created,scheduled,executed,finished) VALUES ('1','email','running','Hi Sudeep','hii','sudeep.makku@gmail.com','1384278635','','1384280013','');
 COMMIT;
 
 ----
@@ -730,9 +729,10 @@ DROP TABLE 'addons';
 CREATE TABLE addons(id INTEGER PRIMARY KEY NOT NULL, type TEXT, name TEXT, addon_label TEXT, information TEXT, active INTEGER, created_on DATETIME, created_by INTEGER, inactivated_on DATETIME, inactivated_by INTEGER);
 
 ----
--- Data dump for addons, a total of 0 rows
+-- Data dump for addons, a total of 1 rows
 ----
 BEGIN TRANSACTION;
+INSERT INTO addons (id,type,name,addon_label,information,active,created_on,created_by,inactivated_on,inactivated_by) VALUES ('1','Component','gomobile','GoMobile','','1','1424257657','1','','');
 COMMIT;
 
 ----
@@ -759,10 +759,10 @@ CREATE TABLE tbl_users (
 -- Data dump for tbl_users, a total of 4 rows
 ----
 BEGIN TRANSACTION;
-INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,superuser,status) VALUES ('1','admin','21232f297a57a5a743894a0e4a801fc3','webmaster@example.com','21232f297a57a5a743894a0e4a801fc3','1261146094','1423574576','1','1');
+INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,superuser,status) VALUES ('1','admin','21232f297a57a5a743894a0e4a801fc3','webmaster@example.com','21232f297a57a5a743894a0e4a801fc3','1261146094','1424257673','1','1');
 INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,superuser,status) VALUES ('2','demo','fe01ce2a7fbac8fafaed7c982a04e229','demo@example.com','fe01ce2a7fbac8fafaed7c982a04e229','1261146096','1423574715','0','1');
 INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,superuser,status) VALUES ('3','purva','e824772bbdda3f02a30d17840359c865','pp@p.cpo','9829bf3c0b06fd1f09e2b30b502a4e3b','1406558573','1406648432','0','1');
-INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,superuser,status) VALUES ('4','anne','e3fb62ebfa4f36acf5cbff6a6ed0f2e0','anne@gmail.com','9083e70463dc77efb9ac987cc3a23553','1423574125','1423577068','0','1');
+INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,superuser,status) VALUES ('4','anne','e3fb62ebfa4f36acf5cbff6a6ed0f2e0','anne@gmail.com','9083e70463dc77efb9ac987cc3a23553','1423574125','1424257146','0','1');
 COMMIT;
 
 ----
@@ -793,12 +793,9 @@ CREATE TABLE tbl_profiles_fields (
 );
 
 ----
--- Data dump for tbl_profiles_fields, a total of 3 rows
+-- Data dump for tbl_profiles_fields, a total of 0 rows
 ----
 BEGIN TRANSACTION;
-INSERT INTO tbl_profiles_fields (id,varname,title,field_type,field_size,field_size_min,required,match,range,error_message,other_validator,default,widget,widgetparams,position,visible) VALUES ('1','lastname','Last Name','VARCHAR','50','3','1','','','Incorrect Last Name (length between 3 and 50 characters).','','','','','1','3');
-INSERT INTO tbl_profiles_fields (id,varname,title,field_type,field_size,field_size_min,required,match,range,error_message,other_validator,default,widget,widgetparams,position,visible) VALUES ('2','firstname','First Name','VARCHAR','50','3','1','','','Incorrect First Name (length between 3 and 50 characters).','','','','','0','3');
-INSERT INTO tbl_profiles_fields (id,varname,title,field_type,field_size,field_size_min,required,match,range,error_message,other_validator,default,widget,widgetparams,position,visible) VALUES ('3','birthday','Birthday','DATE','0','0','2','','','','','0000-00-00','UWjuidate','{"ui-theme":"redmond"}','3','2');
 COMMIT;
 
 ----
@@ -1155,9 +1152,11 @@ DROP TABLE 'notification_rules';
 CREATE TABLE "notification_rules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , "job_status_id" INTEGER, "active" BLOB, "customer_notification_code" INTEGER, "engineer_notification_code" INTEGER, "warranty_provider_notification_code" INTEGER, "notify_others" BLOB, "created" DATETIME, "modified" DATETIME, "delete" DATETIME, CONSTRAINT FK_notification_rules_notification_code FOREIGN KEY (customer_notification_code) REFERENCES notification_code(id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT FK_notification_rules_notification_code FOREIGN KEY (engineer_notification_code) REFERENCES notification_code(id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT FK_notification_rules_notification_code FOREIGN KEY (warranty_provider_notification_code) REFERENCES notification_code(id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT FK_notification_rules_job_status FOREIGN KEY (job_status_id) REFERENCES job_status (id) ON DELETE CASCADE ON UPDATE RESTRICT );
 
 ----
--- Data dump for notification_rules, a total of 0 rows
+-- Data dump for notification_rules, a total of 2 rows
 ----
 BEGIN TRANSACTION;
+INSERT INTO notification_rules (id,job_status_id,active,customer_notification_code,engineer_notification_code,warranty_provider_notification_code,notify_others,created,modified,delete) VALUES ('1','3','1','1','1','0','0','1424257600','','');
+INSERT INTO notification_rules (id,job_status_id,active,customer_notification_code,engineer_notification_code,warranty_provider_notification_code,notify_others,created,modified,delete) VALUES ('2','1','1','1','1','0','0','1424257609','','');
 COMMIT;
 
 ----
@@ -1240,6 +1239,22 @@ CREATE TABLE retailers_and_distributors(id INTEGER PRIMARY KEY NOT NULL, company
 BEGIN TRANSACTION;
 INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000000','Not Known','RETAILER','Not Known','','','','','');
 INSERT INTO retailers_and_distributors (id,company,companytype,contact_person,address,town,postcode,telephone,created) VALUES ('1000001','Not Known','DISTRIBUTOR','Not Known','','','','','');
+COMMIT;
+
+----
+-- Drop table for graph_reportfields
+----
+DROP TABLE 'graph_reportfields';
+
+----
+-- Table structure for graph_reportfields
+----
+CREATE TABLE graph_reportfields (id INTEGER PRIMARY KEY NOT NULL, report_type INTEGER, field_name TEXT, field_type TEXT, field_relation TEXT, field_label TEXT, sort_order INTEGER,active INTEGER );
+
+----
+-- Data dump for graph_reportfields, a total of 0 rows
+----
+BEGIN TRANSACTION;
 COMMIT;
 
 ----

@@ -281,7 +281,7 @@ $today = date('d-m-Y');
 		if (recievd_postcodes.length != 0)
         {
             //we will call this 3 times to get the 3 options
-			for (var p=0;p<availabledatesinddmmyyyy.length;p++)
+			for (var p=0;p<recievd_postcodes.length;p++)
 			{
 				if(p>2)
 				break;////otherwise it will show more than 3 available days
@@ -427,10 +427,11 @@ $today = date('d-m-Y');
         {
             p = indexOfSmallest(recievd_distances);
             day_count = finddayofnearestpostcode(recievd_postcodes[p]);
-            //nearestdate=adddaystodate(day_count+1); ///since day starts with 0
+            
+			//nearestdate=adddaystodate(day_count+1); ///since day starts with 0
             //getting index of neartestday
             nearestdate = considered_dates[day_count]; ///since day starts with 0
-            console.log(day_count, engg_id, service_id, nearestdate);
+            console.log('I AM IN RECEIEVD POSTCODELENGTH >0 Day Count'+day_count, engg_id, service_id, nearestdate);
             if (arraycontains(availabledatesinddmmyyyy, nearestdate) == true)
             {
                 recievd_postcodes.splice(p, 1);

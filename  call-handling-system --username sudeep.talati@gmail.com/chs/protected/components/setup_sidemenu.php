@@ -7,7 +7,7 @@ $sidebarMenuItems=array(
 	array('label'=>'Tasks To Do', 'url'=>array('TasksToDo/admin')),
 	array('label'=>'Company Details', 'url'=>array('/setup/view&id=1')),
 	array('label'=>'Brands / Make', 'url'=>array('Brand/admin')),
-	array('label'=>'Model Numbers', 'url'=>array('Modelnumbers/admin')),
+	array('label'=>'Model Numbers', 'url'=>array('ModelNumbers/admin')),
 	array('label'=>'Install Addon', 'url'=>array('addons/')),	
 	array('label'=>'Contracts', 'url'=>array('Contract/admin')),
 	array('label'=>'Company Logo', 'url'=>array('setup/changeLogo')),

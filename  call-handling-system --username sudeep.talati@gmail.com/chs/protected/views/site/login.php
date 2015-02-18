@@ -30,10 +30,15 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <tt>demo/demo</tt> or 
-		</p>
+	
+	<p class="hint">
+		First time users: login with username  <b style="color: red;">admin</b></span> & password <b style="color: red;">admin</b></span> for full admin rights.
+	</p>
+	 
+	<div class="hint">
+		Do Not forget to change your admin password after your first login
 	</div>
+	</div>	
 
 	<div class="row rememberMe">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>

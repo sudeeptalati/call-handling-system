@@ -715,7 +715,7 @@ CREATE TABLE "setup" ("id" INTEGER PRIMARY KEY  NOT NULL ,"company" TEXT,"addres
 -- Data dump for setup, a total of 1 rows
 ----
 BEGIN TRANSACTION;
-INSERT INTO setup (id,company,address,town,postcode_s,postcode_e,county,country_id,email,telephone,mobile,alternate,fax,postcodeanywhere_account_code,postcodeanywhere_license_key,website,vat_reg_no,company_number,postcode,version_update_url,live_booking_id) VALUES ('1','DEMO','DEMO','DEMO','DEMO','DEMO','DEMO','1','DEMO@DEMO.co.uk','DEMO','44','','DEMO','DEMO','DEMO','DEMO','','','DEMO','http://www.rapportsoftware.co.uk/versions_test','');
+INSERT INTO setup (id,company,address,town,postcode_s,postcode_e,county,country_id,email,telephone,mobile,alternate,fax,postcodeanywhere_account_code,postcodeanywhere_license_key,website,vat_reg_no,company_number,postcode,version_update_url,live_booking_id) VALUES ('1','DEMO','DEMO','DEMO','DEMO','DEMO','DEMO','1','DEMO@DEMO.co.uk','DEMO','44','','DEMO','DEMO','DEMO','DEMO','','','DEMO','http://www.rapportsoftware.co.uk/versions','');
 COMMIT;
 
 ----

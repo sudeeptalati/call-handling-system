@@ -49,7 +49,9 @@ function validateForm() {
 			</td>
 			<td>
 			<?php 
-				$engglist=CHtml::listData(Engineer::model()->findAll(),	'id', 'first_name');
+				$engglist=Engineer::model()->getactiveengineerslist();
+				//$engglist=CHtml::listData(Engineer::model()->findAll(),	'id', 'fullname');
+
 				$engglist[101]='All Engineers';
 				$engglist = array_reverse($engglist, true);
 				echo CHtml::dropDownList('engg_id', 

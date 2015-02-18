@@ -33,13 +33,20 @@ $this->breadcrumbs=array(
 		<?php echo CHtml::activeLabelEx($model,'password'); ?>
 		<?php echo CHtml::activePasswordField($model,'password') ?>
 	</div>
-	
+	<p class="hint">
+		First time users: login with username  <b style="color: red;">admin</b></span> & password <b style="color: red;">admin</b></span> for full admin rights.
+	</p>
+	 
+	<div class="hint">
+		Do Not forget to change your admin password after your first login
+	</div>
+	<!--
 	<div class="row">
 		<p class="hint">
 		<?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
 		</p>
 	</div>
-	
+	-->
 	<div class="row rememberMe">
 		<?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>
 		<?php echo CHtml::activeLabelEx($model,'rememberMe'); ?>

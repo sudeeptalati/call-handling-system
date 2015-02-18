@@ -18,6 +18,7 @@
 $setupModel = Setup::model()->findByPk(1);
 $update_url_from_db = $setupModel->version_update_url;
 $request = $update_url_from_db.'/latest_callhandling_version.txt';
+//echo $request;
 //$request='http://www.rapportsoftware.co.uk/versions/rapport_callhandling.txt';	
 $available_version = curl_file_get_contents($request, true);
 $current_version=Yii::app()->params['software_version'];
@@ -50,18 +51,35 @@ $current_version=Yii::app()->params['software_version'];
 <table style="width:80%;">
 <tr>
 	<td style="vertical-align:top;"><h4>Version</h4></td>
-	<td style="vertical-align :top;"><?php echo Yii::app()->params['software_version'];?>
-	<?php 
-		if($available_version!=$current_version)
-		{
-			$step = 1;
-			
-			//echo "Please delete all contents of update directory";
-			echo CHtml::button('Update',array('submit'=>'showUpdateProgress/?curr_step='.$step));
-			//echo CHtml::button('Update',array($this->showUpdateProgress($step)));
-			//echo CHtml::button('Update',array('submit'=>$configModel->showProgress($step)));
-		}
-	?>
+	<td style="vertical-align :top;">
+		<table style='width:50%'>
+			<tr>
+				<td>
+					Your Software Version:
+				</td>
+				<td>
+					<?php echo Yii::app()->params['software_version'];?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Latest Available Version:
+				</td>
+				<td>
+					<?php echo $available_version ;?>
+					<?php
+						if($available_version!=$current_version)
+						{
+							$step = 1;
+							//echo "Please delete all contents of update directory";
+							echo CHtml::button('Update',array('submit'=>'showUpdateProgress/?curr_step='.$step));
+							//echo CHtml::button('Update',array($this->showUpdateProgress($step)));
+							//echo CHtml::button('Update',array('submit'=>$configModel->showProgress($step)));
+						}
+					?>
+				</td>
+			</tr>
+		</table>
 	</td>
 </tr>
 

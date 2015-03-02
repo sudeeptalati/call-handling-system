@@ -23,6 +23,8 @@ INSERT INTO tbl_users (id,username,password,email,activkey,createtime,lastvisit,
 COMMIT;
 
 
+
+
 ----
 -- Table structure for tbl_profiles_fields
 ----
@@ -198,3 +200,42 @@ COMMIT;
 ;
 
 INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'engglistdisplayformat','1','Engineer List Display Format');
+
+
+CREATE TABLE gm_json_fields(id INTEGER PRIMARY KEY NOT NULL, field_type TEXT, field_relation TEXT, field_label TEXT, sort_order INTEGER, active INTEGER, created INTEGER);
+
+
+CREATE TABLE gm_server_status(id INTEGER PRIMARY KEY NOT NULL, name TEXT);
+----
+-- Data dump for gm_server_status, a total of 4 rows
+----
+BEGIN TRANSACTION;
+INSERT INTO gm_server_status (id,name) VALUES ('1','Sent');
+INSERT INTO gm_server_status (id,name) VALUES ('2','Approved');
+INSERT INTO gm_server_status (id,name) VALUES ('3','Rejected');
+INSERT INTO gm_server_status (id,name) VALUES ('4','Cancelled');
+INSERT INTO gm_server_status (id,name) VALUES ('5','Received from Server');
+COMMIT;
+
+
+CREATE TABLE gm_servicecalls(id INTEGER PRIMARY KEY NOT NULL, servicecall_id INTEGER,service_reference_number INTEGER, server_status_id INTEGER, created INTEGER, modified INTEGER, comments TEXT)
+
+
+----
+-- Data dump for gm_json_fields, a total of 7 rows
+----
+BEGIN TRANSACTION;
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('2','TEXT','customer|fullname','Customer','','','');
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('3','TEXT','customer|postcode','Postcode','','','');
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('4','TEXT','product|brand|name','Brand','','','');
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('5','INTEGER','product|model_number','Model','','','');
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('6','TEXT','product|productType|name','Type','','','');
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('7','TEXT','fault_description','Fault','','','');
+INSERT INTO gm_json_fields (id,field_type,field_relation,field_label,sort_order,active,created) VALUES ('8','TEXT','enggdiary|visit_start_date','Appointment Date','','','');
+COMMIT;
+
+
+INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'gomobile_account_id','Please Insert','GoMobile Account ID');
+
+INSERT INTO advance_settings (id,parameter,value,name) VALUES (NULL,'gomobile_server_url','http://www.rapportsoftware.co.uk/gomobileserver/gomobile/index.php','GoMobile Server URL')
+

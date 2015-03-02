@@ -1,6 +1,6 @@
 {
 	"setup_filesystem": {
-		"title": "Updated Files and Script from 0.5.3beta to version 11",
+		"title": "Updated Files and Script from 11 to version 12",
 		"folders": {
 			"components": "/12_protected/components/",
 			"config":"/12_protected/config/",

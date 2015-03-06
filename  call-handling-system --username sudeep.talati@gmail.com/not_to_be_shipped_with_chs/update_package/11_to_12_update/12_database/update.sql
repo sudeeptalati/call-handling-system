@@ -1,17 +1,7 @@
 ----
 -- Table structure for tbl_users
 ----
-CREATE TABLE tbl_users (
-  id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
-  username varchar(20) NOT NULL,
-  password varchar(128) NOT NULL,
-  email varchar(128) NOT NULL,
-  activkey varchar(128) NOT NULL DEFAULT '',
-  createtime int(10) NOT NULL DEFAULT '0',
-  lastvisit int(10) NOT NULL DEFAULT '0',
-  superuser int(1) NOT NULL DEFAULT '0',
-  status int(1) NOT NULL DEFAULT '0'
-);
+CREATE TABLE tbl_users (  id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,  username varchar(20) NOT NULL,  password varchar(128) NOT NULL,  email varchar(128) NOT NULL,  activkey varchar(128) NOT NULL DEFAULT '',  createtime int(10) NOT NULL DEFAULT '0',  lastvisit int(10) NOT NULL DEFAULT '0',  superuser int(1) NOT NULL DEFAULT '0',  status int(1) NOT NULL DEFAULT '0');
 
 ----
 -- Data dump for tbl_users, a total of 8 rows
@@ -28,24 +18,7 @@ COMMIT;
 ----
 -- Table structure for tbl_profiles_fields
 ----
-CREATE TABLE tbl_profiles_fields (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  varname varchar(50) NOT NULL,
-  title varchar(255) NOT NULL,
-  field_type varchar(50) NOT NULL,
-  field_size int(3) NOT NULL DEFAULT '0',
-  field_size_min int(3) NOT NULL DEFAULT '0',
-  required int(1) NOT NULL DEFAULT '0',
-  match varchar(255) NOT NULL DEFAULT '',
-  range varchar(255) NOT NULL DEFAULT '',
-  error_message varchar(255) NOT NULL DEFAULT '',
-  other_validator TEXT NOT NULL DEFAULT '',
-  'default' varchar(255) NOT NULL DEFAULT '',
-  widget varchar(255) NOT NULL DEFAULT '',
-  widgetparams TEXT NOT NULL DEFAULT '',
-  position int(3) NOT NULL DEFAULT '0',
-  visible int(1) NOT NULL DEFAULT '0'
-);
+CREATE TABLE tbl_profiles_fields (  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,  varname varchar(50) NOT NULL,  title varchar(255) NOT NULL,  field_type varchar(50) NOT NULL,  field_size int(3) NOT NULL DEFAULT '0',  field_size_min int(3) NOT NULL DEFAULT '0',  required int(1) NOT NULL DEFAULT '0',  match varchar(255) NOT NULL DEFAULT '',  range varchar(255) NOT NULL DEFAULT '',  error_message varchar(255) NOT NULL DEFAULT '',  other_validator TEXT NOT NULL DEFAULT '',  'default' varchar(255) NOT NULL DEFAULT '',  widget varchar(255) NOT NULL DEFAULT '',  widgetparams TEXT NOT NULL DEFAULT '',  position int(3) NOT NULL DEFAULT '0',  visible int(1) NOT NULL DEFAULT '0');
 
 ----
 -- Data dump for tbl_profiles_fields, a total of 3 rows
@@ -61,12 +34,7 @@ COMMIT;
 ----
 -- Table structure for tbl_profiles
 ----
-CREATE TABLE tbl_profiles (
-  user_id INTEGER NOT NULL PRIMARY KEY,
-  lastname varchar(50) NOT NULL DEFAULT '',
-  firstname varchar(50) NOT NULL DEFAULT '',
-  birthday date NOT NULL DEFAULT '0000-00-00'
-);
+CREATE TABLE tbl_profiles (  user_id INTEGER NOT NULL PRIMARY KEY,  lastname varchar(50) NOT NULL DEFAULT '',  firstname varchar(50) NOT NULL DEFAULT '',  birthday date NOT NULL DEFAULT '0000-00-00');
 
 ----
 -- Data dump for tbl_profiles, a total of 8 rows
@@ -81,14 +49,7 @@ COMMIT;
 ----
 -- Table structure for Rights
 ----
-CREATE TABLE Rights
-(
-	itemname varchar(64) not null,
-	type integer not null,
-	weight integer not null,
-	primary key (itemname),
-	foreign key (itemname) references AuthItem (name) on delete cascade on update cascade
-);
+CREATE TABLE Rights(	itemname varchar(64) not null,	type integer not null,	weight integer not null,	primary key (itemname),	foreign key (itemname) references AuthItem (name) on delete cascade on update cascade);
 
 ----
 -- Data dump for Rights, a total of 0 rows
@@ -105,14 +66,7 @@ COMMIT;
 ----
 -- Table structure for AuthItemChild
 ----
-CREATE TABLE AuthItemChild
-(
-   parent varchar(64) not null,
-   child varchar(64) not null,
-   primary key (parent,child),
-   foreign key (parent) references AuthItem (name) on delete cascade on update cascade,
-   foreign key (child) references AuthItem (name) on delete cascade on update cascade
-);
+CREATE TABLE AuthItemChild(   parent varchar(64) not null,   child varchar(64) not null,   primary key (parent,child),   foreign key (parent) references AuthItem (name) on delete cascade on update cascade,   foreign key (child) references AuthItem (name) on delete cascade on update cascade);
 
 ----
 -- Data dump for AuthItemChild, a total of 4 rows
@@ -134,15 +88,7 @@ COMMIT;
 ----
 -- Table structure for AuthItem
 ----
-CREATE TABLE AuthItem
-(
-   name varchar(64) not null,
-   type integer not null,
-   description text,
-   bizrule text,
-   data text,
-   primary key (name)
-);
+CREATE TABLE AuthItem(   name varchar(64) not null,   type integer not null,   description text,   bizrule text,   data text,   primary key (name));
 
 ----
 -- Data dump for AuthItem, a total of 16 rows
@@ -176,15 +122,7 @@ COMMIT;
 ----
 -- Table structure for AuthAssignment
 ----
-CREATE TABLE AuthAssignment
-(
-   itemname varchar(64) not null,
-   userid varchar(64) not null,
-   bizrule text,
-   data text,
-   primary key (itemname,userid),
-   foreign key (itemname) references AuthItem (name) on delete cascade on update cascade
-);
+CREATE TABLE AuthAssignment(   itemname varchar(64) not null,   userid varchar(64) not null,   bizrule text,   data text,   primary key (itemname,userid),   foreign key (itemname) references AuthItem (name) on delete cascade on update cascade);
 
 ----
 -- Data dump for AuthAssignment, a total of 2 rows

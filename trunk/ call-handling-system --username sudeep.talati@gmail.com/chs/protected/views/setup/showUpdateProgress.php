@@ -127,7 +127,7 @@ $baseUrl= Yii::app()->request->baseUrl;
  if($currentStep != 0 && $currentStep < 7 )
  {
 	$next_step = $currentStep+1;
- 	$url=Yii::app()->baseUrl.'/Setup/showUpdateProgress/?curr_step='.$next_step;
+ 	$url=Yii::app()->baseUrl.'/index.php?r=setup/showUpdateProgress&curr_step='.$next_step;
  	//echo $url;
    echo "<SCRIPT LANGUAGE='javascript'>location.href='$url';</SCRIPT>";
  }

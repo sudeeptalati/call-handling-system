@@ -136,7 +136,7 @@ $baseUrl= Yii::app()->request->baseUrl;
  	/*After printing the messages We are clearing the message variable, so that when update run again for next time gives us no error*/
  	$_SESSION['message']='';
  	echo "<br>";
- 	echo CHTml::link('Restart Browser',array('../chs/'));
+ 	echo CHtml::link('Back to home',array('servicecall/freesearch'));
  }
 
 ?>

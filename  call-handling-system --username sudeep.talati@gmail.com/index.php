@@ -58,7 +58,7 @@ else if(file_exists($chs_path) && file_exists($ims_path))
 }
 else
 {
-	echo "Both are not present";
+	echo "Both are not present.TEST ";
 }
 ?>
 </head>

@@ -1,0 +1,173 @@
+2015/04/08 16:59:09 [error] [system.db.CDbCommand] Error in preparing SQL: SELECT *
+FROM 'authassignment'
+WHERE userid=:userid
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RWebUser.php (43)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RightsFilter.php (43)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php (36)
+2015/04/08 16:59:10 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: authassignment. The SQL statement executed was: SELECT *
+FROM 'authassignment'
+WHERE userid=:userid.
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RWebUser.php (43)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RightsFilter.php (43)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php (36)
+2015/04/08 16:59:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: authassignment. The SQL statement executed was: SELECT *
+FROM 'authassignment'
+WHERE userid=:userid' in C:\xampp\htdocs\purva\github\call-handling-system\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\auth\CDbAuthManager.php(337): CDbCommand->queryAll()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\auth\CDbAuthManager.php(74): CDbAuthManager->getAuthAssignments(NULL)
+#3 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\auth\CWebUser.php(815): CDbAuthManager->checkAccess('Servicecall.*', NULL, Array)
+#4 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RWebUser.php(43): CWebUser->checkAccess('Servicecall.*', Array, true)
+#5 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RightsFilter.php(43): RWebUser->checkAccess('Servicecall.*')
+#6 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilter.php(38): RightsFilter->preFilter(Object(CFilterChain))
+#7 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#9 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(282): CController->run('freeSearch')
+#13 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#14 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#16 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/
+---
+2015/04/08 17:05:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "graph".' in C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('graph')
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=graph
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=reports/displayDropdown
+---
+2015/04/09 14:58:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "graph".' in C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('graph')
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=graph
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=customer/create
+---
+2015/04/09 14:58:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "graph".' in C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('graph')
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=graph
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=graph
+---
+2015/04/09 14:59:54 [error] [php] move_uploaded_file(temp/tempaddonfile.zip) [<a href='function.move-uploaded-file'>function.move-uploaded-file</a>]: failed to open stream: No such file or directory (C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php:138)
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CInlineAction.php(49): AddonsController->actionInstall()
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(133): AddonsController->runAction()
+#3 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#5 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CInlineFilter.php(58): AddonsController->filterRights()
+#6 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(265): AddonsController->runActionWithFilters()
+#9 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(282): AddonsController->run()
+#10 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CWebApplication->run()
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=addons/install
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php (138)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\controllers\AddonsController.php (67)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php (36)
+2015/04/09 15:28:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "graph".' in C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('graph')
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=graph
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=addons/admin
+---
+2015/04/09 15:34:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "graph".' in C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('graph')
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=graph
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=graph
+---
+2015/04/09 15:35:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "graph".' in C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('graph')
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#3 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=graph
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=setup/view&id=1
+---
+2015/04/09 15:36:23 [error] [php] Undefined variable: dir_handle (C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php:335)
+Stack trace:
+#0 unknown(0): AddonsController->actionUninstall()
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(308): CInlineAction->runWithParams()
+#4 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(133): AddonsController->runAction()
+#5 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#7 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CInlineFilter.php(58): AddonsController->filterRights()
+#8 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#9 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(265): AddonsController->runActionWithFilters()
+#11 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(282): AddonsController->run()
+#12 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CWebApplication->run()
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=addons/uninstall&id=1
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php (335)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php (301)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\controllers\AddonsController.php (223)
+2015/04/09 15:36:46 [error] [php] Undefined variable: dir_handle (C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php:335)
+Stack trace:
+#0 unknown(0): AddonsController->actionUninstall()
+#1 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#2 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(308): CInlineAction->runWithParams()
+#4 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(133): AddonsController->runAction()
+#5 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#7 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CInlineFilter.php(58): AddonsController->filterRights()
+#8 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#9 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(265): AddonsController->runActionWithFilters()
+#11 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(282): AddonsController->run()
+#12 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CWebApplication->run()
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=addons/uninstall&id=1
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php (335)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\models\Addons.php (301)
+in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\controllers\AddonsController.php (223)
+2015/04/09 15:37:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\controllers\AddonsController.php:280
+Stack trace:
+#0 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\controllers\AddonsController.php(214): AddonsController->loadModel('1')
+#1 [internal function]: AddonsController->actionUninstall('1')
+#2 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(AddonsController), Array)
+#3 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(AddonsController), Object(ReflectionMethod), Array)
+#4 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\purva\github\call-handling-system\chs\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#9 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(282): CController->run('uninstall')
+#13 C:\xampp\htdocs\purva\github\call-handling-system\framework\web\CWebApplication.php(141): CWebApplication->runController('addons/uninstal...')
+#14 C:\xampp\htdocs\purva\github\call-handling-system\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\purva\github\call-handling-system\chs\index.php(17): CApplication->run()
+#16 {main}
+REQUEST_URI=/purva/github/call-handling-system/chs/index.php?r=addons/uninstall&id=1
+HTTP_REFERER=http://localhost/purva/github/call-handling-system/chs/index.php?r=addons/index
+---
